@@ -46,6 +46,26 @@
     margin-bottom:12px;
     letter-spacing:0.01em;
   }
+  .navbar{
+    background:var(--ink);
+    padding:14px 20px;
+    display:flex;align-items:center;justify-content:space-between;
+    flex-wrap:wrap;gap:12px;
+    position:sticky;top:0;z-index:50;
+  }
+  .navbar-brand{
+    font-family:'Fraunces', serif;font-weight:700;font-size:19px;
+    color:var(--amber);text-decoration:none;
+  }
+  .navbar-links{display:flex;gap:4px;flex-wrap:wrap;}
+  .navbar-links a{
+    color:#D8D3C4;text-decoration:none;
+    font-size:13.5px;font-weight:500;
+    padding:8px 12px;border-radius:6px;
+    transition:background 0.15s, color 0.15s;
+  }
+  .navbar-links a:hover{background:rgba(255,255,255,0.08);color:#fff;}
+  @media(max-width:640px){.navbar-links{display:none;}}
   .eyebrow{
     font-family:'JetBrains Mono', monospace;
     font-size:12px;
@@ -420,11 +440,23 @@
 </head>
 <body>
 
+<nav class="navbar">
+  <a href="index.html" class="navbar-brand">DescifraLab</a>
+  <div class="navbar-links">
+    <a href="fisica.html">Física</a>
+    <a href="quimica.html">Química</a>
+    <a href="formulario.html">Machete de Fórmulas</a>
+    <a href="experimentos.html">Experimentos</a>
+    <a href="docentes.html">Para Docentes</a>
+    <a href="evaluaciones.html">Evaluaciones</a>
+    <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+  </div>
+</nav>
+
 <header class="top" style="position:relative;">
   <svg class="clip-svg" viewBox="0 0 40 70" width="34" height="60" style="position:absolute;top:8px;right:24px;transform:rotate(8deg);">
     <path d="M20,4 C30,4 34,12 34,22 L34,50 C34,60 28,64 20,64 C12,64 8,58 8,50 L8,20 C8,14 12,10 16,10 L16,50 C16,54 18,56 20,56 C22,56 24,54 24,50 L24,18" fill="none" stroke="#8A94A0" stroke-width="3.5" stroke-linecap="round"/>
   </svg>
-  <a href="index.html" class="brand-link">DescifraLab</a>
   <div class="eyebrow">Aprender con las manos</div>
   <h1>Experimentos Caseros</h1>
   <p class="subtitle">Física y química se entienden mejor cuando las tocas. Estos son experimentos reales, con materiales que probablemente ya tienes en casa, conectados a los temas que ya viste en el sitio.</p>
