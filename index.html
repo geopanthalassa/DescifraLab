@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Machete de Fórmulas | Física y Química — Referencia Completa — DescifraLab</title>
+<title>DescifraLab — Física y Química Explicadas Claro</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <style>
@@ -26,542 +26,234 @@
     background-image:
       linear-gradient(var(--grid) 1px, transparent 1px),
       linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-    background-size: 28px 28px;
+    background-size:24px 24px;
     color:var(--ink);
     font-family:'Inter', sans-serif;
     line-height:1.6;
   }
-  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
-  header.top{
-    padding:36px 20px 28px;
-    max-width:760px;margin:0 auto;
-    border-bottom:2px solid var(--ink);
-  }
-  .brand-link{
-    display:inline-block;
-    font-family:'Fraunces', serif;
-    font-weight:700;
-    font-size:14px;
-    color:var(--amber-dark);
-    margin-bottom:12px;
-    letter-spacing:0.01em;
-  }
-  .eyebrow{
-    font-family:'JetBrains Mono', monospace;
-    font-size:12px;
-    letter-spacing:0.12em;
-    text-transform:uppercase;
-    color:var(--pine-dark);
-    font-weight:700;
-    margin-bottom:10px;
-  }
-  h1{
-    font-family:'Fraunces', serif;
-    font-weight:600;
-    font-size:clamp(30px,5vw,46px);
-    margin:0 0 8px;
-    letter-spacing:-0.01em;
-  }
-  .subtitle{color:var(--ink-soft);font-size:16px;max-width:56ch;}
+  a{color:inherit;}
 
-  .level-nav{
-    display:flex;gap:8px;margin:28px 0 0;
+  /* ---- Menú superior persistente ---- */
+  .navbar{
+    background:var(--ink);
+    padding:14px 20px;
+    display:flex;align-items:center;justify-content:space-between;
+    flex-wrap:wrap;gap:12px;
+    position:sticky;top:0;z-index:50;
   }
-  .level-btn{
-    font-family:'JetBrains Mono', monospace;
-    font-size:13px;font-weight:700;
-    padding:10px 18px;
-    border:2px solid var(--ink);
-    background:var(--paper);
-    cursor:pointer;
-    letter-spacing:0.04em;
-    text-transform:uppercase;
+  .navbar-brand{
+    font-family:'Fraunces', serif;font-weight:700;font-size:19px;
+    color:var(--amber);text-decoration:none;
   }
-  .level-btn.active{background:var(--ink);color:var(--paper);}
-
-  section.level{display:none;margin-top:36px;}
-  section.level.active{display:block;}
-
-  .card{
-    background:var(--white);
-    border:2px solid var(--ink);
-    padding:28px;
-    margin-bottom:24px;
-    position:relative;
+  .navbar-links{display:flex;gap:4px;flex-wrap:wrap;}
+  .navbar-links a{
+    color:#D8D3C4;text-decoration:none;
+    font-size:13.5px;font-weight:500;
+    padding:8px 12px;border-radius:6px;
+    transition:background 0.15s, color 0.15s;
   }
-  .card::before{
-    content:attr(data-tag);
-    position:absolute;
-    top:-13px;left:20px;
-    background:var(--amber);
-    color:var(--ink);
-    font-family:'JetBrains Mono', monospace;
-    font-size:11px;
-    font-weight:700;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    padding:3px 10px;
-  }
-  section.level[data-level="avanzado"] .card::before{background:var(--pine);color:var(--white);}
+  .navbar-links a:hover{background:rgba(255,255,255,0.08);color:#fff;}
 
-  h2{font-family:'Fraunces', serif;font-size:22px;font-weight:600;margin:6px 0 14px;}
-
-  .formula-box{
-    font-family:'JetBrains Mono', monospace;
-    font-size:20px;
-    font-weight:700;
-    background:var(--paper);
-    border:1px dashed var(--line);
-    padding:16px 20px;
-    margin:14px 0;
+  /* ---- Hero ---- */
+  .hero{
+    max-width:720px;margin:0 auto;
+    padding:64px 20px 40px;
     text-align:center;
-    letter-spacing:0.02em;
   }
-  .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
-  .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+  .hero-eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--pine-dark);font-weight:700;margin-bottom:14px;
+  }
+  .hero h1{
+    font-family:'Fraunces', serif;font-size:44px;font-weight:700;
+    margin:0 0 16px;line-height:1.1;
+  }
+  .hero p{font-size:17px;color:var(--ink-soft);max-width:560px;margin:0 auto 32px;}
 
-  /* Calculadora */
-  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
-  @media(max-width:520px){.calc-grid{grid-template-columns:1fr;}}
-  .field label{
-    display:block;font-size:12px;font-family:'JetBrains Mono',monospace;
-    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;
+  /* ---- Buscador ---- */
+  .search-wrap{position:relative;max-width:560px;margin:0 auto;}
+  .search-input{
+    width:100%;padding:16px 20px 16px 48px;
+    font-size:16px;font-family:'Inter';
+    border:3px solid var(--ink);border-radius:10px;
+    background:var(--white);color:var(--ink);
+    outline:none;
   }
-  .field input{
-    width:100%;padding:10px 12px;
-    border:2px solid var(--ink);
-    font-family:'JetBrains Mono', monospace;
-    font-size:15px;background:var(--white);
+  .search-input:focus{border-color:var(--amber-dark);}
+  .search-icon{
+    position:absolute;left:16px;top:50%;transform:translateY(-50%);
+    font-size:18px;color:var(--ink-soft);pointer-events:none;
   }
-  .field input:focus{outline:3px solid var(--amber);outline-offset:1px;}
-  .calc-btn{
-    margin-top:16px;
-    background:var(--amber);
-    border:2px solid var(--ink);
-    padding:12px 24px;
-    font-family:'JetBrains Mono', monospace;
-    font-weight:700;font-size:14px;
-    text-transform:uppercase;letter-spacing:0.05em;
-    cursor:pointer;
-  }
-  .calc-btn:hover{background:var(--amber-dark);}
-  .readout{
-    margin-top:18px;
-    background:var(--ink);
-    color:#8FE3C7;
-    font-family:'JetBrains Mono', monospace;
-    padding:18px 20px;
-    font-size:15px;
-    min-height:24px;
+  .search-results{
+    position:absolute;top:calc(100% + 8px);left:0;right:0;
+    background:var(--white);border:2px solid var(--ink);border-radius:10px;
+    max-height:400px;overflow-y:auto;
+    box-shadow:4px 4px 0 rgba(28,39,51,0.15);
+    text-align:left;
     display:none;
-    white-space:pre-line;
+    z-index:40;
   }
-  .readout.show{display:block;}
+  .search-results.show{display:block;}
+  .search-result-item{
+    display:block;padding:12px 18px;text-decoration:none;color:var(--ink);
+    border-bottom:1px solid var(--line);
+  }
+  .search-result-item:last-child{border-bottom:none;}
+  .search-result-item:hover{background:var(--paper);}
+  .sr-titulo{font-weight:600;font-size:14.5px;}
+  .sr-categoria{font-size:12px;color:var(--ink-soft);font-family:'JetBrains Mono',monospace;}
+  .search-empty{padding:16px 18px;color:var(--ink-soft);font-size:14px;}
 
-  .example{
-    background:var(--paper);
-    border-left:4px solid var(--pine);
-    padding:16px 18px;
-    font-size:15px;
-    margin-top:10px;
-  }
-  section.level[data-level="basico"] .example{border-left-color:var(--amber-dark);}
-
-  .exercises ol{padding-left:20px;}
-  .exercises li{margin-bottom:14px;}
-  details{
-    margin-top:6px;
-    font-family:'JetBrains Mono', monospace;
-    font-size:13px;
-  }
-  details summary{cursor:pointer;color:var(--pine-dark);font-weight:700;}
-
-  .faq h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;}
-  .faq p{margin:0;color:var(--ink-soft);font-size:14.5px;}
-
-  .related{
-    margin-top:40px;padding-top:24px;border-top:2px solid var(--ink);
-  }
-  .related h2{font-size:16px;}
-  .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
-  .related-links a{
-    font-family:'JetBrains Mono', monospace;
-    font-size:13px;
-    text-decoration:none;
-    color:var(--ink);
-    border:1px solid var(--line);
-    padding:8px 12px;
-    background:var(--white);
-  }
-  .related-links a:hover{border-color:var(--ink);}
-
-  .sim-box{
-    background:var(--ink);
-    border:2px solid var(--ink);
-    padding:14px;
-    margin-top:16px;
-  }
-  #sim-canvas-basico, #sim-canvas-avanzado{
-    display:block;width:100%;height:auto;
-  }
-  .sim-readout{
-    display:flex;justify-content:space-between;
-    font-family:'JetBrains Mono', monospace;
-    color:#8FE3C7;font-size:13px;
-    margin-top:10px;padding-top:10px;
-    border-top:1px solid #3A4756;
-  }
-  .speed-row{
-    display:inline-flex;align-items:center;gap:8px;
-    margin-left:14px;font-family:'JetBrains Mono', monospace;
-    font-size:12px;color:var(--ink-soft);
-  }
-  .speed-btn{
-    border:1px solid var(--line);background:var(--white);
-    padding:6px 10px;font-family:'JetBrains Mono', monospace;
-    font-size:12px;cursor:pointer;
-  }
-  .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
-
-  .mach-grupo{margin-bottom:36px;}
-  .mach-titulo{
-    font-family:'Fraunces', serif;
-    font-size:24px;font-weight:700;
-    padding:10px 18px;margin-bottom:16px;
-    color:var(--white);
-    display:inline-flex;align-items:center;gap:10px;
-    border-radius:6px;
-  }
-  .mach-titulo .mach-emoji{font-size:26px;}
-
-  /* colores distintivos por categoría — cada tema con su propia paleta */
-  .mach-grupo.mecanica .mach-titulo{background:#D9714A;}
-  .mach-grupo.electricidad .mach-titulo{background:#4A90D9;}
-  .mach-grupo.termo .mach-titulo{background:#E0A030;}
-  .mach-grupo.moderna .mach-titulo{background:#8A5FC7;}
-  .mach-grupo.quimica .mach-titulo{background:#3FA05C;}
-  .mach-grupo.herramientas .mach-titulo{background:#5C6B7A;}
-
-  .mach-grid{
+  /* ---- Accesos rápidos ---- */
+  .wrap{max-width:920px;margin:0 auto;padding:20px 20px 80px;}
+  .quick-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(210px, 1fr));
-    gap:14px;
+    grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+    gap:18px;
+    margin-top:20px;
   }
-  .mach-card{
-    display:block;
+  .quick-card{
+    display:block;text-decoration:none;color:var(--ink);
     background:var(--white);
-    border:3px solid var(--ink);
-    border-radius:10px;
-    padding:16px 18px;
-    text-decoration:none;
-    color:var(--ink);
+    border:3px solid var(--ink);border-radius:12px;
+    padding:24px;
+    position:relative;overflow:hidden;
     transition:transform 0.12s, box-shadow 0.12s;
-    position:relative;
-    overflow:hidden;
   }
-  .mach-card::before{
-    content:'';
-    position:absolute;top:0;left:0;right:0;height:6px;
-  }
-  .mach-grupo.mecanica .mach-card::before{background:#D9714A;}
-  .mach-grupo.electricidad .mach-card::before{background:#4A90D9;}
-  .mach-grupo.termo .mach-card::before{background:#E0A030;}
-  .mach-grupo.moderna .mach-card::before{background:#8A5FC7;}
-  .mach-grupo.quimica .mach-card::before{background:#3FA05C;}
-  .mach-grupo.herramientas .mach-card::before{background:#5C6B7A;}
+  .quick-card::before{content:'';position:absolute;top:0;left:0;right:0;height:6px;}
+  .quick-card.fisica::before{background:#D9714A;}
+  .quick-card.quimica::before{background:#3FA05C;}
+  .quick-card.docentes::before{background:#4A90D9;}
+  .quick-card.experimentos::before{background:#E0A030;}
+  .quick-card.formulario::before{background:#8A5FC7;}
+  .quick-card:hover{transform:translateY(-3px);box-shadow:5px 5px 0 var(--ink);}
+  .quick-card h2{font-family:'Fraunces', serif;font-size:21px;margin:6px 0 8px;}
+  .quick-card p{font-size:14px;color:var(--ink-soft);margin:0;}
 
-  .mach-card:hover{
-    transform:translateY(-4px) rotate(-0.5deg);
-    box-shadow:5px 5px 0 var(--ink);
+  .section-titulo{
+    font-family:'Fraunces', serif;font-size:24px;font-weight:700;
+    margin:56px 0 4px;
   }
-  .mach-card.herramienta{border-style:dashed;}
-  .mach-card .mach-card-icon{font-size:30px;display:block;margin-bottom:6px;}
-  .mach-card h3{
-    font-family:'Fraunces', serif;font-size:16px;font-weight:700;
-    margin:0 0 10px;
-    color:var(--ink);
-  }
-  .mach-formula{
-    font-family:'JetBrains Mono', monospace;
-    font-size:14px;font-weight:700;
-    margin-top:5px;
-    background:var(--paper);
-    padding:4px 8px;
-    border-radius:4px;
-    display:inline-block;
+  .section-sub{color:var(--ink-soft);font-size:14.5px;margin:0 0 8px;}
+
+  footer{
+    text-align:center;padding:32px 20px;
+    color:var(--ink-soft);font-size:13px;
+    border-top:1px solid var(--line);margin-top:40px;
   }
 
-  /* ---- Elementos de "cuaderno anotado a mano": post-its, clips, flechas ---- */
-  .estudio-elemento{position:relative;}
-
-  .postit{
-    position:absolute;
-    width:130px;
-    padding:12px 14px 16px;
-    font-family:'Caveat', cursive;
-    font-size:18px;
-    line-height:1.25;
-    color:#3A3020;
-    box-shadow:2px 4px 8px rgba(0,0,0,0.18);
-    z-index:5;
-  }
-  .postit.amarillo{background:#F5E27A;transform:rotate(-4deg);}
-  .postit.rosa{background:#F3B8C4;transform:rotate(3deg);}
-  .postit.celeste{background:#A9D6E5;transform:rotate(-2deg);}
-  .postit::before{
-    content:'';
-    position:absolute;top:-8px;left:50%;
-    transform:translateX(-50%) rotate(-3deg);
-    width:34px;height:16px;
-    background:rgba(255,255,255,0.55);
-    border:1px solid rgba(0,0,0,0.08);
-  }
-
-  .clip-svg{position:absolute;z-index:6;filter:drop-shadow(1px 2px 2px rgba(0,0,0,0.25));}
-
-  .flecha-curva{position:absolute;z-index:4;pointer-events:none;}
-
-  .letras-varias{
-    font-family:'Caveat', cursive;
-    font-weight:700;
-  }
-
-  .mach-header-fila{
-    margin-bottom:16px;
-  }
-  .postit-margen{
-    position:absolute;
-    left:100%;
-    margin-left:24px;
-    width:150px;
-  }
-  @media(max-width:1150px){
-    .postit-margen{display:none;}
+  @media(max-width:640px){
+    .hero h1{font-size:32px;}
+    .navbar-links{display:none;}
   }
 </style>
 </head>
 <body>
 
-<header class="top" style="position:relative;">
-  <svg class="clip-svg" viewBox="0 0 40 70" width="34" height="60" style="position:absolute;top:8px;right:24px;transform:rotate(8deg);">
-    <path d="M20,4 C30,4 34,12 34,22 L34,50 C34,60 28,64 20,64 C12,64 8,58 8,50 L8,20 C8,14 12,10 16,10 L16,50 C16,54 18,56 20,56 C22,56 24,54 24,50 L24,18" fill="none" stroke="#8A94A0" stroke-width="3.5" stroke-linecap="round"/>
-  </svg>
-  <span class="brand-link">DescifraLab</span>
-  <div class="eyebrow">Referencia rápida</div>
-  <h1>Machete de Fórmulas</h1>
-  <p class="subtitle">Todas las fórmulas del sitio, organizadas por tema. Toca cualquier título para ir a la página completa con calculadora, simulador y ejercicios.</p>
-</header>
-
-<div class="wrap" style="position:relative;">
-
-  <!-- MECÁNICA -->
-  <div class="card" style="text-align:center;background:var(--paper);">
-    <p style="margin:0;font-size:14.5px;">¿Quieres la introducción completa con historia y línea de tiempo interactiva? Anda a la <a href="fisica.html" style="color:var(--amber-dark);font-weight:700;">portada de Física</a> o la <a href="quimica.html" style="color:#3FA05C;font-weight:700;">portada de Química</a>. ¿Eres docente? Mira las <a href="docentes.html" style="color:#4A90D9;font-weight:700;">actividades de clase listas para usar</a>.</p>
+<nav class="navbar">
+  <a href="index.html" class="navbar-brand">DescifraLab</a>
+  <div class="navbar-links">
+    <a href="fisica.html">Física</a>
+    <a href="quimica.html">Química</a>
+    <a href="formulario.html">Machete de Fórmulas</a>
+    <a href="experimentos.html">Experimentos</a>
+    <a href="docentes.html">Para Docentes</a>
+    <a href="evaluaciones.html">Evaluaciones</a>
+    <a href="sobre-nosotros.html">Sobre la Fundadora</a>
   </div>
+</nav>
 
-  <div class="mach-grupo mecanica">
-    <h2 class="mach-titulo">Mecánica</h2>
-    <div class="postit amarillo postit-margen">Truco: si el problema no menciona el tiempo, busca la fórmula que no lo tenga (v²=v₀²+2ad)</div>
-    <div class="mach-grid">
-      <a href="mru.html" class="mach-card">
-        <h3>MRU</h3>
-        <div class="mach-formula">x = x₀ + v·t</div>
-      </a>
-      <a href="mruv.html" class="mach-card">
-        <h3>MRUV</h3>
-        <div class="mach-formula">v = v₀ + a·t</div>
-        <div class="mach-formula">x = x₀ + v₀t + ½at²</div>
-      </a>
-      <a href="tiro-oblicuo.html" class="mach-card">
-        <h3>Tiro Oblicuo</h3>
-        <div class="mach-formula">R = v₀²sen(2θ)/g</div>
-        <div class="mach-formula">H = (v₀senθ)²/2g</div>
-      </a>
-      <a href="mcu.html" class="mach-card">
-        <h3>MCU</h3>
-        <div class="mach-formula">ω = 2π/T</div>
-        <div class="mach-formula">Fc = mv²/r</div>
-      </a>
-      <a href="newton.html" class="mach-card">
-        <h3>2ª Ley de Newton</h3>
-        <div class="mach-formula">F = m·a</div>
-        <div class="mach-formula">Froz = μ·m·g</div>
-      </a>
-      <a href="trabajo-energia.html" class="mach-card">
-        <h3>Trabajo y Energía</h3>
-        <div class="mach-formula">W = F·d</div>
-        <div class="mach-formula">Ec = ½mv² · Ep = mgh</div>
-      </a>
-      <a href="impulso-momentum.html" class="mach-card">
-        <h3>Impulso</h3>
-        <div class="mach-formula">p = m·v</div>
-        <div class="mach-formula">J = F·Δt = Δp</div>
-      </a>
-      <a href="estatica-torque.html" class="mach-card">
-        <h3>Estática y Torque</h3>
-        <div class="mach-formula">τ = F·d</div>
-        <div class="mach-formula">F₁d₁ = F₂d₂</div>
-      </a>
-      <a href="maquinas-simples.html" class="mach-card">
-        <h3>Máquinas Simples</h3>
-        <div class="mach-formula">VM = dₚ/dᵣ</div>
-        <div class="mach-formula" style="font-size:12px;">Palanca, poleas, plano inclinado</div>
-      </a>
-    </div>
+<div class="hero">
+  <div class="hero-eyebrow">Física y Química, explicadas claro</div>
+  <h1>¿Qué querés descifrar hoy?</h1>
+  <p>Buscá cualquier tema — fórmulas, simuladores interactivos, ejemplos resueltos y ejercicios con respuesta, todo en un lenguaje que se entiende.</p>
+
+  <div class="search-wrap">
+    <span class="search-icon">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="2"/>
+        <line x1="12.5" y1="12.5" x2="17" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </span>
+    <input type="text" class="search-input" id="search-input" placeholder="Buscá un tema: MRU, pH, electricidad, poleas..." autocomplete="off" oninput="buscar(this.value)">
+    <div class="search-results" id="search-results"></div>
   </div>
+</div>
 
-  <!-- ELECTRICIDAD -->
-  <div class="mach-grupo electricidad">
-    <h2 class="mach-titulo">Electricidad</h2>
-    <div class="postit celeste postit-margen">V es la presión, I es el caudal, R es qué tan angosto el caño</div>
-    <div class="mach-grid">
-      <a href="ley-ohm.html" class="mach-card">
-        <h3>Ley de Ohm</h3>
-        <div class="mach-formula">V = I·R</div>
-      </a>
-      <a href="potencia-electrica.html" class="mach-card">
-        <h3>Potencia Eléctrica</h3>
-        <div class="mach-formula">P = V·I</div>
-        <div class="mach-formula">E = P·t</div>
-      </a>
-      <a href="circuitos.html" class="mach-card">
-        <h3>Circuitos</h3>
-        <div class="mach-formula">Serie: Req=R₁+R₂</div>
-        <div class="mach-formula">Paralelo: 1/Req=1/R₁+1/R₂</div>
-      </a>
-      <a href="electromagnetismo.html" class="mach-card">
-        <h3>Electromagnetismo</h3>
-        <div class="mach-formula">F = q·v·B·sen(θ)</div>
-      </a>
-    </div>
-  </div>
+<div class="wrap">
 
-  <!-- TERMODINÁMICA Y FLUIDOS -->
-  <div class="mach-grupo termo">
-    <h2 class="mach-titulo">Termodinámica y Fluidos</h2>
-    <div class="mach-grid">
-      <a href="calor-especifico.html" class="mach-card">
-        <h3>Calor Específico</h3>
-        <div class="mach-formula">Q = m·c·ΔT</div>
-        <div class="mach-formula">Q = m·L (latente)</div>
-      </a>
-      <a href="dilatacion-termica.html" class="mach-card">
-        <h3>Dilatación Térmica</h3>
-        <div class="mach-formula">ΔL = L₀·α·ΔT</div>
-        <div class="mach-formula">ΔV = V₀·3α·ΔT</div>
-      </a>
-      <a href="fluidos.html" class="mach-card">
-        <h3>Presión Hidrostática</h3>
-        <div class="mach-formula">P = ρ·g·h</div>
-        <div class="mach-formula">Empuje: E = ρ·g·V</div>
-      </a>
-    </div>
-  </div>
-
-  <!-- FÍSICA MODERNA -->
-  <div class="mach-grupo moderna">
-    <h2 class="mach-titulo">Física Moderna</h2>
-    <div class="mach-grid">
-      <a href="relatividad.html" class="mach-card">
-        <h3>Relatividad</h3>
-        <div class="mach-formula">Δt' = Δt/√(1−v²/c²)</div>
-      </a>
-      <a href="energia-nuclear.html" class="mach-card">
-        <h3>Energía Nuclear</h3>
-        <div class="mach-formula">E = m·c²</div>
-        <div class="mach-formula">N = N₀·(1/2)^(t/T)</div>
-      </a>
-    </div>
-  </div>
-
-  <!-- QUÍMICA -->
-  <div class="mach-grupo quimica" style="position:relative;">
-    <svg class="clip-svg" viewBox="0 0 40 70" width="26" height="46" style="position:absolute;top:-14px;left:70px;transform:rotate(-10deg);">
-      <path d="M20,4 C30,4 34,12 34,22 L34,50 C34,60 28,64 20,64 C12,64 8,58 8,50 L8,20 C8,14 12,10 16,10 L16,50 C16,54 18,56 20,56 C22,56 24,54 24,50 L24,18" fill="none" stroke="#8A94A0" stroke-width="3.5" stroke-linecap="round"/>
-    </svg>
-    <h2 class="mach-titulo">Química</h2>
-    <div class="postit rosa postit-margen">n = m/M — no te olvides las unidades de la masa molar (g/mol)!</div>
-    <div class="mach-grid">
-      <a href="modelo-atomico.html" class="mach-card quimica">
-        <h3>Modelo Atómico</h3>
-        <div class="mach-formula">Z = protones</div>
-        <div class="mach-formula">A = protones + neutrones</div>
-      </a>
-      <a href="configuracion-electronica.html" class="mach-card quimica">
-        <h3>Config. Electrónica</h3>
-        <div class="mach-formula">Capacidad de capa = 2n²</div>
-        <div class="mach-formula">s,p,d,f = 2,6,10,14 e⁻</div>
-      </a>
-      <a href="estequiometria.html" class="mach-card quimica">
-        <h3>Estequiometría</h3>
-        <div class="mach-formula">n = m / M</div>
-        <div class="mach-formula">N° partículas = n × 6.022×10²³</div>
-      </a>
-      <a href="oxido-reduccion.html" class="mach-card quimica">
-        <h3>Óxido-Reducción</h3>
-        <div class="mach-formula">Oxidación = pierde e⁻</div>
-        <div class="mach-formula">Reducción = gana e⁻</div>
-      </a>
-      <a href="enlaces-quimicos.html" class="mach-card quimica">
-        <h3>Enlaces Químicos</h3>
-        <div class="mach-formula">ΔEN≥1.7 → iónico</div>
-        <div class="mach-formula">ΔEN&lt;0.4 → covalente apolar</div>
-      </a>
-      <a href="acido-base.html" class="mach-card quimica">
-        <h3>Ácido-Base y pH</h3>
-        <div class="mach-formula">pH = −log[H⁺]</div>
-        <div class="mach-formula">pH + pOH = 14</div>
-      </a>
-      <a href="concentracion-soluciones.html" class="mach-card quimica">
-        <h3>Concentración de Soluciones</h3>
-        <div class="mach-formula">M = n / V</div>
-        <div class="mach-formula">M₁V₁ = M₂V₂</div>
-      </a>
-      <a href="mezclas-separacion.html" class="mach-card quimica">
-        <h3>Mezclas y Separación</h3>
-        <div class="mach-formula">Rendimiento = (mᵣ/mᵢ)×100</div>
-        <div class="mach-formula" style="font-size:12px;">Filtración, decantación, destilación...</div>
-      </a>
-      <a href="leyes-gases.html" class="mach-card quimica">
-        <h3>Leyes de los Gases</h3>
-        <div class="mach-formula">P₁V₁ = P₂V₂</div>
-        <div class="mach-formula">PV = nRT</div>
-      </a>
-    </div>
-  </div>
-
-  <!-- HERRAMIENTAS -->
-  <div class="mach-grupo herramientas">
-    <h2 class="mach-titulo">Herramientas</h2>
-    <div class="mach-grid">
-      <a href="conversor-unidades.html" class="mach-card herramienta">
-        <h3>Conversor de Unidades</h3>
-        <div class="mach-formula" style="font-size:12px;">Longitud, masa, tiempo, velocidad</div>
-      </a>
-      <a href="evaluaciones.html" class="mach-card herramienta">
-        <h3>Evaluaciones</h3>
-        <div class="mach-formula" style="font-size:12px;">Ejercicios generados al instante</div>
-      </a>
-      <a href="experimentos.html" class="mach-card herramienta">
-        <h3>Experimentos Caseros</h3>
-        <div class="mach-formula" style="font-size:12px;">Física y química con las manos</div>
-      </a>
-      <a href="sobre-nosotros.html" class="mach-card herramienta">
-        <h3>Sobre la Fundadora</h3>
-        <div class="mach-formula" style="font-size:12px;">Quién está detrás de DescifraLab</div>
-      </a>
-    </div>
-  </div>
-
-  <div class="card" data-tag="Nota" style="text-align:center;">
-    <p style="color:var(--ink-soft);font-size:14px;margin:0;">Cada bloque de arriba es un resumen — tocalo para ir a la página completa con calculadora, simulador visual y ejercicios con respuesta.</p>
+  <div class="quick-grid">
+    <a href="fisica.html" class="quick-card fisica">
+      <h2>Física</h2>
+      <p>Mecánica, electricidad, termodinámica, fluidos y física moderna — con historia y línea de tiempo interactiva.</p>
+    </a>
+    <a href="quimica.html" class="quick-card quimica">
+      <h2>Química</h2>
+      <p>Estructura de la materia, reacciones, soluciones — también con su propia línea de tiempo interactiva.</p>
+    </a>
+    <a href="docentes.html" class="quick-card docentes">
+      <h2>Para Docentes</h2>
+      <p>Actividades de clase listas para usar, conectadas directo con cada tema del sitio.</p>
+    </a>
+    <a href="experimentos.html" class="quick-card experimentos">
+      <h2>Experimentos Caseros</h2>
+      <p>Física y química con las manos, con materiales que ya tenés en tu casa.</p>
+    </a>
+    <a href="formulario.html" class="quick-card formulario">
+      <h2>Machete de Fórmulas</h2>
+      <p>Todas las fórmulas del sitio en una sola hoja de referencia rápida.</p>
+    </a>
+    <a href="evaluaciones.html" class="quick-card docentes">
+      <h2>Evaluaciones</h2>
+      <p>Generador de ejercicios al instante, con corrección automática.</p>
+    </a>
   </div>
 
 </div>
 
+<footer>
+  DescifraLab — hecho por una geóloga que se cansó de ver la ciencia explicada de forma aburrida.
+</footer>
+
 <script>
-  // Esta página es solo de referencia — no necesita lógica interactiva,
-  // cada bloque es un enlace directo a su página completa.
+const INDICE_BUSQUEDA = [{"url": "acido-base.html", "titulo": "Ácido-Base y pH", "categoria": "Química · Reacciones"}, {"url": "calor-especifico.html", "titulo": "Calor Específico y Cambios de Estado", "categoria": "Termodinámica"}, {"url": "caudal-continuidad.html", "titulo": "Caudal y Continuidad", "categoria": "Hidráulica y Fluidos"}, {"url": "circuitos.html", "titulo": "Circuitos en Serie y Paralelo", "categoria": "Electricidad"}, {"url": "concentracion-soluciones.html", "titulo": "Concentración de Soluciones", "categoria": "Química · Soluciones"}, {"url": "configuracion-electronica.html", "titulo": "Configuración Electrónica", "categoria": "Química · Estructura de la materia"}, {"url": "conversor-unidades.html", "titulo": "Conversor de Unidades", "categoria": "Herramientas · Magnitudes"}, {"url": "corriente-continua-alterna.html", "titulo": "Corriente Continua y Alterna", "categoria": "Electricidad"}, {"url": "dilatacion-termica.html", "titulo": "Dilatación Térmica", "categoria": "Termodinámica"}, {"url": "docentes.html", "titulo": "Para Docentes", "categoria": "Recursos pedagógicos"}, {"url": "electromagnetismo.html", "titulo": "Electromagnetismo", "categoria": "Electricidad · Magnetismo"}, {"url": "energia-nuclear.html", "titulo": "Energía Nuclear", "categoria": "Física Moderna"}, {"url": "enlaces-quimicos.html", "titulo": "Enlaces Químicos", "categoria": "Química · Enlaces"}, {"url": "estatica-torque.html", "titulo": "Estática y Torque", "categoria": "Mecánica · Dinámica"}, {"url": "estequiometria.html", "titulo": "Estequiometría y El Mol", "categoria": "Química · Reacciones"}, {"url": "evaluaciones.html", "titulo": "Evaluaciones", "categoria": "Herramientas · Autoevaluación"}, {"url": "experimentos.html", "titulo": "Experimentos Caseros", "categoria": "Aprender con las manos"}, {"url": "fisica.html", "titulo": "Física", "categoria": "Portada de materia"}, {"url": "fluidos.html", "titulo": "Presión Hidrostática y Flotación", "categoria": "Hidráulica y Fluidos"}, {"url": "impulso-momentum.html", "titulo": "Impulso y Cantidad de Movimiento", "categoria": "Mecánica · Dinámica"}, {"url": "ley-ohm.html", "titulo": "Ley de Ohm (V = I·R)", "categoria": "Electricidad"}, {"url": "leyes-gases.html", "titulo": "Leyes de los Gases", "categoria": "Química · Estados de la materia"}, {"url": "maquinas-simples.html", "titulo": "Máquinas Simples", "categoria": "Mecánica · Dinámica"}, {"url": "maquinas-termicas.html", "titulo": "Máquinas Térmicas y Eficiencia", "categoria": "Termodinámica · Máquinas"}, {"url": "mcu.html", "titulo": "Movimiento Circular Uniforme (MCU)", "categoria": "Mecánica · Cinemática"}, {"url": "mezclas-separacion.html", "titulo": "Mezclas y Métodos de Separación", "categoria": "Química · Materia"}, {"url": "modelo-atomico.html", "titulo": "Modelo Atómico y Tabla Periódica", "categoria": "Química · Estructura de la materia"}, {"url": "mru.html", "titulo": "MRU — Movimiento Rectilíneo Uniforme", "categoria": "Mecánica · Cinemática"}, {"url": "mruv.html", "titulo": "MRUV — Movimiento Rectilíneo Uniformemente Variado", "categoria": "Mecánica · Cinemática"}, {"url": "newton.html", "titulo": "Segunda Ley de Newton (F = m·a)", "categoria": "Mecánica · Dinámica"}, {"url": "oxido-reduccion.html", "titulo": "Óxido-Reducción", "categoria": "Química · Reacciones"}, {"url": "potencia-electrica.html", "titulo": "Potencia Eléctrica (P = V·I)", "categoria": "Electricidad"}, {"url": "quimica.html", "titulo": "Química", "categoria": "Portada de materia"}, {"url": "relatividad.html", "titulo": "Dilatación Temporal y Curvatura del Espacio-Tiempo", "categoria": "Relatividad"}, {"url": "sobre-nosotros.html", "titulo": "Sobre la Fundadora", "categoria": "Quiénes somos"}, {"url": "tiro-oblicuo.html", "titulo": "Tiro Oblicuo — Movimiento Parabólico", "categoria": "Mecánica · Cinemática"}, {"url": "trabajo-energia.html", "titulo": "Trabajo y Energía", "categoria": "Mecánica · Energía"}];
+
+function buscar(query){
+  const resultsDiv = document.getElementById('search-results');
+  const q = query.trim().toLowerCase();
+
+  if(q.length < 2){
+    resultsDiv.classList.remove('show');
+    resultsDiv.innerHTML = '';
+    return;
+  }
+
+  const matches = INDICE_BUSQUEDA.filter(item =>
+    item.titulo.toLowerCase().includes(q) ||
+    item.categoria.toLowerCase().includes(q)
+  );
+
+  if(matches.length === 0){
+    resultsDiv.innerHTML = '<div class="search-empty">No encontramos nada con ese nombre — probá con otra palabra.</div>';
+  } else {
+    resultsDiv.innerHTML = matches.slice(0, 8).map(item => `
+      <a href="${item.url}" class="search-result-item">
+        <div class="sr-titulo">${item.titulo}</div>
+        <div class="sr-categoria">${item.categoria}</div>
+      </a>
+    `).join('');
+  }
+  resultsDiv.classList.add('show');
+}
+
+// cerrar resultados al hacer click afuera
+document.addEventListener('click', (e)=>{
+  const wrap = document.querySelector('.search-wrap');
+  if(!wrap.contains(e.target)){
+    document.getElementById('search-results').classList.remove('show');
+  }
+});
 </script>
 
 </body>

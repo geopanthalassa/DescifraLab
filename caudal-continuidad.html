@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Concentración de Soluciones — Molaridad, %m/v y Dilución — DescifraLab</title>
+<title>Caudal y Continuidad — Q=Av y Ecuación de Continuidad — DescifraLab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -224,51 +224,15 @@
     font-size:12px;cursor:pointer;
   }
   .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
-
-  .ph-escala{margin-top:14px;}
-  .ph-barra{
-    display:flex;
-    border:2px solid var(--ink);
-    border-radius:8px;
-    overflow:hidden;
-  }
-  .ph-segmento{
-    flex:1;
-    padding:14px 4px;
-    text-align:center;
-    font-family:'JetBrains Mono', monospace;
-    font-size:11px;font-weight:700;
-    color:#fff;
-    text-shadow:0 1px 2px rgba(0,0,0,0.3);
-  }
-
-  .enlace-analogia{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
-    gap:14px;margin-top:16px;
-  }
-  .enlace-tipo{
-    border:2.5px solid;
-    padding:16px;
-    background:var(--paper);
-  }
-  .enlace-icono{font-size:32px;margin-bottom:6px;}
-  .enlace-tipo h3{font-size:15px;margin:0 0 8px;font-family:'Fraunces',serif;}
-  .enlace-tipo p{font-size:13.5px;margin:0 0 8px;}
-  .enlace-ejemplo{
-    font-size:12.5px;color:var(--ink-soft);
-    border-top:1px dashed var(--line);
-    padding-top:8px;margin-top:8px !important;
-  }
 </style>
 </head>
 <body>
 
 <header class="top">
   <a href="index.html" class="brand-link">DescifraLab</a>
-  <div class="eyebrow">Química · Soluciones</div>
-  <h1>Concentración de Soluciones</h1>
-  <p class="subtitle">Molaridad, porcentaje masa/volumen, calculadora de dilución, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
+  <div class="eyebrow">Hidráulica y Fluidos</div>
+  <h1>Caudal y Continuidad</h1>
+  <p class="subtitle">Caudal, ecuación de continuidad, y por qué el agua sale disparada al tapar parte de una manguera.</p>
   <nav class="level-nav">
     <button class="level-btn active" data-target="basico">Básico</button>
     <button class="level-btn" data-target="avanzado">Avanzado</button>
@@ -281,17 +245,18 @@
   <section class="level active" data-level="basico">
 
     <div class="card" data-tag="Concepto">
-      <h2>¿Qué es la concentración de una solución?</h2>
-      <p>Una solución es una mezcla homogénea de un <strong>soluto</strong> (lo que se disuelve, generalmente en menor cantidad) en un <strong>solvente</strong> (lo que disuelve, generalmente en mayor cantidad). La concentración mide cuánto soluto hay por cada cantidad de solución — el café "cargado" tiene más soluto (café) por la misma cantidad de agua que uno "liviano".</p>
-      <div class="formula-box">Molaridad: M = n / V</div>
-      <p class="var-list"><span>M</span> = molaridad (mol/L) &nbsp;·&nbsp; <span>n</span> = moles de soluto &nbsp;·&nbsp; <span>V</span> = volumen de la solución (L, no solo del solvente)</p>
+      <h2>¿Qué es el caudal?</h2>
+      <p>El caudal indica cuánto fluido pasa por una sección de una tubería (o un río, o un canal) en cada unidad de tiempo — cuánto "sale por el caño" por segundo, en otras palabras.</p>
+      <div class="formula-box">Q = V / t</div>
+      <div class="formula-box">Q = A · v</div>
+      <p class="var-list"><span>Q</span> = caudal (m³/s) &nbsp;·&nbsp; <span>V</span> = volumen (m³) &nbsp;·&nbsp; <span>t</span> = tiempo (s) &nbsp;·&nbsp; <span>A</span> = área de la sección transversal (m²) &nbsp;·&nbsp; <span>v</span> = velocidad del fluido (m/s)</p>
     </div>
 
     <div class="card" data-tag="Calculadora">
-      <h2>Calcula la molaridad</h2>
+      <h2>Calcula el caudal</h2>
       <div class="calc-grid">
-        <div class="field"><label>Moles de soluto (n)</label><input type="number" id="b-n" value="0.5"></div>
-        <div class="field"><label>Volumen de la solución (L)</label><input type="number" id="b-V" value="2"></div>
+        <div class="field"><label>Área de la sección A (m²)</label><input type="number" id="b-A" value="0.05"></div>
+        <div class="field"><label>Velocidad del fluido v (m/s)</label><input type="number" id="b-v" value="2"></div>
       </div>
       <button class="calc-btn" onclick="calcBasico()">Calcular</button>
       <div class="readout" id="b-readout"></div>
@@ -300,23 +265,23 @@
     <div class="card" data-tag="Ejemplo resuelto">
       <h2>Ejemplo</h2>
       <div class="example">
-        <p><strong>Disuelves 0.5 moles de NaCl en agua hasta completar 2 litros de solución. ¿Cuál es la molaridad?</strong></p>
-        <p>M = n/V = 0.5/2 = <strong>0.25 mol/L</strong></p>
-        <p>Se lee "0.25 molar" (0.25 M) — significa que hay 0.25 moles de NaCl disueltos en cada litro de esa solución.</p>
+        <p><strong>Por una tubería con 0.05 m² de sección, el agua fluye a 2 m/s. ¿Cuál es el caudal?</strong></p>
+        <p>Q = A×v = 0.05×2 = <strong>0.1 m³/s</strong></p>
+        <p>Eso equivale a 100 litros por segundo saliendo de esa tubería.</p>
       </div>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
       <h2>Ejercicios con respuesta</h2>
       <ol>
-        <li>¿Cuál es la molaridad de una solución con 2 moles de soluto en 4 litros?
-          <details><summary>Ver respuesta</summary>M = 2/4 = 0.5 mol/L</details>
+        <li>Un caño de 0.02 m² deja pasar agua a 3 m/s. ¿Cuál es el caudal?
+          <details><summary>Ver respuesta</summary>Q = 0.02×3 = 0.06 m³/s</details>
         </li>
-        <li>Si tienes 0.1 moles disueltos en 500 mL (0.5 L), ¿cuál es la molaridad?
-          <details><summary>Ver respuesta</summary>M = 0.1/0.5 = 0.2 mol/L (ojo: hay que convertir mL a L primero)</details>
+        <li>Si llenás un balde de 20 litros (0.02 m³) en 10 segundos, ¿cuál es el caudal de la canilla?
+          <details><summary>Ver respuesta</summary>Q = V/t = 0.02/10 = 0.002 m³/s (2 litros por segundo)</details>
         </li>
-        <li>¿Por qué la molaridad usa el volumen de la solución completa y no solo del solvente?
-          <details><summary>Ver respuesta</summary>Porque al disolver algo, el volumen final de la mezcla no es simplemente la suma exacta de ambos volúmenes por separado — se mide directamente el volumen total ya mezclado, que es lo que realmente importa para saber "cuánto hay por litro" en la práctica.</details>
+        <li>¿Qué unidades tiene el caudal, y por qué?
+          <details><summary>Ver respuesta</summary>m³/s (volumen sobre tiempo) — porque mide cuánto volumen de fluido pasa por unidad de tiempo</details>
         </li>
       </ol>
     </div>
@@ -327,44 +292,43 @@
   <section class="level" data-level="avanzado">
 
     <div class="card" data-tag="Concepto">
-      <h2>Dilución: agregar más solvente</h2>
-      <p>Diluir una solución significa agregarle más solvente sin agregar más soluto — la cantidad de soluto (moles) no cambia, pero al aumentar el volumen, la concentración baja. Esta relación se resume en una fórmula muy usada en el laboratorio:</p>
-      <div class="formula-box">M₁ · V₁ = M₂ · V₂</div>
-      <p class="var-list"><span>M₁, V₁</span> = molaridad y volumen antes de diluir &nbsp;·&nbsp; <span>M₂, V₂</span> = molaridad y volumen después de diluir</p>
+      <h2>Ecuación de continuidad: por qué el agua acelera al angostarse el caño</h2>
+      <p>En un fluido ideal (que no se comprime), el caudal que entra por un extremo de una tubería tiene que ser igual al que sale por el otro — no puede "desaparecer" fluido en el medio. Si el área se achica, la velocidad tiene que aumentar para compensar.</p>
+      <div class="formula-box">A₁ · v₁ = A₂ · v₂</div>
+      <p class="var-list">Por eso cuando tapás parte de la boca de una manguera con el dedo, el agua sale disparada mucho más rápido — reducís el área (A₂), así que la velocidad (v₂) tiene que aumentar para mantener el mismo caudal.</p>
     </div>
 
     <div class="card" data-tag="Calculadora">
-      <h2>Calcula la dilución</h2>
-      <p style="color:var(--ink-soft);font-size:13.5px;margin-top:-4px;">Metes 3 datos conocidos, calcula el volumen final necesario.</p>
+      <h2>Calcula la velocidad al cambiar el área</h2>
       <div class="calc-grid">
-        <div class="field"><label>Molaridad inicial M₁ (mol/L)</label><input type="number" id="a-M1" value="2"></div>
-        <div class="field"><label>Volumen inicial V₁ (mL)</label><input type="number" id="a-V1" value="50"></div>
-        <div class="field"><label>Molaridad final deseada M₂ (mol/L)</label><input type="number" id="a-M2" value="0.5"></div>
+        <div class="field"><label>Área inicial A₁ (m²)</label><input type="number" id="a-A1" value="0.01"></div>
+        <div class="field"><label>Velocidad inicial v₁ (m/s)</label><input type="number" id="a-v1" value="1"></div>
+        <div class="field"><label>Área final A₂ (m²)</label><input type="number" id="a-A2" value="0.0025"></div>
       </div>
-      <button class="calc-btn" onclick="calcAvanzado()">Calcular</button>
+      <button class="calc-btn" onclick="calcAvanzado()">Calcular v₂</button>
       <div class="readout" id="a-readout"></div>
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
+      <h2>Ejemplo — sistemas de desagüe</h2>
       <div class="example">
-        <p><strong>Tienes 50 mL de una solución 2 M, y quieres diluirla hasta 0.5 M. ¿Qué volumen final necesitas?</strong></p>
-        <p>M₁V₁ = M₂V₂ → 2×50 = 0.5×V₂ → V₂ = 100/0.5 = <strong>200 mL</strong></p>
-        <p>Como ya tenías 50 mL, necesitas agregar 200−50 = <strong>150 mL de solvente</strong> (generalmente agua) para llegar a esa concentración.</p>
+        <p><strong>Una tubería de desagüe de 0.01 m² se angosta a 0.0025 m² (un cuarto del área) en un tramo, con el agua entrando a 1 m/s. ¿A qué velocidad sale por la parte angosta?</strong></p>
+        <p>A₁v₁ = A₂v₂ → 0.01×1 = 0.0025×v₂ → v₂ = 0.01/0.0025 = <strong>4 m/s</strong></p>
+        <p>Al reducirse el área a un cuarto, la velocidad se cuadruplica — este tipo de cálculo es clave al diseñar sistemas de desagüe: tuberías angostas u obstruidas fuerzan velocidades más altas, pero si la reducción es muy severa (una obstrucción real), el sistema no da abasto y el agua se acumula, causando inundaciones.</p>
       </div>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
       <h2>Ejercicios con respuesta</h2>
       <ol>
-        <li>Tienes 100 mL de solución 1 M. ¿Qué volumen final tienes si la diluyes a 0.25 M?
-          <details><summary>Ver respuesta</summary>1×100 = 0.25×V₂ → V₂ = 400 mL</details>
+        <li>Un caño de 0.008 m² con agua a 2 m/s se conecta a otro de 0.002 m². ¿Cuál es la nueva velocidad?
+          <details><summary>Ver respuesta</summary>0.008×2 = 0.002×v₂ → v₂ = 8 m/s</details>
         </li>
-        <li>En el ejercicio anterior, ¿cuánta agua agregaste?
-          <details><summary>Ver respuesta</summary>400−100 = 300 mL de agua</details>
+        <li>¿Por qué una calle con poca pendiente y desagües angostos se inunda más fácil en una tormenta fuerte?
+          <details><summary>Ver respuesta</summary>Porque el caudal de agua que cae (lluvia) puede superar la capacidad de evacuación del sistema (que depende del área de las tuberías y la velocidad que pueden sostener) — el agua sobrante se acumula en la superficie porque el sistema no da abasto.</details>
         </li>
-        <li>¿Por qué diluir NUNCA cambia la cantidad de moles de soluto?
-          <details><summary>Ver respuesta</summary>Porque solo se agrega solvente (agua), no se agrega ni se quita soluto — los mismos moles de soluto quedan repartidos en un volumen mayor, por eso la concentración baja pero la cantidad total de soluto sigue siendo la misma.</details>
+        <li>¿Por qué una superficie urbana impermeable (asfalto, cemento) empeora las inundaciones?
+          <details><summary>Ver respuesta</summary>Porque reduce la infiltración natural del agua en el suelo, aumentando la cantidad de agua que tiene que circular por la superficie y los desagües en vez de absorberse — sobrecargando el sistema de drenaje.</details>
         </li>
       </ol>
     </div>
@@ -373,27 +337,20 @@
 
   <div class="card faq" data-tag="FAQ">
     <h2>Preguntas frecuentes</h2>
-    <h3>¿Molaridad es lo mismo que concentración a secas?</h3>
-    <p>"Concentración" es el término general — hay varias formas de expresarla (molaridad, %m/v, gramos por litro, partes por millón). La molaridad es solo una de esas formas, la más usada en química porque trabaja directamente en moles, ideal para hacer estequiometría después.</p>
-    <h3>¿Se puede diluir una solución para bajar la concentración más allá de cierto punto?</h3>
-    <p>En teoría sí, hasta hacerla prácticamente agua pura — en la práctica, hay un límite dado por cuánto solvente sea razonable agregar, y por la precisión con la que se pueda medir una concentración tan baja.</p>
-    <h3>¿Por qué al preparar una solución diluida hay que agregar el ácido al agua, y no al revés?</h3>
-    <p>Porque diluir un ácido concentrado libera calor — si agregas agua de golpe sobre el ácido, ese calor puede hacer que salpique violentamente. Agregando el ácido de a poco sobre el agua, el calor se disipa mucho más gradual y seguro.</p>
+    <h3>¿La viscosidad afecta el caudal?</h3>
+    <p>Sí — un fluido más viscoso (como la miel comparada con el agua) fluye más lento a igualdad de presión, así que el caudal real es menor. La ecuación de continuidad que vimos asume un fluido ideal, sin viscosidad, como simplificación útil para entender el concepto central.</p>
+    <h3>¿Por qué el río fluye más rápido en las partes angostas?</h3>
+    <p>Por la misma ecuación de continuidad — el caudal total del río tiene que mantenerse, así que donde el cauce se angosta (o se hace menos profundo), el agua tiene que acelerar para que siga pasando la misma cantidad de agua por unidad de tiempo.</p>
+    <h3>¿Cómo se relaciona esto con el diseño de sistemas de desagüe urbano?</h3>
+    <p>Los ingenieros calculan el caudal esperado (según la lluvia típica de la zona) y diseñan el diámetro de las tuberías para que puedan manejar ese caudal sin necesitar velocidades excesivas — tuberías subdimensionadas obligan a velocidades muy altas o directamente no dan abasto, causando anegamientos.</p>
   </div>
 
   <div class="related">
     <h2>Temas relacionados</h2>
     <div class="related-links">
-      <a href="formulario.html">Machete de Fórmulas</a>
-      <a href="maquinas-termicas.html">Máquinas Térmicas y Eficiencia</a>
-      <a href="corriente-continua-alterna.html">Corriente Continua y Alterna</a>
-      <a href="caudal-continuidad.html">Caudal y Continuidad</a>
-      <a href="electromagnetismo.html">Electromagnetismo</a>
-      <a href="maquinas-simples.html">Máquinas Simples</a>
-      <a href="estequiometria.html">Estequiometría y El Mol</a>
-      <a href="acido-base.html">Ácido-Base y pH</a>
-      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
+      <a href="fluidos.html">Presión Hidrostática y Flotación</a>
       <a href="leyes-gases.html">Leyes de los Gases</a>
+      <a href="formulario.html">Machete de Fórmulas</a>
       <a href="evaluaciones.html">Evaluaciones</a>
       <a href="sobre-nosotros.html">Sobre la Fundadora</a>
       <a href="experimentos.html">Experimentos Caseros</a>
@@ -412,35 +369,22 @@
     });
   });
 
-  const ELECTRONEGATIVIDAD = {
-    Na:0.93, K:0.82, Ca:1.00, Mg:1.31, Al:1.61,
-    H:2.20, C:2.55, N:3.04, S:2.58, P:2.19,
-    Cl:3.16, O:3.44, F:3.98, Br:2.96
-  };
-
-  function clasificarEnlace(dEN){
-    if(dEN >= 1.7) return {tipo:'Iónico', detalle:'un átomo transfiere electrones al otro'};
-    if(dEN >= 0.4) return {tipo:'Covalente polar', detalle:'comparten los electrones, pero de forma desigual'};
-    return {tipo:'Covalente apolar', detalle:'comparten los electrones de forma pareja'};
-  }
-
   function calcBasico(){
-    const n = parseFloat(document.getElementById('b-n').value)||0;
-    const V = parseFloat(document.getElementById('b-V').value)||1;
-    const M = n/V;
+    const A = parseFloat(document.getElementById('b-A').value)||0;
+    const v = parseFloat(document.getElementById('b-v').value)||0;
+    const Q = A*v;
     const out = document.getElementById('b-readout');
-    out.innerText = `M = n/V = ${n}/${V} = ${M.toFixed(3)} mol/L`;
+    out.innerText = `Q = A×v = ${A}×${v} = ${Q.toFixed(4)} m³/s`;
     out.classList.add('show');
   }
 
   function calcAvanzado(){
-    const M1 = parseFloat(document.getElementById('a-M1').value)||0;
-    const V1 = parseFloat(document.getElementById('a-V1').value)||0;
-    const M2 = parseFloat(document.getElementById('a-M2').value)||1;
-    const V2 = (M1*V1)/M2;
-    const agregar = V2-V1;
+    const A1 = parseFloat(document.getElementById('a-A1').value)||0;
+    const v1 = parseFloat(document.getElementById('a-v1').value)||0;
+    const A2 = parseFloat(document.getElementById('a-A2').value)||1;
+    const v2 = (A1*v1)/A2;
     const out = document.getElementById('a-readout');
-    out.innerText = `M₁V₁ = M₂V₂ → ${M1}×${V1} = ${M2}×V₂\nV₂ = ${(M1*V1).toFixed(1)}/${M2} = ${V2.toFixed(1)} mL\nSolvente a agregar: ${V2.toFixed(1)} − ${V1} = ${agregar.toFixed(1)} mL`;
+    out.innerText = `A₁v₁ = A₂v₂ → ${A1}×${v1} = ${A2}×v₂\nv₂ = ${(A1*v1).toFixed(4)}/${A2} = ${v2.toFixed(2)} m/s`;
     out.classList.add('show');
   }
 </script>

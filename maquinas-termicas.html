@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Concentración de Soluciones — Molaridad, %m/v y Dilución — DescifraLab</title>
+<title>Máquinas Térmicas y Eficiencia — Motor y Refrigerador — DescifraLab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -224,51 +224,15 @@
     font-size:12px;cursor:pointer;
   }
   .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
-
-  .ph-escala{margin-top:14px;}
-  .ph-barra{
-    display:flex;
-    border:2px solid var(--ink);
-    border-radius:8px;
-    overflow:hidden;
-  }
-  .ph-segmento{
-    flex:1;
-    padding:14px 4px;
-    text-align:center;
-    font-family:'JetBrains Mono', monospace;
-    font-size:11px;font-weight:700;
-    color:#fff;
-    text-shadow:0 1px 2px rgba(0,0,0,0.3);
-  }
-
-  .enlace-analogia{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
-    gap:14px;margin-top:16px;
-  }
-  .enlace-tipo{
-    border:2.5px solid;
-    padding:16px;
-    background:var(--paper);
-  }
-  .enlace-icono{font-size:32px;margin-bottom:6px;}
-  .enlace-tipo h3{font-size:15px;margin:0 0 8px;font-family:'Fraunces',serif;}
-  .enlace-tipo p{font-size:13.5px;margin:0 0 8px;}
-  .enlace-ejemplo{
-    font-size:12.5px;color:var(--ink-soft);
-    border-top:1px dashed var(--line);
-    padding-top:8px;margin-top:8px !important;
-  }
 </style>
 </head>
 <body>
 
 <header class="top">
   <a href="index.html" class="brand-link">DescifraLab</a>
-  <div class="eyebrow">Química · Soluciones</div>
-  <h1>Concentración de Soluciones</h1>
-  <p class="subtitle">Molaridad, porcentaje masa/volumen, calculadora de dilución, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
+  <div class="eyebrow">Termodinámica · Máquinas</div>
+  <h1>Máquinas Térmicas y Eficiencia</h1>
+  <p class="subtitle">Motor térmico, refrigerador, eficiencia, y el impacto ambiental de convertir calor en trabajo.</p>
   <nav class="level-nav">
     <button class="level-btn active" data-target="basico">Básico</button>
     <button class="level-btn" data-target="avanzado">Avanzado</button>
@@ -281,17 +245,23 @@
   <section class="level active" data-level="basico">
 
     <div class="card" data-tag="Concepto">
-      <h2>¿Qué es la concentración de una solución?</h2>
-      <p>Una solución es una mezcla homogénea de un <strong>soluto</strong> (lo que se disuelve, generalmente en menor cantidad) en un <strong>solvente</strong> (lo que disuelve, generalmente en mayor cantidad). La concentración mide cuánto soluto hay por cada cantidad de solución — el café "cargado" tiene más soluto (café) por la misma cantidad de agua que uno "liviano".</p>
-      <div class="formula-box">Molaridad: M = n / V</div>
-      <p class="var-list"><span>M</span> = molaridad (mol/L) &nbsp;·&nbsp; <span>n</span> = moles de soluto &nbsp;·&nbsp; <span>V</span> = volumen de la solución (L, no solo del solvente)</p>
+      <h2>Motor térmico y refrigerador: ideas opuestas</h2>
+      <p>Un <strong>motor térmico</strong> transforma parte del calor que recibe en trabajo útil — por ejemplo, un motor de auto quema combustible (calor) para mover el vehículo (trabajo).</p>
+      <p>Un <strong>refrigerador</strong> hace lo contrario en cierto sentido: usa trabajo (electricidad) para transferir calor desde una zona fría hacia una zona más caliente — sacando calor de adentro de la heladera y expulsándolo afuera, en contra de la dirección natural en la que el calor fluiría solo.</p>
+    </div>
+
+    <div class="card" data-tag="Concepto">
+      <h2>Eficiencia: nunca se aprovecha todo el calor</h2>
+      <p>Ninguna máquina térmica convierte el 100% del calor recibido en trabajo útil — siempre se pierde una parte (generalmente como calor que se escapa sin aprovechar).</p>
+      <div class="formula-box">η = (E útil / E total) × 100</div>
+      <p class="var-list"><span>η</span> = eficiencia (%) &nbsp;·&nbsp; <span>E útil</span> = energía que se aprovecha realmente &nbsp;·&nbsp; <span>E total</span> = energía total que entra al sistema</p>
     </div>
 
     <div class="card" data-tag="Calculadora">
-      <h2>Calcula la molaridad</h2>
+      <h2>Calcula la eficiencia</h2>
       <div class="calc-grid">
-        <div class="field"><label>Moles de soluto (n)</label><input type="number" id="b-n" value="0.5"></div>
-        <div class="field"><label>Volumen de la solución (L)</label><input type="number" id="b-V" value="2"></div>
+        <div class="field"><label>Energía útil obtenida (J)</label><input type="number" id="b-Eutil" value="2500"></div>
+        <div class="field"><label>Energía total entregada (J)</label><input type="number" id="b-Etotal" value="10000"></div>
       </div>
       <button class="calc-btn" onclick="calcBasico()">Calcular</button>
       <div class="readout" id="b-readout"></div>
@@ -300,23 +270,23 @@
     <div class="card" data-tag="Ejemplo resuelto">
       <h2>Ejemplo</h2>
       <div class="example">
-        <p><strong>Disuelves 0.5 moles de NaCl en agua hasta completar 2 litros de solución. ¿Cuál es la molaridad?</strong></p>
-        <p>M = n/V = 0.5/2 = <strong>0.25 mol/L</strong></p>
-        <p>Se lee "0.25 molar" (0.25 M) — significa que hay 0.25 moles de NaCl disueltos en cada litro de esa solución.</p>
+        <p><strong>Un motor recibe 10.000 J de energía del combustible, y produce 2.500 J de trabajo útil. ¿Cuál es su eficiencia?</strong></p>
+        <p>η = (2500/10000) × 100 = <strong>25%</strong></p>
+        <p>El otro 75% se pierde principalmente como calor que se escapa por el escape y el radiador — típico de un motor de combustión interna real.</p>
       </div>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
       <h2>Ejercicios con respuesta</h2>
       <ol>
-        <li>¿Cuál es la molaridad de una solución con 2 moles de soluto en 4 litros?
-          <details><summary>Ver respuesta</summary>M = 2/4 = 0.5 mol/L</details>
+        <li>Una máquina recibe 5000 J y produce 1500 J de trabajo útil. ¿Cuál es su eficiencia?
+          <details><summary>Ver respuesta</summary>η = (1500/5000)×100 = 30%</details>
         </li>
-        <li>Si tienes 0.1 moles disueltos en 500 mL (0.5 L), ¿cuál es la molaridad?
-          <details><summary>Ver respuesta</summary>M = 0.1/0.5 = 0.2 mol/L (ojo: hay que convertir mL a L primero)</details>
+        <li>¿Por qué ninguna máquina térmica puede tener 100% de eficiencia?
+          <details><summary>Ver respuesta</summary>Porque siempre hay pérdidas (fricción, calor que se escapa sin aprovechar) — es una consecuencia de la Segunda Ley de la Termodinámica, no solo un problema de mala ingeniería.</details>
         </li>
-        <li>¿Por qué la molaridad usa el volumen de la solución completa y no solo del solvente?
-          <details><summary>Ver respuesta</summary>Porque al disolver algo, el volumen final de la mezcla no es simplemente la suma exacta de ambos volúmenes por separado — se mide directamente el volumen total ya mezclado, que es lo que realmente importa para saber "cuánto hay por litro" en la práctica.</details>
+        <li>¿Un refrigerador "crea frío"?
+          <details><summary>Ver respuesta</summary>No — no existe tal cosa como "crear frío". Lo que hace es extraer calor de adentro y expulsarlo afuera, usando trabajo eléctrico para forzar ese flujo en contra de su dirección natural.</details>
         </li>
       </ol>
     </div>
@@ -327,19 +297,21 @@
   <section class="level" data-level="avanzado">
 
     <div class="card" data-tag="Concepto">
-      <h2>Dilución: agregar más solvente</h2>
-      <p>Diluir una solución significa agregarle más solvente sin agregar más soluto — la cantidad de soluto (moles) no cambia, pero al aumentar el volumen, la concentración baja. Esta relación se resume en una fórmula muy usada en el laboratorio:</p>
-      <div class="formula-box">M₁ · V₁ = M₂ · V₂</div>
-      <p class="var-list"><span>M₁, V₁</span> = molaridad y volumen antes de diluir &nbsp;·&nbsp; <span>M₂, V₂</span> = molaridad y volumen después de diluir</p>
+      <h2>Impacto ambiental de las máquinas térmicas</h2>
+      <p>La mayoría de las máquinas térmicas reales (motores de combustión, centrales eléctricas a carbón o gas) queman combustibles fósiles para generar el calor inicial. Eso tiene un costo ambiental real:</p>
+      <ul style="padding-left:20px;margin:10px 0;">
+        <li><strong>Emisiones de gases de efecto invernadero</strong> (principalmente CO₂), que contribuyen al calentamiento global.</li>
+        <li><strong>Contaminación del aire</strong> local, con impacto directo en la salud respiratoria.</li>
+        <li><strong>Agotamiento de recursos</strong> no renovables (petróleo, carbón, gas natural).</li>
+      </ul>
+      <p style="color:var(--ink-soft);font-size:14.5px;">Por eso mejorar la eficiencia de una máquina térmica no es solo un tema económico — una máquina más eficiente necesita quemar menos combustible para producir el mismo trabajo útil, reduciendo directamente su huella ambiental.</p>
     </div>
 
     <div class="card" data-tag="Calculadora">
-      <h2>Calcula la dilución</h2>
-      <p style="color:var(--ink-soft);font-size:13.5px;margin-top:-4px;">Metes 3 datos conocidos, calcula el volumen final necesario.</p>
+      <h2>Calcula cuánta energía se pierde</h2>
       <div class="calc-grid">
-        <div class="field"><label>Molaridad inicial M₁ (mol/L)</label><input type="number" id="a-M1" value="2"></div>
-        <div class="field"><label>Volumen inicial V₁ (mL)</label><input type="number" id="a-V1" value="50"></div>
-        <div class="field"><label>Molaridad final deseada M₂ (mol/L)</label><input type="number" id="a-M2" value="0.5"></div>
+        <div class="field"><label>Eficiencia del sistema (%)</label><input type="number" id="a-eficiencia" value="35"></div>
+        <div class="field"><label>Energía total consumida (kWh)</label><input type="number" id="a-energiaTotal" value="100"></div>
       </div>
       <button class="calc-btn" onclick="calcAvanzado()">Calcular</button>
       <div class="readout" id="a-readout"></div>
@@ -348,23 +320,23 @@
     <div class="card" data-tag="Ejemplo resuelto">
       <h2>Ejemplo</h2>
       <div class="example">
-        <p><strong>Tienes 50 mL de una solución 2 M, y quieres diluirla hasta 0.5 M. ¿Qué volumen final necesitas?</strong></p>
-        <p>M₁V₁ = M₂V₂ → 2×50 = 0.5×V₂ → V₂ = 100/0.5 = <strong>200 mL</strong></p>
-        <p>Como ya tenías 50 mL, necesitas agregar 200−50 = <strong>150 mL de solvente</strong> (generalmente agua) para llegar a esa concentración.</p>
+        <p><strong>Una central térmica tiene 35% de eficiencia, y consume 100 kWh de combustible. ¿Cuánta energía útil produce, y cuánta se pierde?</strong></p>
+        <p>Energía útil = 100 × 0.35 = <strong>35 kWh</strong></p>
+        <p>Energía perdida = 100 − 35 = <strong>65 kWh</strong> — más de la mitad del combustible consumido no llega a convertirse en electricidad útil.</p>
       </div>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
       <h2>Ejercicios con respuesta</h2>
       <ol>
-        <li>Tienes 100 mL de solución 1 M. ¿Qué volumen final tienes si la diluyes a 0.25 M?
-          <details><summary>Ver respuesta</summary>1×100 = 0.25×V₂ → V₂ = 400 mL</details>
+        <li>Una máquina con 60% de eficiencia consume 50 kWh. ¿Cuánta energía útil produce?
+          <details><summary>Ver respuesta</summary>50×0.60 = 30 kWh</details>
         </li>
-        <li>En el ejercicio anterior, ¿cuánta agua agregaste?
-          <details><summary>Ver respuesta</summary>400−100 = 300 mL de agua</details>
+        <li>¿Por qué las centrales eléctricas modernas de ciclo combinado son más eficientes que las tradicionales?
+          <details><summary>Ver respuesta</summary>Porque reutilizan el calor "perdido" de una primera etapa (turbina de gas) para generar más electricidad en una segunda etapa (turbina de vapor), aprovechando energía que de otra forma se escaparía sin uso.</details>
         </li>
-        <li>¿Por qué diluir NUNCA cambia la cantidad de moles de soluto?
-          <details><summary>Ver respuesta</summary>Porque solo se agrega solvente (agua), no se agrega ni se quita soluto — los mismos moles de soluto quedan repartidos en un volumen mayor, por eso la concentración baja pero la cantidad total de soluto sigue siendo la misma.</details>
+        <li>¿Por qué mejorar en 10 puntos porcentuales la eficiencia de una central grande tiene tanto impacto ambiental?
+          <details><summary>Ver respuesta</summary>Porque a esa escala, cada punto porcentual de eficiencia representa una cantidad enorme de combustible fósil que ya no hace falta quemar — multiplicado por millones de horas de operación, la reducción de emisiones es muy significativa.</details>
         </li>
       </ol>
     </div>
@@ -373,27 +345,21 @@
 
   <div class="card faq" data-tag="FAQ">
     <h2>Preguntas frecuentes</h2>
-    <h3>¿Molaridad es lo mismo que concentración a secas?</h3>
-    <p>"Concentración" es el término general — hay varias formas de expresarla (molaridad, %m/v, gramos por litro, partes por millón). La molaridad es solo una de esas formas, la más usada en química porque trabaja directamente en moles, ideal para hacer estequiometría después.</p>
-    <h3>¿Se puede diluir una solución para bajar la concentración más allá de cierto punto?</h3>
-    <p>En teoría sí, hasta hacerla prácticamente agua pura — en la práctica, hay un límite dado por cuánto solvente sea razonable agregar, y por la precisión con la que se pueda medir una concentración tan baja.</p>
-    <h3>¿Por qué al preparar una solución diluida hay que agregar el ácido al agua, y no al revés?</h3>
-    <p>Porque diluir un ácido concentrado libera calor — si agregas agua de golpe sobre el ácido, ese calor puede hacer que salpique violentamente. Agregando el ácido de a poco sobre el agua, el calor se disipa mucho más gradual y seguro.</p>
+    <h3>¿Cuál es la eficiencia real de un auto a nafta?</h3>
+    <p>Ronda entre 20% y 35% típicamente — la mayor parte de la energía del combustible se pierde como calor por el radiador y el escape, y una parte más chica en fricción mecánica. Los autos eléctricos tienen eficiencias mucho más altas (arriba del 85%) porque no dependen de convertir calor en trabajo.</p>
+    <h3>¿El aire acondicionado es lo mismo que un refrigerador?</h3>
+    <p>Sí, funciona con el mismo principio — extrae calor de adentro (el ambiente que enfría) y lo expulsa afuera, usando trabajo eléctrico para forzar ese flujo de calor en sentido contrario al natural.</p>
+    <h3>¿Por qué no se puede simplemente hacer una máquina 100% eficiente?</h3>
+    <p>Es una consecuencia fundamental de la Segunda Ley de la Termodinámica, no un problema de ingeniería que se pueda resolver con mejor tecnología — siempre hay una porción de energía que se degrada de una forma que ya no se puede aprovechar como trabajo útil.</p>
   </div>
 
   <div class="related">
     <h2>Temas relacionados</h2>
     <div class="related-links">
+      <a href="calor-especifico.html">Calor Específico y Cambios de Estado</a>
+      <a href="trabajo-energia.html">Trabajo y Energía</a>
+      <a href="energia-nuclear.html">Energía Nuclear</a>
       <a href="formulario.html">Machete de Fórmulas</a>
-      <a href="maquinas-termicas.html">Máquinas Térmicas y Eficiencia</a>
-      <a href="corriente-continua-alterna.html">Corriente Continua y Alterna</a>
-      <a href="caudal-continuidad.html">Caudal y Continuidad</a>
-      <a href="electromagnetismo.html">Electromagnetismo</a>
-      <a href="maquinas-simples.html">Máquinas Simples</a>
-      <a href="estequiometria.html">Estequiometría y El Mol</a>
-      <a href="acido-base.html">Ácido-Base y pH</a>
-      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
-      <a href="leyes-gases.html">Leyes de los Gases</a>
       <a href="evaluaciones.html">Evaluaciones</a>
       <a href="sobre-nosotros.html">Sobre la Fundadora</a>
       <a href="experimentos.html">Experimentos Caseros</a>
@@ -412,35 +378,22 @@
     });
   });
 
-  const ELECTRONEGATIVIDAD = {
-    Na:0.93, K:0.82, Ca:1.00, Mg:1.31, Al:1.61,
-    H:2.20, C:2.55, N:3.04, S:2.58, P:2.19,
-    Cl:3.16, O:3.44, F:3.98, Br:2.96
-  };
-
-  function clasificarEnlace(dEN){
-    if(dEN >= 1.7) return {tipo:'Iónico', detalle:'un átomo transfiere electrones al otro'};
-    if(dEN >= 0.4) return {tipo:'Covalente polar', detalle:'comparten los electrones, pero de forma desigual'};
-    return {tipo:'Covalente apolar', detalle:'comparten los electrones de forma pareja'};
-  }
-
   function calcBasico(){
-    const n = parseFloat(document.getElementById('b-n').value)||0;
-    const V = parseFloat(document.getElementById('b-V').value)||1;
-    const M = n/V;
+    const Eutil = parseFloat(document.getElementById('b-Eutil').value)||0;
+    const Etotal = parseFloat(document.getElementById('b-Etotal').value)||1;
+    const eficiencia = (Eutil/Etotal)*100;
     const out = document.getElementById('b-readout');
-    out.innerText = `M = n/V = ${n}/${V} = ${M.toFixed(3)} mol/L`;
+    out.innerText = `η = (${Eutil}/${Etotal}) × 100 = ${eficiencia.toFixed(1)}%`;
     out.classList.add('show');
   }
 
   function calcAvanzado(){
-    const M1 = parseFloat(document.getElementById('a-M1').value)||0;
-    const V1 = parseFloat(document.getElementById('a-V1').value)||0;
-    const M2 = parseFloat(document.getElementById('a-M2').value)||1;
-    const V2 = (M1*V1)/M2;
-    const agregar = V2-V1;
+    const eficiencia = parseFloat(document.getElementById('a-eficiencia').value)||0;
+    const Etotal = parseFloat(document.getElementById('a-energiaTotal').value)||0;
+    const Eutil = Etotal*(eficiencia/100);
+    const Eperdida = Etotal-Eutil;
     const out = document.getElementById('a-readout');
-    out.innerText = `M₁V₁ = M₂V₂ → ${M1}×${V1} = ${M2}×V₂\nV₂ = ${(M1*V1).toFixed(1)}/${M2} = ${V2.toFixed(1)} mL\nSolvente a agregar: ${V2.toFixed(1)} − ${V1} = ${agregar.toFixed(1)} mL`;
+    out.innerText = `Energía útil = ${Etotal} × ${(eficiencia/100).toFixed(2)} = ${Eutil.toFixed(1)} kWh\nEnergía perdida = ${Etotal} − ${Eutil.toFixed(1)} = ${Eperdida.toFixed(1)} kWh`;
     out.classList.add('show');
   }
 </script>

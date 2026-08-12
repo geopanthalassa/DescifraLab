@@ -368,6 +368,26 @@
     margin:0;
   }
 
+  .exp-acordeon{padding:0;overflow:hidden;}
+  .exp-card-header{
+    width:100%;
+    display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+    background:none;border:none;
+    padding:18px 20px;
+    text-align:left;cursor:pointer;
+    font-family:inherit;
+  }
+  .exp-card-header:hover{background:var(--paper);}
+  .exp-card-header h3{margin:4px 0 6px;}
+  .exp-flecha{font-size:14px;color:var(--ink-soft);flex-shrink:0;margin-top:8px;transition:transform 0.15s;}
+  .exp-acordeon.abierto .exp-flecha{transform:rotate(90deg);}
+  .exp-card-body{
+    max-height:0;overflow:hidden;
+    transition:max-height 0.3s ease;
+    padding:0 20px;
+  }
+  .exp-acordeon.abierto .exp-card-body{max-height:600px;padding:0 20px 20px;}
+
   .banco-grid{
     display:grid;
     grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
@@ -421,62 +441,97 @@
     <h2 class="mach-titulo">Mecánica</h2>
     <div class="exp-grid">
 
-      <div class="exp-card">
-        <h3>El mantel bajo los platos</h3>
-        <p class="exp-tema">Demuestra: Primera Ley de Newton (inercia)</p>
-        <p class="exp-materiales"><strong>Necesitas:</strong> un mantel liso (o una hoja de papel), platos de plástico o vasos livianos</p>
+      <div class="exp-card exp-acordeon" id="exp-card-1">
+        <button class="exp-card-header" onclick="toggleExpCard(1)">
+          <div>
+            <h3>El mantel bajo los platos</h3>
+            <p class="exp-tema">Demuestra: Primera Ley de Newton (inercia)</p>
+          </div>
+          <span class="exp-flecha">▶</span>
+        </button>
+        <div class="exp-card-body">
+          <p class="exp-materiales"><strong>Necesitas:</strong> un mantel liso (o una hoja de papel), platos de plástico o vasos livianos</p>
         <ol class="exp-pasos">
           <li>Pon el mantel sobre una mesa y los platos encima, cerca del borde donde vas a tirar.</li>
           <li>Con un movimiento rápido y firme, tira del mantel horizontalmente (no hacia arriba).</li>
           <li>Los platos deberían quedarse casi en el mismo lugar mientras el mantel sale volando.</li>
         </ol>
         <p class="exp-explica"><strong>Por qué pasa:</strong> los platos tienen inercia — tienden a quedarse quietos a menos que una fuerza los mueva. Si tiras rápido, la fricción entre mantel y platos actúa por muy poco tiempo, sin tiempo suficiente para moverlos.</p>
+        </div>
       </div>
 
-      <div class="exp-card">
-        <h3>Paracaídas casero</h3>
-        <p class="exp-tema">Demuestra: fuerza de rozamiento del aire, caída con y sin resistencia</p>
-        <p class="exp-materiales"><strong>Necesitas:</strong> una bolsa de plástico liviana, hilo, un objeto pequeño (una figura de juguete o una tuerca)</p>
+      <div class="exp-card exp-acordeon" id="exp-card-2">
+        <button class="exp-card-header" onclick="toggleExpCard(2)">
+          <div>
+            <h3>Paracaídas casero</h3>
+            <p class="exp-tema">Demuestra: fuerza de rozamiento del aire, caída con y sin resistencia</p>
+          </div>
+          <span class="exp-flecha">▶</span>
+        </button>
+        <div class="exp-card-body">
+          <p class="exp-materiales"><strong>Necesitas:</strong> una bolsa de plástico liviana, hilo, un objeto pequeño (una figura de juguete o una tuerca)</p>
         <ol class="exp-pasos">
           <li>Corta la bolsa en un cuadrado, ata 4 hilos a las esquinas, y unilos al objeto.</li>
           <li>Deja caer el objeto solo desde cierta altura, cronometrando con el celular.</li>
           <li>Repite desde la misma altura, ahora con el paracaídas armado.</li>
         </ol>
         <p class="exp-explica"><strong>Por qué pasa:</strong> el paracaídas aumenta muchísimo el área que empuja contra el aire, generando más resistencia (rozamiento del aire) que frena la caída — por eso tarda más en llegar al piso.</p>
+        </div>
       </div>
 
-      <div class="exp-card">
-        <h3>Huevo en caída controlada</h3>
-        <p class="exp-tema">Demuestra: impulso y por qué "amortiguar" reduce el daño</p>
-        <p class="exp-materiales"><strong>Necesitas:</strong> 2 huevos, algodón o servilletas, una caja chica, una superficie donde no importe ensuciar (o hacerlo afuera)</p>
+      <div class="exp-card exp-acordeon" id="exp-card-3">
+        <button class="exp-card-header" onclick="toggleExpCard(3)">
+          <div>
+            <h3>Huevo en caída controlada</h3>
+            <p class="exp-tema">Demuestra: impulso y por qué "amortiguar" reduce el daño</p>
+          </div>
+          <span class="exp-flecha">▶</span>
+        </button>
+        <div class="exp-card-body">
+          <p class="exp-materiales"><strong>Necesitas:</strong> 2 huevos, algodón o servilletas, una caja chica, una superficie donde no importe ensuciar (o hacerlo afuera)</p>
         <ol class="exp-pasos">
           <li>Deja caer un huevo sin protección desde 1 metro sobre el piso.</li>
           <li>Envuelve el segundo huevo en varias capas de algodón dentro de la caja, y dejalo caer desde la misma altura.</li>
         </ol>
         <p class="exp-explica"><strong>Por qué pasa:</strong> el impulso (J=FΔt) que recibe el huevo para frenar es el mismo en los dos casos — pero el algodón alarga el tiempo de frenado (Δt), así que la fuerza (F) necesaria es mucho menor. Por eso amortiguar protege: no cambia el impulso, cambia cuánto tiempo tarda en aplicarse.</p>
+        </div>
       </div>
 
-      <div class="exp-card">
-        <h3>Globo cohete</h3>
-        <p class="exp-tema">Demuestra: Tercera Ley de Newton (acción y reacción)</p>
-        <p class="exp-materiales"><strong>Necesitas:</strong> un globo, un hilo largo (2-3 metros), una pajita, cinta adhesiva</p>
+      <div class="exp-card exp-acordeon" id="exp-card-4">
+        <button class="exp-card-header" onclick="toggleExpCard(4)">
+          <div>
+            <h3>Globo cohete</h3>
+            <p class="exp-tema">Demuestra: Tercera Ley de Newton (acción y reacción)</p>
+          </div>
+          <span class="exp-flecha">▶</span>
+        </button>
+        <div class="exp-card-body">
+          <p class="exp-materiales"><strong>Necesitas:</strong> un globo, un hilo largo (2-3 metros), una pajita, cinta adhesiva</p>
         <ol class="exp-pasos">
           <li>Pasa el hilo por la pajita, y estiralo tenso entre dos puntos fijos (dos sillas, dos picaportes).</li>
           <li>Infla el globo sin atarlo, pegalo a la pajita con cinta, sosteniendo la boca del globo cerrada con los dedos.</li>
           <li>Soltalo y mira cómo sale disparado a lo largo del hilo.</li>
         </ol>
         <p class="exp-explica"><strong>Por qué pasa:</strong> el globo empuja el aire hacia atrás con fuerza (acción), y por la Tercera Ley de Newton, el aire empuja al globo con la misma fuerza pero en sentido contrario (reacción) — el mismo principio exacto con el que funciona un cohete real, solo que expulsando combustible en vez de aire.</p>
+        </div>
       </div>
 
-      <div class="exp-card">
-        <h3>La moneda y el vaso (inercia rotacional)</h3>
-        <p class="exp-tema">Demuestra: inercia, esta vez sobre un objeto que gira</p>
-        <p class="exp-materiales"><strong>Necesitas:</strong> un CD viejo o un plato chico, un globo inflado, una botella</p>
+      <div class="exp-card exp-acordeon" id="exp-card-5">
+        <button class="exp-card-header" onclick="toggleExpCard(5)">
+          <div>
+            <h3>La moneda y el vaso (inercia rotacional)</h3>
+            <p class="exp-tema">Demuestra: inercia, esta vez sobre un objeto que gira</p>
+          </div>
+          <span class="exp-flecha">▶</span>
+        </button>
+        <div class="exp-card-body">
+          <p class="exp-materiales"><strong>Necesitas:</strong> un CD viejo o un plato chico, un globo inflado, una botella</p>
         <ol class="exp-pasos">
           <li>Apoya el CD sobre la boca de la botella, y encima pon el globo inflado parado en su base.</li>
           <li>Con un dedo, haz girar el CD rápido como un trompo, y mientras gira, sacalo de un tirón horizontal.</li>
         </ol>
         <p class="exp-explica"><strong>Por qué pasa:</strong> el globo tiene inercia y "quiere" seguir en el mismo lugar. El CD, al girar rápido, tiene tan poca fricción con el globo en el instante del tirón que no alcanza a arrastrarlo — el globo cae derecho sobre la botella en vez de salir volando con el CD.</p>
+        </div>
       </div>
 
     </div>
@@ -487,40 +542,61 @@
     <h2 class="mach-titulo">Electricidad</h2>
     <div class="exp-grid">
 
-      <div class="exp-card">
-        <h3>Pila casera de limón</h3>
-        <p class="exp-tema">Demuestra: cómo se genera corriente eléctrica</p>
-        <p class="exp-materiales"><strong>Necesitas:</strong> un limón, una moneda de cobre (o un clavo de cobre), un clavo de hierro o zinc galvanizado, cables con pinzas cocodrilo, un LED chico o un multímetro</p>
+      <div class="exp-card exp-acordeon" id="exp-card-6">
+        <button class="exp-card-header" onclick="toggleExpCard(6)">
+          <div>
+            <h3>Pila casera de limón</h3>
+            <p class="exp-tema">Demuestra: cómo se genera corriente eléctrica</p>
+          </div>
+          <span class="exp-flecha">▶</span>
+        </button>
+        <div class="exp-card-body">
+          <p class="exp-materiales"><strong>Necesitas:</strong> un limón, una moneda de cobre (o un clavo de cobre), un clavo de hierro o zinc galvanizado, cables con pinzas cocodrilo, un LED chico o un multímetro</p>
         <ol class="exp-pasos">
           <li>Clava el clavo de zinc y la moneda de cobre en el limón, separados, sin que se toquen.</li>
           <li>Conecta un cable de cada metal, y unilos a un LED (o mide el voltaje con un multímetro).</li>
           <li>Un solo limón da poco voltaje — si tienes varios, conectalos en cadena (serie) para sumar voltaje.</li>
         </ol>
         <p class="exp-explica"><strong>Por qué pasa:</strong> el ácido cítrico del limón actúa como electrolito, permitiendo una reacción química entre los dos metales distintos que libera electrones — literalmente una pila química, como las que usas todos los días.</p>
+        </div>
       </div>
 
-      <div class="exp-card">
-        <h3>Electroimán casero</h3>
-        <p class="exp-tema">Demuestra: cómo la corriente eléctrica genera magnetismo</p>
-        <p class="exp-materiales"><strong>Necesitas:</strong> un clavo grande de hierro, cable de cobre esmaltado (o cualquier cable fino), una pila de 9V, clips o alfileres</p>
+      <div class="exp-card exp-acordeon" id="exp-card-7">
+        <button class="exp-card-header" onclick="toggleExpCard(7)">
+          <div>
+            <h3>Electroimán casero</h3>
+            <p class="exp-tema">Demuestra: cómo la corriente eléctrica genera magnetismo</p>
+          </div>
+          <span class="exp-flecha">▶</span>
+        </button>
+        <div class="exp-card-body">
+          <p class="exp-materiales"><strong>Necesitas:</strong> un clavo grande de hierro, cable de cobre esmaltado (o cualquier cable fino), una pila de 9V, clips o alfileres</p>
         <ol class="exp-pasos">
           <li>Enrolla el cable apretado alrededor del clavo, dejando los dos extremos libres (unas 30-50 vueltas).</li>
           <li>Conecta los dos extremos del cable a los polos de la pila.</li>
           <li>Acerca el clavo a los clips — debería atraerlos mientras el circuito esté cerrado.</li>
         </ol>
         <p class="exp-explica"><strong>Por qué pasa:</strong> toda corriente eléctrica genera un campo magnético a su alrededor. Al enrollar el cable en espiral, esos campos se suman y se concentran en el clavo de hierro, convirtiéndolo en un imán temporal — funciona solo mientras circula corriente.</p>
+        </div>
       </div>
 
-      <div class="exp-card">
-        <h3>El globo que dobla el agua</h3>
-        <p class="exp-tema">Demuestra: electricidad estática y atracción de cargas</p>
-        <p class="exp-materiales"><strong>Necesitas:</strong> un globo, una canilla, tu propio pelo (seco)</p>
+      <div class="exp-card exp-acordeon" id="exp-card-8">
+        <button class="exp-card-header" onclick="toggleExpCard(8)">
+          <div>
+            <h3>El globo que dobla el agua</h3>
+            <p class="exp-tema">Demuestra: electricidad estática y atracción de cargas</p>
+          </div>
+          <span class="exp-flecha">▶</span>
+        </button>
+        <div class="exp-card-body">
+          <p class="exp-materiales"><strong>Necesitas:</strong> un globo, una canilla, tu propio pelo (seco)</p>
         <ol class="exp-pasos">
           <li>Frota el globo enérgicamente contra tu pelo seco durante unos 20 segundos.</li>
           <li>Abre la canilla dejando salir un chorrito fino y constante de agua.</li>
           <li>Acerca el globo (sin tocar el agua) al chorro, de a poco.</li>
         </ol>
         <p class="exp-explica"><strong>Por qué pasa:</strong> frotar el globo le saca electrones al pelo, dejando al globo con carga negativa. Esa carga atrae a las moléculas de agua (que tienen zonas con carga positiva, por ser polares) y el chorro se curva hacia el globo sin que se toquen — la misma idea de "cargas opuestas se atraen" que después vas a ver en electricidad.</p>
+        </div>
       </div>
 
     </div>
@@ -531,49 +607,77 @@
     <h2 class="mach-titulo">Termodinámica y Fluidos</h2>
     <div class="exp-grid">
 
-      <div class="exp-card">
-        <h3>Huevo que flota o se hunde</h3>
-        <p class="exp-tema">Demuestra: densidad y flotación (Principio de Arquímedes)</p>
-        <p class="exp-materiales"><strong>Necesitas:</strong> 2 vasos altos, agua, sal, un huevo</p>
+      <div class="exp-card exp-acordeon" id="exp-card-9">
+        <button class="exp-card-header" onclick="toggleExpCard(9)">
+          <div>
+            <h3>Huevo que flota o se hunde</h3>
+            <p class="exp-tema">Demuestra: densidad y flotación (Principio de Arquímedes)</p>
+          </div>
+          <span class="exp-flecha">▶</span>
+        </button>
+        <div class="exp-card-body">
+          <p class="exp-materiales"><strong>Necesitas:</strong> 2 vasos altos, agua, sal, un huevo</p>
         <ol class="exp-pasos">
           <li>Llena un vaso con agua de la canilla y pon el huevo — se va a hundir.</li>
           <li>En el otro vaso, disuelve varias cucharadas de sal en agua hasta que quede bien saturada, y pon el huevo.</li>
         </ol>
         <p class="exp-explica"><strong>Por qué pasa:</strong> el agua salada es más densa que el agua dulce. Cuando la densidad del líquido supera la densidad del huevo, el empuje (E=ρ·g·V) alcanza para flotarlo — el mismo principio por el que es más fácil flotar en el mar que en una pileta.</p>
+        </div>
       </div>
 
-      <div class="exp-card">
-        <h3>Lámpara de lava casera</h3>
-        <p class="exp-tema">Demuestra: densidad, y por qué el agua y el aceite no se mezclan</p>
-        <p class="exp-materiales"><strong>Necesitas:</strong> una botella transparente, aceite vegetal, agua, colorante, una pastilla efervescente</p>
+      <div class="exp-card exp-acordeon" id="exp-card-10">
+        <button class="exp-card-header" onclick="toggleExpCard(10)">
+          <div>
+            <h3>Lámpara de lava casera</h3>
+            <p class="exp-tema">Demuestra: densidad, y por qué el agua y el aceite no se mezclan</p>
+          </div>
+          <span class="exp-flecha">▶</span>
+        </button>
+        <div class="exp-card-body">
+          <p class="exp-materiales"><strong>Necesitas:</strong> una botella transparente, aceite vegetal, agua, colorante, una pastilla efervescente</p>
         <ol class="exp-pasos">
           <li>Llena la botella 3/4 con aceite y el resto con agua con unas gotas de colorante.</li>
           <li>Espera a que se separen en dos capas bien definidas.</li>
           <li>Parte la pastilla efervescente en trozos chicos y agrega uno por vez.</li>
         </ol>
         <p class="exp-explica"><strong>Por qué pasa:</strong> el aceite es menos denso que el agua, por eso flota arriba y no se mezcla (además de ser químicamente distintos — recuerda "polar disuelve polar"). La pastilla reacciona con el agua liberando CO₂, que arrastra gotas de agua coloreada hacia arriba en burbujas — al llegar a la superficie, el gas escapa y la gota vuelve a caer.</p>
+        </div>
       </div>
 
-      <div class="exp-card">
-        <h3>El globo que no explota con fuego</h3>
-        <p class="exp-tema">Demuestra: calor específico del agua</p>
-        <p class="exp-materiales"><strong>Necesitas:</strong> 2 globos, agua, una vela o encendedor (con supervisión de un adulto)</p>
+      <div class="exp-card exp-acordeon" id="exp-card-11">
+        <button class="exp-card-header" onclick="toggleExpCard(11)">
+          <div>
+            <h3>El globo que no explota con fuego</h3>
+            <p class="exp-tema">Demuestra: calor específico del agua</p>
+          </div>
+          <span class="exp-flecha">▶</span>
+        </button>
+        <div class="exp-card-body">
+          <p class="exp-materiales"><strong>Necesitas:</strong> 2 globos, agua, una vela o encendedor (con supervisión de un adulto)</p>
         <ol class="exp-pasos">
           <li>Infla un globo con solo aire y acercalo a la llama — va a explotar rápido.</li>
           <li>Llena otro globo con agua (y un poco de aire para que no pese tanto) y acercalo con cuidado a la misma llama.</li>
         </ol>
         <p class="exp-explica"><strong>Por qué pasa:</strong> el agua dentro del globo absorbe el calor de la llama muchísimo más rápido de lo que se calienta el plástico — su alto calor específico (4186 J/kg·°C) hace que necesite mucha energía para subir de temperatura, protegiendo al globo de quemarse.</p>
+        </div>
       </div>
 
-      <div class="exp-card">
-        <h3>La lata que se aplasta sola</h3>
-        <p class="exp-tema">Demuestra: presión atmosférica y cambios de estado</p>
-        <p class="exp-materiales"><strong>Necesitas:</strong> una lata de aluminio vacía (de gaseosa), un poco de agua, una hornalla, pinzas, un recipiente con agua bien fría (con supervisión de un adulto)</p>
+      <div class="exp-card exp-acordeon" id="exp-card-12">
+        <button class="exp-card-header" onclick="toggleExpCard(12)">
+          <div>
+            <h3>La lata que se aplasta sola</h3>
+            <p class="exp-tema">Demuestra: presión atmosférica y cambios de estado</p>
+          </div>
+          <span class="exp-flecha">▶</span>
+        </button>
+        <div class="exp-card-body">
+          <p class="exp-materiales"><strong>Necesitas:</strong> una lata de aluminio vacía (de gaseosa), un poco de agua, una hornalla, pinzas, un recipiente con agua bien fría (con supervisión de un adulto)</p>
         <ol class="exp-pasos">
           <li>Pon apenas un chorrito de agua en la lata (unas cucharadas) y calentala en la hornalla hasta que salga vapor por la boca.</li>
           <li>Con las pinzas, dala vuelta rápido y sumerge la boca en el recipiente de agua fría.</li>
         </ol>
         <p class="exp-explica"><strong>Por qué pasa:</strong> el vapor de agua caliente llena la lata y empuja el aire hacia afuera. Al enfriarse de golpe, el vapor se condensa en agua líquida casi instantáneamente, dejando un vacío parcial adentro — la presión atmosférica de afuera (que sigue empujando normal) aplasta la lata porque ya no hay presión de gas adentro que la equilibre.</p>
+        </div>
       </div>
 
     </div>
@@ -584,60 +688,95 @@
     <h2 class="mach-titulo">Química</h2>
     <div class="exp-grid">
 
-      <div class="exp-card">
-        <h3>Volcán de bicarbonato</h3>
-        <p class="exp-tema">Demuestra: reacción ácido-base, liberación de gas</p>
-        <p class="exp-materiales"><strong>Necesitas:</strong> bicarbonato de sodio, vinagre, un recipiente (mejor si es angosto), colorante opcional</p>
+      <div class="exp-card exp-acordeon" id="exp-card-13">
+        <button class="exp-card-header" onclick="toggleExpCard(13)">
+          <div>
+            <h3>Volcán de bicarbonato</h3>
+            <p class="exp-tema">Demuestra: reacción ácido-base, liberación de gas</p>
+          </div>
+          <span class="exp-flecha">▶</span>
+        </button>
+        <div class="exp-card-body">
+          <p class="exp-materiales"><strong>Necesitas:</strong> bicarbonato de sodio, vinagre, un recipiente (mejor si es angosto), colorante opcional</p>
         <ol class="exp-pasos">
           <li>Pon 2-3 cucharadas de bicarbonato en el recipiente.</li>
           <li>Agrega de golpe un chorro de vinagre (con unas gotas de colorante si quieres el efecto "lava").</li>
         </ol>
         <p class="exp-explica"><strong>Por qué pasa:</strong> el vinagre (ácido acético) reacciona con el bicarbonato (una base) liberando dióxido de carbono en forma de gas — es esa efervescencia la que empuja la espuma hacia afuera.</p>
+        </div>
       </div>
 
-      <div class="exp-card">
-        <h3>Indicador de pH con repollo morado</h3>
-        <p class="exp-tema">Demuestra: cómo cambia de color según ácido o base (adelanto de pH)</p>
-        <p class="exp-materiales"><strong>Necesitas:</strong> repollo morado, agua caliente, vasos, distintos líquidos de la cocina (limón, vinagre, agua con bicarbonato, agua con jabón)</p>
+      <div class="exp-card exp-acordeon" id="exp-card-14">
+        <button class="exp-card-header" onclick="toggleExpCard(14)">
+          <div>
+            <h3>Indicador de pH con repollo morado</h3>
+            <p class="exp-tema">Demuestra: cómo cambia de color según ácido o base (adelanto de pH)</p>
+          </div>
+          <span class="exp-flecha">▶</span>
+        </button>
+        <div class="exp-card-body">
+          <p class="exp-materiales"><strong>Necesitas:</strong> repollo morado, agua caliente, vasos, distintos líquidos de la cocina (limón, vinagre, agua con bicarbonato, agua con jabón)</p>
         <ol class="exp-pasos">
           <li>Corta el repollo en trozos chicos, ponelo en agua caliente 10 minutos, y cuela — ese líquido morado es tu indicador.</li>
           <li>Reparte el líquido en varios vasos, y agrega un poco de cada sustancia a probar en cada uno.</li>
         </ol>
         <p class="exp-explica"><strong>Por qué pasa:</strong> el pigmento del repollo morado (una antocianina) cambia de color según cuán ácida o básica es la sustancia que se le agrega — rosado/rojo con ácidos, verde/amarillo con bases. Es el mismo principio que usan los indicadores de pH de laboratorio.</p>
+        </div>
       </div>
 
-      <div class="exp-card">
-        <h3>Clavo oxidándose en vinagre</h3>
-        <p class="exp-tema">Demuestra: oxidación acelerada (reacción redox)</p>
-        <p class="exp-materiales"><strong>Necesitas:</strong> un clavo de hierro sin pintar, vinagre, un vaso, sal opcional</p>
+      <div class="exp-card exp-acordeon" id="exp-card-15">
+        <button class="exp-card-header" onclick="toggleExpCard(15)">
+          <div>
+            <h3>Clavo oxidándose en vinagre</h3>
+            <p class="exp-tema">Demuestra: oxidación acelerada (reacción redox)</p>
+          </div>
+          <span class="exp-flecha">▶</span>
+        </button>
+        <div class="exp-card-body">
+          <p class="exp-materiales"><strong>Necesitas:</strong> un clavo de hierro sin pintar, vinagre, un vaso, sal opcional</p>
         <ol class="exp-pasos">
           <li>Sumerge el clavo en vinagre (agregar una pizca de sal acelera el proceso).</li>
           <li>Dejalo así por 2-3 días, revisando cada tanto.</li>
         </ol>
         <p class="exp-explica"><strong>Por qué pasa:</strong> el ambiente ácido acelera la reacción entre el hierro y el oxígeno disuelto, formando óxido — el mismo proceso que la herrumbre natural, pero mucho más rápido gracias al vinagre.</p>
+        </div>
       </div>
 
-      <div class="exp-card">
-        <h3>Cromatografía de marcadores</h3>
-        <p class="exp-tema">Demuestra: separación de mezclas (adelanto de mezclas y separación)</p>
-        <p class="exp-materiales"><strong>Necesitas:</strong> papel de filtro para café (o servilleta de papel blanca), marcadores de distintos colores (los de agua funcionan mejor), un vaso con un poquito de agua</p>
+      <div class="exp-card exp-acordeon" id="exp-card-16">
+        <button class="exp-card-header" onclick="toggleExpCard(16)">
+          <div>
+            <h3>Cromatografía de marcadores</h3>
+            <p class="exp-tema">Demuestra: separación de mezclas (adelanto de mezclas y separación)</p>
+          </div>
+          <span class="exp-flecha">▶</span>
+        </button>
+        <div class="exp-card-body">
+          <p class="exp-materiales"><strong>Necesitas:</strong> papel de filtro para café (o servilleta de papel blanca), marcadores de distintos colores (los de agua funcionan mejor), un vaso con un poquito de agua</p>
         <ol class="exp-pasos">
           <li>Corta tiras de papel, y haz un punto de marcador cerca de un extremo de cada una.</li>
           <li>Metela parada en el vaso, con la punta (sin el punto de marcador) tocando el agua — el agua no debe tocar el punto de tinta directamente.</li>
           <li>Espera a que el agua suba por el papel y arrastre la tinta.</li>
         </ol>
         <p class="exp-explica"><strong>Por qué pasa:</strong> muchos colores de marcador en realidad son mezclas de varios pigmentos distintos. El agua arrastra cada pigmento a distinta velocidad según qué tan bien se pega al papel — así se separan visualmente en bandas de color.</p>
+        </div>
       </div>
 
-      <div class="exp-card">
-        <h3>Tinta invisible de limón</h3>
-        <p class="exp-tema">Demuestra: oxidación revelada por calor</p>
-        <p class="exp-materiales"><strong>Necesitas:</strong> jugo de limón, un palillo o pincel fino, papel blanco, una fuente de calor suave (lamparita encendida o plancha tibia, con supervisión de un adulto)</p>
+      <div class="exp-card exp-acordeon" id="exp-card-17">
+        <button class="exp-card-header" onclick="toggleExpCard(17)">
+          <div>
+            <h3>Tinta invisible de limón</h3>
+            <p class="exp-tema">Demuestra: oxidación revelada por calor</p>
+          </div>
+          <span class="exp-flecha">▶</span>
+        </button>
+        <div class="exp-card-body">
+          <p class="exp-materiales"><strong>Necesitas:</strong> jugo de limón, un palillo o pincel fino, papel blanco, una fuente de calor suave (lamparita encendida o plancha tibia, con supervisión de un adulto)</p>
         <ol class="exp-pasos">
           <li>Moja el palillo en jugo de limón y escribe o dibuja algo en el papel — al secarse, se vuelve invisible.</li>
           <li>Para revelarlo, acerca el papel con cuidado a una fuente de calor suave (nunca fuego directo) durante unos segundos.</li>
         </ol>
         <p class="exp-explica"><strong>Por qué pasa:</strong> el jugo de limón debilita las fibras del papel en esa zona. Al calentarse, esas zonas se oxidan (reaccionan con el oxígeno del aire) más rápido que el resto del papel y se doran antes, revelando el dibujo — el mismo tipo de reacción que dora una tostada.</p>
+        </div>
       </div>
 
     </div>
@@ -705,8 +844,10 @@
 </div>
 
 <script>
-  // Esta página es solo de referencia — no necesita lógica interactiva,
-  // cada bloque es un enlace directo a su página completa.
+  function toggleExpCard(idx){
+    const card = document.getElementById('exp-card-'+idx);
+    card.classList.toggle('abierto');
+  }
 </script>
 
 </body>

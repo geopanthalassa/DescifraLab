@@ -265,7 +265,7 @@
 
     <div class="card" data-tag="Simulación">
       <h2>Mira la barra alargarse</h2>
-      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Mueves la temperatura y miras cómo cambia la longitud real de la barra, a escala, comparada contra una regla fija.</p>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Mueves la temperatura y miras la barra crecer o encogerse comparada contra una regla fija. El dibujo está agrandado a propósito — la dilatación real es tan chica que sería invisible a simple vista, pero el número real (abajo) siempre es exacto.</p>
       <div class="sim-box">
         <canvas id="bar-canvas" width="680" height="140"></canvas>
         <div class="sim-readout">
@@ -365,6 +365,9 @@
     <h2>Temas relacionados</h2>
     <div class="related-links">
       <a href="formulario.html">Machete de Fórmulas</a>
+      <a href="maquinas-termicas.html">Máquinas Térmicas y Eficiencia</a>
+      <a href="corriente-continua-alterna.html">Corriente Continua y Alterna</a>
+      <a href="caudal-continuidad.html">Caudal y Continuidad</a>
       <a href="electromagnetismo.html">Electromagnetismo</a>
       <a href="maquinas-simples.html">Máquinas Simples</a>
       <a href="sobre-nosotros.html">Sobre la Fundadora</a>
@@ -420,32 +423,39 @@
 
   function drawBar(ctx, w, h, L0, dL){
     ctx.clearRect(0,0,w,h);
-    const scale = 40; // píxeles por metro, para que se note el cambio visualmente
     const baseX = 60, baseY = h/2;
+    const baseWidthPx = 480; // ancho fijo en píxeles que representa L0, sea cual sea su valor real
+    const AMPLIFICACION = 120; // el cambio real es invisible al ojo — se agranda para poder verlo
 
     // regla de referencia (longitud original, fija, en gris)
     ctx.strokeStyle = '#3A4756';
     ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.moveTo(baseX, baseY-30);
-    ctx.lineTo(baseX + L0*scale, baseY-30);
+    ctx.lineTo(baseX + baseWidthPx, baseY-30);
     ctx.stroke();
     ctx.fillStyle = '#5C6B7A';
     ctx.font = '11px JetBrains Mono';
     ctx.fillText('Longitud original: '+L0.toFixed(2)+' m', baseX, baseY-38);
 
-    // barra real (cambia de longitud, en ámbar/verde según se alarga o acorta)
+    // barra real: el ancho en pantalla crece según el cambio RELATIVO (dL/L0), amplificado
+    const fraccion = L0!==0 ? dL/L0 : 0;
+    const anchoReal = baseWidthPx * (1 + fraccion*AMPLIFICACION);
     const Lreal = L0 + dL;
     const barColor = dL >= 0 ? '#D9A441' : '#7FB8E3';
     ctx.strokeStyle = barColor;
     ctx.lineWidth = 10;
     ctx.beginPath();
     ctx.moveTo(baseX, baseY+20);
-    ctx.lineTo(baseX + Lreal*scale, baseY+20);
+    ctx.lineTo(baseX + Math.max(anchoReal, 4), baseY+20);
     ctx.stroke();
     ctx.fillStyle = barColor;
     ctx.font = '12px JetBrains Mono';
     ctx.fillText('Longitud real: '+Lreal.toFixed(5)+' m', baseX, baseY+45);
+
+    ctx.fillStyle = '#5C6B7A';
+    ctx.font = '10px JetBrains Mono';
+    ctx.fillText('(el dibujo está ×'+AMPLIFICACION+' agrandado — en la realidad esto sería invisible a simple vista)', baseX, baseY+68);
   }
 
   function updateBar(dTValue){

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Concentración de Soluciones — Molaridad, %m/v y Dilución — DescifraLab</title>
+<title>Corriente Continua y Alterna — CC vs. CA — DescifraLab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -225,40 +225,26 @@
   }
   .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
 
-  .ph-escala{margin-top:14px;}
-  .ph-barra{
-    display:flex;
-    border:2px solid var(--ink);
-    border-radius:8px;
+  .dato-freak{
+    background:linear-gradient(135deg, var(--ink) 0%, var(--pine-dark) 100%);
+    color:#EAF2EE;
+    border:none;
+    position:relative;
     overflow:hidden;
   }
-  .ph-segmento{
-    flex:1;
-    padding:14px 4px;
-    text-align:center;
+  .dato-freak h2{color:#fff;}
+  .dato-freak p{color:#CBDBD3;}
+  .dato-freak strong{color:var(--amber);}
+  .dato-freak-tag{
+    display:inline-block;
+    background:var(--amber);
+    color:var(--ink);
     font-family:'JetBrains Mono', monospace;
     font-size:11px;font-weight:700;
-    color:#fff;
-    text-shadow:0 1px 2px rgba(0,0,0,0.3);
-  }
-
-  .enlace-analogia{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
-    gap:14px;margin-top:16px;
-  }
-  .enlace-tipo{
-    border:2.5px solid;
-    padding:16px;
-    background:var(--paper);
-  }
-  .enlace-icono{font-size:32px;margin-bottom:6px;}
-  .enlace-tipo h3{font-size:15px;margin:0 0 8px;font-family:'Fraunces',serif;}
-  .enlace-tipo p{font-size:13.5px;margin:0 0 8px;}
-  .enlace-ejemplo{
-    font-size:12.5px;color:var(--ink-soft);
-    border-top:1px dashed var(--line);
-    padding-top:8px;margin-top:8px !important;
+    text-transform:uppercase;letter-spacing:0.05em;
+    padding:4px 10px;
+    border-radius:4px;
+    margin-bottom:10px;
   }
 </style>
 </head>
@@ -266,9 +252,9 @@
 
 <header class="top">
   <a href="index.html" class="brand-link">DescifraLab</a>
-  <div class="eyebrow">Química · Soluciones</div>
-  <h1>Concentración de Soluciones</h1>
-  <p class="subtitle">Molaridad, porcentaje masa/volumen, calculadora de dilución, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
+  <div class="eyebrow">Electricidad</div>
+  <h1>Corriente Continua y Alterna</h1>
+  <p class="subtitle">CC vs. CA, frecuencia, período, y el valor eficaz que realmente ves en tu factura de luz.</p>
   <nav class="level-nav">
     <button class="level-btn active" data-target="basico">Básico</button>
     <button class="level-btn" data-target="avanzado">Avanzado</button>
@@ -281,42 +267,51 @@
   <section class="level active" data-level="basico">
 
     <div class="card" data-tag="Concepto">
-      <h2>¿Qué es la concentración de una solución?</h2>
-      <p>Una solución es una mezcla homogénea de un <strong>soluto</strong> (lo que se disuelve, generalmente en menor cantidad) en un <strong>solvente</strong> (lo que disuelve, generalmente en mayor cantidad). La concentración mide cuánto soluto hay por cada cantidad de solución — el café "cargado" tiene más soluto (café) por la misma cantidad de agua que uno "liviano".</p>
-      <div class="formula-box">Molaridad: M = n / V</div>
-      <p class="var-list"><span>M</span> = molaridad (mol/L) &nbsp;·&nbsp; <span>n</span> = moles de soluto &nbsp;·&nbsp; <span>V</span> = volumen de la solución (L, no solo del solvente)</p>
+      <h2>Dos formas distintas de que fluya la corriente</h2>
+      <p><strong>Corriente continua (CC):</strong> circula siempre en el mismo sentido, con un valor constante — como la de una pila o batería.</p>
+      <p><strong>Corriente alterna (CA):</strong> cambia periódicamente de sentido, oscilando como una onda — es la que llega a los enchufes de tu casa.</p>
+      <div class="formula-box">f = 1 / T</div>
+      <p class="var-list"><span>f</span> = frecuencia (Hz, ciclos por segundo) &nbsp;·&nbsp; <span>T</span> = período (segundos, tiempo de un ciclo completo)</p>
+    </div>
+
+    <div class="card dato-freak">
+      <div class="dato-freak-tag">Dato freak</div>
+      <h2>La Guerra de las Corrientes: Edison contra Tesla</h2>
+      <p>En la década de 1880, <strong>Thomas Edison</strong> ya era el inventor más famoso de Estados Unidos, y había apostado todo su negocio a la corriente continua. Pero tenía un problema serio: la CC pierde muchísima energía en distancias largas, así que necesitabas una central eléctrica cada pocas cuadras.</p>
+      <p><strong>Nikola Tesla</strong> (que había trabajado para Edison y se fue peleado con él) tenía la solución: la corriente alterna, que con transformadores se puede mandar a alto voltaje por distancias enormes sin perder tanta energía. Tesla se asoció con el empresario George Westinghouse para desarrollarla.</p>
+      <p>Edison, viendo peligrar su negocio, lanzó una campaña de desprestigio bastante sucia — organizó demostraciones públicas electrocutando animales con corriente alterna para "probar" que era peligrosa, mientras promocionaba la corriente continua como segura.</p>
+      <p style="color:var(--ink-soft);font-size:13px;">La pelea se definió en 1893: la Exposición Universal de Chicago le dio el contrato de iluminación a Westinghouse (más barato), y ese mismo año Westinghouse y Tesla ganaron el contrato para la primera gran central hidroeléctrica del mundo, en las Cataratas del Niágara. La corriente alterna ganó la guerra — y es, hasta hoy, la que usamos en cada enchufe de tu casa.</p>
     </div>
 
     <div class="card" data-tag="Calculadora">
-      <h2>Calcula la molaridad</h2>
+      <h2>Calcula el período o la frecuencia</h2>
       <div class="calc-grid">
-        <div class="field"><label>Moles de soluto (n)</label><input type="number" id="b-n" value="0.5"></div>
-        <div class="field"><label>Volumen de la solución (L)</label><input type="number" id="b-V" value="2"></div>
+        <div class="field"><label>Frecuencia f (Hz)</label><input type="number" id="b-f" value="50"></div>
       </div>
-      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
+      <button class="calc-btn" onclick="calcBasico()">Calcular período</button>
       <div class="readout" id="b-readout"></div>
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
       <h2>Ejemplo</h2>
       <div class="example">
-        <p><strong>Disuelves 0.5 moles de NaCl en agua hasta completar 2 litros de solución. ¿Cuál es la molaridad?</strong></p>
-        <p>M = n/V = 0.5/2 = <strong>0.25 mol/L</strong></p>
-        <p>Se lee "0.25 molar" (0.25 M) — significa que hay 0.25 moles de NaCl disueltos en cada litro de esa solución.</p>
+        <p><strong>La corriente alterna en Argentina y gran parte de Latinoamérica tiene una frecuencia de 50 Hz. ¿Cuál es su período?</strong></p>
+        <p>T = 1/f = 1/50 = <strong>0.02 s (20 milisegundos)</strong></p>
+        <p>Significa que la corriente cambia de sentido, completa un ciclo entero, ¡50 veces por segundo!</p>
       </div>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
       <h2>Ejercicios con respuesta</h2>
       <ol>
-        <li>¿Cuál es la molaridad de una solución con 2 moles de soluto en 4 litros?
-          <details><summary>Ver respuesta</summary>M = 2/4 = 0.5 mol/L</details>
+        <li>En Estados Unidos, la red eléctrica funciona a 60 Hz. ¿Cuál es su período?
+          <details><summary>Ver respuesta</summary>T = 1/60 ≈ 0.0167 s</details>
         </li>
-        <li>Si tienes 0.1 moles disueltos en 500 mL (0.5 L), ¿cuál es la molaridad?
-          <details><summary>Ver respuesta</summary>M = 0.1/0.5 = 0.2 mol/L (ojo: hay que convertir mL a L primero)</details>
+        <li>¿Por qué una pila da corriente continua?
+          <details><summary>Ver respuesta</summary>Porque la reacción química interna siempre empuja los electrones en el mismo sentido (del polo negativo al positivo por el circuito externo) — no hay nada que invierta ese sentido periódicamente.</details>
         </li>
-        <li>¿Por qué la molaridad usa el volumen de la solución completa y no solo del solvente?
-          <details><summary>Ver respuesta</summary>Porque al disolver algo, el volumen final de la mezcla no es simplemente la suma exacta de ambos volúmenes por separado — se mide directamente el volumen total ya mezclado, que es lo que realmente importa para saber "cuánto hay por litro" en la práctica.</details>
+        <li>¿Por qué las líneas de alta tensión que cruzan el país usan corriente alterna y no continua?
+          <details><summary>Ver respuesta</summary>Porque la corriente alterna se puede transformar fácilmente a distintos voltajes con transformadores, permitiendo transmitir a muy alto voltaje (menos pérdidas por el cableado) y después "bajarlo" a un voltaje seguro para las casas.</details>
         </li>
       </ol>
     </div>
@@ -327,44 +322,41 @@
   <section class="level" data-level="avanzado">
 
     <div class="card" data-tag="Concepto">
-      <h2>Dilución: agregar más solvente</h2>
-      <p>Diluir una solución significa agregarle más solvente sin agregar más soluto — la cantidad de soluto (moles) no cambia, pero al aumentar el volumen, la concentración baja. Esta relación se resume en una fórmula muy usada en el laboratorio:</p>
-      <div class="formula-box">M₁ · V₁ = M₂ · V₂</div>
-      <p class="var-list"><span>M₁, V₁</span> = molaridad y volumen antes de diluir &nbsp;·&nbsp; <span>M₂, V₂</span> = molaridad y volumen después de diluir</p>
+      <h2>Valor eficaz (RMS): el número que realmente ves</h2>
+      <p>Como la corriente alterna oscila constantemente entre un máximo positivo y un máximo negativo, hablar de "el voltaje" necesita una forma de resumir ese vaivén en un solo número útil — ese número es el <strong>valor eficaz</strong> (RMS, root mean square).</p>
+      <div class="formula-box">V_eficaz = V_máx / √2</div>
+      <p class="var-list">Cuando decís que en tu casa hay "220 V", ese es el valor eficaz — el voltaje máximo real que alcanza la onda en sus picos es más alto todavía.</p>
     </div>
 
     <div class="card" data-tag="Calculadora">
-      <h2>Calcula la dilución</h2>
-      <p style="color:var(--ink-soft);font-size:13.5px;margin-top:-4px;">Metes 3 datos conocidos, calcula el volumen final necesario.</p>
+      <h2>Calcula el voltaje máximo real</h2>
       <div class="calc-grid">
-        <div class="field"><label>Molaridad inicial M₁ (mol/L)</label><input type="number" id="a-M1" value="2"></div>
-        <div class="field"><label>Volumen inicial V₁ (mL)</label><input type="number" id="a-V1" value="50"></div>
-        <div class="field"><label>Molaridad final deseada M₂ (mol/L)</label><input type="number" id="a-M2" value="0.5"></div>
+        <div class="field"><label>Voltaje eficaz (V, el que "se usa" normalmente)</label><input type="number" id="a-Vef" value="220"></div>
       </div>
-      <button class="calc-btn" onclick="calcAvanzado()">Calcular</button>
+      <button class="calc-btn" onclick="calcAvanzado()">Calcular V máximo</button>
       <div class="readout" id="a-readout"></div>
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
       <h2>Ejemplo</h2>
       <div class="example">
-        <p><strong>Tienes 50 mL de una solución 2 M, y quieres diluirla hasta 0.5 M. ¿Qué volumen final necesitas?</strong></p>
-        <p>M₁V₁ = M₂V₂ → 2×50 = 0.5×V₂ → V₂ = 100/0.5 = <strong>200 mL</strong></p>
-        <p>Como ya tenías 50 mL, necesitas agregar 200−50 = <strong>150 mL de solvente</strong> (generalmente agua) para llegar a esa concentración.</p>
+        <p><strong>La red eléctrica domiciliaria da 220 V eficaces. ¿Cuál es el voltaje máximo real de la onda?</strong></p>
+        <p>V_máx = V_eficaz × √2 = 220 × 1.414 ≈ <strong>311 V</strong></p>
+        <p>En cada ciclo, el voltaje real oscila entre +311 V y −311 V — pero el "efecto útil" equivale al de 220 V constantes, de ahí el nombre "valor eficaz".</p>
       </div>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
       <h2>Ejercicios con respuesta</h2>
       <ol>
-        <li>Tienes 100 mL de solución 1 M. ¿Qué volumen final tienes si la diluyes a 0.25 M?
-          <details><summary>Ver respuesta</summary>1×100 = 0.25×V₂ → V₂ = 400 mL</details>
+        <li>En EE.UU., la red da 120 V eficaces. ¿Cuál es el voltaje máximo real?
+          <details><summary>Ver respuesta</summary>120×√2 ≈ 169.7 V</details>
         </li>
-        <li>En el ejercicio anterior, ¿cuánta agua agregaste?
-          <details><summary>Ver respuesta</summary>400−100 = 300 mL de agua</details>
+        <li>¿Por qué se usa el valor eficaz en vez del voltaje máximo para especificar la potencia de los electrodomésticos?
+          <details><summary>Ver respuesta</summary>Porque el valor eficaz es el que efectivamente representa la potencia promedio real entregada durante el ciclo completo — usar el máximo daría una impresión exagerada de la potencia real disponible.</details>
         </li>
-        <li>¿Por qué diluir NUNCA cambia la cantidad de moles de soluto?
-          <details><summary>Ver respuesta</summary>Porque solo se agrega solvente (agua), no se agrega ni se quita soluto — los mismos moles de soluto quedan repartidos en un volumen mayor, por eso la concentración baja pero la cantidad total de soluto sigue siendo la misma.</details>
+        <li>¿Por qué los cargadores de celular llevan un "transformador" o "fuente" adentro?
+          <details><summary>Ver respuesta</summary>Porque los dispositivos electrónicos necesitan corriente continua a bajo voltaje para funcionar — la fuente convierte la corriente alterna de 220V de la pared en corriente continua de unos pocos voltios.</details>
         </li>
       </ol>
     </div>
@@ -373,27 +365,22 @@
 
   <div class="card faq" data-tag="FAQ">
     <h2>Preguntas frecuentes</h2>
-    <h3>¿Molaridad es lo mismo que concentración a secas?</h3>
-    <p>"Concentración" es el término general — hay varias formas de expresarla (molaridad, %m/v, gramos por litro, partes por millón). La molaridad es solo una de esas formas, la más usada en química porque trabaja directamente en moles, ideal para hacer estequiometría después.</p>
-    <h3>¿Se puede diluir una solución para bajar la concentración más allá de cierto punto?</h3>
-    <p>En teoría sí, hasta hacerla prácticamente agua pura — en la práctica, hay un límite dado por cuánto solvente sea razonable agregar, y por la precisión con la que se pueda medir una concentración tan baja.</p>
-    <h3>¿Por qué al preparar una solución diluida hay que agregar el ácido al agua, y no al revés?</h3>
-    <p>Porque diluir un ácido concentrado libera calor — si agregas agua de golpe sobre el ácido, ese calor puede hacer que salpique violentamente. Agregando el ácido de a poco sobre el agua, el calor se disipa mucho más gradual y seguro.</p>
+    <h3>¿Por qué en algunos países usan 110V y en otros 220V?</h3>
+    <p>Es principalmente una decisión histórica de cada país al construir su red eléctrica — 220V transmite la misma potencia con menos corriente (menos pérdidas por el cableado), pero es levemente más peligroso ante un contacto accidental. No hay un "mejor" universal, ambos se usan con éxito en distintas partes del mundo.</p>
+    <h3>¿Las pilas recargables usan CC o CA?</h3>
+    <p>Siempre entregan CC — pero se cargan con un circuito que primero convierte la CA de la pared en CC para poder cargarlas, ya que la reacción química de carga necesita corriente en un solo sentido.</p>
+    <h3>¿Por qué las luces con CA no parecen "titilar" 50 veces por segundo?</h3>
+    <p>Porque 50 veces por segundo es demasiado rápido para que el ojo humano lo perciba como parpadeo — el filamento o los materiales luminosos también retienen algo de brillo entre ciclos, suavizando aún más el efecto.</p>
   </div>
 
   <div class="related">
     <h2>Temas relacionados</h2>
     <div class="related-links">
-      <a href="formulario.html">Machete de Fórmulas</a>
-      <a href="maquinas-termicas.html">Máquinas Térmicas y Eficiencia</a>
-      <a href="corriente-continua-alterna.html">Corriente Continua y Alterna</a>
-      <a href="caudal-continuidad.html">Caudal y Continuidad</a>
+      <a href="ley-ohm.html">Ley de Ohm (V = I·R)</a>
+      <a href="potencia-electrica.html">Potencia Eléctrica (P = V·I)</a>
+      <a href="circuitos.html">Circuitos en Serie y Paralelo</a>
       <a href="electromagnetismo.html">Electromagnetismo</a>
-      <a href="maquinas-simples.html">Máquinas Simples</a>
-      <a href="estequiometria.html">Estequiometría y El Mol</a>
-      <a href="acido-base.html">Ácido-Base y pH</a>
-      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
-      <a href="leyes-gases.html">Leyes de los Gases</a>
+      <a href="formulario.html">Machete de Fórmulas</a>
       <a href="evaluaciones.html">Evaluaciones</a>
       <a href="sobre-nosotros.html">Sobre la Fundadora</a>
       <a href="experimentos.html">Experimentos Caseros</a>
@@ -412,35 +399,19 @@
     });
   });
 
-  const ELECTRONEGATIVIDAD = {
-    Na:0.93, K:0.82, Ca:1.00, Mg:1.31, Al:1.61,
-    H:2.20, C:2.55, N:3.04, S:2.58, P:2.19,
-    Cl:3.16, O:3.44, F:3.98, Br:2.96
-  };
-
-  function clasificarEnlace(dEN){
-    if(dEN >= 1.7) return {tipo:'Iónico', detalle:'un átomo transfiere electrones al otro'};
-    if(dEN >= 0.4) return {tipo:'Covalente polar', detalle:'comparten los electrones, pero de forma desigual'};
-    return {tipo:'Covalente apolar', detalle:'comparten los electrones de forma pareja'};
-  }
-
   function calcBasico(){
-    const n = parseFloat(document.getElementById('b-n').value)||0;
-    const V = parseFloat(document.getElementById('b-V').value)||1;
-    const M = n/V;
+    const f = parseFloat(document.getElementById('b-f').value)||1;
+    const T = 1/f;
     const out = document.getElementById('b-readout');
-    out.innerText = `M = n/V = ${n}/${V} = ${M.toFixed(3)} mol/L`;
+    out.innerText = `T = 1/f = 1/${f} = ${T.toFixed(4)} s`;
     out.classList.add('show');
   }
 
   function calcAvanzado(){
-    const M1 = parseFloat(document.getElementById('a-M1').value)||0;
-    const V1 = parseFloat(document.getElementById('a-V1').value)||0;
-    const M2 = parseFloat(document.getElementById('a-M2').value)||1;
-    const V2 = (M1*V1)/M2;
-    const agregar = V2-V1;
+    const Vef = parseFloat(document.getElementById('a-Vef').value)||0;
+    const Vmax = Vef*Math.SQRT2;
     const out = document.getElementById('a-readout');
-    out.innerText = `M₁V₁ = M₂V₂ → ${M1}×${V1} = ${M2}×V₂\nV₂ = ${(M1*V1).toFixed(1)}/${M2} = ${V2.toFixed(1)} mL\nSolvente a agregar: ${V2.toFixed(1)} − ${V1} = ${agregar.toFixed(1)} mL`;
+    out.innerText = `V_máx = V_eficaz × √2 = ${Vef} × 1.414 ≈ ${Vmax.toFixed(1)} V`;
     out.classList.add('show');
   }
 </script>
