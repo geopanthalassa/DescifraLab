@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MRU — Movimiento Rectilíneo Uniforme | Fórmula y Calculadora — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --grid:#E4E0D4;
+    --ink:#1C2733;
+    --ink-soft:#4A5568;
+    --amber:#D9A441;
+    --amber-dark:#B8842E;
+    --pine:#2F6B5E;
+    --pine-dark:#225046;
+    --white:#FFFFFF;
+    --line:#D8D3C4;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+  header.top{
+    padding:36px 20px 28px;
+    max-width:760px;margin:0 auto;
+    border-bottom:2px solid var(--ink);
+  }
+  .brand-link{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--amber-dark);
+    text-decoration:none;
+    margin-bottom:12px;
+    letter-spacing:0.01em;
+  }
+  .brand-link:hover{text-decoration:underline;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--pine-dark);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px,5vw,46px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--ink-soft);font-size:16px;max-width:56ch;}
+
+  .level-nav{
+    display:flex;gap:8px;margin:28px 0 0;
+  }
+  .level-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;font-weight:700;
+    padding:10px 18px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    cursor:pointer;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .level-btn.active{background:var(--ink);color:var(--paper);}
+
+  section.level{display:none;margin-top:36px;}
+  section.level.active{display:block;}
+
+  .card{
+    background:var(--white);
+    border:2px solid var(--ink);
+    padding:28px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .card::before{
+    content:attr(data-tag);
+    position:absolute;
+    top:-13px;left:20px;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+  }
+  section.level[data-level="avanzado"] .card::before{background:var(--pine);color:var(--white);}
+
+  h2{font-family:'Fraunces', serif;font-size:22px;font-weight:600;margin:6px 0 14px;}
+
+  .formula-box{
+    font-family:'JetBrains Mono', monospace;
+    font-size:20px;
+    font-weight:700;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    padding:16px 20px;
+    margin:14px 0;
+    text-align:center;
+    letter-spacing:0.02em;
+  }
+  .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
+  .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+
+  /* Calculadora */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media(max-width:520px){.calc-grid{grid-template-columns:1fr;}}
+  .field label{
+    display:block;font-size:12px;font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;
+  }
+  .field input{
+    width:100%;padding:10px 12px;
+    border:2px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;background:var(--white);
+  }
+  .field input:focus{outline:3px solid var(--amber);outline-offset:1px;}
+  .calc-btn{
+    margin-top:16px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    padding:12px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.05em;
+    cursor:pointer;
+  }
+  .calc-btn:hover{background:var(--amber-dark);}
+  .readout{
+    margin-top:18px;
+    background:var(--ink);
+    color:#8FE3C7;
+    font-family:'JetBrains Mono', monospace;
+    padding:18px 20px;
+    font-size:15px;
+    min-height:24px;
+    display:none;
+    white-space:pre-line;
+  }
+  .readout.show{display:block;}
+
+  .example{
+    background:var(--paper);
+    border-left:4px solid var(--pine);
+    padding:16px 18px;
+    font-size:15px;
+    margin-top:10px;
+  }
+  section.level[data-level="basico"] .example{border-left-color:var(--amber-dark);}
+
+  .exercises ol{padding-left:20px;}
+  .exercises li{margin-bottom:14px;}
+  details{
+    margin-top:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  details summary{cursor:pointer;color:var(--pine-dark);font-weight:700;}
+
+  .faq h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;}
+  .faq p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .related{
+    margin-top:40px;padding-top:24px;border-top:2px solid var(--ink);
+  }
+  .related h2{font-size:16px;}
+  .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+  .related-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    background:var(--white);
+  }
+  .related-links a:hover{border-color:var(--ink);}
+
+  .sim-box{
+    background:var(--ink);
+    border:2px solid var(--ink);
+    padding:14px;
+    margin-top:16px;
+  }
+  #sim-canvas-basico, #sim-canvas-avanzado{
+    display:block;width:100%;height:auto;
+  }
+  .sim-readout{
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    color:#8FE3C7;font-size:13px;
+    margin-top:10px;padding-top:10px;
+    border-top:1px solid #3A4756;
+  }
+  .speed-row{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-left:14px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;color:var(--ink-soft);
+  }
+  .speed-btn{
+    border:1px solid var(--line);background:var(--white);
+    padding:6px 10px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;cursor:pointer;
+  }
+  .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  .historia-card{background:var(--paper);}
+  .historia-flex{display:flex;gap:20px;align-items:center;}
+  .historia-img{
+    width:110px;height:130px;object-fit:cover;
+    border:2.5px solid var(--ink);
+    flex-shrink:0;
+    filter:sepia(15%);
+  }
+  .historia-texto h2{margin-top:0;}
+  @media(max-width:520px){
+    .historia-flex{flex-direction:column;align-items:center;text-align:center;}
+    .historia-img{width:140px;height:160px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="index.html" class="brand-link">DescifraLab</a>
+  <div class="eyebrow">Mecánica · Cinemática</div>
+  <h1>MRU — Movimiento Rectilíneo Uniforme</h1>
+  <p class="subtitle">Fórmulas, calculadora interactiva, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
+  <nav class="level-nav">
+    <button class="level-btn active" data-target="basico">Básico</button>
+    <button class="level-btn" data-target="avanzado">Avanzado</button>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- NIVEL BÁSICO -->
+  <section class="level active" data-level="basico">
+
+    <div class="card" data-tag="Concepto">
+      <h2>¿Qué es el MRU?</h2>
+      <p>Es el movimiento en línea recta a velocidad constante: ni acelera ni frena. Esto pasa cuando la fuerza neta sobre el objeto es cero — por la Primera Ley de Newton, un objeto en movimiento sigue así a menos que algo lo empuje o lo frene.</p>
+      <div class="formula-box">x = x₀ + v·t</div>
+      <p class="var-list"><span>x</span> = posición final &nbsp;·&nbsp; <span>x₀</span> = posición inicial &nbsp;·&nbsp; <span>v</span> = velocidad (constante) &nbsp;·&nbsp; <span>t</span> = tiempo</p>
+    </div>
+
+    <div class="card historia-card" data-tag="Historia">
+      <div class="historia-flex">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Justus%20Sustermans%20-%20Portrait%20of%20Galileo%20Galilei%2C%201636.jpg?width=200" alt="Retrato de Galileo Galilei, por Justus Sustermans, 1636" class="historia-img">
+        <div class="historia-texto">
+          <h2>¿Quién fue Galileo Galilei?</h2>
+          <p>Galileo Galilei (1564-1642) fue un físico y astrónomo italiano, considerado el padre del método científico experimental. Fue el primero en estudiar el movimiento de forma sistemática, dejando caer objetos y haciendo rodar bolas por planos inclinados para medir cómo cambiaba su velocidad — sentando las bases de todo lo que hoy llamamos cinemática.</p>
+          <p style="color:var(--ink-soft);font-size:14px;">También construyó uno de los primeros telescopios astronómicos, descubrió las lunas de Júpiter, y defendió el modelo heliocéntrico de Copérnico, lo que le costó un juicio de la Inquisición en 1633.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula la distancia recorrida</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Velocidad v (m/s)</label><input type="number" id="b-v" value="8"></div>
+        <div class="field"><label>Tiempo t (s)</label><input type="number" id="b-t" value="5"></div>
+      </div>
+      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
+      <div class="readout" id="b-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Mira el movimiento</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">El tren se mueve siempre a la misma velocidad, sin nadie empujándolo — no hay fuerza neta actuando.</p>
+      <div class="sim-box">
+        <canvas id="sim-canvas-basico" width="680" height="140"></canvas>
+        <div class="sim-readout">
+          <span id="sim-t-basico">t = 0.0 s</span>
+          <span id="sim-v-basico">v = 0.0 m/s</span>
+          <span id="sim-x-basico">x = 0.0 m</span>
+        </div>
+      </div>
+      <button class="calc-btn" id="sim-btn-basico" onclick="toggleSim('basico')">▶ Reproducir</button>
+      <div class="speed-row">
+        <span>Velocidad:</span>
+        <button class="speed-btn" data-speed="0.5" onclick="setSpeed('basico',0.5,this)">0.5×</button>
+        <button class="speed-btn active" data-speed="1" onclick="setSpeed('basico',1,this)">1×</button>
+        <button class="speed-btn" data-speed="2" onclick="setSpeed('basico',2,this)">2×</button>
+      </div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>Un tren viaja a 8 m/s constantes durante 5 segundos.</strong></p>
+        <p>x = 8×5 = <strong>40 m</strong></p>
+        <p>Como la velocidad no cambia, la distancia crece siempre al mismo ritmo — por eso la gráfica de posición contra tiempo es una línea recta.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Un ciclista va a 6 m/s durante 10 s. ¿Qué distancia recorre?
+          <details><summary>Ver respuesta</summary>x = 6×10 = 60 m</details>
+        </li>
+        <li>Un colectivo recorre 150 m en 30 s a velocidad constante. ¿A qué velocidad iba?
+          <details><summary>Ver respuesta</summary>v = x/t = 150/30 = 5 m/s</details>
+        </li>
+        <li>Un caminante a 1.5 m/s tarda en recorrer 300 m. ¿Cuánto tiempo le toma?
+          <details><summary>Ver respuesta</summary>t = x/v = 300/1.5 = 200 s (≈3.3 min)</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <!-- NIVEL AVANZADO -->
+  <section class="level" data-level="avanzado">
+
+    <div class="card" data-tag="Concepto">
+      <h2>Problemas de encuentro</h2>
+      <p>Un clásico de examen: dos móviles parten de puntos distintos, uno hacia el otro (o uno persiguiendo al otro), y hay que encontrar dónde y cuándo se cruzan. Se plantea una ecuación de posición para cada uno y se igualan.</p>
+      <div class="formula-box">x₁(t) = x₂(t)</div>
+      <p class="var-list">Se resuelve la ecuación para <span>t</span>, y ese tiempo se reemplaza en cualquiera de las dos ecuaciones de posición para saber dónde se encontraron.</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula el punto de encuentro</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Distancia inicial entre ambos (m)</label><input type="number" id="a-d" value="300"></div>
+        <div class="field"><label>Velocidad móvil A (m/s)</label><input type="number" id="a-vA" value="4"></div>
+        <div class="field"><label>Velocidad móvil B (m/s)</label><input type="number" id="a-vB" value="6"></div>
+      </div>
+      <button class="calc-btn" onclick="calcAvanzado()">Calcular</button>
+      <div class="readout" id="a-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>Dos ciclistas están a 300 m de distancia y se mueven uno hacia el otro: A a 4 m/s y B a 6 m/s. ¿Cuándo y dónde se cruzan?</strong></p>
+        <p>Como van uno hacia el otro, sus velocidades se suman: 4 + 6 = 10 m/s de acercamiento.</p>
+        <p>t = 300 / 10 = <strong>30 s</strong></p>
+        <p>Posición de A en ese momento: x = 4×30 = <strong>120 m</strong> desde su punto de partida.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Dos autos separados por 500 m se mueven uno hacia el otro, a 20 m/s y 30 m/s. ¿Cuánto tardan en cruzarse?
+          <details><summary>Ver respuesta</summary>t = 500/(20+30) = 10 s</details>
+        </li>
+        <li>Un corredor persigue a otro que le lleva 50 m de ventaja. El perseguidor va a 7 m/s y el perseguido a 5 m/s. ¿Cuánto tarda en alcanzarlo?
+          <details><summary>Ver respuesta</summary>La diferencia de velocidad achica los 50 m a razón de (7−5)=2 m/s → t = 50/2 = 25 s</details>
+        </li>
+        <li>Dos trenes de 600 m de distancia se acercan a 15 m/s y 25 m/s. ¿A qué distancia del punto de partida del primero se cruzan?
+          <details><summary>Ver respuesta</summary>t = 600/(15+25) = 15 s → x = 15×15 = 225 m</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <div class="card faq" data-tag="FAQ">
+    <h2>Preguntas frecuentes</h2>
+    <h3>¿Cuál es la diferencia entre MRU y MRUV?</h3>
+    <p>En el MRU la velocidad es constante (no hay aceleración). En el MRUV la velocidad cambia de forma constante porque hay una aceleración fija.</p>
+    <h3>¿Por qué no hace falta fuerza para mantener el MRU?</h3>
+    <p>Por la Primera Ley de Newton (Ley de Inercia): un objeto en movimiento sigue moviéndose a velocidad constante si no hay una fuerza neta actuando sobre él. En la vida real siempre hay algo de rozamiento, por eso rara vez vemos MRU "puro" sin motor u otra fuerza compensándolo.</p>
+    <h3>¿Cómo sé si dos móviles se acercan o se alejan?</h3>
+    <p>Si van uno hacia el otro, las velocidades se suman para calcular qué tan rápido se acorta la distancia. Si uno persigue al otro en la misma dirección, se resta la velocidad del más lento a la del más rápido.</p>
+  </div>
+
+  <div class="related">
+    <h2>Temas relacionados</h2>
+    <div class="related-links">
+      <a href="mruv.html">MRUV — Movimiento Rectilíneo Uniformemente Variado</a>
+      <a href="newton.html">Segunda Ley de Newton (F = m·a)</a>
+      <a href="trabajo-energia.html">Trabajo y Energía</a>
+      <a href="calor-especifico.html">Calor Específico y Cambios de Estado</a>
+      <a href="dilatacion-termica.html">Dilatación Térmica</a>
+      <a href="fluidos.html">Presión Hidrostática y Flotación</a>
+      <a href="relatividad.html">Relatividad: Dilatación Temporal</a>
+      <a href="formulario.html">Machete de Fórmulas</a>
+      <a href="electromagnetismo.html">Electromagnetismo</a>
+      <a href="conversor-unidades.html">Conversor de Unidades</a>
+      <a href="evaluaciones.html">Evaluaciones</a>
+      <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+      <a href="experimentos.html">Experimentos Caseros</a>
+      <a href="modelo-atomico.html">Modelo Atómico y Tabla Periódica</a>
+      <a href="estequiometria.html">Estequiometría y El Mol</a>
+      <a href="configuracion-electronica.html">Configuración Electrónica</a>
+      <a href="oxido-reduccion.html">Óxido-Reducción</a>
+      <a href="enlaces-quimicos.html">Enlaces Químicos</a>
+      <a href="acido-base.html">Ácido-Base y pH</a>
+      <a href="concentracion-soluciones.html">Concentración de Soluciones</a>
+      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
+      <a href="leyes-gases.html">Leyes de los Gases</a>
+      <a href="energia-nuclear.html">Energía Nuclear</a>
+      <a href="tiro-oblicuo.html">Tiro Oblicuo — Movimiento Parabólico</a>
+      <a href="mcu.html">Movimiento Circular Uniforme (MCU)</a>
+      <a href="impulso-momentum.html">Impulso y Cantidad de Movimiento</a>
+      <a href="estatica-torque.html">Estática y Torque</a>
+      <a href="maquinas-simples.html">Máquinas Simples</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.level-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('section.level').forEach(s=>s.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`section.level[data-level="${btn.dataset.target}"]`).classList.add('active');
+    });
+  });
+
+  function calcBasico(){
+    const v = parseFloat(document.getElementById('b-v').value)||0;
+    const t = parseFloat(document.getElementById('b-t').value)||0;
+    const x = v*t;
+    const out = document.getElementById('b-readout');
+    out.innerText = `x = ${v}×${t} = ${x.toFixed(2)} m`;
+    out.classList.add('show');
+  }
+
+  function calcAvanzado(){
+    const d = parseFloat(document.getElementById('a-d').value)||0;
+    const vA = parseFloat(document.getElementById('a-vA').value)||0;
+    const vB = parseFloat(document.getElementById('a-vB').value)||0;
+    const sumaV = vA + vB;
+    const out = document.getElementById('a-readout');
+    if(sumaV===0){
+      out.innerText = "Si ambas velocidades son 0, nunca se encuentran.";
+      out.classList.add('show');
+      return;
+    }
+    const t = d/sumaV;
+    const xA = vA*t;
+    out.innerText = `t = ${d} / (${vA} + ${vB}) = ${t.toFixed(2)} s\nSe encuentran a ${xA.toFixed(2)} m del punto de partida de A`;
+    out.classList.add('show');
+  }
+
+  // ---- Simulación visual reutilizable ----
+  // Dibuja una pista con marcas de distancia y un ícono que se mueve
+  // según posición x(t) calculada en tiempo real. Sirve para auto, avión, tren, etc.
+  // con solo cambiar el emoji y los datos de entrada.
+
+  function drawTrack(ctx, w, h, xMax, iconX, icon){
+    ctx.clearRect(0,0,w,h);
+    // pista
+    ctx.strokeStyle = '#3A4756';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(20,h-30); ctx.lineTo(w-20,h-30);
+    ctx.stroke();
+    // marcas de distancia
+    ctx.fillStyle = '#5C6B7A';
+    ctx.font = '11px JetBrains Mono';
+    const steps = 6;
+    for(let i=0;i<=steps;i++){
+      const px = 20 + (i/steps)*(w-40);
+      ctx.beginPath();
+      ctx.moveTo(px,h-34); ctx.lineTo(px,h-26);
+      ctx.stroke();
+      ctx.fillText(Math.round((i/steps)*xMax)+'m', px-10, h-12);
+    }
+    // ícono — invertido horizontalmente para que "mire" hacia la derecha,
+    // la dirección real del movimiento (los emoji de vehículos miran
+    // hacia la izquierda por defecto)
+    ctx.font = '32px sans-serif';
+    ctx.save();
+    ctx.translate(20 + iconX*(w-60) + 16, h-32);
+    ctx.scale(-1,1);
+    ctx.fillText(icon, -16, 0);
+    ctx.restore();
+  }
+
+  // Estado de simulación (solo nivel básico en esta página — el MRU no tiene variante avanzada con animación de un solo objeto)
+  const simState = {
+    basico: {t:0, running:false, speed:1, tMax:5, v:8, xAt:null, lastFrame:null}
+  };
+
+  function setSpeed(level, speed, btn){
+    simState[level].speed = speed;
+    btn.parentElement.querySelectorAll('.speed-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function toggleSim(level){
+    const s = simState[level];
+    const btn = document.getElementById('sim-btn-'+level);
+
+    if(s.t === 0 && !s.running){
+      s.v = (parseFloat(document.getElementById('b-v').value)||0) * s.speed;
+      s.tMax = parseFloat(document.getElementById('b-t').value)||5;
+      s.xAt = (t)=> s.v*t;
+      s.xMax = Math.max(s.xAt(s.tMax), 1);
+    }
+
+    if(s.running){
+      s.running = false;
+      btn.innerText = '▶ Continuar';
+    } else {
+      s.running = true;
+      btn.innerText = '⏸ Pausar';
+      s.lastFrame = performance.now();
+      requestAnimationFrame((now)=>simFrame(level, now));
+    }
+  }
+
+  function simFrame(level, now){
+    const s = simState[level];
+    if(!s.running) return;
+
+    const canvas = document.getElementById('sim-canvas-basico');
+    const ctx = canvas.getContext('2d');
+
+    const dt = (now - s.lastFrame)/1000 * (s.tMax / Math.min(Math.max(s.tMax,1),8));
+    s.lastFrame = now;
+    s.t = Math.min(s.t + dt, s.tMax);
+
+    const x = s.xAt(s.t);
+    drawTrack(ctx, canvas.width, canvas.height, s.xMax, x/s.xMax, '🚂');
+
+    document.getElementById('sim-t-basico').innerText = `t = ${s.t.toFixed(1)} s`;
+    document.getElementById('sim-v-basico').innerText = `v = ${s.v.toFixed(1)} m/s`;
+    document.getElementById('sim-x-basico').innerText = `x = ${x.toFixed(1)} m`;
+
+    if(s.t < s.tMax){
+      requestAnimationFrame((n)=>simFrame(level,n));
+    } else {
+      s.running = false;
+      s.t = 0;
+      document.getElementById('sim-btn-basico').innerText = '▶ Reproducir';
+    }
+  }
+
+  // Dibujo inicial en reposo
+  window.addEventListener('load', ()=>{
+    const c1 = document.getElementById('sim-canvas-basico');
+    drawTrack(c1.getContext('2d'), c1.width, c1.height, 40, 0, '🚂');
+  });
+</script>
+
+</body>
+</html>

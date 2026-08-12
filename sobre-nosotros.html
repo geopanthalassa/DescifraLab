@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sobre la Fundadora — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --grid:#E4E0D4;
+    --ink:#1C2733;
+    --ink-soft:#4A5568;
+    --amber:#D9A441;
+    --amber-dark:#B8842E;
+    --pine:#2F6B5E;
+    --pine-dark:#225046;
+    --white:#FFFFFF;
+    --line:#D8D3C4;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+  header.top{
+    padding:36px 20px 28px;
+    max-width:760px;margin:0 auto;
+    border-bottom:2px solid var(--ink);
+  }
+  .brand-link{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--amber-dark);
+    text-decoration:none;
+    margin-bottom:12px;
+    letter-spacing:0.01em;
+  }
+  .brand-link:hover{text-decoration:underline;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--pine-dark);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px,5vw,46px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--ink-soft);font-size:16px;max-width:56ch;}
+
+  .level-nav{
+    display:flex;gap:8px;margin:28px 0 0;
+  }
+  .level-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;font-weight:700;
+    padding:10px 18px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    cursor:pointer;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .level-btn.active{background:var(--ink);color:var(--paper);}
+
+  section.level{display:none;margin-top:36px;}
+  section.level.active{display:block;}
+
+  .card{
+    background:var(--white);
+    border:2px solid var(--ink);
+    padding:28px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .card::before{
+    content:attr(data-tag);
+    position:absolute;
+    top:-13px;left:20px;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+  }
+  section.level[data-level="avanzado"] .card::before{background:var(--pine);color:var(--white);}
+
+  h2{font-family:'Fraunces', serif;font-size:22px;font-weight:600;margin:6px 0 14px;}
+
+  .formula-box{
+    font-family:'JetBrains Mono', monospace;
+    font-size:20px;
+    font-weight:700;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    padding:16px 20px;
+    margin:14px 0;
+    text-align:center;
+    letter-spacing:0.02em;
+  }
+  .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
+  .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+
+  /* Calculadora */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media(max-width:520px){.calc-grid{grid-template-columns:1fr;}}
+  .field label{
+    display:block;font-size:12px;font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;
+  }
+  .field input{
+    width:100%;padding:10px 12px;
+    border:2px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;background:var(--white);
+  }
+  .field input:focus{outline:3px solid var(--amber);outline-offset:1px;}
+  .calc-btn{
+    margin-top:16px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    padding:12px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.05em;
+    cursor:pointer;
+  }
+  .calc-btn:hover{background:var(--amber-dark);}
+  .readout{
+    margin-top:18px;
+    background:var(--ink);
+    color:#8FE3C7;
+    font-family:'JetBrains Mono', monospace;
+    padding:18px 20px;
+    font-size:15px;
+    min-height:24px;
+    display:none;
+    white-space:pre-line;
+  }
+  .readout.show{display:block;}
+
+  .example{
+    background:var(--paper);
+    border-left:4px solid var(--pine);
+    padding:16px 18px;
+    font-size:15px;
+    margin-top:10px;
+  }
+  section.level[data-level="basico"] .example{border-left-color:var(--amber-dark);}
+
+  .exercises ol{padding-left:20px;}
+  .exercises li{margin-bottom:14px;}
+  details{
+    margin-top:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  details summary{cursor:pointer;color:var(--pine-dark);font-weight:700;}
+
+  .faq h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;}
+  .faq p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .related{
+    margin-top:40px;padding-top:24px;border-top:2px solid var(--ink);
+  }
+  .related h2{font-size:16px;}
+  .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+  .related-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    background:var(--white);
+  }
+  .related-links a:hover{border-color:var(--ink);}
+
+  .sim-box{
+    background:var(--ink);
+    border:2px solid var(--ink);
+    padding:14px;
+    margin-top:16px;
+  }
+  .sim-box canvas{
+    display:block;width:100%;height:auto;
+  }
+  .sim-readout{
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    color:#8FE3C7;font-size:13px;
+    margin-top:10px;padding-top:10px;
+    border-top:1px solid #3A4756;
+  }
+  .speed-row{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-left:14px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;color:var(--ink-soft);
+  }
+  .speed-btn{
+    border:1px solid var(--line);background:var(--white);
+    padding:6px 10px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;cursor:pointer;
+  }
+  .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="index.html" class="brand-link">DescifraLab</a>
+  <div class="eyebrow">Quiénes somos</div>
+  <h1>Sobre la Fundadora</h1>
+  <p class="subtitle">La persona detrás de DescifraLab, y por qué existe este sitio.</p>
+</header>
+
+<div class="wrap">
+
+  <div class="card" data-tag="Fundadora" style="text-align:center;">
+    <h2 style="margin-top:0;">André</h2>
+    <p style="font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.05em; margin-top:-6px;">Geóloga, docente y fundadora de DescifraLab</p>
+  </div>
+
+  <div class="card" data-tag="Historia">
+    <h2>¿Por qué existe DescifraLab?</h2>
+    <p>Soy geóloga de formación y docente de Física y Química en la secundaria, además de dar clases particulares. Todos los días veo lo mismo: materias que en el papel son fascinantes — el porqué de las cosas, cómo se mueve el universo, de qué está hecho todo — pero que llegan a los estudiantes como una pila de fórmulas para memorizar sin sentido, en libros aburridos que nadie quiere abrir.</p>
+    <p>DescifraLab nació de una necesidad muy concreta: no encontraba un lugar que explicara física y química de forma clara, visual e interactiva, sin ser ni demasiado infantil ni un texto universitario intimidante. Así que empecé a construirlo yo misma, con lo que uso día a día con mis propios estudiantes.</p>
+  </div>
+
+  <div class="card" data-tag="Misión">
+    <h2>Cómo trabajamos acá</h2>
+    <ul style="padding-left:20px;margin:10px 0;">
+      <li><strong>Nada de fórmulas sueltas sin contexto:</strong> cada tema tiene una explicación real de qué significa, no solo la ecuación.</li>
+      <li><strong>Simuladores, no dibujos estáticos:</strong> ver un objeto moverse, un átomo formarse, una reacción ocurrir — eso es lo que hace que algo se entienda de verdad.</li>
+      <li><strong>Nivel básico y avanzado en cada tema:</strong> para que sirva tanto si estás recién empezando como si necesitas profundizar.</li>
+      <li><strong>Ejercicios con respuesta explicada,</strong> no solo el resultado — para que puedas revisar dónde te trabaste.</li>
+    </ul>
+  </div>
+
+  <div class="card" data-tag="Contenido">
+    <h2>Qué vas a encontrar</h2>
+    <p>Física completa (mecánica, electricidad, termodinámica, fluidos, física moderna) y Química en construcción activa (estructura atómica, enlaces, reacciones), todo con calculadoras reales y simuladores visuales — no PDFs para descargar y no volver a abrir.</p>
+    <p style="color:var(--ink-soft);font-size:14px;">El sitio se actualiza constantemente con contenido nuevo. Si eres estudiante o docente y algo no te queda claro, o crees que falta algún tema, es información valiosa para seguir mejorando esto.</p>
+  </div>
+
+  <div class="related">
+    <h2>Explora el sitio</h2>
+    <div class="related-links">
+      <a href="index.html">Machete de Fórmulas</a>
+      <a href="electromagnetismo.html">Electromagnetismo</a>
+      <a href="docentes.html">Para Docentes</a>
+      <a href="maquinas-simples.html">Máquinas Simples</a>
+      <a href="experimentos.html">Experimentos Caseros</a>
+      <a href="acido-base.html">Ácido-Base y pH</a>
+      <a href="concentracion-soluciones.html">Concentración de Soluciones</a>
+      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
+      <a href="leyes-gases.html">Leyes de los Gases</a>
+      <a href="modelo-atomico.html">Modelo Atómico y Tabla Periódica</a>
+      <a href="mru.html">MRU — Movimiento Rectilíneo Uniforme</a>
+      <a href="evaluaciones.html">Evaluaciones</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Página estática, sin lógica interactiva.
+</script>
+
+</body>
+</html>

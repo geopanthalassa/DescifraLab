@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Configuración Electrónica — Orbitales spdf | Calculadora — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --grid:#E4E0D4;
+    --ink:#1C2733;
+    --ink-soft:#4A5568;
+    --amber:#D9A441;
+    --amber-dark:#B8842E;
+    --pine:#2F6B5E;
+    --pine-dark:#225046;
+    --white:#FFFFFF;
+    --line:#D8D3C4;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+  header.top{
+    padding:36px 20px 28px;
+    max-width:760px;margin:0 auto;
+    border-bottom:2px solid var(--ink);
+  }
+  .brand-link{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--amber-dark);
+    text-decoration:none;
+    margin-bottom:12px;
+    letter-spacing:0.01em;
+  }
+  .brand-link:hover{text-decoration:underline;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--pine-dark);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px,5vw,46px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--ink-soft);font-size:16px;max-width:56ch;}
+
+  .level-nav{
+    display:flex;gap:8px;margin:28px 0 0;
+  }
+  .level-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;font-weight:700;
+    padding:10px 18px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    cursor:pointer;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .level-btn.active{background:var(--ink);color:var(--paper);}
+
+  section.level{display:none;margin-top:36px;}
+  section.level.active{display:block;}
+
+  .card{
+    background:var(--white);
+    border:2px solid var(--ink);
+    padding:28px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .card::before{
+    content:attr(data-tag);
+    position:absolute;
+    top:-13px;left:20px;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+  }
+  section.level[data-level="avanzado"] .card::before{background:var(--pine);color:var(--white);}
+
+  h2{font-family:'Fraunces', serif;font-size:22px;font-weight:600;margin:6px 0 14px;}
+
+  .formula-box{
+    font-family:'JetBrains Mono', monospace;
+    font-size:20px;
+    font-weight:700;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    padding:16px 20px;
+    margin:14px 0;
+    text-align:center;
+    letter-spacing:0.02em;
+  }
+  .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
+  .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+
+  /* Calculadora */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media(max-width:520px){.calc-grid{grid-template-columns:1fr;}}
+  .field label{
+    display:block;font-size:12px;font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;
+  }
+  .field input{
+    width:100%;padding:10px 12px;
+    border:2px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;background:var(--white);
+  }
+  .field input:focus{outline:3px solid var(--amber);outline-offset:1px;}
+  .calc-btn{
+    margin-top:16px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    padding:12px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.05em;
+    cursor:pointer;
+  }
+  .calc-btn:hover{background:var(--amber-dark);}
+  .readout{
+    margin-top:18px;
+    background:var(--ink);
+    color:#8FE3C7;
+    font-family:'JetBrains Mono', monospace;
+    padding:18px 20px;
+    font-size:15px;
+    min-height:24px;
+    display:none;
+    white-space:pre-line;
+  }
+  .readout.show{display:block;}
+
+  .example{
+    background:var(--paper);
+    border-left:4px solid var(--pine);
+    padding:16px 18px;
+    font-size:15px;
+    margin-top:10px;
+  }
+  section.level[data-level="basico"] .example{border-left-color:var(--amber-dark);}
+
+  .exercises ol{padding-left:20px;}
+  .exercises li{margin-bottom:14px;}
+  details{
+    margin-top:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  details summary{cursor:pointer;color:var(--pine-dark);font-weight:700;}
+
+  .faq h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;}
+  .faq p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .related{
+    margin-top:40px;padding-top:24px;border-top:2px solid var(--ink);
+  }
+  .related h2{font-size:16px;}
+  .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+  .related-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    background:var(--white);
+  }
+  .related-links a:hover{border-color:var(--ink);}
+
+  .sim-box{
+    background:var(--ink);
+    border:2px solid var(--ink);
+    padding:14px;
+    margin-top:16px;
+  }
+  .sim-box canvas{
+    display:block;width:100%;height:auto;
+  }
+  .sim-readout{
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    color:#8FE3C7;font-size:13px;
+    margin-top:10px;padding-top:10px;
+    border-top:1px solid #3A4756;
+  }
+  .speed-row{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-left:14px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;color:var(--ink-soft);
+  }
+  .speed-btn{
+    border:1px solid var(--line);background:var(--white);
+    padding:6px 10px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;cursor:pointer;
+  }
+  .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  .quantum-resumen{
+    display:flex;justify-content:space-around;
+    margin:16px 0 20px;flex-wrap:wrap;gap:16px;
+  }
+  .quantum-col{text-align:center;}
+  .quantum-letra{
+    font-family:'Fraunces', serif;
+    font-size:38px;font-weight:700;
+    line-height:1;
+  }
+  .quantum-desc{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;color:var(--ink-soft);
+    text-transform:uppercase;margin-top:4px;
+  }
+  .quantum-bracket{
+    border-top:2px solid var(--ink);
+    padding-top:8px;margin:0 auto 14px;
+    text-align:center;font-size:13px;color:var(--ink-soft);
+    max-width:55%;
+  }
+  .quantum-bracket.wide{max-width:75%;}
+  .quantum-bracket.widest{max-width:100%;}
+  .quantum-valores{
+    background:var(--paper);border:1px dashed var(--line);
+    padding:14px 16px;font-family:'JetBrains Mono', monospace;
+    font-size:13.5px;line-height:1.9;
+  }
+  .quantum-valores p{margin:0;}
+
+  .tabla-subniveles{
+    width:100%;border-collapse:collapse;margin-top:14px;
+    font-family:'Inter';font-size:14px;
+  }
+  .tabla-subniveles th{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;text-transform:uppercase;
+    color:var(--ink-soft);
+    padding:8px 10px;text-align:left;
+    border-bottom:2px solid var(--ink);
+  }
+  .tabla-subniveles td{
+    padding:12px 10px;
+    border-bottom:1px solid var(--line);
+    vertical-align:middle;
+  }
+  .sub-label{font-weight:700;font-family:'JetBrains Mono',monospace;white-space:nowrap;}
+  .orbital-row{display:flex;gap:4px;flex-wrap:wrap;}
+  .orbital-box{
+    position:relative;
+    width:38px;height:38px;
+    border:2px solid var(--ink);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'JetBrains Mono', monospace;font-size:14px;
+    flex-shrink:0;
+  }
+  .orbital-box .m-label{
+    position:absolute;bottom:-16px;left:50%;transform:translateX(-50%);
+    font-size:9px;color:var(--ink-soft);white-space:nowrap;
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="index.html" class="brand-link">DescifraLab</a>
+  <div class="eyebrow">Química · Estructura de la materia</div>
+  <h1>Configuración Electrónica</h1>
+  <p class="subtitle">Notación spdf, principio de Aufbau, calculadora de configuración completa, regla de Hund y spin — nivel básico y avanzado.</p>
+  <nav class="level-nav">
+    <button class="level-btn active" data-target="basico">Básico</button>
+    <button class="level-btn" data-target="avanzado">Avanzado</button>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- NIVEL BÁSICO -->
+  <section class="level active" data-level="basico">
+
+    <div class="card" data-tag="Concepto">
+      <h2>Los 4 números cuánticos, explicados fácil</h2>
+      <p>Cada electrón de un átomo tiene una "dirección" única, definida por 4 números. Ninguna combinación se repite — esa es la base del Principio de Exclusión de Pauli.</p>
+
+      <p style="margin-top:14px;"><strong>n (número principal) — ¿en qué piso vive?</strong><br>
+      Es el número de capa: 1, 2, 3, 4... Cuanto más grande, más lejos del núcleo y más energía tiene.</p>
+
+      <p style="margin-top:10px;"><strong>l (número secundario) — ¿qué forma tiene el orbital?</strong><br>
+      Va de 0 hasta (n−1). Cada valor de l corresponde a una letra:</p>
+      <div class="formula-box">l=0 → s &nbsp;·&nbsp; l=1 → p &nbsp;·&nbsp; l=2 → d &nbsp;·&nbsp; l=3 → f</div>
+      <p style="color:var(--ink-soft);font-size:14px;">Por ejemplo, si n=3, l puede valer 0, 1 o 2 — es decir, en la capa 3 existen subniveles 3s, 3p y 3d (pero no 3f, porque l nunca puede llegar a 3 cuando n=3).</p>
+
+      <p style="margin-top:10px;"><strong>m (número magnético) — ¿hacia dónde apunta ese orbital?</strong><br>
+      Va desde −l hasta +l. Te dice cuántos orbitales distintos hay dentro de un mismo subnivel, y cada uno apunta en una dirección del espacio distinta.</p>
+      <div class="formula-box">Si l=1 (p): m puede ser −1, 0, +1 → 3 orbitales (p<sub>x</sub>, p<sub>y</sub>, p<sub>z</sub>)</div>
+
+      <p style="margin-top:10px;"><strong>s (spin) — ¿para qué lado "gira"?</strong><br>
+      Solo puede valer <strong>+1/2</strong> o <strong>−1/2</strong> — nada más. Es como si el electrón girara en un sentido o en el opuesto. Por eso cada orbital admite máximo 2 electrones: uno con cada spin.</p>
+    </div>
+
+    <div class="card" data-tag="Resumen">
+      <h2>Resumen visual</h2>
+      <div class="quantum-resumen">
+        <div class="quantum-col">
+          <div class="quantum-letra" style="color:#B8842E;">n</div>
+          <div class="quantum-desc">tamaño</div>
+        </div>
+        <div class="quantum-col">
+          <div class="quantum-letra" style="color:#2F6B5E;">l</div>
+          <div class="quantum-desc">forma<br>espacial</div>
+        </div>
+        <div class="quantum-col">
+          <div class="quantum-letra" style="color:#4A7A9E;">m</div>
+          <div class="quantum-desc">orientación</div>
+        </div>
+        <div class="quantum-col">
+          <div class="quantum-letra" style="color:#B27FE3;">s</div>
+          <div class="quantum-desc">rotación<br>del e⁻</div>
+        </div>
+      </div>
+      <div class="quantum-bracket">n + l → determina la energía del subnivel</div>
+      <div class="quantum-bracket wide">n, l, m → definen un <strong>orbital</strong></div>
+      <div class="quantum-bracket widest">n, l, m, s → definen un <strong>electrón</strong> (único, sin repetirse — Pauli)</div>
+      <div class="quantum-valores">
+        <p>n = 1, 2, 3, 4...</p>
+        <p>l = 0, 1, 2... (n−1) &nbsp;→&nbsp; 0=s · 1=p · 2=d · 3=f</p>
+        <p>m = −l ... 0 ... +l</p>
+        <p>s = ±1/2</p>
+      </div>
+    </div>
+
+    <div class="card" data-tag="Referencia">
+      <h2>Tabla de referencia: subniveles y orbitales</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;">Cada casillero es un orbital lleno (2 electrones, spin opuesto). El número debajo de cada uno es su valor de m.</p>
+      <div style="overflow-x:auto;">
+        <table class="tabla-subniveles">
+          <thead>
+            <tr>
+              <th>Subnivel (l)</th>
+              <th>Orbitales</th>
+              <th>N° de orbitales</th>
+              <th>N° máx. de e⁻</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="sub-label" style="color:#2F6B5E;">s (l=0)</td>
+              <td><div class="orbital-row">
+                <div class="orbital-box" style="background:#8FE3C7;">↑↓<span class="m-label">0</span></div>
+              </div></td>
+              <td>1</td>
+              <td>2</td>
+            </tr>
+            <tr>
+              <td class="sub-label" style="color:#B8842E;">p (l=1)</td>
+              <td><div class="orbital-row">
+                <div class="orbital-box" style="background:#D9A441;">↑↓<span class="m-label">−1</span></div>
+                <div class="orbital-box" style="background:#D9A441;">↑↓<span class="m-label">0</span></div>
+                <div class="orbital-box" style="background:#D9A441;">↑↓<span class="m-label">+1</span></div>
+              </div></td>
+              <td>3</td>
+              <td>6</td>
+            </tr>
+            <tr>
+              <td class="sub-label" style="color:#4A7A9E;">d (l=2)</td>
+              <td><div class="orbital-row">
+                <div class="orbital-box" style="background:#7FB8E3;">↑↓<span class="m-label">−2</span></div>
+                <div class="orbital-box" style="background:#7FB8E3;">↑↓<span class="m-label">−1</span></div>
+                <div class="orbital-box" style="background:#7FB8E3;">↑↓<span class="m-label">0</span></div>
+                <div class="orbital-box" style="background:#7FB8E3;">↑↓<span class="m-label">+1</span></div>
+                <div class="orbital-box" style="background:#7FB8E3;">↑↓<span class="m-label">+2</span></div>
+              </div></td>
+              <td>5</td>
+              <td>10</td>
+            </tr>
+            <tr>
+              <td class="sub-label" style="color:#7B5FA8;">f (l=3)</td>
+              <td><div class="orbital-row">
+                <div class="orbital-box" style="background:#B27FE3;">↑↓<span class="m-label">−3</span></div>
+                <div class="orbital-box" style="background:#B27FE3;">↑↓<span class="m-label">−2</span></div>
+                <div class="orbital-box" style="background:#B27FE3;">↑↓<span class="m-label">−1</span></div>
+                <div class="orbital-box" style="background:#B27FE3;">↑↓<span class="m-label">0</span></div>
+                <div class="orbital-box" style="background:#B27FE3;">↑↓<span class="m-label">+1</span></div>
+                <div class="orbital-box" style="background:#B27FE3;">↑↓<span class="m-label">+2</span></div>
+                <div class="orbital-box" style="background:#B27FE3;">↑↓<span class="m-label">+3</span></div>
+              </div></td>
+              <td>7</td>
+              <td>14</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula y mira el llenado completo</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">Metes el número atómico, tocas calcular, y miras el recorrido real de Aufbau deteniéndose justo en ese elemento — con la configuración y el diagrama de orbitales con spin al final.</p>
+      <div class="calc-grid">
+        <div class="field"><label>Número atómico Z</label><input type="number" id="b-Z" value="26"></div>
+      </div>
+      <button class="calc-btn" id="aufbau-btn" onclick="calcularYAnimar()">▶ Calcular y animar</button>
+
+      <div class="sim-box" style="margin-top:16px;">
+        <canvas id="aufbau-canvas" width="680" height="320"></canvas>
+        <div class="sim-readout">
+          <span id="aufbau-actual">Subnivel actual: —</span>
+          <span id="aufbau-orden">Paso 0 / 0</span>
+        </div>
+      </div>
+
+      <div class="readout" id="b-readout"></div>
+      <div id="orbital-diagram-basico" style="margin-top:16px;"></div>
+    </div>
+
+    <div class="card" data-tag="Concepto">
+      <h2>¿Qué es el electrón de valencia?</h2>
+      <p>Son los electrones que están en la <strong>última capa</strong> (el n más grande) de un átomo — los que quedan "más afuera" y más lejos del núcleo. Son los únicos que participan en enlaces químicos con otros átomos, porque son los más fáciles de compartir, ganar o perder.</p>
+      <p style="color:var(--ink-soft);font-size:14.5px;">Ejemplo: el sodio (1s² 2s² 2p⁶ 3s¹) tiene su último electrón en la capa 3 — así que tiene <strong>1 electrón de valencia</strong>, y por eso tiende a perderlo fácilmente al reaccionar.</p>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>¿Cuáles son los 4 números cuánticos del último electrón del sodio (Z=11, configuración ...3s¹)?</strong></p>
+        <p>n = <strong>3</strong> (está en la capa 3)</p>
+        <p>l = <strong>0</strong> (porque es un orbital s)</p>
+        <p>m = <strong>0</strong> (el orbital s solo tiene una orientación posible, m=0)</p>
+        <p>s = <strong>+1/2</strong> (por convención, el primer electrón de un orbital se anota +1/2)</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Si n=2, ¿qué valores puede tomar l?
+          <details><summary>Ver respuesta</summary>l puede ser 0 o 1 (subniveles 2s y 2p) — nunca llega a 2 porque l siempre es menor a n</details>
+        </li>
+        <li>Si l=2 (subnivel d), ¿qué valores puede tomar m, y cuántos orbitales hay?
+          <details><summary>Ver respuesta</summary>m puede ser −2,−1,0,1,2 → 5 valores → 5 orbitales d</details>
+        </li>
+        <li>¿Cuántos electrones de valencia tiene el oxígeno (1s² 2s² 2p⁴)?
+          <details><summary>Ver respuesta</summary>6 — los de la última capa (n=2): 2 del 2s + 4 del 2p</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <!-- NIVEL AVANZADO -->
+  <section class="level" data-level="avanzado">
+
+    <div class="card" data-tag="Concepto">
+      <h2>Spin, Pauli y la Regla de Hund</h2>
+      <p>Cada orbital puede tener como máximo 2 electrones, y por el <strong>Principio de Exclusión de Pauli</strong>, esos dos electrones tienen que tener <strong>spin opuesto</strong> (uno "hacia arriba" ↑, otro "hacia abajo" ↓) — nunca pueden ser dos con el mismo spin en el mismo orbital.</p>
+      <p>La <strong>Regla de Hund</strong> dice que, cuando hay varios orbitales de la misma energía disponibles (como los 3 del subnivel p), los electrones primero ocupan uno por uno cada orbital vacío (todos con el mismo spin ↑), y recién cuando no queda ningún orbital vacío empiezan a aparearse.</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Mira el diagrama de celdas completo</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">Cada casillero es un orbital. Una sola flecha (↑) significa que está medio lleno; dos flechas opuestas (↑↓) significan que está completo.</p>
+      <div class="calc-grid">
+        <div class="field"><label>Número atómico Z</label><input type="number" id="a-Z" value="7"></div>
+      </div>
+      <button class="calc-btn" onclick="calcAvanzado()">Calcular</button>
+      <div class="readout" id="a-readout"></div>
+      <div id="orbital-diagram" style="margin-top:16px;"></div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo — iones isoelectrónicos</h2>
+      <div class="example">
+        <p><strong>El Na⁺ (sodio que perdió 1 electrón) y el F⁻ (flúor que ganó 1 electrón) tienen ambos 10 electrones. ¿Tienen la misma configuración electrónica?</strong></p>
+        <p>Na⁺: 1s² 2s² 2p⁶ (perdió el 3s¹ que tenía el sodio neutro)</p>
+        <p>F⁻: 1s² 2s² 2p⁶ (ganó un electrón que el flúor neutro no tenía)</p>
+        <p><strong>Sí, son idénticas</strong> — se dice que Na⁺ y F⁻ son <strong>isoelectrónicos</strong>: distinto número de protones, misma cantidad y distribución de electrones.</p>
+      </div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>El nitrógeno (N, Z=7) tiene configuración 1s² 2s² 2p³. ¿Cómo se distribuyen esos 3 electrones en los 3 orbitales del 2p?</strong></p>
+        <p>Por la Regla de Hund, cada uno de los 3 orbitales p recibe <strong>un electrón con spin ↑</strong>, sin aparearse — quedan los tres orbitales "medio llenos" en vez de uno lleno y dos vacíos.</p>
+        <p>Esto hace que el nitrógeno tenga 3 electrones desapareados, lo cual influye directamente en cómo forma enlaces químicos.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>El carbono (Z=6) tiene 2p². ¿Cuántos orbitales p quedan con un solo electrón desapareado?
+          <details><summary>Ver respuesta</summary>2 orbitales con 1 electrón cada uno (spin ↑), y 1 orbital vacío — por la Regla de Hund no se aparean todavía</details>
+        </li>
+        <li>¿Por qué dos electrones del mismo orbital nunca tienen el mismo spin?
+          <details><summary>Ver respuesta</summary>Por el Principio de Exclusión de Pauli: no puede haber dos electrones con exactamente el mismo conjunto de números cuánticos, y compartir orbital ya los iguala en tres de esos números, así que el spin tiene que ser distinto.</details>
+        </li>
+        <li>El flúor (Z=9) tiene 2p⁵. ¿Cuántos orbitales p están completamente llenos (con 2 electrones) y cuántos con solo 1?
+          <details><summary>Ver respuesta</summary>2 orbitales llenos (2 e⁻ cada uno) y 1 orbital con un solo electrón desapareado — 2+2+1=5</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <div class="card faq" data-tag="FAQ">
+    <h2>Preguntas frecuentes</h2>
+    <h3>¿Por qué el 4s se llena antes que el 3d si "3" es menor que "4"?</h3>
+    <p>Porque la energía de un subnivel no depende solo del número de capa (n), sino de la combinación n+l. El 4s tiene menor energía que el 3d en los átomos neutros, así que se llena primero — es una de las cosas más contraintuitivas del tema, pero está confirmada experimentalmente.</p>
+    <h3>¿Para qué sirve saber cuántos electrones desapareados tiene un átomo?</h3>
+    <p>Los electrones desapareados son los que participan en los enlaces químicos — determinan cuántos enlaces puede formar un átomo y si la sustancia va a tener propiedades magnéticas (paramagnetismo).</p>
+    <h3>¿La configuración electrónica siempre sigue el orden de Aufbau sin excepciones?</h3>
+    <p>Hay algunas excepciones conocidas (como el cromo y el cobre), donde un electrón "salta" de subnivel para lograr una configuración más estable con el subnivel d medio lleno o completamente lleno — pero para el nivel de secundaria, el orden de Aufbau estándar cubre la gran mayoría de los casos.</p>
+  </div>
+
+  <div class="related">
+    <h2>Temas relacionados</h2>
+    <div class="related-links">
+      <a href="modelo-atomico.html">Modelo Atómico y Tabla Periódica</a>
+      <a href="estequiometria.html">Estequiometría y El Mol</a>
+      <a href="formulario.html">Machete de Fórmulas</a>
+      <a href="electromagnetismo.html">Electromagnetismo</a>
+      <a href="maquinas-simples.html">Máquinas Simples</a>
+      <a href="conversor-unidades.html">Conversor de Unidades</a>
+      <a href="evaluaciones.html">Evaluaciones</a>
+      <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+      <a href="experimentos.html">Experimentos Caseros</a>
+      <a href="acido-base.html">Ácido-Base y pH</a>
+      <a href="concentracion-soluciones.html">Concentración de Soluciones</a>
+      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
+      <a href="leyes-gases.html">Leyes de los Gases</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.level-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('section.level').forEach(s=>s.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`section.level[data-level="${btn.dataset.target}"]`).classList.add('active');
+    });
+  });
+
+  // ---- Motor de configuración electrónica (Principio de Aufbau) ----
+  const NOMBRES_ELEMENTOS = [
+    {Z:1, sym:'H', name:'Hidrógeno'},
+    {Z:2, sym:'He', name:'Helio'},
+    {Z:3, sym:'Li', name:'Litio'},
+    {Z:4, sym:'Be', name:'Berilio'},
+    {Z:5, sym:'B', name:'Boro'},
+    {Z:6, sym:'C', name:'Carbono'},
+    {Z:7, sym:'N', name:'Nitrógeno'},
+    {Z:8, sym:'O', name:'Oxígeno'},
+    {Z:9, sym:'F', name:'Flúor'},
+    {Z:10, sym:'Ne', name:'Neón'},
+    {Z:11, sym:'Na', name:'Sodio'},
+    {Z:12, sym:'Mg', name:'Magnesio'},
+    {Z:13, sym:'Al', name:'Aluminio'},
+    {Z:14, sym:'Si', name:'Silicio'},
+    {Z:15, sym:'P', name:'Fósforo'},
+    {Z:16, sym:'S', name:'Azufre'},
+    {Z:17, sym:'Cl', name:'Cloro'},
+    {Z:18, sym:'Ar', name:'Argón'},
+    {Z:19, sym:'K', name:'Potasio'},
+    {Z:20, sym:'Ca', name:'Calcio'},
+    {Z:21, sym:'Sc', name:'Escandio'},
+    {Z:22, sym:'Ti', name:'Titanio'},
+    {Z:23, sym:'V', name:'Vanadio'},
+    {Z:24, sym:'Cr', name:'Cromo'},
+    {Z:25, sym:'Mn', name:'Manganeso'},
+    {Z:26, sym:'Fe', name:'Hierro'},
+    {Z:27, sym:'Co', name:'Cobalto'},
+    {Z:28, sym:'Ni', name:'Níquel'},
+    {Z:29, sym:'Cu', name:'Cobre'},
+    {Z:30, sym:'Zn', name:'Zinc'},
+    {Z:31, sym:'Ga', name:'Galio'},
+    {Z:32, sym:'Ge', name:'Germanio'},
+    {Z:33, sym:'As', name:'Arsénico'},
+    {Z:34, sym:'Se', name:'Selenio'},
+    {Z:35, sym:'Br', name:'Bromo'},
+    {Z:36, sym:'Kr', name:'Kriptón'},
+    {Z:37, sym:'Rb', name:'Rubidio'},
+    {Z:38, sym:'Sr', name:'Estroncio'},
+    {Z:39, sym:'Y', name:'Itrio'},
+    {Z:40, sym:'Zr', name:'Zirconio'},
+    {Z:41, sym:'Nb', name:'Niobio'},
+    {Z:42, sym:'Mo', name:'Molibdeno'},
+    {Z:43, sym:'Tc', name:'Tecnecio'},
+    {Z:44, sym:'Ru', name:'Rutenio'},
+    {Z:45, sym:'Rh', name:'Rodio'},
+    {Z:46, sym:'Pd', name:'Paladio'},
+    {Z:47, sym:'Ag', name:'Plata'},
+    {Z:48, sym:'Cd', name:'Cadmio'},
+    {Z:49, sym:'In', name:'Indio'},
+    {Z:50, sym:'Sn', name:'Estaño'},
+    {Z:51, sym:'Sb', name:'Antimonio'},
+    {Z:52, sym:'Te', name:'Telurio'},
+    {Z:53, sym:'I', name:'Yodo'},
+    {Z:54, sym:'Xe', name:'Xenón'},
+    {Z:55, sym:'Cs', name:'Cesio'},
+    {Z:56, sym:'Ba', name:'Bario'},
+    {Z:57, sym:'La', name:'Lantano'},
+    {Z:72, sym:'Hf', name:'Hafnio'},
+    {Z:73, sym:'Ta', name:'Tántalo'},
+    {Z:74, sym:'W', name:'Wolframio'},
+    {Z:75, sym:'Re', name:'Renio'},
+    {Z:76, sym:'Os', name:'Osmio'},
+    {Z:77, sym:'Ir', name:'Iridio'},
+    {Z:78, sym:'Pt', name:'Platino'},
+    {Z:79, sym:'Au', name:'Oro'},
+    {Z:80, sym:'Hg', name:'Mercurio'},
+    {Z:81, sym:'Tl', name:'Talio'},
+    {Z:82, sym:'Pb', name:'Plomo'},
+    {Z:83, sym:'Bi', name:'Bismuto'},
+    {Z:84, sym:'Po', name:'Polonio'},
+    {Z:85, sym:'At', name:'Astato'},
+    {Z:86, sym:'Rn', name:'Radón'},
+    {Z:87, sym:'Fr', name:'Francio'},
+    {Z:88, sym:'Ra', name:'Radio'},
+    {Z:89, sym:'Ac', name:'Actinio'},
+    {Z:104, sym:'Rf', name:'Rutherfordio'},
+    {Z:105, sym:'Db', name:'Dubnio'},
+    {Z:106, sym:'Sg', name:'Seaborgio'},
+    {Z:107, sym:'Bh', name:'Bohrio'},
+    {Z:108, sym:'Hs', name:'Hasio'},
+    {Z:109, sym:'Mt', name:'Meitnerio'},
+    {Z:110, sym:'Ds', name:'Darmstadtio'},
+    {Z:111, sym:'Rg', name:'Roentgenio'},
+    {Z:112, sym:'Cn', name:'Copernicio'},
+    {Z:113, sym:'Nh', name:'Nihonio'},
+    {Z:114, sym:'Fl', name:'Flerovio'},
+    {Z:115, sym:'Mc', name:'Moscovio'},
+    {Z:116, sym:'Lv', name:'Livermorio'},
+    {Z:117, sym:'Ts', name:'Teneso'},
+    {Z:118, sym:'Og', name:'Oganesón'},
+    {Z:58, sym:'Ce', name:'Cerio'},
+    {Z:59, sym:'Pr', name:'Praseodimio'},
+    {Z:60, sym:'Nd', name:'Neodimio'},
+    {Z:61, sym:'Pm', name:'Prometio'},
+    {Z:62, sym:'Sm', name:'Samario'},
+    {Z:63, sym:'Eu', name:'Europio'},
+    {Z:64, sym:'Gd', name:'Gadolinio'},
+    {Z:65, sym:'Tb', name:'Terbio'},
+    {Z:66, sym:'Dy', name:'Disprosio'},
+    {Z:67, sym:'Ho', name:'Holmio'},
+    {Z:68, sym:'Er', name:'Erbio'},
+    {Z:69, sym:'Tm', name:'Tulio'},
+    {Z:70, sym:'Yb', name:'Iterbio'},
+    {Z:71, sym:'Lu', name:'Lutecio'},
+    {Z:90, sym:'Th', name:'Torio'},
+    {Z:91, sym:'Pa', name:'Protactinio'},
+    {Z:92, sym:'U', name:'Uranio'},
+    {Z:93, sym:'Np', name:'Neptunio'},
+    {Z:94, sym:'Pu', name:'Plutonio'},
+    {Z:95, sym:'Am', name:'Americio'},
+    {Z:96, sym:'Cm', name:'Curio'},
+    {Z:97, sym:'Bk', name:'Berkelio'},
+    {Z:98, sym:'Cf', name:'Californio'},
+    {Z:99, sym:'Es', name:'Einstenio'},
+    {Z:100, sym:'Fm', name:'Fermio'},
+    {Z:101, sym:'Md', name:'Mendelevio'},
+    {Z:102, sym:'No', name:'Nobelio'},
+    {Z:103, sym:'Lr', name:'Lawrencio'},
+  ];
+
+  const ORDEN_AUFBAU = [
+    {n:1,l:'s',cap:2}, {n:2,l:'s',cap:2}, {n:2,l:'p',cap:6},
+    {n:3,l:'s',cap:2}, {n:3,l:'p',cap:6}, {n:4,l:'s',cap:2},
+    {n:3,l:'d',cap:10}, {n:4,l:'p',cap:6}, {n:5,l:'s',cap:2},
+    {n:4,l:'d',cap:10}, {n:5,l:'p',cap:6}, {n:6,l:'s',cap:2},
+    {n:4,l:'f',cap:14}, {n:5,l:'d',cap:10}, {n:6,l:'p',cap:6},
+    {n:7,l:'s',cap:2}, {n:5,l:'f',cap:14}, {n:6,l:'d',cap:10},
+    {n:7,l:'p',cap:6}
+  ];
+
+  const SUPERINDICE = {0:'⁰',1:'¹',2:'²',3:'³',4:'⁴',5:'⁵',6:'⁶',7:'⁷',8:'⁸',9:'⁹',10:'¹⁰',11:'¹¹',12:'¹²',13:'¹³',14:'¹⁴'};
+
+  // ---- Diagrama interactivo de Aufbau ----
+  const COLOR_SUBNIVEL = {s:'#8FE3C7', p:'#D9A441', d:'#7FB8E3', f:'#B27FE3'};
+  const COL_X = {s:80, p:190, d:300, f:410};
+
+  // posición de cada subnivel en la grilla (columna según l, fila según n)
+  function posAufbau(sub){
+    return {x: COL_X[sub.l], y: 40 + (sub.n-1)*38};
+  }
+
+  function drawAufbau(ctx, w, h, pasoActual){
+    ctx.clearRect(0,0,w,h);
+
+    // línea guía que conecta todos los subniveles en el orden real (recorrido completo, tenue)
+    ctx.strokeStyle = '#3A4756';
+    ctx.lineWidth = 1.3;
+    ctx.beginPath();
+    ORDEN_AUFBAU.forEach((sub,i)=>{
+      const p = posAufbau(sub);
+      if(i===0) ctx.moveTo(p.x,p.y); else ctx.lineTo(p.x,p.y);
+    });
+    ctx.stroke();
+
+    // círculos de cada subnivel
+    ORDEN_AUFBAU.forEach((sub,i)=>{
+      const p = posAufbau(sub);
+      const visitado = i <= pasoActual;
+      ctx.fillStyle = visitado ? COLOR_SUBNIVEL[sub.l] : '#EDEAE0';
+      ctx.strokeStyle = '#1C2733';
+      ctx.lineWidth = i===pasoActual ? 3 : 1.5;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, i===pasoActual ? 20 : 16, 0, Math.PI*2);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = '#1C2733';
+      ctx.font = 'bold 12px JetBrains Mono';
+      ctx.textAlign = 'center';
+      ctx.fillText(`${sub.n}${sub.l}`, p.x, p.y+4);
+      ctx.textAlign = 'left';
+    });
+  }
+
+  let aufbauRunning = false;
+
+  function calcularYAnimar(){
+    if(aufbauRunning) return;
+    aufbauRunning = true;
+    const Z = parseInt(document.getElementById('b-Z').value)||1;
+    const subniveles = configuracionElectronica(Z); // solo los subniveles que realmente ocupa este Z
+    const canvas = document.getElementById('aufbau-canvas');
+    const ctx = canvas.getContext('2d');
+    const btn = document.getElementById('aufbau-btn');
+    btn.innerText = '⏸ Calculando...';
+    document.getElementById('b-readout').classList.remove('show');
+    document.getElementById('orbital-diagram-basico').innerHTML = '';
+
+    let paso = 0;
+    function frame(){
+      drawAufbau(ctx, canvas.width, canvas.height, paso);
+      const sub = subniveles[paso];
+      const restante = paso===subniveles.length-1 ? sub.count : sub.cap;
+      document.getElementById('aufbau-actual').innerText = `Subnivel actual: ${sub.n}${sub.l}${SUPERINDICE[restante]}`;
+      document.getElementById('aufbau-orden').innerText = `Paso ${paso+1} / ${subniveles.length}`;
+      paso++;
+      if(paso < subniveles.length){
+        setTimeout(frame, 450);
+      } else {
+        aufbauRunning = false;
+        btn.innerText = '▶ Calcular y animar';
+        mostrarResultadoFinal(Z, subniveles);
+      }
+    }
+    frame();
+  }
+
+  function elementoPorZ(Z){
+    return NOMBRES_ELEMENTOS.find(e=>e.Z===Z);
+  }
+
+  function mostrarResultadoFinal(Z, subniveles){
+    const out = document.getElementById('b-readout');
+    const el = elementoPorZ(Z);
+    const nombreEl = el ? `${el.name} (${el.sym})` : 'fuera de rango (Z entre 1 y 118)';
+    out.innerText = `Elemento: ${nombreEl}\nConfiguración electrónica (Z=${Z}):\n${formatConfig(subniveles)}`;
+    out.classList.add('show');
+
+    // diagrama de orbitales con spin de TODOS los subniveles, igual que en el avanzado
+    let html = `<p style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-soft);text-transform:uppercase;margin-bottom:8px;">Diagrama de orbitales (Regla de Hund)</p>`;
+    html += `<div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-end;">`;
+    subniveles.forEach(sub=>{
+      const numOrb = NUM_ORBITALES[sub.l];
+      const orbitales = llenarOrbitalesHund(sub.count, numOrb);
+      html += `<div style="text-align:center;">`;
+      html += `<div style="display:flex;gap:3px;">`;
+      orbitales.forEach(e=>{
+        let contenido = '';
+        if(e===1) contenido = '↑';
+        if(e===2) contenido = '↑↓';
+        html += `<div style="width:34px;height:34px;border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:14px;font-family:'JetBrains Mono',monospace;background:var(--paper);">${contenido}</div>`;
+      });
+      html += `</div>`;
+      html += `<div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-soft);margin-top:4px;">${sub.n}${sub.l}${SUPERINDICE[sub.count]}</div>`;
+      html += `</div>`;
+    });
+    html += `</div>`;
+    document.getElementById('orbital-diagram-basico').innerHTML = html;
+  }
+
+  function configuracionElectronica(Z){
+    let restante = Z;
+    const subniveles = [];
+    for(const sub of ORDEN_AUFBAU){
+      if(restante<=0) break;
+      const enSub = Math.min(restante, sub.cap);
+      subniveles.push({...sub, count:enSub});
+      restante -= enSub;
+    }
+    return subniveles;
+  }
+
+  function formatConfig(subniveles){
+    return subniveles.map(s=>`${s.n}${s.l}${SUPERINDICE[s.count]}`).join(' ');
+  }
+
+  // ---- Diagrama de orbitales con spin (Regla de Hund) ----
+  const NUM_ORBITALES = {s:1, p:3, d:5, f:7};
+
+  function llenarOrbitalesHund(count, numOrbitales){
+    const orbitales = new Array(numOrbitales).fill(0);
+    // primera pasada: un electrón por orbital (spin arriba)
+    for(let i=0;i<numOrbitales && count>0;i++){
+      orbitales[i]=1; count--;
+    }
+    // segunda pasada: aparear (spin abajo)
+    for(let i=0;i<numOrbitales && count>0;i++){
+      orbitales[i]=2; count--;
+    }
+    return orbitales;
+  }
+
+  function calcAvanzado(){
+    const Z = parseInt(document.getElementById('a-Z').value)||1;
+    const subniveles = configuracionElectronica(Z);
+    const ultimo = subniveles[subniveles.length-1];
+    const out = document.getElementById('a-readout');
+    out.innerText = `Configuración completa: ${formatConfig(subniveles)}\nÚltimo subnivel en llenarse: ${ultimo.n}${ultimo.l}${SUPERINDICE[ultimo.count]}`;
+    out.classList.add('show');
+
+    // dibujar diagrama de celdas de TODOS los subniveles, uno al lado del otro
+    let html = `<div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-end;">`;
+    subniveles.forEach(sub=>{
+      const numOrb = NUM_ORBITALES[sub.l];
+      const orbitales = llenarOrbitalesHund(sub.count, numOrb);
+      html += `<div style="text-align:center;">`;
+      html += `<div style="display:flex;gap:3px;">`;
+      orbitales.forEach(e=>{
+        let contenido = '';
+        if(e===1) contenido = '↑';
+        if(e===2) contenido = '↑↓';
+        html += `<div style="width:34px;height:34px;border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:14px;font-family:'JetBrains Mono',monospace;background:var(--paper);">${contenido}</div>`;
+      });
+      html += `</div>`;
+      html += `<div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-soft);margin-top:4px;">${sub.n}${sub.l}${SUPERINDICE[sub.count]}</div>`;
+      html += `</div>`;
+    });
+    html += `</div>`;
+    document.getElementById('orbital-diagram').innerHTML = html;
+  }
+
+  window.addEventListener('load', ()=>{
+    calcAvanzado();
+    const aufbauCanvas = document.getElementById('aufbau-canvas');
+    drawAufbau(aufbauCanvas.getContext('2d'), aufbauCanvas.width, aufbauCanvas.height, -1);
+  });
+</script>
+
+</body>
+</html>

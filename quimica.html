@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Química — Qué es, Historia y Línea de Tiempo Interactiva — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --grid:#E4E0D4;
+    --ink:#1C2733;
+    --ink-soft:#4A5568;
+    --amber:#D9A441;
+    --amber-dark:#B8842E;
+    --pine:#2F6B5E;
+    --pine-dark:#225046;
+    --white:#FFFFFF;
+    --line:#D8D3C4;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+  header.top{
+    padding:36px 20px 28px;
+    max-width:760px;margin:0 auto;
+    border-bottom:2px solid var(--ink);
+  }
+  .brand-link{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--amber-dark);
+    margin-bottom:12px;
+    letter-spacing:0.01em;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--pine-dark);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px,5vw,46px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--ink-soft);font-size:16px;max-width:56ch;}
+
+  .level-nav{
+    display:flex;gap:8px;margin:28px 0 0;
+  }
+  .level-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;font-weight:700;
+    padding:10px 18px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    cursor:pointer;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .level-btn.active{background:var(--ink);color:var(--paper);}
+
+  section.level{display:none;margin-top:36px;}
+  section.level.active{display:block;}
+
+  .card{
+    background:var(--white);
+    border:2px solid var(--ink);
+    padding:28px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .card::before{
+    content:attr(data-tag);
+    position:absolute;
+    top:-13px;left:20px;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+  }
+  section.level[data-level="avanzado"] .card::before{background:var(--pine);color:var(--white);}
+
+  h2{font-family:'Fraunces', serif;font-size:22px;font-weight:600;margin:6px 0 14px;}
+
+  .formula-box{
+    font-family:'JetBrains Mono', monospace;
+    font-size:20px;
+    font-weight:700;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    padding:16px 20px;
+    margin:14px 0;
+    text-align:center;
+    letter-spacing:0.02em;
+  }
+  .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
+  .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+
+  /* Calculadora */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media(max-width:520px){.calc-grid{grid-template-columns:1fr;}}
+  .field label{
+    display:block;font-size:12px;font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;
+  }
+  .field input{
+    width:100%;padding:10px 12px;
+    border:2px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;background:var(--white);
+  }
+  .field input:focus{outline:3px solid var(--amber);outline-offset:1px;}
+  .calc-btn{
+    margin-top:16px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    padding:12px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.05em;
+    cursor:pointer;
+  }
+  .calc-btn:hover{background:var(--amber-dark);}
+  .readout{
+    margin-top:18px;
+    background:var(--ink);
+    color:#8FE3C7;
+    font-family:'JetBrains Mono', monospace;
+    padding:18px 20px;
+    font-size:15px;
+    min-height:24px;
+    display:none;
+    white-space:pre-line;
+  }
+  .readout.show{display:block;}
+
+  .example{
+    background:var(--paper);
+    border-left:4px solid var(--pine);
+    padding:16px 18px;
+    font-size:15px;
+    margin-top:10px;
+  }
+  section.level[data-level="basico"] .example{border-left-color:var(--amber-dark);}
+
+  .exercises ol{padding-left:20px;}
+  .exercises li{margin-bottom:14px;}
+  details{
+    margin-top:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  details summary{cursor:pointer;color:var(--pine-dark);font-weight:700;}
+
+  .faq h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;}
+  .faq p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .related{
+    margin-top:40px;padding-top:24px;border-top:2px solid var(--ink);
+  }
+  .related h2{font-size:16px;}
+  .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+  .related-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    background:var(--white);
+  }
+  .related-links a:hover{border-color:var(--ink);}
+
+  .sim-box{
+    background:var(--ink);
+    border:2px solid var(--ink);
+    padding:14px;
+    margin-top:16px;
+  }
+  #sim-canvas-basico, #sim-canvas-avanzado{
+    display:block;width:100%;height:auto;
+  }
+  .sim-readout{
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    color:#8FE3C7;font-size:13px;
+    margin-top:10px;padding-top:10px;
+    border-top:1px solid #3A4756;
+  }
+  .speed-row{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-left:14px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;color:var(--ink-soft);
+  }
+  .speed-btn{
+    border:1px solid var(--line);background:var(--white);
+    padding:6px 10px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;cursor:pointer;
+  }
+  .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  .mach-grupo{margin-bottom:36px;}
+  .mach-titulo{
+    font-family:'Fraunces', serif;
+    font-size:24px;font-weight:700;
+    padding:10px 18px;margin-bottom:16px;
+    color:var(--white);
+    display:inline-flex;align-items:center;gap:10px;
+    border-radius:6px;
+  }
+  .mach-titulo .mach-emoji{font-size:26px;}
+
+  /* colores distintivos por categoría — cada tema con su propia paleta */
+  .mach-grupo.mecanica .mach-titulo{background:#D9714A;}
+  .mach-grupo.electricidad .mach-titulo{background:#4A90D9;}
+  .mach-grupo.termo .mach-titulo{background:#E0A030;}
+  .mach-grupo.moderna .mach-titulo{background:#8A5FC7;}
+  .mach-grupo.quimica .mach-titulo{background:#3FA05C;}
+  .mach-grupo.herramientas .mach-titulo{background:#5C6B7A;}
+
+  .mach-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(210px, 1fr));
+    gap:14px;
+  }
+  .mach-card{
+    display:block;
+    background:var(--white);
+    border:3px solid var(--ink);
+    border-radius:10px;
+    padding:16px 18px;
+    text-decoration:none;
+    color:var(--ink);
+    transition:transform 0.12s, box-shadow 0.12s;
+    position:relative;
+    overflow:hidden;
+  }
+  .mach-card::before{
+    content:'';
+    position:absolute;top:0;left:0;right:0;height:6px;
+  }
+  .mach-grupo.mecanica .mach-card::before{background:#D9714A;}
+  .mach-grupo.electricidad .mach-card::before{background:#4A90D9;}
+  .mach-grupo.termo .mach-card::before{background:#E0A030;}
+  .mach-grupo.moderna .mach-card::before{background:#8A5FC7;}
+  .mach-grupo.quimica .mach-card::before{background:#3FA05C;}
+  .mach-grupo.herramientas .mach-card::before{background:#5C6B7A;}
+
+  .mach-card:hover{
+    transform:translateY(-4px) rotate(-0.5deg);
+    box-shadow:5px 5px 0 var(--ink);
+  }
+  .mach-card.herramienta{border-style:dashed;}
+  .mach-card .mach-card-icon{font-size:30px;display:block;margin-bottom:6px;}
+  .mach-card h3{
+    font-family:'Fraunces', serif;font-size:16px;font-weight:700;
+    margin:0 0 10px;
+    color:var(--ink);
+  }
+  .mach-formula{
+    font-family:'JetBrains Mono', monospace;
+    font-size:14px;font-weight:700;
+    margin-top:5px;
+    background:var(--paper);
+    padding:4px 8px;
+    border-radius:4px;
+    display:inline-block;
+  }
+
+  /* ---- Elementos de "cuaderno anotado a mano": post-its, clips, flechas ---- */
+  .estudio-elemento{position:relative;}
+
+  .postit{
+    position:absolute;
+    width:130px;
+    padding:12px 14px 16px;
+    font-family:'Caveat', cursive;
+    font-size:18px;
+    line-height:1.25;
+    color:#3A3020;
+    box-shadow:2px 4px 8px rgba(0,0,0,0.18);
+    z-index:5;
+  }
+  .postit.amarillo{background:#F5E27A;transform:rotate(-4deg);}
+  .postit.rosa{background:#F3B8C4;transform:rotate(3deg);}
+  .postit.celeste{background:#A9D6E5;transform:rotate(-2deg);}
+  .postit::before{
+    content:'';
+    position:absolute;top:-8px;left:50%;
+    transform:translateX(-50%) rotate(-3deg);
+    width:34px;height:16px;
+    background:rgba(255,255,255,0.55);
+    border:1px solid rgba(0,0,0,0.08);
+  }
+
+  .clip-svg{position:absolute;z-index:6;filter:drop-shadow(1px 2px 2px rgba(0,0,0,0.25));}
+
+  .flecha-curva{position:absolute;z-index:4;pointer-events:none;}
+
+  .letras-varias{
+    font-family:'Caveat', cursive;
+    font-weight:700;
+  }
+
+  .exp-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+    gap:16px;
+  }
+  .exp-card{
+    background:var(--white);
+    border:3px solid var(--ink);
+    border-radius:10px;
+    padding:18px 20px;
+    position:relative;
+    overflow:hidden;
+  }
+  .exp-card::before{
+    content:'';
+    position:absolute;top:0;left:0;right:0;height:6px;
+  }
+  .mach-grupo.mecanica .exp-card::before{background:#D9714A;}
+  .mach-grupo.electricidad .exp-card::before{background:#4A90D9;}
+  .mach-grupo.termo .exp-card::before{background:#E0A030;}
+  .mach-grupo.quimica .exp-card::before{background:#3FA05C;}
+  .exp-card h3{
+    font-family:'Fraunces', serif;font-size:17px;font-weight:700;
+    margin:4px 0 6px;
+  }
+  .exp-tema{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:0 0 12px;
+  }
+  .exp-materiales{font-size:13.5px;margin:0 0 10px;}
+  .exp-pasos{padding-left:20px;margin:0 0 12px;font-size:13.5px;}
+  .exp-pasos li{margin-bottom:4px;}
+  .exp-explica{
+    font-size:13px;color:var(--ink-soft);
+    background:var(--paper);
+    padding:10px 12px;
+    border-radius:6px;
+    margin:0;
+  }
+
+  .banco-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    gap:20px;
+    margin-top:16px;
+  }
+  .banco-col h3{
+    font-family:'Fraunces', serif;font-size:15px;
+    margin:0 0 8px;
+  }
+  .banco-col ul{
+    padding-left:18px;margin:0;
+    font-size:13.5px;line-height:1.7;
+  }
+  .banco-col li{margin-bottom:2px;}
+
+  .timeline-interactiva{margin-top:16px;}
+  .ti-item{
+    border-left:3px solid var(--amber);
+    margin-bottom:2px;
+  }
+  .ti-boton{
+    display:flex;align-items:center;gap:14px;
+    width:100%;
+    background:none;border:none;
+    padding:10px 0 10px 18px;
+    text-align:left;
+    cursor:pointer;
+    position:relative;
+    font-family:inherit;
+  }
+  .ti-boton::before{
+    content:'';
+    position:absolute;left:-8px;top:calc(50% - 6.5px);
+    width:13px;height:13px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    border-radius:50%;
+  }
+  .ti-boton:hover{background:var(--paper);}
+  .ti-año{
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:15px;
+    color:var(--amber-dark);
+    min-width:80px;flex-shrink:0;
+  }
+  .ti-titulo{font-size:14.5px;font-weight:600;flex:1;}
+  .ti-flecha{font-size:14px;color:var(--ink-soft);transition:transform 0.15s;}
+  .ti-item.abierto .ti-flecha{transform:rotate(90deg);}
+  .ti-detalle{
+    max-height:0;overflow:hidden;
+    transition:max-height 0.25s ease;
+    padding-left:18px;
+  }
+  .ti-item.abierto .ti-detalle{max-height:200px;}
+  .ti-detalle p{
+    font-size:13.5px;color:var(--ink-soft);
+    padding-bottom:14px;margin:0;
+    line-height:1.6;
+  }
+
+  .mach-header-fila{
+    margin-bottom:16px;
+  }
+  .postit-margen{
+    position:absolute;
+    left:100%;
+    margin-left:24px;
+    width:150px;
+  }
+  @media(max-width:1150px){
+    .postit-margen{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="top" style="position:relative;">
+  <svg class="clip-svg" viewBox="0 0 40 70" width="34" height="60" style="position:absolute;top:8px;right:24px;transform:rotate(8deg);">
+    <path d="M20,4 C30,4 34,12 34,22 L34,50 C34,60 28,64 20,64 C12,64 8,58 8,50 L8,20 C8,14 12,10 16,10 L16,50 C16,54 18,56 20,56 C22,56 24,54 24,50 L24,18" fill="none" stroke="#8A94A0" stroke-width="3.5" stroke-linecap="round"/>
+  </svg>
+  <a href="index.html" class="brand-link">DescifraLab</a>
+  <div class="eyebrow">Portada de materia</div>
+  <h1>Química</h1>
+  <p class="subtitle">Qué es, cómo se construyó su conocimiento a lo largo de la historia, y todos los temas del sitio organizados en un solo lugar.</p>
+</header>
+
+<div class="wrap" style="position:relative;">
+
+  <div class="card">
+    <h2>¿Qué es la Química?</h2>
+    <p>La Química estudia de qué está hecha la materia, cómo se combina, y cómo se transforma — desde por qué el hierro se oxida, hasta cómo tu cuerpo digiere la comida. Si la Física pregunta "¿por qué se mueven las cosas?", la Química pregunta "¿de qué están hechas, y qué pasa cuando se juntan?".</p>
+    <p style="color:var(--ink-soft);font-size:14.5px;">Durante casi 2000 años, lo que hoy llamamos química fue en realidad <strong>alquimia</strong> — una mezcla de ciencia primitiva, filosofía y misticismo, donde la gente buscaba convertir metales comunes en oro, o encontrar el elixir de la vida eterna. No lo lograron, pero en el camino desarrollaron técnicas de laboratorio (destilación, purificación) que siguen siendo la base de la química real.</p>
+  </div>
+
+  <div class="card">
+    <h2>Línea de tiempo interactiva</h2>
+    <p style="color:var(--ink-soft);font-size:14.5px;">Toca cualquier año para ver qué pasó.</p>
+    <div id="timeline-quimica" class="timeline-interactiva"></div>
+  </div>
+
+
+  <!-- QUÍMICA -->
+  <div class="mach-grupo quimica">
+    <h2 class="mach-titulo">Estructura de la materia</h2>
+    <div class="mach-grid">
+      <a href="modelo-atomico.html" class="mach-card quimica">
+        <h3>Modelo Atómico</h3>
+        <div class="mach-formula">Z = protones</div>
+      </a>
+      <a href="configuracion-electronica.html" class="mach-card quimica">
+        <h3>Config. Electrónica</h3>
+        <div class="mach-formula" style="font-size:12px;">Capacidad de capa = 2n²</div>
+      </a>
+      <a href="enlaces-quimicos.html" class="mach-card quimica">
+        <h3>Enlaces Químicos</h3>
+        <div class="mach-formula">ΔEN≥1.7 → iónico</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="mach-grupo quimica">
+    <h2 class="mach-titulo">Reacciones</h2>
+    <div class="mach-grid">
+      <a href="estequiometria.html" class="mach-card quimica">
+        <h3>Estequiometría</h3>
+        <div class="mach-formula">n = m / M</div>
+      </a>
+      <a href="oxido-reduccion.html" class="mach-card quimica">
+        <h3>Óxido-Reducción</h3>
+        <div class="mach-formula" style="font-size:12px;">Oxidación = pierde e⁻</div>
+      </a>
+      <a href="acido-base.html" class="mach-card quimica">
+        <h3>Ácido-Base y pH</h3>
+        <div class="mach-formula">pH = −log[H⁺]</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="mach-grupo quimica">
+    <h2 class="mach-titulo">Materia y soluciones</h2>
+    <div class="mach-grid">
+      <a href="concentracion-soluciones.html" class="mach-card quimica">
+        <h3>Concentración de Soluciones</h3>
+        <div class="mach-formula">M = n / V</div>
+      </a>
+      <a href="mezclas-separacion.html" class="mach-card quimica">
+        <h3>Mezclas y Separación</h3>
+        <div class="mach-formula" style="font-size:12px;">Filtración, decantación...</div>
+      </a>
+      <a href="leyes-gases.html" class="mach-card quimica">
+        <h3>Leyes de los Gases</h3>
+        <div class="mach-formula">PV = nRT</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="card" data-tag="Nota" style="text-align:center;">
+    <p style="color:var(--ink-soft);font-size:14px;margin:0;">¿Buscas las fórmulas resumidas de todo? Anda al <a href="formulario.html">Machete de Fórmulas</a>.</p>
+  </div>
+
+</div>
+
+<script>
+  const TIMELINE_QUIMICA = [
+    {año:'~500 a.C.-1600', titulo:'La era de la alquimia', texto:'Durante casi 2000 años, lo que hoy es química fue alquimia — la búsqueda de convertir metales comunes en oro y encontrar el "elixir de la vida eterna". Nunca lo lograron, pero desarrollaron técnicas de laboratorio (destilación, purificación) que la química real siguió usando.'},
+    {año:'1661-1789', titulo:'Boyle y Lavoisier: nace el método', texto:'Robert Boyle (1661) empieza a tratar la química como ciencia experimental real, no alquimia. Antoine Lavoisier (1789) formula la Ley de Conservación de la Masa y refuta la "teoría del flogisto" — es considerado el padre de la química moderna.'},
+    {año:'1803-1808', titulo:'John Dalton: la teoría atómica', texto:'Dalton propone que cada elemento tiene átomos idénticos entre sí, distintos de los de otros elementos, y que los compuestos se forman combinando átomos en proporciones fijas — la primera teoría atómica con base científica real.'},
+    {año:'1828', titulo:'Wöhler y el nacimiento de la química orgánica', texto:'Friedrich Wöhler sintetiza urea (un compuesto "de la vida") a partir de sustancias inorgánicas en el laboratorio — desafiando la creencia de la época de que los compuestos orgánicos solo podían producirlos organismos vivos.'},
+    {año:'1869', titulo:'Mendeléyev y la Tabla Periódica', texto:'Dmitri Mendeléyev organiza los elementos conocidos según sus propiedades — y lo más impresionante, deja espacios vacíos prediciendo elementos que todavía no se habían descubierto. Años después, se encontraron exactamente donde él dijo que estarían.'},
+    {año:'1898', titulo:'Marie y Pierre Curie: la radiactividad', texto:'Descubren el polonio y el radio, dos elementos nuevos aún más radiactivos que el uranio de Becquerel. Marie Curie se convierte en la primera persona en ganar dos Premios Nobel en ciencias distintas (Física 1903, Química 1911).'},
+    {año:'1913', titulo:'Bohr y los niveles de energía', texto:'Niels Bohr propone que los electrones giran en niveles de energía específicos, no en cualquier lugar — la base del modelo simplificado que usamos hoy para entender la tabla periódica y los enlaces químicos.'},
+    {año:'1930s', titulo:'Linus Pauling y el enlace químico', texto:'Pauling desarrolla la escala de electronegatividad que usamos en este sitio para predecir si un enlace es iónico o covalente, y publica "La naturaleza del enlace químico" — uno de los libros de química más influyentes del siglo XX. Ganó el Nobel de Química (1954) y el de la Paz (1962), sin compartirlos con nadie.'},
+  ];
+
+  function renderTimelineQuimica(){
+    const cont = document.getElementById('timeline-quimica');
+    let html = '';
+    TIMELINE_QUIMICA.forEach((item, i)=>{
+      html += `
+        <div class="ti-item" id="ti-item-${i}">
+          <button class="ti-boton" onclick="toggleTimelineItem(${i})">
+            <span class="ti-año">${item.año}</span>
+            <span class="ti-titulo">${item.titulo}</span>
+            <span class="ti-flecha">▶</span>
+          </button>
+          <div class="ti-detalle"><p>${item.texto}</p></div>
+        </div>`;
+    });
+    cont.innerHTML = html;
+  }
+
+  function toggleTimelineItem(i){
+    const item = document.getElementById('ti-item-'+i);
+    item.classList.toggle('abierto');
+  }
+
+  window.addEventListener('load', ()=>{
+    renderTimelineQuimica();
+  });
+</script>
+
+</body>
+</html>

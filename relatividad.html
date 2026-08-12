@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatividad: Dilatación Temporal y Curvatura del Espacio-Tiempo | Simulador — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --grid:#E4E0D4;
+    --ink:#1C2733;
+    --ink-soft:#4A5568;
+    --amber:#D9A441;
+    --amber-dark:#B8842E;
+    --pine:#2F6B5E;
+    --pine-dark:#225046;
+    --white:#FFFFFF;
+    --line:#D8D3C4;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+  header.top{
+    padding:36px 20px 28px;
+    max-width:760px;margin:0 auto;
+    border-bottom:2px solid var(--ink);
+  }
+  .brand-link{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--amber-dark);
+    text-decoration:none;
+    margin-bottom:12px;
+    letter-spacing:0.01em;
+  }
+  .brand-link:hover{text-decoration:underline;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--pine-dark);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px,5vw,46px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--ink-soft);font-size:16px;max-width:56ch;}
+
+  .level-nav{
+    display:flex;gap:8px;margin:28px 0 0;
+  }
+  .level-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;font-weight:700;
+    padding:10px 18px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    cursor:pointer;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .level-btn.active{background:var(--ink);color:var(--paper);}
+
+  section.level{display:none;margin-top:36px;}
+  section.level.active{display:block;}
+
+  .card{
+    background:var(--white);
+    border:2px solid var(--ink);
+    padding:28px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .card::before{
+    content:attr(data-tag);
+    position:absolute;
+    top:-13px;left:20px;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+  }
+  section.level[data-level="avanzado"] .card::before{background:var(--pine);color:var(--white);}
+
+  h2{font-family:'Fraunces', serif;font-size:22px;font-weight:600;margin:6px 0 14px;}
+
+  .formula-box{
+    font-family:'JetBrains Mono', monospace;
+    font-size:20px;
+    font-weight:700;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    padding:16px 20px;
+    margin:14px 0;
+    text-align:center;
+    letter-spacing:0.02em;
+  }
+  .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
+  .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+
+  /* Calculadora */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media(max-width:520px){.calc-grid{grid-template-columns:1fr;}}
+  .field label{
+    display:block;font-size:12px;font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;
+  }
+  .field input{
+    width:100%;padding:10px 12px;
+    border:2px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;background:var(--white);
+  }
+  .field input:focus{outline:3px solid var(--amber);outline-offset:1px;}
+  .calc-btn{
+    margin-top:16px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    padding:12px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.05em;
+    cursor:pointer;
+  }
+  .calc-btn:hover{background:var(--amber-dark);}
+  .readout{
+    margin-top:18px;
+    background:var(--ink);
+    color:#8FE3C7;
+    font-family:'JetBrains Mono', monospace;
+    padding:18px 20px;
+    font-size:15px;
+    min-height:24px;
+    display:none;
+    white-space:pre-line;
+  }
+  .readout.show{display:block;}
+
+  .example{
+    background:var(--paper);
+    border-left:4px solid var(--pine);
+    padding:16px 18px;
+    font-size:15px;
+    margin-top:10px;
+  }
+  section.level[data-level="basico"] .example{border-left-color:var(--amber-dark);}
+
+  .exercises ol{padding-left:20px;}
+  .exercises li{margin-bottom:14px;}
+  details{
+    margin-top:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  details summary{cursor:pointer;color:var(--pine-dark);font-weight:700;}
+
+  .faq h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;}
+  .faq p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .related{
+    margin-top:40px;padding-top:24px;border-top:2px solid var(--ink);
+  }
+  .related h2{font-size:16px;}
+  .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+  .related-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    background:var(--white);
+  }
+  .related-links a:hover{border-color:var(--ink);}
+
+  .sim-box{
+    background:var(--ink);
+    border:2px solid var(--ink);
+    padding:14px;
+    margin-top:16px;
+  }
+  .sim-box canvas{
+    display:block;width:100%;height:auto;
+  }
+  .sim-readout{
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    color:#8FE3C7;font-size:13px;
+    margin-top:10px;padding-top:10px;
+    border-top:1px solid #3A4756;
+  }
+  .speed-row{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-left:14px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;color:var(--ink-soft);
+  }
+  .speed-btn{
+    border:1px solid var(--line);background:var(--white);
+    padding:6px 10px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;cursor:pointer;
+  }
+  .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="index.html" class="brand-link">DescifraLab</a>
+  <div class="eyebrow">Relatividad</div>
+  <h1>Dilatación Temporal y Curvatura del Espacio-Tiempo</h1>
+  <p class="subtitle">La única fórmula calculable de este eje (dilatación temporal) más dos simuladores conceptuales, para el nivel real de 5° año.</p>
+  <nav class="level-nav">
+    <button class="level-btn active" data-target="basico">Básico</button>
+    <button class="level-btn" data-target="avanzado">Avanzado</button>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- NIVEL BÁSICO -->
+  <section class="level active" data-level="basico">
+
+    <div class="card" data-tag="Concepto">
+      <h2>Dilatación temporal: el tiempo no es igual para todos</h2>
+      <p>La Teoría de la Relatividad Especial de Einstein dice que el tiempo no pasa igual para todos los observadores — depende de qué tan rápido se mueven entre sí. Cuanto más cerca de la velocidad de la luz vas, más lento pasa el tiempo para ti, visto desde alguien "quieto".</p>
+      <div class="formula-box">Δt' = Δt / √(1 − v²/c²)</div>
+      <p class="var-list"><span>Δt'</span> = tiempo medido por el observador "quieto" &nbsp;·&nbsp; <span>Δt</span> = tiempo propio (del que se mueve) &nbsp;·&nbsp; <span>v</span> = velocidad relativa &nbsp;·&nbsp; <span>c</span> = velocidad de la luz ≈ 300.000 km/s</p>
+      <p style="color:var(--ink-soft);font-size:14.5px;">En la vida cotidiana esto es completamente imperceptible — recién se nota cuando v se acerca mucho a c. Por eso a los 100 km/h de un auto no notas nada raro, pero un satélite GPS sí necesita esta corrección.</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula la dilatación temporal</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Velocidad como % de c</label><input type="number" id="b-vpct" value="90"></div>
+        <div class="field"><label>Tiempo propio Δt (segundos)</label><input type="number" id="b-dt" value="10"></div>
+      </div>
+      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
+      <div class="readout" id="b-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Por qué se dilata el tiempo: el reloj de luz</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Un "reloj de luz" es un rayo de luz que rebota entre dos espejos — cada rebote completo es un "tic". Movés la velocidad, y mirás cómo el reloj de la derecha (en movimiento) tiquea cada vez más lento que el de la izquierda (en reposo) — literalmente porque su luz tiene que recorrer un camino diagonal más largo para completar el mismo rebote.</p>
+      <div class="sim-box">
+        <canvas id="lightclock-canvas" width="680" height="240"></canvas>
+        <div class="sim-readout">
+          <span id="lc-ticks-reposo">Reposo: 0 tics</span>
+          <span id="lc-ticks-movimiento">Movimiento: 0 tics</span>
+        </div>
+      </div>
+      <input type="range" id="gamma-slider" min="0" max="95" value="60" style="width:100%;margin-top:14px;accent-color:#D9A441;" oninput="updateGamma(this.value)">
+      <div class="readout show" id="gamma-readout" style="margin-top:12px;"></div>
+      <button class="calc-btn" id="lc-btn" onclick="toggleLightClock()" style="margin-top:12px;">▶ Reproducir</button>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo real — los satélites GPS</h2>
+      <div class="example">
+        <p><strong>Los satélites GPS orbitan a unos 14.000 km/h. ¿Por qué necesitan corrección relativista si eso es solo el 0.0013% de la velocidad de la luz?</strong></p>
+        <p>Porque el GPS necesita una precisión de nanosegundos para calcular tu posición con exactitud. Aunque el efecto de dilatación temporal por velocidad es minúsculo, sumado al efecto gravitatorio (los satélites están más lejos de la Tierra, donde el tiempo pasa distinto), el desajuste acumulado sería de varios kilómetros de error por día si no se corrigiera.</p>
+        <p>Los ingenieros ajustan los relojes de los satélites para que, combinando ambos efectos relativistas, marquen la hora exacta sincronizada con la Tierra.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Un objeto viaja al 50% de la velocidad de la luz. ¿Cuál es su factor γ aproximado?
+          <details><summary>Ver respuesta</summary>γ = 1/√(1−0.5²) = 1/√0.75 ≈ 1.155</details>
+        </li>
+        <li>Para un objeto en reposo (v=0), ¿cuánto vale γ?
+          <details><summary>Ver respuesta</summary>γ = 1/√(1−0) = 1 (no hay dilatación, el tiempo pasa igual para todos)</details>
+        </li>
+        <li>¿Por qué nunca notamos la dilatación temporal en la vida diaria (en auto, en avión)?
+          <details><summary>Ver respuesta</summary>Porque incluso a velocidades de avión (~900 km/h) la relación v/c es tan increíblemente chica que γ es prácticamente 1 — el efecto existe pero es indetectable sin instrumentos extremadamente precisos.</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <!-- NIVEL AVANZADO -->
+  <section class="level" data-level="avanzado">
+
+    <div class="card" data-tag="Concepto">
+      <h2>Curvatura del espacio-tiempo</h2>
+      <p>La Relatividad General va más allá: dice que la gravedad no es una "fuerza" que tira de los objetos a distancia, como pensaba Newton, sino que las masas <em>curvan</em> el espacio-tiempo a su alrededor, y los objetos simplemente siguen el camino más recto posible dentro de ese espacio curvado. La Tierra no "atrae" a la Luna con una cuerda invisible — la Luna sigue la curva que el Sol y la Tierra generan en el espacio-tiempo.</p>
+      <p style="color:var(--ink-soft);font-size:14.5px;">Esta parte es conceptual, no calculable con una fórmula de secundaria — pero se puede visualizar con la analogía clásica de una tela estirada: una masa pesada la hunde, y otros objetos "caen" hacia ese hueco siguiendo la curva.</p>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Mira cómo una masa curva el espacio</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Mueves la masa central y miras cómo se deforma la grilla — así es la analogía visual más usada para explicar la curvatura del espacio-tiempo.</p>
+      <div class="sim-box">
+        <canvas id="curvature-canvas" width="680" height="280"></canvas>
+      </div>
+      <input type="range" id="mass-slider" min="10" max="100" value="40" style="width:100%;margin-top:14px;accent-color:#D9A441;" oninput="updateCurvature(this.value)">
+    </div>
+
+    <div class="card" data-tag="Concepto">
+      <h2>Ondas gravitacionales</h2>
+      <p>Cuando masas muy grandes aceleran bruscamente (como dos agujeros negros chocando), generan ondulaciones en el espacio-tiempo mismo que se propagan a la velocidad de la luz, como las ondas en un estanque cuando tiras una piedra — solo que acá lo que "ondula" es el espacio-tiempo, no el agua. Se detectaron por primera vez en 2015 (observatorio LIGO), un siglo después de que Einstein las predijera.</p>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Mira propagarse las ondas gravitacionales</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Simulación conceptual: dos masas orbitando muy cerca ("fusión" de objetos compactos) generan ondas que se expanden desde el centro.</p>
+      <div class="sim-box">
+        <canvas id="waves-canvas" width="680" height="220"></canvas>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Preguntas de repaso conceptual</h2>
+      <ol>
+        <li>¿Por qué la Relatividad General reemplaza la idea de "fuerza gravitatoria a distancia" de Newton?
+          <details><summary>Ver respuesta</summary>Porque en vez de una fuerza invisible tirando entre dos masas, propone que las masas curvan el espacio-tiempo, y los objetos simplemente siguen la trayectoria más recta posible en ese espacio curvo.</details>
+        </li>
+        <li>¿Qué evento astronómico genera ondas gravitacionales detectables?
+          <details><summary>Ver respuesta</summary>Eventos con masas enormes acelerando bruscamente, como la fusión de dos agujeros negros o dos estrellas de neutrones.</details>
+        </li>
+        <li>¿Qué tiene que ver el GPS con la Relatividad General, además de la dilatación temporal por velocidad?
+          <details><summary>Ver respuesta</summary>Los satélites GPS están más lejos del centro de la Tierra que nosotros, en una zona donde la curvatura del espacio-tiempo (el "campo gravitatorio") es más débil — eso también hace que su tiempo transcurra distinto al nuestro, y hay que corregirlo junto con el efecto de la velocidad.</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <div class="card faq" data-tag="FAQ">
+    <h2>Preguntas frecuentes</h2>
+    <h3>¿Puedo viajar en el tiempo con esto?</h3>
+    <p>En cierto sentido, "hacia el futuro" sí es real: si viajaras a velocidades cercanas a la de la luz y volvieras, habría pasado menos tiempo para ti que para la gente en la Tierra. Volver "hacia el pasado" es harina de otro costal, y no tiene sustento en la física actual.</p>
+    <h3>¿Por qué c (la velocidad de la luz) es tan especial en estas fórmulas?</h3>
+    <p>Porque la Relatividad establece que nada con masa puede alcanzar o superar la velocidad de la luz — es el límite de velocidad del universo, y por eso aparece como referencia en todas las fórmulas relativistas.</p>
+    <h3>¿Esto ya está comprobado o es solo teoría?</h3>
+    <p>Está confirmado experimentalmente muchas veces — desde relojes atómicos en aviones que efectivamente se atrasan/adelantan lo predicho, hasta la detección directa de ondas gravitacionales en 2015. No es especulación, es física verificada.</p>
+  </div>
+
+  <div class="related">
+    <h2>Temas relacionados</h2>
+    <div class="related-links">
+      <a href="fluidos.html">Presión Hidrostática y Flotación</a>
+      <a href="calor-especifico.html">Calor Específico y Cambios de Estado</a>
+      <a href="newton.html">Segunda Ley de Newton (F = m·a)</a>
+      <a href="formulario.html">Machete de Fórmulas</a>
+      <a href="electromagnetismo.html">Electromagnetismo</a>
+      <a href="conversor-unidades.html">Conversor de Unidades</a>
+      <a href="evaluaciones.html">Evaluaciones</a>
+      <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+      <a href="experimentos.html">Experimentos Caseros</a>
+      <a href="modelo-atomico.html">Modelo Atómico y Tabla Periódica</a>
+      <a href="estequiometria.html">Estequiometría y El Mol</a>
+      <a href="configuracion-electronica.html">Configuración Electrónica</a>
+      <a href="oxido-reduccion.html">Óxido-Reducción</a>
+      <a href="enlaces-quimicos.html">Enlaces Químicos</a>
+      <a href="acido-base.html">Ácido-Base y pH</a>
+      <a href="concentracion-soluciones.html">Concentración de Soluciones</a>
+      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
+      <a href="leyes-gases.html">Leyes de los Gases</a>
+      <a href="energia-nuclear.html">Energía Nuclear</a>
+      <a href="tiro-oblicuo.html">Tiro Oblicuo — Movimiento Parabólico</a>
+      <a href="mcu.html">Movimiento Circular Uniforme (MCU)</a>
+      <a href="impulso-momentum.html">Impulso y Cantidad de Movimiento</a>
+      <a href="estatica-torque.html">Estática y Torque</a>
+      <a href="maquinas-simples.html">Máquinas Simples</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.level-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('section.level').forEach(s=>s.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`section.level[data-level="${btn.dataset.target}"]`).classList.add('active');
+    });
+  });
+
+  function calcBasico(){
+    const vpct = parseFloat(document.getElementById('b-vpct').value)||0;
+    const v = vpct/100; // fracción de c
+    const dt = parseFloat(document.getElementById('b-dt').value)||0;
+    const gamma = 1/Math.sqrt(1 - v*v);
+    const dtPrime = dt*gamma;
+    const out = document.getElementById('b-readout');
+    out.innerText = `γ = 1/√(1−${v.toFixed(2)}²) = ${gamma.toFixed(3)}\nΔt' = ${dt}×${gamma.toFixed(3)} = ${dtPrime.toFixed(3)} s (el observador "quieto" mide esto en vez de ${dt} s)`;
+    out.classList.add('show');
+  }
+
+  // ---- Simulador 1: el reloj de luz (light clock) ----
+  let lcState = {gamma:1, running:false, tReposo:0, tMovimiento:0, ticksReposo:0, ticksMovimiento:0, lastFrame:null};
+  const LC_PERIOD_BASE = 1400; // ms para un tic completo del reloj en reposo
+
+  function drawLightClock(ctx, w, h){
+    ctx.clearRect(0,0,w,h);
+    const boxW = w/2 - 30;
+    const topY = 30, botY = h-40;
+    const leftCX = boxW/2 + 10;
+    const rightCX = w/2 + 30 + boxW/2;
+
+    function drawClockBox(cx, tFrac, colorDot, label, ticks){
+      // espejos (líneas horizontales)
+      ctx.strokeStyle = '#3A4756';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(cx-70, topY); ctx.lineTo(cx+70, topY);
+      ctx.moveTo(cx-70, botY); ctx.lineTo(cx+70, botY);
+      ctx.stroke();
+
+      // trayectoria del rayo: rebote triangular (sube-baja), con desvío horizontal si está en movimiento
+      const bounce = tFrac < 0.5 ? tFrac*2 : (1-tFrac)*2; // 0->1->0 triangular
+      const y = topY + bounce*(botY-topY);
+      const horizDrift = (label==='movimiento') ? Math.sin(tFrac*Math.PI*2)*45 : 0;
+      const x = cx + horizDrift;
+
+      // línea punteada mostrando el camino recorrido (diagonal si está en movimiento)
+      ctx.strokeStyle = 'rgba(217,164,65,0.35)';
+      ctx.setLineDash([3,4]);
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      if(horizDrift !== 0){
+        ctx.moveTo(cx - 45, topY); ctx.lineTo(x, y); ctx.lineTo(cx + 45, botY);
+      } else {
+        ctx.moveTo(cx, topY); ctx.lineTo(cx, botY);
+      }
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // el fotón (punto brillante)
+      ctx.beginPath();
+      ctx.arc(x, y, 7, 0, Math.PI*2);
+      ctx.fillStyle = colorDot;
+      ctx.fill();
+      ctx.strokeStyle = '#1C2733';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      // etiquetas
+      ctx.font = 'bold 12px JetBrains Mono';
+      ctx.fillStyle = '#EDEAE0';
+      ctx.textAlign = 'center';
+      ctx.fillText(label==='reposo' ? 'EN REPOSO' : 'EN MOVIMIENTO', cx, 16);
+      ctx.font = '11px JetBrains Mono';
+      ctx.fillStyle = '#8FA0AE';
+      ctx.fillText(ticks+' tics', cx, h-14);
+      ctx.textAlign = 'left';
+    }
+
+    const fracReposo = (lcState.tReposo % LC_PERIOD_BASE) / LC_PERIOD_BASE;
+    const periodMov = LC_PERIOD_BASE * lcState.gamma;
+    const fracMov = (lcState.tMovimiento % periodMov) / periodMov;
+
+    drawClockBox(leftCX, fracReposo, '#7FB8E3', 'reposo', lcState.ticksReposo);
+    drawClockBox(rightCX, fracMov, '#D9A441', 'movimiento', lcState.ticksMovimiento);
+  }
+
+  function lightClockFrame(now){
+    const s = lcState;
+    if(!s.running) return;
+    const dt = now - (s.lastFrame || now);
+    s.lastFrame = now;
+
+    const prevReposoTicks = Math.floor(s.tReposo/LC_PERIOD_BASE);
+    s.tReposo += dt;
+    const newReposoTicks = Math.floor(s.tReposo/LC_PERIOD_BASE);
+    if(newReposoTicks > prevReposoTicks) s.ticksReposo++;
+
+    const periodMov = LC_PERIOD_BASE * s.gamma;
+    const prevMovTicks = Math.floor(s.tMovimiento/periodMov);
+    s.tMovimiento += dt;
+    const newMovTicks = Math.floor(s.tMovimiento/periodMov);
+    if(newMovTicks > prevMovTicks) s.ticksMovimiento++;
+
+    const canvas = document.getElementById('lightclock-canvas');
+    drawLightClock(canvas.getContext('2d'), canvas.width, canvas.height);
+    document.getElementById('lc-ticks-reposo').innerText = `Reposo: ${s.ticksReposo} tics`;
+    document.getElementById('lc-ticks-movimiento').innerText = `Movimiento: ${s.ticksMovimiento} tics`;
+
+    requestAnimationFrame(lightClockFrame);
+  }
+
+  function toggleLightClock(){
+    const btn = document.getElementById('lc-btn');
+    lcState.running = !lcState.running;
+    if(lcState.running){
+      btn.innerText = '⏸ Pausar';
+      lcState.lastFrame = performance.now();
+      requestAnimationFrame(lightClockFrame);
+    } else {
+      btn.innerText = '▶ Reproducir';
+    }
+  }
+
+  function updateGamma(val){
+    const vpct = parseFloat(val);
+    const v = vpct/100;
+    const gamma = 1/Math.sqrt(Math.max(1-v*v, 0.0001));
+    lcState.gamma = gamma;
+    document.getElementById('gamma-readout').innerText = `v = ${vpct}% de c  →  γ = ${gamma.toFixed(3)}  →  el reloj en movimiento tiquea ${gamma.toFixed(2)} veces más lento`;
+    if(!lcState.running){
+      const canvas = document.getElementById('lightclock-canvas');
+      drawLightClock(canvas.getContext('2d'), canvas.width, canvas.height);
+    }
+  }
+
+  // ---- Simulador 2: curvatura del espacio-tiempo (grilla deformada) ----
+  function drawCurvature(ctx, w, h, massVal){
+    ctx.clearRect(0,0,w,h);
+    const cx = w/2, cy = h/2;
+    const strength = massVal * 1.8;
+    const cols = 20, rows = 12;
+    const spacingX = w/cols, spacingY = h/rows;
+
+    ctx.strokeStyle = '#3A4756';
+    ctx.lineWidth = 1.2;
+
+    // líneas horizontales deformadas
+    for(let r=0; r<=rows; r++){
+      ctx.beginPath();
+      for(let c=0; c<=cols; c++){
+        const x = c*spacingX, y = r*spacingY;
+        const dx = x-cx, dy = y-cy;
+        const dist = Math.sqrt(dx*dx+dy*dy)+1;
+        const pull = strength*400/(dist+40);
+        const ny = y + pull*(dy/dist)*0.3;
+        const nx = x + pull*(dx/dist)*0.15;
+        if(c===0) ctx.moveTo(nx,ny); else ctx.lineTo(nx,ny);
+      }
+      ctx.stroke();
+    }
+    // líneas verticales deformadas
+    for(let c=0; c<=cols; c++){
+      ctx.beginPath();
+      for(let r=0; r<=rows; r++){
+        const x = c*spacingX, y = r*spacingY;
+        const dx = x-cx, dy = y-cy;
+        const dist = Math.sqrt(dx*dx+dy*dy)+1;
+        const pull = strength*400/(dist+40);
+        const ny = y + pull*(dy/dist)*0.3;
+        const nx = x + pull*(dx/dist)*0.15;
+        if(r===0) ctx.moveTo(nx,ny); else ctx.lineTo(nx,ny);
+      }
+      ctx.stroke();
+    }
+
+    // masa central
+    ctx.fillStyle = '#D9A441';
+    ctx.beginPath();
+    ctx.arc(cx, cy, 8+massVal*0.15, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  function updateCurvature(val){
+    const massVal = parseFloat(val);
+    const canvas = document.getElementById('curvature-canvas');
+    drawCurvature(canvas.getContext('2d'), canvas.width, canvas.height, massVal);
+  }
+
+  // ---- Simulador 3: ondas gravitacionales expandiéndose ----
+  let waveT = 0;
+  function drawWaves(ctx, w, h, t){
+    ctx.clearRect(0,0,w,h);
+    const cx = w/2, cy = h/2;
+
+    // dos masas orbitando muy cerca (fusión)
+    const orbitR = 12;
+    const angle = t*4;
+    const m1x = cx + orbitR*Math.cos(angle), m1y = cy + orbitR*Math.sin(angle);
+    const m2x = cx - orbitR*Math.cos(angle), m2y = cy - orbitR*Math.sin(angle);
+
+    // ondas expandiéndose (anillos concéntricos con opacidad decreciente)
+    ctx.strokeStyle = '#7FB8E3';
+    for(let i=0;i<6;i++){
+      const r = ((t*60 + i*40) % 260);
+      const alpha = Math.max(0, 1 - r/260);
+      ctx.globalAlpha = alpha*0.5;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.ellipse(cx, cy, r, r*0.6, 0, 0, Math.PI*2);
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+
+    // las dos masas
+    ctx.fillStyle = '#1C2733';
+    ctx.beginPath(); ctx.arc(m1x, m1y, 7, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(m2x, m2y, 7, 0, Math.PI*2); ctx.fill();
+  }
+
+  function wavesLoop(){
+    waveT += 0.02;
+    const canvas = document.getElementById('waves-canvas');
+    drawWaves(canvas.getContext('2d'), canvas.width, canvas.height, waveT);
+    requestAnimationFrame(wavesLoop);
+  }
+
+  window.addEventListener('load', ()=>{
+    updateGamma(60);
+    updateCurvature(40);
+    wavesLoop();
+  });
+</script>
+
+</body>
+</html>

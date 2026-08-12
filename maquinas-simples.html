@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Máquinas Simples — Palanca, Polea, Plano Inclinado — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --grid:#E4E0D4;
+    --ink:#1C2733;
+    --ink-soft:#4A5568;
+    --amber:#D9A441;
+    --amber-dark:#B8842E;
+    --pine:#2F6B5E;
+    --pine-dark:#225046;
+    --white:#FFFFFF;
+    --line:#D8D3C4;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+  header.top{
+    padding:36px 20px 28px;
+    max-width:760px;margin:0 auto;
+    border-bottom:2px solid var(--ink);
+  }
+  .brand-link{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--amber-dark);
+    text-decoration:none;
+    margin-bottom:12px;
+    letter-spacing:0.01em;
+  }
+  .brand-link:hover{text-decoration:underline;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--pine-dark);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px,5vw,46px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--ink-soft);font-size:16px;max-width:56ch;}
+
+  .level-nav{
+    display:flex;gap:8px;margin:28px 0 0;
+  }
+  .level-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;font-weight:700;
+    padding:10px 18px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    cursor:pointer;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .level-btn.active{background:var(--ink);color:var(--paper);}
+
+  section.level{display:none;margin-top:36px;}
+  section.level.active{display:block;}
+
+  .card{
+    background:var(--white);
+    border:2px solid var(--ink);
+    padding:28px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .card::before{
+    content:attr(data-tag);
+    position:absolute;
+    top:-13px;left:20px;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+  }
+  section.level[data-level="avanzado"] .card::before{background:var(--pine);color:var(--white);}
+
+  h2{font-family:'Fraunces', serif;font-size:22px;font-weight:600;margin:6px 0 14px;}
+
+  .formula-box{
+    font-family:'JetBrains Mono', monospace;
+    font-size:20px;
+    font-weight:700;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    padding:16px 20px;
+    margin:14px 0;
+    text-align:center;
+    letter-spacing:0.02em;
+  }
+  .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
+  .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+
+  /* Calculadora */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media(max-width:520px){.calc-grid{grid-template-columns:1fr;}}
+  .field label{
+    display:block;font-size:12px;font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;
+  }
+  .field input{
+    width:100%;padding:10px 12px;
+    border:2px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;background:var(--white);
+  }
+  .field input:focus{outline:3px solid var(--amber);outline-offset:1px;}
+  .calc-btn{
+    margin-top:16px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    padding:12px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.05em;
+    cursor:pointer;
+  }
+  .calc-btn:hover{background:var(--amber-dark);}
+  .readout{
+    margin-top:18px;
+    background:var(--ink);
+    color:#8FE3C7;
+    font-family:'JetBrains Mono', monospace;
+    padding:18px 20px;
+    font-size:15px;
+    min-height:24px;
+    display:none;
+    white-space:pre-line;
+  }
+  .readout.show{display:block;}
+
+  .example{
+    background:var(--paper);
+    border-left:4px solid var(--pine);
+    padding:16px 18px;
+    font-size:15px;
+    margin-top:10px;
+  }
+  section.level[data-level="basico"] .example{border-left-color:var(--amber-dark);}
+
+  .exercises ol{padding-left:20px;}
+  .exercises li{margin-bottom:14px;}
+  details{
+    margin-top:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  details summary{cursor:pointer;color:var(--pine-dark);font-weight:700;}
+
+  .faq h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;}
+  .faq p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .related{
+    margin-top:40px;padding-top:24px;border-top:2px solid var(--ink);
+  }
+  .related h2{font-size:16px;}
+  .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+  .related-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    background:var(--white);
+  }
+  .related-links a:hover{border-color:var(--ink);}
+
+  .sim-box{
+    background:var(--ink);
+    border:2px solid var(--ink);
+    padding:14px;
+    margin-top:16px;
+  }
+  .sim-box canvas{
+    display:block;width:100%;height:auto;
+  }
+  .sim-readout{
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    color:#8FE3C7;font-size:13px;
+    margin-top:10px;padding-top:10px;
+    border-top:1px solid #3A4756;
+  }
+  .speed-row{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-left:14px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;color:var(--ink-soft);
+  }
+  .speed-btn{
+    border:1px solid var(--line);background:var(--white);
+    padding:6px 10px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;cursor:pointer;
+  }
+  .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="index.html" class="brand-link">DescifraLab</a>
+  <div class="eyebrow">Mecánica · Dinámica</div>
+  <h1>Máquinas Simples</h1>
+  <p class="subtitle">Palanca, plano inclinado, poleas y ventaja mecánica, con simulador visual de un sistema de poleas real, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
+  <nav class="level-nav">
+    <button class="level-btn active" data-target="basico">Básico</button>
+    <button class="level-btn" data-target="avanzado">Avanzado</button>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- NIVEL BÁSICO -->
+  <section class="level active" data-level="basico">
+
+    <div class="card" data-tag="Concepto">
+      <h2>¿Qué es una máquina simple?</h2>
+      <p>Una máquina simple no crea energía de la nada — lo que hace es <strong>cambiar la dirección de una fuerza, o reducir cuánta fuerza necesitás aplicar</strong> (a cambio de aplicarla en una distancia más larga). Existen seis tipos básicos: palanca, plano inclinado, polea, torno, cuña y tornillo. Todas se miden con el mismo concepto: la ventaja mecánica.</p>
+      <div class="formula-box">Ventaja Mecánica (VM) = Fuerza resistente / Fuerza aplicada</div>
+      <p class="var-list">Una VM de 3 significa que la máquina te permite mover algo aplicando 3 veces menos fuerza de la que tendrías que hacer sin ella — pero vas a tener que mover tu extremo 3 veces más distancia (no hay atajos gratis, la energía total se conserva).</p>
+    </div>
+
+    <div class="card" data-tag="Concepto">
+      <h2>La palanca</h2>
+      <p>Ya viste el torque (τ = F·d) en la página anterior — la palanca es la aplicación directa de eso. Cuanto más lejos del punto de apoyo apliques la fuerza, menos fuerza necesitás para el mismo efecto.</p>
+      <div class="formula-box">VM = brazo de potencia / brazo de resistencia = dₚ / dᵣ</div>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calculá la ventaja mecánica de una palanca</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Brazo de potencia dₚ (m) — donde aplicás la fuerza</label><input type="number" id="b-dp" value="2"></div>
+        <div class="field"><label>Brazo de resistencia dᵣ (m) — donde está el peso</label><input type="number" id="b-dr" value="0.5"></div>
+      </div>
+      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
+      <div class="readout" id="b-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>Usás una barreta como palanca: aplicás la fuerza a 2 m del apoyo, y la piedra que querés mover está a 0.5 m del apoyo. ¿Cuál es la ventaja mecánica?</strong></p>
+        <p>VM = dₚ/dᵣ = 2/0.5 = <strong>4</strong></p>
+        <p>Con esa palanca, movés la piedra aplicando 4 veces menos fuerza de la que necesitarías levantándola directamente con las manos.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Una palanca tiene dₚ=3 m y dᵣ=1 m. ¿Cuál es su ventaja mecánica?
+          <details><summary>Ver respuesta</summary>VM = 3/1 = 3</details>
+        </li>
+        <li>¿Por qué una carretilla (con la rueda como punto de apoyo) es más fácil de usar que cargar el peso directamente?
+          <details><summary>Ver respuesta</summary>Porque el punto de apoyo (la rueda) está mucho más cerca del peso que de donde vos aplicás la fuerza (los mangos) — dₚ es grande, dᵣ es chico, dando una VM alta.</details>
+        </li>
+        <li>¿Qué le pasa a la distancia que tenés que mover tu mano si la ventaja mecánica es alta?
+          <details><summary>Ver respuesta</summary>Tenés que moverla mucho más — la energía se conserva, así que si ganás en fuerza, perdés en distancia recorrida (movés más pero con menos esfuerzo).</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <!-- NIVEL AVANZADO -->
+  <section class="level" data-level="avanzado">
+
+    <div class="card" data-tag="Concepto">
+      <h2>Poleas: fija, móvil, y sistemas combinados</h2>
+      <ul style="padding-left:20px;margin:10px 0;">
+        <li><strong>Polea fija:</strong> solo cambia la dirección de la fuerza (tirás hacia abajo, el peso sube) — VM = 1, no reduce el esfuerzo.</li>
+        <li><strong>Polea móvil:</strong> se mueve junto con el peso — VM = 2, la mitad del esfuerzo.</li>
+        <li><strong>Sistema de poleas (aparejo):</strong> combina varias — la ventaja mecánica es igual a la cantidad de segmentos de cuerda que sostienen al peso.</li>
+      </ul>
+      <div class="formula-box">VM (sistema de poleas) = número de cuerdas que sostienen el peso</div>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calculá la fuerza necesaria con un sistema de poleas</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Peso a levantar (N)</label><input type="number" id="a-peso" value="600"></div>
+        <div class="field"><label>Cantidad de cuerdas que sostienen el peso</label><input type="number" id="a-cuerdas" value="3" min="1" max="6"></div>
+      </div>
+      <button class="calc-btn" onclick="calcAvanzado()">Calcular</button>
+      <div class="readout" id="a-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Mirá el sistema de poleas en acción</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Con los valores de arriba, mirá cómo tirar de la cuerda levanta el peso — comparando la fuerza que aplicás contra el peso real.</p>
+      <div class="sim-box">
+        <canvas id="polea-canvas" width="680" height="260"></canvas>
+      </div>
+      <button class="calc-btn" id="polea-btn" onclick="togglePolea()">▶ Tirar de la cuerda</button>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>Con un sistema de poleas de 3 cuerdas, querés levantar un peso de 600 N. ¿Qué fuerza tenés que aplicar?</strong></p>
+        <p>VM = 3 (3 cuerdas sosteniendo el peso)</p>
+        <p>F = Peso/VM = 600/3 = <strong>200 N</strong></p>
+        <p>Aplicás un tercio de la fuerza — pero vas a tener que tirar 3 metros de cuerda por cada metro que suba el peso.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Con 4 cuerdas sosteniendo un peso de 800 N, ¿qué fuerza hace falta?
+          <details><summary>Ver respuesta</summary>F = 800/4 = 200 N</details>
+        </li>
+        <li>¿Por qué una polea fija sola (VM=1) es útil aunque no reduzca la fuerza necesaria?
+          <details><summary>Ver respuesta</summary>Porque cambia la dirección de la fuerza — es mucho más fácil tirar hacia abajo (usando tu propio peso, con ayuda de la gravedad) que empujar hacia arriba directamente.</details>
+        </li>
+        <li>Si necesitás levantar 1200 N y solo podés aplicar 200 N, ¿cuántas cuerdas necesita tu sistema de poleas como mínimo?
+          <details><summary>Ver respuesta</summary>VM necesaria = 1200/200 = 6 → hacen falta 6 cuerdas sosteniendo el peso</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <div class="card faq" data-tag="FAQ">
+    <h2>Preguntas frecuentes</h2>
+    <h3>¿Una máquina simple hace que necesites menos energía total?</h3>
+    <p>No — la energía total necesaria es la misma (o incluso un poco más, por la fricción). Lo que cambia es cómo la aplicás: menos fuerza en más distancia, en vez de mucha fuerza en poca distancia. No hay atajos, solo formas más cómodas de aplicar el esfuerzo.</p>
+    <h3>¿Por qué el destornillador es una máquina simple?</h3>
+    <p>Es un ejemplo de rueda y eje (torno): el mango tiene un radio más grande que la punta, así que un giro chico de fuerza en el mango se traduce en mucha fuerza rotacional en la punta — la misma idea que una manija de puerta.</p>
+    <h3>¿Las máquinas simples se pueden combinar?</h3>
+    <p>Sí, todo el tiempo — una bicicleta combina palancas (los pedales), ruedas y ejes, y hasta engranajes. La mayoría de las máquinas complejas que usamos son, en el fondo, combinaciones de estas seis máquinas simples básicas.</p>
+  </div>
+
+  <div class="related">
+    <h2>Temas relacionados</h2>
+    <div class="related-links">
+      <a href="estatica-torque.html">Estática y Torque</a>
+      <a href="newton.html">Segunda Ley de Newton (F = m·a)</a>
+      <a href="formulario.html">Machete de Fórmulas</a>
+      <a href="electromagnetismo.html">Electromagnetismo</a>
+      <a href="evaluaciones.html">Evaluaciones</a>
+      <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+      <a href="experimentos.html">Experimentos Caseros</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.level-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('section.level').forEach(s=>s.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`section.level[data-level="${btn.dataset.target}"]`).classList.add('active');
+    });
+  });
+
+  function calcBasico(){
+    const dp = parseFloat(document.getElementById('b-dp').value)||1;
+    const dr = parseFloat(document.getElementById('b-dr').value)||1;
+    const VM = dp/dr;
+    const out = document.getElementById('b-readout');
+    out.innerText = `VM = dₚ/dᵣ = ${dp}/${dr} = ${VM.toFixed(2)}`;
+    out.classList.add('show');
+  }
+
+  function calcAvanzado(){
+    const peso = parseFloat(document.getElementById('a-peso').value)||0;
+    const cuerdas = parseInt(document.getElementById('a-cuerdas').value)||1;
+    const F = peso/cuerdas;
+    const out = document.getElementById('a-readout');
+    out.innerText = `VM = ${cuerdas} (cuerdas)\nF = Peso/VM = ${peso}/${cuerdas} = ${F.toFixed(1)} N`;
+    out.classList.add('show');
+  }
+
+  // ---- Simulador de sistema de poleas ----
+  let poleaState = {running:false, t:0, altura:0, lastFrame:null};
+
+  function drawPolea(ctx, w, h, cuerdas, altura){
+    ctx.clearRect(0,0,w,h);
+    const techoY = 20, pisoY = h-20;
+    const centerX = w/2;
+
+    // techo (soporte fijo)
+    ctx.fillStyle = '#3A4756';
+    ctx.fillRect(centerX-100, techoY-8, 200, 8);
+
+    // poleas fijas arriba (una por cada 2 cuerdas, simplificado a máximo 3 poleas fijas)
+    const nPoleasFijas = Math.min(Math.ceil(cuerdas/2), 3);
+    const poleaFijaXs = [];
+    for(let i=0;i<nPoleasFijas;i++){
+      const px = centerX - 60 + i*60;
+      poleaFijaXs.push(px);
+      ctx.beginPath();
+      ctx.arc(px, techoY+14, 12, 0, Math.PI*2);
+      ctx.fillStyle = '#8A94A0';
+      ctx.fill();
+      ctx.strokeStyle = '#1C2733';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+
+    // polea móvil (baja con el peso) — sube a medida que "altura" aumenta
+    const poleaMovilY = pisoY - 60 - altura*1.5;
+    const poleaMovilX = centerX;
+    ctx.beginPath();
+    ctx.arc(poleaMovilX, poleaMovilY, 14, 0, Math.PI*2);
+    ctx.fillStyle = '#D9A441';
+    ctx.fill();
+    ctx.strokeStyle = '#1C2733';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // peso colgando de la polea móvil
+    ctx.fillStyle = '#7FB8E3';
+    ctx.fillRect(poleaMovilX-18, poleaMovilY+16, 36, 26);
+    ctx.strokeStyle = '#1C2733';
+    ctx.strokeRect(poleaMovilX-18, poleaMovilY+16, 36, 26);
+    ctx.font = 'bold 11px JetBrains Mono';
+    ctx.fillStyle = '#1C2733';
+    ctx.textAlign = 'center';
+    ctx.fillText('PESO', poleaMovilX, poleaMovilY+33);
+
+    // cuerdas: zigzag entre poleas fijas y la móvil
+    ctx.strokeStyle = '#5C6B7A';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(poleaFijaXs[0], techoY+14);
+    for(let i=0;i<cuerdas;i++){
+      const targetX = i%2===0 ? poleaMovilX : poleaFijaXs[i%poleaFijaXs.length];
+      const targetY = i%2===0 ? poleaMovilY : techoY+14;
+      ctx.lineTo(targetX, targetY);
+    }
+    // cuerda final que sale hacia la mano (derecha, abajo)
+    ctx.lineTo(centerX+140, pisoY-20-((poleaState.t*40)%40));
+    ctx.stroke();
+
+    // mano tirando
+    ctx.font = '22px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('⬇', centerX+140, pisoY-20-((poleaState.t*40)%40)+8);
+    ctx.font = '11px JetBrains Mono';
+    ctx.fillStyle = '#5C6B7A';
+    ctx.fillText('tirás acá', centerX+140, pisoY+2);
+    ctx.textAlign = 'left';
+
+    ctx.font = '11px JetBrains Mono';
+    ctx.fillStyle = '#5C6B7A';
+    ctx.fillText(`Altura levantada: ${altura.toFixed(1)} m`, 20, h-6);
+  }
+
+  function togglePolea(){
+    const btn = document.getElementById('polea-btn');
+    const s = poleaState;
+    if(s.running){
+      s.running = false;
+      btn.innerText = '▶ Tirar de la cuerda';
+    } else {
+      if(s.altura >= 3) s.altura = 0; // reiniciar si ya llegó arriba
+      s.running = true;
+      btn.innerText = '⏸ Pausar';
+      s.lastFrame = performance.now();
+      requestAnimationFrame(poleaFrame);
+    }
+  }
+
+  function poleaFrame(now){
+    const s = poleaState;
+    if(!s.running) return;
+    const dt = (now - s.lastFrame)/1000;
+    s.lastFrame = now;
+    s.t += dt;
+    s.altura = Math.min(s.altura + dt*0.6, 3);
+
+    const cuerdas = parseInt(document.getElementById('a-cuerdas').value)||3;
+    const canvas = document.getElementById('polea-canvas');
+    drawPolea(canvas.getContext('2d'), canvas.width, canvas.height, cuerdas, s.altura);
+
+    if(s.altura < 3){
+      requestAnimationFrame(poleaFrame);
+    } else {
+      s.running = false;
+      document.getElementById('polea-btn').innerText = '▶ Tirar de la cuerda';
+    }
+  }
+
+  window.addEventListener('load', ()=>{
+    const canvas = document.getElementById('polea-canvas');
+    const cuerdas = parseInt(document.getElementById('a-cuerdas').value)||3;
+    drawPolea(canvas.getContext('2d'), canvas.width, canvas.height, cuerdas, 0);
+  });
+</script>
+
+</body>
+</html>

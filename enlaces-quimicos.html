@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enlaces Químicos — Iónico, Covalente y Metálico | Simulador — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --grid:#E4E0D4;
+    --ink:#1C2733;
+    --ink-soft:#4A5568;
+    --amber:#D9A441;
+    --amber-dark:#B8842E;
+    --pine:#2F6B5E;
+    --pine-dark:#225046;
+    --white:#FFFFFF;
+    --line:#D8D3C4;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+  header.top{
+    padding:36px 20px 28px;
+    max-width:760px;margin:0 auto;
+    border-bottom:2px solid var(--ink);
+  }
+  .brand-link{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--amber-dark);
+    text-decoration:none;
+    margin-bottom:12px;
+    letter-spacing:0.01em;
+  }
+  .brand-link:hover{text-decoration:underline;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--pine-dark);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px,5vw,46px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--ink-soft);font-size:16px;max-width:56ch;}
+
+  .level-nav{
+    display:flex;gap:8px;margin:28px 0 0;
+  }
+  .level-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;font-weight:700;
+    padding:10px 18px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    cursor:pointer;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .level-btn.active{background:var(--ink);color:var(--paper);}
+
+  section.level{display:none;margin-top:36px;}
+  section.level.active{display:block;}
+
+  .card{
+    background:var(--white);
+    border:2px solid var(--ink);
+    padding:28px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .card::before{
+    content:attr(data-tag);
+    position:absolute;
+    top:-13px;left:20px;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+  }
+  section.level[data-level="avanzado"] .card::before{background:var(--pine);color:var(--white);}
+
+  h2{font-family:'Fraunces', serif;font-size:22px;font-weight:600;margin:6px 0 14px;}
+
+  .formula-box{
+    font-family:'JetBrains Mono', monospace;
+    font-size:20px;
+    font-weight:700;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    padding:16px 20px;
+    margin:14px 0;
+    text-align:center;
+    letter-spacing:0.02em;
+  }
+  .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
+  .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+
+  /* Calculadora */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media(max-width:520px){.calc-grid{grid-template-columns:1fr;}}
+  .field label{
+    display:block;font-size:12px;font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;
+  }
+  .field input{
+    width:100%;padding:10px 12px;
+    border:2px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;background:var(--white);
+  }
+  .field input:focus{outline:3px solid var(--amber);outline-offset:1px;}
+  .calc-btn{
+    margin-top:16px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    padding:12px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.05em;
+    cursor:pointer;
+  }
+  .calc-btn:hover{background:var(--amber-dark);}
+  .readout{
+    margin-top:18px;
+    background:var(--ink);
+    color:#8FE3C7;
+    font-family:'JetBrains Mono', monospace;
+    padding:18px 20px;
+    font-size:15px;
+    min-height:24px;
+    display:none;
+    white-space:pre-line;
+  }
+  .readout.show{display:block;}
+
+  .example{
+    background:var(--paper);
+    border-left:4px solid var(--pine);
+    padding:16px 18px;
+    font-size:15px;
+    margin-top:10px;
+  }
+  section.level[data-level="basico"] .example{border-left-color:var(--amber-dark);}
+
+  .exercises ol{padding-left:20px;}
+  .exercises li{margin-bottom:14px;}
+  details{
+    margin-top:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  details summary{cursor:pointer;color:var(--pine-dark);font-weight:700;}
+
+  .faq h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;}
+  .faq p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .related{
+    margin-top:40px;padding-top:24px;border-top:2px solid var(--ink);
+  }
+  .related h2{font-size:16px;}
+  .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+  .related-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    background:var(--white);
+  }
+  .related-links a:hover{border-color:var(--ink);}
+
+  .sim-box{
+    background:var(--ink);
+    border:2px solid var(--ink);
+    padding:14px;
+    margin-top:16px;
+  }
+  .sim-box canvas{
+    display:block;width:100%;height:auto;
+  }
+  .sim-readout{
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    color:#8FE3C7;font-size:13px;
+    margin-top:10px;padding-top:10px;
+    border-top:1px solid #3A4756;
+  }
+  .speed-row{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-left:14px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;color:var(--ink-soft);
+  }
+  .speed-btn{
+    border:1px solid var(--line);background:var(--white);
+    padding:6px 10px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;cursor:pointer;
+  }
+  .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  .ejemplos-visual{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    gap:20px;
+    margin-top:14px;
+  }
+  .ejemplo-mol{
+    text-align:center;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:16px;
+  }
+  .ejemplo-mol h3{font-size:15px;margin:0 0 10px;font-family:'Fraunces',serif;}
+  .ejemplo-mol canvas{border-radius:6px;}
+
+  .enlace-analogia{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+    gap:14px;margin-top:16px;
+  }
+  .enlace-tipo{
+    border:2.5px solid;
+    padding:16px;
+    background:var(--paper);
+  }
+  .enlace-icono{font-size:32px;margin-bottom:6px;}
+  .enlace-tipo h3{font-size:15px;margin:0 0 8px;font-family:'Fraunces',serif;}
+  .enlace-tipo p{font-size:13.5px;margin:0 0 8px;}
+  .enlace-ejemplo{
+    font-size:12.5px;color:var(--ink-soft);
+    border-top:1px dashed var(--line);
+    padding-top:8px;margin-top:8px !important;
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="index.html" class="brand-link">DescifraLab</a>
+  <div class="eyebrow">Química · Enlaces</div>
+  <h1>Enlaces Químicos</h1>
+  <p class="subtitle">Iónico, covalente y metálico, calculadora de diferencia de electronegatividad, simulador de formación de enlaces, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
+  <nav class="level-nav">
+    <button class="level-btn active" data-target="basico">Básico</button>
+    <button class="level-btn" data-target="avanzado">Avanzado</button>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- NIVEL BÁSICO -->
+  <section class="level active" data-level="basico">
+
+    <div class="card" data-tag="Concepto">
+      <h2>Imaginátelo así: 3 formas de "hacerse amigos"</h2>
+      <p>Los átomos, solos, no están del todo cómodos — les falta o les sobra algún electrón en su última capa. Para quedar estables, se juntan con otros átomos, y lo hacen de tres formas distintas, como tres formas distintas de compartir algo con un amigo:</p>
+
+      <div class="enlace-analogia">
+        <div class="enlace-tipo" style="border-color:#B8842E;">
+          <h3 style="color:#B8842E;">Iónico — "te lo regalo"</h3>
+          <p>Un átomo le <strong>regala</strong> (transfiere) un electrón entero al otro. Uno queda con carga positiva, el otro con carga negativa, y se atraen como dos imanes.</p>
+          <p class="enlace-ejemplo">Ejemplo tangible: la <strong>sal de mesa</strong> (NaCl) — el sodio le regala su electrón al cloro.</p>
+        </div>
+        <div class="enlace-tipo" style="border-color:#2F6B5E;">
+          <h3 style="color:#2F6B5E;">Covalente — "lo compartimos"</h3>
+          <p>Dos átomos <strong>comparten</strong> un par de electrones entre los dos, como dos personas agarrando la misma soga entre las dos manos.</p>
+          <p class="enlace-ejemplo">Ejemplo tangible: el <strong>agua</strong> que tomas (H₂O) — el oxígeno comparte electrones con cada hidrógeno.</p>
+        </div>
+        <div class="enlace-tipo" style="border-color:#4A7A9E;">
+          <h3 style="color:#4A7A9E;">Metálico — "todos ponemos en la olla común"</h3>
+          <p>En un pedazo de metal, todos los átomos ponen sus electrones de valencia en un "fondo común" que se mueve libre por todo el metal — nadie es dueño de ningún electrón en particular.</p>
+          <p class="enlace-ejemplo">Ejemplo tangible: un <strong>anillo de oro</strong> o un <strong>alambre de cobre</strong> — por eso los metales conducen electricidad.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-tag="Concepto">
+      <h2>¿Cómo sé cuál va a pasar?</h2>
+      <p>La pista está en qué tipo de átomos se están juntando — pensalo como una regla simple:</p>
+      <div class="formula-box">Metal + No metal → Iónico (uno regala, el otro recibe)</div>
+      <div class="formula-box">No metal + No metal → Covalente (comparten)</div>
+      <div class="formula-box">Metal + Metal → Metálico (todos comparten todo)</div>
+      <p style="color:var(--ink-soft);font-size:14.5px;">Para afinar más la predicción (sobre todo cuando no es tan obvio), usamos la electronegatividad — cuánto "tira" cada átomo de los electrones hacia sí. Cuanto más distintos son los dos átomos en eso, más probable que uno le termine "robando" el electrón al otro (iónico) en vez de compartirlo parejo (covalente).</p>
+    </div>
+
+    <div class="card" data-tag="Visual">
+      <h2>Dos ejemplos que ya conoces, dibujados</h2>
+      <div class="ejemplos-visual">
+        <div class="ejemplo-mol">
+          <h3 style="color:#B8842E;">NaCl — sal de mesa (iónico)</h3>
+          <canvas id="nacl-canvas" width="220" height="220" style="width:100%;max-width:220px;"></canvas>
+          <p style="font-size:12.5px;color:var(--ink-soft);margin-top:8px;">Los iones Na⁺ y Cl⁻ se ordenan en una red cristalina repetitiva, alternándose — así se ve un cristal de sal a nivel atómico.</p>
+        </div>
+        <div class="ejemplo-mol">
+          <h3 style="color:#2F6B5E;">H₂O — agua (covalente polar)</h3>
+          <canvas id="h2o-canvas" width="220" height="220" style="width:100%;max-width:220px;"></canvas>
+          <p style="font-size:12.5px;color:var(--ink-soft);margin-top:8px;">Forma angular (≈104.5°), con el oxígeno "tirando" más fuerte de los electrones — por eso queda con carga parcial negativa (δ⁻) y los hidrógenos con carga parcial positiva (δ⁺).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Probalo tú: elige dos elementos</h2>
+      <p style="color:var(--ink-soft);font-size:13.5px;margin-top:-4px;">El número entre paréntesis es la electronegatividad de cada uno (de la Tabla Periódica que ya vimos).</p>
+      <div class="calc-grid">
+        <div class="field">
+          <label>Elemento A</label>
+          <select id="b-elA" style="width:100%;padding:10px 12px;border:2px solid var(--ink);font-family:'JetBrains Mono', monospace;font-size:15px;background:var(--white);">
+            <option value="Na">Na (0.93) — metal</option><option value="K">K (0.82) — metal</option>
+            <option value="Ca">Ca (1.00) — metal</option><option value="Mg">Mg (1.31) — metal</option>
+            <option value="Al">Al (1.61) — metal</option><option value="H" selected>H (2.20) — no metal</option>
+            <option value="C">C (2.55) — no metal</option><option value="N">N (3.04) — no metal</option>
+            <option value="S">S (2.58) — no metal</option><option value="P">P (2.19) — no metal</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Elemento B</label>
+          <select id="b-elB" style="width:100%;padding:10px 12px;border:2px solid var(--ink);font-family:'JetBrains Mono', monospace;font-size:15px;background:var(--white);">
+            <option value="Cl">Cl (3.16) — no metal</option><option value="O" selected>O (3.44) — no metal</option>
+            <option value="F">F (3.98) — no metal</option><option value="N">N (3.04) — no metal</option>
+            <option value="Br">Br (2.96) — no metal</option><option value="C">C (2.55) — no metal</option>
+            <option value="H">H (2.20) — no metal</option><option value="S">S (2.58) — no metal</option>
+          </select>
+        </div>
+      </div>
+      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
+      <div class="readout" id="b-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo paso a paso</h2>
+      <div class="example">
+        <p><strong>La sal de mesa: sodio (sodio, EN=0.93) + cloro (EN=3.16)</strong></p>
+        <p>1) El sodio es un metal, el cloro no es metal → ya sospechamos que va a ser iónico.</p>
+        <p>2) Confirmamos con la diferencia: 3.16 − 0.93 = <strong>2.23</strong> (un número grande)</p>
+        <p>3) Como es grande, confirma <strong>enlace iónico</strong> — el sodio realmente le regala el electrón al cloro, formando Na⁺ y Cl⁻ que se atraen entre sí, formando el cristal de sal que ves en el salero.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>¿Qué tipo de enlace esperas entre dos átomos de oxígeno, como en el aire que respiras (O₂)?
+          <details><summary>Ver respuesta</summary>Covalente — dos no metales iguales, comparten los electrones perfectamente parejo (apolar, porque son el mismo elemento)</details>
+        </li>
+        <li>El bronce es una mezcla de cobre y estaño, ambos metales. ¿Qué tipo de enlace forman?
+          <details><summary>Ver respuesta</summary>Metálico — metal + metal, comparten todos los electrones de valencia en el "fondo común"</details>
+        </li>
+        <li>¿Por qué la sal (iónica) se disuelve tan bien en agua, pero el aceite (covalente) no?
+          <details><summary>Ver respuesta</summary>Porque el agua también tiene cargas parciales (es polar) y puede separar y rodear los iones Na⁺ y Cl⁻ — el aceite, al ser covalente apolar, no tiene esa capacidad de "atrapar" cargas.</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <!-- NIVEL AVANZADO -->
+  <section class="level" data-level="avanzado">
+
+    <div class="card" data-tag="Concepto">
+      <h2>No todo "compartir" es igual de parejo</h2>
+      <p>Dentro del enlace covalente hay un matiz importante, y también se explica con una imagen simple: imaginate que dos personas comparten una soga, pero una tira mucho más fuerte que la otra — la soga no queda exactamente en el medio, se corre hacia el que tira más fuerte. Eso es exactamente lo que pasa con los electrones compartidos.</p>
+      <div class="formula-box">ΔEN &lt; 0.4 → covalente apolar (tiran igual de fuerte, la "soga" queda en el medio)</div>
+      <div class="formula-box">0.4 ≤ ΔEN &lt; 1.7 → covalente polar (uno tira más fuerte, la "soga" se corre)</div>
+      <p style="color:var(--ink-soft);font-size:14.5px;">Por eso el agua es polar (el oxígeno "tira" más fuerte que cada hidrógeno) y por eso dos átomos de oxígeno juntos (O₂) son apolares — tiran exactamente igual, porque son el mismo elemento.</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Analiza la polaridad del enlace</h2>
+      <div class="calc-grid">
+        <div class="field">
+          <label>Elemento A</label>
+          <select id="a-elA" style="width:100%;padding:10px 12px;border:2px solid var(--ink);font-family:'JetBrains Mono', monospace;font-size:15px;background:var(--white);">
+            <option value="H" selected>H (2.20)</option><option value="C">C (2.55)</option>
+            <option value="N">N (3.04)</option><option value="O">O (3.44)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Elemento B</label>
+          <select id="a-elB" style="width:100%;padding:10px 12px;border:2px solid var(--ink);font-family:'JetBrains Mono', monospace;font-size:15px;background:var(--white);">
+            <option value="H">H (2.20)</option><option value="C">C (2.55)</option>
+            <option value="N">N (3.04)</option><option value="O" selected>O (3.44)</option>
+          </select>
+        </div>
+      </div>
+      <button class="calc-btn" onclick="calcAvanzado()">Calcular</button>
+      <div class="readout" id="a-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Mira la "soga" correrse hacia el que tira más fuerte</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">La nube de electrones (violeta) se desplaza hacia el átomo más electronegativo — cuanto mayor la diferencia, más se corre.</p>
+      <div class="sim-box">
+        <canvas id="polaridad-canvas" width="680" height="180"></canvas>
+      </div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo tangible: por qué el agua "moja" y se pega a sí misma</h2>
+      <div class="example">
+        <p><strong>El agua (H₂O): el oxígeno tira más fuerte de los electrones que cada hidrógeno.</strong></p>
+        <p>ΔEN (O-H) = 3.44 − 2.20 = 1.24 → covalente polar</p>
+        <p>El lado del oxígeno queda con carga parcial negativa, el lado de los hidrógenos con carga parcial positiva. Por eso las moléculas de agua se atraen entre sí (el lado positivo de una con el negativo de otra) — es lo que hace que una gota de agua forme una "bolita" en vez de desparramarse totalmente plana, y por qué el agua disuelve tan bien la sal.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>El metano (el gas que se usa para cocinar, CH₄) tiene enlaces C-H con ΔEN=0.35. ¿Es polar o apolar?
+          <details><summary>Ver respuesta</summary>Apolar (menor a 0.4) — por eso el gas no se mezcla con agua</details>
+        </li>
+        <li>¿Por qué el aceite flota en agua y no se mezcla, aunque los revuelvas fuerte?
+          <details><summary>Ver respuesta</summary>El aceite es covalente apolar (sin cargas parciales) y el agua es polar (con cargas) — "polar disuelve polar, apolar disuelve apolar", así que no se atraen entre sí.</details>
+        </li>
+        <li>¿Por qué decimos "polar disuelve polar" como regla práctica?
+          <details><summary>Ver respuesta</summary>Porque las sustancias polares tienen cargas parciales que pueden atraerse entre sí (o rodear iones), mientras que mezclar algo polar con algo apolar no genera esa atracción — por eso el agua (polar) y el aceite (apolar) no se mezclan.</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <div class="card faq" data-tag="FAQ">
+    <h2>Preguntas frecuentes</h2>
+    <h3>¿La regla de ΔEN=1.7 es una ley exacta?</h3>
+    <p>No, es una guía práctica ampliamente usada en secundaria — la realidad es un espectro continuo entre iónico puro y covalente puro, sin una frontera exacta. Algunos enlaces cerca del límite (como el HF) se comportan de forma intermedia.</p>
+    <h3>¿Por qué los gases nobles casi no forman enlaces?</h3>
+    <p>Porque ya tienen su capa de valencia completa (8 electrones, o 2 en el caso del helio) — no necesitan ganar, perder ni compartir electrones para ser estables, así que no tienen "motivo químico" para enlazarse con otros átomos.</p>
+    <h3>¿Qué significa que el enlace metálico explique la maleabilidad?</h3>
+    <p>Como los electrones no pertenecen a un átomo fijo sino que se mueven libremente por todo el metal, los átomos (ahora cationes) pueden deslizarse unos sobre otros sin romper el enlace — por eso los metales se pueden doblar y estirar sin quebrarse, a diferencia de un cristal iónico.</p>
+  </div>
+
+  <div class="related">
+    <h2>Temas relacionados</h2>
+    <div class="related-links">
+      <a href="formulario.html">Machete de Fórmulas</a>
+      <a href="electromagnetismo.html">Electromagnetismo</a>
+      <a href="maquinas-simples.html">Máquinas Simples</a>
+      <a href="modelo-atomico.html">Modelo Atómico y Tabla Periódica</a>
+      <a href="configuracion-electronica.html">Configuración Electrónica</a>
+      <a href="oxido-reduccion.html">Óxido-Reducción</a>
+      <a href="acido-base.html">Ácido-Base y pH</a>
+      <a href="concentracion-soluciones.html">Concentración de Soluciones</a>
+      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
+      <a href="leyes-gases.html">Leyes de los Gases</a>
+      <a href="evaluaciones.html">Evaluaciones</a>
+      <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+      <a href="experimentos.html">Experimentos Caseros</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.level-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('section.level').forEach(s=>s.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`section.level[data-level="${btn.dataset.target}"]`).classList.add('active');
+    });
+  });
+
+  const ELECTRONEGATIVIDAD = {
+    Na:0.93, K:0.82, Ca:1.00, Mg:1.31, Al:1.61,
+    H:2.20, C:2.55, N:3.04, S:2.58, P:2.19,
+    Cl:3.16, O:3.44, F:3.98, Br:2.96
+  };
+
+  function clasificarEnlace(dEN){
+    if(dEN >= 1.7) return {tipo:'Iónico', detalle:'un átomo transfiere electrones al otro'};
+    if(dEN >= 0.4) return {tipo:'Covalente polar', detalle:'comparten los electrones, pero de forma desigual'};
+    return {tipo:'Covalente apolar', detalle:'comparten los electrones de forma pareja'};
+  }
+
+  function calcBasico(){
+    const elA = document.getElementById('b-elA').value;
+    const elB = document.getElementById('b-elB').value;
+    const enA = ELECTRONEGATIVIDAD[elA], enB = ELECTRONEGATIVIDAD[elB];
+    const dEN = Math.abs(enB-enA);
+    const resultado = clasificarEnlace(dEN);
+    const out = document.getElementById('b-readout');
+    out.innerText = `ΔEN = |${enB.toFixed(2)} − ${enA.toFixed(2)}| = ${dEN.toFixed(2)}\nTipo de enlace: ${resultado.tipo}\n(${resultado.detalle})`;
+    out.classList.add('show');
+  }
+
+  function calcAvanzado(){
+    const elA = document.getElementById('a-elA').value;
+    const elB = document.getElementById('a-elB').value;
+    const enA = ELECTRONEGATIVIDAD[elA], enB = ELECTRONEGATIVIDAD[elB];
+    const dEN = Math.abs(enB-enA);
+    const resultado = clasificarEnlace(dEN);
+    const out = document.getElementById('a-readout');
+    out.innerText = `ΔEN = |${enB.toFixed(2)} − ${enA.toFixed(2)}| = ${dEN.toFixed(2)}\n${resultado.tipo}`;
+    out.classList.add('show');
+
+    drawPolaridad(elA, elB, enA, enB, dEN);
+  }
+
+  function drawPolaridad(elA, elB, enA, enB, dEN){
+    const canvas = document.getElementById('polaridad-canvas');
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height, cy = h/2;
+    ctx.clearRect(0,0,w,h);
+
+    const xA = w*0.3, xB = w*0.7;
+    // la nube se desplaza hacia el elemento más electronegativo, proporcional a ΔEN
+    const masElectroneg = enB > enA ? xB : xA;
+    const skew = Math.min(dEN/2, 1) * (masElectroneg===xB ? 60 : -60);
+    const cloudX = (xA+xB)/2 + skew;
+
+    const grad = ctx.createRadialGradient(cloudX,cy,10,cloudX,cy,70);
+    grad.addColorStop(0, 'rgba(178,127,227,0.55)');
+    grad.addColorStop(1, 'rgba(178,127,227,0)');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.ellipse(cloudX, cy, 90, 45, 0, 0, Math.PI*2);
+    ctx.fill();
+
+    ctx.font = 'bold 22px JetBrains Mono';
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#1C2733';
+    ctx.fillText(elA, xA, cy+8);
+    ctx.fillText(elB, xB, cy+8);
+    ctx.font = '11px JetBrains Mono';
+    ctx.fillStyle = '#5C6B7A';
+    ctx.fillText(`EN=${enA.toFixed(2)}`, xA, cy+30);
+    ctx.fillText(`EN=${enB.toFixed(2)}`, xB, cy+30);
+    ctx.textAlign = 'left';
+  }
+
+  // ---- Diagrama de red cristalina de NaCl ----
+  function drawNaCl(){
+    const canvas = document.getElementById('nacl-canvas');
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height;
+    ctx.clearRect(0,0,w,h);
+    const filas = 5, cols = 5;
+    const margin = 30;
+    const spacing = (w-margin*2)/(cols-1);
+    for(let f=0; f<filas; f++){
+      for(let c=0; c<cols; c++){
+        const x = margin + c*spacing;
+        const y = margin + f*spacing;
+        const esNa = (f+c)%2===0;
+        ctx.beginPath();
+        ctx.arc(x, y, esNa?9:12, 0, Math.PI*2);
+        ctx.fillStyle = esNa ? '#D9A441' : '#8FE3C7';
+        ctx.fill();
+        ctx.strokeStyle = '#1C2733';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      }
+    }
+    // leyenda
+    ctx.font = '10px JetBrains Mono';
+    ctx.fillStyle = '#1C2733';
+    ctx.textAlign = 'left';
+    ctx.beginPath(); ctx.arc(18, h-14, 6, 0, Math.PI*2); ctx.fillStyle='#D9A441'; ctx.fill(); ctx.stroke();
+    ctx.fillStyle = '#1C2733';
+    ctx.fillText('Na⁺', 28, h-10);
+    ctx.beginPath(); ctx.arc(78, h-14, 7, 0, Math.PI*2); ctx.fillStyle='#8FE3C7'; ctx.fill(); ctx.stroke();
+    ctx.fillStyle = '#1C2733';
+    ctx.fillText('Cl⁻', 90, h-10);
+  }
+
+  // ---- Diagrama de la molécula de agua (H2O) ----
+  function drawH2O(){
+    const canvas = document.getElementById('h2o-canvas');
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height;
+    ctx.clearRect(0,0,w,h);
+    const cx = w/2, cy = h/2 - 10;
+    const distO_H = 55;
+    const anguloMedio = 104.5 * Math.PI/180;
+    const a1 = -Math.PI/2 - anguloMedio/2;
+    const a2 = -Math.PI/2 + anguloMedio/2;
+    const h1x = cx + distO_H*Math.cos(a1), h1y = cy + distO_H*Math.sin(a1);
+    const h2x = cx + distO_H*Math.cos(a2), h2y = cy + distO_H*Math.sin(a2);
+
+    // enlaces
+    ctx.strokeStyle = '#5C6B7A';
+    ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(h1x,h1y); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(h2x,h2y); ctx.stroke();
+
+    // oxígeno (centro, carga parcial negativa)
+    ctx.beginPath(); ctx.arc(cx,cy,22,0,Math.PI*2);
+    ctx.fillStyle = '#D9714A'; ctx.fill();
+    ctx.strokeStyle = '#1C2733'; ctx.lineWidth = 2; ctx.stroke();
+    ctx.font = 'bold 14px JetBrains Mono'; ctx.fillStyle = '#fff'; ctx.textAlign='center';
+    ctx.fillText('O', cx, cy+5);
+
+    // hidrógenos (carga parcial positiva)
+    [[h1x,h1y],[h2x,h2y]].forEach(([x,y])=>{
+      ctx.beginPath(); ctx.arc(x,y,14,0,Math.PI*2);
+      ctx.fillStyle = '#7FB8E3'; ctx.fill();
+      ctx.strokeStyle = '#1C2733'; ctx.lineWidth = 2; ctx.stroke();
+      ctx.font = 'bold 12px JetBrains Mono'; ctx.fillStyle = '#1C2733';
+      ctx.fillText('H', x, y+4);
+    });
+
+    // etiquetas de carga parcial
+    ctx.font = '13px JetBrains Mono'; ctx.fillStyle = '#B27FE3';
+    ctx.fillText('δ⁻', cx, cy-35);
+    ctx.fillStyle = '#4A7A9E';
+    ctx.fillText('δ⁺', h1x-22, h1y+6);
+    ctx.fillText('δ⁺', h2x+22, h2y+6);
+    ctx.textAlign = 'left';
+  }
+
+  window.addEventListener('load', ()=>{
+    calcAvanzado();
+    drawNaCl();
+    drawH2O();
+  });
+</script>
+
+</body>
+</html>

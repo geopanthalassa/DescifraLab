@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estequiometría y El Mol | Calculadora de Reacciones Químicas — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --grid:#E4E0D4;
+    --ink:#1C2733;
+    --ink-soft:#4A5568;
+    --amber:#D9A441;
+    --amber-dark:#B8842E;
+    --pine:#2F6B5E;
+    --pine-dark:#225046;
+    --white:#FFFFFF;
+    --line:#D8D3C4;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+  header.top{
+    padding:36px 20px 28px;
+    max-width:760px;margin:0 auto;
+    border-bottom:2px solid var(--ink);
+  }
+  .brand-link{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--amber-dark);
+    text-decoration:none;
+    margin-bottom:12px;
+    letter-spacing:0.01em;
+  }
+  .brand-link:hover{text-decoration:underline;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--pine-dark);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px,5vw,46px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--ink-soft);font-size:16px;max-width:56ch;}
+
+  .level-nav{
+    display:flex;gap:8px;margin:28px 0 0;
+  }
+  .level-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;font-weight:700;
+    padding:10px 18px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    cursor:pointer;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .level-btn.active{background:var(--ink);color:var(--paper);}
+
+  section.level{display:none;margin-top:36px;}
+  section.level.active{display:block;}
+
+  .card{
+    background:var(--white);
+    border:2px solid var(--ink);
+    padding:28px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .card::before{
+    content:attr(data-tag);
+    position:absolute;
+    top:-13px;left:20px;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+  }
+  section.level[data-level="avanzado"] .card::before{background:var(--pine);color:var(--white);}
+
+  h2{font-family:'Fraunces', serif;font-size:22px;font-weight:600;margin:6px 0 14px;}
+
+  .formula-box{
+    font-family:'JetBrains Mono', monospace;
+    font-size:20px;
+    font-weight:700;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    padding:16px 20px;
+    margin:14px 0;
+    text-align:center;
+    letter-spacing:0.02em;
+  }
+  .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
+  .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+
+  /* Calculadora */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media(max-width:520px){.calc-grid{grid-template-columns:1fr;}}
+  .field label{
+    display:block;font-size:12px;font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;
+  }
+  .field input{
+    width:100%;padding:10px 12px;
+    border:2px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;background:var(--white);
+  }
+  .field input:focus{outline:3px solid var(--amber);outline-offset:1px;}
+  .calc-btn{
+    margin-top:16px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    padding:12px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.05em;
+    cursor:pointer;
+  }
+  .calc-btn:hover{background:var(--amber-dark);}
+  .readout{
+    margin-top:18px;
+    background:var(--ink);
+    color:#8FE3C7;
+    font-family:'JetBrains Mono', monospace;
+    padding:18px 20px;
+    font-size:15px;
+    min-height:24px;
+    display:none;
+    white-space:pre-line;
+  }
+  .readout.show{display:block;}
+
+  .example{
+    background:var(--paper);
+    border-left:4px solid var(--pine);
+    padding:16px 18px;
+    font-size:15px;
+    margin-top:10px;
+  }
+  section.level[data-level="basico"] .example{border-left-color:var(--amber-dark);}
+
+  .exercises ol{padding-left:20px;}
+  .exercises li{margin-bottom:14px;}
+  details{
+    margin-top:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  details summary{cursor:pointer;color:var(--pine-dark);font-weight:700;}
+
+  .faq h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;}
+  .faq p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .related{
+    margin-top:40px;padding-top:24px;border-top:2px solid var(--ink);
+  }
+  .related h2{font-size:16px;}
+  .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+  .related-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    background:var(--white);
+  }
+  .related-links a:hover{border-color:var(--ink);}
+
+  .sim-box{
+    background:var(--ink);
+    border:2px solid var(--ink);
+    padding:14px;
+    margin-top:16px;
+  }
+  .sim-box canvas{
+    display:block;width:100%;height:auto;
+  }
+  .sim-readout{
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    color:#8FE3C7;font-size:13px;
+    margin-top:10px;padding-top:10px;
+    border-top:1px solid #3A4756;
+  }
+  .speed-row{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-left:14px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;color:var(--ink-soft);
+  }
+  .speed-btn{
+    border:1px solid var(--line);background:var(--white);
+    padding:6px 10px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;cursor:pointer;
+  }
+  .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="index.html" class="brand-link">DescifraLab</a>
+  <div class="eyebrow">Química · Reacciones</div>
+  <h1>Estequiometría y El Mol</h1>
+  <p class="subtitle">Fórmulas, calculadora de conversión mol-masa y de reactivo limitante, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
+  <nav class="level-nav">
+    <button class="level-btn active" data-target="basico">Básico</button>
+    <button class="level-btn" data-target="avanzado">Avanzado</button>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- NIVEL BÁSICO -->
+  <section class="level active" data-level="basico">
+
+    <div class="card" data-tag="Concepto">
+      <h2>¿Qué es el mol?</h2>
+      <p>Los átomos y moléculas son tan chicos que contarlos de a uno no sirve de nada práctico. El <strong>mol</strong> es una unidad que agrupa una cantidad enorme y fija de partículas — igual que "una docena" siempre son 12, "un mol" siempre son 6.022×10²³ partículas (el número de Avogadro).</p>
+      <div class="formula-box">n = m / M</div>
+      <p class="var-list"><span>n</span> = cantidad de sustancia (mol) &nbsp;·&nbsp; <span>m</span> = masa (g) &nbsp;·&nbsp; <span>M</span> = masa molar (g/mol) — la masa de un mol de esa sustancia, se lee de la tabla periódica</p>
+      <p style="color:var(--ink-soft);font-size:14.5px;">La masa molar de un elemento es, en gramos, el mismo número que su masa atómica en la tabla periódica. Para compuestos, se suman las masas molares de todos los átomos que lo forman.</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula la cantidad de sustancia</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Masa m (g)</label><input type="number" id="b-m" value="18"></div>
+        <div class="field"><label>Masa molar M (g/mol)</label><input type="number" id="b-M" value="18"></div>
+      </div>
+      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
+      <div class="readout" id="b-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>¿Cuántos moles hay en 18 g de agua (H₂O, masa molar 18 g/mol)?</strong></p>
+        <p>n = m/M = 18/18 = <strong>1 mol</strong></p>
+        <p>Eso significa que hay 6.022×10²³ moléculas de agua en esos 18 gramos.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>¿Cuántos moles hay en 44 g de CO₂ (masa molar 44 g/mol)?
+          <details><summary>Ver respuesta</summary>n = 44/44 = 1 mol</details>
+        </li>
+        <li>¿Qué masa tienen 2 moles de NaCl (masa molar 58.5 g/mol)?
+          <details><summary>Ver respuesta</summary>m = n×M = 2×58.5 = 117 g</details>
+        </li>
+        <li>¿Cuántas moléculas hay en 0.5 moles de cualquier sustancia?
+          <details><summary>Ver respuesta</summary>0.5 × 6.022×10²³ = 3.011×10²³ moléculas</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <!-- NIVEL AVANZADO -->
+  <section class="level" data-level="avanzado">
+
+    <div class="card" data-tag="Concepto">
+      <h2>Relaciones mol-mol y reactivo limitante</h2>
+      <p>En una ecuación química balanceada, los coeficientes indican en qué proporción de moles reaccionan y se forman las sustancias. Cuando hay dos reactivos, el que se termina primero (el <strong>reactivo limitante</strong>) determina cuánto producto se puede formar como máximo — el otro queda "sobrando".</p>
+      <div class="formula-box">2 H₂ + O₂ → 2 H₂O</div>
+      <p class="var-list">Esta ecuación dice: 2 moles de H₂ reaccionan con 1 mol de O₂ para formar 2 moles de H₂O — esa proporción (2:1:2) es fija, viene de los coeficientes balanceados.</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Encuentra el reactivo limitante</h2>
+      <p style="color:var(--ink-soft);font-size:13.5px;margin-top:-4px;">Para la reacción 2 H₂ + O₂ → 2 H₂O</p>
+      <div class="calc-grid">
+        <div class="field"><label>Moles disponibles de H₂</label><input type="number" id="a-molH2" value="5"></div>
+        <div class="field"><label>Moles disponibles de O₂</label><input type="number" id="a-molO2" value="2"></div>
+      </div>
+      <button class="calc-btn" onclick="calcAvanzado()">Calcular</button>
+      <div class="readout" id="a-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>Tienes 5 moles de H₂ y 2 moles de O₂. ¿Cuál es el reactivo limitante y cuánta agua se forma?</strong></p>
+        <p>Con 2 moles de O₂, según la proporción 2:1, harían falta 2×2=4 moles de H₂ — y tienes 5, así que sobra H₂.</p>
+        <p>El <strong>O₂ es el reactivo limitante</strong> — determina que se formen 2×2 = <strong>4 moles de H₂O</strong> como máximo.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Para 2H₂+O₂→2H₂O, si tienes 3 moles de H₂ y 3 moles de O₂, ¿cuál es el limitante?
+          <details><summary>Ver respuesta</summary>3 moles de H₂ solo necesitan 1.5 moles de O₂ — sobra O₂, el H₂ es el limitante</details>
+        </li>
+        <li>Con el H₂ como limitante (3 moles), ¿cuánta agua se forma?
+          <details><summary>Ver respuesta</summary>Proporción 2:2 (H₂:H₂O) → 3 moles de H₂ producen 3 moles de H₂O</details>
+        </li>
+        <li>¿Por qué importa identificar el reactivo limitante en la industria química?
+          <details><summary>Ver respuesta</summary>Porque determina el rendimiento máximo posible de producto — comprar de más del reactivo que sobra es desperdiciar materia prima sin aumentar la producción.</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <div class="card faq" data-tag="FAQ">
+    <h2>Preguntas frecuentes</h2>
+    <h3>¿Por qué el número de Avogadro es justo 6.022×10²³?</h3>
+    <p>Es una constante que se definió así porque es la cantidad de átomos de carbono-12 que hay en exactamente 12 gramos de ese isótopo — un número enorme, elegido para que "un mol" de cualquier sustancia tenga una masa manejable en gramos.</p>
+    <h3>¿Cómo calculo la masa molar de un compuesto?</h3>
+    <p>Sumas las masas atómicas (de la tabla periódica) de todos los átomos que forman la molécula. Por ejemplo, el agua (H₂O) es 2×1 (hidrógeno) + 1×16 (oxígeno) = 18 g/mol.</p>
+    <h3>¿Qué pasa si no balanceo bien la ecuación antes de hacer estequiometría?</h3>
+    <p>Los cálculos van a estar mal, porque toda la estequiometría depende de los coeficientes balanceados — son los que definen la proporción real de moles que reaccionan y se forman.</p>
+  </div>
+
+  <div class="related">
+    <h2>Temas relacionados</h2>
+    <div class="related-links">
+      <a href="modelo-atomico.html">Modelo Atómico y Tabla Periódica</a>
+      <a href="formulario.html">Machete de Fórmulas</a>
+      <a href="electromagnetismo.html">Electromagnetismo</a>
+      <a href="maquinas-simples.html">Máquinas Simples</a>
+      <a href="conversor-unidades.html">Conversor de Unidades</a>
+      <a href="evaluaciones.html">Evaluaciones</a>
+      <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+      <a href="experimentos.html">Experimentos Caseros</a>
+      <a href="acido-base.html">Ácido-Base y pH</a>
+      <a href="concentracion-soluciones.html">Concentración de Soluciones</a>
+      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
+      <a href="leyes-gases.html">Leyes de los Gases</a>
+      <a href="energia-nuclear.html">Energía Nuclear</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.level-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('section.level').forEach(s=>s.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`section.level[data-level="${btn.dataset.target}"]`).classList.add('active');
+    });
+  });
+
+  function calcBasico(){
+    const m = parseFloat(document.getElementById('b-m').value)||0;
+    const M = parseFloat(document.getElementById('b-M').value)||1;
+    const n = m/M;
+    const particulas = n*6.022e23;
+    const out = document.getElementById('b-readout');
+    out.innerText = `n = m/M = ${m}/${M} = ${n.toFixed(3)} mol\nPartículas = ${n.toFixed(3)} × 6.022×10²³ = ${particulas.toExponential(3)}`;
+    out.classList.add('show');
+  }
+
+  function calcAvanzado(){
+    const molH2 = parseFloat(document.getElementById('a-molH2').value)||0;
+    const molO2 = parseFloat(document.getElementById('a-molO2').value)||0;
+    // Reacción: 2 H2 + O2 -> 2 H2O
+    const O2necesario = molH2/2;
+    const out = document.getElementById('a-readout');
+    let limitante, aguaFormada;
+    if(O2necesario > molO2){
+      limitante = 'O₂';
+      aguaFormada = molO2*2;
+    } else {
+      limitante = 'H₂';
+      aguaFormada = molH2;
+    }
+    out.innerText = `Para consumir ${molH2} mol de H₂ hacen falta ${O2necesario.toFixed(2)} mol de O₂ (tienes ${molO2})\nReactivo limitante: ${limitante}\nAgua formada: ${aguaFormada.toFixed(2)} mol de H₂O`;
+    out.classList.add('show');
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Circuitos en Serie y Paralelo | Fórmula y Calculadora — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --grid:#E4E0D4;
+    --ink:#1C2733;
+    --ink-soft:#4A5568;
+    --amber:#D9A441;
+    --amber-dark:#B8842E;
+    --pine:#2F6B5E;
+    --pine-dark:#225046;
+    --white:#FFFFFF;
+    --line:#D8D3C4;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+  header.top{
+    padding:36px 20px 28px;
+    max-width:760px;margin:0 auto;
+    border-bottom:2px solid var(--ink);
+  }
+  .brand-link{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--amber-dark);
+    text-decoration:none;
+    margin-bottom:12px;
+    letter-spacing:0.01em;
+  }
+  .brand-link:hover{text-decoration:underline;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--pine-dark);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px,5vw,46px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--ink-soft);font-size:16px;max-width:56ch;}
+
+  .level-nav{
+    display:flex;gap:8px;margin:28px 0 0;
+  }
+  .level-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;font-weight:700;
+    padding:10px 18px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    cursor:pointer;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .level-btn.active{background:var(--ink);color:var(--paper);}
+
+  section.level{display:none;margin-top:36px;}
+  section.level.active{display:block;}
+
+  .card{
+    background:var(--white);
+    border:2px solid var(--ink);
+    padding:28px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .card::before{
+    content:attr(data-tag);
+    position:absolute;
+    top:-13px;left:20px;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+  }
+  section.level[data-level="avanzado"] .card::before{background:var(--pine);color:var(--white);}
+
+  h2{font-family:'Fraunces', serif;font-size:22px;font-weight:600;margin:6px 0 14px;}
+
+  .formula-box{
+    font-family:'JetBrains Mono', monospace;
+    font-size:20px;
+    font-weight:700;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    padding:16px 20px;
+    margin:14px 0;
+    text-align:center;
+    letter-spacing:0.02em;
+  }
+  .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
+  .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+
+  /* Calculadora */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media(max-width:520px){.calc-grid{grid-template-columns:1fr;}}
+  .field label{
+    display:block;font-size:12px;font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;
+  }
+  .field input{
+    width:100%;padding:10px 12px;
+    border:2px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;background:var(--white);
+  }
+  .field input:focus{outline:3px solid var(--amber);outline-offset:1px;}
+  .calc-btn{
+    margin-top:16px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    padding:12px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.05em;
+    cursor:pointer;
+  }
+  .calc-btn:hover{background:var(--amber-dark);}
+  .readout{
+    margin-top:18px;
+    background:var(--ink);
+    color:#8FE3C7;
+    font-family:'JetBrains Mono', monospace;
+    padding:18px 20px;
+    font-size:15px;
+    min-height:24px;
+    display:none;
+    white-space:pre-line;
+  }
+  .readout.show{display:block;}
+
+  .example{
+    background:var(--paper);
+    border-left:4px solid var(--pine);
+    padding:16px 18px;
+    font-size:15px;
+    margin-top:10px;
+  }
+  section.level[data-level="basico"] .example{border-left-color:var(--amber-dark);}
+
+  .exercises ol{padding-left:20px;}
+  .exercises li{margin-bottom:14px;}
+  details{
+    margin-top:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  details summary{cursor:pointer;color:var(--pine-dark);font-weight:700;}
+
+  .faq h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;}
+  .faq p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .related{
+    margin-top:40px;padding-top:24px;border-top:2px solid var(--ink);
+  }
+  .related h2{font-size:16px;}
+  .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+  .related-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    background:var(--white);
+  }
+  .related-links a:hover{border-color:var(--ink);}
+
+  .sim-box{
+    background:var(--ink);
+    border:2px solid var(--ink);
+    padding:14px;
+    margin-top:16px;
+  }
+  .sim-box canvas{
+    display:block;width:100%;height:auto;
+  }
+  .sim-readout{
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    color:#8FE3C7;font-size:13px;
+    margin-top:10px;padding-top:10px;
+    border-top:1px solid #3A4756;
+  }
+  .speed-row{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-left:14px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;color:var(--ink-soft);
+  }
+  .speed-btn{
+    border:1px solid var(--line);background:var(--white);
+    padding:6px 10px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;cursor:pointer;
+  }
+  .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  .force-diagram{
+    background:var(--paper);
+    border:1px dashed var(--line);
+    margin-top:14px;
+    padding:8px;
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="index.html" class="brand-link">DescifraLab</a>
+  <div class="eyebrow">Electricidad</div>
+  <h1>Circuitos en Serie y Paralelo</h1>
+  <p class="subtitle">Fórmulas, calculadora interactiva, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
+  <nav class="level-nav">
+    <button class="level-btn active" data-target="basico">Básico</button>
+    <button class="level-btn" data-target="avanzado">Avanzado</button>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- NIVEL BÁSICO -->
+  <section class="level active" data-level="basico">
+
+    <div class="card" data-tag="Concepto">
+      <h2>Circuito en serie: un solo camino</h2>
+      <p>En un circuito en serie, todos los componentes están conectados uno detrás de otro, formando un único camino. Esto tiene dos consecuencias clave que casi todos confunden:</p>
+      <ul style="padding-left:20px;margin:10px 0;">
+        <li><strong>La corriente es la misma</strong> en todos los puntos del circuito (no tiene otro camino por donde "escaparse").</li>
+        <li><strong>El voltaje de la pila se reparte</strong> entre todos los componentes — cuantos más haya, menos voltaje le toca a cada uno.</li>
+      </ul>
+      <div class="formula-box">I<sub>total</sub> = I₁ = I₂ = I₃</div>
+      <div class="formula-box">V<sub>total</sub> = V₁ + V₂ + V₃</div>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula el voltaje repartido</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Voltaje de la pila (V)</label><input type="number" id="b-Vtotal" value="12"></div>
+        <div class="field"><label>R₁ (Ω)</label><input type="number" id="b-R1" value="4"></div>
+        <div class="field"><label>R₂ (Ω)</label><input type="number" id="b-R2" value="8"></div>
+      </div>
+      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
+      <div class="readout" id="b-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Mira por qué las lamparitas brillan menos en serie</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Dos lamparitas idénticas conectadas en serie a la misma pila — cada una recibe solo una parte del voltaje total, por eso brillan menos que si estuvieran solas.</p>
+      <div class="sim-box">
+        <canvas id="serie-canvas" width="680" height="180"></canvas>
+        <div class="sim-readout">
+          <span id="serie-V1">V₁ = 0 V</span>
+          <span id="serie-V2">V₂ = 0 V</span>
+          <span id="serie-I">I = 0 A</span>
+        </div>
+      </div>
+      <button class="calc-btn" id="serie-btn" onclick="toggleSerie()">Comparar</button>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>Una pila de 12 V alimenta dos resistencias en serie: 4 Ω y 8 Ω.</strong></p>
+        <p>Req = 4 + 8 = 12 Ω → I = 12/12 = <strong>1 A</strong> (la misma corriente en todo el circuito)</p>
+        <p>V₁ = I×R₁ = 1×4 = <strong>4 V</strong> &nbsp;·&nbsp; V₂ = I×R₂ = 1×8 = <strong>8 V</strong></p>
+        <p>Comprobación: 4 + 8 = 12 V, el total de la pila. La resistencia más grande "se queda" con más voltaje.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Dos resistencias de 5 Ω cada una en serie, con una pila de 10 V. ¿Cuánto voltaje le toca a cada una?
+          <details><summary>Ver respuesta</summary>Req=10Ω → I=10/10=1A → V₁=V₂=1×5=5V cada una (son iguales)</details>
+        </li>
+        <li>Tres resistencias iguales en serie con una pila de 9 V. ¿Cuánto voltaje recibe cada una?
+          <details><summary>Ver respuesta</summary>Como son iguales, se reparten en partes iguales: 9/3 = 3 V cada una</details>
+        </li>
+        <li>En un circuito serie, ¿qué le pasa a la corriente si agregas una tercera resistencia?
+          <details><summary>Ver respuesta</summary>La resistencia total aumenta, así que (con el mismo voltaje de pila) la corriente disminuye en todo el circuito.</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <!-- NIVEL AVANZADO -->
+  <section class="level" data-level="avanzado">
+
+    <div class="card" data-tag="Concepto">
+      <h2>Paralelo: cada uno recibe el voltaje completo</h2>
+      <p>En paralelo, los componentes están conectados en ramas separadas, cada una directamente entre los dos bornes de la pila. Acá las reglas se invierten respecto al circuito en serie:</p>
+      <ul style="padding-left:20px;margin:10px 0;">
+        <li><strong>El voltaje es el mismo</strong> en cada rama — cada componente recibe el voltaje completo de la pila.</li>
+        <li><strong>La corriente se reparte</strong> entre las ramas — cada una toma la corriente que le corresponde según su propia resistencia.</li>
+      </ul>
+      <div class="formula-box">V<sub>total</sub> = V₁ = V₂ = V₃</div>
+      <div class="formula-box">I<sub>total</sub> = I₁ + I₂ + I₃</div>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Comparación directa: serie vs. paralelo</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Voltaje de la pila (V)</label><input type="number" id="a-V" value="12"></div>
+        <div class="field"><label>R₁ (Ω)</label><input type="number" id="a-R1" value="4"></div>
+        <div class="field"><label>R₂ (Ω)</label><input type="number" id="a-R2" value="8"></div>
+      </div>
+      <button class="calc-btn" onclick="calcAvanzado()">Calcular ambos</button>
+      <div class="readout" id="a-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Mira por qué en paralelo brillan igual de fuerte</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Las mismas dos lamparitas, ahora en paralelo — cada una recibe el voltaje completo de la pila, así que brillan a full, no a medias como en serie.</p>
+      <div class="sim-box">
+        <canvas id="paralelo-canvas" width="680" height="180"></canvas>
+        <div class="sim-readout">
+          <span id="par-I1">I₁ = 0 A</span>
+          <span id="par-I2">I₂ = 0 A</span>
+          <span id="par-Itotal">I total = 0 A</span>
+        </div>
+      </div>
+      <button class="calc-btn" id="paralelo-btn" onclick="toggleParalelo()">Comparar</button>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>Las mismas resistencias (4 Ω y 8 Ω) con la misma pila (12 V), ahora en paralelo.</strong></p>
+        <p>I₁ = V/R₁ = 12/4 = <strong>3 A</strong> &nbsp;·&nbsp; I₂ = V/R₂ = 12/8 = <strong>1.5 A</strong></p>
+        <p>I total = 3 + 1.5 = <strong>4.5 A</strong> (mucho más que en serie, donde la corriente total era 1 A)</p>
+        <p>Por eso en paralelo cada lamparita brilla a pleno: recibe los 12 V completos, no una fracción.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Dos resistencias de 5 Ω cada una, en paralelo, con una pila de 10 V. ¿Cuánta corriente circula por cada rama?
+          <details><summary>Ver respuesta</summary>I₁=I₂=10/5=2A cada una (reciben el mismo voltaje)</details>
+        </li>
+        <li>Una lamparita de 6 Ω y otra de 3 Ω en paralelo con 12 V. ¿Cuál tiene más corriente?
+          <details><summary>Ver respuesta</summary>I(6Ω)=12/6=2A, I(3Ω)=12/3=4A — la de menor resistencia siempre tiene más corriente</details>
+        </li>
+        <li>¿Por qué en tu casa los enchufes están en paralelo y no en serie?
+          <details><summary>Ver respuesta</summary>Para que cada aparato reciba el voltaje completo (220V) sin depender de si otros aparatos están prendidos o apagados — si fuera serie, prender la tele afectaría el brillo de las luces.</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <div class="card faq" data-tag="FAQ">
+    <h2>Preguntas frecuentes</h2>
+    <h3>¿Por qué se llama "serie" y "paralelo"?</h3>
+    <p>"Serie" porque los componentes están uno en fila, en secuencia, con un único camino. "Paralelo" porque las ramas están una al lado de la otra, cada una conectada directamente a los dos bornes de la pila.</p>
+    <h3>¿Qué pasa si se quema una lamparita en un circuito en serie?</h3>
+    <p>Se corta el único camino que había, así que todo el circuito deja de funcionar — por eso las viejas guirnaldas de luces navideñas en serie se apagaban todas si una lamparita se quemaba.</p>
+    <h3>¿Y si se quema una en paralelo?</h3>
+    <p>Las demás ramas siguen funcionando normalmente, porque cada una tiene su propio camino independiente hacia la pila — por eso las instalaciones eléctricas domésticas siempre son en paralelo.</p>
+  </div>
+
+  <div class="related">
+    <h2>Temas relacionados</h2>
+    <div class="related-links">
+      <a href="formulario.html">Machete de Fórmulas</a>
+      <a href="maquinas-simples.html">Máquinas Simples</a>
+      <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+      <a href="experimentos.html">Experimentos Caseros</a>
+      <a href="acido-base.html">Ácido-Base y pH</a>
+      <a href="concentracion-soluciones.html">Concentración de Soluciones</a>
+      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
+      <a href="leyes-gases.html">Leyes de los Gases</a>
+      <a href="ley-ohm.html">Ley de Ohm (V = I·R)</a>
+      <a href="electromagnetismo.html">Electromagnetismo</a>
+      <a href="potencia-electrica.html">Potencia Eléctrica (P = V·I)</a>
+      <a href="mruv.html">MRUV — Movimiento Rectilíneo Uniformemente Variado</a>
+      <a href="trabajo-energia.html">Trabajo y Energía</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.level-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('section.level').forEach(s=>s.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`section.level[data-level="${btn.dataset.target}"]`).classList.add('active');
+    });
+  });
+
+  function calcBasico(){
+    const V = parseFloat(document.getElementById('b-Vtotal').value)||0;
+    const R1 = parseFloat(document.getElementById('b-R1').value)||0;
+    const R2 = parseFloat(document.getElementById('b-R2').value)||0.0001;
+    const Req = R1+R2;
+    const I = V/Req;
+    const V1 = I*R1, V2 = I*R2;
+    const out = document.getElementById('b-readout');
+    out.innerText = `Req = ${R1}+${R2} = ${Req.toFixed(1)} Ω\nI = ${V}/${Req.toFixed(1)} = ${I.toFixed(2)} A (misma en todo el circuito)\nV₁ = ${I.toFixed(2)}×${R1} = ${V1.toFixed(2)} V\nV₂ = ${I.toFixed(2)}×${R2} = ${V2.toFixed(2)} V`;
+    out.classList.add('show');
+  }
+
+  function calcAvanzado(){
+    const V = parseFloat(document.getElementById('a-V').value)||0;
+    const R1 = parseFloat(document.getElementById('a-R1').value)||0.0001;
+    const R2 = parseFloat(document.getElementById('a-R2').value)||0.0001;
+    const I1 = V/R1, I2 = V/R2;
+    const Itotal = I1+I2;
+    const out = document.getElementById('a-readout');
+    out.innerText = `I₁ = ${V}/${R1} = ${I1.toFixed(2)} A\nI₂ = ${V}/${R2} = ${I2.toFixed(2)} A\nI total = ${I1.toFixed(2)} + ${I2.toFixed(2)} = ${Itotal.toFixed(2)} A`;
+    out.classList.add('show');
+  }
+
+  // ---- Lamparitas comparativas (serie y paralelo) ----
+  // Dibuja dos lamparitas con un brillo (glow) proporcional al voltaje
+  // que cada una recibe realmente, para mostrar visualmente por qué
+  // brillan distinto según la configuración del circuito.
+
+  function drawBulb(ctx, x, y, voltage, maxVoltage, label){
+    const frac = Math.min(voltage/maxVoltage, 1);
+    const glowSize = 12 + frac * 30;
+    const grad = ctx.createRadialGradient(x, y, 2, x, y, glowSize);
+    grad.addColorStop(0, `rgba(217,164,65,${0.3+frac*0.65})`);
+    grad.addColorStop(1, 'rgba(217,164,65,0)');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(x, y, glowSize, 0, Math.PI*2);
+    ctx.fill();
+
+    // contorno de la ampolla, dibujado siempre (no depende de fuente emoji)
+    ctx.beginPath();
+    ctx.arc(x, y-2, 13, 0, Math.PI*2);
+    ctx.fillStyle = frac>0.05 ? `rgba(255,230,150,${0.5+frac*0.5})` : 'rgba(120,130,140,0.4)';
+    ctx.fill();
+    ctx.strokeStyle = '#EDEAE0';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+    // filamento
+    ctx.strokeStyle = frac>0.05 ? '#B8842E' : '#5C6B7A';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(x-5,y+3); ctx.lineTo(x-2,y-4); ctx.lineTo(x+2,y+2); ctx.lineTo(x+5,y-5);
+    ctx.stroke();
+    // rosca
+    ctx.fillStyle = '#8A94A0';
+    ctx.fillRect(x-6, y+9, 12, 8);
+
+    ctx.fillStyle = '#8FA0AE';
+    ctx.font = '11px JetBrains Mono';
+    ctx.textAlign = 'center';
+    ctx.fillText(label, x, y+34);
+    ctx.textAlign = 'left';
+  }
+
+  // --- Serie ---
+  function toggleSerie(){
+    const canvas = document.getElementById('serie-canvas');
+    const ctx = canvas.getContext('2d');
+    const V = parseFloat(document.getElementById('b-Vtotal').value)||0;
+    const R1 = parseFloat(document.getElementById('b-R1').value)||0;
+    const R2 = parseFloat(document.getElementById('b-R2').value)||0.0001;
+    const Req = R1+R2;
+    const I = V/Req;
+    const V1 = I*R1, V2 = I*R2;
+
+    document.getElementById('serie-V1').innerText = `V₁ = ${V1.toFixed(1)} V`;
+    document.getElementById('serie-V2').innerText = `V₂ = ${V2.toFixed(1)} V`;
+    document.getElementById('serie-I').innerText = `I = ${I.toFixed(2)} A`;
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    drawBulb(ctx, canvas.width*0.35, canvas.height/2, V1, V, `${V1.toFixed(1)} V`);
+    drawBulb(ctx, canvas.width*0.65, canvas.height/2, V2, V, `${V2.toFixed(1)} V`);
+  }
+
+  // --- Paralelo ---
+  function toggleParalelo(){
+    const canvas = document.getElementById('paralelo-canvas');
+    const ctx = canvas.getContext('2d');
+    const V = parseFloat(document.getElementById('a-V').value)||0;
+    const R1 = parseFloat(document.getElementById('a-R1').value)||0.0001;
+    const R2 = parseFloat(document.getElementById('a-R2').value)||0.0001;
+    const I1 = V/R1, I2 = V/R2;
+    const Itotal = I1+I2;
+
+    document.getElementById('par-I1').innerText = `I₁ = ${I1.toFixed(2)} A`;
+    document.getElementById('par-I2').innerText = `I₂ = ${I2.toFixed(2)} A`;
+    document.getElementById('par-Itotal').innerText = `I total = ${Itotal.toFixed(2)} A`;
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    // en paralelo, ambas lamparitas reciben el mismo voltaje → mismo brillo pleno
+    drawBulb(ctx, canvas.width*0.35, canvas.height/2, V, V, `${I1.toFixed(2)} A`);
+    drawBulb(ctx, canvas.width*0.65, canvas.height/2, V, V, `${I2.toFixed(2)} A`);
+  }
+
+  window.addEventListener('load', ()=>{
+    toggleSerie();
+    toggleParalelo();
+  });
+</script>
+
+</body>
+</html>

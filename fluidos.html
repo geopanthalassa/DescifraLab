@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Presión Hidrostática y Principio de Arquímedes | Simulador y Calculadora — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --grid:#E4E0D4;
+    --ink:#1C2733;
+    --ink-soft:#4A5568;
+    --amber:#D9A441;
+    --amber-dark:#B8842E;
+    --pine:#2F6B5E;
+    --pine-dark:#225046;
+    --white:#FFFFFF;
+    --line:#D8D3C4;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+  header.top{
+    padding:36px 20px 28px;
+    max-width:760px;margin:0 auto;
+    border-bottom:2px solid var(--ink);
+  }
+  .brand-link{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--amber-dark);
+    text-decoration:none;
+    margin-bottom:12px;
+    letter-spacing:0.01em;
+  }
+  .brand-link:hover{text-decoration:underline;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--pine-dark);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px,5vw,46px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--ink-soft);font-size:16px;max-width:56ch;}
+
+  .level-nav{
+    display:flex;gap:8px;margin:28px 0 0;
+  }
+  .level-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;font-weight:700;
+    padding:10px 18px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    cursor:pointer;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .level-btn.active{background:var(--ink);color:var(--paper);}
+
+  section.level{display:none;margin-top:36px;}
+  section.level.active{display:block;}
+
+  .card{
+    background:var(--white);
+    border:2px solid var(--ink);
+    padding:28px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .card::before{
+    content:attr(data-tag);
+    position:absolute;
+    top:-13px;left:20px;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+  }
+  section.level[data-level="avanzado"] .card::before{background:var(--pine);color:var(--white);}
+
+  h2{font-family:'Fraunces', serif;font-size:22px;font-weight:600;margin:6px 0 14px;}
+
+  .formula-box{
+    font-family:'JetBrains Mono', monospace;
+    font-size:20px;
+    font-weight:700;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    padding:16px 20px;
+    margin:14px 0;
+    text-align:center;
+    letter-spacing:0.02em;
+  }
+  .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
+  .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+
+  /* Calculadora */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media(max-width:520px){.calc-grid{grid-template-columns:1fr;}}
+  .field label{
+    display:block;font-size:12px;font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;
+  }
+  .field input{
+    width:100%;padding:10px 12px;
+    border:2px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;background:var(--white);
+  }
+  .field input:focus{outline:3px solid var(--amber);outline-offset:1px;}
+  .calc-btn{
+    margin-top:16px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    padding:12px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.05em;
+    cursor:pointer;
+  }
+  .calc-btn:hover{background:var(--amber-dark);}
+  .readout{
+    margin-top:18px;
+    background:var(--ink);
+    color:#8FE3C7;
+    font-family:'JetBrains Mono', monospace;
+    padding:18px 20px;
+    font-size:15px;
+    min-height:24px;
+    display:none;
+    white-space:pre-line;
+  }
+  .readout.show{display:block;}
+
+  .example{
+    background:var(--paper);
+    border-left:4px solid var(--pine);
+    padding:16px 18px;
+    font-size:15px;
+    margin-top:10px;
+  }
+  section.level[data-level="basico"] .example{border-left-color:var(--amber-dark);}
+
+  .exercises ol{padding-left:20px;}
+  .exercises li{margin-bottom:14px;}
+  details{
+    margin-top:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  details summary{cursor:pointer;color:var(--pine-dark);font-weight:700;}
+
+  .faq h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;}
+  .faq p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .related{
+    margin-top:40px;padding-top:24px;border-top:2px solid var(--ink);
+  }
+  .related h2{font-size:16px;}
+  .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+  .related-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    background:var(--white);
+  }
+  .related-links a:hover{border-color:var(--ink);}
+
+  .sim-box{
+    background:var(--ink);
+    border:2px solid var(--ink);
+    padding:14px;
+    margin-top:16px;
+  }
+  .sim-box canvas{
+    display:block;width:100%;height:auto;
+  }
+  .sim-readout{
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    color:#8FE3C7;font-size:13px;
+    margin-top:10px;padding-top:10px;
+    border-top:1px solid #3A4756;
+  }
+  .speed-row{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-left:14px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;color:var(--ink-soft);
+  }
+  .speed-btn{
+    border:1px solid var(--line);background:var(--white);
+    padding:6px 10px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;cursor:pointer;
+  }
+  .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="index.html" class="brand-link">DescifraLab</a>
+  <div class="eyebrow">Hidráulica y Fluidos</div>
+  <h1>Presión Hidrostática y Flotación</h1>
+  <p class="subtitle">Fórmulas, simulador visual de flotación, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
+  <nav class="level-nav">
+    <button class="level-btn active" data-target="basico">Básico</button>
+    <button class="level-btn" data-target="avanzado">Avanzado</button>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- NIVEL BÁSICO -->
+  <section class="level active" data-level="basico">
+
+    <div class="card" data-tag="Concepto">
+      <h2>¿Qué es la presión hidrostática?</h2>
+      <p>Es la presión que ejerce un líquido por el simple hecho de tener peso. Cuanto más profundo vas, más líquido tienes encima empujando hacia abajo, así que la presión aumenta con la profundidad — por eso te duelen los oídos al bucear.</p>
+      <div class="formula-box">P = ρ · g · h</div>
+      <p class="var-list"><span>P</span> = presión (Pascal, Pa) &nbsp;·&nbsp; <span>ρ</span> = densidad del líquido (kg/m³) &nbsp;·&nbsp; <span>g</span> = 9.8 m/s² &nbsp;·&nbsp; <span>h</span> = profundidad (m)</p>
+      <p style="color:var(--ink-soft);font-size:14.5px;">La densidad del agua es 1000 kg/m³. Esta fórmula no depende de la forma del recipiente ni de cuánta agua hay en total — solo de qué tan profundo estás.</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula la presión a cierta profundidad</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Densidad del líquido ρ (kg/m³)</label><input type="number" id="b-rho" value="1000"></div>
+        <div class="field"><label>Profundidad h (m)</label><input type="number" id="b-h" value="10"></div>
+      </div>
+      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
+      <div class="readout" id="b-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Mira cómo aumenta la presión con la profundidad</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Mueves la profundidad del buzo y miras cómo el manómetro marca cada vez más presión — no importa cuánta agua haya al costado, solo cuánto tienes encima.</p>
+      <div class="sim-box">
+        <canvas id="depth-canvas" width="680" height="240"></canvas>
+        <div class="sim-readout">
+          <span id="depth-h">Profundidad: 0 m</span>
+          <span id="depth-P">Presión: 0 Pa</span>
+        </div>
+      </div>
+      <input type="range" id="depth-slider" min="0" max="30" value="0" style="width:100%;margin-top:14px;accent-color:#D9A441;" oninput="updateDepth(this.value)">
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>¿Qué presión hidrostática hay a 10 m de profundidad en agua de mar (ρ≈1025 kg/m³)?</strong></p>
+        <p>P = 1025 × 9.8 × 10 = <strong>100.450 Pa</strong> (≈1 atmósfera extra por cada 10 m)</p>
+        <p>Por eso los buzos necesitan equiparse para profundidades grandes: la presión sube rápido y constante con cada metro.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>¿Cuál es la presión hidrostática a 5 m de profundidad en agua dulce (ρ=1000)?
+          <details><summary>Ver respuesta</summary>P = 1000×9.8×5 = 49.000 Pa</details>
+        </li>
+        <li>Un submarino está a 200 m de profundidad. ¿Qué presión soporta su casco (sin contar la atmosférica)?
+          <details><summary>Ver respuesta</summary>P = 1025×9.8×200 = 2.009.000 Pa (≈2 millones de Pa)</details>
+        </li>
+        <li>¿Por qué la presión hidrostática no depende de la forma del recipiente?
+          <details><summary>Ver respuesta</summary>Porque solo depende de la altura de líquido por encima del punto considerado, no del volumen total ni del ancho del recipiente.</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <!-- NIVEL AVANZADO -->
+  <section class="level" data-level="avanzado">
+
+    <div class="card" data-tag="Concepto">
+      <h2>Principio de Arquímedes: por qué flotan las cosas</h2>
+      <p>Todo objeto sumergido en un fluido recibe un empuje hacia arriba, igual al peso del fluido que desplaza. Si ese empuje es mayor que el peso del objeto, flota. Si es menor, se hunde.</p>
+      <div class="formula-box">E = ρ<sub>fluido</sub> · g · V<sub>sumergido</sub></div>
+      <p class="var-list"><span>E</span> = empuje (N) &nbsp;·&nbsp; <span>V<sub>sumergido</sub></span> = volumen de fluido desplazado (m³)</p>
+      <p style="color:var(--ink-soft);font-size:14.5px;">La regla práctica: un objeto flota si su densidad promedio es menor a la del fluido. Un objeto de acero se hunde en agua, pero un barco de acero flota porque su forma hueca hace que su densidad <em>promedio</em> (contando el aire adentro) sea menor a la del agua.</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>¿Flota o se hunde?</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Densidad del objeto (kg/m³)</label><input type="number" id="a-rhoObj" value="600"></div>
+        <div class="field"><label>Densidad del fluido (kg/m³)</label><input type="number" id="a-rhoFluid" value="1000"></div>
+      </div>
+      <button class="calc-btn" onclick="calcAvanzado()">Calcular</button>
+      <div class="readout" id="a-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Mira flotar o hundirse el objeto</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Mueves la densidad del objeto y lo ves acomodarse en el líquido en tiempo real — más denso que el agua se hunde, menos denso flota más arriba.</p>
+      <div class="sim-box">
+        <canvas id="float-canvas" width="680" height="240"></canvas>
+        <div class="sim-readout">
+          <span id="float-density">Densidad objeto: 600 kg/m³</span>
+          <span id="float-result">Flota (40% sumergido)</span>
+        </div>
+      </div>
+      <input type="range" id="float-slider" min="100" max="1900" value="600" style="width:100%;margin-top:14px;accent-color:#D9A441;" oninput="updateFloat(this.value)">
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>Un trozo de madera de densidad 600 kg/m³ flota en agua (1000 kg/m³). ¿Qué porcentaje de su volumen queda sumergido?</strong></p>
+        <p>En equilibrio, el peso del objeto = empuje: ρ<sub>objeto</sub>·V·g = ρ<sub>agua</sub>·V<sub>sumergido</sub>·g</p>
+        <p>V<sub>sumergido</sub>/V = ρ<sub>objeto</sub>/ρ<sub>agua</sub> = 600/1000 = <strong>0.6 → 60% sumergido</strong></p>
+        <p>El 40% restante queda por encima de la superficie.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Un iceberg tiene densidad ≈920 kg/m³, flotando en agua de mar (≈1025 kg/m³). ¿Qué porcentaje queda bajo el agua?
+          <details><summary>Ver respuesta</summary>920/1025 ≈ 0.898 → 89.8% sumergido (por eso "la punta del iceberg" es tan poco)</details>
+        </li>
+        <li>Un objeto de densidad 1200 kg/m³ se sumerge en agua (1000 kg/m³). ¿Flota o se hunde?
+          <details><summary>Ver respuesta</summary>Se hunde, porque su densidad es mayor a la del agua (el empuje no alcanza a igualar su peso)</details>
+        </li>
+        <li>¿Por qué un barco de acero flota si el acero es mucho más denso que el agua?
+          <details><summary>Ver respuesta</summary>Porque lo que importa es la densidad promedio del barco completo (acero + aire hueco adentro), no la del material solo — esa densidad promedio es menor a la del agua.</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <div class="card faq" data-tag="FAQ">
+    <h2>Preguntas frecuentes</h2>
+    <h3>¿Por qué se me tapan los oídos al bucear pero no al subir una montaña tan rápido?</h3>
+    <p>Porque el agua es mucho más densa que el aire, así que la presión hidrostática cambia muchísimo más rápido por metro de profundidad en agua que la presión atmosférica por metro de altura en aire.</p>
+    <h3>¿Un objeto pesado siempre se hunde?</h3>
+    <p>No — lo que importa es la densidad (peso por volumen), no el peso total. Un barco pesa toneladas pero flota porque su forma hace que su densidad promedio sea menor a la del agua.</p>
+    <h3>¿Por qué flotamos mejor en el mar que en una pileta?</h3>
+    <p>Porque el agua de mar es más densa que el agua dulce (por la sal disuelta), así que empuja con más fuerza hacia arriba para el mismo volumen de cuerpo sumergido.</p>
+  </div>
+
+  <div class="related">
+    <h2>Temas relacionados</h2>
+    <div class="related-links">
+      <a href="calor-especifico.html">Calor Específico y Cambios de Estado</a>
+      <a href="dilatacion-termica.html">Dilatación Térmica</a>
+      <a href="newton.html">Segunda Ley de Newton (F = m·a)</a>
+      <a href="relatividad.html">Relatividad: Dilatación Temporal</a>
+      <a href="formulario.html">Machete de Fórmulas</a>
+      <a href="electromagnetismo.html">Electromagnetismo</a>
+      <a href="conversor-unidades.html">Conversor de Unidades</a>
+      <a href="evaluaciones.html">Evaluaciones</a>
+      <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+      <a href="experimentos.html">Experimentos Caseros</a>
+      <a href="modelo-atomico.html">Modelo Atómico y Tabla Periódica</a>
+      <a href="estequiometria.html">Estequiometría y El Mol</a>
+      <a href="configuracion-electronica.html">Configuración Electrónica</a>
+      <a href="oxido-reduccion.html">Óxido-Reducción</a>
+      <a href="enlaces-quimicos.html">Enlaces Químicos</a>
+      <a href="acido-base.html">Ácido-Base y pH</a>
+      <a href="concentracion-soluciones.html">Concentración de Soluciones</a>
+      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
+      <a href="leyes-gases.html">Leyes de los Gases</a>
+      <a href="energia-nuclear.html">Energía Nuclear</a>
+      <a href="tiro-oblicuo.html">Tiro Oblicuo — Movimiento Parabólico</a>
+      <a href="mcu.html">Movimiento Circular Uniforme (MCU)</a>
+      <a href="impulso-momentum.html">Impulso y Cantidad de Movimiento</a>
+      <a href="estatica-torque.html">Estática y Torque</a>
+      <a href="maquinas-simples.html">Máquinas Simples</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.level-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('section.level').forEach(s=>s.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`section.level[data-level="${btn.dataset.target}"]`).classList.add('active');
+    });
+  });
+
+  function calcBasico(){
+    const rho = parseFloat(document.getElementById('b-rho').value)||0;
+    const h = parseFloat(document.getElementById('b-h').value)||0;
+    const P = rho*9.8*h;
+    const out = document.getElementById('b-readout');
+    out.innerText = `P = ρ×g×h = ${rho}×9.8×${h} = ${P.toFixed(0)} Pa`;
+    out.classList.add('show');
+  }
+
+  function calcAvanzado(){
+    const rhoObj = parseFloat(document.getElementById('a-rhoObj').value)||0;
+    const rhoFluid = parseFloat(document.getElementById('a-rhoFluid').value)||1;
+    const out = document.getElementById('a-readout');
+    if(rhoObj < rhoFluid){
+      const frac = (rhoObj/rhoFluid)*100;
+      out.innerText = `Flota, porque ${rhoObj} < ${rhoFluid} (densidad objeto < densidad fluido)\nPorcentaje sumergido = ${rhoObj}/${rhoFluid} = ${frac.toFixed(1)}%`;
+    } else if(rhoObj > rhoFluid){
+      out.innerText = `Se hunde, porque ${rhoObj} > ${rhoFluid} (densidad objeto > densidad fluido)`;
+    } else {
+      out.innerText = `Queda en equilibrio, completamente sumergido pero sin hundirse (densidades iguales)`;
+    }
+    out.classList.add('show');
+  }
+
+  // ---- Simulador 1: columna de profundidad con manómetro ----
+  function drawDepth(ctx, w, h, depth, maxDepth, pressure){
+    ctx.clearRect(0,0,w,h);
+    const surfaceY = 30, floorY = h-20;
+    const scale = (floorY-surfaceY)/maxDepth;
+
+    // agua
+    const grad = ctx.createLinearGradient(0,surfaceY,0,floorY);
+    grad.addColorStop(0, 'rgba(127,184,227,0.25)');
+    grad.addColorStop(1, 'rgba(127,184,227,0.55)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(40, surfaceY, w-80, floorY-surfaceY);
+    ctx.strokeStyle = '#3A4756';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(40, surfaceY, w-80, floorY-surfaceY);
+
+    // marcas de profundidad
+    ctx.fillStyle = '#5C6B7A';
+    ctx.font = '10px JetBrains Mono';
+    for(let d=0; d<=maxDepth; d+=10){
+      const y = surfaceY + d*scale;
+      ctx.fillText(d+'m', 8, y+3);
+    }
+
+    // buzo/objeto a la profundidad actual
+    const objY = surfaceY + depth*scale;
+    ctx.font = '26px sans-serif';
+    ctx.textAlign='center';
+    ctx.fillText('🤿', w/2, objY+8);
+    ctx.textAlign='left';
+
+    // manómetro (barra de presión a la derecha)
+    const gaugeX = w-30, gaugeH = 150, gaugeY = surfaceY+10;
+    const fillH = Math.min((pressure/350000)*gaugeH, gaugeH);
+    ctx.strokeStyle = '#3A4756';
+    ctx.strokeRect(gaugeX, gaugeY, 14, gaugeH);
+    ctx.fillStyle = '#D9A441';
+    ctx.fillRect(gaugeX, gaugeY+gaugeH-fillH, 14, fillH);
+  }
+
+  function updateDepth(val){
+    const depth = parseFloat(val);
+    const rho = parseFloat(document.getElementById('b-rho').value)||1000;
+    const P = rho*9.8*depth;
+    document.getElementById('depth-h').innerText = `Profundidad: ${depth} m`;
+    document.getElementById('depth-P').innerText = `Presión: ${P.toFixed(0)} Pa`;
+    const canvas = document.getElementById('depth-canvas');
+    drawDepth(canvas.getContext('2d'), canvas.width, canvas.height, depth, 30, P);
+  }
+
+  // ---- Simulador 2: objeto flotando o hundiéndose según su densidad ----
+  function drawFloat(ctx, w, h, rhoObj, rhoFluid){
+    ctx.clearRect(0,0,w,h);
+    const surfaceY = h*0.35, floorY = h-20;
+
+    // agua
+    ctx.fillStyle = 'rgba(127,184,227,0.4)';
+    ctx.fillRect(40, surfaceY, w-80, floorY-surfaceY);
+    ctx.strokeStyle = '#3A4756';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(40, 20, w-80, floorY-20);
+    // línea de superficie
+    ctx.strokeStyle = '#7FB8E3';
+    ctx.beginPath();
+    ctx.moveTo(40, surfaceY); ctx.lineTo(w-40, surfaceY);
+    ctx.stroke();
+
+    // posición vertical del objeto según densidad relativa
+    const boxSize = 50;
+    let objTopY;
+    if(rhoObj >= rhoFluid){
+      // se hunde: apoyado en el fondo
+      objTopY = floorY - boxSize;
+    } else {
+      // flota: la fracción sumergida = rhoObj/rhoFluid
+      const frac = rhoObj/rhoFluid;
+      objTopY = surfaceY - boxSize*(1-frac);
+    }
+
+    ctx.fillStyle = rhoObj < rhoFluid ? '#D9A441' : '#8FA0AE';
+    ctx.strokeStyle = '#1C2733';
+    ctx.lineWidth = 2;
+    ctx.fillRect(w/2-boxSize/2, objTopY, boxSize, boxSize);
+    ctx.strokeRect(w/2-boxSize/2, objTopY, boxSize, boxSize);
+  }
+
+  function updateFloat(val){
+    const rhoObj = parseFloat(val);
+    const rhoFluid = parseFloat(document.getElementById('a-rhoFluid').value)||1000;
+    document.getElementById('float-density').innerText = `Densidad objeto: ${rhoObj} kg/m³`;
+    const resultEl = document.getElementById('float-result');
+    if(rhoObj < rhoFluid){
+      const frac = ((rhoObj/rhoFluid)*100).toFixed(0);
+      resultEl.innerText = `Flota (${frac}% sumergido)`;
+    } else if(rhoObj > rhoFluid){
+      resultEl.innerText = `Se hunde`;
+    } else {
+      resultEl.innerText = `Equilibrio total (100% sumergido, no toca el fondo)`;
+    }
+    const canvas = document.getElementById('float-canvas');
+    drawFloat(canvas.getContext('2d'), canvas.width, canvas.height, rhoObj, rhoFluid);
+  }
+
+  window.addEventListener('load', ()=>{
+    updateDepth(0);
+    updateFloat(600);
+  });
+</script>
+
+</body>
+</html>

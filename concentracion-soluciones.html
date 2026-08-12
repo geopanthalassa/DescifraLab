@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concentración de Soluciones — Molaridad, %m/v y Dilución — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --grid:#E4E0D4;
+    --ink:#1C2733;
+    --ink-soft:#4A5568;
+    --amber:#D9A441;
+    --amber-dark:#B8842E;
+    --pine:#2F6B5E;
+    --pine-dark:#225046;
+    --white:#FFFFFF;
+    --line:#D8D3C4;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+  header.top{
+    padding:36px 20px 28px;
+    max-width:760px;margin:0 auto;
+    border-bottom:2px solid var(--ink);
+  }
+  .brand-link{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--amber-dark);
+    text-decoration:none;
+    margin-bottom:12px;
+    letter-spacing:0.01em;
+  }
+  .brand-link:hover{text-decoration:underline;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--pine-dark);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px,5vw,46px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--ink-soft);font-size:16px;max-width:56ch;}
+
+  .level-nav{
+    display:flex;gap:8px;margin:28px 0 0;
+  }
+  .level-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;font-weight:700;
+    padding:10px 18px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    cursor:pointer;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .level-btn.active{background:var(--ink);color:var(--paper);}
+
+  section.level{display:none;margin-top:36px;}
+  section.level.active{display:block;}
+
+  .card{
+    background:var(--white);
+    border:2px solid var(--ink);
+    padding:28px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .card::before{
+    content:attr(data-tag);
+    position:absolute;
+    top:-13px;left:20px;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+  }
+  section.level[data-level="avanzado"] .card::before{background:var(--pine);color:var(--white);}
+
+  h2{font-family:'Fraunces', serif;font-size:22px;font-weight:600;margin:6px 0 14px;}
+
+  .formula-box{
+    font-family:'JetBrains Mono', monospace;
+    font-size:20px;
+    font-weight:700;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    padding:16px 20px;
+    margin:14px 0;
+    text-align:center;
+    letter-spacing:0.02em;
+  }
+  .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
+  .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+
+  /* Calculadora */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media(max-width:520px){.calc-grid{grid-template-columns:1fr;}}
+  .field label{
+    display:block;font-size:12px;font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;
+  }
+  .field input{
+    width:100%;padding:10px 12px;
+    border:2px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;background:var(--white);
+  }
+  .field input:focus{outline:3px solid var(--amber);outline-offset:1px;}
+  .calc-btn{
+    margin-top:16px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    padding:12px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.05em;
+    cursor:pointer;
+  }
+  .calc-btn:hover{background:var(--amber-dark);}
+  .readout{
+    margin-top:18px;
+    background:var(--ink);
+    color:#8FE3C7;
+    font-family:'JetBrains Mono', monospace;
+    padding:18px 20px;
+    font-size:15px;
+    min-height:24px;
+    display:none;
+    white-space:pre-line;
+  }
+  .readout.show{display:block;}
+
+  .example{
+    background:var(--paper);
+    border-left:4px solid var(--pine);
+    padding:16px 18px;
+    font-size:15px;
+    margin-top:10px;
+  }
+  section.level[data-level="basico"] .example{border-left-color:var(--amber-dark);}
+
+  .exercises ol{padding-left:20px;}
+  .exercises li{margin-bottom:14px;}
+  details{
+    margin-top:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  details summary{cursor:pointer;color:var(--pine-dark);font-weight:700;}
+
+  .faq h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;}
+  .faq p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .related{
+    margin-top:40px;padding-top:24px;border-top:2px solid var(--ink);
+  }
+  .related h2{font-size:16px;}
+  .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+  .related-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    background:var(--white);
+  }
+  .related-links a:hover{border-color:var(--ink);}
+
+  .sim-box{
+    background:var(--ink);
+    border:2px solid var(--ink);
+    padding:14px;
+    margin-top:16px;
+  }
+  .sim-box canvas{
+    display:block;width:100%;height:auto;
+  }
+  .sim-readout{
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    color:#8FE3C7;font-size:13px;
+    margin-top:10px;padding-top:10px;
+    border-top:1px solid #3A4756;
+  }
+  .speed-row{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-left:14px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;color:var(--ink-soft);
+  }
+  .speed-btn{
+    border:1px solid var(--line);background:var(--white);
+    padding:6px 10px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;cursor:pointer;
+  }
+  .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  .ph-escala{margin-top:14px;}
+  .ph-barra{
+    display:flex;
+    border:2px solid var(--ink);
+    border-radius:8px;
+    overflow:hidden;
+  }
+  .ph-segmento{
+    flex:1;
+    padding:14px 4px;
+    text-align:center;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;font-weight:700;
+    color:#fff;
+    text-shadow:0 1px 2px rgba(0,0,0,0.3);
+  }
+
+  .enlace-analogia{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+    gap:14px;margin-top:16px;
+  }
+  .enlace-tipo{
+    border:2.5px solid;
+    padding:16px;
+    background:var(--paper);
+  }
+  .enlace-icono{font-size:32px;margin-bottom:6px;}
+  .enlace-tipo h3{font-size:15px;margin:0 0 8px;font-family:'Fraunces',serif;}
+  .enlace-tipo p{font-size:13.5px;margin:0 0 8px;}
+  .enlace-ejemplo{
+    font-size:12.5px;color:var(--ink-soft);
+    border-top:1px dashed var(--line);
+    padding-top:8px;margin-top:8px !important;
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="index.html" class="brand-link">DescifraLab</a>
+  <div class="eyebrow">Química · Soluciones</div>
+  <h1>Concentración de Soluciones</h1>
+  <p class="subtitle">Molaridad, porcentaje masa/volumen, calculadora de dilución, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
+  <nav class="level-nav">
+    <button class="level-btn active" data-target="basico">Básico</button>
+    <button class="level-btn" data-target="avanzado">Avanzado</button>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- NIVEL BÁSICO -->
+  <section class="level active" data-level="basico">
+
+    <div class="card" data-tag="Concepto">
+      <h2>¿Qué es la concentración de una solución?</h2>
+      <p>Una solución es una mezcla homogénea de un <strong>soluto</strong> (lo que se disuelve, generalmente en menor cantidad) en un <strong>solvente</strong> (lo que disuelve, generalmente en mayor cantidad). La concentración mide cuánto soluto hay por cada cantidad de solución — el café "cargado" tiene más soluto (café) por la misma cantidad de agua que uno "liviano".</p>
+      <div class="formula-box">Molaridad: M = n / V</div>
+      <p class="var-list"><span>M</span> = molaridad (mol/L) &nbsp;·&nbsp; <span>n</span> = moles de soluto &nbsp;·&nbsp; <span>V</span> = volumen de la solución (L, no solo del solvente)</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula la molaridad</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Moles de soluto (n)</label><input type="number" id="b-n" value="0.5"></div>
+        <div class="field"><label>Volumen de la solución (L)</label><input type="number" id="b-V" value="2"></div>
+      </div>
+      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
+      <div class="readout" id="b-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>Disuelves 0.5 moles de NaCl en agua hasta completar 2 litros de solución. ¿Cuál es la molaridad?</strong></p>
+        <p>M = n/V = 0.5/2 = <strong>0.25 mol/L</strong></p>
+        <p>Se lee "0.25 molar" (0.25 M) — significa que hay 0.25 moles de NaCl disueltos en cada litro de esa solución.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>¿Cuál es la molaridad de una solución con 2 moles de soluto en 4 litros?
+          <details><summary>Ver respuesta</summary>M = 2/4 = 0.5 mol/L</details>
+        </li>
+        <li>Si tienes 0.1 moles disueltos en 500 mL (0.5 L), ¿cuál es la molaridad?
+          <details><summary>Ver respuesta</summary>M = 0.1/0.5 = 0.2 mol/L (ojo: hay que convertir mL a L primero)</details>
+        </li>
+        <li>¿Por qué la molaridad usa el volumen de la solución completa y no solo del solvente?
+          <details><summary>Ver respuesta</summary>Porque al disolver algo, el volumen final de la mezcla no es simplemente la suma exacta de ambos volúmenes por separado — se mide directamente el volumen total ya mezclado, que es lo que realmente importa para saber "cuánto hay por litro" en la práctica.</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <!-- NIVEL AVANZADO -->
+  <section class="level" data-level="avanzado">
+
+    <div class="card" data-tag="Concepto">
+      <h2>Dilución: agregar más solvente</h2>
+      <p>Diluir una solución significa agregarle más solvente sin agregar más soluto — la cantidad de soluto (moles) no cambia, pero al aumentar el volumen, la concentración baja. Esta relación se resume en una fórmula muy usada en el laboratorio:</p>
+      <div class="formula-box">M₁ · V₁ = M₂ · V₂</div>
+      <p class="var-list"><span>M₁, V₁</span> = molaridad y volumen antes de diluir &nbsp;·&nbsp; <span>M₂, V₂</span> = molaridad y volumen después de diluir</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula la dilución</h2>
+      <p style="color:var(--ink-soft);font-size:13.5px;margin-top:-4px;">Metes 3 datos conocidos, calcula el volumen final necesario.</p>
+      <div class="calc-grid">
+        <div class="field"><label>Molaridad inicial M₁ (mol/L)</label><input type="number" id="a-M1" value="2"></div>
+        <div class="field"><label>Volumen inicial V₁ (mL)</label><input type="number" id="a-V1" value="50"></div>
+        <div class="field"><label>Molaridad final deseada M₂ (mol/L)</label><input type="number" id="a-M2" value="0.5"></div>
+      </div>
+      <button class="calc-btn" onclick="calcAvanzado()">Calcular</button>
+      <div class="readout" id="a-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>Tienes 50 mL de una solución 2 M, y quieres diluirla hasta 0.5 M. ¿Qué volumen final necesitas?</strong></p>
+        <p>M₁V₁ = M₂V₂ → 2×50 = 0.5×V₂ → V₂ = 100/0.5 = <strong>200 mL</strong></p>
+        <p>Como ya tenías 50 mL, necesitas agregar 200−50 = <strong>150 mL de solvente</strong> (generalmente agua) para llegar a esa concentración.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Tienes 100 mL de solución 1 M. ¿Qué volumen final tienes si la diluyes a 0.25 M?
+          <details><summary>Ver respuesta</summary>1×100 = 0.25×V₂ → V₂ = 400 mL</details>
+        </li>
+        <li>En el ejercicio anterior, ¿cuánta agua agregaste?
+          <details><summary>Ver respuesta</summary>400−100 = 300 mL de agua</details>
+        </li>
+        <li>¿Por qué diluir NUNCA cambia la cantidad de moles de soluto?
+          <details><summary>Ver respuesta</summary>Porque solo se agrega solvente (agua), no se agrega ni se quita soluto — los mismos moles de soluto quedan repartidos en un volumen mayor, por eso la concentración baja pero la cantidad total de soluto sigue siendo la misma.</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <div class="card faq" data-tag="FAQ">
+    <h2>Preguntas frecuentes</h2>
+    <h3>¿Molaridad es lo mismo que concentración a secas?</h3>
+    <p>"Concentración" es el término general — hay varias formas de expresarla (molaridad, %m/v, gramos por litro, partes por millón). La molaridad es solo una de esas formas, la más usada en química porque trabaja directamente en moles, ideal para hacer estequiometría después.</p>
+    <h3>¿Se puede diluir una solución para bajar la concentración más allá de cierto punto?</h3>
+    <p>En teoría sí, hasta hacerla prácticamente agua pura — en la práctica, hay un límite dado por cuánto solvente sea razonable agregar, y por la precisión con la que se pueda medir una concentración tan baja.</p>
+    <h3>¿Por qué al preparar una solución diluida hay que agregar el ácido al agua, y no al revés?</h3>
+    <p>Porque diluir un ácido concentrado libera calor — si agregas agua de golpe sobre el ácido, ese calor puede hacer que salpique violentamente. Agregando el ácido de a poco sobre el agua, el calor se disipa mucho más gradual y seguro.</p>
+  </div>
+
+  <div class="related">
+    <h2>Temas relacionados</h2>
+    <div class="related-links">
+      <a href="formulario.html">Machete de Fórmulas</a>
+      <a href="electromagnetismo.html">Electromagnetismo</a>
+      <a href="maquinas-simples.html">Máquinas Simples</a>
+      <a href="estequiometria.html">Estequiometría y El Mol</a>
+      <a href="acido-base.html">Ácido-Base y pH</a>
+      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
+      <a href="leyes-gases.html">Leyes de los Gases</a>
+      <a href="evaluaciones.html">Evaluaciones</a>
+      <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+      <a href="experimentos.html">Experimentos Caseros</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.level-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('section.level').forEach(s=>s.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`section.level[data-level="${btn.dataset.target}"]`).classList.add('active');
+    });
+  });
+
+  const ELECTRONEGATIVIDAD = {
+    Na:0.93, K:0.82, Ca:1.00, Mg:1.31, Al:1.61,
+    H:2.20, C:2.55, N:3.04, S:2.58, P:2.19,
+    Cl:3.16, O:3.44, F:3.98, Br:2.96
+  };
+
+  function clasificarEnlace(dEN){
+    if(dEN >= 1.7) return {tipo:'Iónico', detalle:'un átomo transfiere electrones al otro'};
+    if(dEN >= 0.4) return {tipo:'Covalente polar', detalle:'comparten los electrones, pero de forma desigual'};
+    return {tipo:'Covalente apolar', detalle:'comparten los electrones de forma pareja'};
+  }
+
+  function calcBasico(){
+    const n = parseFloat(document.getElementById('b-n').value)||0;
+    const V = parseFloat(document.getElementById('b-V').value)||1;
+    const M = n/V;
+    const out = document.getElementById('b-readout');
+    out.innerText = `M = n/V = ${n}/${V} = ${M.toFixed(3)} mol/L`;
+    out.classList.add('show');
+  }
+
+  function calcAvanzado(){
+    const M1 = parseFloat(document.getElementById('a-M1').value)||0;
+    const V1 = parseFloat(document.getElementById('a-V1').value)||0;
+    const M2 = parseFloat(document.getElementById('a-M2').value)||1;
+    const V2 = (M1*V1)/M2;
+    const agregar = V2-V1;
+    const out = document.getElementById('a-readout');
+    out.innerText = `M₁V₁ = M₂V₂ → ${M1}×${V1} = ${M2}×V₂\nV₂ = ${(M1*V1).toFixed(1)}/${M2} = ${V2.toFixed(1)} mL\nSolvente a agregar: ${V2.toFixed(1)} − ${V1} = ${agregar.toFixed(1)} mL`;
+    out.classList.add('show');
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Potencia Eléctrica (P = V·I) | Fórmula y Calculadora — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --grid:#E4E0D4;
+    --ink:#1C2733;
+    --ink-soft:#4A5568;
+    --amber:#D9A441;
+    --amber-dark:#B8842E;
+    --pine:#2F6B5E;
+    --pine-dark:#225046;
+    --white:#FFFFFF;
+    --line:#D8D3C4;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+  header.top{
+    padding:36px 20px 28px;
+    max-width:760px;margin:0 auto;
+    border-bottom:2px solid var(--ink);
+  }
+  .brand-link{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--amber-dark);
+    text-decoration:none;
+    margin-bottom:12px;
+    letter-spacing:0.01em;
+  }
+  .brand-link:hover{text-decoration:underline;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--pine-dark);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px,5vw,46px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--ink-soft);font-size:16px;max-width:56ch;}
+
+  .level-nav{
+    display:flex;gap:8px;margin:28px 0 0;
+  }
+  .level-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;font-weight:700;
+    padding:10px 18px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    cursor:pointer;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .level-btn.active{background:var(--ink);color:var(--paper);}
+
+  section.level{display:none;margin-top:36px;}
+  section.level.active{display:block;}
+
+  .card{
+    background:var(--white);
+    border:2px solid var(--ink);
+    padding:28px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .card::before{
+    content:attr(data-tag);
+    position:absolute;
+    top:-13px;left:20px;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+  }
+  section.level[data-level="avanzado"] .card::before{background:var(--pine);color:var(--white);}
+
+  h2{font-family:'Fraunces', serif;font-size:22px;font-weight:600;margin:6px 0 14px;}
+
+  .formula-box{
+    font-family:'JetBrains Mono', monospace;
+    font-size:20px;
+    font-weight:700;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    padding:16px 20px;
+    margin:14px 0;
+    text-align:center;
+    letter-spacing:0.02em;
+  }
+  .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
+  .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+
+  /* Calculadora */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media(max-width:520px){.calc-grid{grid-template-columns:1fr;}}
+  .field label{
+    display:block;font-size:12px;font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;
+  }
+  .field input{
+    width:100%;padding:10px 12px;
+    border:2px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;background:var(--white);
+  }
+  .field input:focus{outline:3px solid var(--amber);outline-offset:1px;}
+  .calc-btn{
+    margin-top:16px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    padding:12px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.05em;
+    cursor:pointer;
+  }
+  .calc-btn:hover{background:var(--amber-dark);}
+  .readout{
+    margin-top:18px;
+    background:var(--ink);
+    color:#8FE3C7;
+    font-family:'JetBrains Mono', monospace;
+    padding:18px 20px;
+    font-size:15px;
+    min-height:24px;
+    display:none;
+    white-space:pre-line;
+  }
+  .readout.show{display:block;}
+
+  .example{
+    background:var(--paper);
+    border-left:4px solid var(--pine);
+    padding:16px 18px;
+    font-size:15px;
+    margin-top:10px;
+  }
+  section.level[data-level="basico"] .example{border-left-color:var(--amber-dark);}
+
+  .exercises ol{padding-left:20px;}
+  .exercises li{margin-bottom:14px;}
+  details{
+    margin-top:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  details summary{cursor:pointer;color:var(--pine-dark);font-weight:700;}
+
+  .faq h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;}
+  .faq p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .related{
+    margin-top:40px;padding-top:24px;border-top:2px solid var(--ink);
+  }
+  .related h2{font-size:16px;}
+  .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+  .related-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    background:var(--white);
+  }
+  .related-links a:hover{border-color:var(--ink);}
+
+  .sim-box{
+    background:var(--ink);
+    border:2px solid var(--ink);
+    padding:14px;
+    margin-top:16px;
+  }
+  .sim-box canvas{
+    display:block;width:100%;height:auto;
+  }
+  .sim-readout{
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    color:#8FE3C7;font-size:13px;
+    margin-top:10px;padding-top:10px;
+    border-top:1px solid #3A4756;
+  }
+  .speed-row{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-left:14px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;color:var(--ink-soft);
+  }
+  .speed-btn{
+    border:1px solid var(--line);background:var(--white);
+    padding:6px 10px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;cursor:pointer;
+  }
+  .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  .force-diagram{
+    background:var(--paper);
+    border:1px dashed var(--line);
+    margin-top:14px;
+    padding:8px;
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="index.html" class="brand-link">DescifraLab</a>
+  <div class="eyebrow">Electricidad</div>
+  <h1>Potencia Eléctrica (P = V·I)</h1>
+  <p class="subtitle">Fórmulas, calculadora interactiva, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
+  <nav class="level-nav">
+    <button class="level-btn active" data-target="basico">Básico</button>
+    <button class="level-btn" data-target="avanzado">Avanzado</button>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- NIVEL BÁSICO -->
+  <section class="level active" data-level="basico">
+
+    <div class="card" data-tag="Concepto">
+      <h2>¿Qué es la potencia eléctrica?</h2>
+      <p>Es qué tan rápido un aparato consume (o entrega) energía eléctrica. Dos aparatos pueden usar el mismo voltaje, pero si uno tiene más potencia, consume la energía más rápido — por eso una estufa eléctrica gasta mucho más que una lamparita.</p>
+      <div class="formula-box">P = V · I</div>
+      <p class="var-list"><span>P</span> = potencia (Watt, W) &nbsp;·&nbsp; <span>V</span> = voltaje (V) &nbsp;·&nbsp; <span>I</span> = corriente (A)</p>
+      <p style="color:var(--ink-soft);font-size:14.5px;">Como V = I·R (Ley de Ohm), también puedes escribir la potencia como P = I²·R o P = V²/R, según qué datos tengas.</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula la potencia</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Voltaje V (V)</label><input type="number" id="b-V" value="220"></div>
+        <div class="field"><label>Corriente I (A)</label><input type="number" id="b-I" value="2"></div>
+      </div>
+      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
+      <div class="readout" id="b-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Mira brillar la lamparita</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Cuanta más potencia, más brilla e intensamente más rápido titila. Toca reproducir con los valores de arriba.</p>
+      <div class="sim-box">
+        <canvas id="circuit-canvas" width="680" height="230"></canvas>
+        <div class="sim-readout">
+          <span id="circuit-V">V = 0 V</span>
+          <span id="circuit-I">I = 0 A</span>
+          <span id="circuit-P">P = 0 W</span>
+        </div>
+      </div>
+      <button class="calc-btn" id="circuit-btn" onclick="toggleCircuit()">▶ Reproducir</button>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>Un artefacto conectado a 220 V consume 2 A.</strong></p>
+        <p>P = V × I = 220 × 2 = <strong>440 W</strong></p>
+        <p>Consume 440 Watt — parecido a un microondas chico.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Una lamparita de 220 V consume 0.5 A. ¿Cuál es su potencia?
+          <details><summary>Ver respuesta</summary>P = 220×0.5 = 110 W</details>
+        </li>
+        <li>Un ventilador de 60 W está conectado a 220 V. ¿Cuánta corriente consume?
+          <details><summary>Ver respuesta</summary>I = P/V = 60/220 ≈ 0.27 A</details>
+        </li>
+        <li>Una estufa de 2000 W funciona a 220 V. ¿Cuánta corriente circula?
+          <details><summary>Ver respuesta</summary>I = 2000/220 ≈ 9.1 A</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <!-- NIVEL AVANZADO -->
+  <section class="level" data-level="avanzado">
+
+    <div class="card" data-tag="Concepto">
+      <h2>Energía consumida y costo en la factura</h2>
+      <p>La potencia (W) es instantánea. Lo que te cobran en la factura de luz es energía consumida a lo largo del tiempo, medida en kWh (kilowatt-hora): cuántos kilowatts usaste, multiplicado por cuántas horas los usaste.</p>
+      <div class="formula-box">E = P · t</div>
+      <p class="var-list"><span>E</span> = energía (en kWh si P está en kW y t en horas) &nbsp;·&nbsp; <span>P</span> = potencia &nbsp;·&nbsp; <span>t</span> = tiempo de uso</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula el consumo</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Potencia P (W)</label><input type="number" id="a-P" value="1500"></div>
+        <div class="field"><label>Horas de uso al día</label><input type="number" id="a-t" value="3"></div>
+        <div class="field"><label>Precio por kWh ($)</label><input type="number" id="a-precio" value="150"></div>
+      </div>
+      <button class="calc-btn" onclick="calcAvanzado()">Calcular</button>
+      <div class="readout" id="a-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>Un aire acondicionado de 1500 W funciona 3 horas por día.</strong></p>
+        <p>E = 1.5 kW × 3 h = <strong>4.5 kWh por día</strong></p>
+        <p>En un mes de 30 días: 4.5 × 30 = <strong>135 kWh</strong> — ese es el número que multiplica la compañía eléctrica por el precio del kWh para armar tu factura.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Una heladera de 150 W funciona las 24 horas. ¿Cuánto consume por día?
+          <details><summary>Ver respuesta</summary>E = 0.15 kW × 24 h = 3.6 kWh/día</details>
+        </li>
+        <li>Una TV de 100 W se usa 4 horas diarias durante 30 días. ¿Cuánto consumió en el mes?
+          <details><summary>Ver respuesta</summary>E = 0.1×4×30 = 12 kWh</details>
+        </li>
+        <li>Si el kWh cuesta $150 y una estufa de 2000 W se usa 2 horas por día durante 30 días, ¿cuánto cuesta ese consumo en el mes?
+          <details><summary>Ver respuesta</summary>E = 2×2×30 = 120 kWh → costo = 120×150 = $18.000</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <div class="card faq" data-tag="FAQ">
+    <h2>Preguntas frecuentes</h2>
+    <h3>¿Por qué me cobran en kWh y no en Watt?</h3>
+    <p>Porque el Watt mide potencia instantánea (cuánto consume en un momento dado), pero lo que gastas realmente depende de cuánto tiempo lo usas. El kWh combina ambas cosas: potencia × tiempo.</p>
+    <h3>¿Un aparato de más Watts siempre gasta más en la factura?</h3>
+    <p>No necesariamente — depende de cuánto tiempo lo uses. Una estufa de 2000 W usada 1 hora puede gastar menos en el mes que una heladera de 150 W que está prendida las 24 horas del día.</p>
+    <h3>¿Qué relación hay entre potencia y Ley de Ohm?</h3>
+    <p>Están conectadas: como V = I·R, se puede reescribir la potencia de tres formas distintas (P = V·I, P = I²·R, P = V²/R) según qué datos tengas disponibles en el problema.</p>
+  </div>
+
+  <div class="related">
+    <h2>Temas relacionados</h2>
+    <div class="related-links">
+      <a href="formulario.html">Machete de Fórmulas</a>
+      <a href="maquinas-simples.html">Máquinas Simples</a>
+      <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+      <a href="experimentos.html">Experimentos Caseros</a>
+      <a href="acido-base.html">Ácido-Base y pH</a>
+      <a href="concentracion-soluciones.html">Concentración de Soluciones</a>
+      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
+      <a href="leyes-gases.html">Leyes de los Gases</a>
+      <a href="ley-ohm.html">Ley de Ohm (V = I·R)</a>
+      <a href="electromagnetismo.html">Electromagnetismo</a>
+      <a href="circuitos.html">Circuitos en Serie y Paralelo</a>
+      <a href="newton.html">Segunda Ley de Newton (F = m·a)</a>
+      <a href="trabajo-energia.html">Trabajo y Energía</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.level-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('section.level').forEach(s=>s.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`section.level[data-level="${btn.dataset.target}"]`).classList.add('active');
+    });
+  });
+
+  function calcBasico(){
+    const V = parseFloat(document.getElementById('b-V').value)||0;
+    const I = parseFloat(document.getElementById('b-I').value)||0;
+    const P = V*I;
+    const out = document.getElementById('b-readout');
+    out.innerText = `P = V × I = ${V} × ${I} = ${P.toFixed(2)} W`;
+    out.classList.add('show');
+  }
+
+  function calcAvanzado(){
+    const P = parseFloat(document.getElementById('a-P').value)||0;
+    const t = parseFloat(document.getElementById('a-t').value)||0;
+    const precio = parseFloat(document.getElementById('a-precio').value)||0;
+    const Ediario = (P/1000)*t;
+    const Emensual = Ediario*30;
+    const costo = Emensual*precio;
+    const out = document.getElementById('a-readout');
+    out.innerText = `Consumo diario = ${(P/1000).toFixed(2)} kW × ${t} h = ${Ediario.toFixed(2)} kWh\nConsumo mensual (30 días) = ${Emensual.toFixed(1)} kWh\nCosto estimado = ${Emensual.toFixed(1)} × $${precio} = $${costo.toFixed(0)}`;
+    out.classList.add('show');
+  }
+
+
+  // ---- Circuito animado ----
+  // Dibuja un lazo rectangular con una pila y una resistencia (zigzag),
+  // y cargas (puntos) que circulan por el lazo a una velocidad
+  // proporcional a la corriente calculada.
+
+  let circuitRunning = false;
+  let circuitOffset = 0;
+  let circuitI = 0;
+  let circuitP = 0; // apagada hasta que se reproduzca
+  let circuitLastFrame = null;
+
+  function pointOnLoop(t, w, h){
+    // t va de 0 a 1, recorre el rectángulo en sentido horario empezando abajo a la izquierda
+    const left=80, right=w-80, top=100, bottom=h-40;
+    const perim = 2*(right-left) + 2*(bottom-top);
+    let d = t*perim;
+    const wSeg = right-left, hSeg = bottom-top;
+    if(d < wSeg){ return {x:left+d, y:bottom}; }
+    d -= wSeg;
+    if(d < hSeg){ return {x:right, y:bottom-d}; }
+    d -= hSeg;
+    if(d < wSeg){ return {x:right-d, y:top}; }
+    d -= wSeg;
+    return {x:left, y:top+d};
+  }
+
+  function drawCircuit(ctx, w, h, offset){
+    ctx.clearRect(0,0,w,h);
+    const left=80, right=w-80, top=100, bottom=h-40;
+
+    // lazo del circuito
+    ctx.strokeStyle = '#3A4756';
+    ctx.lineWidth = 3;
+    ctx.strokeRect(left, top, right-left, bottom-top);
+
+    // pila (en el lado izquierdo)
+    ctx.fillStyle = '#5C6B7A';
+    ctx.font = '11px JetBrains Mono';
+    ctx.save();
+    ctx.strokeStyle = '#D9A441';
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(left-14, (top+bottom)/2 - 16); ctx.lineTo(left+14, (top+bottom)/2 - 16);
+    ctx.stroke();
+    ctx.lineWidth = 8;
+    ctx.beginPath();
+    ctx.moveTo(left-8, (top+bottom)/2 + 16); ctx.lineTo(left+8, (top+bottom)/2 + 16);
+    ctx.stroke();
+    ctx.restore();
+    ctx.fillText('pila', left-14, (top+bottom)/2 + 40);
+
+    // lamparita, dibujada como componente conectado sobre la línea, no pegada a ella
+    const lx = (left+right)/2, lampY = top - 26; // centro de la lamparita, por encima del cable
+    const frac = Math.max(0, Math.min(circuitP, 500)/500); // 0 a 1
+    const glowSize = 5 + frac * 22;
+    const glowAlpha = 0.15 + frac * 0.8;
+
+    // cables cortos que conectan la lamparita a la línea del circuito
+    ctx.strokeStyle = '#3A4756';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(lx-10, top); ctx.lineTo(lx-10, lampY+8);
+    ctx.moveTo(lx+10, top); ctx.lineTo(lx+10, lampY+8);
+    ctx.stroke();
+
+    const grad = ctx.createRadialGradient(lx, lampY, 1, lx, lampY, glowSize);
+    grad.addColorStop(0, `rgba(217,164,65,${glowAlpha.toFixed(2)})`);
+    grad.addColorStop(1, 'rgba(217,164,65,0)');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(lx, lampY, glowSize, 0, Math.PI*2);
+    ctx.fill();
+    ctx.font = '18px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('💡', lx, lampY+6);
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#5C6B7A';
+    ctx.font = '11px JetBrains Mono';
+    ctx.fillText('P = '+circuitP.toFixed(0)+' W', lx-24, lampY-24);
+
+    // cargas circulando
+    ctx.fillStyle = '#8FE3C7';
+    const nDots = 8;
+    for(let i=0;i<nDots;i++){
+      const t = ((i/nDots) + offset) % 1;
+      const p = pointOnLoop(t, w, h);
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 5, 0, Math.PI*2);
+      ctx.fill();
+    }
+  }
+
+  function toggleCircuit(){
+    const btn = document.getElementById('circuit-btn');
+    const canvas = document.getElementById('circuit-canvas');
+    if(circuitRunning){
+      circuitRunning = false;
+      circuitP = 0; // se apaga de verdad al pausar, no queda "prendida" con el último valor
+      btn.innerText = '▶ Reproducir';
+      drawCircuit(canvas.getContext('2d'), canvas.width, canvas.height, circuitOffset);
+      return;
+    }
+    const V = parseFloat(document.getElementById('b-V').value)||0;
+    const I = parseFloat(document.getElementById('b-I').value)||0;
+    circuitP = V*I;
+    circuitI = I;
+    document.getElementById('circuit-V').innerText = `V = ${V} V`;
+    document.getElementById('circuit-I').innerText = `I = ${I} A`;
+    document.getElementById('circuit-P').innerText = `P = ${circuitP.toFixed(1)} W`;
+    circuitRunning = true;
+    btn.innerText = '⏸ Pausar';
+    circuitLastFrame = performance.now();
+    requestAnimationFrame(circuitFrame);
+  }
+
+  function circuitFrame(now){
+    if(!circuitRunning) return;
+    const canvas = document.getElementById('circuit-canvas');
+    const ctx = canvas.getContext('2d');
+    const dt = (now - circuitLastFrame)/1000;
+    circuitLastFrame = now;
+    // velocidad de las cargas proporcional a la corriente (con un factor de escala visual)
+    circuitOffset = (circuitOffset + dt * circuitI * 0.08) % 1;
+    drawCircuit(ctx, canvas.width, canvas.height, circuitOffset);
+    requestAnimationFrame(circuitFrame);
+  }
+
+  window.addEventListener('load', ()=>{
+    const c = document.getElementById('circuit-canvas');
+    drawCircuit(c.getContext('2d'), c.width, c.height, 0);
+  });
+</script>
+
+</body>
+</html>

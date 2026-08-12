@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impulso y Cantidad de Movimiento | Simulador de Choques — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --grid:#E4E0D4;
+    --ink:#1C2733;
+    --ink-soft:#4A5568;
+    --amber:#D9A441;
+    --amber-dark:#B8842E;
+    --pine:#2F6B5E;
+    --pine-dark:#225046;
+    --white:#FFFFFF;
+    --line:#D8D3C4;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+  header.top{
+    padding:36px 20px 28px;
+    max-width:760px;margin:0 auto;
+    border-bottom:2px solid var(--ink);
+  }
+  .brand-link{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--amber-dark);
+    text-decoration:none;
+    margin-bottom:12px;
+    letter-spacing:0.01em;
+  }
+  .brand-link:hover{text-decoration:underline;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--pine-dark);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px,5vw,46px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--ink-soft);font-size:16px;max-width:56ch;}
+
+  .level-nav{
+    display:flex;gap:8px;margin:28px 0 0;
+  }
+  .level-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;font-weight:700;
+    padding:10px 18px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    cursor:pointer;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .level-btn.active{background:var(--ink);color:var(--paper);}
+
+  section.level{display:none;margin-top:36px;}
+  section.level.active{display:block;}
+
+  .card{
+    background:var(--white);
+    border:2px solid var(--ink);
+    padding:28px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .card::before{
+    content:attr(data-tag);
+    position:absolute;
+    top:-13px;left:20px;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+  }
+  section.level[data-level="avanzado"] .card::before{background:var(--pine);color:var(--white);}
+
+  h2{font-family:'Fraunces', serif;font-size:22px;font-weight:600;margin:6px 0 14px;}
+
+  .formula-box{
+    font-family:'JetBrains Mono', monospace;
+    font-size:20px;
+    font-weight:700;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    padding:16px 20px;
+    margin:14px 0;
+    text-align:center;
+    letter-spacing:0.02em;
+  }
+  .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
+  .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+
+  /* Calculadora */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media(max-width:520px){.calc-grid{grid-template-columns:1fr;}}
+  .field label{
+    display:block;font-size:12px;font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;
+  }
+  .field input{
+    width:100%;padding:10px 12px;
+    border:2px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;background:var(--white);
+  }
+  .field input:focus{outline:3px solid var(--amber);outline-offset:1px;}
+  .calc-btn{
+    margin-top:16px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    padding:12px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.05em;
+    cursor:pointer;
+  }
+  .calc-btn:hover{background:var(--amber-dark);}
+  .readout{
+    margin-top:18px;
+    background:var(--ink);
+    color:#8FE3C7;
+    font-family:'JetBrains Mono', monospace;
+    padding:18px 20px;
+    font-size:15px;
+    min-height:24px;
+    display:none;
+    white-space:pre-line;
+  }
+  .readout.show{display:block;}
+
+  .example{
+    background:var(--paper);
+    border-left:4px solid var(--pine);
+    padding:16px 18px;
+    font-size:15px;
+    margin-top:10px;
+  }
+  section.level[data-level="basico"] .example{border-left-color:var(--amber-dark);}
+
+  .exercises ol{padding-left:20px;}
+  .exercises li{margin-bottom:14px;}
+  details{
+    margin-top:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  details summary{cursor:pointer;color:var(--pine-dark);font-weight:700;}
+
+  .faq h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;}
+  .faq p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .related{
+    margin-top:40px;padding-top:24px;border-top:2px solid var(--ink);
+  }
+  .related h2{font-size:16px;}
+  .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+  .related-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    background:var(--white);
+  }
+  .related-links a:hover{border-color:var(--ink);}
+
+  .sim-box{
+    background:var(--ink);
+    border:2px solid var(--ink);
+    padding:14px;
+    margin-top:16px;
+  }
+  .sim-box canvas{
+    display:block;width:100%;height:auto;
+  }
+  .sim-readout{
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    color:#8FE3C7;font-size:13px;
+    margin-top:10px;padding-top:10px;
+    border-top:1px solid #3A4756;
+  }
+  .speed-row{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-left:14px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;color:var(--ink-soft);
+  }
+  .speed-btn{
+    border:1px solid var(--line);background:var(--white);
+    padding:6px 10px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;cursor:pointer;
+  }
+  .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="index.html" class="brand-link">DescifraLab</a>
+  <div class="eyebrow">Mecánica · Dinámica</div>
+  <h1>Impulso y Cantidad de Movimiento</h1>
+  <p class="subtitle">Fórmulas, simulador de choques elásticos e inelásticos, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
+  <nav class="level-nav">
+    <button class="level-btn active" data-target="basico">Básico</button>
+    <button class="level-btn" data-target="avanzado">Avanzado</button>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- NIVEL BÁSICO -->
+  <section class="level active" data-level="basico">
+
+    <div class="card" data-tag="Concepto">
+      <h2>¿Qué es la cantidad de movimiento?</h2>
+      <p>Es una medida de "cuánto cuesta detener algo" — combina masa y velocidad. Un camión lento puede tener la misma cantidad de movimiento que un auto rápido, y a los dos les cuesta lo mismo pararlos.</p>
+      <div class="formula-box">p = m · v</div>
+      <p class="var-list"><span>p</span> = cantidad de movimiento (kg·m/s) &nbsp;·&nbsp; <span>m</span> = masa (kg) &nbsp;·&nbsp; <span>v</span> = velocidad (m/s)</p>
+      <p style="color:var(--ink-soft);font-size:14.5px;">El impulso es lo que cambia la cantidad de movimiento: una fuerza aplicada durante un tiempo. Por eso J = F·Δt es exactamente igual al cambio de p.</p>
+      <div class="formula-box">J = F · Δt = Δp = m·(v<sub>f</sub> − v<sub>0</sub>)</div>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula la velocidad final por impulso</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Masa m (kg)</label><input type="number" id="b-m" value="0.5"></div>
+        <div class="field"><label>Velocidad inicial v₀ (m/s)</label><input type="number" id="b-v0" value="0"></div>
+        <div class="field"><label>Fuerza aplicada F (N)</label><input type="number" id="b-F" value="20"></div>
+        <div class="field"><label>Tiempo de contacto Δt (s)</label><input type="number" id="b-dt" value="0.1"></div>
+      </div>
+      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
+      <div class="readout" id="b-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo — patear una pelota</h2>
+      <div class="example">
+        <p><strong>Una pelota de 0.5 kg está quieta (v₀=0). Un jugador la patea con 20 N durante 0.1 s. ¿Con qué velocidad sale?</strong></p>
+        <p>J = F×Δt = 20×0.1 = 2 kg·m/s</p>
+        <p>Δv = J/m = 2/0.5 = 4 m/s</p>
+        <p>v<sub>f</sub> = v₀ + Δv = 0 + 4 = <strong>4 m/s</strong></p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Un objeto de 2 kg se mueve a 3 m/s. ¿Cuál es su cantidad de movimiento?
+          <details><summary>Ver respuesta</summary>p = 2×3 = 6 kg·m/s</details>
+        </li>
+        <li>Una fuerza de 50 N actúa durante 0.2 s sobre un objeto en reposo de 5 kg. ¿Qué velocidad final alcanza?
+          <details><summary>Ver respuesta</summary>J = 50×0.2 = 10 kg·m/s → Δv = 10/5 = 2 m/s → v = 2 m/s</details>
+        </li>
+        <li>¿Por qué las bolsas de aire de los autos "duelen menos" que chocar contra el volante directo?
+          <details><summary>Ver respuesta</summary>Porque aumentan el tiempo de contacto (Δt) durante el choque — como el impulso J=F×Δt debe ser el mismo para frenar el cuerpo, si Δt es mayor, la fuerza F necesaria es menor.</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <!-- NIVEL AVANZADO -->
+  <section class="level" data-level="avanzado">
+
+    <div class="card" data-tag="Concepto">
+      <h2>Conservación de la cantidad de movimiento en choques</h2>
+      <p>En cualquier choque, sin fuerzas externas, la cantidad de movimiento total del sistema se conserva — lo que un objeto pierde, el otro lo gana. Pero lo que pasa con la energía cinética depende del tipo de choque.</p>
+      <div class="formula-box">m₁v₁ + m₂v₂ = m₁v₁' + m₂v₂'</div>
+      <p class="var-list"><strong>Elástico:</strong> se conserva también la energía cinética (los objetos rebotan). &nbsp;·&nbsp; <strong>Perfectamente inelástico:</strong> los objetos quedan pegados y se mueven juntos — se conserva p, pero se pierde energía cinética (se transforma en calor/deformación).</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Simula el choque</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Masa 1 (kg)</label><input type="number" id="a-m1" value="2"></div>
+        <div class="field"><label>Velocidad 1 (m/s)</label><input type="number" id="a-v1" value="4"></div>
+        <div class="field"><label>Masa 2 (kg)</label><input type="number" id="a-m2" value="3"></div>
+        <div class="field"><label>Velocidad 2 (m/s)</label><input type="number" id="a-v2" value="-2"></div>
+      </div>
+      <div style="margin-top:10px;">
+        <label style="font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;color:var(--ink-soft);">
+          <input type="radio" name="tipoChoque" value="elastico" checked> Elástico
+        </label>
+        &nbsp;&nbsp;
+        <label style="font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;color:var(--ink-soft);">
+          <input type="radio" name="tipoChoque" value="inelastico"> Perfectamente inelástico
+        </label>
+      </div>
+      <button class="calc-btn" onclick="calcAvanzado()">Calcular</button>
+      <div class="readout" id="a-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Mira el choque</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Con los valores de arriba, mira cómo se mueven los dos objetos antes y después del choque — prueba cambiar entre elástico e inelástico y compara.</p>
+      <div class="sim-box">
+        <canvas id="collision-canvas" width="680" height="180"></canvas>
+        <div class="sim-readout">
+          <span id="coll-v1">v₁' = 0 m/s</span>
+          <span id="coll-v2">v₂' = 0 m/s</span>
+        </div>
+      </div>
+      <button class="calc-btn" id="collision-btn" onclick="playCollision()">▶ Reproducir choque</button>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo — choque perfectamente inelástico</h2>
+      <div class="example">
+        <p><strong>Un vagón de 2000 kg a 3 m/s choca y se engancha con otro vagón de 3000 kg que está quieto. ¿A qué velocidad quedan moviéndose juntos?</strong></p>
+        <p>v' = (m₁v₁ + m₂v₂)/(m₁+m₂) = (2000×3 + 3000×0)/(2000+3000) = 6000/5000 = <strong>1.2 m/s</strong></p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Un auto de 1000 kg a 20 m/s choca de forma perfectamente inelástica con otro de 1500 kg en reposo. ¿A qué velocidad quedan?
+          <details><summary>Ver respuesta</summary>v' = (1000×20+1500×0)/(1000+1500) = 20000/2500 = 8 m/s</details>
+        </li>
+        <li>Dos bolas de billar de igual masa: una a 5 m/s choca elásticamente con otra en reposo. ¿Qué pasa después del choque?
+          <details><summary>Ver respuesta</summary>Con masas iguales en choque elástico, la bola que se movía se detiene por completo y la que estaba quieta sale con los 5 m/s — es un caso especial clásico del billar.</details>
+        </li>
+        <li>¿Por qué en un choque perfectamente inelástico se conserva p pero no la energía cinética?
+          <details><summary>Ver respuesta</summary>Porque parte de la energía cinética se transforma en deformación, sonido y calor al quedar los objetos pegados — la cantidad de movimiento sí se conserva porque no hay fuerzas externas al sistema.</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <div class="card faq" data-tag="FAQ">
+    <h2>Preguntas frecuentes</h2>
+    <h3>¿Por qué los autos de carrera se destrozan tanto en un choque?</h3>
+    <p>Justamente para protegerte: la carrocería se deforma para aumentar el tiempo de contacto del choque (Δt), reduciendo la fuerza que recibe el piloto, igual que el airbag.</p>
+    <h3>¿Cantidad de movimiento y energía cinética son lo mismo?</h3>
+    <p>No — p = m·v es un vector (tiene dirección) y siempre se conserva en un choque. La energía cinética (½mv²) es un escalar y solo se conserva en choques elásticos, no en los inelásticos.</p>
+    <h3>¿Qué significa que un choque sea "perfectamente inelástico"?</h3>
+    <p>Que los dos objetos quedan pegados y se mueven juntos después del impacto, con una única velocidad final compartida — como dos autos que quedan enganchados tras chocar.</p>
+  </div>
+
+  <div class="related">
+    <h2>Temas relacionados</h2>
+    <div class="related-links">
+      <a href="newton.html">Segunda Ley de Newton (F = m·a)</a>
+      <a href="trabajo-energia.html">Trabajo y Energía</a>
+      <a href="formulario.html">Machete de Fórmulas</a>
+      <a href="electromagnetismo.html">Electromagnetismo</a>
+      <a href="conversor-unidades.html">Conversor de Unidades</a>
+      <a href="evaluaciones.html">Evaluaciones</a>
+      <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+      <a href="experimentos.html">Experimentos Caseros</a>
+      <a href="modelo-atomico.html">Modelo Atómico y Tabla Periódica</a>
+      <a href="estequiometria.html">Estequiometría y El Mol</a>
+      <a href="configuracion-electronica.html">Configuración Electrónica</a>
+      <a href="oxido-reduccion.html">Óxido-Reducción</a>
+      <a href="enlaces-quimicos.html">Enlaces Químicos</a>
+      <a href="acido-base.html">Ácido-Base y pH</a>
+      <a href="concentracion-soluciones.html">Concentración de Soluciones</a>
+      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
+      <a href="leyes-gases.html">Leyes de los Gases</a>
+      <a href="energia-nuclear.html">Energía Nuclear</a>
+      <a href="tiro-oblicuo.html">Tiro Oblicuo — Movimiento Parabólico</a>
+      <a href="mcu.html">Movimiento Circular Uniforme (MCU)</a>
+      <a href="estatica-torque.html">Estática y Torque</a>
+      <a href="maquinas-simples.html">Máquinas Simples</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.level-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('section.level').forEach(s=>s.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`section.level[data-level="${btn.dataset.target}"]`).classList.add('active');
+    });
+  });
+
+  function calcBasico(){
+    const m = parseFloat(document.getElementById('b-m').value)||0.0001;
+    const v0 = parseFloat(document.getElementById('b-v0').value)||0;
+    const F = parseFloat(document.getElementById('b-F').value)||0;
+    const dt = parseFloat(document.getElementById('b-dt').value)||0;
+    const J = F*dt;
+    const dv = J/m;
+    const vf = v0+dv;
+    const out = document.getElementById('b-readout');
+    out.innerText = `J = F×Δt = ${F}×${dt} = ${J.toFixed(2)} kg·m/s\nΔv = J/m = ${J.toFixed(2)}/${m} = ${dv.toFixed(2)} m/s\nv_f = ${v0} + ${dv.toFixed(2)} = ${vf.toFixed(2)} m/s`;
+    out.classList.add('show');
+  }
+
+  let collV1f = 0, collV2f = 0;
+
+  function calcAvanzado(){
+    const m1 = parseFloat(document.getElementById('a-m1').value)||0.0001;
+    const v1 = parseFloat(document.getElementById('a-v1').value)||0;
+    const m2 = parseFloat(document.getElementById('a-m2').value)||0.0001;
+    const v2 = parseFloat(document.getElementById('a-v2').value)||0;
+    const tipo = document.querySelector('input[name="tipoChoque"]:checked').value;
+    const out = document.getElementById('a-readout');
+
+    if(tipo==='elastico'){
+      collV1f = ((m1-m2)*v1 + 2*m2*v2)/(m1+m2);
+      collV2f = ((m2-m1)*v2 + 2*m1*v1)/(m1+m2);
+      out.innerText = `v₁' = ((${m1}−${m2})×${v1} + 2×${m2}×${v2})/(${m1}+${m2}) = ${collV1f.toFixed(2)} m/s\nv₂' = ((${m2}−${m1})×${v2} + 2×${m1}×${v1})/(${m1}+${m2}) = ${collV2f.toFixed(2)} m/s`;
+    } else {
+      const vFinal = (m1*v1 + m2*v2)/(m1+m2);
+      collV1f = vFinal; collV2f = vFinal;
+      out.innerText = `v' = (${m1}×${v1} + ${m2}×${v2})/(${m1}+${m2}) = ${vFinal.toFixed(2)} m/s (ambos quedan juntos a esta velocidad)`;
+    }
+    out.classList.add('show');
+
+    document.getElementById('coll-v1').innerText = `v₁' = ${collV1f.toFixed(2)} m/s`;
+    document.getElementById('coll-v2').innerText = `v₂' = ${collV2f.toFixed(2)} m/s`;
+  }
+
+  // ---- Simulador de choque: dos objetos que colisionan y se separan ----
+  let collRunning = false;
+
+  function drawCollision(ctx, w, h, x1, x2, tipo){
+    ctx.clearRect(0,0,w,h);
+    const midY = h/2;
+    ctx.strokeStyle = '#3A4756';
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(20,midY+30); ctx.lineTo(w-20,midY+30); ctx.stroke();
+
+    ctx.font = '30px sans-serif';
+    ctx.textAlign='center';
+    ctx.fillText('🔵', x1, midY);
+    if(tipo!=='inelastico-junto'){
+      ctx.fillText('🔴', x2, midY);
+    }
+    ctx.textAlign='left';
+  }
+
+  function playCollision(){
+    if(collRunning) return;
+    collRunning = true;
+    const m1 = parseFloat(document.getElementById('a-m1').value)||1;
+    const v1 = parseFloat(document.getElementById('a-v1').value)||0;
+    const m2 = parseFloat(document.getElementById('a-m2').value)||1;
+    const v2 = parseFloat(document.getElementById('a-v2').value)||0;
+    const tipo = document.querySelector('input[name="tipoChoque"]:checked').value;
+
+    const canvas = document.getElementById('collision-canvas');
+    const w = canvas.width, h = canvas.height;
+    const centerX = w/2;
+    let x1 = 80, x2 = w-80;
+    let t = 0;
+    const preDuration = 1.2; // segundos antes del choque
+    const postDuration = 1.5; // segundos después del choque
+    const startTime = performance.now();
+
+    function frame(now){
+      const elapsed = (now-startTime)/1000;
+
+      if(elapsed < preDuration){
+        // acercándose al centro (velocidades originales, escaladas para verse bien)
+        const frac = elapsed/preDuration;
+        x1 = 80 + (centerX-80-15)*frac;
+        x2 = (w-80) - ((w-80)-(centerX+15))*frac;
+        drawCollision(ctx2(canvas), w, h, x1, x2, tipo);
+        requestAnimationFrame(frame);
+      } else {
+        const frac = Math.min((elapsed-preDuration)/postDuration, 1);
+        if(tipo==='inelastico'){
+          // se mueven juntos con collV1f (=collV2f)
+          const dir = collV1f >= 0 ? 1 : -1;
+          const dist = Math.abs(collV1f)*40*frac*postDuration;
+          x1 = centerX + dir*dist;
+          x2 = x1; // pegados
+          drawCollision(ctx2(canvas), w, h, x1, x2, 'inelastico-junto');
+        } else {
+          const dir1 = collV1f >= 0 ? 1 : -1;
+          const dir2 = collV2f >= 0 ? 1 : -1;
+          x1 = (centerX-15) + dir1*Math.abs(collV1f)*40*frac*postDuration;
+          x2 = (centerX+15) + dir2*Math.abs(collV2f)*40*frac*postDuration;
+          drawCollision(ctx2(canvas), w, h, x1, x2, tipo);
+        }
+        if(frac < 1){
+          requestAnimationFrame(frame);
+        } else {
+          collRunning = false;
+        }
+      }
+    }
+    function ctx2(c){ return c.getContext('2d'); }
+    requestAnimationFrame(frame);
+  }
+
+  window.addEventListener('load', ()=>{
+    const canvas = document.getElementById('collision-canvas');
+    calcAvanzado();
+    drawCollision(canvas.getContext('2d'), canvas.width, canvas.height, 80, canvas.width-80, 'elastico');
+  });
+</script>
+
+</body>
+</html>

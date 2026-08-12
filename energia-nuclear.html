@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Energía Nuclear — E=mc² y Desintegración Radiactiva | Simulador — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --grid:#E4E0D4;
+    --ink:#1C2733;
+    --ink-soft:#4A5568;
+    --amber:#D9A441;
+    --amber-dark:#B8842E;
+    --pine:#2F6B5E;
+    --pine-dark:#225046;
+    --white:#FFFFFF;
+    --line:#D8D3C4;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+  header.top{
+    padding:36px 20px 28px;
+    max-width:760px;margin:0 auto;
+    border-bottom:2px solid var(--ink);
+  }
+  .brand-link{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--amber-dark);
+    text-decoration:none;
+    margin-bottom:12px;
+    letter-spacing:0.01em;
+  }
+  .brand-link:hover{text-decoration:underline;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--pine-dark);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px,5vw,46px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--ink-soft);font-size:16px;max-width:56ch;}
+
+  .level-nav{
+    display:flex;gap:8px;margin:28px 0 0;
+  }
+  .level-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;font-weight:700;
+    padding:10px 18px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    cursor:pointer;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .level-btn.active{background:var(--ink);color:var(--paper);}
+
+  section.level{display:none;margin-top:36px;}
+  section.level.active{display:block;}
+
+  .card{
+    background:var(--white);
+    border:2px solid var(--ink);
+    padding:28px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .card::before{
+    content:attr(data-tag);
+    position:absolute;
+    top:-13px;left:20px;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+  }
+  section.level[data-level="avanzado"] .card::before{background:var(--pine);color:var(--white);}
+
+  h2{font-family:'Fraunces', serif;font-size:22px;font-weight:600;margin:6px 0 14px;}
+
+  .formula-box{
+    font-family:'JetBrains Mono', monospace;
+    font-size:20px;
+    font-weight:700;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    padding:16px 20px;
+    margin:14px 0;
+    text-align:center;
+    letter-spacing:0.02em;
+  }
+  .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
+  .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+
+  /* Calculadora */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media(max-width:520px){.calc-grid{grid-template-columns:1fr;}}
+  .field label{
+    display:block;font-size:12px;font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;
+  }
+  .field input{
+    width:100%;padding:10px 12px;
+    border:2px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;background:var(--white);
+  }
+  .field input:focus{outline:3px solid var(--amber);outline-offset:1px;}
+  .calc-btn{
+    margin-top:16px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    padding:12px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.05em;
+    cursor:pointer;
+  }
+  .calc-btn:hover{background:var(--amber-dark);}
+  .readout{
+    margin-top:18px;
+    background:var(--ink);
+    color:#8FE3C7;
+    font-family:'JetBrains Mono', monospace;
+    padding:18px 20px;
+    font-size:15px;
+    min-height:24px;
+    display:none;
+    white-space:pre-line;
+  }
+  .readout.show{display:block;}
+
+  .example{
+    background:var(--paper);
+    border-left:4px solid var(--pine);
+    padding:16px 18px;
+    font-size:15px;
+    margin-top:10px;
+  }
+  section.level[data-level="basico"] .example{border-left-color:var(--amber-dark);}
+
+  .exercises ol{padding-left:20px;}
+  .exercises li{margin-bottom:14px;}
+  details{
+    margin-top:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  details summary{cursor:pointer;color:var(--pine-dark);font-weight:700;}
+
+  .faq h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;}
+  .faq p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .related{
+    margin-top:40px;padding-top:24px;border-top:2px solid var(--ink);
+  }
+  .related h2{font-size:16px;}
+  .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+  .related-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    background:var(--white);
+  }
+  .related-links a:hover{border-color:var(--ink);}
+
+  .sim-box{
+    background:var(--ink);
+    border:2px solid var(--ink);
+    padding:14px;
+    margin-top:16px;
+  }
+  .sim-box canvas{
+    display:block;width:100%;height:auto;
+  }
+  .sim-readout{
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    color:#8FE3C7;font-size:13px;
+    margin-top:10px;padding-top:10px;
+    border-top:1px solid #3A4756;
+  }
+  .speed-row{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-left:14px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;color:var(--ink-soft);
+  }
+  .speed-btn{
+    border:1px solid var(--line);background:var(--white);
+    padding:6px 10px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;cursor:pointer;
+  }
+  .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  .dato-freak{
+    background:linear-gradient(135deg, var(--ink) 0%, var(--pine-dark) 100%);
+    color:#EAF2EE;
+    border:none;
+    position:relative;
+    overflow:hidden;
+  }
+  .dato-freak h2{color:#fff;}
+  .dato-freak p{color:#CBDBD3;}
+  .dato-freak strong{color:var(--amber);}
+  .dato-freak-tag{
+    display:inline-block;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;font-weight:700;
+    text-transform:uppercase;letter-spacing:0.05em;
+    padding:4px 10px;
+    border-radius:4px;
+    margin-bottom:10px;
+  }
+
+  .timeline-nuclear{
+    margin-top:14px;
+    border-left:3px solid var(--amber);
+    padding-left:0;
+  }
+  .timeline-item{
+    display:flex;gap:16px;
+    padding:10px 0 10px 18px;
+    position:relative;
+  }
+  .timeline-item::before{
+    content:'';
+    position:absolute;left:-8px;top:16px;
+    width:13px;height:13px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    border-radius:50%;
+  }
+  .timeline-año{
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:15px;
+    color:var(--amber-dark);
+    min-width:52px;flex-shrink:0;
+  }
+  .timeline-texto{font-size:14px;line-height:1.5;}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="index.html" class="brand-link">DescifraLab</a>
+  <div class="eyebrow">Física Moderna</div>
+  <h1>Energía Nuclear</h1>
+  <p class="subtitle">Historia del descubrimiento, aplicaciones reales, seguridad, grandes eventos históricos, E=mc², fisión y fusión, y desintegración radiactiva con simulador de vida media.</p>
+  <nav class="level-nav">
+    <button class="level-btn active" data-target="basico">Básico</button>
+    <button class="level-btn" data-target="avanzado">Avanzado</button>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- NIVEL BÁSICO -->
+  <section class="level active" data-level="basico">
+
+    <div class="card" data-tag="Historia">
+      <h2>¿Quién la descubrió: Becquerel o Curie?</h2>
+      <p>El primero fue <strong>Henri Becquerel</strong>, en 1896 — y fue una casualidad total. Estaba estudiando si ciertos cristales fosforescentes emitían rayos X, así que dejó sales de uranio sobre placas fotográficas envueltas en papel negro, cerca de una ventana, para que el sol las "activara". Pero llegaron unos días nublados, y guardó todo en un cajón sin usarlo. Cuando finalmente reveló las placas, <strong>estaban veladas igual</strong> — como si el sol nunca hubiera hecho falta. El uranio emitía algo por su cuenta, sin necesidad de luz externa.</p>
+      <p>Dos años después, en 1898, <strong>Marie y Pierre Curie</strong> retomaron esa pista y descubrieron dos elementos nuevos aún más radiactivos: el polonio y el radio. Fue Marie quien inventó la palabra "radiactividad". Los tres compartieron el Premio Nobel de Física en 1903 — y Marie Curie se convirtió después en la primera persona de la historia en ganar dos Nobel en ciencias distintas (Física en 1903, Química en 1911, ella sola).</p>
+    </div>
+
+    <div class="card" data-tag="Concepto">
+      <h2>¿Para qué sirve la energía nuclear, en la vida real?</h2>
+      <ul style="padding-left:20px;margin:10px 0;">
+        <li><strong>Generación eléctrica:</strong> centrales nucleares producen alrededor del 10% de la electricidad mundial, sin emitir CO₂ durante la operación.</li>
+        <li><strong>Medicina:</strong> radioterapia contra el cáncer, diagnóstico por imágenes (medicina nuclear, PET), y esterilización de instrumental médico.</li>
+        <li><strong>Datación:</strong> el Carbono-14 que ya vimos, usado en arqueología y geología.</li>
+        <li><strong>Exploración espacial:</strong> sondas como Voyager o el rover Curiosity usan generadores nucleares (RTG) para tener energía constante durante años, lejos del Sol.</li>
+      </ul>
+    </div>
+
+    <div class="card" data-tag="Concepto">
+      <h2>¿Es segura la energía nuclear?</h2>
+      <p>Es un tema con matices reales, no una respuesta simple de sí o no:</p>
+      <p><strong>A favor:</strong> según datos históricos de mortalidad por unidad de energía producida, la nuclear tiene una de las tasas más bajas de todas las fuentes de energía — comparable a la eólica y la solar, y muchísimo más baja que el carbón o el petróleo (que matan más gente por contaminación del aire cada año que todos los accidentes nucleares de la historia juntos). Además, casi no emite CO₂ durante su funcionamiento.</p>
+      <p><strong>En contra:</strong> el riesgo no es cero — cuando algo sale mal, puede salir muy mal (como vas a ver abajo), y los residuos radiactivos siguen siendo peligrosos durante miles de años, así que hay que almacenarlos con muchísimo cuidado.</p>
+    </div>
+
+    <div class="card" data-tag="Historia">
+      <h2>Grandes eventos de la historia nuclear</h2>
+      <div class="timeline-nuclear">
+        <div class="timeline-item">
+          <div class="timeline-año">1942</div>
+          <div class="timeline-texto"><strong>Chicago Pile-1:</strong> Enrico Fermi logra la primera reacción en cadena controlada de la historia, en una cancha de squash bajo las tribunas de la Universidad de Chicago.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-año">1945</div>
+          <div class="timeline-texto"><strong>Hiroshima y Nagasaki:</strong> Estados Unidos lanza las únicas dos bombas atómicas usadas en un conflicto bélico, sobre estas ciudades japonesas, matando a decenas de miles de personas de forma inmediata y muchas más después por la radiación. Marcó el fin de la Segunda Guerra Mundial y el inicio de la era nuclear militar.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-año">1954</div>
+          <div class="timeline-texto"><strong>Obninsk (URSS):</strong> entra en operación la primera central nuclear del mundo que generó electricidad para uso civil.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-año">1986</div>
+          <div class="timeline-texto"><strong>Chernóbil (Ucrania, entonces URSS):</strong> un error de diseño combinado con fallas humanas durante una prueba provocó una explosión y el peor accidente nuclear de la historia, liberando una nube radiactiva sobre gran parte de Europa. La zona alrededor sigue deshabitada hoy.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-año">2011</div>
+          <div class="timeline-texto"><strong>Fukushima (Japón):</strong> un terremoto y tsunami masivos dañaron los sistemas de refrigeración de la central, provocando fusiones parciales del núcleo en varios reactores. Es, junto con Chernóbil, el único otro accidente calificado con el nivel máximo de gravedad (7) en la escala internacional.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-tag="Concepto">
+      <h2>E=mc²: la masa es energía concentrada</h2>
+      <p>Einstein demostró que masa y energía son la misma cosa vista de dos formas distintas — una cantidad muy chica de masa equivale a una cantidad enorme de energía, porque se multiplica por c² (la velocidad de la luz al cuadrado, un número gigante).</p>
+      <div class="formula-box">E = m · c²</div>
+      <p class="var-list"><span>E</span> = energía (Joule) &nbsp;·&nbsp; <span>m</span> = masa (kg) &nbsp;·&nbsp; <span>c</span> = 300.000.000 m/s (velocidad de la luz)</p>
+      <p style="color:var(--ink-soft);font-size:14.5px;">En una reacción nuclear (fisión o fusión), una pequeña parte de la masa de los núcleos "desaparece" — no se destruye, se convierte en la enorme cantidad de energía que libera la reacción.</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula la energía liberada</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Masa convertida en energía (mg)</label><input type="number" id="b-m" value="1"></div>
+      </div>
+      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
+      <div class="readout" id="b-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Concepto">
+      <h2>Fisión vs. fusión</h2>
+      <ul style="padding-left:20px;margin:10px 0;">
+        <li><strong>Fisión:</strong> un núcleo pesado (como el uranio) se rompe en núcleos más chicos, liberando energía. Es lo que usan las centrales nucleares actuales y las primeras bombas atómicas.</li>
+        <li><strong>Fusión:</strong> dos núcleos livianos (como hidrógeno) se combinan en uno más pesado, liberando aún más energía por kg que la fisión. Es lo que ocurre naturalmente en el Sol y las estrellas.</li>
+      </ul>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Mira la fisión nuclear</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Un neutrón choca contra un núcleo pesado e inestable (como el Uranio-235), que se rompe en dos núcleos más chicos y libera nuevos neutrones — más energía.</p>
+      <div class="sim-box">
+        <canvas id="fision-canvas" width="680" height="220"></canvas>
+      </div>
+      <button class="calc-btn" id="fision-btn" onclick="playFision()">▶ Reproducir fisión</button>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Mira la fusión nuclear</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Dos núcleos livianos (isótopos de hidrógeno) se acercan lo suficiente como para fusionarse en un núcleo más pesado (helio), liberando un neutrón y energía — así funciona el Sol.</p>
+      <div class="sim-box">
+        <canvas id="fusion-canvas" width="680" height="220"></canvas>
+      </div>
+      <button class="calc-btn" id="fusion-btn" onclick="playFusion()">▶ Reproducir fusión</button>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>En una reacción nuclear se "pierden" 1 mg de masa (0.000001 kg). ¿Cuánta energía se libera?</strong></p>
+        <p>E = 0.000001 × (300.000.000)² = 0.000001 × 9×10¹⁶ = <strong>9×10¹⁰ J</strong></p>
+        <p>Son 90.000 millones de Joule — de solo 1 miligramo de masa. Para comparar, eso alcanzaría para abastecer de energía a cientos de hogares durante un día.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>¿Cuánta energía equivale a 1 gramo (0.001 kg) de masa completamente convertida?
+          <details><summary>Ver respuesta</summary>E = 0.001×(3×10⁸)² = 9×10¹³ J</details>
+        </li>
+        <li>¿Por qué la fusión nuclear libera más energía por kilogramo que la fisión?
+          <details><summary>Ver respuesta</summary>Porque el proceso de unir núcleos livianos convierte una fracción mayor de masa en energía que el de romper núcleos pesados, según los cálculos de energía de enlace nuclear.</details>
+        </li>
+        <li>¿Por qué el Sol no se "queda sin combustible" de un día para el otro, a pesar de fusionar toneladas de hidrógeno cada segundo?
+          <details><summary>Ver respuesta</summary>Porque su masa total es tan inmensa (unos 2×10³⁰ kg) que, aunque convierte una enorme cantidad de masa en energía constantemente, el proceso puede sostenerse durante miles de millones de años.</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <!-- NIVEL AVANZADO -->
+  <section class="level" data-level="avanzado">
+
+    <div class="card" data-tag="Concepto">
+      <h2>Desintegración radiactiva y vida media</h2>
+      <p>Los núcleos inestables (radiactivos) se desintegran espontáneamente con el tiempo, emitiendo radiación. No se puede predecir cuándo se desintegra un átomo individual, pero sí cuánto tarda en desintegrarse la mitad de una muestra grande — eso se llama <strong>vida media</strong> o período de semidesintegración.</p>
+      <div class="formula-box">N = N₀ · (1/2)^(t / T)</div>
+      <p class="var-list"><span>N</span> = cantidad restante &nbsp;·&nbsp; <span>N₀</span> = cantidad inicial &nbsp;·&nbsp; <span>t</span> = tiempo transcurrido &nbsp;·&nbsp; <span>T</span> = vida media del isótopo</p>
+    </div>
+
+    <div class="card dato-freak">
+      <div class="dato-freak-tag">Dato freak</div>
+      <h2>La partida de Mario que nadie pudo repetir</h2>
+      <p>En 2023, el speedrunner <strong>DOTA_Teabag</strong> estaba jugando Super Mario 64 cuando, sin ningún motivo aparente, su personaje se teletransportó solo hasta la plataforma más alta del nivel Tick Tock Clock. Nadie pudo repetir el glitch, ni siquiera copiando sus movimientos exactos — ni por $1000 dólares de recompensa que ofreció otro speedrunner.</p>
+      <p>La causa: un <strong>rayo cósmico</strong> (partículas de alta energía que llegan constantemente desde el espacio) chocó contra los circuitos de la consola en el momento justo, y cambió un solo bit de la memoria — de 11000101 a 11000100. Un solo número, cambiado al azar por radiación del espacio, alteró la posición de Mario en el juego.</p>
+      <p style="color:var(--ink-soft);font-size:13px;">Este tipo de eventos se llaman "bit flips" y son extremadamente raros (probabilidad de uno entre millones) — pero pasan de verdad, y son parte de por qué las computadoras de satélites y misiones espaciales necesitan blindaje especial contra la radiación cósmica.</p>
+    </div>
+
+    <div class="card dato-freak">
+      <div class="dato-freak-tag">Dato freak</div>
+      <h2>Eres levemente radiactivo (y una banana también)</h2>
+      <p>El potasio es un elemento esencial para tu cuerpo — está en tus músculos, tus nervios, todo. Pero una pequeñísima fracción del potasio natural (el isótopo potasio-40) es radiactivo. Resultado: tu cuerpo emite radiación todo el tiempo, en cantidades tan bajas que son completamente inofensivas.</p>
+      <p>Las bananas también tienen mucho potasio, y por eso los físicos inventaron una unidad informal de humor llamada <strong>"dosis equivalente en bananas"</strong> para explicarle a la gente qué tan chica es una dosis de radiación — comparándola con comer una banana.</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula la cantidad restante</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Cantidad inicial N₀ (átomos, en miles)</label><input type="number" id="a-N0" value="1000"></div>
+        <div class="field"><label>Vida media T (años)</label><input type="number" id="a-T" value="5730"></div>
+        <div class="field"><label>Tiempo transcurrido t (años)</label><input type="number" id="a-t" value="11460"></div>
+      </div>
+      <button class="calc-btn" onclick="calcAvanzado()">Calcular</button>
+      <div class="readout" id="a-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Mira decaer la muestra</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Cada partícula tiene una probabilidad de "desintegrarse" (cambiar de color) acorde a la vida media que ingresaste — mira cómo, en promedio, la mitad decae en cada período de vida media.</p>
+      <div class="sim-box">
+        <canvas id="decay-canvas" width="680" height="240"></canvas>
+        <div class="sim-readout">
+          <span id="decay-t">t = 0 períodos de T</span>
+          <span id="decay-restantes">Restantes: 100%</span>
+        </div>
+      </div>
+      <button class="calc-btn" id="decay-btn" onclick="toggleDecay()">▶ Reproducir</button>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo — datación por Carbono-14</h2>
+      <div class="example">
+        <p><strong>El Carbono-14 tiene una vida media de 5730 años. Si una muestra tiene hoy el 25% del C-14 que tenía originalmente, ¿qué antigüedad tiene?</strong></p>
+        <p>25% = (1/2)^n → 0.25 = (1/2)² → pasaron <strong>2 vidas medias</strong></p>
+        <p>Antigüedad = 2 × 5730 = <strong>11.460 años</strong></p>
+        <p>Así es como se estima la edad de restos arqueológicos orgánicos — comparando cuánto C-14 les queda respecto al que tenían en vida.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Un isótopo con vida media de 10 años, ¿cuánto queda de una muestra después de 30 años?
+          <details><summary>Ver respuesta</summary>30/10=3 vidas medias → N=N₀×(1/2)³ = 12.5% de la muestra original</details>
+        </li>
+        <li>Si una muestra tiene el 50% de su cantidad original, ¿cuántas vidas medias pasaron?
+          <details><summary>Ver respuesta</summary>1 vida media exacta, por definición</details>
+        </li>
+        <li>¿Por qué la datación por C-14 no sirve para objetos de millones de años?
+          <details><summary>Ver respuesta</summary>Porque después de muchas vidas medias (5730 años cada una), la cantidad restante de C-14 se vuelve tan ínfima que ya no se puede medir con precisión — se usan otros isótopos con vidas medias mucho más largas para dataciones geológicas.</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <div class="card faq" data-tag="FAQ">
+    <h2>Preguntas frecuentes</h2>
+    <h3>¿Por qué las centrales nucleares no explotan como una bomba atómica?</h3>
+    <p>Porque están diseñadas para mantener la fisión bajo control (reacción en cadena controlada, con barras que absorben neutrones para regular la velocidad), mientras que una bomba busca justamente lo contrario: una reacción descontrolada y lo más rápida posible.</p>
+    <h3>¿La radiactividad es siempre peligrosa?</h3>
+    <p>Depende de la dosis y el tipo de radiación. En dosis controladas se usa en medicina (radioterapia, diagnóstico por imágenes) y en la industria — el peligro aparece con exposiciones altas o prolongadas sin protección.</p>
+    <h3>¿Por qué se puede predecir la vida media pero no cuándo decae un átomo individual?</h3>
+    <p>Porque la desintegración radiactiva es un proceso probabilístico a nivel de cada átomo — no hay forma de saber si un átomo específico se desintegrará en el próximo segundo o en mil años. Pero con una muestra de billones de átomos, el promedio estadístico (la vida media) es extremadamente predecible.</p>
+  </div>
+
+  <div class="related">
+    <h2>Temas relacionados</h2>
+    <div class="related-links">
+      <a href="relatividad.html">Relatividad: Dilatación Temporal</a>
+      <a href="modelo-atomico.html">Modelo Atómico y Tabla Periódica</a>
+      <a href="estequiometria.html">Estequiometría y El Mol</a>
+      <a href="configuracion-electronica.html">Configuración Electrónica</a>
+      <a href="oxido-reduccion.html">Óxido-Reducción</a>
+      <a href="enlaces-quimicos.html">Enlaces Químicos</a>
+      <a href="acido-base.html">Ácido-Base y pH</a>
+      <a href="concentracion-soluciones.html">Concentración de Soluciones</a>
+      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
+      <a href="leyes-gases.html">Leyes de los Gases</a>
+      <a href="formulario.html">Machete de Fórmulas</a>
+      <a href="electromagnetismo.html">Electromagnetismo</a>
+      <a href="conversor-unidades.html">Conversor de Unidades</a>
+      <a href="evaluaciones.html">Evaluaciones</a>
+      <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+      <a href="experimentos.html">Experimentos Caseros</a>
+      <a href="estatica-torque.html">Estática y Torque</a>
+      <a href="maquinas-simples.html">Máquinas Simples</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.level-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('section.level').forEach(s=>s.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`section.level[data-level="${btn.dataset.target}"]`).classList.add('active');
+    });
+  });
+
+  function calcBasico(){
+    const mMg = parseFloat(document.getElementById('b-m').value)||0;
+    const mKg = mMg/1e6; // mg a kg
+    const c = 3e8;
+    const E = mKg*c*c;
+    const out = document.getElementById('b-readout');
+    out.innerText = `E = m×c² = ${mKg.toExponential(2)}×(${c.toExponential(0)})² = ${E.toExponential(3)} J`;
+    out.classList.add('show');
+  }
+
+  // ---- Animación de fisión nuclear ----
+  // Fase 1: un neutrón viaja hacia el núcleo pesado.
+  // Fase 2: impacto, destello de energía, el núcleo se desestabiliza.
+  // Fase 3: se separa en dos núcleos más chicos + neutrones libres.
+  let fisionRunning = false;
+
+  function drawNucleo(ctx, cx, cy, nParticulas, radio, colorA, colorB){
+    for(let i=0;i<nParticulas;i++){
+      const ang = (i/nParticulas)*Math.PI*2 + i*0.7;
+      const dist = radio*0.55*Math.sqrt(Math.random());
+      const x = cx + dist*Math.cos(ang);
+      const y = cy + dist*Math.sin(ang);
+      ctx.fillStyle = i%2===0 ? colorA : colorB;
+      ctx.beginPath();
+      ctx.arc(x,y,4,0,Math.PI*2);
+      ctx.fill();
+    }
+  }
+
+  function playFision(){
+    if(fisionRunning) return;
+    fisionRunning = true;
+    const canvas = document.getElementById('fision-canvas');
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height, cy = h/2;
+    const startTime = performance.now();
+    const duration = 5000; // ms
+
+    function frame(now){
+      const t = (now-startTime)/duration; // 0 a 1
+      ctx.clearRect(0,0,w,h);
+
+      if(t < 0.35){
+        // fase 1: neutrón viaja hacia el núcleo
+        const frac = t/0.35;
+        const neutronX = 40 + frac*(w/2-70);
+        drawNucleo(ctx, w/2, cy, 24, 70, '#7FB8E3', '#D9A441');
+        ctx.font='22px sans-serif'; ctx.textAlign='center';
+        ctx.fillText('⚪', neutronX, cy+7);
+        ctx.font='11px JetBrains Mono'; ctx.fillStyle='#5C6B7A';
+        ctx.fillText('neutrón', neutronX, cy-45);
+        ctx.fillText('U-235 (inestable)', w/2, cy-90);
+        ctx.textAlign='left';
+      } else if(t < 0.5){
+        // fase 2: destello de impacto
+        const frac = (t-0.35)/0.15;
+        drawNucleo(ctx, w/2, cy, 24, 70+frac*15, '#7FB8E3', '#D9A441');
+        const grad = ctx.createRadialGradient(w/2,cy,5,w/2,cy,90);
+        grad.addColorStop(0, `rgba(255,255,200,${0.9-frac*0.3})`);
+        grad.addColorStop(1, 'rgba(255,255,200,0)');
+        ctx.fillStyle = grad;
+        ctx.beginPath(); ctx.arc(w/2,cy,90,0,Math.PI*2); ctx.fill();
+      } else {
+        // fase 3: separación en dos núcleos + neutrones libres
+        const frac = Math.min((t-0.5)/0.5, 1);
+        const sep = frac*140;
+        drawNucleo(ctx, w/2-sep, cy, 12, 45, '#7FB8E3', '#D9A441');
+        drawNucleo(ctx, w/2+sep, cy, 12, 45, '#7FB8E3', '#D9A441');
+        ctx.font='16px sans-serif'; ctx.textAlign='center';
+        [-1,1].forEach((dir,i)=>{
+          const ang = dir*0.6 + (i===0?-0.3:0.3);
+          const dist = 60+frac*90;
+          ctx.fillText('⚪', w/2+dist*Math.sin(ang)*dir, cy-dist*Math.cos(ang)*0.3);
+        });
+        ctx.font='11px JetBrains Mono'; ctx.fillStyle='#5C6B7A';
+        ctx.fillText('núcleos más chicos + energía', w/2, cy+100);
+        ctx.textAlign='left';
+      }
+
+      if(t < 1){
+        requestAnimationFrame(frame);
+      } else {
+        fisionRunning = false;
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  // ---- Animación de fusión nuclear ----
+  let fusionRunning = false;
+
+  function playFusion(){
+    if(fusionRunning) return;
+    fusionRunning = true;
+    const canvas = document.getElementById('fusion-canvas');
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height, cy = h/2;
+    const startTime = performance.now();
+    const duration = 4500;
+
+    function frame(now){
+      const t = (now-startTime)/duration;
+      ctx.clearRect(0,0,w,h);
+
+      if(t < 0.5){
+        // fase 1: dos núcleos livianos se acercan
+        const frac = t/0.5;
+        const gap = (1-frac)*180;
+        drawNucleo(ctx, w/2-30-gap, cy, 3, 20, '#8FE3C7', '#D9A441');
+        drawNucleo(ctx, w/2+30+gap, cy, 3, 20, '#8FE3C7', '#D9A441');
+        ctx.font='11px JetBrains Mono'; ctx.fillStyle='#5C6B7A'; ctx.textAlign='center';
+        ctx.fillText('²H (deuterio)', w/2-30-gap, cy-35);
+        ctx.fillText('³H (tritio)', w/2+30+gap, cy-35);
+        ctx.textAlign='left';
+      } else if(t < 0.65){
+        // fase 2: colisión, destello
+        const frac = (t-0.5)/0.15;
+        drawNucleo(ctx, w/2, cy, 6, 25, '#8FE3C7', '#D9A441');
+        const grad = ctx.createRadialGradient(w/2,cy,5,w/2,cy,80);
+        grad.addColorStop(0, `rgba(255,255,200,${0.9-frac*0.3})`);
+        grad.addColorStop(1, 'rgba(255,255,200,0)');
+        ctx.fillStyle = grad;
+        ctx.beginPath(); ctx.arc(w/2,cy,80,0,Math.PI*2); ctx.fill();
+      } else {
+        // fase 3: núcleo de helio resultante + neutrón liberado
+        const frac = Math.min((t-0.65)/0.35, 1);
+        drawNucleo(ctx, w/2, cy, 8, 30, '#7FB8E3', '#D9A441');
+        ctx.font='16px sans-serif'; ctx.textAlign='center';
+        ctx.fillText('⚪', w/2+40+frac*100, cy-20-frac*20);
+        ctx.font='11px JetBrains Mono'; ctx.fillStyle='#5C6B7A';
+        ctx.fillText('⁴He + neutrón + energía', w/2, cy+70);
+        ctx.textAlign='left';
+      }
+
+      if(t < 1){
+        requestAnimationFrame(frame);
+      } else {
+        fusionRunning = false;
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function calcAvanzado(){
+    const N0 = parseFloat(document.getElementById('a-N0').value)||0;
+    const T = parseFloat(document.getElementById('a-T').value)||1;
+    const t = parseFloat(document.getElementById('a-t').value)||0;
+    const N = N0*Math.pow(0.5, t/T);
+    const out = document.getElementById('a-readout');
+    out.innerText = `N = ${N0}×(1/2)^(${t}/${T}) = ${N0}×(1/2)^${(t/T).toFixed(2)} = ${N.toFixed(1)} (${((N/N0)*100).toFixed(1)}% restante)`;
+    out.classList.add('show');
+  }
+
+  // ---- Simulador de decaimiento radiactivo ----
+  // Cada partícula tiene una probabilidad de decaer por unidad de tiempo
+  // acorde a la vida media (T). Se dibuja en gris cuando decae.
+
+  let decayParticles = [];
+  let decayRunning = false;
+  let decaySimTime = 0;
+
+  function initDecayParticles(){
+    decayParticles = [];
+    const cols = 10, rows = 6;
+    for(let r=0;r<rows;r++){
+      for(let c=0;c<cols;c++){
+        decayParticles.push({x:0,y:0,col:c,row:r,decayed:false});
+      }
+    }
+  }
+
+  function drawDecay(ctx, w, h){
+    ctx.clearRect(0,0,w,h);
+    const cols=10, rows=6;
+    const marginX=40, marginY=30;
+    const spacingX=(w-marginX*2)/(cols-1), spacingY=(h-marginY*2)/(rows-1);
+    decayParticles.forEach(p=>{
+      const x = marginX + p.col*spacingX;
+      const y = marginY + p.row*spacingY;
+      ctx.fillStyle = p.decayed ? '#3A4756' : '#D9A441';
+      ctx.beginPath();
+      ctx.arc(x,y,7,0,Math.PI*2);
+      ctx.fill();
+    });
+  }
+
+  function toggleDecay(){
+    const btn = document.getElementById('decay-btn');
+    if(decayRunning){
+      decayRunning = false;
+      btn.innerText = '▶ Reproducir';
+      return;
+    }
+    initDecayParticles();
+    decaySimTime = 0;
+    decayRunning = true;
+    btn.innerText = '⏸ Pausar';
+    const T = parseFloat(document.getElementById('a-T').value)||1;
+    decayLoop(performance.now(), performance.now(), T);
+  }
+
+  function decayLoop(now, lastFrame, T){
+    if(!decayRunning) return;
+    const canvas = document.getElementById('decay-canvas');
+    const ctx = canvas.getContext('2d');
+    const dtReal = (now-lastFrame)/1000;
+    // ritmo: 4 vidas medias recorridas en ~12 segundos reales
+    const dtSim = dtReal * (T*4/12);
+    decaySimTime += dtSim;
+
+    // probabilidad de decaimiento por partícula, según ley exponencial
+    const lambda = Math.log(2)/T;
+    decayParticles.forEach(p=>{
+      if(!p.decayed){
+        const probDecaerEsteFrame = 1 - Math.exp(-lambda*dtSim);
+        if(Math.random() < probDecaerEsteFrame) p.decayed = true;
+      }
+    });
+
+    drawDecay(ctx, canvas.width, canvas.height);
+    const restantes = decayParticles.filter(p=>!p.decayed).length;
+    const pct = (restantes/decayParticles.length)*100;
+    document.getElementById('decay-t').innerText = `t = ${(decaySimTime/T).toFixed(1)} vidas medias`;
+    document.getElementById('decay-restantes').innerText = `Restantes: ${pct.toFixed(0)}%`;
+
+    if(decaySimTime < T*5){
+      requestAnimationFrame((n)=>decayLoop(n, now, T));
+    } else {
+      decayRunning = false;
+      document.getElementById('decay-btn').innerText = '▶ Reproducir';
+    }
+  }
+
+  window.addEventListener('load', ()=>{
+    initDecayParticles();
+    const canvas = document.getElementById('decay-canvas');
+    drawDecay(canvas.getContext('2d'), canvas.width, canvas.height);
+
+    const fisionCanvas = document.getElementById('fision-canvas');
+    const fctx = fisionCanvas.getContext('2d');
+    drawNucleo(fctx, fisionCanvas.width/2, fisionCanvas.height/2, 24, 70, '#7FB8E3', '#D9A441');
+
+    const fusionCanvas = document.getElementById('fusion-canvas');
+    const gctx = fusionCanvas.getContext('2d');
+    drawNucleo(gctx, fusionCanvas.width/2-120, fusionCanvas.height/2, 3, 20, '#8FE3C7', '#D9A441');
+    drawNucleo(gctx, fusionCanvas.width/2+120, fusionCanvas.height/2, 3, 20, '#8FE3C7', '#D9A441');
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conversor de Unidades y Magnitudes | Longitud, Masa, Tiempo, Velocidad — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --grid:#E4E0D4;
+    --ink:#1C2733;
+    --ink-soft:#4A5568;
+    --amber:#D9A441;
+    --amber-dark:#B8842E;
+    --pine:#2F6B5E;
+    --pine-dark:#225046;
+    --white:#FFFFFF;
+    --line:#D8D3C4;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+  header.top{
+    padding:36px 20px 28px;
+    max-width:760px;margin:0 auto;
+    border-bottom:2px solid var(--ink);
+  }
+  .brand-link{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--amber-dark);
+    text-decoration:none;
+    margin-bottom:12px;
+    letter-spacing:0.01em;
+  }
+  .brand-link:hover{text-decoration:underline;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--pine-dark);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px,5vw,46px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--ink-soft);font-size:16px;max-width:56ch;}
+
+  .level-nav{
+    display:flex;gap:8px;margin:28px 0 0;
+  }
+  .level-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;font-weight:700;
+    padding:10px 18px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    cursor:pointer;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .level-btn.active{background:var(--ink);color:var(--paper);}
+
+  section.level{display:none;margin-top:36px;}
+  section.level.active{display:block;}
+
+  .card{
+    background:var(--white);
+    border:2px solid var(--ink);
+    padding:28px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .card::before{
+    content:attr(data-tag);
+    position:absolute;
+    top:-13px;left:20px;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+  }
+  section.level[data-level="avanzado"] .card::before{background:var(--pine);color:var(--white);}
+
+  h2{font-family:'Fraunces', serif;font-size:22px;font-weight:600;margin:6px 0 14px;}
+
+  .formula-box{
+    font-family:'JetBrains Mono', monospace;
+    font-size:20px;
+    font-weight:700;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    padding:16px 20px;
+    margin:14px 0;
+    text-align:center;
+    letter-spacing:0.02em;
+  }
+  .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
+  .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+
+  /* Calculadora */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media(max-width:520px){.calc-grid{grid-template-columns:1fr;}}
+  .field label{
+    display:block;font-size:12px;font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;
+  }
+  .field input{
+    width:100%;padding:10px 12px;
+    border:2px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;background:var(--white);
+  }
+  .field input:focus{outline:3px solid var(--amber);outline-offset:1px;}
+  .calc-btn{
+    margin-top:16px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    padding:12px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.05em;
+    cursor:pointer;
+  }
+  .calc-btn:hover{background:var(--amber-dark);}
+  .readout{
+    margin-top:18px;
+    background:var(--ink);
+    color:#8FE3C7;
+    font-family:'JetBrains Mono', monospace;
+    padding:18px 20px;
+    font-size:15px;
+    min-height:24px;
+    display:none;
+    white-space:pre-line;
+  }
+  .readout.show{display:block;}
+
+  .example{
+    background:var(--paper);
+    border-left:4px solid var(--pine);
+    padding:16px 18px;
+    font-size:15px;
+    margin-top:10px;
+  }
+  section.level[data-level="basico"] .example{border-left-color:var(--amber-dark);}
+
+  .exercises ol{padding-left:20px;}
+  .exercises li{margin-bottom:14px;}
+  details{
+    margin-top:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  details summary{cursor:pointer;color:var(--pine-dark);font-weight:700;}
+
+  .faq h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;}
+  .faq p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .related{
+    margin-top:40px;padding-top:24px;border-top:2px solid var(--ink);
+  }
+  .related h2{font-size:16px;}
+  .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+  .related-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    background:var(--white);
+  }
+  .related-links a:hover{border-color:var(--ink);}
+
+  .sim-box{
+    background:var(--ink);
+    border:2px solid var(--ink);
+    padding:14px;
+    margin-top:16px;
+  }
+  #sim-canvas-basico, #sim-canvas-avanzado{
+    display:block;width:100%;height:auto;
+  }
+  .sim-readout{
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    color:#8FE3C7;font-size:13px;
+    margin-top:10px;padding-top:10px;
+    border-top:1px solid #3A4756;
+  }
+  .speed-row{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-left:14px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;color:var(--ink-soft);
+  }
+  .speed-btn{
+    border:1px solid var(--line);background:var(--white);
+    padding:6px 10px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;cursor:pointer;
+  }
+  .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  .escalera{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    margin:24px 0 8px;
+    overflow-x:auto;
+    padding-bottom:6px;
+  }
+  .escalon{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    flex-shrink:0;
+  }
+  .escalon-caja{
+    width:56px;height:56px;
+    border:2.5px solid var(--ink);
+    background:var(--paper);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:14px;
+  }
+  .escalon-caja.central{background:var(--amber);}
+  .escalon-label{
+    font-family:'Inter';font-size:11px;color:var(--ink-soft);
+    margin-top:6px;text-align:center;max-width:70px;
+  }
+  .escalera-flecha{
+    display:flex;flex-direction:column;align-items:center;
+    justify-content:center;
+    padding-top:16px;
+    flex-shrink:0;
+    min-width:44px;
+  }
+  .escalera-flecha .op{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;font-weight:700;
+  }
+  .escalera-flecha .der{color:var(--pine-dark);}
+  .escalera-flecha .izq{color:var(--amber-dark);}
+  .escalera-nota{
+    background:var(--paper);border:1px dashed var(--line);
+    padding:14px 16px;margin-top:16px;font-size:14px;color:var(--ink-soft);
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="index.html" class="brand-link">DescifraLab</a>
+  <div class="eyebrow">Herramientas · Magnitudes</div>
+  <h1>Conversor de Unidades</h1>
+  <p class="subtitle">De picómetros a años luz, de miligramos a toneladas, de segundos a años — todo el espectro, con conversión instantánea a todas las unidades a la vez.</p>
+  <nav class="level-nav">
+    <button class="level-btn active" data-target="longitud">Longitud</button>
+    <button class="level-btn" data-target="masa">Masa</button>
+    <button class="level-btn" data-target="tiempo">Tiempo</button>
+    <button class="level-btn" data-target="velocidad">Velocidad</button>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- LONGITUD -->
+  <section class="level active" data-level="longitud">
+    <div class="card" data-tag="Conversor">
+      <h2>Longitud — de picómetros a años luz</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;">Escribe un valor, elige en qué unidad está, y mira la conversión instantánea a todas las demás.</p>
+      <div class="calc-grid">
+        <div class="field"><label>Valor</label><input type="number" id="longitud-valor" value="1" oninput="convertir('longitud')"></div>
+        <div class="field">
+          <label>Unidad</label>
+          <select id="longitud-unidad" onchange="convertir('longitud')" style="width:100%;padding:10px 12px;border:2px solid var(--ink);font-family:'JetBrains Mono', monospace;font-size:15px;background:var(--white);">
+            <option value="pm">Picómetro (pm)</option>
+            <option value="nm">Nanómetro (nm)</option>
+            <option value="um">Micrómetro (µm)</option>
+            <option value="mm">Milímetro (mm)</option>
+            <option value="cm">Centímetro (cm)</option>
+            <option value="m" selected>Metro (m)</option>
+            <option value="km">Kilómetro (km)</option>
+            <option value="milla">Milla</option>
+            <option value="ua">Unidad Astronómica (UA)</option>
+            <option value="al">Año luz</option>
+          </select>
+        </div>
+      </div>
+      <div class="readout show" id="longitud-resultado" style="display:block;"></div>
+    </div>
+
+    <div class="card" data-tag="Método clásico">
+      <h2>La escalera de unidades de longitud</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;">La forma tradicional de convertir a mano, sin calculadora: cada escalón vale ×10 (o ÷10 en sentido contrario). El metro (m) es el centro de la escalera.</p>
+      <div class="escalera">
+        <div class="escalon"><div class="escalon-caja">km</div><div class="escalon-label">Kilómetro</div></div>
+        <div class="escalera-flecha"><span class="op der">×10→</span><span class="op izq">←÷10</span></div>
+        <div class="escalon"><div class="escalon-caja">hm</div><div class="escalon-label">Hectómetro</div></div>
+        <div class="escalera-flecha"><span class="op der">×10→</span><span class="op izq">←÷10</span></div>
+        <div class="escalon"><div class="escalon-caja">dam</div><div class="escalon-label">Decámetro</div></div>
+        <div class="escalera-flecha"><span class="op der">×10→</span><span class="op izq">←÷10</span></div>
+        <div class="escalon"><div class="escalon-caja central">m</div><div class="escalon-label">Metro</div></div>
+        <div class="escalera-flecha"><span class="op der">×10→</span><span class="op izq">←÷10</span></div>
+        <div class="escalon"><div class="escalon-caja">dm</div><div class="escalon-label">Decímetro</div></div>
+        <div class="escalera-flecha"><span class="op der">×10→</span><span class="op izq">←÷10</span></div>
+        <div class="escalon"><div class="escalon-caja">cm</div><div class="escalon-label">Centímetro</div></div>
+        <div class="escalera-flecha"><span class="op der">×10→</span><span class="op izq">←÷10</span></div>
+        <div class="escalon"><div class="escalon-caja">mm</div><div class="escalon-label">Milímetro</div></div>
+      </div>
+      <div class="escalera-nota">
+        <strong>Regla:</strong> para pasar de una unidad grande a una más chica (hacia la derecha), <strong>multiplicas por 10 por cada escalón</strong> que bajas. Para pasar de una unidad chica a una más grande (hacia la izquierda), <strong>divides por 10 por cada escalón</strong> que subes.<br><br>
+        <strong>Ejemplo:</strong> 3.5 km → m son 3 escalones hacia la derecha (km→hm→dam→m) = 3.5 × 10 × 10 × 10 = 3.5 × 1000 = <strong>3500 m</strong>.<br>
+        250 cm → m son 2 escalones hacia la izquierda (cm→dm→m) = 250 ÷ 10 ÷ 10 = <strong>2.5 m</strong>.
+      </div>
+    </div>
+  </section>
+
+  <!-- MASA -->
+  <section class="level" data-level="masa">
+    <div class="card" data-tag="Conversor">
+      <h2>Masa — de picogramos a toneladas</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;">Escribe un valor, elige en qué unidad está, y mira la conversión instantánea a todas las demás.</p>
+      <div class="calc-grid">
+        <div class="field"><label>Valor</label><input type="number" id="masa-valor" value="1" oninput="convertir('masa')"></div>
+        <div class="field">
+          <label>Unidad</label>
+          <select id="masa-unidad" onchange="convertir('masa')" style="width:100%;padding:10px 12px;border:2px solid var(--ink);font-family:'JetBrains Mono', monospace;font-size:15px;background:var(--white);">
+            <option value="pg">Picogramo (pg)</option>
+            <option value="ng">Nanogramo (ng)</option>
+            <option value="ug">Microgramo (µg)</option>
+            <option value="mg">Miligramo (mg)</option>
+            <option value="g" selected>Gramo (g)</option>
+            <option value="kg">Kilogramo (kg)</option>
+            <option value="ton">Tonelada</option>
+          </select>
+        </div>
+      </div>
+      <div class="readout show" id="masa-resultado" style="display:block;"></div>
+    </div>
+
+    <div class="card" data-tag="Método clásico">
+      <h2>La escalera de unidades de masa</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;">Exactamente la misma lógica que la escalera de longitud, con el gramo (g) en el centro.</p>
+      <div class="escalera">
+        <div class="escalon"><div class="escalon-caja">kg</div><div class="escalon-label">Kilogramo</div></div>
+        <div class="escalera-flecha"><span class="op der">×10→</span><span class="op izq">←÷10</span></div>
+        <div class="escalon"><div class="escalon-caja">hg</div><div class="escalon-label">Hectogramo</div></div>
+        <div class="escalera-flecha"><span class="op der">×10→</span><span class="op izq">←÷10</span></div>
+        <div class="escalon"><div class="escalon-caja">dag</div><div class="escalon-label">Decagramo</div></div>
+        <div class="escalera-flecha"><span class="op der">×10→</span><span class="op izq">←÷10</span></div>
+        <div class="escalon"><div class="escalon-caja central">g</div><div class="escalon-label">Gramo</div></div>
+        <div class="escalera-flecha"><span class="op der">×10→</span><span class="op izq">←÷10</span></div>
+        <div class="escalon"><div class="escalon-caja">dg</div><div class="escalon-label">Decigramo</div></div>
+        <div class="escalera-flecha"><span class="op der">×10→</span><span class="op izq">←÷10</span></div>
+        <div class="escalon"><div class="escalon-caja">cg</div><div class="escalon-label">Centigramo</div></div>
+        <div class="escalera-flecha"><span class="op der">×10→</span><span class="op izq">←÷10</span></div>
+        <div class="escalon"><div class="escalon-caja">mg</div><div class="escalon-label">Miligramo</div></div>
+      </div>
+      <div class="escalera-nota">
+        <strong>Ejemplo:</strong> 2.4 kg → g son 3 escalones a la derecha = 2.4 × 1000 = <strong>2400 g</strong>.<br>
+        850 mg → g son 3 escalones a la izquierda = 850 ÷ 1000 = <strong>0.85 g</strong>.
+      </div>
+    </div>
+  </section>
+
+  <!-- TIEMPO -->
+  <section class="level" data-level="tiempo">
+    <div class="card" data-tag="Conversor">
+      <h2>Tiempo — de milisegundos a años</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;">Escribe un valor, elige en qué unidad está, y mira la conversión instantánea a todas las demás.</p>
+      <div class="calc-grid">
+        <div class="field"><label>Valor</label><input type="number" id="tiempo-valor" value="1" oninput="convertir('tiempo')"></div>
+        <div class="field">
+          <label>Unidad</label>
+          <select id="tiempo-unidad" onchange="convertir('tiempo')" style="width:100%;padding:10px 12px;border:2px solid var(--ink);font-family:'JetBrains Mono', monospace;font-size:15px;background:var(--white);">
+            <option value="ms">Milisegundo (ms)</option>
+            <option value="s" selected>Segundo (s)</option>
+            <option value="min">Minuto</option>
+            <option value="h">Hora</option>
+            <option value="dia">Día</option>
+            <option value="semana">Semana</option>
+            <option value="mes">Mes (30 días)</option>
+            <option value="año">Año</option>
+          </select>
+        </div>
+      </div>
+      <div class="readout show" id="tiempo-resultado" style="display:block;"></div>
+    </div>
+  </section>
+
+  <!-- VELOCIDAD -->
+  <section class="level" data-level="velocidad">
+    <div class="card" data-tag="Conversor">
+      <h2>Velocidad — m/s, km/h, mph, nudos</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;">Escribe un valor, elige en qué unidad está, y mira la conversión instantánea a todas las demás.</p>
+      <div class="calc-grid">
+        <div class="field"><label>Valor</label><input type="number" id="velocidad-valor" value="1" oninput="convertir('velocidad')"></div>
+        <div class="field">
+          <label>Unidad</label>
+          <select id="velocidad-unidad" onchange="convertir('velocidad')" style="width:100%;padding:10px 12px;border:2px solid var(--ink);font-family:'JetBrains Mono', monospace;font-size:15px;background:var(--white);">
+            <option value="ms" selected>Metros por segundo (m/s)</option>
+            <option value="kmh">Kilómetros por hora (km/h)</option>
+            <option value="mph">Millas por hora (mph)</option>
+            <option value="nudo">Nudo</option>
+          </select>
+        </div>
+      </div>
+      <div class="readout show" id="velocidad-resultado" style="display:block;"></div>
+    </div>
+
+    <div class="card" data-tag="Método clásico">
+      <h2>La fórmula clásica: km/h ↔ m/s</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;">La conversión de velocidad más usada en física, y la que más se pide de memoria en los exámenes.</p>
+      <div class="formula-box">km/h → m/s: dividir por 3.6</div>
+      <div class="formula-box">m/s → km/h: multiplicar por 3.6</div>
+      <div class="escalera-nota">
+        <strong>De dónde sale el 3.6:</strong> 1 km/h = 1000 m / 3600 s = 1/3.6 m/s. Como 1 km son 1000 m y 1 hora son 3600 segundos, el factor de conversión queda fijo en 3.6 (que es 3600/1000).<br><br>
+        <strong>Ejemplo:</strong> un auto a 90 km/h → 90 ÷ 3.6 = <strong>25 m/s</strong>.<br>
+        Un corredor a 8 m/s → 8 × 3.6 = <strong>28.8 km/h</strong>.
+      </div>
+    </div>
+  </section>
+
+  <div class="card faq" data-tag="FAQ">
+    <h2>Preguntas frecuentes</h2>
+    <h3>¿Por qué a veces la ciencia usa notación como 3.5×10⁻⁶ en vez del número completo?</h3>
+    <p>Porque escribir 0.0000035 es incómodo y fácil de leer mal. La notación científica (3.5×10⁻⁶) es más clara para números muy chicos o muy grandes — la vas a ver seguido en resultados de picómetros, años luz, o masas atómicas.</p>
+    <h3>¿Por qué existen tantas unidades distintas para lo mismo?</h3>
+    <p>Por historia y por practicidad: un país adoptó millas en vez de kilómetros por tradición, y usar años luz en vez de metros para distancias astronómicas evita escribir números con 15 ceros. El Sistema Internacional (SI) — metro, kilogramo, segundo — es el estándar científico, pero convivimos con otros sistemas.</p>
+    <h3>¿Qué son la Unidad Astronómica y el año luz?</h3>
+    <p>La Unidad Astronómica (UA) es la distancia promedio Tierra-Sol (~150 millones de km), útil dentro del sistema solar. El año luz es la distancia que recorre la luz en un año (~9.46 billones de km), usado para distancias entre estrellas y galaxias.</p>
+  </div>
+
+  <div class="related">
+    <h2>Temas relacionados</h2>
+    <div class="related-links">
+      <a href="formulario.html">Machete de Fórmulas</a>
+      <a href="maquinas-simples.html">Máquinas Simples</a>
+      <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+      <a href="experimentos.html">Experimentos Caseros</a>
+      <a href="acido-base.html">Ácido-Base y pH</a>
+      <a href="concentracion-soluciones.html">Concentración de Soluciones</a>
+      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
+      <a href="leyes-gases.html">Leyes de los Gases</a>
+      <a href="mruv.html">MRUV — Movimiento Rectilíneo Uniformemente Variado</a>
+      <a href="ley-ohm.html">Ley de Ohm (V = I·R)</a>
+      <a href="electromagnetismo.html">Electromagnetismo</a>
+      <a href="calor-especifico.html">Calor Específico y Cambios de Estado</a>
+      <a href="fluidos.html">Presión Hidrostática y Flotación</a>
+      <a href="relatividad.html">Relatividad: Dilatación Temporal</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.level-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('section.level').forEach(s=>s.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`section.level[data-level="${btn.dataset.target}"]`).classList.add('active');
+    });
+  });
+
+  // ---- Motor genérico de conversión de unidades ----
+  // Cada categoría define sus unidades como factor multiplicador hacia
+  // una unidad base común. Convertir = (valor en la unidad elegida) × factor
+  // hacia la base, y de la base a cada unidad de destino.
+
+  const CATEGORIAS = {
+    longitud: {
+      base: 'm',
+      factores: {
+        pm: 1e-12, nm: 1e-9, um: 1e-6, mm: 1e-3, cm: 1e-2, m: 1,
+        km: 1e3, milla: 1609.344, ua: 1.495978707e11, al: 9.4607e15
+      },
+      etiquetas: {pm:'Picómetro', nm:'Nanómetro', um:'Micrómetro', mm:'Milímetro', cm:'Centímetro', m:'Metro', km:'Kilómetro', milla:'Milla', ua:'Unidad Astronómica', al:'Año luz'}
+    },
+    masa: {
+      base: 'g',
+      factores: { pg: 1e-12, ng: 1e-9, ug: 1e-6, mg: 1e-3, g: 1, kg: 1e3, ton: 1e6 },
+      etiquetas: {pg:'Picogramo', ng:'Nanogramo', ug:'Microgramo', mg:'Miligramo', g:'Gramo', kg:'Kilogramo', ton:'Tonelada'}
+    },
+    tiempo: {
+      base: 's',
+      factores: { ms: 1e-3, s: 1, min: 60, h: 3600, dia: 86400, semana: 604800, mes: 2592000, "año": 31536000 },
+      etiquetas: {ms:'Milisegundo', s:'Segundo', min:'Minuto', h:'Hora', dia:'Día', semana:'Semana', mes:'Mes (30 días)', "año":'Año'}
+    },
+    velocidad: {
+      base: 'ms',
+      factores: { ms: 1, kmh: 1/3.6, mph: 0.44704, nudo: 0.514444 },
+      etiquetas: {ms:'m/s', kmh:'km/h', mph:'mph', nudo:'Nudo'}
+    }
+  };
+
+  function formatNum(n){
+    if(n === 0) return '0';
+    const abs = Math.abs(n);
+    if(abs >= 1e6 || abs < 1e-4){
+      return n.toExponential(4);
+    }
+    return n.toLocaleString('es-AR', {maximumFractionDigits: 8});
+  }
+
+  function convertir(categoria){
+    const cat = CATEGORIAS[categoria];
+    const valor = parseFloat(document.getElementById(categoria+'-valor').value) || 0;
+    const unidadOrigen = document.getElementById(categoria+'-unidad').value;
+    const valorBase = valor * cat.factores[unidadOrigen];
+
+    let lineas = [];
+    for(const [unidad, factor] of Object.entries(cat.factores)){
+      if(unidad === unidadOrigen) continue;
+      const convertido = valorBase / factor;
+      const etiqueta = cat.etiquetas[unidad];
+      lineas.push(`${etiqueta.padEnd(22)} = ${formatNum(convertido)} ${unidad}`);
+    }
+    document.getElementById(categoria+'-resultado').innerText = lineas.join('\n');
+  }
+
+  window.addEventListener('load', ()=>{
+    convertir('longitud');
+    convertir('masa');
+    convertir('tiempo');
+    convertir('velocidad');
+  });
+</script>
+
+</body>
+</html>

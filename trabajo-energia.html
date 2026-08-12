@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trabajo y Energía (W = F·d) | Fórmula y Calculadora — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --grid:#E4E0D4;
+    --ink:#1C2733;
+    --ink-soft:#4A5568;
+    --amber:#D9A441;
+    --amber-dark:#B8842E;
+    --pine:#2F6B5E;
+    --pine-dark:#225046;
+    --white:#FFFFFF;
+    --line:#D8D3C4;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+  header.top{
+    padding:36px 20px 28px;
+    max-width:760px;margin:0 auto;
+    border-bottom:2px solid var(--ink);
+  }
+  .brand-link{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--amber-dark);
+    text-decoration:none;
+    margin-bottom:12px;
+    letter-spacing:0.01em;
+  }
+  .brand-link:hover{text-decoration:underline;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--pine-dark);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px,5vw,46px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--ink-soft);font-size:16px;max-width:56ch;}
+
+  .level-nav{
+    display:flex;gap:8px;margin:28px 0 0;
+  }
+  .level-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;font-weight:700;
+    padding:10px 18px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    cursor:pointer;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .level-btn.active{background:var(--ink);color:var(--paper);}
+
+  section.level{display:none;margin-top:36px;}
+  section.level.active{display:block;}
+
+  .card{
+    background:var(--white);
+    border:2px solid var(--ink);
+    padding:28px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .card::before{
+    content:attr(data-tag);
+    position:absolute;
+    top:-13px;left:20px;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+  }
+  section.level[data-level="avanzado"] .card::before{background:var(--pine);color:var(--white);}
+
+  h2{font-family:'Fraunces', serif;font-size:22px;font-weight:600;margin:6px 0 14px;}
+
+  .formula-box{
+    font-family:'JetBrains Mono', monospace;
+    font-size:20px;
+    font-weight:700;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    padding:16px 20px;
+    margin:14px 0;
+    text-align:center;
+    letter-spacing:0.02em;
+  }
+  .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
+  .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+
+  /* Calculadora */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media(max-width:520px){.calc-grid{grid-template-columns:1fr;}}
+  .field label{
+    display:block;font-size:12px;font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;
+  }
+  .field input{
+    width:100%;padding:10px 12px;
+    border:2px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;background:var(--white);
+  }
+  .field input:focus{outline:3px solid var(--amber);outline-offset:1px;}
+  .calc-btn{
+    margin-top:16px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    padding:12px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.05em;
+    cursor:pointer;
+  }
+  .calc-btn:hover{background:var(--amber-dark);}
+  .readout{
+    margin-top:18px;
+    background:var(--ink);
+    color:#8FE3C7;
+    font-family:'JetBrains Mono', monospace;
+    padding:18px 20px;
+    font-size:15px;
+    min-height:24px;
+    display:none;
+    white-space:pre-line;
+  }
+  .readout.show{display:block;}
+
+  .example{
+    background:var(--paper);
+    border-left:4px solid var(--pine);
+    padding:16px 18px;
+    font-size:15px;
+    margin-top:10px;
+  }
+  section.level[data-level="basico"] .example{border-left-color:var(--amber-dark);}
+
+  .exercises ol{padding-left:20px;}
+  .exercises li{margin-bottom:14px;}
+  details{
+    margin-top:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  details summary{cursor:pointer;color:var(--pine-dark);font-weight:700;}
+
+  .faq h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;}
+  .faq p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .related{
+    margin-top:40px;padding-top:24px;border-top:2px solid var(--ink);
+  }
+  .related h2{font-size:16px;}
+  .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+  .related-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    background:var(--white);
+  }
+  .related-links a:hover{border-color:var(--ink);}
+
+  .sim-box{
+    background:var(--ink);
+    border:2px solid var(--ink);
+    padding:14px;
+    margin-top:16px;
+  }
+  #sim-canvas-basico, #sim-canvas-avanzado{
+    display:block;width:100%;height:auto;
+  }
+  .sim-readout{
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    color:#8FE3C7;font-size:13px;
+    margin-top:10px;padding-top:10px;
+    border-top:1px solid #3A4756;
+  }
+  .speed-row{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-left:14px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;color:var(--ink-soft);
+  }
+  .speed-btn{
+    border:1px solid var(--line);background:var(--white);
+    padding:6px 10px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;cursor:pointer;
+  }
+  .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  .force-diagram{
+    background:var(--paper);
+    border:1px dashed var(--line);
+    margin-top:14px;
+    padding:8px;
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="index.html" class="brand-link">DescifraLab</a>
+  <div class="eyebrow">Mecánica · Energía</div>
+  <h1>Trabajo y Energía</h1>
+  <p class="subtitle">Fórmulas, calculadora interactiva, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
+  <nav class="level-nav">
+    <button class="level-btn active" data-target="basico">Básico</button>
+    <button class="level-btn" data-target="avanzado">Avanzado</button>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- NIVEL BÁSICO -->
+  <section class="level active" data-level="basico">
+
+    <div class="card" data-tag="Concepto">
+      <h2>¿Qué es el trabajo mecánico?</h2>
+      <p>En física, "trabajo" tiene un significado preciso: es la energía que transfieres a un objeto cuando lo empujas una cierta distancia. Si empujas con mucha fuerza pero el objeto no se mueve, el trabajo es cero — por más esfuerzo que sientas.</p>
+      <div class="formula-box">W = F · d</div>
+      <p class="var-list"><span>W</span> = trabajo (en Joule, J) &nbsp;·&nbsp; <span>F</span> = fuerza en la dirección del movimiento (N) &nbsp;·&nbsp; <span>d</span> = distancia recorrida (m)</p>
+      <p style="color:var(--ink-soft);font-size:14.5px;">Esta fórmula vale cuando la fuerza va en la misma dirección que el movimiento. Si la fuerza está en diagonal respecto al desplazamiento, solo cuenta la parte de la fuerza que "empuja" en la dirección en la que el objeto se mueve.</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula el trabajo realizado</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Fuerza F (N)</label><input type="number" id="b-F" value="15"></div>
+        <div class="field"><label>Distancia d (m)</label><input type="number" id="b-d" value="6"></div>
+      </div>
+      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
+      <div class="readout" id="b-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Mira el trabajo acumularse</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">A medida que la caja avanza, el trabajo realizado crece — cuanto más lejos la empujas, más energía le transferiste.</p>
+      <div class="sim-box">
+        <canvas id="sim-canvas-basico" width="680" height="140"></canvas>
+        <div class="sim-readout">
+          <span id="sim-d-basico">d = 0.0 m</span>
+          <span id="sim-w-basico">W = 0.0 J</span>
+        </div>
+      </div>
+      <button class="calc-btn" id="sim-btn-basico" onclick="toggleSim('basico')">▶ Reproducir</button>
+      <div class="speed-row">
+        <span>Velocidad:</span>
+        <button class="speed-btn" data-speed="0.5" onclick="setSpeed('basico',0.5,this)">0.5×</button>
+        <button class="speed-btn active" data-speed="1" onclick="setSpeed('basico',1,this)">1×</button>
+        <button class="speed-btn" data-speed="2" onclick="setSpeed('basico',2,this)">2×</button>
+      </div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>Empujas una caja con una fuerza de 15 N a lo largo de 6 metros.</strong></p>
+        <p>W = F × d = 15 × 6 = <strong>90 J</strong></p>
+        <p>Le transferiste 90 Joule de energía a la caja durante ese recorrido.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Empujas un mueble con 40 N a lo largo de 3 m. ¿Cuál es el trabajo realizado?
+          <details><summary>Ver respuesta</summary>W = 40×3 = 120 J</details>
+        </li>
+        <li>Levantas una caja aplicando 25 N durante 2 m. ¿Qué trabajo hiciste?
+          <details><summary>Ver respuesta</summary>W = 25×2 = 50 J</details>
+        </li>
+        <li>Empujas una pared con 200 N pero no se mueve nada. ¿Cuál es el trabajo?
+          <details><summary>Ver respuesta</summary>W = 200×0 = 0 J (sin desplazamiento, no hay trabajo, aunque te canses)</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <!-- NIVEL AVANZADO -->
+  <section class="level" data-level="avanzado">
+
+    <div class="card" data-tag="Concepto">
+      <h2>Energía cinética, potencial y el Teorema Trabajo-Energía</h2>
+      <p>La energía no aparece de la nada: el trabajo que le haces a un objeto se convierte en energía. Hay dos formas básicas: la energía por movimiento (cinética) y la energía por altura (potencial gravitatoria).</p>
+      <div class="formula-box">E<sub>c</sub> = ½ · m · v²</div>
+      <div class="formula-box">E<sub>p</sub> = m · g · h</div>
+      <p class="var-list"><span>v</span> = velocidad (m/s) &nbsp;·&nbsp; <span>h</span> = altura (m) &nbsp;·&nbsp; <span>g</span> = 9.8 m/s²</p>
+      <p style="color:var(--ink-soft);font-size:14.5px;">El Teorema Trabajo-Energía dice que el trabajo neto sobre un objeto es igual al cambio en su energía cinética: W = ΔE<sub>c</sub>. Y si no hay rozamiento, la energía total (cinética + potencial) se conserva: lo que un objeto pierde de una, lo gana de la otra.</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula la velocidad al caer (conservación de energía)</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Altura inicial h (m)</label><input type="number" id="a-h" value="20"></div>
+      </div>
+      <button class="calc-btn" onclick="calcAvanzado()">Calcular</button>
+      <div class="readout" id="a-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>Un objeto se suelta desde 20 m de altura, sin rozamiento del aire. ¿Con qué velocidad llega al piso?</strong></p>
+        <p>Toda la energía potencial se convierte en cinética: m·g·h = ½·m·v²</p>
+        <p>Simplificando la masa: v² = 2·g·h = 2×9.8×20 = 392</p>
+        <p>v = √392 = <strong>19.8 m/s</strong></p>
+        <p>Fijate que la masa se cancela — por eso, sin rozamiento del aire, dos objetos de distinto peso caen a la misma velocidad.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Un objeto de 2 kg se mueve a 6 m/s. ¿Cuál es su energía cinética?
+          <details><summary>Ver respuesta</summary>Ec = ½×2×6² = 36 J</details>
+        </li>
+        <li>Una caja de 5 kg está a 3 m de altura. ¿Cuál es su energía potencial?
+          <details><summary>Ver respuesta</summary>Ep = 5×9.8×3 = 147 J</details>
+        </li>
+        <li>Un objeto cae desde 45 m sin rozamiento del aire. ¿Con qué velocidad llega al piso?
+          <details><summary>Ver respuesta</summary>v² = 2×9.8×45 = 882 → v = √882 ≈ 29.7 m/s</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <div class="card faq" data-tag="FAQ">
+    <h2>Preguntas frecuentes</h2>
+    <h3>¿Por qué "sostener" algo sin moverlo no es trabajo físico?</h3>
+    <p>Porque trabajo requiere desplazamiento: W = F·d. Si d = 0, el trabajo es cero aunque hagas fuerza y te canses — el cansancio es gasto muscular, no trabajo en el sentido físico.</p>
+    <h3>¿Qué significa que la energía "se conserva"?</h3>
+    <p>Que la energía total de un sistema no aparece ni desaparece, solo cambia de forma. Cuando algo cae, pierde energía potencial y gana la misma cantidad de energía cinética (si no hay rozamiento que la disipe como calor).</p>
+    <h3>¿Por qué la masa se cancela al calcular la velocidad de caída?</h3>
+    <p>Porque tanto la energía potencial (m·g·h) como la cinética (½·m·v²) tienen la masa como factor. Al igualarlas para despejar v, la masa se simplifica de los dos lados — por eso, sin rozamiento del aire, una pluma y una piedra caerían a la misma velocidad.</p>
+  </div>
+
+  <div class="related">
+    <h2>Temas relacionados</h2>
+    <div class="related-links">
+      <a href="formulario.html">Machete de Fórmulas</a>
+      <a href="maquinas-simples.html">Máquinas Simples</a>
+      <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+      <a href="experimentos.html">Experimentos Caseros</a>
+      <a href="acido-base.html">Ácido-Base y pH</a>
+      <a href="concentracion-soluciones.html">Concentración de Soluciones</a>
+      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
+      <a href="leyes-gases.html">Leyes de los Gases</a>
+      <a href="mruv.html">MRUV — Movimiento Rectilíneo Uniformemente Variado</a>
+      <a href="mru.html">MRU — Movimiento Rectilíneo Uniforme</a>
+      <a href="newton.html">Segunda Ley de Newton (F = m·a)</a>
+      <a href="ley-ohm.html">Ley de Ohm (V = I·R)</a>
+      <a href="electromagnetismo.html">Electromagnetismo</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.level-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('section.level').forEach(s=>s.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`section.level[data-level="${btn.dataset.target}"]`).classList.add('active');
+    });
+  });
+
+  function calcBasico(){
+    const F = parseFloat(document.getElementById('b-F').value)||0;
+    const d = parseFloat(document.getElementById('b-d').value)||0;
+    const W = F*d;
+    const out = document.getElementById('b-readout');
+    out.innerText = `W = F × d = ${F} × ${d} = ${W.toFixed(2)} J`;
+    out.classList.add('show');
+  }
+
+  function calcAvanzado(){
+    const h = parseFloat(document.getElementById('a-h').value)||0;
+    const g = 9.8;
+    const v2 = 2*g*h;
+    const v = Math.sqrt(v2);
+    const out = document.getElementById('a-readout');
+    out.innerText = `v² = 2×g×h = 2×9.8×${h} = ${v2.toFixed(1)}\nv = √${v2.toFixed(1)} = ${v.toFixed(2)} m/s`;
+    out.classList.add('show');
+  }
+
+  // ---- Simulación visual reutilizable ----
+  // Dibuja una pista con marcas de distancia y un ícono que se mueve
+  // según posición x(t) calculada en tiempo real. Sirve para auto, avión, tren, etc.
+  // con solo cambiar el emoji y los datos de entrada.
+
+  function drawTrack(ctx, w, h, xMax, iconX, icon){
+    ctx.clearRect(0,0,w,h);
+    // pista
+    ctx.strokeStyle = '#3A4756';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(20,h-30); ctx.lineTo(w-20,h-30);
+    ctx.stroke();
+    // marcas de distancia
+    ctx.fillStyle = '#5C6B7A';
+    ctx.font = '11px JetBrains Mono';
+    const steps = 6;
+    for(let i=0;i<=steps;i++){
+      const px = 20 + (i/steps)*(w-40);
+      ctx.beginPath();
+      ctx.moveTo(px,h-34); ctx.lineTo(px,h-26);
+      ctx.stroke();
+      ctx.fillText(Math.round((i/steps)*xMax)+'m', px-10, h-12);
+    }
+    // objeto que se mueve — se invierte horizontalmente para que "mire"
+    // hacia la derecha, que es la dirección real del movimiento
+    // (los emoji de vehículos por defecto miran hacia la izquierda)
+    const objPx = 20 + iconX*(w-60);
+    ctx.font = '32px sans-serif';
+    ctx.save();
+    ctx.translate(objPx + 16, h-32);
+    ctx.scale(-1,1);
+    ctx.fillText(icon, -16, 0);
+    ctx.restore();
+    // persona dibujada de perfil, en pose de empuje, pegada al objeto
+    drawPusher(ctx, objPx - 30, h-30);
+  }
+
+  // Figura simple de perfil, inclinada hacia adelante como si empujara,
+  // dibujada a mano (no emoji) para que se vea claramente lateral.
+  function drawPusher(ctx, footX, groundY){
+    ctx.save();
+    ctx.strokeStyle = '#F6F4EF';
+    ctx.fillStyle = '#F6F4EF';
+    ctx.lineWidth = 2.5;
+    ctx.lineCap = 'round';
+
+    const hipX = footX - 4, hipY = groundY - 16;
+    const headX = footX + 8, headY = groundY - 34;
+
+    // cabeza
+    ctx.beginPath();
+    ctx.arc(headX, headY, 5, 0, Math.PI*2);
+    ctx.fill();
+
+    // torso inclinado hacia adelante (hacia el objeto)
+    ctx.beginPath();
+    ctx.moveTo(hipX, hipY);
+    ctx.lineTo(headX-2, headY+5);
+    ctx.stroke();
+
+    // brazo extendido empujando hacia el objeto
+    ctx.beginPath();
+    ctx.moveTo(headX-6, headY+10);
+    ctx.lineTo(headX+14, headY+16);
+    ctx.stroke();
+
+    // pierna de atrás (apoyo)
+    ctx.beginPath();
+    ctx.moveTo(hipX, hipY);
+    ctx.lineTo(hipX-10, groundY);
+    ctx.stroke();
+
+    // pierna de adelante (zancada)
+    ctx.beginPath();
+    ctx.moveTo(hipX, hipY);
+    ctx.lineTo(hipX+9, groundY);
+    ctx.stroke();
+
+    ctx.restore();
+  }
+
+  // Estado de simulación (solo nivel básico en esta página)
+  const simState = {
+    basico: {t:0, running:false, speed:1, tMax:5, F:15, d:6, lastFrame:null}
+  };
+
+  function setSpeed(level, speed, btn){
+    simState[level].speed = speed;
+    btn.parentElement.querySelectorAll('.speed-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function toggleSim(level){
+    const s = simState[level];
+    const btn = document.getElementById('sim-btn-'+level);
+
+    if(s.t === 0 && !s.running){
+      s.F = parseFloat(document.getElementById('b-F').value)||0;
+      s.d = parseFloat(document.getElementById('b-d').value)||0;
+      s.tMax = 5; // ritmo visual fijo, no depende de una velocidad física real
+    }
+
+    if(s.running){
+      s.running = false;
+      btn.innerText = '▶ Continuar';
+    } else {
+      s.running = true;
+      btn.innerText = '⏸ Pausar';
+      s.lastFrame = performance.now();
+      requestAnimationFrame((now)=>simFrame(level, now));
+    }
+  }
+
+  function simFrame(level, now){
+    const s = simState[level];
+    if(!s.running) return;
+
+    const canvas = document.getElementById('sim-canvas-basico');
+    const ctx = canvas.getContext('2d');
+
+    const dt = (now - s.lastFrame)/1000 * s.speed;
+    s.lastFrame = now;
+    s.t = Math.min(s.t + dt, s.tMax);
+
+    const dRecorrida = (s.t/s.tMax) * s.d;
+    const W = s.F * dRecorrida;
+    drawTrack(ctx, canvas.width, canvas.height, Math.max(s.d,1), dRecorrida/Math.max(s.d,1), '📦');
+
+    document.getElementById('sim-d-basico').innerText = `d = ${dRecorrida.toFixed(1)} m`;
+    document.getElementById('sim-w-basico').innerText = `W = ${W.toFixed(1)} J`;
+
+    if(s.t < s.tMax){
+      requestAnimationFrame((n)=>simFrame(level,n));
+    } else {
+      s.running = false;
+      s.t = 0;
+      document.getElementById('sim-btn-basico').innerText = '▶ Reproducir';
+    }
+  }
+
+  // Dibujo inicial en reposo
+  window.addEventListener('load', ()=>{
+    const c1 = document.getElementById('sim-canvas-basico');
+    drawTrack(c1.getContext('2d'), c1.width, c1.height, 6, 0, '📦');
+  });
+</script>
+
+</body>
+</html>

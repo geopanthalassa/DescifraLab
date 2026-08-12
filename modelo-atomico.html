@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modelo Atómico y Tabla Periódica | Simulador de Estructura Atómica — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --grid:#E4E0D4;
+    --ink:#1C2733;
+    --ink-soft:#4A5568;
+    --amber:#D9A441;
+    --amber-dark:#B8842E;
+    --pine:#2F6B5E;
+    --pine-dark:#225046;
+    --white:#FFFFFF;
+    --line:#D8D3C4;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+  header.top{
+    padding:36px 20px 28px;
+    max-width:760px;margin:0 auto;
+    border-bottom:2px solid var(--ink);
+  }
+  .brand-link{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--amber-dark);
+    text-decoration:none;
+    margin-bottom:12px;
+    letter-spacing:0.01em;
+  }
+  .brand-link:hover{text-decoration:underline;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--pine-dark);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px,5vw,46px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--ink-soft);font-size:16px;max-width:56ch;}
+
+  .level-nav{
+    display:flex;gap:8px;margin:28px 0 0;
+  }
+  .level-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;font-weight:700;
+    padding:10px 18px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    cursor:pointer;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .level-btn.active{background:var(--ink);color:var(--paper);}
+
+  section.level{display:none;margin-top:36px;}
+  section.level.active{display:block;}
+
+  .card{
+    background:var(--white);
+    border:2px solid var(--ink);
+    padding:28px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .card::before{
+    content:attr(data-tag);
+    position:absolute;
+    top:-13px;left:20px;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+  }
+  section.level[data-level="avanzado"] .card::before{background:var(--pine);color:var(--white);}
+
+  h2{font-family:'Fraunces', serif;font-size:22px;font-weight:600;margin:6px 0 14px;}
+
+  .formula-box{
+    font-family:'JetBrains Mono', monospace;
+    font-size:20px;
+    font-weight:700;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    padding:16px 20px;
+    margin:14px 0;
+    text-align:center;
+    letter-spacing:0.02em;
+  }
+  .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
+  .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+
+  /* Calculadora */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media(max-width:520px){.calc-grid{grid-template-columns:1fr;}}
+  .field label{
+    display:block;font-size:12px;font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;
+  }
+  .field input{
+    width:100%;padding:10px 12px;
+    border:2px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;background:var(--white);
+  }
+  .field input:focus{outline:3px solid var(--amber);outline-offset:1px;}
+  .calc-btn{
+    margin-top:16px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    padding:12px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.05em;
+    cursor:pointer;
+  }
+  .calc-btn:hover{background:var(--amber-dark);}
+  .readout{
+    margin-top:18px;
+    background:var(--ink);
+    color:#8FE3C7;
+    font-family:'JetBrains Mono', monospace;
+    padding:18px 20px;
+    font-size:15px;
+    min-height:24px;
+    display:none;
+    white-space:pre-line;
+  }
+  .readout.show{display:block;}
+
+  .example{
+    background:var(--paper);
+    border-left:4px solid var(--pine);
+    padding:16px 18px;
+    font-size:15px;
+    margin-top:10px;
+  }
+  section.level[data-level="basico"] .example{border-left-color:var(--amber-dark);}
+
+  .exercises ol{padding-left:20px;}
+  .exercises li{margin-bottom:14px;}
+  details{
+    margin-top:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  details summary{cursor:pointer;color:var(--pine-dark);font-weight:700;}
+
+  .faq h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;}
+  .faq p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .related{
+    margin-top:40px;padding-top:24px;border-top:2px solid var(--ink);
+  }
+  .related h2{font-size:16px;}
+  .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+  .related-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    background:var(--white);
+  }
+  .related-links a:hover{border-color:var(--ink);}
+
+  .sim-box{
+    background:var(--ink);
+    border:2px solid var(--ink);
+    padding:14px;
+    margin-top:16px;
+  }
+  .sim-box canvas{
+    display:block;width:100%;height:auto;
+  }
+  .sim-readout{
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    color:#8FE3C7;font-size:13px;
+    margin-top:10px;padding-top:10px;
+    border-top:1px solid #3A4756;
+  }
+  .speed-row{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-left:14px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;color:var(--ink-soft);
+  }
+  .speed-btn{
+    border:1px solid var(--line);background:var(--white);
+    padding:6px 10px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;cursor:pointer;
+  }
+  .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  .timeline-nuclear{
+    margin-top:14px;
+    border-left:3px solid var(--amber);
+    padding-left:0;
+  }
+  .timeline-item{
+    display:flex;gap:16px;
+    padding:10px 0 10px 18px;
+    position:relative;
+  }
+  .timeline-item::before{
+    content:'';
+    position:absolute;left:-8px;top:16px;
+    width:13px;height:13px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    border-radius:50%;
+  }
+  .timeline-año{
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:15px;
+    color:var(--amber-dark);
+    min-width:72px;flex-shrink:0;
+  }
+  .timeline-texto{font-size:14px;line-height:1.5;}
+
+  .tabla-periodica{
+    display:grid;
+    grid-template-columns:repeat(18, 1fr);
+    gap:2px;
+    margin-top:14px;
+    overflow-x:auto;
+  }
+  .elem-cell{
+    aspect-ratio:1;
+    min-width:28px;
+    border:1px solid var(--ink);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    font-family:'JetBrains Mono', monospace;
+    cursor:pointer;
+    font-size:10px;
+    transition:transform 0.1s;
+  }
+  .elem-cell:hover{transform:scale(1.15);z-index:2;position:relative;}
+  .elem-cell .z{font-size:7px;opacity:0.7;}
+  .elem-cell.metal{background:#7FB8E3;}
+  .elem-cell.nometal{background:#D9A441;}
+  .elem-cell.metaloide{background:#8FE3C7;}
+  .elem-cell.noble{background:#B27FE3;}
+  .elem-cell.lantanido{background:#E89ACF;}
+  .elem-cell.actinido{background:#F0BE7D;}
+  .elem-cell.empty{border:none;background:transparent;cursor:default;}
+  .elem-cell.empty:hover{transform:none;}
+  .elem-cell.spacer{border:none;background:transparent;cursor:default;}
+  .elem-cell.spacer:hover{transform:none;}
+
+  .tabla-leyenda{
+    display:flex;gap:16px;flex-wrap:wrap;
+    margin-top:12px;font-size:12px;color:var(--ink-soft);
+    font-family:'JetBrains Mono', monospace;
+  }
+  .tabla-leyenda span{display:flex;align-items:center;gap:5px;}
+  .tabla-leyenda i{width:12px;height:12px;display:inline-block;border:1px solid var(--ink);}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="index.html" class="brand-link">DescifraLab</a>
+  <div class="eyebrow">Química · Estructura de la materia</div>
+  <h1>Modelo Atómico y Tabla Periódica</h1>
+  <p class="subtitle">Línea de tiempo histórica, fórmulas, simulador visual del átomo con sus capas de electrones, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
+  <nav class="level-nav">
+    <button class="level-btn active" data-target="basico">Básico</button>
+    <button class="level-btn" data-target="avanzado">Avanzado</button>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- NIVEL BÁSICO -->
+  <section class="level active" data-level="basico">
+
+    <div class="card" data-tag="Historia">
+      <h2>La historia de cómo llegamos a entender el átomo</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;">Nadie "descubrió" el átomo de una vez — fue un ida y vuelta de casi 2500 años, donde cada modelo corrigió al anterior a partir de nueva evidencia experimental.</p>
+      <div class="timeline-nuclear">
+        <div class="timeline-item">
+          <div class="timeline-año">~400 a.C.</div>
+          <div class="timeline-texto"><strong>Demócrito (Grecia):</strong> propone por primera vez que la materia está hecha de partículas indivisibles, a las que llama "átomos" ("sin división", en griego). Era pura filosofía — sin ningún experimento detrás, solo razonamiento.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-año">1808</div>
+          <div class="timeline-texto"><strong>John Dalton:</strong> primer modelo atómico con base científica real. Propone que cada elemento tiene átomos idénticos entre sí, distintos a los de otros elementos, y que los compuestos se forman combinando átomos en proporciones fijas.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-año">1897</div>
+          <div class="timeline-texto"><strong>J.J. Thomson:</strong> descubre el electrón, usando un tubo de rayos catódicos — demostrando por primera vez que el átomo no es indivisible como se creía. Propone el modelo "budín de pasas" (electrones incrustados en una esfera de carga positiva).</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-año">1911</div>
+          <div class="timeline-texto"><strong>Ernest Rutherford:</strong> bombardea una lámina finísima de oro con partículas, y descubre que casi todas la atraviesan — pero algunas rebotan. Concluye que el átomo tiene un núcleo pequeño, denso y con carga positiva, con el resto siendo espacio prácticamente vacío.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-año">1913</div>
+          <div class="timeline-texto"><strong>Niels Bohr:</strong> propone que los electrones giran en niveles de energía específicos alrededor del núcleo, no en cualquier lugar — la base del modelo simplificado que usamos en esta página.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-tag="Concepto">
+      <h2>¿De qué está hecho un átomo?</h2>
+      <p>Todo átomo tiene un núcleo central con protones (carga positiva) y neutrones (sin carga), rodeado por electrones (carga negativa) que giran a su alrededor. El número de protones define de qué elemento se trata — es su "documento de identidad".</p>
+      <div class="formula-box">Número atómico (Z) = cantidad de protones</div>
+      <div class="formula-box">Número másico (A) = protones + neutrones</div>
+      <p class="var-list">En un átomo neutro, la cantidad de electrones es igual a la de protones (Z). Los <strong>isótopos</strong> son átomos del mismo elemento (mismo Z) pero con distinta cantidad de neutrones (distinto A).</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula protones, neutrones y electrones</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Número atómico Z</label><input type="number" id="b-Z" value="12"></div>
+        <div class="field"><label>Número másico A</label><input type="number" id="b-A" value="24"></div>
+      </div>
+      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
+      <div class="readout" id="b-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Tabla Periódica">
+      <h2>Tabla periódica interactiva</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;">Toca cualquier elemento de la tabla completa (118 elementos) para ver su electronegatividad, radio atómico y carácter.</p>
+      <div id="tabla-periodica" class="tabla-periodica"></div>
+      <div class="tabla-leyenda">
+        <h3 style="width:100%;margin:10px 0 4px;font-size:13px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;color:var(--ink-soft);">Referencias de color</h3>
+        <span><i style="background:#7FB8E3"></i> Metal</span>
+        <span><i style="background:#D9A441"></i> No metal</span>
+        <span><i style="background:#8FE3C7"></i> Metaloide</span>
+        <span><i style="background:#B27FE3"></i> Gas noble</span>
+        <span><i style="background:#E89ACF"></i> Lantánido</span>
+        <span><i style="background:#F0BE7D"></i> Actínido</span>
+      </div>
+      <div class="readout show" id="elemento-detalle" style="display:block;">Toca un elemento para ver sus datos.</div>
+    </div>
+
+    <div class="card" data-tag="Concepto">
+      <h2>Tendencias periódicas</h2>
+      <p style="margin-bottom:6px;"><strong>Electronegatividad</strong> (qué tanto "atrae" electrones un átomo en un enlace): crece de izquierda a derecha y de abajo hacia arriba — el flúor es el elemento más electronegativo de toda la tabla.</p>
+      <p style="margin-bottom:6px;"><strong>Radio atómico</strong> (tamaño del átomo): crece de derecha a izquierda y de arriba hacia abajo — exactamente al revés que la electronegatividad.</p>
+      <p><strong>Carácter metálico:</strong> crece de derecha a izquierda y de arriba hacia abajo — los metales predominan en el lado izquierdo y abajo de la tabla, los no metales arriba a la derecha.</p>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>Un átomo de magnesio tiene Z=12 y A=24. ¿Cuántos protones, neutrones y electrones tiene?</strong></p>
+        <p>Protones = Z = <strong>12</strong></p>
+        <p>Neutrones = A − Z = 24 − 12 = <strong>12</strong></p>
+        <p>Electrones (átomo neutro) = Z = <strong>12</strong></p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Un átomo de carbono tiene Z=6 y A=12. ¿Cuántos neutrones tiene?
+          <details><summary>Ver respuesta</summary>Neutrones = 12−6 = 6</details>
+        </li>
+        <li>El carbono-14 (usado para datación) tiene Z=6 y A=14. ¿En qué se diferencia del carbono-12?
+          <details><summary>Ver respuesta</summary>Tiene 2 neutrones más (8 en vez de 6) — son isótopos del mismo elemento, mismo Z pero distinto A.</details>
+        </li>
+        <li>Un átomo neutro tiene 17 electrones. ¿Cuántos protones tiene?
+          <details><summary>Ver respuesta</summary>17 — en un átomo neutro, protones = electrones</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <!-- NIVEL AVANZADO -->
+  <section class="level" data-level="avanzado">
+
+    <div class="card" data-tag="Concepto">
+      <h2>Distribución electrónica por capas</h2>
+      <p>Los electrones no giran todos a la misma distancia del núcleo — se organizan en capas (niveles de energía), cada una con una capacidad máxima de electrones que sigue la fórmula 2n² (n = número de capa).</p>
+      <div class="formula-box">Capacidad máxima de cada capa = 2n²</div>
+      <p class="var-list">Capa 1: máx. 2 &nbsp;·&nbsp; Capa 2: máx. 8 &nbsp;·&nbsp; Capa 3: máx. 18 &nbsp;·&nbsp; Capa 4: máx. 32</p>
+      <p style="color:var(--ink-soft);font-size:14.5px;">Este modelo simplificado (llenar capa por capa en orden) funciona perfecto hasta el Argón (Z=18). A partir de los metales de transición, el orden real de llenado es más complejo (por ejemplo, el nivel 4s se llena antes que el 3d) — la tabla de abajo usa el modelo simplificado para todos los elementos con fines didácticos, así que a partir de ahí es una aproximación, no la configuración electrónica real exacta.</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula la distribución por capas</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Número atómico Z (1-20)</label><input type="number" id="a-Z" value="6" min="1" max="20"></div>
+      </div>
+      <button class="calc-btn" onclick="calcAvanzado()">Calcular</button>
+      <div class="readout" id="a-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Mira el átomo</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Con el número atómico de arriba, mira cómo se distribuyen los electrones en capas alrededor del núcleo.</p>
+      <div class="sim-box">
+        <canvas id="atomo-canvas" width="680" height="280"></canvas>
+      </div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>El sodio (Na) tiene Z=11. ¿Cómo se distribuyen sus electrones?</strong></p>
+        <p>Capa 1: 2 electrones (llena) → quedan 11−2=9</p>
+        <p>Capa 2: 8 electrones (llena) → quedan 9−8=1</p>
+        <p>Capa 3: <strong>1 electrón</strong> (capa de valencia)</p>
+        <p>Por eso el sodio tiende a "perder" ese único electrón de la última capa al reaccionar — le resulta más estable quedar con la capa 2 completa.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>El oxígeno tiene Z=8. ¿Cómo se distribuyen sus electrones por capas?
+          <details><summary>Ver respuesta</summary>Capa 1: 2, Capa 2: 6 (2+6=8)</details>
+        </li>
+        <li>El neón tiene Z=10. ¿Por qué es un gas tan poco reactivo?
+          <details><summary>Ver respuesta</summary>Capa 1: 2, Capa 2: 8 — su última capa está completamente llena, lo que lo hace muy estable y poco propenso a reaccionar (por eso es un "gas noble").</details>
+        </li>
+        <li>¿Cuántos electrones tiene la capa de valencia del cloro (Z=17)?
+          <details><summary>Ver respuesta</summary>Capa 1: 2, Capa 2: 8, Capa 3: 7 — la capa de valencia tiene 7 electrones</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <div class="card faq" data-tag="FAQ">
+    <h2>Preguntas frecuentes</h2>
+    <h3>¿Por qué la masa del átomo no es simplemente el número de protones?</h3>
+    <p>Porque los neutrones también tienen masa (casi igual a la de los protones), mientras que los electrones pesan tan poco que prácticamente no cuentan. Por eso la masa se calcula con protones + neutrones (A), no solo con los protones (Z).</p>
+    <h3>¿Todos los átomos de un elemento tienen la misma cantidad de neutrones?</h3>
+    <p>No necesariamente — eso es justamente lo que define un isótopo: mismo número de protones (mismo elemento), pero distinta cantidad de neutrones. Por ejemplo, el hidrógeno tiene tres isótopos naturales con 0, 1 y 2 neutrones.</p>
+    <h3>¿Por qué importa la última capa de electrones?</h3>
+    <p>Porque es la que participa en las uniones químicas con otros átomos — un átomo "busca" completar su última capa (regla del octeto), y eso determina qué tipo de reacciones y enlaces puede formar.</p>
+  </div>
+
+  <div class="related">
+    <h2>Temas relacionados</h2>
+    <div class="related-links">
+      <a href="formulario.html">Machete de Fórmulas</a>
+      <a href="electromagnetismo.html">Electromagnetismo</a>
+      <a href="maquinas-simples.html">Máquinas Simples</a>
+      <a href="conversor-unidades.html">Conversor de Unidades</a>
+      <a href="evaluaciones.html">Evaluaciones</a>
+      <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+      <a href="experimentos.html">Experimentos Caseros</a>
+      <a href="acido-base.html">Ácido-Base y pH</a>
+      <a href="concentracion-soluciones.html">Concentración de Soluciones</a>
+      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
+      <a href="leyes-gases.html">Leyes de los Gases</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.level-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('section.level').forEach(s=>s.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`section.level[data-level="${btn.dataset.target}"]`).classList.add('active');
+    });
+  });
+
+  // ---- Datos de los primeros 36 elementos (períodos 1-4) ----
+  // Electronegatividad (escala de Pauling) y radio atómico (pm, valores
+  // calculados de referencia) — null donde no aplica o no está bien definido.
+  const ELEMENTOS = [
+    {Z:1, sym:'H', name:'Hidrógeno', g:1, p:1, en:2.20, r:53, cat:'nometal'},
+    {Z:2, sym:'He', name:'Helio', g:18, p:1, en:null, r:31, cat:'noble'},
+    {Z:3, sym:'Li', name:'Litio', g:1, p:2, en:0.98, r:167, cat:'metal'},
+    {Z:4, sym:'Be', name:'Berilio', g:2, p:2, en:1.57, r:112, cat:'metal'},
+    {Z:5, sym:'B', name:'Boro', g:13, p:2, en:2.04, r:87, cat:'metaloide'},
+    {Z:6, sym:'C', name:'Carbono', g:14, p:2, en:2.55, r:67, cat:'nometal'},
+    {Z:7, sym:'N', name:'Nitrógeno', g:15, p:2, en:3.04, r:56, cat:'nometal'},
+    {Z:8, sym:'O', name:'Oxígeno', g:16, p:2, en:3.44, r:48, cat:'nometal'},
+    {Z:9, sym:'F', name:'Flúor', g:17, p:2, en:3.98, r:42, cat:'nometal'},
+    {Z:10, sym:'Ne', name:'Neón', g:18, p:2, en:null, r:38, cat:'noble'},
+    {Z:11, sym:'Na', name:'Sodio', g:1, p:3, en:0.93, r:190, cat:'metal'},
+    {Z:12, sym:'Mg', name:'Magnesio', g:2, p:3, en:1.31, r:145, cat:'metal'},
+    {Z:13, sym:'Al', name:'Aluminio', g:13, p:3, en:1.61, r:118, cat:'metal'},
+    {Z:14, sym:'Si', name:'Silicio', g:14, p:3, en:1.90, r:111, cat:'metaloide'},
+    {Z:15, sym:'P', name:'Fósforo', g:15, p:3, en:2.19, r:98, cat:'nometal'},
+    {Z:16, sym:'S', name:'Azufre', g:16, p:3, en:2.58, r:88, cat:'nometal'},
+    {Z:17, sym:'Cl', name:'Cloro', g:17, p:3, en:3.16, r:79, cat:'nometal'},
+    {Z:18, sym:'Ar', name:'Argón', g:18, p:3, en:null, r:71, cat:'noble'},
+    {Z:19, sym:'K', name:'Potasio', g:1, p:4, en:0.82, r:243, cat:'metal'},
+    {Z:20, sym:'Ca', name:'Calcio', g:2, p:4, en:1.00, r:194, cat:'metal'},
+    {Z:21, sym:'Sc', name:'Escandio', g:3, p:4, en:1.36, r:184, cat:'metal'},
+    {Z:22, sym:'Ti', name:'Titanio', g:4, p:4, en:1.54, r:176, cat:'metal'},
+    {Z:23, sym:'V', name:'Vanadio', g:5, p:4, en:1.63, r:171, cat:'metal'},
+    {Z:24, sym:'Cr', name:'Cromo', g:6, p:4, en:1.66, r:166, cat:'metal'},
+    {Z:25, sym:'Mn', name:'Manganeso', g:7, p:4, en:1.55, r:161, cat:'metal'},
+    {Z:26, sym:'Fe', name:'Hierro', g:8, p:4, en:1.83, r:156, cat:'metal'},
+    {Z:27, sym:'Co', name:'Cobalto', g:9, p:4, en:1.88, r:152, cat:'metal'},
+    {Z:28, sym:'Ni', name:'Níquel', g:10, p:4, en:1.91, r:149, cat:'metal'},
+    {Z:29, sym:'Cu', name:'Cobre', g:11, p:4, en:1.90, r:145, cat:'metal'},
+    {Z:30, sym:'Zn', name:'Zinc', g:12, p:4, en:1.65, r:142, cat:'metal'},
+    {Z:31, sym:'Ga', name:'Galio', g:13, p:4, en:1.81, r:136, cat:'metal'},
+    {Z:32, sym:'Ge', name:'Germanio', g:14, p:4, en:2.01, r:125, cat:'metaloide'},
+    {Z:33, sym:'As', name:'Arsénico', g:15, p:4, en:2.18, r:114, cat:'metaloide'},
+    {Z:34, sym:'Se', name:'Selenio', g:16, p:4, en:2.55, r:103, cat:'nometal'},
+    {Z:35, sym:'Br', name:'Bromo', g:17, p:4, en:2.96, r:94, cat:'nometal'},
+    {Z:36, sym:'Kr', name:'Kriptón', g:18, p:4, en:3.00, r:88, cat:'noble'},
+    // Período 5
+    {Z:37, sym:'Rb', name:'Rubidio', g:1, p:5, en:0.82, r:265, cat:'metal'},
+    {Z:38, sym:'Sr', name:'Estroncio', g:2, p:5, en:0.95, r:219, cat:'metal'},
+    {Z:39, sym:'Y', name:'Itrio', g:3, p:5, en:1.22, r:212, cat:'metal'},
+    {Z:40, sym:'Zr', name:'Zirconio', g:4, p:5, en:1.33, r:206, cat:'metal'},
+    {Z:41, sym:'Nb', name:'Niobio', g:5, p:5, en:1.6, r:198, cat:'metal'},
+    {Z:42, sym:'Mo', name:'Molibdeno', g:6, p:5, en:2.16, r:190, cat:'metal'},
+    {Z:43, sym:'Tc', name:'Tecnecio', g:7, p:5, en:1.9, r:183, cat:'metal'},
+    {Z:44, sym:'Ru', name:'Rutenio', g:8, p:5, en:2.2, r:178, cat:'metal'},
+    {Z:45, sym:'Rh', name:'Rodio', g:9, p:5, en:2.28, r:173, cat:'metal'},
+    {Z:46, sym:'Pd', name:'Paladio', g:10, p:5, en:2.20, r:169, cat:'metal'},
+    {Z:47, sym:'Ag', name:'Plata', g:11, p:5, en:1.93, r:165, cat:'metal'},
+    {Z:48, sym:'Cd', name:'Cadmio', g:12, p:5, en:1.69, r:161, cat:'metal'},
+    {Z:49, sym:'In', name:'Indio', g:13, p:5, en:1.78, r:156, cat:'metal'},
+    {Z:50, sym:'Sn', name:'Estaño', g:14, p:5, en:1.96, r:145, cat:'metal'},
+    {Z:51, sym:'Sb', name:'Antimonio', g:15, p:5, en:2.05, r:133, cat:'metaloide'},
+    {Z:52, sym:'Te', name:'Telurio', g:16, p:5, en:2.1, r:123, cat:'metaloide'},
+    {Z:53, sym:'I', name:'Yodo', g:17, p:5, en:2.66, r:115, cat:'nometal'},
+    {Z:54, sym:'Xe', name:'Xenón', g:18, p:5, en:2.60, r:108, cat:'noble'},
+    // Período 6 (La en grupo 3, resto de lantánidos en fila aparte)
+    {Z:55, sym:'Cs', name:'Cesio', g:1, p:6, en:0.79, r:298, cat:'metal'},
+    {Z:56, sym:'Ba', name:'Bario', g:2, p:6, en:0.89, r:253, cat:'metal'},
+    {Z:57, sym:'La', name:'Lantano', g:3, p:6, en:1.10, r:226, cat:'lantanido'},
+    {Z:72, sym:'Hf', name:'Hafnio', g:4, p:6, en:1.3, r:208, cat:'metal'},
+    {Z:73, sym:'Ta', name:'Tántalo', g:5, p:6, en:1.5, r:200, cat:'metal'},
+    {Z:74, sym:'W', name:'Wolframio', g:6, p:6, en:2.36, r:193, cat:'metal'},
+    {Z:75, sym:'Re', name:'Renio', g:7, p:6, en:1.9, r:188, cat:'metal'},
+    {Z:76, sym:'Os', name:'Osmio', g:8, p:6, en:2.2, r:185, cat:'metal'},
+    {Z:77, sym:'Ir', name:'Iridio', g:9, p:6, en:2.20, r:180, cat:'metal'},
+    {Z:78, sym:'Pt', name:'Platino', g:10, p:6, en:2.28, r:177, cat:'metal'},
+    {Z:79, sym:'Au', name:'Oro', g:11, p:6, en:2.54, r:174, cat:'metal'},
+    {Z:80, sym:'Hg', name:'Mercurio', g:12, p:6, en:2.00, r:171, cat:'metal'},
+    {Z:81, sym:'Tl', name:'Talio', g:13, p:6, en:1.62, r:156, cat:'metal'},
+    {Z:82, sym:'Pb', name:'Plomo', g:14, p:6, en:2.33, r:154, cat:'metal'},
+    {Z:83, sym:'Bi', name:'Bismuto', g:15, p:6, en:2.02, r:143, cat:'metal'},
+    {Z:84, sym:'Po', name:'Polonio', g:16, p:6, en:2.0, r:135, cat:'metaloide'},
+    {Z:85, sym:'At', name:'Astato', g:17, p:6, en:2.2, r:127, cat:'nometal'},
+    {Z:86, sym:'Rn', name:'Radón', g:18, p:6, en:null, r:120, cat:'noble'},
+    // Período 7 (Ac en grupo 3, resto de actínidos en fila aparte)
+    {Z:87, sym:'Fr', name:'Francio', g:1, p:7, en:0.7, r:348, cat:'metal'},
+    {Z:88, sym:'Ra', name:'Radio', g:2, p:7, en:0.9, r:283, cat:'metal'},
+    {Z:89, sym:'Ac', name:'Actinio', g:3, p:7, en:1.1, r:247, cat:'actinido'},
+    {Z:104, sym:'Rf', name:'Rutherfordio', g:4, p:7, en:null, r:null, cat:'metal'},
+    {Z:105, sym:'Db', name:'Dubnio', g:5, p:7, en:null, r:null, cat:'metal'},
+    {Z:106, sym:'Sg', name:'Seaborgio', g:6, p:7, en:null, r:null, cat:'metal'},
+    {Z:107, sym:'Bh', name:'Bohrio', g:7, p:7, en:null, r:null, cat:'metal'},
+    {Z:108, sym:'Hs', name:'Hasio', g:8, p:7, en:null, r:null, cat:'metal'},
+    {Z:109, sym:'Mt', name:'Meitnerio', g:9, p:7, en:null, r:null, cat:'metal'},
+    {Z:110, sym:'Ds', name:'Darmstadtio', g:10, p:7, en:null, r:null, cat:'metal'},
+    {Z:111, sym:'Rg', name:'Roentgenio', g:11, p:7, en:null, r:null, cat:'metal'},
+    {Z:112, sym:'Cn', name:'Copernicio', g:12, p:7, en:null, r:null, cat:'metal'},
+    {Z:113, sym:'Nh', name:'Nihonio', g:13, p:7, en:null, r:null, cat:'metal'},
+    {Z:114, sym:'Fl', name:'Flerovio', g:14, p:7, en:null, r:null, cat:'metal'},
+    {Z:115, sym:'Mc', name:'Moscovio', g:15, p:7, en:null, r:null, cat:'metaloide'},
+    {Z:116, sym:'Lv', name:'Livermorio', g:16, p:7, en:null, r:null, cat:'metaloide'},
+    {Z:117, sym:'Ts', name:'Teneso', g:17, p:7, en:null, r:null, cat:'nometal'},
+    {Z:118, sym:'Og', name:'Oganesón', g:18, p:7, en:null, r:null, cat:'noble'},
+    // Lantánidos (fila aparte, Z 58-71)
+    {Z:58, sym:'Ce', name:'Cerio', g:4, p:8, en:1.12, r:222, cat:'lantanido'},
+    {Z:59, sym:'Pr', name:'Praseodimio', g:5, p:8, en:1.13, r:222, cat:'lantanido'},
+    {Z:60, sym:'Nd', name:'Neodimio', g:6, p:8, en:1.14, r:219, cat:'lantanido'},
+    {Z:61, sym:'Pm', name:'Prometio', g:7, p:8, en:1.13, r:215, cat:'lantanido'},
+    {Z:62, sym:'Sm', name:'Samario', g:8, p:8, en:1.17, r:212, cat:'lantanido'},
+    {Z:63, sym:'Eu', name:'Europio', g:9, p:8, en:1.2, r:180, cat:'lantanido'},
+    {Z:64, sym:'Gd', name:'Gadolinio', g:10, p:8, en:1.2, r:210, cat:'lantanido'},
+    {Z:65, sym:'Tb', name:'Terbio', g:11, p:8, en:1.1, r:206, cat:'lantanido'},
+    {Z:66, sym:'Dy', name:'Disprosio', g:12, p:8, en:1.22, r:205, cat:'lantanido'},
+    {Z:67, sym:'Ho', name:'Holmio', g:13, p:8, en:1.23, r:204, cat:'lantanido'},
+    {Z:68, sym:'Er', name:'Erbio', g:14, p:8, en:1.24, r:203, cat:'lantanido'},
+    {Z:69, sym:'Tm', name:'Tulio', g:15, p:8, en:1.25, r:200, cat:'lantanido'},
+    {Z:70, sym:'Yb', name:'Iterbio', g:16, p:8, en:1.1, r:200, cat:'lantanido'},
+    {Z:71, sym:'Lu', name:'Lutecio', g:17, p:8, en:1.27, r:198, cat:'lantanido'},
+    // Actínidos (fila aparte, Z 90-103)
+    {Z:90, sym:'Th', name:'Torio', g:4, p:9, en:1.3, r:245, cat:'actinido'},
+    {Z:91, sym:'Pa', name:'Protactinio', g:5, p:9, en:1.5, r:243, cat:'actinido'},
+    {Z:92, sym:'U', name:'Uranio', g:6, p:9, en:1.38, r:240, cat:'actinido'},
+    {Z:93, sym:'Np', name:'Neptunio', g:7, p:9, en:1.36, r:221, cat:'actinido'},
+    {Z:94, sym:'Pu', name:'Plutonio', g:8, p:9, en:1.28, r:243, cat:'actinido'},
+    {Z:95, sym:'Am', name:'Americio', g:9, p:9, en:1.3, r:244, cat:'actinido'},
+    {Z:96, sym:'Cm', name:'Curio', g:10, p:9, en:1.3, r:245, cat:'actinido'},
+    {Z:97, sym:'Bk', name:'Berkelio', g:11, p:9, en:1.3, r:244, cat:'actinido'},
+    {Z:98, sym:'Cf', name:'Californio', g:12, p:9, en:1.3, r:245, cat:'actinido'},
+    {Z:99, sym:'Es', name:'Einstenio', g:13, p:9, en:1.3, r:245, cat:'actinido'},
+    {Z:100, sym:'Fm', name:'Fermio', g:14, p:9, en:1.3, r:null, cat:'actinido'},
+    {Z:101, sym:'Md', name:'Mendelevio', g:15, p:9, en:1.3, r:null, cat:'actinido'},
+    {Z:102, sym:'No', name:'Nobelio', g:16, p:9, en:1.3, r:null, cat:'actinido'},
+    {Z:103, sym:'Lr', name:'Lawrencio', g:17, p:9, en:null, r:null, cat:'actinido'},
+  ];
+
+  function elementoPorZ(Z){
+    return ELEMENTOS.find(e=>e.Z===Z);
+  }
+
+  function renderTablaPeriodica(){
+    const cont = document.getElementById('tabla-periodica');
+    // grilla de 18 columnas: períodos 1-7 (tabla principal), una fila
+    // separadora vacía, y luego lantánidos (fila 8) y actínidos (fila 9)
+    let html = '';
+    for(let p=1; p<=7; p++){
+      for(let g=1; g<=18; g++){
+        const el = ELEMENTOS.find(e=>e.p===p && e.g===g);
+        if(el){
+          html += `<div class="elem-cell ${el.cat}" onclick="mostrarElemento(${el.Z})"><span class="z">${el.Z}</span><strong>${el.sym}</strong></div>`;
+        } else {
+          html += `<div class="elem-cell empty"></div>`;
+        }
+      }
+    }
+    // fila separadora vacía
+    for(let g=1; g<=18; g++){ html += `<div class="elem-cell spacer"></div>`; }
+    // lantánidos y actínidos (filas 8 y 9, columnas 4-17)
+    for(const p of [8,9]){
+      for(let g=1; g<=18; g++){
+        const el = ELEMENTOS.find(e=>e.p===p && e.g===g);
+        if(el){
+          html += `<div class="elem-cell ${el.cat}" onclick="mostrarElemento(${el.Z})"><span class="z">${el.Z}</span><strong>${el.sym}</strong></div>`;
+        } else {
+          html += `<div class="elem-cell spacer"></div>`;
+        }
+      }
+    }
+    cont.innerHTML = html;
+  }
+
+  function mostrarElemento(Z){
+    const el = elementoPorZ(Z);
+    const capas = distribucionCapas(Z);
+    const enTexto = el.en===null ? 'no determinada (elemento sintético/inestable o gas noble)' : el.en.toFixed(2);
+    const rTexto = el.r===null ? 'no determinado (dato experimental no disponible)' : el.r+' pm';
+    const catTexto = {metal:'Metal', nometal:'No metal', metaloide:'Metaloide', noble:'Gas noble', lantanido:'Lantánido', actinido:'Actínido'}[el.cat];
+    const periodoReal = el.p>7 ? (el.p===8?'6 (lantánido)':'7 (actínido)') : el.p;
+    document.getElementById('elemento-detalle').innerText =
+      `${el.name} (${el.sym}) — Z=${el.Z}\nGrupo ${el.g}, Período ${periodoReal} · ${catTexto}\nElectronegatividad: ${enTexto}\nRadio atómico: ${rTexto}\nDistribución electrónica: ${capas.join('-')}`;
+  }
+
+  function calcBasico(){
+    const Z = parseInt(document.getElementById('b-Z').value)||0;
+    const A = parseInt(document.getElementById('b-A').value)||0;
+    const neutrones = A-Z;
+    const el = elementoPorZ(Z);
+    const nombreEl = el ? `${el.name} (${el.sym})` : 'fuera de este rango (Z entre 1 y 118)';
+    const out = document.getElementById('b-readout');
+    out.innerText = `Elemento: ${nombreEl}\nProtones = Z = ${Z}\nNeutrones = A−Z = ${A}−${Z} = ${neutrones}\nElectrones (átomo neutro) = Z = ${Z}`;
+    out.classList.add('show');
+  }
+
+  function distribucionCapas(Z){
+    const capas = [];
+    let restante = Z;
+    const capacidades = [2,8,18,32,32,18,8]; // capacidad máxima por capa (2n²), simplificado
+    for(let i=0;i<capacidades.length && restante>0;i++){
+      const enCapa = Math.min(restante, capacidades[i]);
+      capas.push(enCapa);
+      restante -= enCapa;
+    }
+    return capas;
+  }
+
+  function calcAvanzado(){
+    const Z = parseInt(document.getElementById('a-Z').value)||1;
+    const capas = distribucionCapas(Z);
+    const out = document.getElementById('a-readout');
+    out.innerText = capas.map((c,i)=>`Capa ${i+1}: ${c} electrones`).join('\n') + `\nCapa de valencia: ${capas[capas.length-1]} electrones`;
+    out.classList.add('show');
+    drawAtomo(Z);
+  }
+
+  // ---- Simulador visual del átomo (núcleo + capas de electrones) ----
+  function drawAtomo(Z){
+    const canvas = document.getElementById('atomo-canvas');
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height;
+    ctx.clearRect(0,0,w,h);
+    const cx = w/2, cy = h/2;
+    const capas = distribucionCapas(Z);
+
+    // núcleo, más grande y con etiqueta más clara
+    ctx.fillStyle = '#D9A441';
+    ctx.beginPath();
+    ctx.arc(cx, cy, 24, 0, Math.PI*2);
+    ctx.fill();
+    ctx.strokeStyle = '#1C2733';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.fillStyle = '#1C2733';
+    ctx.font = 'bold 15px JetBrains Mono';
+    ctx.textAlign = 'center';
+    ctx.fillText('Z='+Z, cx, cy+5);
+    ctx.textAlign = 'left';
+
+    // capas con electrones distribuidos — más grandes en las capas externas,
+    // para que se note la jerarquía visual de adentro hacia afuera
+    const colores = ['#7FB8E3', '#8FE3C7', '#D9A441', '#B27FE3', '#E89ACF', '#F0BE7D', '#5C6B7A'];
+    capas.forEach((nElectrones, i)=>{
+      const radio = 55 + i*38;
+      const radioElectron = 6 + i*1.5;
+      ctx.strokeStyle = '#5C6B7A';
+      ctx.setLineDash([2,3]);
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(cx, cy, radio, 0, Math.PI*2);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      for(let e=0; e<nElectrones; e++){
+        const ang = (e/nElectrones)*Math.PI*2;
+        const ex = cx + radio*Math.cos(ang);
+        const ey = cy + radio*Math.sin(ang);
+        ctx.fillStyle = colores[i%colores.length];
+        ctx.beginPath();
+        ctx.arc(ex, ey, radioElectron, 0, Math.PI*2);
+        ctx.fill();
+        ctx.strokeStyle = '#1C2733';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+    });
+  }
+
+  window.addEventListener('load', ()=>{
+    drawAtomo(6); // carbono — elemento liviano y muy reconocible
+    renderTablaPeriodica();
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Óxido-Reducción — Reacciones Redox | Simulador de Transferencia de Electrones — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --grid:#E4E0D4;
+    --ink:#1C2733;
+    --ink-soft:#4A5568;
+    --amber:#D9A441;
+    --amber-dark:#B8842E;
+    --pine:#2F6B5E;
+    --pine-dark:#225046;
+    --white:#FFFFFF;
+    --line:#D8D3C4;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+  header.top{
+    padding:36px 20px 28px;
+    max-width:760px;margin:0 auto;
+    border-bottom:2px solid var(--ink);
+  }
+  .brand-link{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--amber-dark);
+    text-decoration:none;
+    margin-bottom:12px;
+    letter-spacing:0.01em;
+  }
+  .brand-link:hover{text-decoration:underline;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--pine-dark);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px,5vw,46px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--ink-soft);font-size:16px;max-width:56ch;}
+
+  .level-nav{
+    display:flex;gap:8px;margin:28px 0 0;
+  }
+  .level-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;font-weight:700;
+    padding:10px 18px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    cursor:pointer;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .level-btn.active{background:var(--ink);color:var(--paper);}
+
+  section.level{display:none;margin-top:36px;}
+  section.level.active{display:block;}
+
+  .card{
+    background:var(--white);
+    border:2px solid var(--ink);
+    padding:28px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .card::before{
+    content:attr(data-tag);
+    position:absolute;
+    top:-13px;left:20px;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+  }
+  section.level[data-level="avanzado"] .card::before{background:var(--pine);color:var(--white);}
+
+  h2{font-family:'Fraunces', serif;font-size:22px;font-weight:600;margin:6px 0 14px;}
+
+  .formula-box{
+    font-family:'JetBrains Mono', monospace;
+    font-size:20px;
+    font-weight:700;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    padding:16px 20px;
+    margin:14px 0;
+    text-align:center;
+    letter-spacing:0.02em;
+  }
+  .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
+  .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+
+  /* Calculadora */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media(max-width:520px){.calc-grid{grid-template-columns:1fr;}}
+  .field label{
+    display:block;font-size:12px;font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;
+  }
+  .field input{
+    width:100%;padding:10px 12px;
+    border:2px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;background:var(--white);
+  }
+  .field input:focus{outline:3px solid var(--amber);outline-offset:1px;}
+  .calc-btn{
+    margin-top:16px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    padding:12px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.05em;
+    cursor:pointer;
+  }
+  .calc-btn:hover{background:var(--amber-dark);}
+  .readout{
+    margin-top:18px;
+    background:var(--ink);
+    color:#8FE3C7;
+    font-family:'JetBrains Mono', monospace;
+    padding:18px 20px;
+    font-size:15px;
+    min-height:24px;
+    display:none;
+    white-space:pre-line;
+  }
+  .readout.show{display:block;}
+
+  .example{
+    background:var(--paper);
+    border-left:4px solid var(--pine);
+    padding:16px 18px;
+    font-size:15px;
+    margin-top:10px;
+  }
+  section.level[data-level="basico"] .example{border-left-color:var(--amber-dark);}
+
+  .exercises ol{padding-left:20px;}
+  .exercises li{margin-bottom:14px;}
+  details{
+    margin-top:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  details summary{cursor:pointer;color:var(--pine-dark);font-weight:700;}
+
+  .faq h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;}
+  .faq p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .related{
+    margin-top:40px;padding-top:24px;border-top:2px solid var(--ink);
+  }
+  .related h2{font-size:16px;}
+  .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+  .related-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    background:var(--white);
+  }
+  .related-links a:hover{border-color:var(--ink);}
+
+  .sim-box{
+    background:var(--ink);
+    border:2px solid var(--ink);
+    padding:14px;
+    margin-top:16px;
+  }
+  .sim-box canvas{
+    display:block;width:100%;height:auto;
+  }
+  .sim-readout{
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    color:#8FE3C7;font-size:13px;
+    margin-top:10px;padding-top:10px;
+    border-top:1px solid #3A4756;
+  }
+  .speed-row{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-left:14px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;color:var(--ink-soft);
+  }
+  .speed-btn{
+    border:1px solid var(--line);background:var(--white);
+    padding:6px 10px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;cursor:pointer;
+  }
+  .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  .serie-actividad{margin-top:14px;border:2px solid var(--ink);}
+  .serie-fila{
+    display:flex;align-items:center;gap:14px;
+    padding:8px 14px;border-bottom:1px solid var(--ink);
+  }
+  .serie-fila:last-child{border-bottom:none;}
+  .serie-metal{
+    font-family:'JetBrains Mono', monospace;font-weight:700;
+    font-size:16px;width:36px;flex-shrink:0;
+  }
+  .serie-desc{font-size:13px;color:var(--ink);}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="index.html" class="brand-link">DescifraLab</a>
+  <div class="eyebrow">Química · Reacciones</div>
+  <h1>Óxido-Reducción</h1>
+  <p class="subtitle">Números de oxidación, calculadora, simulador de transferencia de electrones, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
+  <nav class="level-nav">
+    <button class="level-btn active" data-target="basico">Básico</button>
+    <button class="level-btn" data-target="avanzado">Avanzado</button>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- NIVEL BÁSICO -->
+  <section class="level active" data-level="basico">
+
+    <div class="card" data-tag="Concepto">
+      <h2>¿Qué es una reacción redox?</h2>
+      <p>Es una reacción donde hay transferencia de electrones entre átomos. Siempre pasan las dos cosas juntas, nunca una sola:</p>
+      <div class="formula-box">Oxidación = pierde electrones (número de oxidación sube)</div>
+      <div class="formula-box">Reducción = gana electrones (número de oxidación baja)</div>
+      <p class="var-list">Regla mnemotécnica: <strong>"quien pierde, se oxida; quien gana, se reduce"</strong>. El que pierde electrones (se oxida) es el <strong>agente reductor</strong> — porque le permite reducirse al otro. El que gana electrones (se reduce) es el <strong>agente oxidante</strong>.</p>
+    </div>
+
+    <div class="card" data-tag="Concepto">
+      <h2>Reglas para calcular el número de oxidación</h2>
+      <ul style="padding-left:20px;margin:10px 0;">
+        <li>Un elemento solo, sin combinar (como Fe, O₂, Na): número de oxidación <strong>0</strong>.</li>
+        <li>Un ion monoatómico: su número de oxidación es igual a su carga (Na⁺ es +1, Cl⁻ es −1).</li>
+        <li>El oxígeno combinado: casi siempre <strong>−2</strong> (excepto en peróxidos).</li>
+        <li>El hidrógeno combinado: casi siempre <strong>+1</strong> (excepto en hidruros metálicos, donde es −1).</li>
+        <li>En un compuesto neutro, la suma de todos los números de oxidación da <strong>0</strong>. En un ion, da igual a la carga del ion.</li>
+      </ul>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula el número de oxidación desconocido</h2>
+      <p style="color:var(--ink-soft);font-size:13.5px;margin-top:-4px;">Para un compuesto/ion con un elemento X, hidrógenos y oxígenos.</p>
+      <div class="calc-grid">
+        <div class="field"><label>Cantidad de X</label><input type="number" id="b-nX" value="1"></div>
+        <div class="field"><label>Cantidad de O</label><input type="number" id="b-nO" value="4"></div>
+        <div class="field"><label>Cantidad de H</label><input type="number" id="b-nH" value="0"></div>
+        <div class="field"><label>Carga total (0 si es neutro)</label><input type="number" id="b-carga" value="-2"></div>
+      </div>
+      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
+      <div class="readout" id="b-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>¿Cuál es el número de oxidación del azufre en el ion sulfato (SO₄²⁻)?</strong></p>
+        <p>1 átomo de S (desconocido) + 4 átomos de O (−2 cada uno) = carga total −2</p>
+        <p>X + 4×(−2) = −2 → X − 8 = −2 → <strong>X = +6</strong></p>
+        <p>El azufre tiene número de oxidación +6 en el sulfato.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>¿Cuál es el número de oxidación del carbono en el CO₂ (neutro)?
+          <details><summary>Ver respuesta</summary>X + 2×(−2) = 0 → X = +4</details>
+        </li>
+        <li>¿Cuál es el número de oxidación del nitrógeno en el NH₃ (neutro)?
+          <details><summary>Ver respuesta</summary>X + 3×(+1) = 0 → X = −3</details>
+        </li>
+        <li>En la reacción Fe → Fe³⁺ + 3e⁻, ¿el hierro se oxida o se reduce?
+          <details><summary>Ver respuesta</summary>Se oxida — pierde 3 electrones, su número de oxidación sube de 0 a +3</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <!-- NIVEL AVANZADO -->
+  <section class="level" data-level="avanzado">
+
+    <div class="card" data-tag="Concepto">
+      <h2>Serie de actividad de los metales — quién se oxida más fácil</h2>
+      <p>No todos los metales pierden electrones con la misma facilidad. Esta tabla los ordena de más reactivo (se oxida fácil, es buen reductor) a menos reactivo (casi no se oxida, "noble"). Es la referencia clásica para predecir si una reacción de desplazamiento ocurre o no.</p>
+      <div class="serie-actividad">
+        <div class="serie-fila" style="background:#D9A441;"><span class="serie-metal">K</span><span class="serie-desc">Potasio — reacciona violentamente, hasta con agua fría</span></div>
+        <div class="serie-fila" style="background:#DCA84E;"><span class="serie-metal">Ca</span><span class="serie-desc">Calcio</span></div>
+        <div class="serie-fila" style="background:#DFAF5C;"><span class="serie-metal">Na</span><span class="serie-desc">Sodio — reacciona fuerte con agua</span></div>
+        <div class="serie-fila" style="background:#E2B76A;"><span class="serie-metal">Mg</span><span class="serie-desc">Magnesio</span></div>
+        <div class="serie-fila" style="background:#E5BE78;"><span class="serie-metal">Al</span><span class="serie-desc">Aluminio</span></div>
+        <div class="serie-fila" style="background:#E8C686;"><span class="serie-metal">Zn</span><span class="serie-desc">Zinc</span></div>
+        <div class="serie-fila" style="background:#EBCD94;"><span class="serie-metal">Fe</span><span class="serie-desc">Hierro — se oxida (herrumbre) con humedad</span></div>
+        <div class="serie-fila" style="background:#EED5A2;"><span class="serie-metal">Pb</span><span class="serie-desc">Plomo</span></div>
+        <div class="serie-fila" style="background:#F1DCB0;"><span class="serie-metal">H</span><span class="serie-desc">(Hidrógeno — referencia, no es metal)</span></div>
+        <div class="serie-fila" style="background:#B8C9D9;"><span class="serie-metal">Cu</span><span class="serie-desc">Cobre — no reacciona con ácidos comunes</span></div>
+        <div class="serie-fila" style="background:#A8BFD4;"><span class="serie-metal">Ag</span><span class="serie-desc">Plata</span></div>
+        <div class="serie-fila" style="background:#96B4CE;"><span class="serie-metal">Au</span><span class="serie-desc">Oro — prácticamente no se oxida, por eso "no se opaca"</span></div>
+      </div>
+      <p style="color:var(--ink-soft);font-size:13.5px;margin-top:10px;">Regla práctica: un metal más arriba en la tabla <strong>desplaza</strong> (empuja fuera de la solución) a uno más abajo. Por eso un clavo de hierro se cubre de cobre si lo sumerges en una solución de sulfato de cobre — el hierro le "roba" el lugar al cobre.</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Predice si hay reacción de desplazamiento</h2>
+      <div class="calc-grid">
+        <div class="field">
+          <label>Metal sólido (A)</label>
+          <select id="a-metalA" style="width:100%;padding:10px 12px;border:2px solid var(--ink);font-family:'JetBrains Mono', monospace;font-size:15px;background:var(--white);">
+            <option value="0">K</option><option value="1">Ca</option><option value="2">Na</option>
+            <option value="3">Mg</option><option value="4">Al</option><option value="5">Zn</option>
+            <option value="6" selected>Fe</option><option value="7">Pb</option>
+            <option value="9">Cu</option><option value="10">Ag</option><option value="11">Au</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Ion metálico en solución (B)</label>
+          <select id="a-metalB" style="width:100%;padding:10px 12px;border:2px solid var(--ink);font-family:'JetBrains Mono', monospace;font-size:15px;background:var(--white);">
+            <option value="0">K⁺</option><option value="1">Ca²⁺</option><option value="2">Na⁺</option>
+            <option value="3">Mg²⁺</option><option value="4">Al³⁺</option><option value="5">Zn²⁺</option>
+            <option value="6">Fe²⁺</option><option value="7">Pb²⁺</option>
+            <option value="9" selected>Cu²⁺</option><option value="10">Ag⁺</option><option value="11">Au³⁺</option>
+          </select>
+        </div>
+      </div>
+      <button class="calc-btn" onclick="predecirDesplazamiento()">Predecir</button>
+      <div class="readout" id="a-readout2"></div>
+    </div>
+
+    <div class="card" data-tag="Concepto">
+      <h2>Ejemplos de redox en la vida real</h2>
+      <ul style="padding-left:20px;margin:10px 0;">
+        <li><strong>Herrumbre (óxido de hierro):</strong> el hierro se oxida lentamente con el oxígeno del aire y la humedad — Fe pierde electrones, O₂ los gana.</li>
+        <li><strong>Pilas y baterías:</strong> funcionan generando electricidad a partir de una reacción redox controlada — un electrodo se oxida (ánodo), el otro se reduce (cátodo), y los electrones fluyen por el circuito externo.</li>
+        <li><strong>Combustión:</strong> quemar algo (madera, gas, nafta) es una reacción redox rápida donde el combustible se oxida y el oxígeno del aire se reduce, liberando energía como calor y luz.</li>
+        <li><strong>Blanqueadores (lavandina):</strong> contienen agentes oxidantes fuertes que "rompen" las moléculas de color de las manchas mediante reacciones redox.</li>
+      </ul>
+    </div>
+
+    <div class="card" data-tag="Concepto">
+      <h2>Semirreacciones: separar oxidación y reducción</h2>
+      <p>Toda reacción redox se puede separar en dos "mitades" que ocurren al mismo tiempo — una donde algo pierde electrones, y otra donde algo los gana. Los electrones perdidos por uno son exactamente los que gana el otro.</p>
+      <div class="formula-box">Semirreacción de oxidación: Na → Na⁺ + e⁻</div>
+      <div class="formula-box">Semirreacción de reducción: Cl + e⁻ → Cl⁻</div>
+      <p class="var-list">Sumando ambas (y cancelando los electrones, que aparecen en las dos), se obtiene la ecuación redox completa: Na + Cl → Na⁺ + Cl⁻</p>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Mira la transferencia de electrones</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">El sodio pierde su electrón de valencia, que "viaja" hacia el cloro — así se forman los iones Na⁺ y Cl⁻ que después se atraen para formar NaCl (sal de mesa).</p>
+      <div class="sim-box">
+        <canvas id="redox-canvas" width="680" height="220"></canvas>
+      </div>
+      <button class="calc-btn" id="redox-btn" onclick="playRedox()">▶ Reproducir transferencia</button>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>En la reacción Zn + Cu²⁺ → Zn²⁺ + Cu, ¿quién es el agente oxidante y quién el reductor?</strong></p>
+        <p>El Zn pasa de 0 a +2 → pierde 2 electrones → <strong>se oxida</strong> → es el agente reductor</p>
+        <p>El Cu²⁺ pasa de +2 a 0 → gana 2 electrones → <strong>se reduce</strong> → es el agente oxidante</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>En Mg + 2H⁺ → Mg²⁺ + H₂, ¿qué le pasa al magnesio?
+          <details><summary>Ver respuesta</summary>Pasa de 0 a +2, pierde 2 electrones — se oxida</details>
+        </li>
+        <li>En la misma reacción, ¿qué le pasa al hidrógeno?
+          <details><summary>Ver respuesta</summary>Pasa de +1 a 0, gana 1 electrón cada H⁺ — se reduce</details>
+        </li>
+        <li>¿Por qué en toda reacción redox tiene que haber SIEMPRE oxidación y reducción juntas, nunca una sola?
+          <details><summary>Ver respuesta</summary>Porque los electrones no desaparecen ni se crean de la nada — si algo los pierde, otro necesariamente los tiene que ganar, por conservación de carga.</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <div class="card faq" data-tag="FAQ">
+    <h2>Preguntas frecuentes</h2>
+    <h3>¿Por qué el oxígeno casi siempre es −2?</h3>
+    <p>Porque es muy electronegativo (atrae electrones con fuerza) y le faltan 2 electrones para completar su capa de valencia — así que en casi todos los compuestos "gana" esos 2 electrones de los átomos con los que se combina.</p>
+    <h3>¿La oxidación siempre involucra oxígeno?</h3>
+    <p>No, aunque el nombre venga de ahí históricamente. Hoy "oxidación" se define de forma más general como pérdida de electrones, sin importar si hay oxígeno involucrado o no — por ejemplo, el sodio se oxida al reaccionar con cloro, sin oxígeno de por medio.</p>
+    <h3>¿Cómo me doy cuenta si una reacción es redox?</h3>
+    <p>Si el número de oxidación de al menos un elemento cambia entre reactivos y productos, es una reacción redox. Si todos los números de oxidación se mantienen iguales, no lo es.</p>
+  </div>
+
+  <div class="related">
+    <h2>Temas relacionados</h2>
+    <div class="related-links">
+      <a href="formulario.html">Machete de Fórmulas</a>
+      <a href="electromagnetismo.html">Electromagnetismo</a>
+      <a href="maquinas-simples.html">Máquinas Simples</a>
+      <a href="modelo-atomico.html">Modelo Atómico y Tabla Periódica</a>
+      <a href="configuracion-electronica.html">Configuración Electrónica</a>
+      <a href="estequiometria.html">Estequiometría y El Mol</a>
+      <a href="evaluaciones.html">Evaluaciones</a>
+      <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+      <a href="experimentos.html">Experimentos Caseros</a>
+      <a href="enlaces-quimicos.html">Enlaces Químicos</a>
+      <a href="acido-base.html">Ácido-Base y pH</a>
+      <a href="concentracion-soluciones.html">Concentración de Soluciones</a>
+      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
+      <a href="leyes-gases.html">Leyes de los Gases</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.level-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('section.level').forEach(s=>s.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`section.level[data-level="${btn.dataset.target}"]`).classList.add('active');
+    });
+  });
+
+  function calcBasico(){
+    const nX = parseFloat(document.getElementById('b-nX').value)||1;
+    const nO = parseFloat(document.getElementById('b-nO').value)||0;
+    const nH = parseFloat(document.getElementById('b-nH').value)||0;
+    const carga = parseFloat(document.getElementById('b-carga').value)||0;
+    // nX*X + nO*(-2) + nH*(+1) = carga  =>  X = (carga + nO*2 - nH*1) / nX
+    const X = (carga + nO*2 - nH*1) / nX;
+    const out = document.getElementById('b-readout');
+    const signo = X>=0 ? '+' : '';
+    out.innerText = `${nX}×X + ${nO}×(−2) + ${nH}×(+1) = ${carga}\nX = (${carga} + ${nO}×2 − ${nH}×1) / ${nX} = ${signo}${X.toFixed(2)}`;
+    out.classList.add('show');
+  }
+
+  // ---- Predictor de reacciones de desplazamiento (serie de actividad) ----
+  const SERIE_ACTIVIDAD = ['K','Ca','Na','Mg','Al','Zn','Fe','Pb','H','Cu','Ag','Au'];
+  const SIMBOLO_ION = {K:'K⁺',Ca:'Ca²⁺',Na:'Na⁺',Mg:'Mg²⁺',Al:'Al³⁺',Zn:'Zn²⁺',Fe:'Fe²⁺',Pb:'Pb²⁺',H:'H⁺',Cu:'Cu²⁺',Ag:'Ag⁺',Au:'Au³⁺'};
+
+  function predecirDesplazamiento(){
+    const idxA = parseInt(document.getElementById('a-metalA').value);
+    const idxB = parseInt(document.getElementById('a-metalB').value);
+    const metalA = SERIE_ACTIVIDAD[idxA];
+    const metalB = SERIE_ACTIVIDAD[idxB];
+    const out = document.getElementById('a-readout2');
+
+    if(metalA === metalB){
+      out.innerText = `${metalA} y ${metalB} son el mismo metal — no hay reacción.`;
+    } else if(idxA < idxB){
+      out.innerText = `SÍ hay reacción: ${metalA} está más arriba en la serie que ${metalB}, así que lo desplaza.\n${metalA} + ${SIMBOLO_ION[metalB]} → ${SIMBOLO_ION[metalA]} + ${metalB}\n${metalA} se oxida (agente reductor) · ${metalB} se reduce (agente oxidante)`;
+    } else {
+      out.innerText = `NO hay reacción: ${metalA} está más abajo en la serie que ${metalB} — no puede desplazarlo, así que la solución de ${SIMBOLO_ION[metalB]} no reacciona con el ${metalA} sólido.`;
+    }
+    out.classList.add('show');
+  }
+
+  // ---- Animación de transferencia de electrones (Na → Na+ + e-, Cl + e- → Cl-) ----
+  let redoxRunning = false;
+
+  function playRedox(){
+    if(redoxRunning) return;
+    redoxRunning = true;
+    const canvas = document.getElementById('redox-canvas');
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height, cy = h/2;
+    const startTime = performance.now();
+    const duration = 4000;
+
+    function frame(now){
+      const t = (now-startTime)/duration;
+      ctx.clearRect(0,0,w,h);
+
+      const naX = w*0.25, clX = w*0.75;
+
+      // átomos
+      ctx.font = '40px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('⚛️', naX, cy+14);
+      ctx.fillText('⚛️', clX, cy+14);
+      ctx.font = 'bold 13px JetBrains Mono';
+      ctx.fillStyle = '#D9A441';
+      ctx.fillText('Na', naX, cy+50);
+      ctx.fillStyle = '#8FE3C7';
+      ctx.fillText('Cl', clX, cy+50);
+      ctx.textAlign = 'left';
+
+      if(t < 0.6){
+        // el electrón viaja de Na hacia Cl
+        const frac = t/0.6;
+        const ex = naX + (clX-naX)*frac;
+        const ey = cy - 20 - Math.sin(frac*Math.PI)*40;
+        ctx.font = '22px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#B27FE3';
+        ctx.fillText('e⁻', ex, ey);
+        ctx.textAlign = 'left';
+      } else {
+        // se formaron los iones
+        ctx.font = 'bold 16px JetBrains Mono';
+        ctx.fillStyle = '#B8842E';
+        ctx.textAlign = 'center';
+        ctx.fillText('Na⁺', naX, cy-40);
+        ctx.fillStyle = '#2F6B5E';
+        ctx.fillText('Cl⁻', clX, cy-40);
+        ctx.textAlign = 'left';
+      }
+
+      if(t < 1){
+        requestAnimationFrame(frame);
+      } else {
+        redoxRunning = false;
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  window.addEventListener('load', ()=>{
+    const canvas = document.getElementById('redox-canvas');
+    const ctx = canvas.getContext('2d');
+    ctx.font = '40px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('⚛️', canvas.width*0.25, canvas.height/2+14);
+    ctx.fillText('⚛️', canvas.width*0.75, canvas.height/2+14);
+    ctx.font = 'bold 13px JetBrains Mono';
+    ctx.fillStyle = '#D9A441';
+    ctx.fillText('Na', canvas.width*0.25, canvas.height/2+50);
+    ctx.fillStyle = '#8FE3C7';
+    ctx.fillText('Cl', canvas.width*0.75, canvas.height/2+50);
+    ctx.textAlign = 'left';
+  });
+</script>
+
+</body>
+</html>

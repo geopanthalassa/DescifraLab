@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Electromagnetismo — Fuerza de Lorentz, Motor y Generador — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --grid:#E4E0D4;
+    --ink:#1C2733;
+    --ink-soft:#4A5568;
+    --amber:#D9A441;
+    --amber-dark:#B8842E;
+    --pine:#2F6B5E;
+    --pine-dark:#225046;
+    --white:#FFFFFF;
+    --line:#D8D3C4;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+  header.top{
+    padding:36px 20px 28px;
+    max-width:760px;margin:0 auto;
+    border-bottom:2px solid var(--ink);
+  }
+  .brand-link{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--amber-dark);
+    text-decoration:none;
+    margin-bottom:12px;
+    letter-spacing:0.01em;
+  }
+  .brand-link:hover{text-decoration:underline;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--pine-dark);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px,5vw,46px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--ink-soft);font-size:16px;max-width:56ch;}
+
+  .level-nav{
+    display:flex;gap:8px;margin:28px 0 0;
+  }
+  .level-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;font-weight:700;
+    padding:10px 18px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    cursor:pointer;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .level-btn.active{background:var(--ink);color:var(--paper);}
+
+  section.level{display:none;margin-top:36px;}
+  section.level.active{display:block;}
+
+  .card{
+    background:var(--white);
+    border:2px solid var(--ink);
+    padding:28px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .card::before{
+    content:attr(data-tag);
+    position:absolute;
+    top:-13px;left:20px;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+  }
+  section.level[data-level="avanzado"] .card::before{background:var(--pine);color:var(--white);}
+
+  h2{font-family:'Fraunces', serif;font-size:22px;font-weight:600;margin:6px 0 14px;}
+
+  .formula-box{
+    font-family:'JetBrains Mono', monospace;
+    font-size:20px;
+    font-weight:700;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    padding:16px 20px;
+    margin:14px 0;
+    text-align:center;
+    letter-spacing:0.02em;
+  }
+  .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
+  .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+
+  /* Calculadora */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media(max-width:520px){.calc-grid{grid-template-columns:1fr;}}
+  .field label{
+    display:block;font-size:12px;font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;
+  }
+  .field input{
+    width:100%;padding:10px 12px;
+    border:2px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;background:var(--white);
+  }
+  .field input:focus{outline:3px solid var(--amber);outline-offset:1px;}
+  .calc-btn{
+    margin-top:16px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    padding:12px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.05em;
+    cursor:pointer;
+  }
+  .calc-btn:hover{background:var(--amber-dark);}
+  .readout{
+    margin-top:18px;
+    background:var(--ink);
+    color:#8FE3C7;
+    font-family:'JetBrains Mono', monospace;
+    padding:18px 20px;
+    font-size:15px;
+    min-height:24px;
+    display:none;
+    white-space:pre-line;
+  }
+  .readout.show{display:block;}
+
+  .example{
+    background:var(--paper);
+    border-left:4px solid var(--pine);
+    padding:16px 18px;
+    font-size:15px;
+    margin-top:10px;
+  }
+  section.level[data-level="basico"] .example{border-left-color:var(--amber-dark);}
+
+  .exercises ol{padding-left:20px;}
+  .exercises li{margin-bottom:14px;}
+  details{
+    margin-top:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  details summary{cursor:pointer;color:var(--pine-dark);font-weight:700;}
+
+  .faq h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;}
+  .faq p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .related{
+    margin-top:40px;padding-top:24px;border-top:2px solid var(--ink);
+  }
+  .related h2{font-size:16px;}
+  .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+  .related-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    background:var(--white);
+  }
+  .related-links a:hover{border-color:var(--ink);}
+
+  .sim-box{
+    background:var(--ink);
+    border:2px solid var(--ink);
+    padding:14px;
+    margin-top:16px;
+  }
+  .sim-box canvas{
+    display:block;width:100%;height:auto;
+  }
+  .sim-readout{
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    color:#8FE3C7;font-size:13px;
+    margin-top:10px;padding-top:10px;
+    border-top:1px solid #3A4756;
+  }
+  .speed-row{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-left:14px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;color:var(--ink-soft);
+  }
+  .speed-btn{
+    border:1px solid var(--line);background:var(--white);
+    padding:6px 10px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;cursor:pointer;
+  }
+  .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="index.html" class="brand-link">DescifraLab</a>
+  <div class="eyebrow">Electricidad · Magnetismo</div>
+  <h1>Electromagnetismo</h1>
+  <p class="subtitle">Cómo la corriente genera magnetismo, Fuerza de Lorentz, y cómo funcionan motores y generadores — con simulador visual de una espira girando en un campo magnético.</p>
+  <nav class="level-nav">
+    <button class="level-btn active" data-target="basico">Básico</button>
+    <button class="level-btn" data-target="avanzado">Avanzado</button>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- NIVEL BÁSICO -->
+  <section class="level active" data-level="basico">
+
+    <div class="card" data-tag="Concepto">
+      <h2>La corriente eléctrica genera magnetismo</h2>
+      <p>En 1820, Hans Christian Oersted descubrió por accidente que una corriente eléctrica desvía la aguja de una brújula cercana — la primera prueba de que electricidad y magnetismo están conectados. Toda corriente genera un campo magnético a su alrededor.</p>
+      <p>Si enrollás el cable en forma de espiral (una bobina) alrededor de un núcleo de hierro, los campos magnéticos individuales se suman y se concentran, creando un <strong>electroimán</strong> — un imán que solo funciona mientras circula corriente.</p>
+    </div>
+
+    <div class="card" data-tag="Concepto">
+      <h2>Fuerza de Lorentz: cuando una carga se mueve dentro de un campo magnético</h2>
+      <p>Si una partícula con carga eléctrica se mueve dentro de un campo magnético, siente una fuerza — esta es la base de cómo funcionan los motores eléctricos.</p>
+      <div class="formula-box">F = q · v · B · sen(θ)</div>
+      <p class="var-list"><span>F</span> = fuerza (N) &nbsp;·&nbsp; <span>q</span> = carga (C) &nbsp;·&nbsp; <span>v</span> = velocidad de la carga (m/s) &nbsp;·&nbsp; <span>B</span> = campo magnético (Tesla) &nbsp;·&nbsp; <span>θ</span> = ángulo entre v y B</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula la Fuerza de Lorentz</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Carga q (Coulomb, ×10⁻⁶)</label><input type="number" id="b-q" value="5"></div>
+        <div class="field"><label>Velocidad v (m/s)</label><input type="number" id="b-v" value="1000"></div>
+        <div class="field"><label>Campo magnético B (Tesla)</label><input type="number" id="b-B" value="0.5"></div>
+        <div class="field"><label>Ángulo θ (grados)</label><input type="number" id="b-theta" value="90"></div>
+      </div>
+      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
+      <div class="readout" id="b-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>Una carga de 5×10⁻⁶ C se mueve a 1000 m/s, perpendicular (90°) a un campo magnético de 0.5 T. ¿Qué fuerza siente?</strong></p>
+        <p>F = q·v·B·sen(90°) = 5×10⁻⁶ × 1000 × 0.5 × 1 = <strong>0.0025 N</strong></p>
+        <p>Aunque parezca chica, esta es exactamente la fuerza que hace girar el motor de cualquier electrodoméstico.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>¿Qué pasa con la fuerza si la carga se mueve paralela al campo magnético (θ=0°)?
+          <details><summary>Ver respuesta</summary>La fuerza es 0, porque sen(0°)=0 — una carga moviéndose en la misma dirección que el campo no siente fuerza magnética</details>
+        </li>
+        <li>¿En qué ángulo la fuerza es máxima?
+          <details><summary>Ver respuesta</summary>A 90° (perpendicular), porque sen(90°)=1, el valor máximo posible del seno</details>
+        </li>
+        <li>¿Por qué un electroimán deja de funcionar como imán apenas se corta la corriente?
+          <details><summary>Ver respuesta</summary>Porque el campo magnético lo genera exclusivamente la corriente circulando — sin corriente, no hay campo magnético generado</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <!-- NIVEL AVANZADO -->
+  <section class="level" data-level="avanzado">
+
+    <div class="card" data-tag="Concepto">
+      <h2>Motor y generador: la misma idea, al revés</h2>
+      <p>Un <strong>motor</strong> transforma energía eléctrica en energía mecánica: le metes corriente, y una espira dentro de un campo magnético siente fuerzas (Lorentz) que la hacen girar.</p>
+      <p>Un <strong>generador</strong> hace exactamente lo opuesto: transforma energía mecánica en eléctrica. Girás una espira dentro de un campo magnético (con una turbina, una manivela, agua cayendo), y eso genera una corriente — el mismo principio de Faraday que ya viste antes en electricidad.</p>
+      <div class="formula-box">Motor: energía eléctrica → energía mecánica</div>
+      <div class="formula-box">Generador: energía mecánica → energía eléctrica</div>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Mira la espira girando dentro del campo magnético</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Así funciona el corazón de cualquier motor eléctrico — la fuerza de Lorentz sobre cada lado de la espira genera el giro.</p>
+      <div class="sim-box">
+        <canvas id="motor-canvas" width="680" height="240"></canvas>
+      </div>
+      <button class="calc-btn" id="motor-btn" onclick="toggleMotor()">▶ Reproducir</button>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>Una central hidroeléctrica: ¿es un motor o un generador?</strong></p>
+        <p>Es un <strong>generador</strong> — el agua cayendo hace girar una turbina conectada a espiras dentro de campos magnéticos, transformando energía mecánica (el movimiento del agua) en energía eléctrica.</p>
+        <p>El ventilador de tu casa, en cambio, es un <strong>motor</strong> — le das energía eléctrica y la transforma en el movimiento mecánico de las aspas.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Un aerogenerador (molino de viento para producir electricidad), ¿es motor o generador?
+          <details><summary>Ver respuesta</summary>Generador — el viento mueve las aspas (energía mecánica), que se transforma en electricidad</details>
+        </li>
+        <li>El motor de arranque de un auto, ¿transforma qué en qué?
+          <details><summary>Ver respuesta</summary>Energía eléctrica (de la batería) en energía mecánica (el giro que enciende el motor)</details>
+        </li>
+        <li>¿Por qué un generador de bicicleta (dínamo) enciende una luz al pedalear?
+          <details><summary>Ver respuesta</summary>Porque el pedaleo hace girar una bobina dentro de un campo magnético, generando la corriente eléctrica que enciende la luz — transforma tu energía mecánica en eléctrica.</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <div class="card faq" data-tag="FAQ">
+    <h2>Preguntas frecuentes</h2>
+    <h3>¿Cómo sé hacia dónde apunta la fuerza magnética?</h3>
+    <p>Se usa la "regla de la mano derecha": apuntás los dedos en la dirección de la velocidad de la carga, los curvás hacia la dirección del campo magnético, y el pulgar señala la dirección de la fuerza (para cargas positivas — para negativas, es al revés).</p>
+    <h3>¿Por qué los motores eléctricos necesitan un "conmutador" o escobillas?</h3>
+    <p>Porque a medida que la espira gira, la dirección de la fuerza necesita invertirse en el momento justo para mantener el giro continuo en el mismo sentido — el conmutador invierte la corriente automáticamente en cada media vuelta.</p>
+    <h3>¿Los imanes de heladera son electroimanes?</h3>
+    <p>No, esos son imanes permanentes (mantienen su magnetismo sin necesitar corriente) — los electroimanes son distintos, útiles justamente porque se pueden "apagar" cortando la corriente, algo que un imán permanente no puede hacer.</p>
+  </div>
+
+  <div class="related">
+    <h2>Temas relacionados</h2>
+    <div class="related-links">
+      <a href="ley-ohm.html">Ley de Ohm (V = I·R)</a>
+      <a href="potencia-electrica.html">Potencia Eléctrica (P = V·I)</a>
+      <a href="circuitos.html">Circuitos en Serie y Paralelo</a>
+      <a href="formulario.html">Machete de Fórmulas</a>
+      <a href="evaluaciones.html">Evaluaciones</a>
+      <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+      <a href="experimentos.html">Experimentos Caseros</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.level-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('section.level').forEach(s=>s.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`section.level[data-level="${btn.dataset.target}"]`).classList.add('active');
+    });
+  });
+
+  function calcBasico(){
+    const q = parseFloat(document.getElementById('b-q').value)||0;
+    const v = parseFloat(document.getElementById('b-v').value)||0;
+    const B = parseFloat(document.getElementById('b-B').value)||0;
+    const theta = parseFloat(document.getElementById('b-theta').value)||0;
+    const qSI = q*1e-6;
+    const F = qSI*v*B*Math.sin(theta*Math.PI/180);
+    const out = document.getElementById('b-readout');
+    out.innerText = `F = q×v×B×sen(${theta}°) = ${qSI.toExponential(1)}×${v}×${B}×${Math.sin(theta*Math.PI/180).toFixed(2)} = ${F.toExponential(3)} N`;
+    out.classList.add('show');
+  }
+
+  // ---- Simulador: espira girando dentro de un campo magnético (motor) ----
+  let motorState = {running:false, angle:0, lastFrame:null};
+
+  function drawMotor(ctx, w, h, angle){
+    ctx.clearRect(0,0,w,h);
+    const cx = w/2, cy = h/2;
+    const radioImanes = 130;
+
+    // imanes fijos (N a la izquierda, S a la derecha) generando el campo horizontal
+    ctx.font = 'bold 20px JetBrains Mono';
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#D9714A';
+    ctx.fillRect(cx-radioImanes-30, cy-40, 30, 80);
+    ctx.fillStyle = '#fff';
+    ctx.fillText('N', cx-radioImanes-15, cy+7);
+    ctx.fillStyle = '#4A90D9';
+    ctx.fillRect(cx+radioImanes, cy-40, 30, 80);
+    ctx.fillStyle = '#fff';
+    ctx.fillText('S', cx+radioImanes+15, cy+7);
+
+    // líneas de campo magnético (horizontales, de N a S)
+    ctx.strokeStyle = 'rgba(217,164,65,0.3)';
+    ctx.lineWidth = 1.5;
+    for(let dy=-50;dy<=50;dy+=25){
+      ctx.beginPath();
+      ctx.moveTo(cx-radioImanes, cy+dy);
+      ctx.lineTo(cx+radioImanes, cy+dy);
+      ctx.stroke();
+    }
+
+    // espira girando (elipse que representa la rotación en perspectiva)
+    const scaleX = Math.abs(Math.cos(angle));
+    const ladoAX = cx - 70*Math.cos(angle);
+    const ladoAY = cy - 45;
+    const ladoBX = cx + 70*Math.cos(angle);
+    const ladoBY = cy - 45;
+
+    ctx.strokeStyle = '#2F6B5E';
+    ctx.lineWidth = 5;
+    ctx.beginPath();
+    ctx.ellipse(cx, cy, 70*scaleX+2, 45, 0, 0, Math.PI*2);
+    ctx.stroke();
+
+    // lados de la espira (puntos coloreados: rojo entra, azul sale, según fase)
+    const entra = Math.cos(angle) > 0;
+    ctx.fillStyle = entra ? '#D9714A' : '#4A90D9';
+    ctx.beginPath();
+    ctx.arc(cx + 70*Math.cos(angle), cy, 8, 0, Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle = entra ? '#4A90D9' : '#D9714A';
+    ctx.beginPath();
+    ctx.arc(cx - 70*Math.cos(angle), cy, 8, 0, Math.PI*2);
+    ctx.fill();
+
+    // eje central
+    ctx.strokeStyle = '#5C6B7A';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy-55); ctx.lineTo(cx, cy+55);
+    ctx.stroke();
+
+    ctx.font = '11px JetBrains Mono';
+    ctx.fillStyle = '#5C6B7A';
+    ctx.textAlign = 'left';
+    ctx.fillText('La fuerza de Lorentz sobre cada lado de la espira genera el torque que la hace girar', 20, h-14);
+  }
+
+  function toggleMotor(){
+    const btn = document.getElementById('motor-btn');
+    motorState.running = !motorState.running;
+    if(motorState.running){
+      btn.innerText = '⏸ Pausar';
+      motorState.lastFrame = performance.now();
+      requestAnimationFrame(motorFrame);
+    } else {
+      btn.innerText = '▶ Reproducir';
+    }
+  }
+
+  function motorFrame(now){
+    const s = motorState;
+    if(!s.running) return;
+    const dt = (now - s.lastFrame)/1000;
+    s.lastFrame = now;
+    s.angle += dt*2.5;
+
+    const canvas = document.getElementById('motor-canvas');
+    drawMotor(canvas.getContext('2d'), canvas.width, canvas.height, s.angle);
+    requestAnimationFrame(motorFrame);
+  }
+
+  window.addEventListener('load', ()=>{
+    const canvas = document.getElementById('motor-canvas');
+    drawMotor(canvas.getContext('2d'), canvas.width, canvas.height, 0);
+  });
+</script>
+
+</body>
+</html>

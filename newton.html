@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Segunda Ley de Newton (F = m·a) | Fórmula y Calculadora — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --grid:#E4E0D4;
+    --ink:#1C2733;
+    --ink-soft:#4A5568;
+    --amber:#D9A441;
+    --amber-dark:#B8842E;
+    --pine:#2F6B5E;
+    --pine-dark:#225046;
+    --white:#FFFFFF;
+    --line:#D8D3C4;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+  header.top{
+    padding:36px 20px 28px;
+    max-width:760px;margin:0 auto;
+    border-bottom:2px solid var(--ink);
+  }
+  .brand-link{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--amber-dark);
+    text-decoration:none;
+    margin-bottom:12px;
+    letter-spacing:0.01em;
+  }
+  .brand-link:hover{text-decoration:underline;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--pine-dark);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px,5vw,46px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--ink-soft);font-size:16px;max-width:56ch;}
+
+  .level-nav{
+    display:flex;gap:8px;margin:28px 0 0;
+  }
+  .level-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;font-weight:700;
+    padding:10px 18px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    cursor:pointer;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .level-btn.active{background:var(--ink);color:var(--paper);}
+
+  section.level{display:none;margin-top:36px;}
+  section.level.active{display:block;}
+
+  .card{
+    background:var(--white);
+    border:2px solid var(--ink);
+    padding:28px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .card::before{
+    content:attr(data-tag);
+    position:absolute;
+    top:-13px;left:20px;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+  }
+  section.level[data-level="avanzado"] .card::before{background:var(--pine);color:var(--white);}
+
+  h2{font-family:'Fraunces', serif;font-size:22px;font-weight:600;margin:6px 0 14px;}
+
+  .formula-box{
+    font-family:'JetBrains Mono', monospace;
+    font-size:20px;
+    font-weight:700;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    padding:16px 20px;
+    margin:14px 0;
+    text-align:center;
+    letter-spacing:0.02em;
+  }
+  .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
+  .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+
+  /* Calculadora */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media(max-width:520px){.calc-grid{grid-template-columns:1fr;}}
+  .field label{
+    display:block;font-size:12px;font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;
+  }
+  .field input{
+    width:100%;padding:10px 12px;
+    border:2px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;background:var(--white);
+  }
+  .field input:focus{outline:3px solid var(--amber);outline-offset:1px;}
+  .calc-btn{
+    margin-top:16px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    padding:12px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.05em;
+    cursor:pointer;
+  }
+  .calc-btn:hover{background:var(--amber-dark);}
+  .readout{
+    margin-top:18px;
+    background:var(--ink);
+    color:#8FE3C7;
+    font-family:'JetBrains Mono', monospace;
+    padding:18px 20px;
+    font-size:15px;
+    min-height:24px;
+    display:none;
+    white-space:pre-line;
+  }
+  .readout.show{display:block;}
+
+  .example{
+    background:var(--paper);
+    border-left:4px solid var(--pine);
+    padding:16px 18px;
+    font-size:15px;
+    margin-top:10px;
+  }
+  section.level[data-level="basico"] .example{border-left-color:var(--amber-dark);}
+
+  .exercises ol{padding-left:20px;}
+  .exercises li{margin-bottom:14px;}
+  details{
+    margin-top:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  details summary{cursor:pointer;color:var(--pine-dark);font-weight:700;}
+
+  .faq h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;}
+  .faq p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .related{
+    margin-top:40px;padding-top:24px;border-top:2px solid var(--ink);
+  }
+  .related h2{font-size:16px;}
+  .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+  .related-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    background:var(--white);
+  }
+  .related-links a:hover{border-color:var(--ink);}
+
+  .sim-box{
+    background:var(--ink);
+    border:2px solid var(--ink);
+    padding:14px;
+    margin-top:16px;
+  }
+  #sim-canvas-basico, #sim-canvas-avanzado{
+    display:block;width:100%;height:auto;
+  }
+  .sim-readout{
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    color:#8FE3C7;font-size:13px;
+    margin-top:10px;padding-top:10px;
+    border-top:1px solid #3A4756;
+  }
+  .speed-row{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-left:14px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;color:var(--ink-soft);
+  }
+  .speed-btn{
+    border:1px solid var(--line);background:var(--white);
+    padding:6px 10px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;cursor:pointer;
+  }
+  .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  .force-diagram{
+    background:var(--paper);
+    border:1px dashed var(--line);
+    margin-top:14px;
+    padding:8px;
+  }
+
+  .historia-card{background:var(--paper);}
+  .historia-flex{display:flex;gap:20px;align-items:center;}
+  .historia-img{
+    width:110px;height:130px;object-fit:cover;
+    border:2.5px solid var(--ink);
+    flex-shrink:0;
+    filter:sepia(15%);
+  }
+  .historia-texto h2{margin-top:0;}
+  @media(max-width:520px){
+    .historia-flex{flex-direction:column;align-items:center;text-align:center;}
+    .historia-img{width:140px;height:160px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="index.html" class="brand-link">DescifraLab</a>
+  <div class="eyebrow">Mecánica · Dinámica</div>
+  <h1>Segunda Ley de Newton (F = m·a)</h1>
+  <p class="subtitle">Fórmulas, calculadora interactiva, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
+  <nav class="level-nav">
+    <button class="level-btn active" data-target="basico">Básico</button>
+    <button class="level-btn" data-target="avanzado">Avanzado</button>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- NIVEL BÁSICO -->
+  <section class="level active" data-level="basico">
+
+    <div class="card" data-tag="Concepto">
+      <h2>¿Qué es la Segunda Ley de Newton?</h2>
+      <p>Dice que la aceleración de un objeto depende de dos cosas: la fuerza que se le aplica y su masa. Cuanta más fuerza, más aceleración. Cuanta más masa, más cuesta acelerarlo (más "inercia" tiene).</p>
+      <div class="formula-box">F = m · a</div>
+      <p class="var-list"><span>F</span> = fuerza (en Newton, N) &nbsp;·&nbsp; <span>m</span> = masa (en kg) &nbsp;·&nbsp; <span>a</span> = aceleración (en m/s²)</p>
+    </div>
+
+    <div class="card historia-card" data-tag="Historia">
+      <div class="historia-flex">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Sir%20Isaac%20Newton%20by%20Sir%20Godfrey%20Kneller%2C%20Bt.jpg?width=200" alt="Retrato de Isaac Newton, por Godfrey Kneller, 1702" class="historia-img">
+        <div class="historia-texto">
+          <h2>¿Quién fue Isaac Newton?</h2>
+          <p>Isaac Newton (1642-1727) fue un físico, matemático y astrónomo inglés, considerado una de las mentes más influyentes de la historia de la ciencia. Publicó sus tres leyes del movimiento en 1687, en su obra <em>Philosophiæ Naturalis Principia Mathematica</em> — un libro que unificó por primera vez las leyes que gobiernan el movimiento en la Tierra con las que gobiernan el movimiento de los planetas.</p>
+          <p style="color:var(--ink-soft);font-size:14px;">Además de la mecánica, Newton desarrolló el cálculo infinitesimal (en paralelo y disputa con Leibniz), estudió la naturaleza de la luz y los colores, y construyó el primer telescopio reflector funcional. Pasó sus últimos 30 años como director de la Casa de la Moneda británica.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-tag="Concepto clave">
+      <h2>Normal, peso y masa: no son lo mismo</h2>
+      <p>Acá se confunden casi todos. Esto es lo que representa cada uno:</p>
+      <ul style="padding-left:20px;margin:10px 0;">
+        <li><strong>Masa (m):</strong> cantidad de materia. Se mide en kg. No cambia, no es una fuerza.</li>
+        <li><strong>Peso (P):</strong> la fuerza con la que la gravedad tira del objeto hacia abajo. P = m·g. Se mide en Newton.</li>
+        <li><strong>Normal (N):</strong> la fuerza con la que la superficie empuja al objeto hacia arriba, para que no la atraviese. Es una fuerza de reacción, no de gravedad.</li>
+      </ul>
+      <p>En un piso horizontal, sin nada más empujando hacia abajo o hacia arriba, la Normal es igual al Peso — por eso muchos creen que "normal = peso" siempre. Pero no es una regla fija: si alguien empuja la caja hacia abajo en diagonal, la Normal aumenta. Si tira de ella hacia arriba en diagonal, la Normal disminuye. La Normal se ajusta a lo que haga falta para que el objeto no se hunda ni salga volando del piso.</p>
+      <div class="force-diagram">
+        <svg viewBox="0 0 340 260" width="100%" height="240">
+          <!-- suelo -->
+          <line x1="20" y1="190" x2="320" y2="190" stroke="#1C2733" stroke-width="3"/>
+          <!-- caja -->
+          <rect x="130" y="140" width="70" height="50" fill="#F6F4EF" stroke="#1C2733" stroke-width="2.5"/>
+          <text x="165" y="170" text-anchor="middle" font-family="JetBrains Mono" font-size="13" fill="#1C2733">m</text>
+
+          <!-- flecha Normal, larga y completa, etiqueta al costado a media altura -->
+          <line x1="165" y1="138" x2="165" y2="48" stroke="#2F6B5E" stroke-width="3" marker-end="url(#arrowN)"/>
+          <text x="180" y="97" font-family="JetBrains Mono" font-size="15" font-weight="700" fill="#2F6B5E">N</text>
+
+          <!-- flecha Peso, larga y completa, etiqueta al costado a media altura -->
+          <line x1="165" y1="192" x2="165" y2="242" stroke="#B8842E" stroke-width="3" marker-end="url(#arrowP)"/>
+          <text x="180" y="222" font-family="JetBrains Mono" font-size="13" font-weight="700" fill="#B8842E">P = m·g</text>
+
+          <!-- flecha Fuerza aplicada, etiqueta al costado izquierdo -->
+          <line x1="35" y1="165" x2="122" y2="165" stroke="#1C2733" stroke-width="3" marker-end="url(#arrowF)"/>
+          <text x="20" y="169" font-family="JetBrains Mono" font-size="15" font-weight="700" fill="#1C2733">F</text>
+
+          <defs>
+            <marker id="arrowN" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#2F6B5E"/></marker>
+            <marker id="arrowP" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#B8842E"/></marker>
+            <marker id="arrowF" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#1C2733"/></marker>
+          </defs>
+        </svg>
+      </div>
+      <p style="color:var(--ink-soft);font-size:14px;">Verde = Normal (superficie empujando hacia arriba) · Ámbar = Peso (gravedad tirando hacia abajo) · Fuerza aplicada horizontal, empujando la caja.</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula la aceleración</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Fuerza aplicada F (N)</label><input type="number" id="b-F" value="20"></div>
+        <div class="field"><label>Masa m (kg)</label><input type="number" id="b-m" value="4"></div>
+        <div class="field"><label>Tiempo a animar t (s)</label><input type="number" id="b-t" value="5"></div>
+      </div>
+      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
+      <div class="readout" id="b-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Mira el movimiento</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">La caja parte del reposo y acelera empujada por la fuerza que ingresaste. Toca reproducir.</p>
+      <div class="sim-box">
+        <canvas id="sim-canvas-basico" width="680" height="140"></canvas>
+        <div class="sim-readout">
+          <span id="sim-t-basico">t = 0.0 s</span>
+          <span id="sim-v-basico">v = 0.0 m/s</span>
+          <span id="sim-x-basico">x = 0.0 m</span>
+        </div>
+      </div>
+      <button class="calc-btn" id="sim-btn-basico" onclick="toggleSim('basico')">▶ Reproducir</button>
+      <div class="speed-row">
+        <span>Velocidad:</span>
+        <button class="speed-btn" data-speed="0.5" onclick="setSpeed('basico',0.5,this)">0.5×</button>
+        <button class="speed-btn active" data-speed="1" onclick="setSpeed('basico',1,this)">1×</button>
+        <button class="speed-btn" data-speed="2" onclick="setSpeed('basico',2,this)">2×</button>
+      </div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>Empujas una caja de 4 kg con una fuerza de 20 N sobre una superficie sin rozamiento.</strong></p>
+        <p>a = F / m = 20 / 4 = <strong>5 m/s²</strong></p>
+        <p>La caja acelera a 5 m/s² mientras se mantenga la fuerza.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Una fuerza de 15 N actúa sobre un objeto de 3 kg. ¿Cuál es la aceleración?
+          <details><summary>Ver respuesta</summary>a = 15 / 3 = 5 m/s²</details>
+        </li>
+        <li>¿Qué fuerza se necesita para acelerar un carrito de 2 kg a 4 m/s²?
+          <details><summary>Ver respuesta</summary>F = m×a = 2×4 = 8 N</details>
+        </li>
+        <li>Un objeto de 10 kg acelera a 2 m/s². ¿Qué fuerza neta actúa sobre él?
+          <details><summary>Ver respuesta</summary>F = 10×2 = 20 N</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <!-- NIVEL AVANZADO -->
+  <section class="level" data-level="avanzado">
+
+    <div class="card" data-tag="Concepto">
+      <h2>Fuerza neta con rozamiento</h2>
+      <p>En la vida real casi nunca hay una sola fuerza actuando. Cuando hay rozamiento, hay que restarle la fuerza de rozamiento a la fuerza aplicada antes de calcular la aceleración con F = m·a.</p>
+      <div class="formula-box">F<sub>roz</sub> = μ · m · g</div>
+      <div class="formula-box">a = (F<sub>aplicada</sub> − F<sub>roz</sub>) / m</div>
+      <p class="var-list"><span>μ</span> = coeficiente de rozamiento &nbsp;·&nbsp; <span>g</span> = 9.8 m/s² &nbsp;·&nbsp; el resto igual que en el nivel básico.</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula con rozamiento</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Fuerza aplicada (N)</label><input type="number" id="a-F" value="50"></div>
+        <div class="field"><label>Masa m (kg)</label><input type="number" id="a-m" value="10"></div>
+        <div class="field"><label>Coeficiente μ</label><input type="number" step="0.01" id="a-mu" value="0.3"></div>
+      </div>
+      <button class="calc-btn" onclick="calcAvanzado()">Calcular</button>
+      <div class="readout" id="a-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Mira el movimiento con rozamiento</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">El camión parte del reposo y acelera más lento que sin rozamiento. Toca reproducir.</p>
+      <div class="sim-box">
+        <canvas id="sim-canvas-avanzado" width="680" height="140"></canvas>
+        <div class="sim-readout">
+          <span id="sim-t-avanzado">t = 0.0 s</span>
+          <span id="sim-v-avanzado">v = 0.0 m/s</span>
+          <span id="sim-x-avanzado">x = 0.0 m</span>
+        </div>
+      </div>
+      <button class="calc-btn" id="sim-btn-avanzado" onclick="toggleSim('avanzado')">▶ Reproducir</button>
+      <div class="speed-row">
+        <span>Velocidad:</span>
+        <button class="speed-btn" data-speed="0.5" onclick="setSpeed('avanzado',0.5,this)">0.5×</button>
+        <button class="speed-btn active" data-speed="1" onclick="setSpeed('avanzado',1,this)">1×</button>
+        <button class="speed-btn" data-speed="2" onclick="setSpeed('avanzado',2,this)">2×</button>
+      </div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>Empujas un camión de 10 kg con 50 N, sobre una superficie con μ = 0.3.</strong></p>
+        <p>F<sub>roz</sub> = 0.3 × 10 × 9.8 = 29.4 N</p>
+        <p>a = (50 − 29.4) / 10 = <strong>2.06 m/s²</strong></p>
+        <p>El rozamiento le "come" gran parte de la fuerza aplicada.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Empujas un mueble de 20 kg con 80 N, μ = 0.4. ¿Cuál es la aceleración?
+          <details><summary>Ver respuesta</summary>Froz = 0.4×20×9.8 = 78.4 N → a = (80−78.4)/20 = 0.08 m/s²</details>
+        </li>
+        <li>Un bloque de 5 kg no se mueve con una fuerza de 15 N. Si μ = 0.35, ¿por qué?
+          <details><summary>Ver respuesta</summary>Froz = 0.35×5×9.8 = 17.15 N, que es mayor a la fuerza aplicada (15 N), así que el objeto se queda quieto.</details>
+        </li>
+        <li>¿Qué fuerza aplicada necesitas para que un objeto de 8 kg (μ = 0.2) acelere a 3 m/s²?
+          <details><summary>Ver respuesta</summary>Froz = 0.2×8×9.8 = 15.68 N → F = m×a + Froz = 8×3 + 15.68 = 39.68 N</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <div class="card faq" data-tag="FAQ">
+    <h2>Preguntas frecuentes</h2>
+    <h3>¿Qué diferencia hay entre masa y peso?</h3>
+    <p>La masa es la cantidad de materia de un objeto (en kg) y no cambia. El peso es la fuerza con la que la gravedad lo atrae (en Newton) y depende de dónde esté: P = m·g.</p>
+    <h3>¿Por qué un objeto muy pesado cuesta más moverlo?</h3>
+    <p>Porque para una misma fuerza, a mayor masa, menor aceleración (a = F/m). Es la inercia: la resistencia del objeto a cambiar su estado de movimiento.</p>
+    <h3>¿Qué pasa si la fuerza aplicada es menor que la de rozamiento?</h3>
+    <p>El objeto no se mueve. La fuerza de rozamiento estático puede igualar exactamente a la fuerza aplicada mientras esta no supere un máximo, así que la aceleración es cero.</p>
+  </div>
+
+  <div class="related">
+    <h2>Temas relacionados</h2>
+    <div class="related-links">
+      <a href="mruv.html">MRUV — Movimiento Rectilíneo Uniformemente Variado</a>
+      <a href="mru.html">MRU — Movimiento Rectilíneo Uniforme</a>
+      <a href="trabajo-energia.html">Trabajo y Energía</a>
+      <a href="calor-especifico.html">Calor Específico y Cambios de Estado</a>
+      <a href="dilatacion-termica.html">Dilatación Térmica</a>
+      <a href="fluidos.html">Presión Hidrostática y Flotación</a>
+      <a href="relatividad.html">Relatividad: Dilatación Temporal</a>
+      <a href="formulario.html">Machete de Fórmulas</a>
+      <a href="electromagnetismo.html">Electromagnetismo</a>
+      <a href="conversor-unidades.html">Conversor de Unidades</a>
+      <a href="evaluaciones.html">Evaluaciones</a>
+      <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+      <a href="experimentos.html">Experimentos Caseros</a>
+      <a href="modelo-atomico.html">Modelo Atómico y Tabla Periódica</a>
+      <a href="estequiometria.html">Estequiometría y El Mol</a>
+      <a href="configuracion-electronica.html">Configuración Electrónica</a>
+      <a href="oxido-reduccion.html">Óxido-Reducción</a>
+      <a href="enlaces-quimicos.html">Enlaces Químicos</a>
+      <a href="acido-base.html">Ácido-Base y pH</a>
+      <a href="concentracion-soluciones.html">Concentración de Soluciones</a>
+      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
+      <a href="leyes-gases.html">Leyes de los Gases</a>
+      <a href="energia-nuclear.html">Energía Nuclear</a>
+      <a href="tiro-oblicuo.html">Tiro Oblicuo — Movimiento Parabólico</a>
+      <a href="mcu.html">Movimiento Circular Uniforme (MCU)</a>
+      <a href="impulso-momentum.html">Impulso y Cantidad de Movimiento</a>
+      <a href="estatica-torque.html">Estática y Torque</a>
+      <a href="maquinas-simples.html">Máquinas Simples</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.level-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('section.level').forEach(s=>s.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`section.level[data-level="${btn.dataset.target}"]`).classList.add('active');
+    });
+  });
+
+  function calcBasico(){
+    const F = parseFloat(document.getElementById('b-F').value)||0;
+    const m = parseFloat(document.getElementById('b-m').value)||1;
+    const a = F/m;
+    const P = m*9.8;
+    const out = document.getElementById('b-readout');
+    out.innerText = `a = F / m = ${F} / ${m} = ${a.toFixed(2)} m/s²\nPeso = m·g = ${m}×9.8 = ${P.toFixed(1)} N\nNormal = ${P.toFixed(1)} N (piso horizontal, sin otras fuerzas verticales)`;
+    out.classList.add('show');
+  }
+
+  function calcAvanzado(){
+    const F = parseFloat(document.getElementById('a-F').value)||0;
+    const m = parseFloat(document.getElementById('a-m').value)||1;
+    const mu = parseFloat(document.getElementById('a-mu').value)||0;
+    const g = 9.8;
+    const Froz = mu*m*g;
+    const a = (F - Froz)/m;
+    const out = document.getElementById('a-readout');
+    if(a<=0){
+      out.innerText = `Froz = ${mu}×${m}×9.8 = ${Froz.toFixed(2)} N\nLa fuerza aplicada no supera al rozamiento: el objeto no se mueve (a = 0).`;
+    } else {
+      out.innerText = `Froz = ${mu}×${m}×9.8 = ${Froz.toFixed(2)} N\na = (${F} − ${Froz.toFixed(2)}) / ${m} = ${a.toFixed(2)} m/s²`;
+    }
+    out.classList.add('show');
+  }
+
+  // ---- Simulación visual reutilizable ----
+  // Dibuja una pista con marcas de distancia y un ícono que se mueve
+  // según posición x(t) calculada en tiempo real. Sirve para auto, avión, tren, etc.
+  // con solo cambiar el emoji y los datos de entrada.
+
+  function drawTrack(ctx, w, h, xMax, iconX, icon){
+    ctx.clearRect(0,0,w,h);
+    // pista
+    ctx.strokeStyle = '#3A4756';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(20,h-30); ctx.lineTo(w-20,h-30);
+    ctx.stroke();
+    // marcas de distancia
+    ctx.fillStyle = '#5C6B7A';
+    ctx.font = '11px JetBrains Mono';
+    const steps = 6;
+    for(let i=0;i<=steps;i++){
+      const px = 20 + (i/steps)*(w-40);
+      ctx.beginPath();
+      ctx.moveTo(px,h-34); ctx.lineTo(px,h-26);
+      ctx.stroke();
+      ctx.fillText(Math.round((i/steps)*xMax)+'m', px-10, h-12);
+    }
+    // objeto que se mueve — se invierte horizontalmente para que "mire"
+    // hacia la derecha, que es la dirección real del movimiento
+    // (los emoji de vehículos por defecto miran hacia la izquierda)
+    const objPx = 20 + iconX*(w-60);
+    ctx.font = '32px sans-serif';
+    ctx.save();
+    ctx.translate(objPx + 16, h-32);
+    ctx.scale(-1,1);
+    ctx.fillText(icon, -16, 0);
+    ctx.restore();
+    // persona dibujada de perfil, en pose de empuje, pegada al objeto
+    drawPusher(ctx, objPx - 30, h-30);
+  }
+
+  // Figura simple de perfil, inclinada hacia adelante como si empujara,
+  // dibujada a mano (no emoji) para que se vea claramente lateral.
+  function drawPusher(ctx, footX, groundY){
+    ctx.save();
+    ctx.strokeStyle = '#F6F4EF';
+    ctx.fillStyle = '#F6F4EF';
+    ctx.lineWidth = 2.5;
+    ctx.lineCap = 'round';
+
+    const hipX = footX - 4, hipY = groundY - 16;
+    const headX = footX + 8, headY = groundY - 34;
+
+    // cabeza
+    ctx.beginPath();
+    ctx.arc(headX, headY, 5, 0, Math.PI*2);
+    ctx.fill();
+
+    // torso inclinado hacia adelante (hacia el objeto)
+    ctx.beginPath();
+    ctx.moveTo(hipX, hipY);
+    ctx.lineTo(headX-2, headY+5);
+    ctx.stroke();
+
+    // brazo extendido empujando hacia el objeto
+    ctx.beginPath();
+    ctx.moveTo(headX-6, headY+10);
+    ctx.lineTo(headX+14, headY+16);
+    ctx.stroke();
+
+    // pierna de atrás (apoyo)
+    ctx.beginPath();
+    ctx.moveTo(hipX, hipY);
+    ctx.lineTo(hipX-10, groundY);
+    ctx.stroke();
+
+    // pierna de adelante (zancada)
+    ctx.beginPath();
+    ctx.moveTo(hipX, hipY);
+    ctx.lineTo(hipX+9, groundY);
+    ctx.stroke();
+
+    ctx.restore();
+  }
+
+  // Estado de simulación por nivel: guarda t actual, si está corriendo, velocidad, y los parámetros del movimiento
+  const simState = {
+    basico: {t:0, running:false, speed:1, tMax:5, v0:0, a:2, xAt:null, lastFrame:null},
+    avanzado: {t:0, running:false, speed:1, tMax:5, v0:0, a:0, xAt:null, lastFrame:null}
+  };
+
+  function setSpeed(level, speed, btn){
+    simState[level].speed = speed;
+    document.querySelectorAll(`.sim-box`)[level==='basico'?0:1]
+      .parentElement.querySelectorAll('.speed-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function toggleSim(level){
+    const s = simState[level];
+    const btn = document.getElementById('sim-btn-'+level);
+    const isBasico = level==='basico';
+
+    // Si arranca de cero (t=0 y no corriendo) recalcula los parámetros desde los inputs actuales,
+    // aplicando el multiplicador de velocidad directamente sobre la aceleración real —
+    // así el objeto realmente acelera más rápido/lento, y v coincide con lo que se ve.
+    if(s.t === 0 && !s.running){
+      s.v0 = 0; // siempre parte del reposo en esta página
+      if(isBasico){
+        const F = parseFloat(document.getElementById('b-F').value)||0;
+        const m = parseFloat(document.getElementById('b-m').value)||1;
+        s.a = (F/m) * s.speed;
+        s.tMax = parseFloat(document.getElementById('b-t').value)||5;
+      } else {
+        const F = parseFloat(document.getElementById('a-F').value)||0;
+        const m = parseFloat(document.getElementById('a-m').value)||1;
+        const mu = parseFloat(document.getElementById('a-mu').value)||0;
+        const Froz = mu*m*9.8;
+        s.a = Math.max((F - Froz)/m, 0) * s.speed;
+        s.tMax = 5;
+      }
+      s.xAt = (t)=> s.v0*t + 0.5*s.a*t*t;
+      s.xMax = Math.max(s.xAt(s.tMax), 1);
+    }
+
+    if(s.running){
+      // Pausar
+      s.running = false;
+      btn.innerText = '▶ Continuar';
+    } else {
+      // Reproducir / continuar
+      s.running = true;
+      btn.innerText = '⏸ Pausar';
+      s.lastFrame = performance.now();
+      requestAnimationFrame((now)=>simFrame(level, now));
+    }
+  }
+
+  function simFrame(level, now){
+    const s = simState[level];
+    if(!s.running) return;
+
+    const isBasico = level==='basico';
+    const canvas = document.getElementById(isBasico ? 'sim-canvas-basico' : 'sim-canvas-avanzado');
+    const ctx = canvas.getContext('2d');
+    const icon = isBasico ? '📦' : '🚚';
+
+    const dt = (now - s.lastFrame)/1000 * (s.tMax / Math.min(Math.max(s.tMax,1),8));
+    s.lastFrame = now;
+    s.t = Math.min(s.t + dt, s.tMax);
+
+    const x = s.xAt(s.t);
+    const v = s.v0 + s.a*s.t;
+    drawTrack(ctx, canvas.width, canvas.height, s.xMax, x/s.xMax, icon);
+
+    document.getElementById(isBasico?'sim-t-basico':'sim-t-avanzado').innerText = `t = ${s.t.toFixed(1)} s`;
+    document.getElementById(isBasico?'sim-v-basico':'sim-v-avanzado').innerText = `v = ${v.toFixed(1)} m/s`;
+    document.getElementById(isBasico?'sim-x-basico':'sim-x-avanzado').innerText = `x = ${x.toFixed(1)} m`;
+
+    if(s.t < s.tMax){
+      requestAnimationFrame((n)=>simFrame(level,n));
+    } else {
+      s.running = false;
+      s.t = 0; // listo para reiniciar en el próximo click
+      document.getElementById('sim-btn-'+level).innerText = '▶ Reproducir';
+    }
+  }
+
+  // Dibujo inicial en reposo
+  window.addEventListener('load', ()=>{
+    const c1 = document.getElementById('sim-canvas-basico');
+    drawTrack(c1.getContext('2d'), c1.width, c1.height, 25, 0, '📦');
+    const c2 = document.getElementById('sim-canvas-avanzado');
+    drawTrack(c2.getContext('2d'), c2.width, c2.height, 25, 0, '🚚');
+  });
+</script>
+
+</body>
+</html>

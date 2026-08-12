@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ácido-Base y pH — Escala, Indicadores y Neutralización — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --grid:#E4E0D4;
+    --ink:#1C2733;
+    --ink-soft:#4A5568;
+    --amber:#D9A441;
+    --amber-dark:#B8842E;
+    --pine:#2F6B5E;
+    --pine-dark:#225046;
+    --white:#FFFFFF;
+    --line:#D8D3C4;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+  header.top{
+    padding:36px 20px 28px;
+    max-width:760px;margin:0 auto;
+    border-bottom:2px solid var(--ink);
+  }
+  .brand-link{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--amber-dark);
+    text-decoration:none;
+    margin-bottom:12px;
+    letter-spacing:0.01em;
+  }
+  .brand-link:hover{text-decoration:underline;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--pine-dark);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px,5vw,46px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--ink-soft);font-size:16px;max-width:56ch;}
+
+  .level-nav{
+    display:flex;gap:8px;margin:28px 0 0;
+  }
+  .level-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;font-weight:700;
+    padding:10px 18px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    cursor:pointer;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .level-btn.active{background:var(--ink);color:var(--paper);}
+
+  section.level{display:none;margin-top:36px;}
+  section.level.active{display:block;}
+
+  .card{
+    background:var(--white);
+    border:2px solid var(--ink);
+    padding:28px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .card::before{
+    content:attr(data-tag);
+    position:absolute;
+    top:-13px;left:20px;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+  }
+  section.level[data-level="avanzado"] .card::before{background:var(--pine);color:var(--white);}
+
+  h2{font-family:'Fraunces', serif;font-size:22px;font-weight:600;margin:6px 0 14px;}
+
+  .formula-box{
+    font-family:'JetBrains Mono', monospace;
+    font-size:20px;
+    font-weight:700;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    padding:16px 20px;
+    margin:14px 0;
+    text-align:center;
+    letter-spacing:0.02em;
+  }
+  .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
+  .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+
+  /* Calculadora */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media(max-width:520px){.calc-grid{grid-template-columns:1fr;}}
+  .field label{
+    display:block;font-size:12px;font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;
+  }
+  .field input{
+    width:100%;padding:10px 12px;
+    border:2px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;background:var(--white);
+  }
+  .field input:focus{outline:3px solid var(--amber);outline-offset:1px;}
+  .calc-btn{
+    margin-top:16px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    padding:12px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.05em;
+    cursor:pointer;
+  }
+  .calc-btn:hover{background:var(--amber-dark);}
+  .readout{
+    margin-top:18px;
+    background:var(--ink);
+    color:#8FE3C7;
+    font-family:'JetBrains Mono', monospace;
+    padding:18px 20px;
+    font-size:15px;
+    min-height:24px;
+    display:none;
+    white-space:pre-line;
+  }
+  .readout.show{display:block;}
+
+  .example{
+    background:var(--paper);
+    border-left:4px solid var(--pine);
+    padding:16px 18px;
+    font-size:15px;
+    margin-top:10px;
+  }
+  section.level[data-level="basico"] .example{border-left-color:var(--amber-dark);}
+
+  .exercises ol{padding-left:20px;}
+  .exercises li{margin-bottom:14px;}
+  details{
+    margin-top:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  details summary{cursor:pointer;color:var(--pine-dark);font-weight:700;}
+
+  .faq h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;}
+  .faq p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .related{
+    margin-top:40px;padding-top:24px;border-top:2px solid var(--ink);
+  }
+  .related h2{font-size:16px;}
+  .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+  .related-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    background:var(--white);
+  }
+  .related-links a:hover{border-color:var(--ink);}
+
+  .sim-box{
+    background:var(--ink);
+    border:2px solid var(--ink);
+    padding:14px;
+    margin-top:16px;
+  }
+  .sim-box canvas{
+    display:block;width:100%;height:auto;
+  }
+  .sim-readout{
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    color:#8FE3C7;font-size:13px;
+    margin-top:10px;padding-top:10px;
+    border-top:1px solid #3A4756;
+  }
+  .speed-row{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-left:14px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;color:var(--ink-soft);
+  }
+  .speed-btn{
+    border:1px solid var(--line);background:var(--white);
+    padding:6px 10px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;cursor:pointer;
+  }
+  .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  .ph-escala{margin-top:14px;}
+  .ph-barra{
+    display:flex;
+    border:2px solid var(--ink);
+    border-radius:8px;
+    overflow:hidden;
+  }
+  .ph-segmento{
+    flex:1;
+    padding:14px 4px;
+    text-align:center;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;font-weight:700;
+    color:#fff;
+    text-shadow:0 1px 2px rgba(0,0,0,0.3);
+  }
+
+  .enlace-analogia{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+    gap:14px;margin-top:16px;
+  }
+  .enlace-tipo{
+    border:2.5px solid;
+    padding:16px;
+    background:var(--paper);
+  }
+  .enlace-icono{font-size:32px;margin-bottom:6px;}
+  .enlace-tipo h3{font-size:15px;margin:0 0 8px;font-family:'Fraunces',serif;}
+  .enlace-tipo p{font-size:13.5px;margin:0 0 8px;}
+  .enlace-ejemplo{
+    font-size:12.5px;color:var(--ink-soft);
+    border-top:1px dashed var(--line);
+    padding-top:8px;margin-top:8px !important;
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="index.html" class="brand-link">DescifraLab</a>
+  <div class="eyebrow">Química · Reacciones</div>
+  <h1>Ácido-Base y pH</h1>
+  <p class="subtitle">Escala de pH, indicadores, calculadora de concentración de H⁺, neutralización, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
+  <nav class="level-nav">
+    <button class="level-btn active" data-target="basico">Básico</button>
+    <button class="level-btn" data-target="avanzado">Avanzado</button>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- NIVEL BÁSICO -->
+  <section class="level active" data-level="basico">
+
+    <div class="card" data-tag="Concepto">
+      <h2>¿Qué son los ácidos y las bases?</h2>
+      <p>Un <strong>ácido</strong> es una sustancia que libera iones H⁺ (hidrógeno) cuando se disuelve en agua. Una <strong>base</strong> es una sustancia que libera iones OH⁻ (hidróxido), o que "captura" H⁺. Cuantos más H⁺ libres hay, más ácida es la solución.</p>
+      <div class="formula-box">pH = −log[H⁺]</div>
+      <p class="var-list"><span>pH</span> = medida de acidez (escala 0 a 14) &nbsp;·&nbsp; <span>[H⁺]</span> = concentración de iones hidrógeno (mol/L)</p>
+      <p style="color:var(--ink-soft);font-size:14.5px;">Como la fórmula tiene un logaritmo negativo, más H⁺ (más ácido) da un pH más bajo, y menos H⁺ (más básico) da un pH más alto — es una escala invertida respecto a la concentración.</p>
+    </div>
+
+    <div class="card" data-tag="Concepto">
+      <h2>La escala de pH</h2>
+      <div class="ph-escala">
+        <div class="ph-barra">
+          <div class="ph-segmento" style="background:#C0392B;">0-2<br>Muy ácido</div>
+          <div class="ph-segmento" style="background:#E67E22;">3-5<br>Ácido</div>
+          <div class="ph-segmento" style="background:#F1C40F;">6</div>
+          <div class="ph-segmento" style="background:#7FB8A8;">7<br>Neutro</div>
+          <div class="ph-segmento" style="background:#3F9E7A;">8-9</div>
+          <div class="ph-segmento" style="background:#2874A6;">10-12<br>Básico</div>
+          <div class="ph-segmento" style="background:#6C3483;">13-14<br>Muy básico</div>
+        </div>
+      </div>
+      <p style="color:var(--ink-soft);font-size:13.5px;margin-top:10px;">Ejemplos de la vida real: jugo gástrico (pH≈1.5), jugo de limón (pH≈2), vinagre (pH≈3), agua pura (pH=7), agua de mar (pH≈8), lavandina (pH≈13).</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula el pH</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Concentración [H⁺] (mol/L, notación decimal)</label><input type="number" id="b-H" value="0.001" step="0.0001"></div>
+      </div>
+      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
+      <div class="readout" id="b-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>Una solución tiene [H⁺] = 0.0001 mol/L (10⁻⁴). ¿Cuál es su pH?</strong></p>
+        <p>pH = −log(10⁻⁴) = <strong>4</strong></p>
+        <p>Con pH=4, es una solución ácida (menor a 7) — similar a un jugo de manzana.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>¿Cuál es el pH de una solución con [H⁺] = 10⁻⁷ mol/L?
+          <details><summary>Ver respuesta</summary>pH = −log(10⁻⁷) = 7 (neutro, como el agua pura)</details>
+        </li>
+        <li>¿Una solución con pH=2 es más o menos ácida que una con pH=5?
+          <details><summary>Ver respuesta</summary>Más ácida — cuanto más bajo el pH, más ácida es la solución (y cada unidad de pH representa 10 veces más concentración de H⁺)</details>
+        </li>
+        <li>¿Por qué el repollo morado cambia de color según el pH?
+          <details><summary>Ver respuesta</summary>Porque contiene un pigmento (antocianina) cuya estructura molecular cambia según la cantidad de H⁺ presente, y ese cambio estructural altera qué colores de luz absorbe y refleja.</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <!-- NIVEL AVANZADO -->
+  <section class="level" data-level="avanzado">
+
+    <div class="card" data-tag="Concepto">
+      <h2>Neutralización: ácido + base = sal + agua</h2>
+      <p>Cuando un ácido y una base reaccionan, los iones H⁺ y OH⁻ se combinan para formar agua, y lo que queda de la reacción forma una sal. Este proceso se llama <strong>neutralización</strong>.</p>
+      <div class="formula-box">Ácido + Base → Sal + Agua</div>
+      <div class="formula-box">pH + pOH = 14</div>
+      <p class="var-list">Ejemplo clásico: HCl (ácido clorhídrico) + NaOH (hidróxido de sodio) → NaCl (sal de mesa) + H₂O</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula el pOH y verifica la neutralidad</h2>
+      <div class="calc-grid">
+        <div class="field"><label>pH de la solución</label><input type="number" id="a-pH" value="4" step="0.1"></div>
+      </div>
+      <button class="calc-btn" onclick="calcAvanzado()">Calcular</button>
+      <div class="readout" id="a-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>Mezclas volúmenes iguales de un ácido fuerte y una base fuerte, ambos con la misma concentración. ¿Qué pH tiene la mezcla resultante?</strong></p>
+        <p>Como hay la misma cantidad de H⁺ que de OH⁻, se neutralizan completamente entre sí.</p>
+        <p>El resultado es agua con una sal disuelta — <strong>pH = 7 (neutro)</strong></p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Si una solución tiene pH=9, ¿cuál es su pOH?
+          <details><summary>Ver respuesta</summary>pOH = 14 − 9 = 5</details>
+        </li>
+        <li>¿Qué sal se forma al neutralizar ácido sulfúrico (H₂SO₄) con hidróxido de sodio (NaOH)?
+          <details><summary>Ver respuesta</summary>Sulfato de sodio (Na₂SO₄) + agua</details>
+        </li>
+        <li>¿Por qué a veces se usa antiácido (una base débil) para el ardor de estómago?
+          <details><summary>Ver respuesta</summary>Porque el ardor lo produce el exceso de ácido clorhídrico gástrico — el antiácido lo neutraliza parcialmente, subiendo el pH del estómago hacia valores menos irritantes.</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <div class="card faq" data-tag="FAQ">
+    <h2>Preguntas frecuentes</h2>
+    <h3>¿Por qué cada unidad de pH representa 10 veces más o menos acidez?</h3>
+    <p>Porque la escala es logarítmica — al ser pH=−log[H⁺], cada vez que [H⁺] se multiplica ×10, el pH baja exactamente 1 unidad. Por eso una solución de pH=2 no es "el doble" de ácida que una de pH=4, es 100 veces más ácida.</p>
+    <h3>¿El agua destilada tiene pH exactamente 7 siempre?</h3>
+    <p>En teoría sí, a 25°C — pero en la práctica, el agua expuesta al aire absorbe un poco de CO₂ que la vuelve levemente ácida (pH cercano a 5.5-6.5), así que el agua "pura" del día a día casi nunca es exactamente 7.</p>
+    <h3>¿Es lo mismo un ácido fuerte que un ácido concentrado?</h3>
+    <p>No — "fuerte" describe qué tan completamente se disocia el ácido en agua (libera casi todos sus H⁺), mientras que "concentrado" describe cuánta cantidad de esa sustancia hay disuelta. Un ácido débil puede estar muy concentrado, y uno fuerte puede estar muy diluido.</p>
+  </div>
+
+  <div class="related">
+    <h2>Temas relacionados</h2>
+    <div class="related-links">
+      <a href="formulario.html">Machete de Fórmulas</a>
+      <a href="electromagnetismo.html">Electromagnetismo</a>
+      <a href="maquinas-simples.html">Máquinas Simples</a>
+      <a href="modelo-atomico.html">Modelo Atómico y Tabla Periódica</a>
+      <a href="oxido-reduccion.html">Óxido-Reducción</a>
+      <a href="concentracion-soluciones.html">Concentración de Soluciones</a>
+      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
+      <a href="leyes-gases.html">Leyes de los Gases</a>
+      <a href="evaluaciones.html">Evaluaciones</a>
+      <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+      <a href="experimentos.html">Experimentos Caseros</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.level-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('section.level').forEach(s=>s.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`section.level[data-level="${btn.dataset.target}"]`).classList.add('active');
+    });
+  });
+
+  const ELECTRONEGATIVIDAD = {
+    Na:0.93, K:0.82, Ca:1.00, Mg:1.31, Al:1.61,
+    H:2.20, C:2.55, N:3.04, S:2.58, P:2.19,
+    Cl:3.16, O:3.44, F:3.98, Br:2.96
+  };
+
+  function clasificarEnlace(dEN){
+    if(dEN >= 1.7) return {tipo:'Iónico', detalle:'un átomo transfiere electrones al otro'};
+    if(dEN >= 0.4) return {tipo:'Covalente polar', detalle:'comparten los electrones, pero de forma desigual'};
+    return {tipo:'Covalente apolar', detalle:'comparten los electrones de forma pareja'};
+  }
+
+  function calcBasico(){
+    const H = parseFloat(document.getElementById('b-H').value)||0.0000001;
+    const pH = -Math.log10(H);
+    const out = document.getElementById('b-readout');
+    let tipo = pH<7 ? 'Ácido' : (pH>7 ? 'Básico' : 'Neutro');
+    out.innerText = `pH = −log(${H}) = ${pH.toFixed(2)}\nTipo: ${tipo}`;
+    out.classList.add('show');
+  }
+
+  function calcAvanzado(){
+    const pH = parseFloat(document.getElementById('a-pH').value)||7;
+    const pOH = 14 - pH;
+    const out = document.getElementById('a-readout');
+    let tipo = pH<7 ? 'Ácida' : (pH>7 ? 'Básica' : 'Neutra');
+    out.innerText = `pOH = 14 − ${pH} = ${pOH.toFixed(2)}\nSolución: ${tipo}`;
+    out.classList.add('show');
+  }
+</script>
+
+</body>
+</html>

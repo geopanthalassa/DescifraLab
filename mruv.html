@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MRUV — Movimiento Rectilíneo Uniformemente Variado | Fórmula y Calculadora — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --grid:#E4E0D4;
+    --ink:#1C2733;
+    --ink-soft:#4A5568;
+    --amber:#D9A441;
+    --amber-dark:#B8842E;
+    --pine:#2F6B5E;
+    --pine-dark:#225046;
+    --white:#FFFFFF;
+    --line:#D8D3C4;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+  header.top{
+    padding:36px 20px 28px;
+    max-width:760px;margin:0 auto;
+    border-bottom:2px solid var(--ink);
+  }
+  .brand-link{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--amber-dark);
+    text-decoration:none;
+    margin-bottom:12px;
+    letter-spacing:0.01em;
+  }
+  .brand-link:hover{text-decoration:underline;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--pine-dark);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px,5vw,46px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--ink-soft);font-size:16px;max-width:56ch;}
+
+  .level-nav{
+    display:flex;gap:8px;margin:28px 0 0;
+  }
+  .level-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;font-weight:700;
+    padding:10px 18px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    cursor:pointer;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .level-btn.active{background:var(--ink);color:var(--paper);}
+
+  section.level{display:none;margin-top:36px;}
+  section.level.active{display:block;}
+
+  .card{
+    background:var(--white);
+    border:2px solid var(--ink);
+    padding:28px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .card::before{
+    content:attr(data-tag);
+    position:absolute;
+    top:-13px;left:20px;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+  }
+  section.level[data-level="avanzado"] .card::before{background:var(--pine);color:var(--white);}
+
+  h2{font-family:'Fraunces', serif;font-size:22px;font-weight:600;margin:6px 0 14px;}
+
+  .formula-box{
+    font-family:'JetBrains Mono', monospace;
+    font-size:20px;
+    font-weight:700;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    padding:16px 20px;
+    margin:14px 0;
+    text-align:center;
+    letter-spacing:0.02em;
+  }
+  .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
+  .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+
+  /* Calculadora */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media(max-width:520px){.calc-grid{grid-template-columns:1fr;}}
+  .field label{
+    display:block;font-size:12px;font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;
+  }
+  .field input{
+    width:100%;padding:10px 12px;
+    border:2px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;background:var(--white);
+  }
+  .field input:focus{outline:3px solid var(--amber);outline-offset:1px;}
+  .calc-btn{
+    margin-top:16px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    padding:12px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.05em;
+    cursor:pointer;
+  }
+  .calc-btn:hover{background:var(--amber-dark);}
+  .readout{
+    margin-top:18px;
+    background:var(--ink);
+    color:#8FE3C7;
+    font-family:'JetBrains Mono', monospace;
+    padding:18px 20px;
+    font-size:15px;
+    min-height:24px;
+    display:none;
+    white-space:pre-line;
+  }
+  .readout.show{display:block;}
+
+  .example{
+    background:var(--paper);
+    border-left:4px solid var(--pine);
+    padding:16px 18px;
+    font-size:15px;
+    margin-top:10px;
+  }
+  section.level[data-level="basico"] .example{border-left-color:var(--amber-dark);}
+
+  .exercises ol{padding-left:20px;}
+  .exercises li{margin-bottom:14px;}
+  details{
+    margin-top:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  details summary{cursor:pointer;color:var(--pine-dark);font-weight:700;}
+
+  .faq h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;}
+  .faq p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .related{
+    margin-top:40px;padding-top:24px;border-top:2px solid var(--ink);
+  }
+  .related h2{font-size:16px;}
+  .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+  .related-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    background:var(--white);
+  }
+  .related-links a:hover{border-color:var(--ink);}
+
+  .sim-box{
+    background:var(--ink);
+    border:2px solid var(--ink);
+    padding:14px;
+    margin-top:16px;
+  }
+  #sim-canvas-basico, #sim-canvas-avanzado{
+    display:block;width:100%;height:auto;
+  }
+  .sim-readout{
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    color:#8FE3C7;font-size:13px;
+    margin-top:10px;padding-top:10px;
+    border-top:1px solid #3A4756;
+  }
+  .speed-row{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-left:14px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;color:var(--ink-soft);
+  }
+  .speed-btn{
+    border:1px solid var(--line);background:var(--white);
+    padding:6px 10px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;cursor:pointer;
+  }
+  .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="index.html" class="brand-link">DescifraLab</a>
+  <div class="eyebrow">Mecánica · Cinemática</div>
+  <h1>MRUV — Movimiento Rectilíneo Uniformemente Variado</h1>
+  <p class="subtitle">Fórmulas, calculadora interactiva, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
+  <nav class="level-nav">
+    <button class="level-btn active" data-target="basico">Básico</button>
+    <button class="level-btn" data-target="avanzado">Avanzado</button>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- NIVEL BÁSICO -->
+  <section class="level active" data-level="basico">
+
+    <div class="card" data-tag="Concepto">
+      <h2>¿Qué es el MRUV?</h2>
+      <p>Es el movimiento en línea recta donde la velocidad cambia de forma constante en el tiempo, porque hay una aceleración que no varía. A diferencia del MRU (velocidad constante), acá el objeto acelera o frena siempre al mismo ritmo.</p>
+      <div class="formula-box">v = v₀ + a·t</div>
+      <div class="formula-box">x = x₀ + v₀·t + ½·a·t²</div>
+      <p class="var-list"><span>v</span> = velocidad final &nbsp;·&nbsp; <span>v₀</span> = velocidad inicial &nbsp;·&nbsp; <span>a</span> = aceleración &nbsp;·&nbsp; <span>t</span> = tiempo &nbsp;·&nbsp; <span>x</span> = posición final &nbsp;·&nbsp; <span>x₀</span> = posición inicial</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula velocidad y distancia</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Velocidad inicial v₀ (m/s)</label><input type="number" id="b-v0" value="0"></div>
+        <div class="field"><label>Aceleración a (m/s²)</label><input type="number" id="b-a" value="2"></div>
+        <div class="field"><label>Tiempo t (s)</label><input type="number" id="b-t" value="5"></div>
+      </div>
+      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
+      <div class="readout" id="b-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Mira el movimiento</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Usa los mismos valores de la calculadora de arriba y toca reproducir para ver al auto moverse.</p>
+      <div class="sim-box">
+        <canvas id="sim-canvas-basico" width="680" height="140"></canvas>
+        <div class="sim-readout">
+          <span id="sim-t-basico">t = 0.0 s</span>
+          <span id="sim-v-basico">v = 0.0 m/s</span>
+          <span id="sim-x-basico">x = 0.0 m</span>
+        </div>
+      </div>
+      <button class="calc-btn" id="sim-btn-basico" onclick="toggleSim('basico')">▶ Reproducir</button>
+      <div class="speed-row">
+        <span>Velocidad:</span>
+        <button class="speed-btn" data-speed="0.5" onclick="setSpeed('basico',0.5,this)">0.5×</button>
+        <button class="speed-btn active" data-speed="1" onclick="setSpeed('basico',1,this)">1×</button>
+        <button class="speed-btn" data-speed="2" onclick="setSpeed('basico',2,this)">2×</button>
+      </div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>Un auto parte del reposo (v₀ = 0) y acelera a 2 m/s² durante 5 segundos.</strong></p>
+        <p>v = 0 + 2×5 = <strong>10 m/s</strong><br>
+        x = 0 + 0×5 + ½×2×5² = <strong>25 m</strong></p>
+        <p>El auto llega a 10 m/s y recorrió 25 metros.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Una moto parte con v₀ = 4 m/s y acelera a 3 m/s² durante 4 s. ¿Qué velocidad alcanza?
+          <details><summary>Ver respuesta</summary>v = 4 + 3×4 = 16 m/s</details>
+        </li>
+        <li>Un ciclista frena de 10 m/s a razón de −2 m/s² durante 3 s. ¿Cuál es su velocidad final?
+          <details><summary>Ver respuesta</summary>v = 10 + (−2)×3 = 4 m/s</details>
+        </li>
+        <li>Un cuerpo parte del reposo y acelera a 4 m/s² durante 6 s. ¿Qué distancia recorre?
+          <details><summary>Ver respuesta</summary>x = 0 + 0×6 + ½×4×6² = 72 m</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <!-- NIVEL AVANZADO -->
+  <section class="level" data-level="avanzado">
+
+    <div class="card" data-tag="Concepto">
+      <h2>Ecuación complementaria y movimiento en dos tramos</h2>
+      <p>Cuando no conoces el tiempo, usas la ecuación que relaciona velocidad y distancia directamente. También es común encontrar problemas de dos tramos, donde el objeto acelera y después frena, o cambia de aceleración a mitad de recorrido.</p>
+      <div class="formula-box">v² = v₀² + 2·a·(x − x₀)</div>
+      <p class="var-list">Útil cuando el dato que falta es el tiempo, y tienes velocidad inicial, final y aceleración o distancia.</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula distancia sin conocer el tiempo</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Velocidad inicial v₀ (m/s)</label><input type="number" id="a-v0" value="0"></div>
+        <div class="field"><label>Velocidad final v (m/s)</label><input type="number" id="a-v" value="20"></div>
+        <div class="field"><label>Aceleración a (m/s²)</label><input type="number" id="a-a" value="4"></div>
+      </div>
+      <button class="calc-btn" onclick="calcAvanzado()">Calcular</button>
+      <div class="readout" id="a-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Mira el aterrizaje</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Un avión aterriza a la velocidad final que pusiste arriba y frena hasta detenerse.</p>
+      <div class="sim-box">
+        <canvas id="sim-canvas-avanzado" width="680" height="140"></canvas>
+        <div class="sim-readout">
+          <span id="sim-t-avanzado">t = 0.0 s</span>
+          <span id="sim-v-avanzado">v = 0.0 m/s</span>
+          <span id="sim-x-avanzado">x = 0.0 m</span>
+        </div>
+      </div>
+      <button class="calc-btn" id="sim-btn-avanzado" onclick="toggleSim('avanzado')">▶ Reproducir</button>
+      <div class="speed-row">
+        <span>Velocidad:</span>
+        <button class="speed-btn" data-speed="0.5" onclick="setSpeed('avanzado',0.5,this)">0.5×</button>
+        <button class="speed-btn active" data-speed="1" onclick="setSpeed('avanzado',1,this)">1×</button>
+        <button class="speed-btn" data-speed="2" onclick="setSpeed('avanzado',2,this)">2×</button>
+      </div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo — problema de dos tramos</h2>
+      <div class="example">
+        <p><strong>Un tren parte del reposo y acelera a 1.5 m/s² hasta alcanzar 30 m/s. Después frena a razón de −3 m/s² hasta detenerse. ¿Qué distancia total recorre?</strong></p>
+        <p><em>Tramo 1 (aceleración):</em><br>
+        v² = v₀² + 2·a·x → 30² = 0² + 2×1.5×x → x₁ = 300 m</p>
+        <p><em>Tramo 2 (frenado):</em><br>
+        0² = 30² + 2×(−3)×x → x₂ = 150 m</p>
+        <p>Distancia total = 300 + 150 = <strong>450 m</strong></p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Un cohete acelera desde 0 hasta 100 m/s con a = 5 m/s². ¿Qué distancia recorre?
+          <details><summary>Ver respuesta</summary>100² = 0 + 2×5×x → x = 1000 m</details>
+        </li>
+        <li>Un avión aterriza a 80 m/s y frena a −4 m/s² hasta detenerse. ¿Cuánta pista necesita?
+          <details><summary>Ver respuesta</summary>0 = 80² + 2×(−4)×x → x = 800 m</details>
+        </li>
+        <li>Un objeto pasa de 5 m/s a 25 m/s recorriendo 60 m. ¿Cuál fue su aceleración?
+          <details><summary>Ver respuesta</summary>25² = 5² + 2×a×60 → a = (625−25)/120 = 5 m/s²</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <div class="card faq" data-tag="FAQ">
+    <h2>Preguntas frecuentes</h2>
+    <h3>¿Cuál es la diferencia entre MRU y MRUV?</h3>
+    <p>En el MRU la velocidad es constante (no hay aceleración). En el MRUV la velocidad cambia de forma constante porque hay una aceleración fija.</p>
+    <h3>¿Qué significa una aceleración negativa?</h3>
+    <p>Que el objeto frena (desacelera) si va en la misma dirección que su velocidad, o que acelera en sentido contrario al que se mueve.</p>
+    <h3>¿Cómo sé qué fórmula usar?</h3>
+    <p>Si tienes el tiempo, usa v = v₀ + a·t y x = x₀ + v₀·t + ½·a·t². Si no tienes el tiempo pero sí las velocidades y la distancia (o la aceleración), usa v² = v₀² + 2·a·(x − x₀).</p>
+  </div>
+
+  <div class="related">
+    <h2>Temas relacionados</h2>
+    <div class="related-links">
+      <a href="mru.html">MRU — Movimiento Rectilíneo Uniforme</a>
+      <a href="newton.html">Segunda Ley de Newton (F = m·a)</a>
+      <a href="trabajo-energia.html">Trabajo y Energía</a>
+      <a href="calor-especifico.html">Calor Específico y Cambios de Estado</a>
+      <a href="dilatacion-termica.html">Dilatación Térmica</a>
+      <a href="fluidos.html">Presión Hidrostática y Flotación</a>
+      <a href="relatividad.html">Relatividad: Dilatación Temporal</a>
+      <a href="formulario.html">Machete de Fórmulas</a>
+      <a href="electromagnetismo.html">Electromagnetismo</a>
+      <a href="conversor-unidades.html">Conversor de Unidades</a>
+      <a href="evaluaciones.html">Evaluaciones</a>
+      <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+      <a href="experimentos.html">Experimentos Caseros</a>
+      <a href="modelo-atomico.html">Modelo Atómico y Tabla Periódica</a>
+      <a href="estequiometria.html">Estequiometría y El Mol</a>
+      <a href="configuracion-electronica.html">Configuración Electrónica</a>
+      <a href="oxido-reduccion.html">Óxido-Reducción</a>
+      <a href="enlaces-quimicos.html">Enlaces Químicos</a>
+      <a href="acido-base.html">Ácido-Base y pH</a>
+      <a href="concentracion-soluciones.html">Concentración de Soluciones</a>
+      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
+      <a href="leyes-gases.html">Leyes de los Gases</a>
+      <a href="energia-nuclear.html">Energía Nuclear</a>
+      <a href="tiro-oblicuo.html">Tiro Oblicuo — Movimiento Parabólico</a>
+      <a href="mcu.html">Movimiento Circular Uniforme (MCU)</a>
+      <a href="impulso-momentum.html">Impulso y Cantidad de Movimiento</a>
+      <a href="estatica-torque.html">Estática y Torque</a>
+      <a href="maquinas-simples.html">Máquinas Simples</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.level-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('section.level').forEach(s=>s.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`section.level[data-level="${btn.dataset.target}"]`).classList.add('active');
+    });
+  });
+
+  function calcBasico(){
+    const v0 = parseFloat(document.getElementById('b-v0').value)||0;
+    const a = parseFloat(document.getElementById('b-a').value)||0;
+    const t = parseFloat(document.getElementById('b-t').value)||0;
+    const v = v0 + a*t;
+    const x = v0*t + 0.5*a*t*t;
+    const out = document.getElementById('b-readout');
+    out.innerText = `v = ${v0} + ${a}×${t} = ${v.toFixed(2)} m/s\nx = ${v0}×${t} + ½×${a}×${t}² = ${x.toFixed(2)} m`;
+    out.classList.add('show');
+  }
+
+  function calcAvanzado(){
+    const v0 = parseFloat(document.getElementById('a-v0').value)||0;
+    const v = parseFloat(document.getElementById('a-v').value)||0;
+    const a = parseFloat(document.getElementById('a-a').value)||0;
+    if(a===0){
+      document.getElementById('a-readout').innerText = "La aceleración no puede ser 0 para este cálculo.";
+      document.getElementById('a-readout').classList.add('show');
+      return;
+    }
+    const x = (v*v - v0*v0) / (2*a);
+    const out = document.getElementById('a-readout');
+    out.innerText = `x = (${v}² − ${v0}²) / (2×${a}) = ${x.toFixed(2)} m`;
+    out.classList.add('show');
+  }
+
+  // ---- Simulación visual reutilizable ----
+  // Dibuja una pista con marcas de distancia y un ícono que se mueve
+  // según posición x(t) calculada en tiempo real. Sirve para auto, avión, tren, etc.
+  // con solo cambiar el emoji y los datos de entrada.
+
+  function drawTrack(ctx, w, h, xMax, iconX, icon){
+    ctx.clearRect(0,0,w,h);
+    // pista
+    ctx.strokeStyle = '#3A4756';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(20,h-30); ctx.lineTo(w-20,h-30);
+    ctx.stroke();
+    // marcas de distancia
+    ctx.fillStyle = '#5C6B7A';
+    ctx.font = '11px JetBrains Mono';
+    const steps = 6;
+    for(let i=0;i<=steps;i++){
+      const px = 20 + (i/steps)*(w-40);
+      ctx.beginPath();
+      ctx.moveTo(px,h-34); ctx.lineTo(px,h-26);
+      ctx.stroke();
+      ctx.fillText(Math.round((i/steps)*xMax)+'m', px-10, h-12);
+    }
+    // ícono — invertido horizontalmente para que "mire" hacia la derecha,
+    // la dirección real del movimiento (los emoji de vehículos miran
+    // hacia la izquierda por defecto)
+    ctx.font = '32px sans-serif';
+    ctx.save();
+    ctx.translate(20 + iconX*(w-60) + 16, h-32);
+    ctx.scale(-1,1);
+    ctx.fillText(icon, -16, 0);
+    ctx.restore();
+  }
+
+  // Estado de simulación por nivel: guarda t actual, si está corriendo, velocidad, y los parámetros del movimiento
+  const simState = {
+    basico: {t:0, running:false, speed:1, tMax:5, v0:0, a:2, xAt:null, lastFrame:null},
+    avanzado: {t:0, running:false, speed:1, tMax:5, v0:0, a:0, xAt:null, lastFrame:null}
+  };
+
+  function setSpeed(level, speed, btn){
+    simState[level].speed = speed;
+    document.querySelectorAll(`.sim-box`)[level==='basico'?0:1]
+      .parentElement.querySelectorAll('.speed-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function toggleSim(level){
+    const s = simState[level];
+    const btn = document.getElementById('sim-btn-'+level);
+    const isBasico = level==='basico';
+
+    // Si arranca de cero (t=0 y no corriendo) recalcula los parámetros desde los inputs actuales,
+    // aplicando el multiplicador de velocidad directamente sobre v0 y a — así el objeto
+    // realmente se mueve más rápido/lento, y el valor de v mostrado coincide con lo que se ve.
+    if(s.t === 0 && !s.running){
+      if(isBasico){
+        s.v0 = (parseFloat(document.getElementById('b-v0').value)||0) * s.speed;
+        s.a = (parseFloat(document.getElementById('b-a').value)||0) * s.speed;
+        s.tMax = parseFloat(document.getElementById('b-t').value)||5;
+      } else {
+        const v0orig = parseFloat(document.getElementById('a-v0').value)||0;
+        const vFinalOrig = parseFloat(document.getElementById('a-v').value)||0;
+        const aOrig = parseFloat(document.getElementById('a-a').value)||0;
+        s.tMax = aOrig!==0 ? Math.abs((vFinalOrig - v0orig)/aOrig) : 5;
+        s.v0 = v0orig * s.speed;
+        s.a = aOrig * s.speed;
+      }
+      s.xAt = (t)=> s.v0*t + 0.5*s.a*t*t;
+      s.xMax = Math.max(s.xAt(s.tMax), 1);
+    }
+
+    if(s.running){
+      // Pausar
+      s.running = false;
+      btn.innerText = '▶ Continuar';
+    } else {
+      // Reproducir / continuar
+      s.running = true;
+      btn.innerText = '⏸ Pausar';
+      s.lastFrame = performance.now();
+      requestAnimationFrame((now)=>simFrame(level, now));
+    }
+  }
+
+  function simFrame(level, now){
+    const s = simState[level];
+    if(!s.running) return;
+
+    const isBasico = level==='basico';
+    const canvas = document.getElementById(isBasico ? 'sim-canvas-basico' : 'sim-canvas-avanzado');
+    const ctx = canvas.getContext('2d');
+    const icon = isBasico ? '🚗' : '✈️';
+
+    const dt = (now - s.lastFrame)/1000 * (s.tMax / Math.min(Math.max(s.tMax,1),8));
+    s.lastFrame = now;
+    s.t = Math.min(s.t + dt, s.tMax);
+
+    const x = s.xAt(s.t);
+    const v = s.v0 + s.a*s.t;
+    drawTrack(ctx, canvas.width, canvas.height, s.xMax, x/s.xMax, icon);
+
+    document.getElementById(isBasico?'sim-t-basico':'sim-t-avanzado').innerText = `t = ${s.t.toFixed(1)} s`;
+    document.getElementById(isBasico?'sim-v-basico':'sim-v-avanzado').innerText = `v = ${v.toFixed(1)} m/s`;
+    document.getElementById(isBasico?'sim-x-basico':'sim-x-avanzado').innerText = `x = ${x.toFixed(1)} m`;
+
+    if(s.t < s.tMax){
+      requestAnimationFrame((n)=>simFrame(level,n));
+    } else {
+      s.running = false;
+      s.t = 0; // listo para reiniciar en el próximo click
+      document.getElementById('sim-btn-'+level).innerText = '▶ Reproducir';
+    }
+  }
+
+  // Dibujo inicial en reposo
+  window.addEventListener('load', ()=>{
+    const c1 = document.getElementById('sim-canvas-basico');
+    drawTrack(c1.getContext('2d'), c1.width, c1.height, 25, 0, '🚗');
+    const c2 = document.getElementById('sim-canvas-avanzado');
+    drawTrack(c2.getContext('2d'), c2.width, c2.height, 20, 0, '✈️');
+  });
+</script>
+
+</body>
+</html>

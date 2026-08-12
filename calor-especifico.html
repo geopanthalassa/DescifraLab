@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calor Específico y Cambios de Estado | Simulador y Calculadora — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --grid:#E4E0D4;
+    --ink:#1C2733;
+    --ink-soft:#4A5568;
+    --amber:#D9A441;
+    --amber-dark:#B8842E;
+    --pine:#2F6B5E;
+    --pine-dark:#225046;
+    --white:#FFFFFF;
+    --line:#D8D3C4;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+  header.top{
+    padding:36px 20px 28px;
+    max-width:760px;margin:0 auto;
+    border-bottom:2px solid var(--ink);
+  }
+  .brand-link{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--amber-dark);
+    text-decoration:none;
+    margin-bottom:12px;
+    letter-spacing:0.01em;
+  }
+  .brand-link:hover{text-decoration:underline;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--pine-dark);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px,5vw,46px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--ink-soft);font-size:16px;max-width:56ch;}
+
+  .level-nav{
+    display:flex;gap:8px;margin:28px 0 0;
+  }
+  .level-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;font-weight:700;
+    padding:10px 18px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    cursor:pointer;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .level-btn.active{background:var(--ink);color:var(--paper);}
+
+  section.level{display:none;margin-top:36px;}
+  section.level.active{display:block;}
+
+  .card{
+    background:var(--white);
+    border:2px solid var(--ink);
+    padding:28px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .card::before{
+    content:attr(data-tag);
+    position:absolute;
+    top:-13px;left:20px;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+  }
+  section.level[data-level="avanzado"] .card::before{background:var(--pine);color:var(--white);}
+
+  h2{font-family:'Fraunces', serif;font-size:22px;font-weight:600;margin:6px 0 14px;}
+
+  .formula-box{
+    font-family:'JetBrains Mono', monospace;
+    font-size:20px;
+    font-weight:700;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    padding:16px 20px;
+    margin:14px 0;
+    text-align:center;
+    letter-spacing:0.02em;
+  }
+  .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
+  .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+
+  /* Calculadora */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media(max-width:520px){.calc-grid{grid-template-columns:1fr;}}
+  .field label{
+    display:block;font-size:12px;font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;
+  }
+  .field input{
+    width:100%;padding:10px 12px;
+    border:2px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;background:var(--white);
+  }
+  .field input:focus{outline:3px solid var(--amber);outline-offset:1px;}
+  .calc-btn{
+    margin-top:16px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    padding:12px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.05em;
+    cursor:pointer;
+  }
+  .calc-btn:hover{background:var(--amber-dark);}
+  .readout{
+    margin-top:18px;
+    background:var(--ink);
+    color:#8FE3C7;
+    font-family:'JetBrains Mono', monospace;
+    padding:18px 20px;
+    font-size:15px;
+    min-height:24px;
+    display:none;
+    white-space:pre-line;
+  }
+  .readout.show{display:block;}
+
+  .example{
+    background:var(--paper);
+    border-left:4px solid var(--pine);
+    padding:16px 18px;
+    font-size:15px;
+    margin-top:10px;
+  }
+  section.level[data-level="basico"] .example{border-left-color:var(--amber-dark);}
+
+  .exercises ol{padding-left:20px;}
+  .exercises li{margin-bottom:14px;}
+  details{
+    margin-top:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  details summary{cursor:pointer;color:var(--pine-dark);font-weight:700;}
+
+  .faq h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;}
+  .faq p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .related{
+    margin-top:40px;padding-top:24px;border-top:2px solid var(--ink);
+  }
+  .related h2{font-size:16px;}
+  .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+  .related-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    background:var(--white);
+  }
+  .related-links a:hover{border-color:var(--ink);}
+
+  .sim-box{
+    background:var(--ink);
+    border:2px solid var(--ink);
+    padding:14px;
+    margin-top:16px;
+  }
+  .sim-box canvas{
+    display:block;width:100%;height:auto;
+  }
+  .sim-readout{
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    color:#8FE3C7;font-size:13px;
+    margin-top:10px;padding-top:10px;
+    border-top:1px solid #3A4756;
+  }
+  .speed-row{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-left:14px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;color:var(--ink-soft);
+  }
+  .speed-btn{
+    border:1px solid var(--line);background:var(--white);
+    padding:6px 10px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;cursor:pointer;
+  }
+  .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  .historia-card{background:var(--paper);}
+  .historia-flex{display:flex;gap:20px;align-items:center;}
+  .historia-img{
+    width:110px;height:130px;object-fit:cover;
+    border:2.5px solid var(--ink);
+    flex-shrink:0;
+    filter:sepia(15%);
+  }
+  .historia-texto h2{margin-top:0;}
+  @media(max-width:520px){
+    .historia-flex{flex-direction:column;align-items:center;text-align:center;}
+    .historia-img{width:140px;height:160px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="index.html" class="brand-link">DescifraLab</a>
+  <div class="eyebrow">Termodinámica</div>
+  <h1>Calor Específico y Cambios de Estado</h1>
+  <p class="subtitle">Fórmulas, simulador interactivo de partículas, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
+  <nav class="level-nav">
+    <button class="level-btn active" data-target="basico">Básico</button>
+    <button class="level-btn" data-target="avanzado">Avanzado</button>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- NIVEL BÁSICO -->
+  <section class="level active" data-level="basico">
+
+    <div class="card" data-tag="Concepto">
+      <h2>¿Qué es el calor específico?</h2>
+      <p>Es cuánta energía hace falta para calentar una cierta cantidad de una sustancia. Cada material es distinto: al agua le cuesta mucho calentarse (por eso tarda en hervir), mientras que un metal se calienta rápido con poca energía.</p>
+      <div class="formula-box">Q = m · c · ΔT</div>
+      <p class="var-list"><span>Q</span> = calor entregado (Joule, J) &nbsp;·&nbsp; <span>m</span> = masa (kg) &nbsp;·&nbsp; <span>c</span> = calor específico del material (J/kg·°C) &nbsp;·&nbsp; <span>ΔT</span> = cambio de temperatura (°C)</p>
+      <p style="color:var(--ink-soft);font-size:14.5px;">El calor específico del agua es 4186 J/kg·°C — uno de los más altos que existen, por eso el mar tarda tanto en cambiar de temperatura comparado con la tierra.</p>
+    </div>
+
+    <div class="card historia-card" data-tag="Historia">
+      <div class="historia-flex">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Portrait%20of%20Joseph%20Black%20Wellcome%20L0011643.jpg?width=200" alt="Retrato de Joseph Black" class="historia-img">
+        <div class="historia-texto">
+          <h2>¿Quién fue Joseph Black?</h2>
+          <p>Joseph Black (1728-1799) fue un químico y físico escocés. Fue el primero en distinguir claramente entre calor y temperatura, y en 1760 descubrió el concepto de <strong>calor específico</strong>: que distintas sustancias necesitan distintas cantidades de energía para cambiar su temperatura la misma cantidad.</p>
+          <p style="color:var(--ink-soft);font-size:14px;">También descubrió el <strong>calor latente</strong> (la energía "escondida" en los cambios de estado), un hallazgo que su propio alumno, James Watt, usó para mejorar drásticamente la eficiencia de la máquina de vapor. Black también descubrió el dióxido de carbono, al que llamó "aire fijo".</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula el calor necesario</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Masa m (kg)</label><input type="number" id="b-m" value="1"></div>
+        <div class="field"><label>Calor específico c (J/kg·°C)</label><input type="number" id="b-c" value="4186"></div>
+        <div class="field"><label>ΔT (°C)</label><input type="number" id="b-dT" value="50"></div>
+      </div>
+      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
+      <div class="readout" id="b-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Mira qué le pasa a las partículas al calentarse</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Mueves el control de temperatura y miras cómo las partículas pasan de quietas (sólido) a vibrar (líquido) a dispersarse (gas). Así se ve por dentro lo que la fórmula calcula por fuera.</p>
+      <div class="sim-box">
+        <canvas id="particle-canvas" width="680" height="260"></canvas>
+        <div class="sim-readout">
+          <span id="particle-temp">Temperatura: 20°C</span>
+          <span id="particle-phase">Estado: Sólido</span>
+        </div>
+      </div>
+      <input type="range" id="temp-slider" min="0" max="200" value="20" style="width:100%;margin-top:14px;accent-color:#D9A441;" oninput="updateTemp(this.value)">
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>¿Cuánto calor hace falta para calentar 1 kg de agua desde 20°C hasta 70°C?</strong></p>
+        <p>ΔT = 70 − 20 = 50°C</p>
+        <p>Q = 1 × 4186 × 50 = <strong>209.300 J</strong> (≈ 209 kJ)</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>¿Cuánto calor necesita 0.5 kg de agua para subir 20°C?
+          <details><summary>Ver respuesta</summary>Q = 0.5×4186×20 = 41.860 J</details>
+        </li>
+        <li>Una barra de hierro de 2 kg (c = 450 J/kg·°C) sube su temperatura 30°C. ¿Cuánto calor absorbió?
+          <details><summary>Ver respuesta</summary>Q = 2×450×30 = 27.000 J</details>
+        </li>
+        <li>Si a 1 kg de agua le entregas 83.720 J, ¿cuánto sube su temperatura?
+          <details><summary>Ver respuesta</summary>ΔT = Q/(m×c) = 83720/(1×4186) = 20°C</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <!-- NIVEL AVANZADO -->
+  <section class="level" data-level="avanzado">
+
+    <div class="card" data-tag="Concepto">
+      <h2>Calor latente: cuando la temperatura no sube</h2>
+      <p>Durante un cambio de estado (fusión o ebullición), toda la energía que entra se usa para romper la estructura de las partículas, no para subir la temperatura. Por eso el agua se queda "clavada" en 100°C mientras hierve, aunque le sigas dando calor.</p>
+      <div class="formula-box">Q = m · L</div>
+      <p class="var-list"><span>L</span> = calor latente del material (J/kg) — de fusión (sólido→líquido) o de vaporización (líquido→gas), son valores distintos.</p>
+      <p style="color:var(--ink-soft);font-size:14.5px;">Para el agua: calor latente de fusión ≈ 334.000 J/kg, calor latente de vaporización ≈ 2.260.000 J/kg (mucho mayor — por eso cuesta tanto más hervir agua que derretir hielo).</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula el calor del cambio de estado</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Masa m (kg)</label><input type="number" id="a-m" value="1"></div>
+        <div class="field"><label>Calor latente L (J/kg)</label><input type="number" id="a-L" value="334000"></div>
+      </div>
+      <button class="calc-btn" onclick="calcAvanzado()">Calcular</button>
+      <div class="readout" id="a-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo — proceso completo</h2>
+      <div class="example">
+        <p><strong>Calientas 1 kg de hielo desde −10°C hasta convertirlo completamente en vapor a 100°C. ¿Cuánto calor total hace falta? (simplificado, sin contar el calentamiento del vapor)</strong></p>
+        <p>1) Calentar el hielo de −10°C a 0°C: Q₁ = m·c<sub>hielo</sub>·ΔT ≈ 1×2100×10 = 21.000 J</p>
+        <p>2) Fundir el hielo a 0°C (cambio de estado, temperatura constante): Q₂ = m·L<sub>fusión</sub> = 1×334.000 = 334.000 J</p>
+        <p>3) Calentar el agua líquida de 0°C a 100°C: Q₃ = m·c<sub>agua</sub>·ΔT = 1×4186×100 = 418.600 J</p>
+        <p>4) Evaporar el agua a 100°C: Q₄ = m·L<sub>vaporización</sub> = 1×2.260.000 = 2.260.000 J</p>
+        <p>Total = 21.000+334.000+418.600+2.260.000 = <strong>3.033.600 J</strong> (≈3 millones de Joule, casi todo se lo lleva la evaporación)</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>¿Cuánto calor hace falta para fundir 2 kg de hielo (L=334.000 J/kg)?
+          <details><summary>Ver respuesta</summary>Q = 2×334.000 = 668.000 J</details>
+        </li>
+        <li>¿Cuánto calor hace falta para evaporar 0.5 kg de agua (L=2.260.000 J/kg)?
+          <details><summary>Ver respuesta</summary>Q = 0.5×2.260.000 = 1.130.000 J</details>
+        </li>
+        <li>¿Por qué la temperatura del agua hirviendo no sube más de 100°C aunque el fuego siga fuerte?
+          <details><summary>Ver respuesta</summary>Porque toda la energía extra se usa para el cambio de estado (calor latente de vaporización), no para subir la temperatura, hasta que toda el agua se evapora.</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <div class="card faq" data-tag="FAQ">
+    <h2>Preguntas frecuentes</h2>
+    <h3>¿Por qué el agua tarda tanto en calentarse comparada con otros materiales?</h3>
+    <p>Porque su calor específico (4186 J/kg·°C) es muy alto — necesita mucha más energía que la mayoría de los materiales para subir la misma cantidad de temperatura. Por eso el mar modera el clima costero: absorbe y libera calor muy lentamente.</p>
+    <h3>¿Calor y temperatura son lo mismo?</h3>
+    <p>No. La temperatura mide qué tan rápido se mueven las partículas en promedio. El calor es la energía que se transfiere de un cuerpo a otro. Puedes agregarle calor a algo (como durante un cambio de estado) sin que su temperatura suba.</p>
+    <h3>¿Por qué durante la ebullición la temperatura no sube?</h3>
+    <p>Porque toda la energía que entra se usa para separar las partículas del líquido y convertirlas en gas (romper las fuerzas que las mantenían juntas), no para acelerarlas más. Recién cuando termina el cambio de estado, la temperatura vuelve a subir.</p>
+  </div>
+
+  <div class="related">
+    <h2>Temas relacionados</h2>
+    <div class="related-links">
+      <a href="trabajo-energia.html">Trabajo y Energía</a>
+      <a href="mru.html">MRU — Movimiento Rectilíneo Uniforme</a>
+      <a href="ley-ohm.html">Ley de Ohm (V = I·R)</a>
+      <a href="electromagnetismo.html">Electromagnetismo</a>
+      <a href="fluidos.html">Presión Hidrostática y Flotación</a>
+      <a href="formulario.html">Machete de Fórmulas</a>
+      <a href="conversor-unidades.html">Conversor de Unidades</a>
+      <a href="evaluaciones.html">Evaluaciones</a>
+      <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+      <a href="experimentos.html">Experimentos Caseros</a>
+      <a href="modelo-atomico.html">Modelo Atómico y Tabla Periódica</a>
+      <a href="estequiometria.html">Estequiometría y El Mol</a>
+      <a href="configuracion-electronica.html">Configuración Electrónica</a>
+      <a href="oxido-reduccion.html">Óxido-Reducción</a>
+      <a href="enlaces-quimicos.html">Enlaces Químicos</a>
+      <a href="acido-base.html">Ácido-Base y pH</a>
+      <a href="concentracion-soluciones.html">Concentración de Soluciones</a>
+      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
+      <a href="leyes-gases.html">Leyes de los Gases</a>
+      <a href="energia-nuclear.html">Energía Nuclear</a>
+      <a href="tiro-oblicuo.html">Tiro Oblicuo — Movimiento Parabólico</a>
+      <a href="mcu.html">Movimiento Circular Uniforme (MCU)</a>
+      <a href="impulso-momentum.html">Impulso y Cantidad de Movimiento</a>
+      <a href="estatica-torque.html">Estática y Torque</a>
+      <a href="maquinas-simples.html">Máquinas Simples</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.level-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('section.level').forEach(s=>s.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`section.level[data-level="${btn.dataset.target}"]`).classList.add('active');
+    });
+  });
+
+  function calcBasico(){
+    const m = parseFloat(document.getElementById('b-m').value)||0;
+    const c = parseFloat(document.getElementById('b-c').value)||0;
+    const dT = parseFloat(document.getElementById('b-dT').value)||0;
+    const Q = m*c*dT;
+    const out = document.getElementById('b-readout');
+    out.innerText = `Q = m×c×ΔT = ${m}×${c}×${dT} = ${Q.toFixed(0)} J`;
+    out.classList.add('show');
+  }
+
+  function calcAvanzado(){
+    const m = parseFloat(document.getElementById('a-m').value)||0;
+    const L = parseFloat(document.getElementById('a-L').value)||0;
+    const Q = m*L;
+    const out = document.getElementById('a-readout');
+    out.innerText = `Q = m×L = ${m}×${L} = ${Q.toFixed(0)} J`;
+    out.classList.add('show');
+  }
+
+  // ---- Simulador de partículas: sólido → líquido → gas ----
+  // Un slider de temperatura controla directamente la velocidad y el
+  // comportamiento de un conjunto de partículas: quietas en una grilla
+  // (sólido), vibrando y moviéndose libres pero contenidas (líquido),
+  // o dispersándose y escapando del recipiente (gas).
+
+  const N_PARTICLES = 36;
+  let particles = [];
+  let currentTemp = 20;
+  let particleAnimId = null;
+
+  function initParticles(w, h){
+    particles = [];
+    const cols = 6, rows = 6;
+    const marginX = 80, marginY = 60;
+    const spacingX = (w - marginX*2) / (cols-1);
+    const spacingY = (h - marginY*2) / (rows-1) * 0.6;
+    let i=0;
+    for(let r=0;r<rows;r++){
+      for(let c=0;c<cols;c++){
+        if(i>=N_PARTICLES) break;
+        const baseX = marginX + c*spacingX;
+        const baseY = h - marginY - r*spacingY;
+        particles.push({baseX, baseY, x:baseX, y:baseY, vx:0, vy:0});
+        i++;
+      }
+    }
+  }
+
+  function phaseFromTemp(t){
+    if(t < 60) return 'solido';
+    if(t < 140) return 'liquido';
+    return 'gas';
+  }
+
+  function phaseLabel(phase){
+    return phase==='solido' ? 'Sólido' : phase==='liquido' ? 'Líquido' : 'Gas';
+  }
+
+  function updateTemp(val){
+    currentTemp = parseFloat(val);
+    document.getElementById('particle-temp').innerText = `Temperatura: ${currentTemp}°C`;
+    document.getElementById('particle-phase').innerText = `Estado: ${phaseLabel(phaseFromTemp(currentTemp))}`;
+  }
+
+  function stepParticles(w, h){
+    const phase = phaseFromTemp(currentTemp);
+    const containerTop = 40, containerBottom = h-30, containerLeft = 40, containerRight = w-40;
+
+    particles.forEach(p=>{
+      if(phase==='solido'){
+        // vibran alrededor de su posición fija en la grilla, sin desplazarse
+        const jitter = (currentTemp/60) * 3;
+        p.x = p.baseX + (Math.random()-0.5)*jitter;
+        p.y = p.baseY + (Math.random()-0.5)*jitter;
+      } else if(phase==='liquido'){
+        // se mueven libremente pero quedan contenidas dentro del recipiente
+        const speed = 0.6 + ((currentTemp-60)/80) * 2.5;
+        p.vx += (Math.random()-0.5)*0.4;
+        p.vy += (Math.random()-0.5)*0.4;
+        p.vx = Math.max(-speed, Math.min(speed, p.vx));
+        p.vy = Math.max(-speed, Math.min(speed, p.vy));
+        p.x += p.vx;
+        p.y += p.vy;
+        if(p.x < containerLeft+8){ p.x = containerLeft+8; p.vx *= -1; }
+        if(p.x > containerRight-8){ p.x = containerRight-8; p.vx *= -1; }
+        if(p.y < containerTop+8){ p.y = containerTop+8; p.vy *= -1; }
+        if(p.y > containerBottom-8){ p.y = containerBottom-8; p.vy *= -1; }
+      } else {
+        // gas: se mueven rápido y pueden escapar del recipiente hacia arriba
+        const speed = 3 + ((currentTemp-140)/60) * 4;
+        p.vx += (Math.random()-0.5)*0.6;
+        p.vy += (Math.random()-0.5)*0.6;
+        p.vx = Math.max(-speed, Math.min(speed, p.vx));
+        p.vy = Math.max(-speed, Math.min(speed, p.vy));
+        p.x += p.vx;
+        p.y += p.vy;
+        if(p.x < 5) p.x = w-5;
+        if(p.x > w-5) p.x = 5;
+        if(p.y < -10) p.y = containerBottom-10; // si escapa arriba, reaparece abajo (reciclado visual)
+        if(p.y > containerBottom-8){ p.y = containerBottom-8; p.vy *= -1; }
+      }
+    });
+  }
+
+  function drawParticles(ctx, w, h){
+    ctx.clearRect(0,0,w,h);
+    const phase = phaseFromTemp(currentTemp);
+
+    // recipiente (solo se dibuja completo en sólido/líquido; en gas se ve "abierto" arriba)
+    ctx.strokeStyle = '#3A4756';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(40, 40); ctx.lineTo(40, h-30); ctx.lineTo(w-40, h-30); ctx.lineTo(w-40, 40);
+    if(phase !== 'gas'){ ctx.lineTo(40,40); }
+    ctx.stroke();
+
+    // partículas
+    const color = phase==='solido' ? '#8FE3C7' : phase==='liquido' ? '#7FB8E3' : '#D9A441';
+    ctx.fillStyle = color;
+    particles.forEach(p=>{
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 5, 0, Math.PI*2);
+      ctx.fill();
+    });
+  }
+
+  function particleLoop(){
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+    stepParticles(canvas.width, canvas.height);
+    drawParticles(ctx, canvas.width, canvas.height);
+    particleAnimId = requestAnimationFrame(particleLoop);
+  }
+
+  window.addEventListener('load', ()=>{
+    const canvas = document.getElementById('particle-canvas');
+    initParticles(canvas.width, canvas.height);
+    updateTemp(20);
+    particleLoop();
+  });
+</script>
+
+</body>
+</html>

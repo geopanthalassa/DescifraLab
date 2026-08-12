@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Docentes — Actividades de Clase Listas para Usar — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --grid:#E4E0D4;
+    --ink:#1C2733;
+    --ink-soft:#4A5568;
+    --amber:#D9A441;
+    --amber-dark:#B8842E;
+    --pine:#2F6B5E;
+    --pine-dark:#225046;
+    --white:#FFFFFF;
+    --line:#D8D3C4;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+  header.top{
+    padding:36px 20px 28px;
+    max-width:760px;margin:0 auto;
+    border-bottom:2px solid var(--ink);
+  }
+  .brand-link{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--amber-dark);
+    margin-bottom:12px;
+    letter-spacing:0.01em;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--pine-dark);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px,5vw,46px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--ink-soft);font-size:16px;max-width:56ch;}
+
+  .level-nav{
+    display:flex;gap:8px;margin:28px 0 0;
+  }
+  .level-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;font-weight:700;
+    padding:10px 18px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    cursor:pointer;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .level-btn.active{background:var(--ink);color:var(--paper);}
+
+  section.level{display:none;margin-top:36px;}
+  section.level.active{display:block;}
+
+  .card{
+    background:var(--white);
+    border:2px solid var(--ink);
+    padding:28px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .card::before{
+    content:attr(data-tag);
+    position:absolute;
+    top:-13px;left:20px;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+  }
+  section.level[data-level="avanzado"] .card::before{background:var(--pine);color:var(--white);}
+
+  h2{font-family:'Fraunces', serif;font-size:22px;font-weight:600;margin:6px 0 14px;}
+
+  .formula-box{
+    font-family:'JetBrains Mono', monospace;
+    font-size:20px;
+    font-weight:700;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    padding:16px 20px;
+    margin:14px 0;
+    text-align:center;
+    letter-spacing:0.02em;
+  }
+  .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
+  .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+
+  /* Calculadora */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media(max-width:520px){.calc-grid{grid-template-columns:1fr;}}
+  .field label{
+    display:block;font-size:12px;font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;
+  }
+  .field input{
+    width:100%;padding:10px 12px;
+    border:2px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;background:var(--white);
+  }
+  .field input:focus{outline:3px solid var(--amber);outline-offset:1px;}
+  .calc-btn{
+    margin-top:16px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    padding:12px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.05em;
+    cursor:pointer;
+  }
+  .calc-btn:hover{background:var(--amber-dark);}
+  .readout{
+    margin-top:18px;
+    background:var(--ink);
+    color:#8FE3C7;
+    font-family:'JetBrains Mono', monospace;
+    padding:18px 20px;
+    font-size:15px;
+    min-height:24px;
+    display:none;
+    white-space:pre-line;
+  }
+  .readout.show{display:block;}
+
+  .example{
+    background:var(--paper);
+    border-left:4px solid var(--pine);
+    padding:16px 18px;
+    font-size:15px;
+    margin-top:10px;
+  }
+  section.level[data-level="basico"] .example{border-left-color:var(--amber-dark);}
+
+  .exercises ol{padding-left:20px;}
+  .exercises li{margin-bottom:14px;}
+  details{
+    margin-top:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  details summary{cursor:pointer;color:var(--pine-dark);font-weight:700;}
+
+  .faq h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;}
+  .faq p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .related{
+    margin-top:40px;padding-top:24px;border-top:2px solid var(--ink);
+  }
+  .related h2{font-size:16px;}
+  .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+  .related-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    background:var(--white);
+  }
+  .related-links a:hover{border-color:var(--ink);}
+
+  .sim-box{
+    background:var(--ink);
+    border:2px solid var(--ink);
+    padding:14px;
+    margin-top:16px;
+  }
+  #sim-canvas-basico, #sim-canvas-avanzado{
+    display:block;width:100%;height:auto;
+  }
+  .sim-readout{
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    color:#8FE3C7;font-size:13px;
+    margin-top:10px;padding-top:10px;
+    border-top:1px solid #3A4756;
+  }
+  .speed-row{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-left:14px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;color:var(--ink-soft);
+  }
+  .speed-btn{
+    border:1px solid var(--line);background:var(--white);
+    padding:6px 10px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;cursor:pointer;
+  }
+  .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  .mach-grupo{margin-bottom:36px;}
+  .mach-titulo{
+    font-family:'Fraunces', serif;
+    font-size:24px;font-weight:700;
+    padding:10px 18px;margin-bottom:16px;
+    color:var(--white);
+    display:inline-flex;align-items:center;gap:10px;
+    border-radius:6px;
+  }
+  .mach-titulo .mach-emoji{font-size:26px;}
+
+  /* colores distintivos por categoría — cada tema con su propia paleta */
+  .mach-grupo.mecanica .mach-titulo{background:#D9714A;}
+  .mach-grupo.electricidad .mach-titulo{background:#4A90D9;}
+  .mach-grupo.termo .mach-titulo{background:#E0A030;}
+  .mach-grupo.moderna .mach-titulo{background:#8A5FC7;}
+  .mach-grupo.quimica .mach-titulo{background:#3FA05C;}
+  .mach-grupo.herramientas .mach-titulo{background:#5C6B7A;}
+
+  .mach-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(210px, 1fr));
+    gap:14px;
+  }
+  .mach-card{
+    display:block;
+    background:var(--white);
+    border:3px solid var(--ink);
+    border-radius:10px;
+    padding:16px 18px;
+    text-decoration:none;
+    color:var(--ink);
+    transition:transform 0.12s, box-shadow 0.12s;
+    position:relative;
+    overflow:hidden;
+  }
+  .mach-card::before{
+    content:'';
+    position:absolute;top:0;left:0;right:0;height:6px;
+  }
+  .mach-grupo.mecanica .mach-card::before{background:#D9714A;}
+  .mach-grupo.electricidad .mach-card::before{background:#4A90D9;}
+  .mach-grupo.termo .mach-card::before{background:#E0A030;}
+  .mach-grupo.moderna .mach-card::before{background:#8A5FC7;}
+  .mach-grupo.quimica .mach-card::before{background:#3FA05C;}
+  .mach-grupo.herramientas .mach-card::before{background:#5C6B7A;}
+
+  .mach-card:hover{
+    transform:translateY(-4px) rotate(-0.5deg);
+    box-shadow:5px 5px 0 var(--ink);
+  }
+  .mach-card.herramienta{border-style:dashed;}
+  .mach-card .mach-card-icon{font-size:30px;display:block;margin-bottom:6px;}
+  .mach-card h3{
+    font-family:'Fraunces', serif;font-size:16px;font-weight:700;
+    margin:0 0 10px;
+    color:var(--ink);
+  }
+  .mach-formula{
+    font-family:'JetBrains Mono', monospace;
+    font-size:14px;font-weight:700;
+    margin-top:5px;
+    background:var(--paper);
+    padding:4px 8px;
+    border-radius:4px;
+    display:inline-block;
+  }
+
+  /* ---- Elementos de "cuaderno anotado a mano": post-its, clips, flechas ---- */
+  .estudio-elemento{position:relative;}
+
+  .postit{
+    position:absolute;
+    width:130px;
+    padding:12px 14px 16px;
+    font-family:'Caveat', cursive;
+    font-size:18px;
+    line-height:1.25;
+    color:#3A3020;
+    box-shadow:2px 4px 8px rgba(0,0,0,0.18);
+    z-index:5;
+  }
+  .postit.amarillo{background:#F5E27A;transform:rotate(-4deg);}
+  .postit.rosa{background:#F3B8C4;transform:rotate(3deg);}
+  .postit.celeste{background:#A9D6E5;transform:rotate(-2deg);}
+  .postit::before{
+    content:'';
+    position:absolute;top:-8px;left:50%;
+    transform:translateX(-50%) rotate(-3deg);
+    width:34px;height:16px;
+    background:rgba(255,255,255,0.55);
+    border:1px solid rgba(0,0,0,0.08);
+  }
+
+  .clip-svg{position:absolute;z-index:6;filter:drop-shadow(1px 2px 2px rgba(0,0,0,0.25));}
+
+  .flecha-curva{position:absolute;z-index:4;pointer-events:none;}
+
+  .letras-varias{
+    font-family:'Caveat', cursive;
+    font-weight:700;
+  }
+
+  .exp-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+    gap:16px;
+  }
+  .exp-card{
+    background:var(--white);
+    border:3px solid var(--ink);
+    border-radius:10px;
+    padding:18px 20px;
+    position:relative;
+    overflow:hidden;
+  }
+  .exp-card::before{
+    content:'';
+    position:absolute;top:0;left:0;right:0;height:6px;
+  }
+  .mach-grupo.mecanica .exp-card::before{background:#D9714A;}
+  .mach-grupo.electricidad .exp-card::before{background:#4A90D9;}
+  .mach-grupo.termo .exp-card::before{background:#E0A030;}
+  .mach-grupo.quimica .exp-card::before{background:#3FA05C;}
+  .exp-card h3{
+    font-family:'Fraunces', serif;font-size:17px;font-weight:700;
+    margin:4px 0 6px;
+  }
+  .exp-tema{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:0 0 12px;
+  }
+  .exp-materiales{font-size:13.5px;margin:0 0 10px;}
+  .exp-pasos{padding-left:20px;margin:0 0 12px;font-size:13.5px;}
+  .exp-pasos li{margin-bottom:4px;}
+  .exp-explica{
+    font-size:13px;color:var(--ink-soft);
+    background:var(--paper);
+    padding:10px 12px;
+    border-radius:6px;
+    margin:0;
+  }
+
+  .banco-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    gap:20px;
+    margin-top:16px;
+  }
+  .banco-col h3{
+    font-family:'Fraunces', serif;font-size:15px;
+    margin:0 0 8px;
+  }
+  .banco-col ul{
+    padding-left:18px;margin:0;
+    font-size:13.5px;line-height:1.7;
+  }
+  .banco-col li{margin-bottom:2px;}
+
+  .mach-header-fila{
+    margin-bottom:16px;
+  }
+  .postit-margen{
+    position:absolute;
+    left:100%;
+    margin-left:24px;
+    width:150px;
+  }
+  @media(max-width:1150px){
+    .postit-margen{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="top" style="position:relative;">
+  <svg class="clip-svg" viewBox="0 0 40 70" width="34" height="60" style="position:absolute;top:8px;right:24px;transform:rotate(8deg);">
+    <path d="M20,4 C30,4 34,12 34,22 L34,50 C34,60 28,64 20,64 C12,64 8,58 8,50 L8,20 C8,14 12,10 16,10 L16,50 C16,54 18,56 20,56 C22,56 24,54 24,50 L24,18" fill="none" stroke="#8A94A0" stroke-width="3.5" stroke-linecap="round"/>
+  </svg>
+  <a href="index.html" class="brand-link">DescifraLab</a>
+  <div class="eyebrow">Recursos pedagógicos</div>
+  <h1>Para Docentes</h1>
+  <p class="subtitle">Actividades listas para llevar a clase, conectadas directo con las páginas del sitio — no reemplazan tu planificación, la complementan con algo concreto para hacer con tus estudiantes.</p>
+</header>
+
+<div class="wrap" style="position:relative;">
+
+  <div class="card">
+    <h2>Cómo usar esta sección</h2>
+    <p>Cada actividad indica objetivo, materiales, duración estimada, y cómo conectarla con la página teórica correspondiente del sitio. Están pensadas para grupos, con participación activa — no son "lee y responde".</p>
+  </div>
+
+  <!-- MECÁNICA -->
+  <div class="mach-grupo mecanica">
+    <h2 class="mach-titulo">Mecánica</h2>
+    <div class="exp-grid">
+
+      <div class="exp-card">
+        <h3>Carrera de autitos: medir en vez de memorizar</h3>
+        <p class="exp-tema">Conecta con: MRU y MRUV · 20-30 min · Grupos de 3-4</p>
+        <p class="exp-materiales"><strong>Materiales:</strong> autitos de juguete (o cualquier objeto que ruede), cinta métrica, cronómetro (el celular sirve)</p>
+        <ol class="exp-pasos">
+          <li>Cada grupo mide la distancia recorrida por su autito en 3 intervalos de tiempo distintos (por ejemplo, cada 1 segundo).</li>
+          <li>Calculan la velocidad en cada tramo, y comparan: ¿es constante (MRU) o cambia (MRUV)?</li>
+          <li>Cierre: proyectá la página de MRU/MRUV y que verifiquen sus cálculos con la calculadora.</li>
+        </ol>
+        <p class="exp-explica"><strong>Por qué funciona:</strong> medir con sus propias manos hace que la diferencia entre MRU y MRUV deje de ser abstracta — la sienten en los datos que ellos mismos recolectaron.</p>
+      </div>
+
+      <div class="exp-card">
+        <h3>Detective del movimiento</h3>
+        <p class="exp-tema">Conecta con: MRU, MRUV, Tiro Oblicuo · 15 min · Individual o parejas</p>
+        <p class="exp-materiales"><strong>Materiales:</strong> ninguno — solo el proyector con las páginas del sitio</p>
+        <ol class="exp-pasos">
+          <li>Mostrás las simulaciones de distintas páginas (auto de MRU, avión de MRUV, la pelota del tiro oblicuo) sin decir de cuál se trata.</li>
+          <li>Los estudiantes tienen que identificar, solo mirando cómo se mueve, qué tipo de movimiento es y por qué.</li>
+        </ol>
+        <p class="exp-explica"><strong>Por qué funciona:</strong> obliga a razonar sobre el fenómeno visual antes de recurrir a la fórmula — el orden inverso al que suele enseñarse.</p>
+      </div>
+
+      <div class="exp-card">
+        <h3>Debate: ¿por qué existen las máquinas simples?</h3>
+        <p class="exp-tema">Conecta con: Máquinas Simples · 15 min · Grupo completo</p>
+        <p class="exp-materiales"><strong>Materiales:</strong> ninguno</p>
+        <ol class="exp-pasos">
+          <li>Planteá la pregunta: "si una máquina simple no ahorra energía total, ¿para qué sirve entonces?"</li>
+          <li>Deja que debatan en grupos chicos antes de dar la respuesta — muchos van a intuir "cambia cómo aplicas la fuerza" sin saberlo formalmente.</li>
+          <li>Cerrá con el simulador de poleas del sitio, mostrando la fuerza real necesaria en cada caso.</li>
+        </ol>
+        <p class="exp-explica"><strong>Por qué funciona:</strong> genera el "conflicto cognitivo" antes de la respuesta — la retienen mejor cuando primero se preguntaron algo genuino.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ELECTRICIDAD -->
+  <div class="mach-grupo electricidad">
+    <h2 class="mach-titulo">Electricidad</h2>
+    <div class="exp-grid">
+
+      <div class="exp-card">
+        <h3>Circuito real vs. simulador</h3>
+        <p class="exp-tema">Conecta con: Circuitos, Ley de Ohm · 25 min · Grupos de 3-4</p>
+        <p class="exp-materiales"><strong>Materiales:</strong> pilas, cables, lamparitas o LEDs chicos (si hay disponibles; si no, salta directo al simulador)</p>
+        <ol class="exp-pasos">
+          <li>Si hay material: arman un circuito en serie y uno en paralelo con 2 lamparitas cada uno, y observan el brillo.</li>
+          <li>Después comparan con el simulador de Circuitos del sitio — ¿el brillo relativo coincide con lo que predijo la teoría?</li>
+          <li>Sin material: arrancá directo con el simulador, pero pedí que primero predigan qué circuito va a brillar más antes de tocar nada.</li>
+        </ol>
+        <p class="exp-explica"><strong>Por qué funciona:</strong> predecir antes de ver el resultado activa la curiosidad — "¿tenía razón o no?" engancha mucho más que solo observar.</p>
+      </div>
+
+      <div class="exp-card">
+        <h3>¿Por qué las casas usan paralelo y no serie?</h3>
+        <p class="exp-tema">Conecta con: Circuitos · 10 min · Grupo completo</p>
+        <p class="exp-materiales"><strong>Materiales:</strong> ninguno</p>
+        <ol class="exp-pasos">
+          <li>Preguntá: "si tu casa estuviera cableada en serie, ¿qué pasaría si se quema una lamparita?"</li>
+          <li>Dejalos razonar hasta que lleguen a que se apagaría toda la casa — de ahí surge naturalmente por qué se usa paralelo.</li>
+        </ol>
+        <p class="exp-explica"><strong>Por qué funciona:</strong> conecta un concepto abstracto con una experiencia cotidiana real (las luces de su propia casa).</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- QUÍMICA -->
+  <div class="mach-grupo quimica">
+    <h2 class="mach-titulo">Química</h2>
+    <div class="exp-grid">
+
+      <div class="exp-card">
+        <h3>Laboratorio de indicadores con repollo morado</h3>
+        <p class="exp-tema">Conecta con: Ácido-Base y pH · 30-40 min · Grupos de 3-4</p>
+        <p class="exp-materiales"><strong>Materiales:</strong> repollo morado, agua caliente, vasos, sustancias variadas de cocina (limón, vinagre, bicarbonato disuelto, jabón, gaseosa)</p>
+        <ol class="exp-pasos">
+          <li>Preparan el indicador (ver la página de Experimentos Caseros para el paso a paso completo).</li>
+          <li>Cada grupo prueba con 3-4 sustancias distintas y arma una tabla: sustancia, color resultante, ¿ácido o base?</li>
+          <li>Puesta en común: arman entre todos una escala de pH visual con los resultados de la clase completa.</li>
+        </ol>
+        <p class="exp-explica"><strong>Por qué funciona:</strong> ver el color cambiar en vivo es mucho más memorable que leer la escala de pH en un gráfico — y comparar resultados entre grupos genera discusión real.</p>
+      </div>
+
+      <div class="exp-card">
+        <h3>Búsqueda del tesoro en la tabla periódica</h3>
+        <p class="exp-tema">Conecta con: Modelo Atómico y Tabla Periódica · 15-20 min · Individual o parejas</p>
+        <p class="exp-materiales"><strong>Materiales:</strong> proyector o dispositivos con la tabla periódica interactiva del sitio</p>
+        <ol class="exp-pasos">
+          <li>Das pistas tipo acertijo: "Soy un gas noble del período 3", "Tengo Z=26 y soy un metal muy usado en construcción", "Mi electronegatividad es la más alta de toda la tabla".</li>
+          <li>Los estudiantes tienen que encontrar el elemento tocando la tabla interactiva y confirmando los datos.</li>
+        </ol>
+        <p class="exp-explica"><strong>Por qué funciona:</strong> convierte "memorizar la tabla" en un juego de deducción — usan la tabla como herramienta de consulta real, que es como se usa en la vida real.</p>
+      </div>
+
+      <div class="exp-card">
+        <h3>Predicción antes de la reacción</h3>
+        <p class="exp-tema">Conecta con: Óxido-Reducción · 15 min · Grupo completo o parejas</p>
+        <p class="exp-materiales"><strong>Materiales:</strong> proyector con el predictor de desplazamiento de la página de Óxido-Reducción</p>
+        <ol class="exp-pasos">
+          <li>Antes de tocar el predictor, planteá pares de metales (por ejemplo, cobre y hierro) y que cada grupo apueste si va a haber reacción o no, y por qué.</li>
+          <li>Verificás con el predictor del sitio, y el grupo que acertó explica su razonamiento a la clase.</li>
+        </ol>
+        <p class="exp-explica"><strong>Por qué funciona:</strong> convierte la serie de actividad en algo competitivo y memorable, en vez de una tabla más para memorizar.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Consejos generales para usar el sitio en clase</h2>
+    <ul style="padding-left:20px;margin:10px 0;">
+      <li><strong>Proyectá, no fotocopies:</strong> los simuladores pierden todo su valor en papel — usalos en vivo con el grupo completo.</li>
+      <li><strong>Pausá antes del resultado:</strong> en cualquier calculadora del sitio, pedí que los estudiantes predigan el resultado antes de tocar "Calcular" — genera mucho más enganche que solo mostrar el número.</li>
+      <li><strong>Usa Evaluaciones para cierre rápido:</strong> genera ejercicios al instante con números al azar — perfecto para los últimos 5 minutos de una clase, sin tener que preparar nada.</li>
+      <li><strong>Los experimentos caseros funcionan como tarea con seguimiento:</strong> mandalos de tarea, y que traigan una foto o un resumen de lo que observaron para discutir en la próxima clase.</li>
+    </ul>
+  </div>
+
+  <div class="card" data-tag="Nota" style="text-align:center;">
+    <p style="color:var(--ink-soft);font-size:14px;margin:0;">¿Tienes una actividad que funcionó bien en tu clase? Esta sección crece con el tiempo — cualquier idea nueva es bienvenida.</p>
+  </div>
+
+</div>
+
+<script>
+  // Esta página es solo de referencia — no necesita lógica interactiva,
+  // cada bloque es un enlace directo a su página completa.
+</script>
+
+</body>
+</html>

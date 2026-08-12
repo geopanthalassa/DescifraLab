@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ley de Ohm (V = I·R) | Fórmula y Calculadora — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --grid:#E4E0D4;
+    --ink:#1C2733;
+    --ink-soft:#4A5568;
+    --amber:#D9A441;
+    --amber-dark:#B8842E;
+    --pine:#2F6B5E;
+    --pine-dark:#225046;
+    --white:#FFFFFF;
+    --line:#D8D3C4;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+  header.top{
+    padding:36px 20px 28px;
+    max-width:760px;margin:0 auto;
+    border-bottom:2px solid var(--ink);
+  }
+  .brand-link{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--amber-dark);
+    text-decoration:none;
+    margin-bottom:12px;
+    letter-spacing:0.01em;
+  }
+  .brand-link:hover{text-decoration:underline;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--pine-dark);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px,5vw,46px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--ink-soft);font-size:16px;max-width:56ch;}
+
+  .level-nav{
+    display:flex;gap:8px;margin:28px 0 0;
+  }
+  .level-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;font-weight:700;
+    padding:10px 18px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    cursor:pointer;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .level-btn.active{background:var(--ink);color:var(--paper);}
+
+  section.level{display:none;margin-top:36px;}
+  section.level.active{display:block;}
+
+  .card{
+    background:var(--white);
+    border:2px solid var(--ink);
+    padding:28px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .card::before{
+    content:attr(data-tag);
+    position:absolute;
+    top:-13px;left:20px;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+  }
+  section.level[data-level="avanzado"] .card::before{background:var(--pine);color:var(--white);}
+
+  h2{font-family:'Fraunces', serif;font-size:22px;font-weight:600;margin:6px 0 14px;}
+
+  .formula-box{
+    font-family:'JetBrains Mono', monospace;
+    font-size:20px;
+    font-weight:700;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    padding:16px 20px;
+    margin:14px 0;
+    text-align:center;
+    letter-spacing:0.02em;
+  }
+  .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
+  .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+
+  /* Calculadora */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media(max-width:520px){.calc-grid{grid-template-columns:1fr;}}
+  .field label{
+    display:block;font-size:12px;font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;
+  }
+  .field input{
+    width:100%;padding:10px 12px;
+    border:2px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;background:var(--white);
+  }
+  .field input:focus{outline:3px solid var(--amber);outline-offset:1px;}
+  .calc-btn{
+    margin-top:16px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    padding:12px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.05em;
+    cursor:pointer;
+  }
+  .calc-btn:hover{background:var(--amber-dark);}
+  .readout{
+    margin-top:18px;
+    background:var(--ink);
+    color:#8FE3C7;
+    font-family:'JetBrains Mono', monospace;
+    padding:18px 20px;
+    font-size:15px;
+    min-height:24px;
+    display:none;
+    white-space:pre-line;
+  }
+  .readout.show{display:block;}
+
+  .example{
+    background:var(--paper);
+    border-left:4px solid var(--pine);
+    padding:16px 18px;
+    font-size:15px;
+    margin-top:10px;
+  }
+  section.level[data-level="basico"] .example{border-left-color:var(--amber-dark);}
+
+  .exercises ol{padding-left:20px;}
+  .exercises li{margin-bottom:14px;}
+  details{
+    margin-top:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  details summary{cursor:pointer;color:var(--pine-dark);font-weight:700;}
+
+  .faq h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;}
+  .faq p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .related{
+    margin-top:40px;padding-top:24px;border-top:2px solid var(--ink);
+  }
+  .related h2{font-size:16px;}
+  .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+  .related-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    background:var(--white);
+  }
+  .related-links a:hover{border-color:var(--ink);}
+
+  .sim-box{
+    background:var(--ink);
+    border:2px solid var(--ink);
+    padding:14px;
+    margin-top:16px;
+  }
+  .sim-box canvas{
+    display:block;width:100%;height:auto;
+  }
+  .sim-readout{
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    color:#8FE3C7;font-size:13px;
+    margin-top:10px;padding-top:10px;
+    border-top:1px solid #3A4756;
+  }
+  .speed-row{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-left:14px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;color:var(--ink-soft);
+  }
+  .speed-btn{
+    border:1px solid var(--line);background:var(--white);
+    padding:6px 10px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;cursor:pointer;
+  }
+  .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  .historia-card{background:var(--paper);}
+  .historia-flex{display:flex;gap:20px;align-items:center;}
+  .historia-img{
+    width:110px;height:130px;object-fit:cover;
+    border:2.5px solid var(--ink);
+    flex-shrink:0;
+    filter:sepia(15%);
+  }
+  .historia-texto h2{margin-top:0;}
+  @media(max-width:520px){
+    .historia-flex{flex-direction:column;align-items:center;text-align:center;}
+    .historia-img{width:140px;height:160px;}
+  }
+
+  .force-diagram{
+    background:var(--paper);
+    border:1px dashed var(--line);
+    margin-top:14px;
+    padding:8px;
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="index.html" class="brand-link">DescifraLab</a>
+  <div class="eyebrow">Electricidad</div>
+  <h1>Ley de Ohm (V = I·R)</h1>
+  <p class="subtitle">Fórmulas, calculadora interactiva, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
+  <nav class="level-nav">
+    <button class="level-btn active" data-target="basico">Básico</button>
+    <button class="level-btn" data-target="avanzado">Avanzado</button>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- NIVEL BÁSICO -->
+  <section class="level active" data-level="basico">
+
+    <div class="card" data-tag="Concepto">
+      <h2>¿Qué es la Ley de Ohm?</h2>
+      <p>Relaciona tres cosas en un circuito eléctrico simple: cuánta "presión eléctrica" empuja a la corriente (voltaje), cuánta corriente circula, y cuánto se resiste el material al paso de esa corriente.</p>
+      <div class="formula-box">V = I · R</div>
+      <p class="var-list"><span>V</span> = voltaje (Volt, V) &nbsp;·&nbsp; <span>I</span> = corriente (Ampere, A) &nbsp;·&nbsp; <span>R</span> = resistencia (Ohm, Ω)</p>
+      <p style="color:var(--ink-soft);font-size:14.5px;">Pensalo como una manguera de agua: el voltaje es la presión, la corriente es cuánta agua fluye, y la resistencia es qué tan angosta es la manguera. Más presión o menos resistencia = más flujo.</p>
+    </div>
+
+    <div class="card historia-card" data-tag="Historia">
+      <div class="historia-flex">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Georg-simon-ohm%201.jpg?width=200" alt="Retrato de Georg Simon Ohm" class="historia-img">
+        <div class="historia-texto">
+          <h2>¿Quién fue Georg Simon Ohm?</h2>
+          <p>Georg Simon Ohm (1789-1854) fue un físico y matemático alemán. Trabajando como profesor de secundaria, con instrumentos que él mismo construyó, descubrió en 1827 la relación directa entre voltaje, corriente y resistencia que hoy lleva su nombre — publicada en su libro <em>Die galvanische Kette, mathematisch bearbeitet</em>.</p>
+          <p style="color:var(--ink-soft);font-size:14px;">Su trabajo fue recibido con frialdad al principio por la comunidad científica alemana, y recién fue reconocido internacionalmente años después, cuando la Royal Society de Londres le otorgó la Medalla Copley en 1841.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula la corriente</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Voltaje V (V)</label><input type="number" id="b-V" value="12"></div>
+        <div class="field"><label>Resistencia R (Ω)</label><input type="number" id="b-R" value="4"></div>
+      </div>
+      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
+      <div class="readout" id="b-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Mira circular la corriente</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Cuanta más corriente, más rápido se mueven las cargas por el circuito. Toca reproducir con los valores de arriba.</p>
+      <div class="sim-box">
+        <canvas id="circuit-canvas" width="680" height="200"></canvas>
+        <div class="sim-readout">
+          <span id="circuit-V">V = 0 V</span>
+          <span id="circuit-I">I = 0.00 A</span>
+          <span id="circuit-R">R = 0 Ω</span>
+        </div>
+      </div>
+      <button class="calc-btn" id="circuit-btn" onclick="toggleCircuit()">▶ Reproducir</button>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>Una pila de 12 V está conectada a una resistencia de 4 Ω.</strong></p>
+        <p>I = V / R = 12 / 4 = <strong>3 A</strong></p>
+        <p>Circulan 3 Ampere por el circuito.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Una pila de 9 V se conecta a una resistencia de 3 Ω. ¿Cuál es la corriente?
+          <details><summary>Ver respuesta</summary>I = 9/3 = 3 A</details>
+        </li>
+        <li>Por una resistencia de 10 Ω circulan 2 A. ¿Qué voltaje hay aplicado?
+          <details><summary>Ver respuesta</summary>V = I×R = 2×10 = 20 V</details>
+        </li>
+        <li>Una lámpara tiene 6 V aplicados y circulan 0.5 A. ¿Cuál es su resistencia?
+          <details><summary>Ver respuesta</summary>R = V/I = 6/0.5 = 12 Ω</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <!-- NIVEL AVANZADO -->
+  <section class="level" data-level="avanzado">
+
+    <div class="card" data-tag="Concepto">
+      <h2>Resistencia equivalente: serie y paralelo</h2>
+      <p>Cuando hay más de una resistencia en el circuito, la Ley de Ohm sigue funcionando igual, pero primero hay que reducir todas las resistencias a una sola "equivalente". La cuenta depende de cómo están conectadas.</p>
+      <div class="formula-box">Serie: R<sub>eq</sub> = R₁ + R₂ + R₃ + ...</div>
+      <div class="formula-box">Paralelo: 1/R<sub>eq</sub> = 1/R₁ + 1/R₂ + 1/R₃ + ...</div>
+      <p class="var-list">En <strong>serie</strong>, la corriente pasa por todas las resistencias una detrás de otra (la resistencia total siempre aumenta). En <strong>paralelo</strong>, la corriente se reparte en varios caminos (la resistencia total siempre es menor a la más chica de todas).</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula la resistencia equivalente</h2>
+      <div class="calc-grid">
+        <div class="field"><label>R₁ (Ω)</label><input type="number" id="a-R1" value="4"></div>
+        <div class="field"><label>R₂ (Ω)</label><input type="number" id="a-R2" value="6"></div>
+      </div>
+      <div style="margin-top:10px;">
+        <label style="font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;color:var(--ink-soft);">
+          <input type="radio" name="config" value="serie" checked onchange="calcAvanzado()"> Serie
+        </label>
+        &nbsp;&nbsp;
+        <label style="font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;color:var(--ink-soft);">
+          <input type="radio" name="config" value="paralelo" onchange="calcAvanzado()"> Paralelo
+        </label>
+      </div>
+      <button class="calc-btn" onclick="calcAvanzado()">Calcular</button>
+      <div class="readout" id="a-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>Dos resistencias de 4 Ω y 6 Ω conectadas en serie.</strong></p>
+        <p>Req = 4 + 6 = <strong>10 Ω</strong></p>
+        <p><strong>Las mismas dos resistencias, ahora en paralelo:</strong></p>
+        <p>1/Req = 1/4 + 1/6 = 5/12 → Req = 12/5 = <strong>2.4 Ω</strong></p>
+        <p>Fijate que en paralelo la resistencia equivalente (2.4 Ω) es menor a la más chica de las dos (4 Ω) — eso siempre pasa en paralelo.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Tres resistencias de 2 Ω, 3 Ω y 5 Ω en serie. ¿Cuál es la resistencia total?
+          <details><summary>Ver respuesta</summary>Req = 2+3+5 = 10 Ω</details>
+        </li>
+        <li>Dos resistencias de 10 Ω cada una, en paralelo. ¿Cuál es la resistencia equivalente?
+          <details><summary>Ver respuesta</summary>1/Req = 1/10+1/10 = 2/10 → Req = 5 Ω</details>
+        </li>
+        <li>Una resistencia de 6 Ω en paralelo con otra de 12 Ω, conectadas a 12 V. ¿Cuánta corriente total circula?
+          <details><summary>Ver respuesta</summary>1/Req = 1/6+1/12 = 3/12 → Req = 4 Ω → I = 12/4 = 3 A</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <div class="card faq" data-tag="FAQ">
+    <h2>Preguntas frecuentes</h2>
+    <h3>¿Qué pasa si la resistencia es cero?</h3>
+    <p>En teoría, la corriente sería infinita (cortocircuito) — en la práctica, el cable o el componente se calienta mucho y puede dañarse, por eso los circuitos reales siempre tienen algo de resistencia.</p>
+    <h3>¿Por qué en paralelo la resistencia total es siempre menor?</h3>
+    <p>Porque cada rama nueva le da a la corriente un camino más para circular, así que en conjunto es "más fácil" que pase corriente — es como abrir más carriles en una autopista.</p>
+    <h3>¿La Ley de Ohm sirve para cualquier material?</h3>
+    <p>No siempre. Sirve perfecto para resistencias óhmicas (la mayoría de los cables y resistores comunes), pero hay componentes (como diodos o lamparitas incandescentes) donde la relación entre V e I no es una línea recta constante.</p>
+  </div>
+
+  <div class="related">
+    <h2>Temas relacionados</h2>
+    <div class="related-links">
+      <a href="potencia-electrica.html">Potencia Eléctrica (P = V·I)</a>
+      <a href="mruv.html">MRUV — Movimiento Rectilíneo Uniformemente Variado</a>
+      <a href="newton.html">Segunda Ley de Newton (F = m·a)</a>
+      <a href="trabajo-energia.html">Trabajo y Energía</a>
+      <a href="formulario.html">Machete de Fórmulas</a>
+      <a href="electromagnetismo.html">Electromagnetismo</a>
+      <a href="conversor-unidades.html">Conversor de Unidades</a>
+      <a href="evaluaciones.html">Evaluaciones</a>
+      <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+      <a href="experimentos.html">Experimentos Caseros</a>
+      <a href="modelo-atomico.html">Modelo Atómico y Tabla Periódica</a>
+      <a href="estequiometria.html">Estequiometría y El Mol</a>
+      <a href="configuracion-electronica.html">Configuración Electrónica</a>
+      <a href="oxido-reduccion.html">Óxido-Reducción</a>
+      <a href="enlaces-quimicos.html">Enlaces Químicos</a>
+      <a href="acido-base.html">Ácido-Base y pH</a>
+      <a href="concentracion-soluciones.html">Concentración de Soluciones</a>
+      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
+      <a href="leyes-gases.html">Leyes de los Gases</a>
+      <a href="energia-nuclear.html">Energía Nuclear</a>
+      <a href="tiro-oblicuo.html">Tiro Oblicuo — Movimiento Parabólico</a>
+      <a href="mcu.html">Movimiento Circular Uniforme (MCU)</a>
+      <a href="impulso-momentum.html">Impulso y Cantidad de Movimiento</a>
+      <a href="estatica-torque.html">Estática y Torque</a>
+      <a href="maquinas-simples.html">Máquinas Simples</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.level-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('section.level').forEach(s=>s.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`section.level[data-level="${btn.dataset.target}"]`).classList.add('active');
+    });
+  });
+
+  function calcBasico(){
+    const V = parseFloat(document.getElementById('b-V').value)||0;
+    const R = parseFloat(document.getElementById('b-R').value)||1;
+    const I = V/R;
+    const out = document.getElementById('b-readout');
+    out.innerText = `I = V / R = ${V} / ${R} = ${I.toFixed(2)} A`;
+    out.classList.add('show');
+  }
+
+  function calcAvanzado(){
+    const R1 = parseFloat(document.getElementById('a-R1').value)||0;
+    const R2 = parseFloat(document.getElementById('a-R2').value)||0.0001;
+    const config = document.querySelector('input[name="config"]:checked').value;
+    const out = document.getElementById('a-readout');
+    if(config==='serie'){
+      const Req = R1+R2;
+      out.innerText = `Req = ${R1} + ${R2} = ${Req.toFixed(2)} Ω (serie)`;
+    } else {
+      const Req = 1/((1/R1)+(1/R2));
+      out.innerText = `1/Req = 1/${R1} + 1/${R2}\nReq = ${Req.toFixed(2)} Ω (paralelo)`;
+    }
+    out.classList.add('show');
+  }
+
+
+  // ---- Circuito animado ----
+  // Dibuja un lazo rectangular con una pila y una resistencia (zigzag),
+  // y cargas (puntos) que circulan por el lazo a una velocidad
+  // proporcional a la corriente calculada.
+
+  let circuitRunning = false;
+  let circuitOffset = 0;
+  let circuitI = 0.75; // corriente inicial de ejemplo (A), se recalcula al reproducir
+  let circuitLastFrame = null;
+
+  function pointOnLoop(t, w, h){
+    // t va de 0 a 1, recorre el rectángulo en sentido horario empezando abajo a la izquierda
+    const left=40, right=w-40, top=40, bottom=h-40;
+    const perim = 2*(right-left) + 2*(bottom-top);
+    let d = t*perim;
+    const wSeg = right-left, hSeg = bottom-top;
+    if(d < wSeg){ return {x:left+d, y:bottom}; }
+    d -= wSeg;
+    if(d < hSeg){ return {x:right, y:bottom-d}; }
+    d -= hSeg;
+    if(d < wSeg){ return {x:right-d, y:top}; }
+    d -= wSeg;
+    return {x:left, y:top+d};
+  }
+
+  function drawCircuit(ctx, w, h, offset){
+    ctx.clearRect(0,0,w,h);
+    const left=40, right=w-40, top=40, bottom=h-40;
+
+    // lazo del circuito
+    ctx.strokeStyle = '#3A4756';
+    ctx.lineWidth = 3;
+    ctx.strokeRect(left, top, right-left, bottom-top);
+
+    // pila (en el lado izquierdo)
+    ctx.fillStyle = '#5C6B7A';
+    ctx.font = '11px JetBrains Mono';
+    ctx.save();
+    ctx.strokeStyle = '#D9A441';
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(left-14, (top+bottom)/2 - 16); ctx.lineTo(left+14, (top+bottom)/2 - 16);
+    ctx.stroke();
+    ctx.lineWidth = 8;
+    ctx.beginPath();
+    ctx.moveTo(left-8, (top+bottom)/2 + 16); ctx.lineTo(left+8, (top+bottom)/2 + 16);
+    ctx.stroke();
+    ctx.restore();
+    ctx.fillText('pila', left-14, (top+bottom)/2 + 40);
+
+    // resistencia zigzag (arriba)
+    ctx.strokeStyle = '#2F6B5E';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    const zx = (left+right)/2 - 40, zy = top;
+    ctx.moveTo(zx-20, zy);
+    for(let i=0;i<6;i++){
+      ctx.lineTo(zx + i*13 + 6, zy + (i%2===0 ? -10 : 10));
+    }
+    ctx.lineTo(zx+80, zy);
+    ctx.stroke();
+    ctx.fillStyle = '#2F6B5E';
+    ctx.fillText('R', zx+30, zy-16);
+
+    // cargas circulando
+    ctx.fillStyle = '#8FE3C7';
+    const nDots = 8;
+    for(let i=0;i<nDots;i++){
+      const t = ((i/nDots) + offset) % 1;
+      const p = pointOnLoop(t, w, h);
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 5, 0, Math.PI*2);
+      ctx.fill();
+    }
+  }
+
+  function toggleCircuit(){
+    const btn = document.getElementById('circuit-btn');
+    const canvas = document.getElementById('circuit-canvas');
+    if(circuitRunning){
+      circuitRunning = false;
+      btn.innerText = '▶ Reproducir';
+      return;
+    }
+    const V = parseFloat(document.getElementById('b-V').value)||0;
+    const R = parseFloat(document.getElementById('b-R').value)||1;
+    circuitI = V/R;
+    document.getElementById('circuit-V').innerText = `V = ${V} V`;
+    document.getElementById('circuit-I').innerText = `I = ${circuitI.toFixed(2)} A`;
+    document.getElementById('circuit-R').innerText = `R = ${R} Ω`;
+    circuitRunning = true;
+    btn.innerText = '⏸ Pausar';
+    circuitLastFrame = performance.now();
+    requestAnimationFrame(circuitFrame);
+  }
+
+  function circuitFrame(now){
+    if(!circuitRunning) return;
+    const canvas = document.getElementById('circuit-canvas');
+    const ctx = canvas.getContext('2d');
+    const dt = (now - circuitLastFrame)/1000;
+    circuitLastFrame = now;
+    // velocidad de las cargas proporcional a la corriente (con un factor de escala visual)
+    circuitOffset = (circuitOffset + dt * circuitI * 0.08) % 1;
+    drawCircuit(ctx, canvas.width, canvas.height, circuitOffset);
+    requestAnimationFrame(circuitFrame);
+  }
+
+  window.addEventListener('load', ()=>{
+    const c = document.getElementById('circuit-canvas');
+    drawCircuit(c.getContext('2d'), c.width, c.height, 0);
+  });
+</script>
+
+</body>
+</html>

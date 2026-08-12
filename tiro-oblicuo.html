@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tiro Oblicuo — Movimiento Parabólico | Simulador de Trayectoria — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --grid:#E4E0D4;
+    --ink:#1C2733;
+    --ink-soft:#4A5568;
+    --amber:#D9A441;
+    --amber-dark:#B8842E;
+    --pine:#2F6B5E;
+    --pine-dark:#225046;
+    --white:#FFFFFF;
+    --line:#D8D3C4;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+  header.top{
+    padding:36px 20px 28px;
+    max-width:760px;margin:0 auto;
+    border-bottom:2px solid var(--ink);
+  }
+  .brand-link{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--amber-dark);
+    text-decoration:none;
+    margin-bottom:12px;
+    letter-spacing:0.01em;
+  }
+  .brand-link:hover{text-decoration:underline;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--pine-dark);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px,5vw,46px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--ink-soft);font-size:16px;max-width:56ch;}
+
+  .level-nav{
+    display:flex;gap:8px;margin:28px 0 0;
+  }
+  .level-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;font-weight:700;
+    padding:10px 18px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    cursor:pointer;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .level-btn.active{background:var(--ink);color:var(--paper);}
+
+  section.level{display:none;margin-top:36px;}
+  section.level.active{display:block;}
+
+  .card{
+    background:var(--white);
+    border:2px solid var(--ink);
+    padding:28px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .card::before{
+    content:attr(data-tag);
+    position:absolute;
+    top:-13px;left:20px;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+  }
+  section.level[data-level="avanzado"] .card::before{background:var(--pine);color:var(--white);}
+
+  h2{font-family:'Fraunces', serif;font-size:22px;font-weight:600;margin:6px 0 14px;}
+
+  .formula-box{
+    font-family:'JetBrains Mono', monospace;
+    font-size:20px;
+    font-weight:700;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    padding:16px 20px;
+    margin:14px 0;
+    text-align:center;
+    letter-spacing:0.02em;
+  }
+  .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
+  .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+
+  /* Calculadora */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media(max-width:520px){.calc-grid{grid-template-columns:1fr;}}
+  .field label{
+    display:block;font-size:12px;font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;
+  }
+  .field input{
+    width:100%;padding:10px 12px;
+    border:2px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;background:var(--white);
+  }
+  .field input:focus{outline:3px solid var(--amber);outline-offset:1px;}
+  .calc-btn{
+    margin-top:16px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    padding:12px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.05em;
+    cursor:pointer;
+  }
+  .calc-btn:hover{background:var(--amber-dark);}
+  .readout{
+    margin-top:18px;
+    background:var(--ink);
+    color:#8FE3C7;
+    font-family:'JetBrains Mono', monospace;
+    padding:18px 20px;
+    font-size:15px;
+    min-height:24px;
+    display:none;
+    white-space:pre-line;
+  }
+  .readout.show{display:block;}
+
+  .example{
+    background:var(--paper);
+    border-left:4px solid var(--pine);
+    padding:16px 18px;
+    font-size:15px;
+    margin-top:10px;
+  }
+  section.level[data-level="basico"] .example{border-left-color:var(--amber-dark);}
+
+  .exercises ol{padding-left:20px;}
+  .exercises li{margin-bottom:14px;}
+  details{
+    margin-top:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  details summary{cursor:pointer;color:var(--pine-dark);font-weight:700;}
+
+  .faq h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;}
+  .faq p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .related{
+    margin-top:40px;padding-top:24px;border-top:2px solid var(--ink);
+  }
+  .related h2{font-size:16px;}
+  .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+  .related-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    background:var(--white);
+  }
+  .related-links a:hover{border-color:var(--ink);}
+
+  .sim-box{
+    background:var(--ink);
+    border:2px solid var(--ink);
+    padding:14px;
+    margin-top:16px;
+  }
+  .sim-box canvas{
+    display:block;width:100%;height:auto;
+  }
+  .sim-readout{
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    color:#8FE3C7;font-size:13px;
+    margin-top:10px;padding-top:10px;
+    border-top:1px solid #3A4756;
+  }
+  .speed-row{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-left:14px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;color:var(--ink-soft);
+  }
+  .speed-btn{
+    border:1px solid var(--line);background:var(--white);
+    padding:6px 10px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;cursor:pointer;
+  }
+  .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="index.html" class="brand-link">DescifraLab</a>
+  <div class="eyebrow">Mecánica · Cinemática</div>
+  <h1>Tiro Oblicuo — Movimiento Parabólico</h1>
+  <p class="subtitle">Fórmulas, simulador de trayectoria 2D con pausa y velocidad ajustable, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
+  <nav class="level-nav">
+    <button class="level-btn active" data-target="basico">Básico</button>
+    <button class="level-btn" data-target="avanzado">Avanzado</button>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- NIVEL BÁSICO -->
+  <section class="level active" data-level="basico">
+
+    <div class="card" data-tag="Concepto">
+      <h2>¿Qué es el tiro oblicuo?</h2>
+      <p>Es cuando lanzas algo con un ángulo (no derecho hacia arriba ni horizontal puro) y solo actúa la gravedad. La clave para resolverlo: separa el movimiento en dos ejes independientes — horizontal (velocidad constante, sin gravedad) y vertical (como una caída libre con velocidad inicial).</p>
+      <div class="formula-box">Alcance máximo: R = v₀² · sen(2θ) / g</div>
+      <div class="formula-box">Altura máxima: H = (v₀ · senθ)² / (2g)</div>
+      <p class="var-list"><span>v₀</span> = velocidad inicial (m/s) &nbsp;·&nbsp; <span>θ</span> = ángulo de lanzamiento &nbsp;·&nbsp; <span>g</span> = 9.8 m/s²</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula alcance y altura máxima</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Velocidad inicial v₀ (m/s)</label><input type="number" id="b-v0" value="20"></div>
+        <div class="field"><label>Ángulo θ (grados)</label><input type="number" id="b-ang" value="45"></div>
+      </div>
+      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
+      <div class="readout" id="b-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>Se lanza un proyectil a 20 m/s con un ángulo de 45°. ¿Cuál es su alcance y altura máxima?</strong></p>
+        <p>R = 20² × sen(90°) / 9.8 = 400 × 1 / 9.8 = <strong>40.8 m</strong></p>
+        <p>H = (20×sen45°)² / (2×9.8) = (14.14)² / 19.6 = <strong>10.2 m</strong></p>
+        <p>45° siempre da el alcance máximo posible para una velocidad inicial dada — por eso es el ángulo "ideal" en muchos deportes.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Un proyectil se lanza a 30 m/s con 30°. ¿Cuál es su alcance?
+          <details><summary>Ver respuesta</summary>R = 30²×sen(60°)/9.8 = 900×0.866/9.8 ≈ 79.5 m</details>
+        </li>
+        <li>¿Con qué ángulo se lanza para lograr el alcance máximo?
+          <details><summary>Ver respuesta</summary>45°, porque sen(2×45°)=sen(90°)=1, el valor máximo posible del seno</details>
+        </li>
+        <li>Un balón se patea a 15 m/s con 60°. ¿Cuál es su altura máxima?
+          <details><summary>Ver respuesta</summary>H = (15×sen60°)²/(2×9.8) = (12.99)²/19.6 ≈ 8.6 m</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <!-- NIVEL AVANZADO -->
+  <section class="level" data-level="avanzado">
+
+    <div class="card" data-tag="Concepto">
+      <h2>Trayectoria completa y tiempo de vuelo</h2>
+      <p>Para saber dónde está el proyectil en cualquier instante, se calculan las posiciones x e y por separado, cada una con su propia ecuación de movimiento.</p>
+      <div class="formula-box">x(t) = v₀·cos(θ)·t</div>
+      <div class="formula-box">y(t) = v₀·sen(θ)·t − ½·g·t²</div>
+      <div class="formula-box">Tiempo de vuelo: T = 2·v₀·sen(θ) / g</div>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Configura el lanzamiento</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Velocidad inicial v₀ (m/s)</label><input type="number" id="a-v0" value="25"></div>
+        <div class="field"><label>Ángulo θ (grados)</label><input type="number" id="a-ang" value="35"></div>
+      </div>
+      <button class="calc-btn" onclick="calcAvanzado()">Calcular</button>
+      <div class="readout" id="a-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Mira la trayectoria completa</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Con los valores de arriba, mira el proyectil trazar la parábola completa — puedes pausar y controlar la velocidad de reproducción.</p>
+      <div class="sim-box">
+        <canvas id="tiro-canvas" width="680" height="280"></canvas>
+        <div class="sim-readout">
+          <span id="tiro-t">t = 0.0 s</span>
+          <span id="tiro-x">x = 0.0 m</span>
+          <span id="tiro-y">y = 0.0 m</span>
+        </div>
+      </div>
+      <button class="calc-btn" id="tiro-btn" onclick="toggleTiro()">▶ Reproducir</button>
+      <div class="speed-row">
+        <span>Velocidad:</span>
+        <button class="speed-btn" data-speed="0.5" onclick="setTiroSpeed(0.5,this)">0.5×</button>
+        <button class="speed-btn active" data-speed="1" onclick="setTiroSpeed(1,this)">1×</button>
+        <button class="speed-btn" data-speed="2" onclick="setTiroSpeed(2,this)">2×</button>
+      </div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>Un proyectil se lanza a 25 m/s con 35°. ¿Cuánto tiempo está en el aire, y cuál es su alcance?</strong></p>
+        <p>T = 2×25×sen(35°)/9.8 = 2×25×0.574/9.8 ≈ <strong>2.93 s</strong></p>
+        <p>R = 25²×sen(70°)/9.8 = 625×0.940/9.8 ≈ <strong>59.9 m</strong></p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Un proyectil a 40 m/s y 20° de ángulo. ¿Cuánto tiempo está en el aire?
+          <details><summary>Ver respuesta</summary>T = 2×40×sen20°/9.8 = 2×40×0.342/9.8 ≈ 2.79 s</details>
+        </li>
+        <li>¿Por qué dos ángulos distintos (por ejemplo 30° y 60°) pueden dar el mismo alcance?
+          <details><summary>Ver respuesta</summary>Porque sen(2×30°)=sen(60°) y sen(2×60°)=sen(120°), y ambos ángulos (60° y 120°) tienen el mismo seno — son ángulos complementarios a 90° cuyo doble cae en valores de seno iguales.</details>
+        </li>
+        <li>¿Qué le pasa a la componente horizontal de la velocidad durante todo el vuelo?
+          <details><summary>Ver respuesta</summary>Se mantiene constante durante todo el vuelo, porque no hay ninguna fuerza horizontal actuando (solo la gravedad, que es vertical)</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <div class="card faq" data-tag="FAQ">
+    <h2>Preguntas frecuentes</h2>
+    <h3>¿Por qué se separa el movimiento en horizontal y vertical?</h3>
+    <p>Porque son independientes entre sí: la gravedad solo afecta la componente vertical, mientras que la horizontal no tiene ninguna fuerza actuando (ignorando el aire) y se mantiene constante durante todo el vuelo.</p>
+    <h3>¿El tiro oblicuo es lo mismo que la caída libre?</h3>
+    <p>La componente vertical del tiro oblicuo se comporta exactamente como una caída libre (con la misma aceleración g), solo que además el proyectil se mueve horizontalmente al mismo tiempo — por eso dibuja una parábola en vez de caer en línea recta.</p>
+    <h3>¿Qué ángulo da el alcance máximo?</h3>
+    <p>45°, siempre que el punto de lanzamiento y de llegada estén a la misma altura. Si el punto de llegada es más bajo (como lanzar desde un acantilado), el ángulo óptimo es menor a 45°.</p>
+  </div>
+
+  <div class="related">
+    <h2>Temas relacionados</h2>
+    <div class="related-links">
+      <a href="mruv.html">MRUV — Movimiento Rectilíneo Uniformemente Variado</a>
+      <a href="newton.html">Segunda Ley de Newton (F = m·a)</a>
+      <a href="formulario.html">Machete de Fórmulas</a>
+      <a href="electromagnetismo.html">Electromagnetismo</a>
+      <a href="maquinas-simples.html">Máquinas Simples</a>
+      <a href="conversor-unidades.html">Conversor de Unidades</a>
+      <a href="evaluaciones.html">Evaluaciones</a>
+      <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+      <a href="experimentos.html">Experimentos Caseros</a>
+      <a href="modelo-atomico.html">Modelo Atómico y Tabla Periódica</a>
+      <a href="estequiometria.html">Estequiometría y El Mol</a>
+      <a href="configuracion-electronica.html">Configuración Electrónica</a>
+      <a href="oxido-reduccion.html">Óxido-Reducción</a>
+      <a href="enlaces-quimicos.html">Enlaces Químicos</a>
+      <a href="acido-base.html">Ácido-Base y pH</a>
+      <a href="concentracion-soluciones.html">Concentración de Soluciones</a>
+      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
+      <a href="leyes-gases.html">Leyes de los Gases</a>
+      <a href="energia-nuclear.html">Energía Nuclear</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.level-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('section.level').forEach(s=>s.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`section.level[data-level="${btn.dataset.target}"]`).classList.add('active');
+    });
+  });
+
+  function calcBasico(){
+    const v0 = parseFloat(document.getElementById('b-v0').value)||0;
+    const angDeg = parseFloat(document.getElementById('b-ang').value)||0;
+    const ang = angDeg*Math.PI/180;
+    const g = 9.8;
+    const R = (v0*v0*Math.sin(2*ang))/g;
+    const H = Math.pow(v0*Math.sin(ang),2)/(2*g);
+    const out = document.getElementById('b-readout');
+    out.innerText = `R = ${v0}²×sen(${(2*angDeg).toFixed(0)}°)/9.8 = ${R.toFixed(2)} m\nH = (${v0}×sen${angDeg}°)²/(2×9.8) = ${H.toFixed(2)} m`;
+    out.classList.add('show');
+  }
+
+  function calcAvanzado(){
+    const v0 = parseFloat(document.getElementById('a-v0').value)||0;
+    const angDeg = parseFloat(document.getElementById('a-ang').value)||0;
+    const ang = angDeg*Math.PI/180;
+    const g = 9.8;
+    const T = (2*v0*Math.sin(ang))/g;
+    const R = (v0*v0*Math.sin(2*ang))/g;
+    const out = document.getElementById('a-readout');
+    out.innerText = `T = 2×${v0}×sen${angDeg}°/9.8 = ${T.toFixed(2)} s\nR = ${v0}²×sen(${(2*angDeg).toFixed(0)}°)/9.8 = ${R.toFixed(2)} m`;
+    out.classList.add('show');
+  }
+
+  // ---- Simulador de trayectoria 2D: tiro oblicuo con pausa y velocidad ----
+  let tiroState = {t:0, running:false, speed:1, tMax:5, v0:25, ang:35, xMax:1, yMax:1, lastFrame:null};
+
+  function setTiroSpeed(speed, btn){
+    tiroState.speed = speed;
+    btn.parentElement.querySelectorAll('.speed-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function drawTrayectoria(ctx, w, h, v0, angDeg, t){
+    ctx.clearRect(0,0,w,h);
+    const ang = angDeg*Math.PI/180;
+    const g = 9.8;
+    const T = (2*v0*Math.sin(ang))/g;
+    const R = (v0*v0*Math.sin(2*ang))/g;
+    const H = Math.pow(v0*Math.sin(ang),2)/(2*g);
+
+    const marginX = 40, marginBottom = 30, marginTop = 20;
+    const scaleX = (w-marginX*2)/Math.max(R,1);
+    const scaleY = (h-marginBottom-marginTop)/Math.max(H,1);
+    const scale = Math.min(scaleX, scaleY);
+
+    // suelo
+    ctx.strokeStyle = '#3A4756';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(marginX, h-marginBottom); ctx.lineTo(w-marginX, h-marginBottom);
+    ctx.stroke();
+
+    // trayectoria completa (línea punteada de referencia)
+    ctx.strokeStyle = '#5C6B7A';
+    ctx.setLineDash([3,4]);
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    for(let tt=0; tt<=T; tt+=T/60){
+      const x = v0*Math.cos(ang)*tt;
+      const y = v0*Math.sin(ang)*tt - 0.5*g*tt*tt;
+      const px = marginX + x*scale, py = (h-marginBottom) - y*scale;
+      if(tt===0) ctx.moveTo(px,py); else ctx.lineTo(px,py);
+    }
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // posición actual del proyectil
+    const tClamped = Math.min(t, T);
+    const xNow = v0*Math.cos(ang)*tClamped;
+    const yNow = Math.max(v0*Math.sin(ang)*tClamped - 0.5*g*tClamped*tClamped, 0);
+    const pxNow = marginX + xNow*scale, pyNow = (h-marginBottom) - yNow*scale;
+
+    ctx.font = '26px sans-serif';
+    ctx.textAlign='center';
+    ctx.fillText('⚽', pxNow, pyNow+8);
+    ctx.textAlign='left';
+
+    return {xNow, yNow, T};
+  }
+
+  function toggleTiro(){
+    const btn = document.getElementById('tiro-btn');
+    const s = tiroState;
+
+    if(s.t===0 && !s.running){
+      s.v0 = parseFloat(document.getElementById('a-v0').value)||25;
+      s.ang = parseFloat(document.getElementById('a-ang').value)||35;
+      const angRad = s.ang*Math.PI/180;
+      s.tMax = (2*s.v0*Math.sin(angRad))/9.8;
+    }
+
+    if(s.running){
+      s.running = false;
+      btn.innerText = '▶ Continuar';
+    } else {
+      s.running = true;
+      btn.innerText = '⏸ Pausar';
+      s.lastFrame = performance.now();
+      requestAnimationFrame(tiroFrame);
+    }
+  }
+
+  function tiroFrame(now){
+    const s = tiroState;
+    if(!s.running) return;
+    const canvas = document.getElementById('tiro-canvas');
+    const ctx = canvas.getContext('2d');
+
+    const dt = (now - s.lastFrame)/1000 * s.speed * (s.tMax / Math.min(Math.max(s.tMax,1),8));
+    s.lastFrame = now;
+    s.t = Math.min(s.t + dt, s.tMax);
+
+    const resultado = drawTrayectoria(ctx, canvas.width, canvas.height, s.v0, s.ang, s.t);
+
+    document.getElementById('tiro-t').innerText = `t = ${s.t.toFixed(1)} s`;
+    document.getElementById('tiro-x').innerText = `x = ${resultado.xNow.toFixed(1)} m`;
+    document.getElementById('tiro-y').innerText = `y = ${resultado.yNow.toFixed(1)} m`;
+
+    if(s.t < s.tMax){
+      requestAnimationFrame(tiroFrame);
+    } else {
+      s.running = false;
+      s.t = 0;
+      document.getElementById('tiro-btn').innerText = '▶ Reproducir';
+    }
+  }
+
+  window.addEventListener('load', ()=>{
+    const canvas = document.getElementById('tiro-canvas');
+    drawTrayectoria(canvas.getContext('2d'), canvas.width, canvas.height, 25, 35, 0);
+  });
+</script>
+
+</body>
+</html>

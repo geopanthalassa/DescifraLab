@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estática y Torque | Simulador de Palanca y Equilibrio — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --grid:#E4E0D4;
+    --ink:#1C2733;
+    --ink-soft:#4A5568;
+    --amber:#D9A441;
+    --amber-dark:#B8842E;
+    --pine:#2F6B5E;
+    --pine-dark:#225046;
+    --white:#FFFFFF;
+    --line:#D8D3C4;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+  header.top{
+    padding:36px 20px 28px;
+    max-width:760px;margin:0 auto;
+    border-bottom:2px solid var(--ink);
+  }
+  .brand-link{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--amber-dark);
+    text-decoration:none;
+    margin-bottom:12px;
+    letter-spacing:0.01em;
+  }
+  .brand-link:hover{text-decoration:underline;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--pine-dark);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px,5vw,46px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--ink-soft);font-size:16px;max-width:56ch;}
+
+  .level-nav{
+    display:flex;gap:8px;margin:28px 0 0;
+  }
+  .level-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;font-weight:700;
+    padding:10px 18px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    cursor:pointer;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .level-btn.active{background:var(--ink);color:var(--paper);}
+
+  section.level{display:none;margin-top:36px;}
+  section.level.active{display:block;}
+
+  .card{
+    background:var(--white);
+    border:2px solid var(--ink);
+    padding:28px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .card::before{
+    content:attr(data-tag);
+    position:absolute;
+    top:-13px;left:20px;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+  }
+  section.level[data-level="avanzado"] .card::before{background:var(--pine);color:var(--white);}
+
+  h2{font-family:'Fraunces', serif;font-size:22px;font-weight:600;margin:6px 0 14px;}
+
+  .formula-box{
+    font-family:'JetBrains Mono', monospace;
+    font-size:20px;
+    font-weight:700;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    padding:16px 20px;
+    margin:14px 0;
+    text-align:center;
+    letter-spacing:0.02em;
+  }
+  .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
+  .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+
+  /* Calculadora */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media(max-width:520px){.calc-grid{grid-template-columns:1fr;}}
+  .field label{
+    display:block;font-size:12px;font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;
+  }
+  .field input{
+    width:100%;padding:10px 12px;
+    border:2px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;background:var(--white);
+  }
+  .field input:focus{outline:3px solid var(--amber);outline-offset:1px;}
+  .calc-btn{
+    margin-top:16px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    padding:12px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.05em;
+    cursor:pointer;
+  }
+  .calc-btn:hover{background:var(--amber-dark);}
+  .readout{
+    margin-top:18px;
+    background:var(--ink);
+    color:#8FE3C7;
+    font-family:'JetBrains Mono', monospace;
+    padding:18px 20px;
+    font-size:15px;
+    min-height:24px;
+    display:none;
+    white-space:pre-line;
+  }
+  .readout.show{display:block;}
+
+  .example{
+    background:var(--paper);
+    border-left:4px solid var(--pine);
+    padding:16px 18px;
+    font-size:15px;
+    margin-top:10px;
+  }
+  section.level[data-level="basico"] .example{border-left-color:var(--amber-dark);}
+
+  .exercises ol{padding-left:20px;}
+  .exercises li{margin-bottom:14px;}
+  details{
+    margin-top:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  details summary{cursor:pointer;color:var(--pine-dark);font-weight:700;}
+
+  .faq h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;}
+  .faq p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .related{
+    margin-top:40px;padding-top:24px;border-top:2px solid var(--ink);
+  }
+  .related h2{font-size:16px;}
+  .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+  .related-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    background:var(--white);
+  }
+  .related-links a:hover{border-color:var(--ink);}
+
+  .sim-box{
+    background:var(--ink);
+    border:2px solid var(--ink);
+    padding:14px;
+    margin-top:16px;
+  }
+  .sim-box canvas{
+    display:block;width:100%;height:auto;
+  }
+  .sim-readout{
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    color:#8FE3C7;font-size:13px;
+    margin-top:10px;padding-top:10px;
+    border-top:1px solid #3A4756;
+  }
+  .speed-row{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-left:14px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;color:var(--ink-soft);
+  }
+  .speed-btn{
+    border:1px solid var(--line);background:var(--white);
+    padding:6px 10px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;cursor:pointer;
+  }
+  .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="index.html" class="brand-link">DescifraLab</a>
+  <div class="eyebrow">Mecánica · Dinámica</div>
+  <h1>Estática y Torque</h1>
+  <p class="subtitle">Fórmulas, simulador de palanca en equilibrio, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
+  <nav class="level-nav">
+    <button class="level-btn active" data-target="basico">Básico</button>
+    <button class="level-btn" data-target="avanzado">Avanzado</button>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- NIVEL BÁSICO -->
+  <section class="level active" data-level="basico">
+
+    <div class="card" data-tag="Concepto">
+      <h2>¿Qué es el torque?</h2>
+      <p>Es el "efecto de giro" que produce una fuerza alrededor de un punto fijo (pivote). No es lo mismo empujar una puerta cerca de la bisagra que lejos de ella — con la misma fuerza, empujar lejos del pivote gira mucho más fácil.</p>
+      <div class="formula-box">τ = F · d</div>
+      <p class="var-list"><span>τ</span> = torque (N·m) &nbsp;·&nbsp; <span>F</span> = fuerza aplicada, perpendicular al brazo (N) &nbsp;·&nbsp; <span>d</span> = distancia desde el pivote hasta donde se aplica la fuerza (m, "brazo de palanca")</p>
+      <p style="color:var(--ink-soft);font-size:14.5px;">Por eso las llaves inglesas largas aflojan tuercas duras más fácil que las cortas: con la misma fuerza de tu brazo, un mango más largo genera más torque.</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Calcula el torque</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Fuerza F (N)</label><input type="number" id="b-F" value="50"></div>
+        <div class="field"><label>Distancia al pivote d (m)</label><input type="number" id="b-d" value="0.3"></div>
+      </div>
+      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
+      <div class="readout" id="b-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>Aplicas 50 N en el extremo de una llave inglesa, a 0.3 m del centro de la tuerca.</strong></p>
+        <p>τ = F × d = 50 × 0.3 = <strong>15 N·m</strong></p>
+        <p>Si usaras una llave de 0.15 m (la mitad de larga) necesitarías el doble de fuerza para lograr el mismo torque.</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Aplicas 20 N a 0.5 m del pivote de una puerta. ¿Cuál es el torque?
+          <details><summary>Ver respuesta</summary>τ = 20×0.5 = 10 N·m</details>
+        </li>
+        <li>¿Qué fuerza necesitas para generar 12 N·m de torque con un brazo de 0.4 m?
+          <details><summary>Ver respuesta</summary>F = τ/d = 12/0.4 = 30 N</details>
+        </li>
+        <li>¿Por qué es más fácil abrir una puerta empujando en el borde (lejos de la bisagra) que cerca del centro?
+          <details><summary>Ver respuesta</summary>Porque a mayor distancia del pivote (bisagra), mayor torque para la misma fuerza aplicada — τ=F×d crece con d.</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <!-- NIVEL AVANZADO -->
+  <section class="level" data-level="avanzado">
+
+    <div class="card" data-tag="Concepto">
+      <h2>Equilibrio de una palanca (balanza)</h2>
+      <p>Un objeto está en equilibrio de rotación cuando la suma de todos los torques que actúan sobre él es cero. En una balanza clásica, esto significa que los torques de cada lado del punto de apoyo (fulcro) se cancelan.</p>
+      <div class="formula-box">F₁ · d₁ = F₂ · d₂</div>
+      <p class="var-list">Un peso chico lejos del fulcro puede equilibrar un peso grande cerca de él — esta es la base de toda palanca, desde una balanza hasta una carretilla.</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Encuentra el punto de equilibrio</h2>
+      <div class="calc-grid">
+        <div class="field"><label>Peso 1 — F₁ (N)</label><input type="number" id="a-F1" value="60" oninput="updateSeesaw()"></div>
+        <div class="field"><label>Distancia 1 — d₁ (m)</label><input type="number" id="a-d1" value="2" oninput="updateSeesaw()"></div>
+        <div class="field"><label>Peso 2 — F₂ (N)</label><input type="number" id="a-F2" value="40" oninput="updateSeesaw()"></div>
+      </div>
+      <button class="calc-btn" onclick="calcAvanzado()">Calcular d₂ necesaria</button>
+      <div class="readout" id="a-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Mira la balanza equilibrarse</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Con la distancia d₂ que calculaste, la balanza debería quedar horizontal. Mueves el slider para ver qué pasa si te alejas del punto correcto.</p>
+      <div class="sim-box">
+        <canvas id="seesaw-canvas" width="680" height="220"></canvas>
+        <div class="sim-readout">
+          <span id="seesaw-tau1">τ₁ = 0 N·m</span>
+          <span id="seesaw-tau2">τ₂ = 0 N·m</span>
+        </div>
+      </div>
+      <input type="range" id="d2-slider" min="0.5" max="6" step="0.1" value="3" style="width:100%;margin-top:14px;accent-color:#D9A441;" oninput="updateSeesaw()">
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>Un niño de 300 N se sienta a 2 m del centro de un sube y baja. ¿A qué distancia debe sentarse otro niño de 200 N para equilibrarlo?</strong></p>
+        <p>F₁×d₁ = F₂×d₂ → 300×2 = 200×d₂</p>
+        <p>d₂ = 600/200 = <strong>3 m</strong></p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Un peso de 100 N está a 1.5 m del fulcro. ¿A qué distancia debe ir un peso de 50 N para equilibrarlo?
+          <details><summary>Ver respuesta</summary>100×1.5 = 50×d₂ → d₂ = 150/50 = 3 m</details>
+        </li>
+        <li>Dos pesos iguales de 80 N: uno está a 1 m del fulcro. ¿Dónde debe ir el otro para el equilibrio?
+          <details><summary>Ver respuesta</summary>Como los pesos son iguales, también debe ir a 1 m (a igual distancia del otro lado)</details>
+        </li>
+        <li>¿Por qué una carretilla te permite levantar más peso del que podrías cargar directo?
+          <details><summary>Ver respuesta</summary>Porque la rueda actúa como fulcro, y tus manos aplican fuerza a mayor distancia del fulcro que el peso de la carga — el torque que necesitas hacer tú es menor gracias al brazo de palanca más largo.</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <div class="card faq" data-tag="FAQ">
+    <h2>Preguntas frecuentes</h2>
+    <h3>¿Qué diferencia hay entre fuerza y torque?</h3>
+    <p>La fuerza tiende a mover un objeto en línea recta. El torque tiende a hacerlo girar alrededor de un punto. Puedes aplicar mucha fuerza sin generar torque si la aplicas justo sobre el pivote (d=0) — por eso empujar una puerta justo en la bisagra no la abre, por más fuerte que empujes.</p>
+    <h3>¿Por qué las herramientas largas hacen más fuerza?</h3>
+    <p>No hacen "más fuerza" en sí — lo que hacen es multiplicar el torque para la misma fuerza aplicada, porque el brazo de palanca (d) es más largo. Por eso una llave larga afloja tuercas que una corta no puede.</p>
+    <h3>¿Qué significa "estar en equilibrio estático"?</h3>
+    <p>Que un objeto no se mueve ni gira: la suma de todas las fuerzas es cero (no acelera) y la suma de todos los torques también es cero (no rota).</p>
+  </div>
+
+  <div class="related">
+    <h2>Temas relacionados</h2>
+    <div class="related-links">
+      <a href="newton.html">Segunda Ley de Newton (F = m·a)</a>
+      <a href="impulso-momentum.html">Impulso y Cantidad de Movimiento</a>
+      <a href="trabajo-energia.html">Trabajo y Energía</a>
+      <a href="formulario.html">Machete de Fórmulas</a>
+      <a href="electromagnetismo.html">Electromagnetismo</a>
+      <a href="maquinas-simples.html">Máquinas Simples</a>
+      <a href="conversor-unidades.html">Conversor de Unidades</a>
+      <a href="evaluaciones.html">Evaluaciones</a>
+      <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+      <a href="experimentos.html">Experimentos Caseros</a>
+      <a href="modelo-atomico.html">Modelo Atómico y Tabla Periódica</a>
+      <a href="estequiometria.html">Estequiometría y El Mol</a>
+      <a href="configuracion-electronica.html">Configuración Electrónica</a>
+      <a href="oxido-reduccion.html">Óxido-Reducción</a>
+      <a href="enlaces-quimicos.html">Enlaces Químicos</a>
+      <a href="acido-base.html">Ácido-Base y pH</a>
+      <a href="concentracion-soluciones.html">Concentración de Soluciones</a>
+      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
+      <a href="leyes-gases.html">Leyes de los Gases</a>
+      <a href="energia-nuclear.html">Energía Nuclear</a>
+      <a href="tiro-oblicuo.html">Tiro Oblicuo — Movimiento Parabólico</a>
+      <a href="mcu.html">Movimiento Circular Uniforme (MCU)</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.level-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('section.level').forEach(s=>s.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`section.level[data-level="${btn.dataset.target}"]`).classList.add('active');
+    });
+  });
+
+  function calcBasico(){
+    const F = parseFloat(document.getElementById('b-F').value)||0;
+    const d = parseFloat(document.getElementById('b-d').value)||0;
+    const tau = F*d;
+    const out = document.getElementById('b-readout');
+    out.innerText = `τ = F × d = ${F} × ${d} = ${tau.toFixed(2)} N·m`;
+    out.classList.add('show');
+  }
+
+  function calcAvanzado(){
+    const F1 = parseFloat(document.getElementById('a-F1').value)||0;
+    const d1 = parseFloat(document.getElementById('a-d1').value)||0;
+    const F2 = parseFloat(document.getElementById('a-F2').value)||0.0001;
+    const d2 = (F1*d1)/F2;
+    const out = document.getElementById('a-readout');
+    out.innerText = `d₂ = (F₁×d₁)/F₂ = (${F1}×${d1})/${F2} = ${d2.toFixed(2)} m`;
+    out.classList.add('show');
+    // actualizar el slider al valor calculado para que coincida con la simulación
+    const slider = document.getElementById('d2-slider');
+    slider.value = Math.min(Math.max(d2, slider.min), slider.max);
+    updateSeesaw();
+  }
+
+  // ---- Simulador de balanza: se inclina según el torque neto ----
+  function drawSeesaw(ctx, w, h, tau1, tau2, d1, d2){
+    ctx.clearRect(0,0,w,h);
+    const fulcroX = w/2, fulcroY = h-50;
+    const netTau = tau1 - tau2; // positivo = lado 1 pesa más, gira hacia abajo del lado 1
+    const maxTiltDeg = 20;
+    const tilt = Math.max(-maxTiltDeg, Math.min(maxTiltDeg, netTau*0.8)) * Math.PI/180;
+
+    // fulcro (triángulo de apoyo)
+    ctx.fillStyle = '#3A4756';
+    ctx.beginPath();
+    ctx.moveTo(fulcroX-16, fulcroY+30);
+    ctx.lineTo(fulcroX+16, fulcroY+30);
+    ctx.lineTo(fulcroX, fulcroY);
+    ctx.closePath();
+    ctx.fill();
+
+    // tabla, rotada según el torque neto
+    const armLen = 220;
+    const x1 = fulcroX - armLen*Math.cos(tilt);
+    const y1 = fulcroY - armLen*Math.sin(tilt)*-1 + armLen*Math.sin(tilt); // simplificado abajo
+    const dx = Math.cos(tilt), dy = Math.sin(tilt);
+    const p1x = fulcroX - armLen*dx, p1y = fulcroY - armLen*dy;
+    const p2x = fulcroX + armLen*dx, p2y = fulcroY + armLen*dy;
+
+    ctx.strokeStyle = '#1C2733';
+    ctx.lineWidth = 8;
+    ctx.beginPath();
+    ctx.moveTo(p1x, p1y); ctx.lineTo(p2x, p2y);
+    ctx.stroke();
+
+    // pesos, ubicados sobre la tabla según sus distancias d1/d2 (escaladas)
+    const scale = 30;
+    const w1x = fulcroX - Math.min(d1*scale, armLen-10)*dx, w1y = fulcroY - Math.min(d1*scale, armLen-10)*dy;
+    const w2x = fulcroX + Math.min(d2*scale, armLen-10)*dx, w2y = fulcroY + Math.min(d2*scale, armLen-10)*dy;
+
+    ctx.font = '28px sans-serif';
+    ctx.textAlign='center';
+    ctx.fillText('⚪', w1x, w1y-14);
+    ctx.fillText('⚫', w2x, w2y-14);
+    ctx.textAlign='left';
+  }
+
+  function updateSeesaw(){
+    const F1 = parseFloat(document.getElementById('a-F1').value)||0;
+    const d1 = parseFloat(document.getElementById('a-d1').value)||0;
+    const F2 = parseFloat(document.getElementById('a-F2').value)||0;
+    const d2 = parseFloat(document.getElementById('d2-slider').value)||0;
+
+    const tau1 = F1*d1, tau2 = F2*d2;
+    document.getElementById('seesaw-tau1').innerText = `τ₁ = ${tau1.toFixed(1)} N·m`;
+    document.getElementById('seesaw-tau2').innerText = `τ₂ = ${tau2.toFixed(1)} N·m`;
+
+    const canvas = document.getElementById('seesaw-canvas');
+    drawSeesaw(canvas.getContext('2d'), canvas.width, canvas.height, tau1, tau2, d1, d2);
+  }
+
+  window.addEventListener('load', ()=>{
+    updateSeesaw();
+  });
+</script>
+
+</body>
+</html>
