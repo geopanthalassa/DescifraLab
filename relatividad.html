@@ -67,7 +67,29 @@
     transition:background 0.15s, color 0.15s;
   }
   .navbar-links a:hover{background:rgba(255,255,255,0.08);color:#fff;}
-  @media(max-width:640px){.navbar-links{display:none;}}
+  .navbar-toggle{
+    display:none;
+    background:none;border:none;cursor:pointer;
+    padding:6px;
+  }
+  .navbar-toggle span{
+    display:block;width:24px;height:2.5px;
+    background:#D8D3C4;margin:5px 0;
+    transition:transform 0.2s, opacity 0.2s;
+  }
+  @media(max-width:768px){
+    .navbar-links{
+      display:none;
+      width:100%;
+      flex-direction:column;
+      gap:2px;
+      order:3;
+    }
+    .navbar-links.open{display:flex;}
+    .navbar-toggle{display:block;}
+    .navbar-links a{padding:12px 14px;}
+  }
+
   .eyebrow{
     font-family:'JetBrains Mono', monospace;
     font-size:12px;
@@ -250,6 +272,9 @@
 
 <nav class="navbar">
   <a href="index.html" class="navbar-brand">DescifraLab</a>
+  <button class="navbar-toggle" onclick="toggleNavMobile()" aria-label="Abrir menú">
+    <span></span><span></span><span></span>
+  </button>
   <div class="navbar-links">
     <a href="fisica.html">Física</a>
     <a href="quimica.html">Química</a>
@@ -257,6 +282,7 @@
     <a href="conversor-unidades.html">Conversor</a>
     <a href="experimentos.html">Experimentos</a>
     <a href="docentes.html">Para Docentes</a>
+    <a href="banco-preguntas.html">Banco de Preguntas</a>
     <a href="evaluaciones.html">Evaluaciones</a>
     <a href="sobre-nosotros.html">Sobre la Fundadora</a>
   </div>
@@ -297,7 +323,7 @@
 
     <div class="card" data-tag="Simulación">
       <h2>Por qué se dilata el tiempo: el reloj de luz</h2>
-      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Un "reloj de luz" es un rayo de luz que rebota entre dos espejos — cada rebote completo es un "tic". Movés la velocidad, y mirás cómo el reloj de la derecha (en movimiento) tiquea cada vez más lento que el de la izquierda (en reposo) — literalmente porque su luz tiene que recorrer un camino diagonal más largo para completar el mismo rebote.</p>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Un "reloj de luz" es un rayo de luz que rebota entre dos espejos — cada rebote completo es un "tic". Mueves la velocidad, y miras cómo el reloj de la derecha (en movimiento) tiquea cada vez más lento que el de la izquierda (en reposo) — literalmente porque su luz tiene que recorrer un camino diagonal más largo para completar el mismo rebote.</p>
       <div class="sim-box">
         <canvas id="lightclock-canvas" width="680" height="240"></canvas>
         <div class="sim-readout">
@@ -430,6 +456,10 @@
 </div>
 
 <script>
+  function toggleNavMobile(){
+    document.querySelector('.navbar-links').classList.toggle('open');
+  }
+
   document.querySelectorAll('.level-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));

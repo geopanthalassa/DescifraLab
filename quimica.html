@@ -65,7 +65,29 @@
     transition:background 0.15s, color 0.15s;
   }
   .navbar-links a:hover{background:rgba(255,255,255,0.08);color:#fff;}
-  @media(max-width:640px){.navbar-links{display:none;}}
+  .navbar-toggle{
+    display:none;
+    background:none;border:none;cursor:pointer;
+    padding:6px;
+  }
+  .navbar-toggle span{
+    display:block;width:24px;height:2.5px;
+    background:#D8D3C4;margin:5px 0;
+    transition:transform 0.2s, opacity 0.2s;
+  }
+  @media(max-width:768px){
+    .navbar-links{
+      display:none;
+      width:100%;
+      flex-direction:column;
+      gap:2px;
+      order:3;
+    }
+    .navbar-links.open{display:flex;}
+    .navbar-toggle{display:block;}
+    .navbar-links a{padding:12px 14px;}
+  }
+
   .eyebrow{
     font-family:'JetBrains Mono', monospace;
     font-size:12px;
@@ -442,7 +464,7 @@
     transition:max-height 0.25s ease;
     padding-left:18px;
   }
-  .ti-item.abierto .ti-detalle{max-height:200px;}
+  .ti-item.abierto .ti-detalle{max-height:400px;}
   .ti-detalle p{
     font-size:13.5px;color:var(--ink-soft);
     padding-bottom:14px;margin:0;
@@ -467,6 +489,9 @@
 
 <nav class="navbar">
   <a href="index.html" class="navbar-brand">DescifraLab</a>
+  <button class="navbar-toggle" onclick="toggleNavMobile()" aria-label="Abrir menú">
+    <span></span><span></span><span></span>
+  </button>
   <div class="navbar-links">
     <a href="fisica.html">Física</a>
     <a href="quimica.html">Química</a>
@@ -474,6 +499,7 @@
     <a href="conversor-unidades.html">Conversor</a>
     <a href="experimentos.html">Experimentos</a>
     <a href="docentes.html">Para Docentes</a>
+    <a href="banco-preguntas.html">Banco de Preguntas</a>
     <a href="evaluaciones.html">Evaluaciones</a>
     <a href="sobre-nosotros.html">Sobre la Fundadora</a>
   </div>
@@ -565,6 +591,10 @@
 </div>
 
 <script>
+  function toggleNavMobile(){
+    document.querySelector('.navbar-links').classList.toggle('open');
+  }
+
   const TIMELINE_QUIMICA = [
     {año:'~500 a.C.-1600', titulo:'La era de la alquimia', texto:'Durante casi 2000 años, lo que hoy es química fue alquimia — la búsqueda de convertir metales comunes en oro y encontrar el "elixir de la vida eterna". Nunca lo lograron, pero desarrollaron técnicas de laboratorio (destilación, purificación) que la química real siguió usando.'},
     {año:'1661-1789', titulo:'Boyle y Lavoisier: nace el método', texto:'Robert Boyle (1661) empieza a tratar la química como ciencia experimental real, no alquimia. Antoine Lavoisier (1789) formula la Ley de Conservación de la Masa y refuta la "teoría del flogisto" — es considerado el padre de la química moderna.'},

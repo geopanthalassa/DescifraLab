@@ -65,7 +65,29 @@
     transition:background 0.15s, color 0.15s;
   }
   .navbar-links a:hover{background:rgba(255,255,255,0.08);color:#fff;}
-  @media(max-width:640px){.navbar-links{display:none;}}
+  .navbar-toggle{
+    display:none;
+    background:none;border:none;cursor:pointer;
+    padding:6px;
+  }
+  .navbar-toggle span{
+    display:block;width:24px;height:2.5px;
+    background:#D8D3C4;margin:5px 0;
+    transition:transform 0.2s, opacity 0.2s;
+  }
+  @media(max-width:768px){
+    .navbar-links{
+      display:none;
+      width:100%;
+      flex-direction:column;
+      gap:2px;
+      order:3;
+    }
+    .navbar-links.open{display:flex;}
+    .navbar-toggle{display:block;}
+    .navbar-links a{padding:12px 14px;}
+  }
+
   .eyebrow{
     font-family:'JetBrains Mono', monospace;
     font-size:12px;
@@ -442,7 +464,7 @@
     transition:max-height 0.25s ease;
     padding-left:18px;
   }
-  .ti-item.abierto .ti-detalle{max-height:200px;}
+  .ti-item.abierto .ti-detalle{max-height:400px;}
   .ti-detalle p{
     font-size:13.5px;color:var(--ink-soft);
     padding-bottom:14px;margin:0;
@@ -467,6 +489,9 @@
 
 <nav class="navbar">
   <a href="index.html" class="navbar-brand">DescifraLab</a>
+  <button class="navbar-toggle" onclick="toggleNavMobile()" aria-label="Abrir menú">
+    <span></span><span></span><span></span>
+  </button>
   <div class="navbar-links">
     <a href="fisica.html">Física</a>
     <a href="quimica.html">Química</a>
@@ -474,6 +499,7 @@
     <a href="conversor-unidades.html">Conversor</a>
     <a href="experimentos.html">Experimentos</a>
     <a href="docentes.html">Para Docentes</a>
+    <a href="banco-preguntas.html">Banco de Preguntas</a>
     <a href="evaluaciones.html">Evaluaciones</a>
     <a href="sobre-nosotros.html">Sobre la Fundadora</a>
   </div>
@@ -621,10 +647,14 @@
 </div>
 
 <script>
+  function toggleNavMobile(){
+    document.querySelector('.navbar-links').classList.toggle('open');
+  }
+
   const TIMELINE_FISICA = [
     {año:'~350 a.C.', titulo:'Aristóteles y el movimiento', texto:'Propone que los objetos pesados caen más rápido que los livianos, y que el movimiento necesita una fuerza constante para mantenerse — ideas que parecían obvias, pero que estaban equivocadas. Sostuvo la física durante casi 2000 años, hasta Galileo.'},
     {año:'~1600', titulo:'Galileo y el método experimental', texto:'Deja caer objetos (probablemente no literalmente desde la Torre de Pisa, es más leyenda que hecho) y demuestra que, sin el aire de por medio, todo cae a la misma velocidad — contradiciendo a Aristóteles con evidencia real. Es considerado el padre del método científico moderno.'},
-    {año:'1687', titulo:'Newton publica los Principia', texto:'Isaac Newton unifica por primera vez las leyes que gobiernan el movimiento en la Tierra con las que gobiernan los planetas — sus tres leyes del movimiento y la gravitación universal dominan la física durante más de 200 años.'},
+    {año:'1687', titulo:'Newton publica su obra más importante', texto:'Isaac Newton publica los Philosophiæ Naturalis Principia Mathematica — un libro tan influyente que se lo conoce simplemente como "los Principia". Ahí unifica por primera vez las leyes que gobiernan el movimiento en la Tierra con las que gobiernan los planetas — sus tres leyes del movimiento y la gravitación universal dominan la física durante más de 200 años.'},
     {año:'1820-1860s', titulo:'Faraday y Maxwell: el electromagnetismo', texto:'Michael Faraday descubre experimentalmente la inducción electromagnética (la base de generadores y motores). James Clerk Maxwell unifica electricidad, magnetismo y luz en un solo conjunto de ecuaciones — una de las mayores unificaciones de la historia de la ciencia.'},
     {año:'1905-1915', titulo:'Einstein y la Relatividad', texto:'Albert Einstein publica primero la Relatividad Especial (1905, tiempo y espacio no son absolutos) y después la General (1915, la gravedad como curvatura del espacio-tiempo) — cambiando por completo cómo entendemos el universo a gran escala.'},
     {año:'1900-1927', titulo:'Nace la física cuántica', texto:'Planck, Bohr, Heisenberg y otros descubren que a escala atómica el mundo se comporta de forma radicalmente distinta a lo cotidiano — la energía viene en paquetes discretos, y hay un límite fundamental a cuánto se puede saber sobre una partícula a la vez.'},

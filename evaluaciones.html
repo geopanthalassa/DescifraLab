@@ -67,7 +67,29 @@
     transition:background 0.15s, color 0.15s;
   }
   .navbar-links a:hover{background:rgba(255,255,255,0.08);color:#fff;}
-  @media(max-width:640px){.navbar-links{display:none;}}
+  .navbar-toggle{
+    display:none;
+    background:none;border:none;cursor:pointer;
+    padding:6px;
+  }
+  .navbar-toggle span{
+    display:block;width:24px;height:2.5px;
+    background:#D8D3C4;margin:5px 0;
+    transition:transform 0.2s, opacity 0.2s;
+  }
+  @media(max-width:768px){
+    .navbar-links{
+      display:none;
+      width:100%;
+      flex-direction:column;
+      gap:2px;
+      order:3;
+    }
+    .navbar-links.open{display:flex;}
+    .navbar-toggle{display:block;}
+    .navbar-links a{padding:12px 14px;}
+  }
+
   .eyebrow{
     font-family:'JetBrains Mono', monospace;
     font-size:12px;
@@ -281,6 +303,9 @@
 
 <nav class="navbar">
   <a href="index.html" class="navbar-brand">DescifraLab</a>
+  <button class="navbar-toggle" onclick="toggleNavMobile()" aria-label="Abrir menú">
+    <span></span><span></span><span></span>
+  </button>
   <div class="navbar-links">
     <a href="fisica.html">Física</a>
     <a href="quimica.html">Química</a>
@@ -288,6 +313,7 @@
     <a href="conversor-unidades.html">Conversor</a>
     <a href="experimentos.html">Experimentos</a>
     <a href="docentes.html">Para Docentes</a>
+    <a href="banco-preguntas.html">Banco de Preguntas</a>
     <a href="evaluaciones.html">Evaluaciones</a>
     <a href="sobre-nosotros.html">Sobre la Fundadora</a>
   </div>
@@ -302,7 +328,7 @@
 <div class="wrap">
 
   <div class="card" data-tag="Modo">
-    <h2>¿Qué querés practicar?</h2>
+    <h2>¿Qué quieres practicar?</h2>
     <div class="modo-tabs">
       <button class="modo-btn active" id="modo-btn-calculo" onclick="cambiarModo('calculo')">Ejercicios de Cálculo</button>
       <button class="modo-btn" id="modo-btn-teoria" onclick="cambiarModo('teoria')">Preguntas de Teoría</button>
@@ -342,7 +368,7 @@
 
   <div id="seccion-teoria" style="display:none;">
   <div class="card" data-tag="Elige el tema">
-    <h2>¿Qué tema de teoría querés probar?</h2>
+    <h2>¿Qué tema de teoría quieres probar?</h2>
     <div class="calc-grid">
       <div class="field">
         <label>Tema</label>
@@ -423,6 +449,10 @@
 </div>
 
 <script>
+  function toggleNavMobile(){
+    document.querySelector('.navbar-links').classList.toggle('open');
+  }
+
   // ---- Generador de evaluaciones ----
   // Cada tema define una función que arma un problema con números
   // al azar dentro de rangos razonables, usando la MISMA fórmula real

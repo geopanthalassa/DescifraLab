@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Banco de Preguntas para Evaluaciones — Física y Química — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --grid:#E4E0D4;
+    --ink:#1C2733;
+    --ink-soft:#4A5568;
+    --amber:#D9A441;
+    --amber-dark:#B8842E;
+    --pine:#2F6B5E;
+    --pine-dark:#225046;
+    --white:#FFFFFF;
+    --line:#D8D3C4;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+  header.top{
+    padding:36px 20px 28px;
+    max-width:760px;margin:0 auto;
+    border-bottom:2px solid var(--ink);
+  }
+  .brand-link{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--amber-dark);
+    margin-bottom:12px;
+    letter-spacing:0.01em;
+  }
+  .navbar{
+    background:var(--ink);
+    padding:14px 20px;
+    display:flex;align-items:center;justify-content:space-between;
+    flex-wrap:wrap;gap:12px;
+    position:sticky;top:0;z-index:50;
+  }
+  .navbar-brand{
+    font-family:'Fraunces', serif;font-weight:700;font-size:19px;
+    color:var(--amber);text-decoration:none;
+  }
+  .navbar-links{display:flex;gap:4px;flex-wrap:wrap;}
+  .navbar-links a{
+    color:#D8D3C4;text-decoration:none;
+    font-size:13.5px;font-weight:500;
+    padding:8px 12px;border-radius:6px;
+    transition:background 0.15s, color 0.15s;
+  }
+  .navbar-links a:hover{background:rgba(255,255,255,0.08);color:#fff;}
+  .navbar-toggle{
+    display:none;
+    background:none;border:none;cursor:pointer;
+    padding:6px;
+  }
+  .navbar-toggle span{
+    display:block;width:24px;height:2.5px;
+    background:#D8D3C4;margin:5px 0;
+    transition:transform 0.2s, opacity 0.2s;
+  }
+  @media(max-width:768px){
+    .navbar-links{
+      display:none;
+      width:100%;
+      flex-direction:column;
+      gap:2px;
+      order:3;
+    }
+    .navbar-links.open{display:flex;}
+    .navbar-toggle{display:block;}
+    .navbar-links a{padding:12px 14px;}
+  }
+
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--pine-dark);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px,5vw,46px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--ink-soft);font-size:16px;max-width:56ch;}
+
+  .level-nav{
+    display:flex;gap:8px;margin:28px 0 0;
+  }
+  .level-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;font-weight:700;
+    padding:10px 18px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    cursor:pointer;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .level-btn.active{background:var(--ink);color:var(--paper);}
+
+  section.level{display:none;margin-top:36px;}
+  section.level.active{display:block;}
+
+  .card{
+    background:var(--white);
+    border:2px solid var(--ink);
+    padding:28px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .card::before{
+    content:attr(data-tag);
+    position:absolute;
+    top:-13px;left:20px;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+  }
+  section.level[data-level="avanzado"] .card::before{background:var(--pine);color:var(--white);}
+
+  h2{font-family:'Fraunces', serif;font-size:22px;font-weight:600;margin:6px 0 14px;}
+
+  .formula-box{
+    font-family:'JetBrains Mono', monospace;
+    font-size:20px;
+    font-weight:700;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    padding:16px 20px;
+    margin:14px 0;
+    text-align:center;
+    letter-spacing:0.02em;
+  }
+  .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
+  .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+
+  /* Calculadora */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media(max-width:520px){.calc-grid{grid-template-columns:1fr;}}
+  .field label{
+    display:block;font-size:12px;font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;
+  }
+  .field input{
+    width:100%;padding:10px 12px;
+    border:2px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;background:var(--white);
+  }
+  .field input:focus{outline:3px solid var(--amber);outline-offset:1px;}
+  .calc-btn{
+    margin-top:16px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    padding:12px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.05em;
+    cursor:pointer;
+  }
+  .calc-btn:hover{background:var(--amber-dark);}
+  .readout{
+    margin-top:18px;
+    background:var(--ink);
+    color:#8FE3C7;
+    font-family:'JetBrains Mono', monospace;
+    padding:18px 20px;
+    font-size:15px;
+    min-height:24px;
+    display:none;
+    white-space:pre-line;
+  }
+  .readout.show{display:block;}
+
+  .example{
+    background:var(--paper);
+    border-left:4px solid var(--pine);
+    padding:16px 18px;
+    font-size:15px;
+    margin-top:10px;
+  }
+  section.level[data-level="basico"] .example{border-left-color:var(--amber-dark);}
+
+  .exercises ol{padding-left:20px;}
+  .exercises li{margin-bottom:14px;}
+  details{
+    margin-top:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  details summary{cursor:pointer;color:var(--pine-dark);font-weight:700;}
+
+  .faq h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;}
+  .faq p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .related{
+    margin-top:40px;padding-top:24px;border-top:2px solid var(--ink);
+  }
+  .related h2{font-size:16px;}
+  .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+  .related-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    background:var(--white);
+  }
+  .related-links a:hover{border-color:var(--ink);}
+
+  .sim-box{
+    background:var(--ink);
+    border:2px solid var(--ink);
+    padding:14px;
+    margin-top:16px;
+  }
+  #sim-canvas-basico, #sim-canvas-avanzado{
+    display:block;width:100%;height:auto;
+  }
+  .sim-readout{
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    color:#8FE3C7;font-size:13px;
+    margin-top:10px;padding-top:10px;
+    border-top:1px solid #3A4756;
+  }
+  .speed-row{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-left:14px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;color:var(--ink-soft);
+  }
+  .speed-btn{
+    border:1px solid var(--line);background:var(--white);
+    padding:6px 10px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;cursor:pointer;
+  }
+  .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  .mach-grupo{margin-bottom:36px;}
+  .mach-titulo{
+    font-family:'Fraunces', serif;
+    font-size:24px;font-weight:700;
+    padding:10px 18px;margin-bottom:16px;
+    color:var(--white);
+    display:inline-flex;align-items:center;gap:10px;
+    border-radius:6px;
+  }
+  .mach-titulo .mach-emoji{font-size:26px;}
+
+  /* colores distintivos por categoría — cada tema con su propia paleta */
+  .mach-grupo.mecanica .mach-titulo{background:#D9714A;}
+  .mach-grupo.electricidad .mach-titulo{background:#4A90D9;}
+  .mach-grupo.termo .mach-titulo{background:#E0A030;}
+  .mach-grupo.moderna .mach-titulo{background:#8A5FC7;}
+  .mach-grupo.quimica .mach-titulo{background:#3FA05C;}
+  .mach-grupo.herramientas .mach-titulo{background:#5C6B7A;}
+
+  .mach-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(210px, 1fr));
+    gap:14px;
+  }
+  .mach-card{
+    display:block;
+    background:var(--white);
+    border:3px solid var(--ink);
+    border-radius:10px;
+    padding:16px 18px;
+    text-decoration:none;
+    color:var(--ink);
+    transition:transform 0.12s, box-shadow 0.12s;
+    position:relative;
+    overflow:hidden;
+  }
+  .mach-card::before{
+    content:'';
+    position:absolute;top:0;left:0;right:0;height:6px;
+  }
+  .mach-grupo.mecanica .mach-card::before{background:#D9714A;}
+  .mach-grupo.electricidad .mach-card::before{background:#4A90D9;}
+  .mach-grupo.termo .mach-card::before{background:#E0A030;}
+  .mach-grupo.moderna .mach-card::before{background:#8A5FC7;}
+  .mach-grupo.quimica .mach-card::before{background:#3FA05C;}
+  .mach-grupo.herramientas .mach-card::before{background:#5C6B7A;}
+
+  .mach-card:hover{
+    transform:translateY(-4px) rotate(-0.5deg);
+    box-shadow:5px 5px 0 var(--ink);
+  }
+  .mach-card.herramienta{border-style:dashed;}
+  .mach-card .mach-card-icon{font-size:30px;display:block;margin-bottom:6px;}
+  .mach-card h3{
+    font-family:'Fraunces', serif;font-size:16px;font-weight:700;
+    margin:0 0 10px;
+    color:var(--ink);
+  }
+  .mach-formula{
+    font-family:'JetBrains Mono', monospace;
+    font-size:14px;font-weight:700;
+    margin-top:5px;
+    background:var(--paper);
+    padding:4px 8px;
+    border-radius:4px;
+    display:inline-block;
+  }
+
+  /* ---- Elementos de "cuaderno anotado a mano": post-its, clips, flechas ---- */
+  .estudio-elemento{position:relative;}
+
+  .postit{
+    position:absolute;
+    width:130px;
+    padding:12px 14px 16px;
+    font-family:'Caveat', cursive;
+    font-size:18px;
+    line-height:1.25;
+    color:#3A3020;
+    box-shadow:2px 4px 8px rgba(0,0,0,0.18);
+    z-index:5;
+  }
+  .postit.amarillo{background:#F5E27A;transform:rotate(-4deg);}
+  .postit.rosa{background:#F3B8C4;transform:rotate(3deg);}
+  .postit.celeste{background:#A9D6E5;transform:rotate(-2deg);}
+  .postit::before{
+    content:'';
+    position:absolute;top:-8px;left:50%;
+    transform:translateX(-50%) rotate(-3deg);
+    width:34px;height:16px;
+    background:rgba(255,255,255,0.55);
+    border:1px solid rgba(0,0,0,0.08);
+  }
+
+  .clip-svg{position:absolute;z-index:6;filter:drop-shadow(1px 2px 2px rgba(0,0,0,0.25));}
+
+  .flecha-curva{position:absolute;z-index:4;pointer-events:none;}
+
+  .letras-varias{
+    font-family:'Caveat', cursive;
+    font-weight:700;
+  }
+
+  .exp-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+    gap:16px;
+  }
+  .exp-card{
+    background:var(--white);
+    border:3px solid var(--ink);
+    border-radius:10px;
+    padding:18px 20px;
+    position:relative;
+    overflow:hidden;
+  }
+  .exp-card::before{
+    content:'';
+    position:absolute;top:0;left:0;right:0;height:6px;
+  }
+  .mach-grupo.mecanica .exp-card::before{background:#D9714A;}
+  .mach-grupo.electricidad .exp-card::before{background:#4A90D9;}
+  .mach-grupo.termo .exp-card::before{background:#E0A030;}
+  .mach-grupo.quimica .exp-card::before{background:#3FA05C;}
+  .exp-card h3{
+    font-family:'Fraunces', serif;font-size:17px;font-weight:700;
+    margin:4px 0 6px;
+  }
+  .exp-tema{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:0 0 12px;
+  }
+  .exp-materiales{font-size:13.5px;margin:0 0 10px;}
+  .exp-pasos{padding-left:20px;margin:0 0 12px;font-size:13.5px;}
+  .exp-pasos li{margin-bottom:4px;}
+  .exp-explica{
+    font-size:13px;color:var(--ink-soft);
+    background:var(--paper);
+    padding:10px 12px;
+    border-radius:6px;
+    margin:0;
+  }
+
+  .banco-tema{padding:0;overflow:hidden;}
+  .banco-tema-header{
+    width:100%;
+    display:flex;align-items:center;justify-content:space-between;
+    background:none;border:none;
+    padding:18px 20px;text-align:left;cursor:pointer;
+    font-family:inherit;
+  }
+  .banco-tema-header:hover{background:var(--paper);}
+  .banco-flecha{font-size:16px;color:var(--ink-soft);transition:transform 0.15s;flex-shrink:0;}
+  .banco-tema.abierto .banco-flecha{transform:rotate(90deg);}
+  .banco-tema-body{
+    max-height:0;overflow:hidden;
+    transition:max-height 0.3s ease;
+    padding:0 20px;
+  }
+  .banco-tema.abierto .banco-tema-body{max-height:3000px;padding:0 20px 20px;}
+  .banco-pregunta{
+    border-top:1px solid var(--line);
+    padding:14px 0;
+  }
+  .banco-pregunta:first-child{border-top:none;}
+  .banco-enunciado{font-size:14.5px;margin:0 0 8px;line-height:1.6;}
+  .banco-respuesta{
+    font-size:13.5px;color:var(--pine-dark);
+    background:#EEF6F1;padding:8px 12px;border-radius:6px;
+    margin:0;
+  }
+
+  .exp-guia{
+    margin-top:14px;
+    border:2px dashed var(--amber-dark);
+    border-radius:8px;
+    padding:14px 16px;
+    background:#FFFCF5;
+  }
+  .exp-guia-tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;text-transform:uppercase;letter-spacing:0.05em;
+    color:var(--amber-dark);font-weight:700;
+    margin:0 0 10px;
+  }
+  .guia-tabla{
+    width:100%;border-collapse:collapse;margin:8px 0 12px;
+    font-size:13px;
+  }
+  .guia-tabla th, .guia-tabla td{
+    border:1px solid var(--line);
+    padding:6px 8px;text-align:left;
+  }
+  .guia-tabla th{background:var(--paper);font-family:'JetBrains Mono',monospace;font-size:11px;}
+  .guia-preguntas{padding-left:18px;margin:8px 0 0;font-size:13.5px;}
+  .guia-preguntas li{margin-bottom:5px;}
+
+  .banco-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    gap:20px;
+    margin-top:16px;
+  }
+  .banco-col h3{
+    font-family:'Fraunces', serif;font-size:15px;
+    margin:0 0 8px;
+  }
+  .banco-col ul{
+    padding-left:18px;margin:0;
+    font-size:13.5px;line-height:1.7;
+  }
+  .banco-col li{margin-bottom:2px;}
+
+  .mach-header-fila{
+    margin-bottom:16px;
+  }
+  .postit-margen{
+    position:absolute;
+    left:100%;
+    margin-left:24px;
+    width:150px;
+  }
+  @media(max-width:1150px){
+    .postit-margen{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="navbar-brand">DescifraLab</a>
+  <button class="navbar-toggle" onclick="toggleNavMobile()" aria-label="Abrir menú">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="navbar-links">
+    <a href="fisica.html">Física</a>
+    <a href="quimica.html">Química</a>
+    <a href="formulario.html">Machete de Fórmulas</a>
+    <a href="conversor-unidades.html">Conversor</a>
+    <a href="experimentos.html">Experimentos</a>
+    <a href="docentes.html">Para Docentes</a>
+    <a href="banco-preguntas.html">Banco de Preguntas</a>
+    <a href="evaluaciones.html">Evaluaciones</a>
+    <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+  </div>
+</nav>
+
+<header class="top" style="position:relative;">
+  <svg class="clip-svg" viewBox="0 0 40 70" width="34" height="60" style="position:absolute;top:8px;right:24px;transform:rotate(8deg);">
+    <path d="M20,4 C30,4 34,12 34,22 L34,50 C34,60 28,64 20,64 C12,64 8,58 8,50 L8,20 C8,14 12,10 16,10 L16,50 C16,54 18,56 20,56 C22,56 24,54 24,50 L24,18" fill="none" stroke="#8A94A0" stroke-width="3.5" stroke-linecap="round"/>
+  </svg>
+  <div class="eyebrow">Recursos pedagógicos</div>
+  <h1>Banco de Preguntas</h1>
+  <p class="subtitle">Preguntas listas para copiar directo en tus propias evaluaciones — verdadero/falso, opción múltiple, y desarrollo — con respuesta incluida, organizadas por tema.</p>
+</header>
+
+<div class="wrap" style="position:relative;">
+
+  <div class="card">
+    <h2>Cómo usar este banco</h2>
+    <p>Cada tema tiene 6 preguntas mixtas (verdadero/falso, opción múltiple, desarrollo), con la respuesta ya incluida — copia y pega directo en tu propia evaluación, en Word, Google Forms, o donde trabajes. Toca el tema para desplegarlo.</p>
+  </div>
+
+  <div id="banco-preguntas-lista"></div>
+
+  <div class="card" data-tag="Nota" style="text-align:center;">
+    <p style="color:var(--ink-soft);font-size:14px;margin:0;">Este banco sigue creciendo — si necesitas preguntas de un tema que todavía no está acá, pedímelo y lo armamos.</p>
+  </div>
+
+</div>
+
+<script>
+  const BANCO_GRANDE = {
+    'mru-mruv': {
+      nombre: 'MRU y MRUV',
+      preguntas: [
+        {tipo:'vf', enunciado:'En el MRU, la posición cambia de forma lineal con el tiempo.', respuesta:'Verdadero', explicacion:'x=x₀+vt es una función lineal.'},
+        {tipo:'vf', enunciado:'En el MRUV, la velocidad es siempre constante.', respuesta:'Falso', explicacion:'En el MRUV la velocidad cambia constantemente; lo que es constante es la aceleración.'},
+        {tipo:'opcion', enunciado:'Un auto pasa de 0 a 20 m/s en 5 segundos. ¿Cuál es su aceleración?', opciones:['1 m/s²','4 m/s²','10 m/s²','20 m/s²'], respuesta:'B) 4 m/s²', explicacion:'a=Δv/t=20/5=4 m/s².'},
+        {tipo:'opcion', enunciado:'¿Qué gráfico velocidad-tiempo corresponde al MRUV?', opciones:['Una recta horizontal','Una recta inclinada','Una parábola','Un círculo'], respuesta:'B) Una recta inclinada', explicacion:'v=v₀+at es lineal en t, con pendiente igual a la aceleración.'},
+        {tipo:'desarrollo', enunciado:'Explicá con tus palabras la diferencia entre velocidad y aceleración.', respuesta:'La velocidad mide qué tan rápido cambia la posición (m/s). La aceleración mide qué tan rápido cambia la velocidad (m/s²) — es un cambio de un cambio.'},
+        {tipo:'desarrollo', enunciado:'¿Por qué la fórmula v²=v₀²+2aΔx es útil cuando no conocemos el tiempo?', respuesta:'Porque relaciona velocidades, aceleración y distancia sin necesitar el tiempo como dato, a diferencia de las otras fórmulas de MRUV.'},
+      ]
+    },
+    'newton': {
+      nombre: 'Leyes de Newton',
+      preguntas: [
+        {tipo:'vf', enunciado:'La Primera Ley de Newton también se llama Ley de Inercia.', respuesta:'Verdadero', explicacion:'Correcto.'},
+        {tipo:'vf', enunciado:'Según la Tercera Ley, las fuerzas de acción y reacción actúan sobre el mismo objeto.', respuesta:'Falso', explicacion:'Actúan sobre objetos DISTINTOS — por eso no se anulan entre sí.'},
+        {tipo:'opcion', enunciado:'Un objeto de 5 kg recibe una fuerza de 20 N. ¿Cuál es su aceleración?', opciones:['2 m/s²','4 m/s²','25 m/s²','100 m/s²'], respuesta:'B) 4 m/s²', explicacion:'a=F/m=20/5=4 m/s².'},
+        {tipo:'opcion', enunciado:'¿Cuál de estas situaciones ilustra mejor la Primera Ley de Newton?', opciones:['Un cohete despegando','Pasajeros que se van hacia adelante cuando el auto frena de golpe','Dos autos chocando','Un resorte comprimido'], respuesta:'B) Pasajeros que se van hacia adelante', explicacion:'Los pasajeros tienden a seguir en movimiento (inercia) aunque el auto frene.'},
+        {tipo:'desarrollo', enunciado:'¿Por qué al patear una pelota liviana se acelera más que al patear una pesada con la misma fuerza?', respuesta:'Porque a=F/m — con la misma fuerza, a menor masa, mayor aceleración.'},
+        {tipo:'desarrollo', enunciado:'Dá un ejemplo de tu vida cotidiana donde se aplique la Tercera Ley de Newton.', respuesta:'Ejemplo válido: al nadar, empujas el agua hacia atrás (acción) y el agua te empuja a tú hacia adelante (reacción).'},
+      ]
+    },
+    'trabajo-energia': {
+      nombre: 'Trabajo y Energía',
+      preguntas: [
+        {tipo:'vf', enunciado:'El trabajo se mide en Joule.', respuesta:'Verdadero', explicacion:'Correcto, igual que la energía.'},
+        {tipo:'vf', enunciado:'Si cargás una caja pesada caminando en línea recta horizontal, estás haciendo trabajo sobre ella según la física.', respuesta:'Falso', explicacion:'Si la fuerza que haces (hacia arriba, para sostenerla) es perpendicular al desplazamiento (horizontal), el trabajo es cero.'},
+        {tipo:'opcion', enunciado:'Un objeto de 2 kg cae desde 10 m de altura. ¿Cuál es su energía potencial inicial? (g=9.8)', opciones:['19.6 J','98 J','196 J','980 J'], respuesta:'C) 196 J', explicacion:'Ep=mgh=2×9.8×10=196 J.'},
+        {tipo:'opcion', enunciado:'¿Qué le pasa a la energía potencial mientras un objeto cae libremente?', opciones:['Aumenta','Disminuye','Se mantiene constante','Se vuelve negativa'], respuesta:'B) Disminuye', explicacion:'A medida que baja h, Ep=mgh disminuye — se transforma en energía cinética.'},
+        {tipo:'desarrollo', enunciado:'Explicá el principio de conservación de la energía mecánica en una caída libre.', respuesta:'La energía mecánica total (Ec+Ep) se mantiene constante — a medida que la energía potencial disminuye (baja la altura), la energía cinética aumenta en la misma cantidad.'},
+        {tipo:'desarrollo', enunciado:'¿Por qué al frenar un auto con los frenos, la energía cinética "desaparece"?', respuesta:'No desaparece — se transforma en calor por la fricción entre las pastillas de freno y el disco.'},
+      ]
+    },
+    'impulso': {
+      nombre: 'Impulso y Cantidad de Movimiento',
+      preguntas: [
+        {tipo:'vf', enunciado:'La cantidad de movimiento se calcula como p=m·v.', respuesta:'Verdadero', explicacion:'Correcto.'},
+        {tipo:'vf', enunciado:'En un choque perfectamente elástico, se pierde energía cinética total del sistema.', respuesta:'Falso', explicacion:'En un choque elástico, la energía cinética SE CONSERVA — en uno inelástico es donde se pierde (se transforma en calor, sonido, deformación).'},
+        {tipo:'opcion', enunciado:'Un objeto de 3 kg se mueve a 4 m/s. ¿Cuál es su cantidad de movimiento?', opciones:['7 kg·m/s','12 kg·m/s','1.33 kg·m/s','24 kg·m/s'], respuesta:'B) 12 kg·m/s', explicacion:'p=m·v=3×4=12 kg·m/s.'},
+        {tipo:'opcion', enunciado:'¿Por qué amortiguar un golpe (como una alfombra bajo un objeto que cae) reduce el daño?', opciones:['Reduce la masa del objeto','Alarga el tiempo de frenado, reduciendo la fuerza','Reduce la velocidad de caída','Aumenta el impulso'], respuesta:'B) Alarga el tiempo de frenado', explicacion:'J=FΔt=Δp — el impulso es el mismo, pero un Δt mayor implica menor fuerza F necesaria.'},
+        {tipo:'desarrollo', enunciado:'¿Por qué la cantidad de movimiento se conserva en un choque, incluso si es inelástico?', respuesta:'Porque la conservación de la cantidad de movimiento es consecuencia de la Tercera Ley de Newton — las fuerzas internas del choque se cancelan entre sí (acción y reacción), sin importar si hay pérdida de energía cinética.'},
+        {tipo:'desarrollo', enunciado:'Explicá por qué un airbag reduce las lesiones en un choque.', respuesta:'Alarga el tiempo que tarda la persona en detenerse (en vez de frenar de golpe contra el volante), reduciendo la fuerza promedio que actúa sobre el cuerpo para el mismo cambio de cantidad de movimiento.'},
+      ]
+    },
+    'estatica-torque': {
+      nombre: 'Estática y Torque',
+      preguntas: [
+        {tipo:'vf', enunciado:'El torque depende tanto de la fuerza aplicada como de la distancia al punto de apoyo.', respuesta:'Verdadero', explicacion:'τ=F·d, depende de ambas.'},
+        {tipo:'vf', enunciado:'Aplicar fuerza justo sobre el pivote de una palanca genera el torque máximo.', respuesta:'Falso', explicacion:'Genera torque CERO, porque la distancia d al pivote es cero.'},
+        {tipo:'opcion', enunciado:'Aplicas 40 N a 0.5 m del pivote de una llave. ¿Cuál es el torque?', opciones:['20 N·m','40 N·m','80 N·m','0.0125 N·m'], respuesta:'A) 20 N·m', explicacion:'τ=F×d=40×0.5=20 N·m.'},
+        {tipo:'opcion', enunciado:'¿Por qué una llave larga afloja tuercas más fácil que una corta?', opciones:['Pesa más','Aumenta el brazo de palanca, dando más torque con la misma fuerza','Tiene más fricción','No hay diferencia real'], respuesta:'B) Aumenta el brazo de palanca', explicacion:'A mayor distancia d, mayor torque para la misma fuerza aplicada.'},
+        {tipo:'desarrollo', enunciado:'¿Qué condiciones tienen que cumplirse para que un objeto esté en equilibrio estático?', respuesta:'La suma de todas las fuerzas debe ser cero (no acelera) Y la suma de todos los torques debe ser cero (no rota).'},
+        {tipo:'desarrollo', enunciado:'Explicá por qué es más fácil abrir una puerta empujando lejos de las bisagras que cerca de ellas.', respuesta:'Porque al empujar lejos de las bisagras (el pivote), aumentás el brazo de palanca (d), generando más torque con la misma fuerza aplicada.'},
+      ]
+    },
+    'maquinas-simples': {
+      nombre: 'Máquinas Simples',
+      preguntas: [
+        {tipo:'vf', enunciado:'Una máquina simple reduce la energía total necesaria para realizar un trabajo.', respuesta:'Falso', explicacion:'La energía total necesaria es la misma (o mayor por fricción) — lo que cambia es cómo se aplica la fuerza.'},
+        {tipo:'vf', enunciado:'La ventaja mecánica de una polea fija sola es 1.', respuesta:'Verdadero', explicacion:'Correcto — solo cambia la dirección de la fuerza, no reduce el esfuerzo.'},
+        {tipo:'opcion', enunciado:'Un sistema de poleas tiene 4 cuerdas sosteniendo un peso de 800 N. ¿Qué fuerza hace falta aplicar?', opciones:['200 N','400 N','800 N','3200 N'], respuesta:'A) 200 N', explicacion:'F=Peso/VM=800/4=200 N.'},
+        {tipo:'opcion', enunciado:'¿Cuál de estas NO es una de las 6 máquinas simples clásicas?', opciones:['Palanca','Polea','Motor eléctrico','Plano inclinado'], respuesta:'C) Motor eléctrico', explicacion:'El motor eléctrico no es una máquina simple clásica — las 6 son palanca, polea, plano inclinado, cuña, tornillo, y rueda-eje.'},
+        {tipo:'desarrollo', enunciado:'¿Por qué se dice que "no hay atajos gratis" con las máquinas simples?', respuesta:'Porque lo que se gana en reducción de fuerza necesaria, se pierde en distancia recorrida — la energía total (fuerza×distancia) se mantiene aproximadamente igual.'},
+        {tipo:'desarrollo', enunciado:'Explicá cómo funciona una rampa (plano inclinado) para facilitar subir un objeto pesado.', respuesta:'Al subir por una rampa en vez de levantar directo, se recorre más distancia pero se necesita menos fuerza — la ventaja mecánica es longitud/altura.'},
+      ]
+    },
+    'ohm-circuitos': {
+      nombre: 'Ley de Ohm y Circuitos',
+      preguntas: [
+        {tipo:'vf', enunciado:'En un circuito en serie, la corriente es la misma en todos los puntos.', respuesta:'Verdadero', explicacion:'Correcto — hay un solo camino posible.'},
+        {tipo:'vf', enunciado:'Agregar más resistencias en paralelo aumenta la resistencia total del circuito.', respuesta:'Falso', explicacion:'La DISMINUYE, porque cada rama nueva le da al circuito otro camino posible.'},
+        {tipo:'opcion', enunciado:'Un circuito tiene 12V y una resistencia de 3Ω. ¿Cuál es la corriente?', opciones:['0.25 A','4 A','9 A','36 A'], respuesta:'B) 4 A', explicacion:'I=V/R=12/3=4 A.'},
+        {tipo:'opcion', enunciado:'¿Qué le pasa a la corriente si aumenta la resistencia, con voltaje constante?', opciones:['Aumenta','Disminuye','No cambia','Se vuelve negativa'], respuesta:'B) Disminuye', explicacion:'I=V/R — a mayor R, menor I.'},
+        {tipo:'desarrollo', enunciado:'Explicá con la analogía de la manguera de agua qué representan V, I y R.', respuesta:'V es la presión del agua, I es cuánta agua fluye (caudal), R es qué tan angosta es la manguera (la resistencia al flujo).'},
+        {tipo:'desarrollo', enunciado:'¿Por qué si se quema una lamparita en un circuito en serie, se apagan todas las demás?', respuesta:'Porque en serie hay un solo camino para la corriente — si se corta en un punto, no puede circular por ningún lado del circuito.'},
+      ]
+    },
+    'calor': {
+      nombre: 'Calor y Temperatura',
+      preguntas: [
+        {tipo:'vf', enunciado:'El calor y la temperatura son conceptos idénticos.', respuesta:'Falso', explicacion:'El calor es energía en tránsito; la temperatura mide la energía cinética promedio de las partículas.'},
+        {tipo:'vf', enunciado:'Durante un cambio de estado, toda la energía entregada se usa para cambiar la temperatura.', respuesta:'Falso', explicacion:'Se usa para cambiar el estado — la temperatura se mantiene constante durante el cambio.'},
+        {tipo:'opcion', enunciado:'¿Cuánto calor hace falta para subir 2 kg de agua 10°C? (c=4186 J/kg°C)', opciones:['4186 J','41860 J','83720 J','8372 J'], respuesta:'C) 83720 J', explicacion:'Q=m·c·ΔT=2×4186×10=83720 J.'},
+        {tipo:'opcion', enunciado:'¿Por qué el mar tarda más en cambiar de temperatura que la tierra firme?', opciones:['El agua tiene un calor específico muy alto','El mar es más grande','El mar refleja más luz','No hay diferencia real'], respuesta:'A) El agua tiene un calor específico muy alto', explicacion:'Necesita mucha más energía para cambiar su temperatura, comparado con la tierra.'},
+        {tipo:'desarrollo', enunciado:'Explicá qué es el calor latente y en qué se diferencia del calor sensible.', respuesta:'El calor sensible cambia la temperatura de una sustancia (Q=mcΔT). El calor latente cambia el estado sin cambiar la temperatura (Q=mL).'},
+        {tipo:'desarrollo', enunciado:'¿Por qué transpirar ayuda a refrescar el cuerpo?', respuesta:'Porque al evaporarse el sudor, absorbe calor latente de vaporización de la piel, enfriándola en el proceso.'},
+      ]
+    },
+    'fluidos': {
+      nombre: 'Presión y Flotación',
+      preguntas: [
+        {tipo:'vf', enunciado:'La presión hidrostática aumenta con la profundidad.', respuesta:'Verdadero', explicacion:'P=ρgh, a mayor h, mayor P.'},
+        {tipo:'vf', enunciado:'Un objeto flota si su densidad es mayor que la del fluido.', respuesta:'Falso', explicacion:'Flota si su densidad es MENOR que la del fluido.'},
+        {tipo:'opcion', enunciado:'¿Cuál es la presión a 5 m de profundidad en agua (ρ=1000 kg/m³, g=9.8)?', opciones:['4900 Pa','49000 Pa','9800 Pa','5000 Pa'], respuesta:'B) 49000 Pa', explicacion:'P=ρ·g·h=1000×9.8×5=49000 Pa.'},
+        {tipo:'opcion', enunciado:'¿De qué depende el empuje sobre un objeto sumergido?', opciones:['Solo de su peso','De la densidad del fluido y el volumen desplazado','Solo de la forma del objeto','De la temperatura'], respuesta:'B) De la densidad del fluido y el volumen desplazado', explicacion:'E=ρ·g·V, según el Principio de Arquímedes.'},
+        {tipo:'desarrollo', enunciado:'Explicá por qué un barco de metal (más denso que el agua) puede flotar.', respuesta:'Porque su forma hueca hace que desplace un gran volumen de agua, generando un empuje mayor que su peso total — lo que importa es la densidad promedio del barco completo (incluyendo el aire adentro), no solo del metal.'},
+        {tipo:'desarrollo', enunciado:'¿Por qué es más fácil flotar en el Mar Muerto que en una pileta común?', respuesta:'Porque el Mar Muerto tiene una concentración de sal muchísimo más alta, aumentando la densidad del agua y por lo tanto el empuje sobre el cuerpo.'},
+      ]
+    },
+    'relatividad': {
+      nombre: 'Relatividad',
+      preguntas: [
+        {tipo:'vf', enunciado:'Según la Relatividad, el tiempo pasa exactamente igual para todos los observadores.', respuesta:'Falso', explicacion:'El tiempo es relativo — depende de la velocidad relativa entre observadores.'},
+        {tipo:'vf', enunciado:'La Relatividad General explica la gravedad como una curvatura del espacio-tiempo.', respuesta:'Verdadero', explicacion:'Correcto — masa y energía curvan el espacio-tiempo.'},
+        {tipo:'opcion', enunciado:'¿Quién propuso la Teoría de la Relatividad?', opciones:['Isaac Newton','Albert Einstein','Niels Bohr','Max Planck'], respuesta:'B) Albert Einstein', explicacion:'Relatividad Especial (1905) y General (1915).'},
+        {tipo:'opcion', enunciado:'¿Qué le pasa al tiempo para algo que se mueve cerca de la velocidad de la luz, visto desde un observador en reposo?', opciones:['Pasa más rápido','Pasa más lento','No cambia','Se detiene por completo'], respuesta:'B) Pasa más lento', explicacion:'Es la dilatación temporal — a mayor velocidad, más lento pasa el tiempo desde afuera.'},
+        {tipo:'desarrollo', enunciado:'¿Por qué los satélites GPS necesitan correcciones relativistas?', respuesta:'Porque su velocidad orbital y su menor gravedad relativa (al estar más lejos del centro de la Tierra) hacen que el tiempo pase distinto para ellos que para nosotros en la superficie — sin corregir esto, la posición calculada acumularía errores.'},
+        {tipo:'desarrollo', enunciado:'Explicá con tus palabras qué es el "reloj de luz" y por qué demuestra la dilatación temporal.', respuesta:'Es un rayo de luz rebotando entre dos espejos. Si el reloj se mueve, el rayo tiene que recorrer un camino diagonal más largo para completar el mismo rebote — como la luz siempre viaja a la misma velocidad, ese camino más largo toma más tiempo, haciendo que el reloj en movimiento "tiquee" más lento.'},
+      ]
+    },
+    'nuclear': {
+      nombre: 'Energía Nuclear',
+      preguntas: [
+        {tipo:'vf', enunciado:'En la fisión nuclear, un núcleo pesado se divide en núcleos más chicos.', respuesta:'Verdadero', explicacion:'Correcto, así funcionan las centrales nucleares actuales.'},
+        {tipo:'vf', enunciado:'En la fusión nuclear se dividen núcleos livianos.', respuesta:'Falso', explicacion:'En la fusión, núcleos livianos se UNEN, no se dividen.'},
+        {tipo:'opcion', enunciado:'¿Quién descubrió la radiactividad?', opciones:['Marie Curie','Henri Becquerel','Ernest Rutherford','Niels Bohr'], respuesta:'B) Henri Becquerel', explicacion:'En 1896, de forma accidental, con sales de uranio.'},
+        {tipo:'opcion', enunciado:'Una muestra con vida media de 10 años, ¿qué porcentaje queda después de 20 años?', opciones:['50%','25%','75%','0%'], respuesta:'B) 25%', explicacion:'20 años = 2 vidas medias → (1/2)²=25%.'},
+        {tipo:'desarrollo', enunciado:'Explicá la diferencia entre fisión y fusión nuclear.', respuesta:'La fisión rompe un núcleo pesado en núcleos más chicos (usada en centrales nucleares). La fusión une núcleos livianos en uno más pesado (ocurre en el Sol), liberando aún más energía por kg que la fisión.'},
+        {tipo:'desarrollo', enunciado:'¿Por qué la energía nuclear casi no emite CO₂ durante su funcionamiento, a diferencia de una central a carbón?', respuesta:'Porque la energía nuclear proviene de reacciones en el núcleo del átomo, no de la combustión de materiales fósiles — no hay quema de combustible que libere CO₂ en el proceso de generación.'},
+      ]
+    },
+    'modelo-atomico': {
+      nombre: 'Modelo Atómico',
+      preguntas: [
+        {tipo:'vf', enunciado:'El número atómico (Z) es igual a la cantidad de protones.', respuesta:'Verdadero', explicacion:'Correcto, Z define de qué elemento se trata.'},
+        {tipo:'vf', enunciado:'Los isótopos tienen distinto número de protones.', respuesta:'Falso', explicacion:'Tienen el MISMO número de protones, distinto número de neutrones.'},
+        {tipo:'opcion', enunciado:'Un átomo tiene Z=17 y A=35. ¿Cuántos neutrones tiene?', opciones:['17','18','35','52'], respuesta:'B) 18', explicacion:'Neutrones=A−Z=35−17=18.'},
+        {tipo:'opcion', enunciado:'¿Quién descubrió el núcleo atómico con el experimento de la lámina de oro?', opciones:['Thomson','Dalton','Rutherford','Bohr'], respuesta:'C) Rutherford', explicacion:'En 1911.'},
+        {tipo:'desarrollo', enunciado:'Explicá cómo evolucionó el modelo atómico desde Dalton hasta Bohr.', respuesta:'Dalton (1808): átomo indivisible. Thomson (1897): descubre el electrón, modelo "budín de pasas". Rutherford (1911): descubre el núcleo, átomo mayormente vacío. Bohr (1913): electrones en niveles de energía específicos.'},
+        {tipo:'desarrollo', enunciado:'¿Por qué la masa atómica no es simplemente el número de protones?', respuesta:'Porque los neutrones también aportan masa (similar a los protones) — la masa atómica (A) es la suma de protones + neutrones, no solo protones.'},
+      ]
+    },
+    'config-electronica': {
+      nombre: 'Configuración Electrónica',
+      preguntas: [
+        {tipo:'vf', enunciado:'El subnivel s tiene capacidad máxima de 2 electrones.', respuesta:'Verdadero', explicacion:'1 orbital × 2 electrones.'},
+        {tipo:'vf', enunciado:'El 3d se llena antes que el 4s.', respuesta:'Falso', explicacion:'Es al revés: el 4s se llena antes que el 3d.'},
+        {tipo:'opcion', enunciado:'¿Cuál es la configuración electrónica del oxígeno (Z=8)?', opciones:['1s²2s²2p⁶','1s²2s²2p⁴','1s²2s⁶','1s⁸'], respuesta:'B) 1s²2s²2p⁴', explicacion:'2+2+4=8 electrones.'},
+        {tipo:'opcion', enunciado:'¿Cuántos electrones caben como máximo en el subnivel d?', opciones:['2','6','10','14'], respuesta:'C) 10', explicacion:'5 orbitales × 2 electrones = 10.'},
+        {tipo:'desarrollo', enunciado:'Explicá la Regla de Hund con un ejemplo.', respuesta:'Los electrones ocupan primero cada orbital vacío de igual energía antes de aparearse. Ejemplo: en el nitrógeno (2p³), los 3 electrones ocupan cada uno de los 3 orbitales p por separado, sin aparearse.'},
+        {tipo:'desarrollo', enunciado:'¿Qué son los electrones de valencia y por qué importan?', respuesta:'Son los electrones de la última capa — son los que participan en los enlaces químicos, determinando cómo reacciona el átomo con otros.'},
+      ]
+    },
+    'enlaces': {
+      nombre: 'Enlaces Químicos',
+      preguntas: [
+        {tipo:'vf', enunciado:'Un enlace iónico se forma típicamente entre un metal y un no metal.', respuesta:'Verdadero', explicacion:'El metal pierde electrones, el no metal los gana.'},
+        {tipo:'vf', enunciado:'A mayor diferencia de electronegatividad, más probable que el enlace sea covalente apolar.', respuesta:'Falso', explicacion:'A mayor diferencia, más probable que sea IÓNICO.'},
+        {tipo:'opcion', enunciado:'¿Qué tipo de enlace forman dos átomos del mismo elemento (como O₂)?', opciones:['Iónico','Covalente polar','Covalente apolar','Metálico'], respuesta:'C) Covalente apolar', explicacion:'Al ser el mismo elemento, tienen la misma electronegatividad — comparten parejo.'},
+        {tipo:'opcion', enunciado:'¿Qué explica que los metales conduzcan electricidad?', opciones:['Enlace iónico','Enlace covalente','Enlace metálico','Enlace de hidrógeno'], respuesta:'C) Enlace metálico', explicacion:'Los electrones se mueven libremente por todo el metal.'},
+        {tipo:'desarrollo', enunciado:'Explicá por qué el agua es una molécula polar.', respuesta:'Porque el oxígeno es más electronegativo que el hidrógeno, atrayendo más fuerte los electrones compartidos — el lado del oxígeno queda con carga parcial negativa, los hidrógenos con carga parcial positiva.'},
+        {tipo:'desarrollo', enunciado:'¿Por qué el NaCl (sal) se disuelve bien en agua pero el aceite no?', respuesta:'El agua es polar y puede rodear y separar los iones Na⁺ y Cl⁻ de la sal (iónica). El aceite es covalente apolar y no tiene esa capacidad de interactuar con cargas — "polar disuelve polar, apolar disuelve apolar".'},
+      ]
+    },
+    'acido-base': {
+      nombre: 'Ácido-Base y pH',
+      preguntas: [
+        {tipo:'vf', enunciado:'Un pH menor a 7 indica una solución ácida.', respuesta:'Verdadero', explicacion:'Correcto.'},
+        {tipo:'vf', enunciado:'La escala de pH es lineal.', respuesta:'Falso', explicacion:'Es LOGARÍTMICA — cada unidad representa 10 veces más o menos concentración de H⁺.'},
+        {tipo:'opcion', enunciado:'¿Cuál es el pH de una solución con [H⁺]=10⁻³ mol/L?', opciones:['3','−3','10','0.001'], respuesta:'A) 3', explicacion:'pH=−log(10⁻³)=3.'},
+        {tipo:'opcion', enunciado:'¿Qué se forma al neutralizar un ácido con una base?', opciones:['Solo agua','Solo sal','Sal y agua','Un ácido más fuerte'], respuesta:'C) Sal y agua', explicacion:'Ácido+Base→Sal+Agua.'},
+        {tipo:'desarrollo', enunciado:'¿Por qué una solución de pH=3 es 100 veces más ácida que una de pH=5?', respuesta:'Porque la escala es logarítmica en base 10 — la diferencia de 2 unidades de pH representa 10²=100 veces la concentración de H⁺.'},
+        {tipo:'desarrollo', enunciado:'Explicá cómo funciona un indicador de pH como el repollo morado.', respuesta:'Contiene un pigmento (antocianina) cuya estructura molecular cambia según la cantidad de H⁺ presente, alterando qué colores de luz absorbe y refleja — por eso cambia de color según el pH.'},
+      ]
+    },
+    'oxido-reduccion': {
+      nombre: 'Óxido-Reducción',
+      preguntas: [
+        {tipo:'vf', enunciado:'La oxidación es la pérdida de electrones.', respuesta:'Verdadero', explicacion:'Correcto.'},
+        {tipo:'vf', enunciado:'El agente oxidante es el que se oxida.', respuesta:'Falso', explicacion:'El agente oxidante es el que se REDUCE.'},
+        {tipo:'opcion', enunciado:'En Zn + Cu²⁺ → Zn²⁺ + Cu, ¿qué le pasa al cobre?', opciones:['Se oxida','Se reduce','No cambia','Se evapora'], respuesta:'B) Se reduce', explicacion:'Cu²⁺ pasa a Cu (0), ganando electrones.'},
+        {tipo:'opcion', enunciado:'¿Cuál de estos metales es MENOS reactivo (más difícil de oxidar)?', opciones:['Potasio','Hierro','Oro','Zinc'], respuesta:'C) Oro', explicacion:'El oro está muy abajo en la serie de actividad — casi no se oxida, por eso "no se opaca".'},
+        {tipo:'desarrollo', enunciado:'Explicá por qué toda reacción redox tiene siempre oxidación Y reducción juntas.', respuesta:'Porque los electrones no se crean ni desaparecen — si algo los pierde (se oxida), necesariamente otro los tiene que ganar (se reduce), por conservación de carga.'},
+        {tipo:'desarrollo', enunciado:'¿Por qué un clavo de hierro se oxida más rápido en vinagre que al aire libre?', respuesta:'Porque el ambiente ácido del vinagre acelera la reacción entre el hierro y el oxígeno disuelto, formando óxido mucho más rápido que la oxidación natural lenta al aire.'},
+      ]
+    },
+    'estequiometria': {
+      nombre: 'Estequiometría',
+      preguntas: [
+        {tipo:'vf', enunciado:'Un mol de cualquier sustancia tiene el mismo número de partículas (6.022×10²³).', respuesta:'Verdadero', explicacion:'Correcto, número de Avogadro.'},
+        {tipo:'vf', enunciado:'La molaridad se calcula como masa dividida volumen.', respuesta:'Falso', explicacion:'Es MOLES dividido volumen (M=n/V).'},
+        {tipo:'opcion', enunciado:'¿Cuántos moles hay en 36 g de agua (masa molar 18 g/mol)?', opciones:['0.5 mol','2 mol','18 mol','36 mol'], respuesta:'B) 2 mol', explicacion:'n=m/M=36/18=2 mol.'},
+        {tipo:'opcion', enunciado:'¿Qué determina cuál es el reactivo limitante?', opciones:['El que sobra','El que se agota primero','El más caro','El más pesado'], respuesta:'B) El que se agota primero', explicacion:'Limita cuánto producto se puede formar como máximo.'},
+        {tipo:'desarrollo', enunciado:'Explicá por qué es importante identificar el reactivo limitante en la industria química.', respuesta:'Porque determina el rendimiento máximo posible de producto — comprar de más del reactivo que sobra desperdicia materia prima sin aumentar la producción.'},
+        {tipo:'desarrollo', enunciado:'¿Cómo se calcula la masa molar de un compuesto como el CO₂?', respuesta:'Se suman las masas atómicas de todos los átomos: C(12) + 2×O(16) = 12+32 = 44 g/mol.'},
+      ]
+    },
+    'gases': {
+      nombre: 'Leyes de los Gases',
+      preguntas: [
+        {tipo:'vf', enunciado:'Según la Ley de Boyle, a temperatura constante, si el volumen disminuye, la presión aumenta.', respuesta:'Verdadero', explicacion:'P y V son inversamente proporcionales.'},
+        {tipo:'vf', enunciado:'En la ecuación del gas ideal, la temperatura se usa en Celsius.', respuesta:'Falso', explicacion:'Debe usarse en Kelvin (escala absoluta).'},
+        {tipo:'opcion', enunciado:'Un gas a 2 atm y 4 L se comprime a 8 L. ¿Cuál es la nueva presión?', opciones:['0.5 atm','1 atm','4 atm','16 atm'], respuesta:'B) 1 atm', explicacion:'P₁V₁=P₂V₂ → 2×4=P₂×8 → P₂=1 atm.'},
+        {tipo:'opcion', enunciado:'¿Cuántos litros ocupa 1 mol de gas ideal en CNPT?', opciones:['1 L','22.4 L','100 L','44 L'], respuesta:'B) 22.4 L', explicacion:'Volumen molar en condiciones normales.'},
+        {tipo:'desarrollo', enunciado:'Explicá por qué un globo se infla más al subir una montaña alta.', respuesta:'Porque la presión atmosférica externa disminuye con la altura — al bajar la presión externa, el gas dentro del globo se expande para reequilibrar presiones.'},
+        {tipo:'desarrollo', enunciado:'¿Por qué una olla a presión cocina más rápido?', respuesta:'Al estar sellada, el vapor no puede escapar y la presión interna sube, lo que aumenta el punto de ebullición del agua — cocinando a mayor temperatura y más rápido.'},
+      ]
+    },
+    'mezclas': {
+      nombre: 'Mezclas y Métodos de Separación',
+      preguntas: [
+        {tipo:'vf', enunciado:'Una mezcla homogénea tiene una sola fase visible.', respuesta:'Verdadero', explicacion:'Correcto, como el agua con sal disuelta.'},
+        {tipo:'vf', enunciado:'La filtración sirve para separar dos líquidos que no se mezclan.', respuesta:'Falso', explicacion:'La filtración separa sólidos de líquidos — para dos líquidos se usa decantación.'},
+        {tipo:'opcion', enunciado:'¿Qué método separaría limaduras de hierro mezcladas con arena?', opciones:['Filtración','Imantación','Decantación','Destilación'], respuesta:'B) Imantación', explicacion:'Un imán atrae el hierro, dejando la arena.'},
+        {tipo:'opcion', enunciado:'¿Qué método usarías para separar agua y sal disuelta?', opciones:['Filtración','Tamizado','Evaporación','Decantación'], respuesta:'C) Evaporación', explicacion:'Al evaporar el agua, la sal queda como sólido — no se puede filtrar porque está disuelta.'},
+        {tipo:'desarrollo', enunciado:'Explicá la diferencia entre destilación y cromatografía.', respuesta:'La destilación separa líquidos según su punto de ebullición distinto. La cromatografía separa componentes según su distinta afinidad con un medio (como el papel).'},
+        {tipo:'desarrollo', enunciado:'¿Por qué la destilación del petróleo produce distintos derivados (nafta, querosén, etc.)?', respuesta:'Porque cada componente del petróleo tiene un punto de ebullición distinto — al calentar, cada uno se evapora y condensa a una temperatura diferente, separándose en fracciones.'},
+      ]
+    },
+    'concentracion': {
+      nombre: 'Concentración de Soluciones',
+      preguntas: [
+        {tipo:'vf', enunciado:'La molaridad se mide en mol/L.', respuesta:'Verdadero', explicacion:'Correcto, M=n/V.'},
+        {tipo:'vf', enunciado:'Diluir una solución cambia la cantidad de moles de soluto.', respuesta:'Falso', explicacion:'Solo se agrega solvente — los moles de soluto permanecen iguales, cambia la concentración.'},
+        {tipo:'opcion', enunciado:'Disuelves 1 mol de soluto en 2 L de solución. ¿Cuál es la molaridad?', opciones:['0.5 M','1 M','2 M','4 M'], respuesta:'A) 0.5 M', explicacion:'M=n/V=1/2=0.5 mol/L.'},
+        {tipo:'opcion', enunciado:'Tienes 100 mL de una solución 2M. ¿A qué volumen final la diluyes para llegar a 0.5M?', opciones:['200 mL','400 mL','50 mL','25 mL'], respuesta:'B) 400 mL', explicacion:'M₁V₁=M₂V₂ → 2×100=0.5×V₂ → V₂=400 mL.'},
+        {tipo:'desarrollo', enunciado:'Explicá por qué al preparar una solución diluida de un ácido concentrado, hay que agregar el ácido al agua y no al revés.', respuesta:'Porque diluir un ácido concentrado libera calor — agregando el ácido de a poco sobre el agua, ese calor se disipa gradualmente. Al revés, el calor puede hacer que salpique violentamente.'},
+        {tipo:'desarrollo', enunciado:'¿Cómo prepararías 500 mL de una solución 1M de NaCl (masa molar 58.5 g/mol)?', respuesta:'Se necesitan n=M×V=1×0.5=0.5 moles. Masa=n×M=0.5×58.5=29.25 g de NaCl, disueltos en agua hasta completar 500 mL de solución.'},
+      ]
+    },
+  };
+
+  function renderBancoPreguntas(){
+    const cont = document.getElementById('banco-preguntas-lista');
+    let html = '';
+    Object.keys(BANCO_GRANDE).forEach((key, idx) => {
+      const tema = BANCO_GRANDE[key];
+      html += `<div class="card banco-tema" id="banco-tema-${idx}">
+        <button class="banco-tema-header" onclick="toggleBancoTema(${idx})">
+          <h2 style="margin:0;">${tema.nombre}</h2>
+          <span class="banco-flecha">▶</span>
+        </button>
+        <div class="banco-tema-body">`;
+      tema.preguntas.forEach((p, i) => {
+        html += `<div class="banco-pregunta">
+          <p class="banco-enunciado"><strong>${i+1}.</strong> ${p.enunciado}${p.opciones ? '<br>' + p.opciones.map((o,j)=>String.fromCharCode(65+j)+') '+o).join('<br>') : ''}</p>
+          <p class="banco-respuesta"><strong>Respuesta:</strong> ${p.respuesta}${p.explicacion ? ' — ' + p.explicacion : ''}</p>
+        </div>`;
+      });
+      html += `</div></div>`;
+    });
+    cont.innerHTML = html;
+  }
+
+  function toggleBancoTema(idx){
+    document.getElementById('banco-tema-'+idx).classList.toggle('abierto');
+  }
+
+  window.addEventListener('load', renderBancoPreguntas);
+
+  function toggleNavMobile(){
+    document.querySelector('.navbar-links').classList.toggle('open');
+  }
+
+  // Esta página es solo de referencia — no necesita lógica interactiva,
+  // cada bloque es un enlace directo a su página completa.
+</script>
+
+</body>
+</html>

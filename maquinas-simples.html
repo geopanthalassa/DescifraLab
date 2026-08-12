@@ -67,7 +67,29 @@
     transition:background 0.15s, color 0.15s;
   }
   .navbar-links a:hover{background:rgba(255,255,255,0.08);color:#fff;}
-  @media(max-width:640px){.navbar-links{display:none;}}
+  .navbar-toggle{
+    display:none;
+    background:none;border:none;cursor:pointer;
+    padding:6px;
+  }
+  .navbar-toggle span{
+    display:block;width:24px;height:2.5px;
+    background:#D8D3C4;margin:5px 0;
+    transition:transform 0.2s, opacity 0.2s;
+  }
+  @media(max-width:768px){
+    .navbar-links{
+      display:none;
+      width:100%;
+      flex-direction:column;
+      gap:2px;
+      order:3;
+    }
+    .navbar-links.open{display:flex;}
+    .navbar-toggle{display:block;}
+    .navbar-links a{padding:12px 14px;}
+  }
+
   .eyebrow{
     font-family:'JetBrains Mono', monospace;
     font-size:12px;
@@ -250,6 +272,9 @@
 
 <nav class="navbar">
   <a href="index.html" class="navbar-brand">DescifraLab</a>
+  <button class="navbar-toggle" onclick="toggleNavMobile()" aria-label="Abrir menú">
+    <span></span><span></span><span></span>
+  </button>
   <div class="navbar-links">
     <a href="fisica.html">Física</a>
     <a href="quimica.html">Química</a>
@@ -257,6 +282,7 @@
     <a href="conversor-unidades.html">Conversor</a>
     <a href="experimentos.html">Experimentos</a>
     <a href="docentes.html">Para Docentes</a>
+    <a href="banco-preguntas.html">Banco de Preguntas</a>
     <a href="evaluaciones.html">Evaluaciones</a>
     <a href="sobre-nosotros.html">Sobre la Fundadora</a>
   </div>
@@ -279,21 +305,21 @@
 
     <div class="card" data-tag="Concepto">
       <h2>¿Qué es una máquina simple?</h2>
-      <p>Una máquina simple no crea energía de la nada — lo que hace es <strong>cambiar la dirección de una fuerza, o reducir cuánta fuerza necesitás aplicar</strong> (a cambio de aplicarla en una distancia más larga). Existen seis tipos básicos: palanca, plano inclinado, polea, torno, cuña y tornillo. Todas se miden con el mismo concepto: la ventaja mecánica.</p>
+      <p>Una máquina simple no crea energía de la nada — lo que hace es <strong>cambiar la dirección de una fuerza, o reducir cuánta fuerza necesitas aplicar</strong> (a cambio de aplicarla en una distancia más larga). Existen seis tipos básicos: palanca, plano inclinado, polea, torno, cuña y tornillo. Todas se miden con el mismo concepto: la ventaja mecánica.</p>
       <div class="formula-box">Ventaja Mecánica (VM) = Fuerza resistente / Fuerza aplicada</div>
       <p class="var-list">Una VM de 3 significa que la máquina te permite mover algo aplicando 3 veces menos fuerza de la que tendrías que hacer sin ella — pero vas a tener que mover tu extremo 3 veces más distancia (no hay atajos gratis, la energía total se conserva).</p>
     </div>
 
     <div class="card" data-tag="Concepto">
       <h2>La palanca</h2>
-      <p>Ya viste el torque (τ = F·d) en la página anterior — la palanca es la aplicación directa de eso. Cuanto más lejos del punto de apoyo apliques la fuerza, menos fuerza necesitás para el mismo efecto.</p>
+      <p>Ya viste el torque (τ = F·d) en la página anterior — la palanca es la aplicación directa de eso. Cuanto más lejos del punto de apoyo apliques la fuerza, menos fuerza necesitas para el mismo efecto.</p>
       <div class="formula-box">VM = brazo de potencia / brazo de resistencia = dₚ / dᵣ</div>
     </div>
 
     <div class="card" data-tag="Calculadora">
-      <h2>Calculá la ventaja mecánica de una palanca</h2>
+      <h2>Calcula la ventaja mecánica de una palanca</h2>
       <div class="calc-grid">
-        <div class="field"><label>Brazo de potencia dₚ (m) — donde aplicás la fuerza</label><input type="number" id="b-dp" value="2"></div>
+        <div class="field"><label>Brazo de potencia dₚ (m) — donde aplicas la fuerza</label><input type="number" id="b-dp" value="2"></div>
         <div class="field"><label>Brazo de resistencia dᵣ (m) — donde está el peso</label><input type="number" id="b-dr" value="0.5"></div>
       </div>
       <button class="calc-btn" onclick="calcBasico()">Calcular</button>
@@ -303,9 +329,9 @@
     <div class="card" data-tag="Ejemplo resuelto">
       <h2>Ejemplo</h2>
       <div class="example">
-        <p><strong>Usás una barreta como palanca: aplicás la fuerza a 2 m del apoyo, y la piedra que querés mover está a 0.5 m del apoyo. ¿Cuál es la ventaja mecánica?</strong></p>
+        <p><strong>Usas una barreta como palanca: aplicas la fuerza a 2 m del apoyo, y la piedra que quieres mover está a 0.5 m del apoyo. ¿Cuál es la ventaja mecánica?</strong></p>
         <p>VM = dₚ/dᵣ = 2/0.5 = <strong>4</strong></p>
-        <p>Con esa palanca, movés la piedra aplicando 4 veces menos fuerza de la que necesitarías levantándola directamente con las manos.</p>
+        <p>Con esa palanca, mueves la piedra aplicando 4 veces menos fuerza de la que necesitarías levantándola directamente con las manos.</p>
       </div>
     </div>
 
@@ -316,10 +342,10 @@
           <details><summary>Ver respuesta</summary>VM = 3/1 = 3</details>
         </li>
         <li>¿Por qué una carretilla (con la rueda como punto de apoyo) es más fácil de usar que cargar el peso directamente?
-          <details><summary>Ver respuesta</summary>Porque el punto de apoyo (la rueda) está mucho más cerca del peso que de donde vos aplicás la fuerza (los mangos) — dₚ es grande, dᵣ es chico, dando una VM alta.</details>
+          <details><summary>Ver respuesta</summary>Porque el punto de apoyo (la rueda) está mucho más cerca del peso que de donde tú aplicas la fuerza (los mangos) — dₚ es grande, dᵣ es chico, dando una VM alta.</details>
         </li>
-        <li>¿Qué le pasa a la distancia que tenés que mover tu mano si la ventaja mecánica es alta?
-          <details><summary>Ver respuesta</summary>Tenés que moverla mucho más — la energía se conserva, así que si ganás en fuerza, perdés en distancia recorrida (movés más pero con menos esfuerzo).</details>
+        <li>¿Qué le pasa a la distancia que tienes que mover tu mano si la ventaja mecánica es alta?
+          <details><summary>Ver respuesta</summary>Tienes que moverla mucho más — la energía se conserva, así que si ganas en fuerza, pierdes en distancia recorrida (mueves más pero con menos esfuerzo).</details>
         </li>
       </ol>
     </div>
@@ -332,7 +358,7 @@
     <div class="card" data-tag="Concepto">
       <h2>Poleas: fija, móvil, y sistemas combinados</h2>
       <ul style="padding-left:20px;margin:10px 0;">
-        <li><strong>Polea fija:</strong> solo cambia la dirección de la fuerza (tirás hacia abajo, el peso sube) — VM = 1, no reduce el esfuerzo.</li>
+        <li><strong>Polea fija:</strong> solo cambia la dirección de la fuerza (tiras hacia abajo, el peso sube) — VM = 1, no reduce el esfuerzo.</li>
         <li><strong>Polea móvil:</strong> se mueve junto con el peso — VM = 2, la mitad del esfuerzo.</li>
         <li><strong>Sistema de poleas (aparejo):</strong> combina varias — la ventaja mecánica es igual a la cantidad de segmentos de cuerda que sostienen al peso.</li>
       </ul>
@@ -340,7 +366,7 @@
     </div>
 
     <div class="card" data-tag="Calculadora">
-      <h2>Calculá la fuerza necesaria con un sistema de poleas</h2>
+      <h2>Calcula la fuerza necesaria con un sistema de poleas</h2>
       <div class="calc-grid">
         <div class="field"><label>Peso a levantar (N)</label><input type="number" id="a-peso" value="600"></div>
         <div class="field"><label>Cantidad de cuerdas que sostienen el peso</label><input type="number" id="a-cuerdas" value="3" min="1" max="6"></div>
@@ -350,8 +376,8 @@
     </div>
 
     <div class="card" data-tag="Simulación">
-      <h2>Mirá el sistema de poleas en acción</h2>
-      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Con los valores de arriba, mirá cómo tirar de la cuerda levanta el peso — comparando la fuerza que aplicás contra el peso real.</p>
+      <h2>Mira el sistema de poleas en acción</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Con los valores de arriba, mira cómo tirar de la cuerda levanta el peso — comparando la fuerza que aplicas contra el peso real.</p>
       <div class="sim-box">
         <canvas id="polea-canvas" width="680" height="260"></canvas>
       </div>
@@ -361,10 +387,10 @@
     <div class="card" data-tag="Ejemplo resuelto">
       <h2>Ejemplo</h2>
       <div class="example">
-        <p><strong>Con un sistema de poleas de 3 cuerdas, querés levantar un peso de 600 N. ¿Qué fuerza tenés que aplicar?</strong></p>
+        <p><strong>Con un sistema de poleas de 3 cuerdas, quieres levantar un peso de 600 N. ¿Qué fuerza tienes que aplicar?</strong></p>
         <p>VM = 3 (3 cuerdas sosteniendo el peso)</p>
         <p>F = Peso/VM = 600/3 = <strong>200 N</strong></p>
-        <p>Aplicás un tercio de la fuerza — pero vas a tener que tirar 3 metros de cuerda por cada metro que suba el peso.</p>
+        <p>Aplicas un tercio de la fuerza — pero vas a tener que tirar 3 metros de cuerda por cada metro que suba el peso.</p>
       </div>
     </div>
 
@@ -377,7 +403,7 @@
         <li>¿Por qué una polea fija sola (VM=1) es útil aunque no reduzca la fuerza necesaria?
           <details><summary>Ver respuesta</summary>Porque cambia la dirección de la fuerza — es mucho más fácil tirar hacia abajo (usando tu propio peso, con ayuda de la gravedad) que empujar hacia arriba directamente.</details>
         </li>
-        <li>Si necesitás levantar 1200 N y solo podés aplicar 200 N, ¿cuántas cuerdas necesita tu sistema de poleas como mínimo?
+        <li>Si necesitas levantar 1200 N y solo puedes aplicar 200 N, ¿cuántas cuerdas necesita tu sistema de poleas como mínimo?
           <details><summary>Ver respuesta</summary>VM necesaria = 1200/200 = 6 → hacen falta 6 cuerdas sosteniendo el peso</details>
         </li>
       </ol>
@@ -388,7 +414,7 @@
   <div class="card faq" data-tag="FAQ">
     <h2>Preguntas frecuentes</h2>
     <h3>¿Una máquina simple hace que necesites menos energía total?</h3>
-    <p>No — la energía total necesaria es la misma (o incluso un poco más, por la fricción). Lo que cambia es cómo la aplicás: menos fuerza en más distancia, en vez de mucha fuerza en poca distancia. No hay atajos, solo formas más cómodas de aplicar el esfuerzo.</p>
+    <p>No — la energía total necesaria es la misma (o incluso un poco más, por la fricción). Lo que cambia es cómo la aplicas: menos fuerza en más distancia, en vez de mucha fuerza en poca distancia. No hay atajos, solo formas más cómodas de aplicar el esfuerzo.</p>
     <h3>¿Por qué el destornillador es una máquina simple?</h3>
     <p>Es un ejemplo de rueda y eje (torno): el mango tiene un radio más grande que la punta, así que un giro chico de fuerza en el mango se traduce en mucha fuerza rotacional en la punta — la misma idea que una manija de puerta.</p>
     <h3>¿Las máquinas simples se pueden combinar?</h3>
@@ -414,6 +440,10 @@
 </div>
 
 <script>
+  function toggleNavMobile(){
+    document.querySelector('.navbar-links').classList.toggle('open');
+  }
+
   document.querySelectorAll('.level-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
@@ -509,7 +539,7 @@
     ctx.fillText('⬇', centerX+140, pisoY-20-((poleaState.t*40)%40)+8);
     ctx.font = '11px JetBrains Mono';
     ctx.fillStyle = '#5C6B7A';
-    ctx.fillText('tirás acá', centerX+140, pisoY+2);
+    ctx.fillText('tiras acá', centerX+140, pisoY+2);
     ctx.textAlign = 'left';
 
     ctx.font = '11px JetBrains Mono';

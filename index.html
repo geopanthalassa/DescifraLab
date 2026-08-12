@@ -53,6 +53,29 @@
     transition:background 0.15s, color 0.15s;
   }
   .navbar-links a:hover{background:rgba(255,255,255,0.08);color:#fff;}
+  .navbar-toggle{
+    display:none;
+    background:none;border:none;cursor:pointer;
+    padding:6px;
+  }
+  .navbar-toggle span{
+    display:block;width:24px;height:2.5px;
+    background:#D8D3C4;margin:5px 0;
+    transition:transform 0.2s, opacity 0.2s;
+  }
+  @media(max-width:768px){
+    .navbar-links{
+      display:none;
+      width:100%;
+      flex-direction:column;
+      gap:2px;
+      order:3;
+    }
+    .navbar-links.open{display:flex;}
+    .navbar-toggle{display:block;}
+    .navbar-links a{padding:12px 14px;}
+  }
+
 
   /* ---- Hero ---- */
   .hero{
@@ -68,6 +91,14 @@
   .hero h1{
     font-family:'Fraunces', serif;font-size:44px;font-weight:700;
     margin:0 0 16px;line-height:1.1;
+  }
+  .hero p.hero-tagline{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:19px;font-weight:600;
+    color:var(--amber-dark);
+    margin:0 0 20px;
+    max-width:none;
   }
   .hero p{font-size:17px;color:var(--ink-soft);max-width:560px;margin:0 auto 32px;}
 
@@ -145,7 +176,6 @@
 
   @media(max-width:640px){
     .hero h1{font-size:32px;}
-    .navbar-links{display:none;}
   }
 </style>
 </head>
@@ -153,6 +183,9 @@
 
 <nav class="navbar">
   <a href="index.html" class="navbar-brand">DescifraLab</a>
+  <button class="navbar-toggle" onclick="toggleNavMobile()" aria-label="Abrir menú">
+    <span></span><span></span><span></span>
+  </button>
   <div class="navbar-links">
     <a href="fisica.html">Física</a>
     <a href="quimica.html">Química</a>
@@ -160,15 +193,17 @@
     <a href="conversor-unidades.html">Conversor</a>
     <a href="experimentos.html">Experimentos</a>
     <a href="docentes.html">Para Docentes</a>
+    <a href="banco-preguntas.html">Banco de Preguntas</a>
     <a href="evaluaciones.html">Evaluaciones</a>
     <a href="sobre-nosotros.html">Sobre la Fundadora</a>
   </div>
 </nav>
 
 <div class="hero">
-  <div class="hero-eyebrow">Física y Química, explicadas claro</div>
-  <h1>¿Qué querés descifrar hoy?</h1>
-  <p>Buscá cualquier tema — fórmulas, simuladores interactivos, ejemplos resueltos y ejercicios con respuesta, todo en un lenguaje que se entiende.</p>
+  <div class="hero-eyebrow">Física · Química · Matemática</div>
+  <h1>Entiende. Calcula. Experimenta.</h1>
+  <p class="hero-tagline">No lo memorices. Descífralo.</p>
+  <p>Busca cualquier tema — fórmulas, simuladores interactivos, ejemplos resueltos y ejercicios con respuesta, todo en un lenguaje que se entiende.</p>
 
   <div class="search-wrap">
     <span class="search-icon">
@@ -177,7 +212,7 @@
         <line x1="12.5" y1="12.5" x2="17" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
       </svg>
     </span>
-    <input type="text" class="search-input" id="search-input" placeholder="Buscá un tema: MRU, pH, electricidad, poleas..." autocomplete="off" oninput="buscar(this.value)">
+    <input type="text" class="search-input" id="search-input" placeholder="Busca un tema: MRU, pH, electricidad, poleas..." autocomplete="off" oninput="buscar(this.value)">
     <div class="search-results" id="search-results"></div>
   </div>
 </div>
@@ -199,7 +234,7 @@
     </a>
     <a href="experimentos.html" class="quick-card experimentos">
       <h2>Experimentos Caseros</h2>
-      <p>Física y química con las manos, con materiales que ya tenés en tu casa.</p>
+      <p>Física y química con las manos, con materiales que ya tienes en tu casa.</p>
     </a>
     <a href="formulario.html" class="quick-card formulario">
       <h2>Machete de Fórmulas</h2>
@@ -214,10 +249,14 @@
 </div>
 
 <footer>
-  DescifraLab — hecho por una geóloga que se cansó de ver la ciencia explicada de forma aburrida.
+  DescifraLab — hecho por una geóloga cansada de que la ciencia no llegue a todos de forma fácil.
 </footer>
 
 <script>
+  function toggleNavMobile(){
+    document.querySelector('.navbar-links').classList.toggle('open');
+  }
+
 const INDICE_BUSQUEDA = [{"url": "acido-base.html", "titulo": "Ácido-Base y pH", "categoria": "Química · Reacciones"}, {"url": "calor-especifico.html", "titulo": "Calor Específico y Cambios de Estado", "categoria": "Termodinámica"}, {"url": "caudal-continuidad.html", "titulo": "Caudal y Continuidad", "categoria": "Hidráulica y Fluidos"}, {"url": "circuitos.html", "titulo": "Circuitos en Serie y Paralelo", "categoria": "Electricidad"}, {"url": "concentracion-soluciones.html", "titulo": "Concentración de Soluciones", "categoria": "Química · Soluciones"}, {"url": "configuracion-electronica.html", "titulo": "Configuración Electrónica", "categoria": "Química · Estructura de la materia"}, {"url": "conversor-unidades.html", "titulo": "Conversor de Unidades", "categoria": "Herramientas · Magnitudes"}, {"url": "corriente-continua-alterna.html", "titulo": "Corriente Continua y Alterna", "categoria": "Electricidad"}, {"url": "dilatacion-termica.html", "titulo": "Dilatación Térmica", "categoria": "Termodinámica"}, {"url": "docentes.html", "titulo": "Para Docentes", "categoria": "Recursos pedagógicos"}, {"url": "electromagnetismo.html", "titulo": "Electromagnetismo", "categoria": "Electricidad · Magnetismo"}, {"url": "energia-nuclear.html", "titulo": "Energía Nuclear", "categoria": "Física Moderna"}, {"url": "enlaces-quimicos.html", "titulo": "Enlaces Químicos", "categoria": "Química · Enlaces"}, {"url": "estatica-torque.html", "titulo": "Estática y Torque", "categoria": "Mecánica · Dinámica"}, {"url": "estequiometria.html", "titulo": "Estequiometría y El Mol", "categoria": "Química · Reacciones"}, {"url": "evaluaciones.html", "titulo": "Evaluaciones", "categoria": "Herramientas · Autoevaluación"}, {"url": "experimentos.html", "titulo": "Experimentos Caseros", "categoria": "Aprender con las manos"}, {"url": "fisica.html", "titulo": "Física", "categoria": "Portada de materia"}, {"url": "fluidos.html", "titulo": "Presión Hidrostática y Flotación", "categoria": "Hidráulica y Fluidos"}, {"url": "impulso-momentum.html", "titulo": "Impulso y Cantidad de Movimiento", "categoria": "Mecánica · Dinámica"}, {"url": "ley-ohm.html", "titulo": "Ley de Ohm (V = I·R)", "categoria": "Electricidad"}, {"url": "leyes-gases.html", "titulo": "Leyes de los Gases", "categoria": "Química · Estados de la materia"}, {"url": "maquinas-simples.html", "titulo": "Máquinas Simples", "categoria": "Mecánica · Dinámica"}, {"url": "maquinas-termicas.html", "titulo": "Máquinas Térmicas y Eficiencia", "categoria": "Termodinámica · Máquinas"}, {"url": "mcu.html", "titulo": "Movimiento Circular Uniforme (MCU)", "categoria": "Mecánica · Cinemática"}, {"url": "mezclas-separacion.html", "titulo": "Mezclas y Métodos de Separación", "categoria": "Química · Materia"}, {"url": "modelo-atomico.html", "titulo": "Modelo Atómico y Tabla Periódica", "categoria": "Química · Estructura de la materia"}, {"url": "mru.html", "titulo": "MRU — Movimiento Rectilíneo Uniforme", "categoria": "Mecánica · Cinemática"}, {"url": "mruv.html", "titulo": "MRUV — Movimiento Rectilíneo Uniformemente Variado", "categoria": "Mecánica · Cinemática"}, {"url": "newton.html", "titulo": "Segunda Ley de Newton (F = m·a)", "categoria": "Mecánica · Dinámica"}, {"url": "oxido-reduccion.html", "titulo": "Óxido-Reducción", "categoria": "Química · Reacciones"}, {"url": "potencia-electrica.html", "titulo": "Potencia Eléctrica (P = V·I)", "categoria": "Electricidad"}, {"url": "quimica.html", "titulo": "Química", "categoria": "Portada de materia"}, {"url": "relatividad.html", "titulo": "Dilatación Temporal y Curvatura del Espacio-Tiempo", "categoria": "Relatividad"}, {"url": "sobre-nosotros.html", "titulo": "Sobre la Fundadora", "categoria": "Quiénes somos"}, {"url": "tiro-oblicuo.html", "titulo": "Tiro Oblicuo — Movimiento Parabólico", "categoria": "Mecánica · Cinemática"}, {"url": "trabajo-energia.html", "titulo": "Trabajo y Energía", "categoria": "Mecánica · Energía"}];
 
 function buscar(query){
@@ -236,7 +275,7 @@ function buscar(query){
   );
 
   if(matches.length === 0){
-    resultsDiv.innerHTML = '<div class="search-empty">No encontramos nada con ese nombre — probá con otra palabra.</div>';
+    resultsDiv.innerHTML = '<div class="search-empty">No encontramos nada con ese nombre — prueba con otra palabra.</div>';
   } else {
     resultsDiv.innerHTML = matches.slice(0, 8).map(item => `
       <a href="${item.url}" class="search-result-item">

@@ -67,7 +67,29 @@
     transition:background 0.15s, color 0.15s;
   }
   .navbar-links a:hover{background:rgba(255,255,255,0.08);color:#fff;}
-  @media(max-width:640px){.navbar-links{display:none;}}
+  .navbar-toggle{
+    display:none;
+    background:none;border:none;cursor:pointer;
+    padding:6px;
+  }
+  .navbar-toggle span{
+    display:block;width:24px;height:2.5px;
+    background:#D8D3C4;margin:5px 0;
+    transition:transform 0.2s, opacity 0.2s;
+  }
+  @media(max-width:768px){
+    .navbar-links{
+      display:none;
+      width:100%;
+      flex-direction:column;
+      gap:2px;
+      order:3;
+    }
+    .navbar-links.open{display:flex;}
+    .navbar-toggle{display:block;}
+    .navbar-links a{padding:12px 14px;}
+  }
+
   .eyebrow{
     font-family:'JetBrains Mono', monospace;
     font-size:12px;
@@ -250,6 +272,9 @@
 
 <nav class="navbar">
   <a href="index.html" class="navbar-brand">DescifraLab</a>
+  <button class="navbar-toggle" onclick="toggleNavMobile()" aria-label="Abrir menú">
+    <span></span><span></span><span></span>
+  </button>
   <div class="navbar-links">
     <a href="fisica.html">Física</a>
     <a href="quimica.html">Química</a>
@@ -257,6 +282,7 @@
     <a href="conversor-unidades.html">Conversor</a>
     <a href="experimentos.html">Experimentos</a>
     <a href="docentes.html">Para Docentes</a>
+    <a href="banco-preguntas.html">Banco de Preguntas</a>
     <a href="evaluaciones.html">Evaluaciones</a>
     <a href="sobre-nosotros.html">Sobre la Fundadora</a>
   </div>
@@ -310,7 +336,7 @@
         <li>Un caño de 0.02 m² deja pasar agua a 3 m/s. ¿Cuál es el caudal?
           <details><summary>Ver respuesta</summary>Q = 0.02×3 = 0.06 m³/s</details>
         </li>
-        <li>Si llenás un balde de 20 litros (0.02 m³) en 10 segundos, ¿cuál es el caudal de la canilla?
+        <li>Si llenas un balde de 20 litros (0.02 m³) en 10 segundos, ¿cuál es el caudal de la canilla?
           <details><summary>Ver respuesta</summary>Q = V/t = 0.02/10 = 0.002 m³/s (2 litros por segundo)</details>
         </li>
         <li>¿Qué unidades tiene el caudal, y por qué?
@@ -328,7 +354,7 @@
       <h2>Ecuación de continuidad: por qué el agua acelera al angostarse el caño</h2>
       <p>En un fluido ideal (que no se comprime), el caudal que entra por un extremo de una tubería tiene que ser igual al que sale por el otro — no puede "desaparecer" fluido en el medio. Si el área se achica, la velocidad tiene que aumentar para compensar.</p>
       <div class="formula-box">A₁ · v₁ = A₂ · v₂</div>
-      <p class="var-list">Por eso cuando tapás parte de la boca de una manguera con el dedo, el agua sale disparada mucho más rápido — reducís el área (A₂), así que la velocidad (v₂) tiene que aumentar para mantener el mismo caudal.</p>
+      <p class="var-list">Por eso cuando tapas parte de la boca de una manguera con el dedo, el agua sale disparada mucho más rápido — reduces el área (A₂), así que la velocidad (v₂) tiene que aumentar para mantener el mismo caudal.</p>
     </div>
 
     <div class="card" data-tag="Calculadora">
@@ -393,6 +419,10 @@
 </div>
 
 <script>
+  function toggleNavMobile(){
+    document.querySelector('.navbar-links').classList.toggle('open');
+  }
+
   document.querySelectorAll('.level-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));

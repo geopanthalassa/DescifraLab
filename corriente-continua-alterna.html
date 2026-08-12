@@ -67,7 +67,29 @@
     transition:background 0.15s, color 0.15s;
   }
   .navbar-links a:hover{background:rgba(255,255,255,0.08);color:#fff;}
-  @media(max-width:640px){.navbar-links{display:none;}}
+  .navbar-toggle{
+    display:none;
+    background:none;border:none;cursor:pointer;
+    padding:6px;
+  }
+  .navbar-toggle span{
+    display:block;width:24px;height:2.5px;
+    background:#D8D3C4;margin:5px 0;
+    transition:transform 0.2s, opacity 0.2s;
+  }
+  @media(max-width:768px){
+    .navbar-links{
+      display:none;
+      width:100%;
+      flex-direction:column;
+      gap:2px;
+      order:3;
+    }
+    .navbar-links.open{display:flex;}
+    .navbar-toggle{display:block;}
+    .navbar-links a{padding:12px 14px;}
+  }
+
   .eyebrow{
     font-family:'JetBrains Mono', monospace;
     font-size:12px;
@@ -272,6 +294,9 @@
 
 <nav class="navbar">
   <a href="index.html" class="navbar-brand">DescifraLab</a>
+  <button class="navbar-toggle" onclick="toggleNavMobile()" aria-label="Abrir menú">
+    <span></span><span></span><span></span>
+  </button>
   <div class="navbar-links">
     <a href="fisica.html">Física</a>
     <a href="quimica.html">Química</a>
@@ -279,6 +304,7 @@
     <a href="conversor-unidades.html">Conversor</a>
     <a href="experimentos.html">Experimentos</a>
     <a href="docentes.html">Para Docentes</a>
+    <a href="banco-preguntas.html">Banco de Preguntas</a>
     <a href="evaluaciones.html">Evaluaciones</a>
     <a href="sobre-nosotros.html">Sobre la Fundadora</a>
   </div>
@@ -358,7 +384,7 @@
       <h2>Valor eficaz (RMS): el número que realmente ves</h2>
       <p>Como la corriente alterna oscila constantemente entre un máximo positivo y un máximo negativo, hablar de "el voltaje" necesita una forma de resumir ese vaivén en un solo número útil — ese número es el <strong>valor eficaz</strong> (RMS, root mean square).</p>
       <div class="formula-box">V_eficaz = V_máx / √2</div>
-      <p class="var-list">Cuando decís que en tu casa hay "220 V", ese es el valor eficaz — el voltaje máximo real que alcanza la onda en sus picos es más alto todavía.</p>
+      <p class="var-list">Cuando dices que en tu casa hay "220 V", ese es el valor eficaz — el voltaje máximo real que alcanza la onda en sus picos es más alto todavía.</p>
     </div>
 
     <div class="card" data-tag="Calculadora">
@@ -423,6 +449,10 @@
 </div>
 
 <script>
+  function toggleNavMobile(){
+    document.querySelector('.navbar-links').classList.toggle('open');
+  }
+
   document.querySelectorAll('.level-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));

@@ -65,7 +65,29 @@
     transition:background 0.15s, color 0.15s;
   }
   .navbar-links a:hover{background:rgba(255,255,255,0.08);color:#fff;}
-  @media(max-width:640px){.navbar-links{display:none;}}
+  .navbar-toggle{
+    display:none;
+    background:none;border:none;cursor:pointer;
+    padding:6px;
+  }
+  .navbar-toggle span{
+    display:block;width:24px;height:2.5px;
+    background:#D8D3C4;margin:5px 0;
+    transition:transform 0.2s, opacity 0.2s;
+  }
+  @media(max-width:768px){
+    .navbar-links{
+      display:none;
+      width:100%;
+      flex-direction:column;
+      gap:2px;
+      order:3;
+    }
+    .navbar-links.open{display:flex;}
+    .navbar-toggle{display:block;}
+    .navbar-links a{padding:12px 14px;}
+  }
+
   .eyebrow{
     font-family:'JetBrains Mono', monospace;
     font-size:12px;
@@ -388,6 +410,31 @@
     margin:0;
   }
 
+  .exp-guia{
+    margin-top:14px;
+    border:2px dashed var(--amber-dark);
+    border-radius:8px;
+    padding:14px 16px;
+    background:#FFFCF5;
+  }
+  .exp-guia-tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;text-transform:uppercase;letter-spacing:0.05em;
+    color:var(--amber-dark);font-weight:700;
+    margin:0 0 10px;
+  }
+  .guia-tabla{
+    width:100%;border-collapse:collapse;margin:8px 0 12px;
+    font-size:13px;
+  }
+  .guia-tabla th, .guia-tabla td{
+    border:1px solid var(--line);
+    padding:6px 8px;text-align:left;
+  }
+  .guia-tabla th{background:var(--paper);font-family:'JetBrains Mono',monospace;font-size:11px;}
+  .guia-preguntas{padding-left:18px;margin:8px 0 0;font-size:13.5px;}
+  .guia-preguntas li{margin-bottom:5px;}
+
   .banco-grid{
     display:grid;
     grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
@@ -422,6 +469,9 @@
 
 <nav class="navbar">
   <a href="index.html" class="navbar-brand">DescifraLab</a>
+  <button class="navbar-toggle" onclick="toggleNavMobile()" aria-label="Abrir menú">
+    <span></span><span></span><span></span>
+  </button>
   <div class="navbar-links">
     <a href="fisica.html">Física</a>
     <a href="quimica.html">Química</a>
@@ -429,6 +479,7 @@
     <a href="conversor-unidades.html">Conversor</a>
     <a href="experimentos.html">Experimentos</a>
     <a href="docentes.html">Para Docentes</a>
+    <a href="banco-preguntas.html">Banco de Preguntas</a>
     <a href="evaluaciones.html">Evaluaciones</a>
     <a href="sobre-nosotros.html">Sobre la Fundadora</a>
   </div>
@@ -462,9 +513,25 @@
         <ol class="exp-pasos">
           <li>Cada grupo mide la distancia recorrida por su autito en 3 intervalos de tiempo distintos (por ejemplo, cada 1 segundo).</li>
           <li>Calculan la velocidad en cada tramo, y comparan: ¿es constante (MRU) o cambia (MRUV)?</li>
-          <li>Cierre: proyectá la página de MRU/MRUV y que verifiquen sus cálculos con la calculadora.</li>
+          <li>Cierre: proyecta la página de MRU/MRUV y que verifiquen sus cálculos con la calculadora.</li>
         </ol>
         <p class="exp-explica"><strong>Por qué funciona:</strong> medir con sus propias manos hace que la diferencia entre MRU y MRUV deje de ser abstracta — la sienten en los datos que ellos mismos recolectaron.</p>
+        <div class="exp-guia">
+          <p class="exp-guia-tag">Guía para entregar</p>
+          <p><strong>Tabla de datos:</strong></p>
+          <table class="guia-tabla">
+            <tr><th>Intervalo</th><th>Distancia (m)</th><th>Tiempo (s)</th><th>Velocidad (m/s)</th></tr>
+            <tr><td>1</td><td>_______</td><td>_______</td><td>_______</td></tr>
+            <tr><td>2</td><td>_______</td><td>_______</td><td>_______</td></tr>
+            <tr><td>3</td><td>_______</td><td>_______</td><td>_______</td></tr>
+          </table>
+          <p><strong>Preguntas:</strong></p>
+          <ol class="guia-preguntas">
+            <li>¿La velocidad se mantuvo igual o cambió entre los tres tramos?</li>
+            <li>Según tus datos, ¿tu objeto tuvo MRU o MRUV? ¿Cómo lo sabes?</li>
+            <li>Si hubo cambio de velocidad, calcula la aceleración promedio entre el primer y el último tramo.</li>
+          </ol>
+        </div>
       </div>
 
       <div class="exp-card">
@@ -472,10 +539,21 @@
         <p class="exp-tema">Conecta con: MRU, MRUV, Tiro Oblicuo · 15 min · Individual o parejas</p>
         <p class="exp-materiales"><strong>Materiales:</strong> ninguno — solo el proyector con las páginas del sitio</p>
         <ol class="exp-pasos">
-          <li>Mostrás las simulaciones de distintas páginas (auto de MRU, avión de MRUV, la pelota del tiro oblicuo) sin decir de cuál se trata.</li>
+          <li>Muestras las simulaciones de distintas páginas (auto de MRU, avión de MRUV, la pelota del tiro oblicuo) sin decir de cuál se trata.</li>
           <li>Los estudiantes tienen que identificar, solo mirando cómo se mueve, qué tipo de movimiento es y por qué.</li>
         </ol>
         <p class="exp-explica"><strong>Por qué funciona:</strong> obliga a razonar sobre el fenómeno visual antes de recurrir a la fórmula — el orden inverso al que suele enseñarse.</p>
+        <div class="exp-guia">
+          <p class="exp-guia-tag">Guía para entregar</p>
+          <p><strong>Por cada simulación que veas, completa:</strong></p>
+          <table class="guia-tabla">
+            <tr><th>Simulación</th><th>Tipo de movimiento</th><th>¿Por qué?</th></tr>
+            <tr><td>1</td><td>_______</td><td>_______</td></tr>
+            <tr><td>2</td><td>_______</td><td>_______</td></tr>
+            <tr><td>3</td><td>_______</td><td>_______</td></tr>
+          </table>
+          <p><strong>Pregunta final:</strong> ¿qué detalle visual te dio la pista más clara para diferenciar MRU de MRUV?</p>
+        </div>
       </div>
 
       <div class="exp-card">
@@ -483,11 +561,20 @@
         <p class="exp-tema">Conecta con: Máquinas Simples · 15 min · Grupo completo</p>
         <p class="exp-materiales"><strong>Materiales:</strong> ninguno</p>
         <ol class="exp-pasos">
-          <li>Planteá la pregunta: "si una máquina simple no ahorra energía total, ¿para qué sirve entonces?"</li>
+          <li>Plantea la pregunta: "si una máquina simple no ahorra energía total, ¿para qué sirve entonces?"</li>
           <li>Deja que debatan en grupos chicos antes de dar la respuesta — muchos van a intuir "cambia cómo aplicas la fuerza" sin saberlo formalmente.</li>
           <li>Cierra con el simulador de poleas del sitio, mostrando la fuerza real necesaria en cada caso.</li>
         </ol>
         <p class="exp-explica"><strong>Por qué funciona:</strong> genera el "conflicto cognitivo" antes de la respuesta — la retienen mejor cuando primero se preguntaron algo genuino.</p>
+        <div class="exp-guia">
+          <p class="exp-guia-tag">Guía de discusión</p>
+          <ol class="guia-preguntas">
+            <li>Antes del debate: escribe en una línea tu hipótesis — ¿para qué sirve una máquina simple si no ahorra energía?</li>
+            <li>Después del debate grupal: ¿cambió tu respuesta? ¿Por qué?</li>
+            <li>Con el simulador de poleas: prueba con 2 y con 4 cuerdas para el mismo peso. Completa — con 2 cuerdas la fuerza necesaria fue _______ N, con 4 cuerdas fue _______ N.</li>
+            <li>¿Qué tuviste que "sacrificar" a cambio de necesitar menos fuerza?</li>
+          </ol>
+        </div>
       </div>
 
     </div>
@@ -505,9 +592,19 @@
         <ol class="exp-pasos">
           <li>Si hay material: arman un circuito en serie y uno en paralelo con 2 lamparitas cada uno, y observan el brillo.</li>
           <li>Después comparan con el simulador de Circuitos del sitio — ¿el brillo relativo coincide con lo que predijo la teoría?</li>
-          <li>Sin material: arrancá directo con el simulador, pero pedí que primero predigan qué circuito va a brillar más antes de tocar nada.</li>
+          <li>Sin material: arranca directo con el simulador, pero pide que primero predigan qué circuito va a brillar más antes de tocar nada.</li>
         </ol>
         <p class="exp-explica"><strong>Por qué funciona:</strong> predecir antes de ver el resultado activa la curiosidad — "¿tenía razón o no?" engancha mucho más que solo observar.</p>
+        <div class="exp-guia">
+          <p class="exp-guia-tag">Guía para entregar</p>
+          <p><strong>Predicción (antes de tocar nada):</strong> ¿cuál circuito crees que va a brillar más, el serie o el paralelo? _______</p>
+          <table class="guia-tabla">
+            <tr><th>Circuito</th><th>Voltaje pila</th><th>Corriente (calculada)</th><th>¿Brilló más o menos?</th></tr>
+            <tr><td>Serie</td><td>_______</td><td>_______</td><td>_______</td></tr>
+            <tr><td>Paralelo</td><td>_______</td><td>_______</td><td>_______</td></tr>
+          </table>
+          <p><strong>Pregunta final:</strong> ¿tu predicción inicial fue correcta? Si no, ¿qué te confundió?</p>
+        </div>
       </div>
 
       <div class="exp-card">
@@ -515,10 +612,18 @@
         <p class="exp-tema">Conecta con: Circuitos · 10 min · Grupo completo</p>
         <p class="exp-materiales"><strong>Materiales:</strong> ninguno</p>
         <ol class="exp-pasos">
-          <li>Preguntá: "si tu casa estuviera cableada en serie, ¿qué pasaría si se quema una lamparita?"</li>
+          <li>Pregunta: "si tu casa estuviera cableada en serie, ¿qué pasaría si se quema una lamparita?"</li>
           <li>Dejalos razonar hasta que lleguen a que se apagaría toda la casa — de ahí surge naturalmente por qué se usa paralelo.</li>
         </ol>
         <p class="exp-explica"><strong>Por qué funciona:</strong> conecta un concepto abstracto con una experiencia cotidiana real (las luces de su propia casa).</p>
+        <div class="exp-guia">
+          <p class="exp-guia-tag">Guía de discusión</p>
+          <ol class="guia-preguntas">
+            <li>En un circuito en serie, si se corta un componente, ¿qué le pasa al resto del circuito?</li>
+            <li>En un circuito en paralelo, si se corta una rama, ¿qué le pasa a las demás?</li>
+            <li>Nombra un ejemplo de tu casa donde te convenga que un aparato siga funcionando aunque otro se rompa.</li>
+          </ol>
+        </div>
       </div>
 
     </div>
@@ -539,6 +644,20 @@
           <li>Puesta en común: arman entre todos una escala de pH visual con los resultados de la clase completa.</li>
         </ol>
         <p class="exp-explica"><strong>Por qué funciona:</strong> ver el color cambiar en vivo es mucho más memorable que leer la escala de pH en un gráfico — y comparar resultados entre grupos genera discusión real.</p>
+        <div class="exp-guia">
+          <p class="exp-guia-tag">Guía para entregar</p>
+          <table class="guia-tabla">
+            <tr><th>Sustancia</th><th>Color resultante</th><th>¿Ácido o base?</th></tr>
+            <tr><td>_______</td><td>_______</td><td>_______</td></tr>
+            <tr><td>_______</td><td>_______</td><td>_______</td></tr>
+            <tr><td>_______</td><td>_______</td><td>_______</td></tr>
+          </table>
+          <p><strong>Preguntas:</strong></p>
+          <ol class="guia-preguntas">
+            <li>¿Qué sustancia dio el color más intenso? ¿Qué te dice eso sobre qué tan ácida o básica es?</li>
+            <li>Ordena las sustancias que probaste de más ácida a más básica, según tus resultados.</li>
+          </ol>
+        </div>
       </div>
 
       <div class="exp-card">
@@ -550,6 +669,16 @@
           <li>Los estudiantes tienen que encontrar el elemento tocando la tabla interactiva y confirmando los datos.</li>
         </ol>
         <p class="exp-explica"><strong>Por qué funciona:</strong> convierte "memorizar la tabla" en un juego de deducción — usan la tabla como herramienta de consulta real, que es como se usa en la vida real.</p>
+        <div class="exp-guia">
+          <p class="exp-guia-tag">Banco de pistas listo para usar</p>
+          <ol class="guia-preguntas">
+            <li>Soy un gas noble del período 3. ¿Quién soy? (Respuesta: Argón, Z=18)</li>
+            <li>Tengo Z=26 y soy un metal muy usado en construcción. ¿Quién soy? (Respuesta: Hierro)</li>
+            <li>Mi electronegatividad es la más alta de toda la tabla. ¿Quién soy? (Respuesta: Flúor)</li>
+            <li>Soy el elemento más liviano de todos, con Z=1. ¿Quién soy? (Respuesta: Hidrógeno)</li>
+            <li>Formo parte del grupo de los halógenos y le doy sabor a la sal de mesa junto al sodio. ¿Quién soy? (Respuesta: Cloro)</li>
+          </ol>
+        </div>
       </div>
 
       <div class="exp-card">
@@ -557,20 +686,35 @@
         <p class="exp-tema">Conecta con: Óxido-Reducción · 15 min · Grupo completo o parejas</p>
         <p class="exp-materiales"><strong>Materiales:</strong> proyector con el predictor de desplazamiento de la página de Óxido-Reducción</p>
         <ol class="exp-pasos">
-          <li>Antes de tocar el predictor, planteá pares de metales (por ejemplo, cobre y hierro) y que cada grupo apueste si va a haber reacción o no, y por qué.</li>
-          <li>Verificás con el predictor del sitio, y el grupo que acertó explica su razonamiento a la clase.</li>
+          <li>Antes de tocar el predictor, plantea pares de metales (por ejemplo, cobre y hierro) y que cada grupo apueste si va a haber reacción o no, y por qué.</li>
+          <li>Verificas con el predictor del sitio, y el grupo que acertó explica su razonamiento a la clase.</li>
         </ol>
         <p class="exp-explica"><strong>Por qué funciona:</strong> convierte la serie de actividad en algo competitivo y memorable, en vez de una tabla más para memorizar.</p>
+        <div class="exp-guia">
+          <p class="exp-guia-tag">Guía para entregar</p>
+          <table class="guia-tabla">
+            <tr><th>Par de metales</th><th>Predicción</th><th>Resultado real</th></tr>
+            <tr><td>Fe (sólido) + Cu²⁺</td><td>_______</td><td>_______</td></tr>
+            <tr><td>Au (sólido) + Ag⁺</td><td>_______</td><td>_______</td></tr>
+            <tr><td>Zn (sólido) + Pb²⁺</td><td>_______</td><td>_______</td></tr>
+          </table>
+          <p><strong>Pregunta final:</strong> ¿qué tienen en común los pares donde SÍ hubo reacción, según la serie de actividad?</p>
+        </div>
       </div>
 
     </div>
   </div>
 
+  <div class="card" style="text-align:center;background:#FFFCF5;border:2px dashed var(--amber-dark);">
+    <h2 style="margin-top:0;">¿Necesitas preguntas para tu propia evaluación?</h2>
+    <p style="margin:0;">Armamos un <a href="banco-preguntas.html" style="color:var(--amber-dark);font-weight:700;">Banco de Preguntas</a> con 120 preguntas (verdadero/falso, opción múltiple, desarrollo) listas para copiar directo en tus exámenes, organizadas por tema.</p>
+  </div>
+
   <div class="card">
     <h2>Consejos generales para usar el sitio en clase</h2>
     <ul style="padding-left:20px;margin:10px 0;">
-      <li><strong>Proyectá, no fotocopies:</strong> los simuladores pierden todo su valor en papel — usalos en vivo con el grupo completo.</li>
-      <li><strong>Pausá antes del resultado:</strong> en cualquier calculadora del sitio, pedí que los estudiantes predigan el resultado antes de tocar "Calcular" — genera mucho más enganche que solo mostrar el número.</li>
+      <li><strong>Proyecta, no fotocopies:</strong> los simuladores pierden todo su valor en papel — usalos en vivo con el grupo completo.</li>
+      <li><strong>Pausa antes del resultado:</strong> en cualquier calculadora del sitio, pide que los estudiantes predigan el resultado antes de tocar "Calcular" — genera mucho más enganche que solo mostrar el número.</li>
       <li><strong>Usa Evaluaciones para cierre rápido:</strong> genera ejercicios al instante con números al azar — perfecto para los últimos 5 minutos de una clase, sin tener que preparar nada.</li>
       <li><strong>Los experimentos caseros funcionan como tarea con seguimiento:</strong> mandalos de tarea, y que traigan una foto o un resumen de lo que observaron para discutir en la próxima clase.</li>
     </ul>
@@ -583,6 +727,10 @@
 </div>
 
 <script>
+  function toggleNavMobile(){
+    document.querySelector('.navbar-links').classList.toggle('open');
+  }
+
   // Esta página es solo de referencia — no necesita lógica interactiva,
   // cada bloque es un enlace directo a su página completa.
 </script>

@@ -67,7 +67,29 @@
     transition:background 0.15s, color 0.15s;
   }
   .navbar-links a:hover{background:rgba(255,255,255,0.08);color:#fff;}
-  @media(max-width:640px){.navbar-links{display:none;}}
+  .navbar-toggle{
+    display:none;
+    background:none;border:none;cursor:pointer;
+    padding:6px;
+  }
+  .navbar-toggle span{
+    display:block;width:24px;height:2.5px;
+    background:#D8D3C4;margin:5px 0;
+    transition:transform 0.2s, opacity 0.2s;
+  }
+  @media(max-width:768px){
+    .navbar-links{
+      display:none;
+      width:100%;
+      flex-direction:column;
+      gap:2px;
+      order:3;
+    }
+    .navbar-links.open{display:flex;}
+    .navbar-toggle{display:block;}
+    .navbar-links a{padding:12px 14px;}
+  }
+
   .eyebrow{
     font-family:'JetBrains Mono', monospace;
     font-size:12px;
@@ -250,6 +272,9 @@
 
 <nav class="navbar">
   <a href="index.html" class="navbar-brand">DescifraLab</a>
+  <button class="navbar-toggle" onclick="toggleNavMobile()" aria-label="Abrir menú">
+    <span></span><span></span><span></span>
+  </button>
   <div class="navbar-links">
     <a href="fisica.html">Física</a>
     <a href="quimica.html">Química</a>
@@ -257,6 +282,7 @@
     <a href="conversor-unidades.html">Conversor</a>
     <a href="experimentos.html">Experimentos</a>
     <a href="docentes.html">Para Docentes</a>
+    <a href="banco-preguntas.html">Banco de Preguntas</a>
     <a href="evaluaciones.html">Evaluaciones</a>
     <a href="sobre-nosotros.html">Sobre la Fundadora</a>
   </div>
@@ -280,7 +306,7 @@
     <div class="card" data-tag="Concepto">
       <h2>La corriente eléctrica genera magnetismo</h2>
       <p>En 1820, Hans Christian Oersted descubrió por accidente que una corriente eléctrica desvía la aguja de una brújula cercana — la primera prueba de que electricidad y magnetismo están conectados. Toda corriente genera un campo magnético a su alrededor.</p>
-      <p>Si enrollás el cable en forma de espiral (una bobina) alrededor de un núcleo de hierro, los campos magnéticos individuales se suman y se concentran, creando un <strong>electroimán</strong> — un imán que solo funciona mientras circula corriente.</p>
+      <p>Si enrollas el cable en forma de espiral (una bobina) alrededor de un núcleo de hierro, los campos magnéticos individuales se suman y se concentran, creando un <strong>electroimán</strong> — un imán que solo funciona mientras circula corriente.</p>
     </div>
 
     <div class="card" data-tag="Concepto">
@@ -334,7 +360,7 @@
     <div class="card" data-tag="Concepto">
       <h2>Motor y generador: la misma idea, al revés</h2>
       <p>Un <strong>motor</strong> transforma energía eléctrica en energía mecánica: le metes corriente, y una espira dentro de un campo magnético siente fuerzas (Lorentz) que la hacen girar.</p>
-      <p>Un <strong>generador</strong> hace exactamente lo opuesto: transforma energía mecánica en eléctrica. Girás una espira dentro de un campo magnético (con una turbina, una manivela, agua cayendo), y eso genera una corriente — el mismo principio de Faraday que ya viste antes en electricidad.</p>
+      <p>Un <strong>generador</strong> hace exactamente lo opuesto: transforma energía mecánica en eléctrica. Giras una espira dentro de un campo magnético (con una turbina, una manivela, agua cayendo), y eso genera una corriente — el mismo principio de Faraday que ya viste antes en electricidad.</p>
       <div class="formula-box">Motor: energía eléctrica → energía mecánica</div>
       <div class="formula-box">Generador: energía mecánica → energía eléctrica</div>
     </div>
@@ -377,7 +403,7 @@
   <div class="card faq" data-tag="FAQ">
     <h2>Preguntas frecuentes</h2>
     <h3>¿Cómo sé hacia dónde apunta la fuerza magnética?</h3>
-    <p>Se usa la "regla de la mano derecha": apuntás los dedos en la dirección de la velocidad de la carga, los curvás hacia la dirección del campo magnético, y el pulgar señala la dirección de la fuerza (para cargas positivas — para negativas, es al revés).</p>
+    <p>Se usa la "regla de la mano derecha": apuntas los dedos en la dirección de la velocidad de la carga, los curvas hacia la dirección del campo magnético, y el pulgar señala la dirección de la fuerza (para cargas positivas — para negativas, es al revés).</p>
     <h3>¿Por qué los motores eléctricos necesitan un "conmutador" o escobillas?</h3>
     <p>Porque a medida que la espira gira, la dirección de la fuerza necesita invertirse en el momento justo para mantener el giro continuo en el mismo sentido — el conmutador invierte la corriente automáticamente en cada media vuelta.</p>
     <h3>¿Los imanes de heladera son electroimanes?</h3>
@@ -403,6 +429,10 @@
 </div>
 
 <script>
+  function toggleNavMobile(){
+    document.querySelector('.navbar-links').classList.toggle('open');
+  }
+
   document.querySelectorAll('.level-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
