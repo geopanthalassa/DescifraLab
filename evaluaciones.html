@@ -244,6 +244,37 @@
     font-size:12px;cursor:pointer;
   }
   .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  .modo-tabs{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
+  .modo-btn{
+    flex:1;min-width:180px;
+    padding:14px 16px;
+    border:2px solid var(--ink);
+    background:var(--white);color:var(--ink);
+    font-family:'JetBrains Mono', monospace;font-size:13px;font-weight:700;
+    cursor:pointer;border-radius:8px;
+  }
+  .modo-btn.active{background:var(--ink);color:var(--white);}
+
+  .teoria-pregunta{
+    background:var(--white);border:2px solid var(--ink);border-radius:10px;
+    padding:18px 20px;margin-bottom:14px;
+  }
+  .teoria-enunciado{font-size:15px;font-weight:600;margin:0 0 14px;}
+  .teoria-opciones label{
+    display:flex;align-items:center;gap:10px;
+    padding:9px 12px;margin-bottom:6px;
+    border:1.5px solid var(--line);border-radius:6px;
+    cursor:pointer;font-size:14px;
+  }
+  .teoria-opciones label:hover{background:var(--paper);}
+  .teoria-opciones input{accent-color:var(--amber-dark);}
+  .teoria-feedback{
+    margin-top:10px;padding:10px 12px;border-radius:6px;
+    font-size:13.5px;display:none;
+  }
+  .teoria-feedback.correcto{background:#E3F3EA;color:var(--pine-dark);display:block;}
+  .teoria-feedback.incorrecto{background:#FBEAE5;color:#A0442E;display:block;}
 </style>
 </head>
 <body>
@@ -254,6 +285,7 @@
     <a href="fisica.html">Física</a>
     <a href="quimica.html">Química</a>
     <a href="formulario.html">Machete de Fórmulas</a>
+    <a href="conversor-unidades.html">Conversor</a>
     <a href="experimentos.html">Experimentos</a>
     <a href="docentes.html">Para Docentes</a>
     <a href="evaluaciones.html">Evaluaciones</a>
@@ -264,11 +296,20 @@
 <header class="top">
   <div class="eyebrow">Herramientas · Autoevaluación</div>
   <h1>Evaluaciones</h1>
-  <p class="subtitle">Elige un tema, generá 5 ejercicios nuevos con números al azar, resolvelos y corrige al instante — cada vez que generas, los números cambian.</p>
+  <p class="subtitle">Dos formas de practicar: ejercicios de cálculo con números al azar, o preguntas de teoría (verdadero/falso y opción múltiple) para probar que entendiste el concepto, no solo la cuenta.</p>
 </header>
 
 <div class="wrap">
 
+  <div class="card" data-tag="Modo">
+    <h2>¿Qué querés practicar?</h2>
+    <div class="modo-tabs">
+      <button class="modo-btn active" id="modo-btn-calculo" onclick="cambiarModo('calculo')">Ejercicios de Cálculo</button>
+      <button class="modo-btn" id="modo-btn-teoria" onclick="cambiarModo('teoria')">Preguntas de Teoría</button>
+    </div>
+  </div>
+
+  <div id="seccion-calculo">
   <div class="card" data-tag="Elige el tema">
     <h2>¿Qué quieres practicar?</h2>
     <div class="calc-grid">
@@ -297,6 +338,44 @@
     <h2 id="resultado-titulo">Resultado</h2>
     <div class="readout show" id="resultado-detalle" style="display:block;"></div>
   </div>
+  </div>
+
+  <div id="seccion-teoria" style="display:none;">
+  <div class="card" data-tag="Elige el tema">
+    <h2>¿Qué tema de teoría querés probar?</h2>
+    <div class="calc-grid">
+      <div class="field">
+        <label>Tema</label>
+        <select id="tema-teoria-select" style="width:100%;padding:10px 12px;border:2px solid var(--ink);font-family:'JetBrains Mono', monospace;font-size:15px;background:var(--white);">
+          <option value="mru">MRU y MRUV</option>
+          <option value="newton">Leyes de Newton</option>
+          <option value="trabajo">Trabajo y Energía</option>
+          <option value="ohm">Ley de Ohm y Circuitos</option>
+          <option value="calor">Calor y Temperatura</option>
+          <option value="modelo-atomico">Modelo Atómico</option>
+          <option value="config-electronica">Configuración Electrónica</option>
+          <option value="enlaces">Enlaces Químicos</option>
+          <option value="acido-base">Ácido-Base y pH</option>
+          <option value="oxido-reduccion">Óxido-Reducción</option>
+          <option value="estequiometria">Estequiometría</option>
+          <option value="gases">Leyes de los Gases</option>
+          <option value="relatividad">Relatividad</option>
+          <option value="nuclear">Energía Nuclear</option>
+          <option value="fluidos">Presión y Flotación</option>
+        </select>
+      </div>
+    </div>
+    <button class="calc-btn" onclick="generarTeoria()">Generar preguntas de teoría</button>
+  </div>
+
+  <div id="teoria-container"></div>
+
+  <div class="card" id="resultado-teoria-card" style="display:none;" data-tag="Resultado">
+    <h2 id="resultado-teoria-titulo">Resultado</h2>
+    <div class="readout show" id="resultado-teoria-detalle" style="display:block;"></div>
+  </div>
+  </div>
+
   <div class="card faq" data-tag="FAQ">
     <h2>Preguntas frecuentes</h2>
     <h3>¿De dónde salen los ejercicios, hay una IA generándolos?</h3>
@@ -352,6 +431,161 @@
   function rand(min, max, decimales=0){
     const v = Math.random()*(max-min)+min;
     return decimales===0 ? Math.round(v) : parseFloat(v.toFixed(decimales));
+  }
+
+  function cambiarModo(modo){
+    document.getElementById('modo-btn-calculo').classList.toggle('active', modo==='calculo');
+    document.getElementById('modo-btn-teoria').classList.toggle('active', modo==='teoria');
+    document.getElementById('seccion-calculo').style.display = modo==='calculo' ? 'block' : 'none';
+    document.getElementById('seccion-teoria').style.display = modo==='teoria' ? 'block' : 'none';
+  }
+
+  const BANCO_TEORIA = {
+    'mru': [
+      {tipo:'vf', enunciado:'En el MRU, la velocidad es constante.', correcta:true, explicacion:'Correcto — en el MRU no hay aceleración, así que la velocidad no cambia.'},
+      {tipo:'vf', enunciado:'En el MRUV, la aceleración cambia constantemente durante el movimiento.', correcta:false, explicacion:'Falso — en el MRUV la aceleración es constante; lo que cambia constantemente es la velocidad.'},
+      {tipo:'opcion', enunciado:'¿Qué gráfico posición-tiempo corresponde al MRU?', opciones:['Una recta','Una parábola','Una curva exponencial','Un círculo'], correcta:0, explicacion:'En el MRU, x=x₀+vt es una función lineal, así que el gráfico x-t es una recta.'},
+      {tipo:'opcion', enunciado:'Si un objeto frena mientras avanza, su aceleración es:', opciones:['Positiva y en la misma dirección que v','Opuesta a la dirección de v','Cero','Infinita'], correcta:1, explicacion:'Frenar significa que la aceleración actúa en sentido contrario a la velocidad, reduciéndola.'}
+    ],
+    'newton': [
+      {tipo:'vf', enunciado:'La Primera Ley de Newton dice que un objeto en reposo permanece en reposo a menos que actúe una fuerza neta sobre él.', correcta:true, explicacion:'Correcto — es la Ley de Inercia.'},
+      {tipo:'vf', enunciado:'Según la Segunda Ley, a mayor masa, mayor aceleración para la misma fuerza.', correcta:false, explicacion:'Falso — a mayor masa, MENOR aceleración para la misma fuerza (a=F/m).'},
+      {tipo:'opcion', enunciado:'La Tercera Ley de Newton dice que:', opciones:['Para cada acción hay una reacción igual y opuesta','La fuerza es masa por aceleración','Un objeto en movimiento sigue en movimiento','La energía no se crea ni se destruye'], correcta:0, explicacion:'Esa es exactamente la Tercera Ley — acción y reacción.'},
+      {tipo:'opcion', enunciado:'¿Cuál es la unidad de fuerza en el Sistema Internacional?', opciones:['Joule','Watt','Newton','Pascal'], correcta:2, explicacion:'La fuerza se mide en Newton (N), en honor a Isaac Newton.'}
+    ],
+    'trabajo': [
+      {tipo:'vf', enunciado:'El trabajo mecánico es máximo cuando la fuerza se aplica perpendicular al desplazamiento.', correcta:false, explicacion:'Falso — es máximo cuando la fuerza es paralela al desplazamiento (W=F·d·cosθ, máximo cuando θ=0°).'},
+      {tipo:'vf', enunciado:'La energía cinética depende de la masa y la velocidad al cuadrado.', correcta:true, explicacion:'Correcto — Ec = ½mv².'},
+      {tipo:'opcion', enunciado:'Si un objeto sube, ¿qué le pasa a su energía potencial gravitatoria?', opciones:['Disminuye','Aumenta','Se mantiene igual','Se vuelve negativa'], correcta:1, explicacion:'Ep=mgh — a mayor altura h, mayor energía potencial.'},
+      {tipo:'opcion', enunciado:'¿Cuál es la unidad de energía en el Sistema Internacional?', opciones:['Newton','Watt','Joule','Pascal'], correcta:2, explicacion:'La energía se mide en Joule (J).'}
+    ],
+    'ohm': [
+      {tipo:'vf', enunciado:'En un circuito en serie, la corriente es la misma en todos los componentes.', correcta:true, explicacion:'Correcto — en serie hay un solo camino, así que la corriente no tiene por dónde variar.'},
+      {tipo:'vf', enunciado:'En un circuito en paralelo, el voltaje es distinto en cada rama.', correcta:false, explicacion:'Falso — en paralelo el voltaje es el MISMO en cada rama; lo que cambia es la corriente.'},
+      {tipo:'opcion', enunciado:'Según la Ley de Ohm, si aumenta la resistencia manteniendo el voltaje constante, la corriente:', opciones:['Aumenta','Disminuye','Se mantiene igual','Se vuelve negativa'], correcta:1, explicacion:'I=V/R — a mayor resistencia, menor corriente, si el voltaje no cambia.'},
+      {tipo:'opcion', enunciado:'¿Qué le pasa a la resistencia total al agregar más resistencias en paralelo?', opciones:['Aumenta','Disminuye','Se mantiene igual','Depende del voltaje'], correcta:1, explicacion:'Cada rama nueva le da al circuito otro camino, reduciendo la resistencia total equivalente.'}
+    ],
+    'calor': [
+      {tipo:'vf', enunciado:'El calor y la temperatura son lo mismo.', correcta:false, explicacion:'Falso — el calor es energía en tránsito; la temperatura mide la energía cinética promedio de las partículas.'},
+      {tipo:'vf', enunciado:'Durante un cambio de estado, la temperatura se mantiene constante mientras dura el cambio.', correcta:true, explicacion:'Correcto — toda la energía entregada se usa para cambiar el estado, no para subir la temperatura.'},
+      {tipo:'opcion', enunciado:'¿Qué sustancia común tiene uno de los calores específicos más altos?', opciones:['Hierro','Agua','Oro','Aire'], correcta:1, explicacion:'El agua tiene un calor específico muy alto (4186 J/kg·°C), por eso tarda tanto en calentarse o enfriarse.'},
+      {tipo:'opcion', enunciado:'¿Cómo se llama el calor necesario para cambiar de estado sin cambiar la temperatura?', opciones:['Calor sensible','Calor latente','Calor específico','Calor radiante'], correcta:1, explicacion:'El calor latente (Q=mL) es el que se usa exclusivamente en cambios de estado.'}
+    ],
+    'modelo-atomico': [
+      {tipo:'vf', enunciado:'El número atómico (Z) es igual a la cantidad de protones.', correcta:true, explicacion:'Correcto — Z define de qué elemento se trata, y siempre es igual al número de protones.'},
+      {tipo:'vf', enunciado:'Los isótopos de un elemento tienen distinto número de protones.', correcta:false, explicacion:'Falso — los isótopos tienen el MISMO número de protones (mismo elemento), pero distinto número de neutrones.'},
+      {tipo:'opcion', enunciado:'¿Quién descubrió el núcleo atómico con el experimento de la lámina de oro?', opciones:['Thomson','Dalton','Rutherford','Bohr'], correcta:2, explicacion:'Ernest Rutherford, en 1911, con su famoso experimento de bombardear una lámina de oro.'},
+      {tipo:'opcion', enunciado:'¿Qué partícula tiene carga negativa?', opciones:['Protón','Neutrón','Electrón','Núcleo'], correcta:2, explicacion:'El electrón tiene carga negativa; el protón positiva; el neutrón sin carga.'}
+    ],
+    'config-electronica': [
+      {tipo:'vf', enunciado:'El subnivel s tiene capacidad máxima de 2 electrones.', correcta:true, explicacion:'Correcto — el subnivel s tiene 1 solo orbital, con capacidad para 2 electrones.'},
+      {tipo:'vf', enunciado:'El subnivel 3d se llena antes que el 4s según el orden real de energía.', correcta:false, explicacion:'Falso — es al revés: el 4s se llena antes que el 3d, según el diagrama de Aufbau real.'},
+      {tipo:'opcion', enunciado:'¿Cuántos electrones caben como máximo en el subnivel p?', opciones:['2','6','10','14'], correcta:1, explicacion:'El subnivel p tiene 3 orbitales × 2 electrones cada uno = 6 electrones.'},
+      {tipo:'opcion', enunciado:'Según la Regla de Hund, los electrones en orbitales de igual energía:', opciones:['Se aparean inmediatamente','Ocupan primero cada orbital vacío antes de aparearse','Van todos al mismo orbital','No siguen ningún orden'], correcta:1, explicacion:'Primero ocupan orbitales vacíos uno por uno, y recién después empiezan a aparearse.'}
+    ],
+    'enlaces': [
+      {tipo:'vf', enunciado:'Un enlace iónico se forma típicamente entre un metal y un no metal.', correcta:true, explicacion:'Correcto — el metal tiende a perder electrones y el no metal a ganarlos.'},
+      {tipo:'vf', enunciado:'Cuanto mayor la diferencia de electronegatividad entre dos átomos, más probable que el enlace sea covalente apolar.', correcta:false, explicacion:'Falso — a mayor diferencia de electronegatividad, más probable que sea iónico, no covalente apolar.'},
+      {tipo:'opcion', enunciado:'¿Qué tipo de enlace explica por qué los metales conducen electricidad?', opciones:['Iónico','Covalente polar','Covalente apolar','Metálico'], correcta:3, explicacion:'En el enlace metálico, los electrones se mueven libremente por todo el metal — de ahí la conductividad.'},
+      {tipo:'opcion', enunciado:'¿Qué molécula es un ejemplo clásico de enlace covalente polar?', opciones:['NaCl','H₂O','O₂','Fe'], correcta:1, explicacion:'El agua (H₂O) tiene enlaces covalentes polares — el oxígeno atrae más fuerte los electrones.'}
+    ],
+    'acido-base': [
+      {tipo:'vf', enunciado:'Un pH menor a 7 indica una solución ácida.', correcta:true, explicacion:'Correcto — pH menor a 7 es ácido, mayor a 7 es básico, igual a 7 es neutro.'},
+      {tipo:'vf', enunciado:'Cada unidad de pH representa una diferencia de 2 veces en la concentración de H⁺.', correcta:false, explicacion:'Falso — la escala de pH es logarítmica, cada unidad representa una diferencia de 10 veces.'},
+      {tipo:'opcion', enunciado:'¿Qué se forma al neutralizar un ácido con una base?', opciones:['Solo agua','Solo sal','Sal y agua','Un nuevo ácido'], correcta:2, explicacion:'Ácido + Base → Sal + Agua, esa es la reacción de neutralización.'},
+      {tipo:'opcion', enunciado:'¿Cuál es el pH del agua pura a 25°C?', opciones:['0','7','14','No tiene pH'], correcta:1, explicacion:'El agua pura es neutra, con pH=7.'}
+    ],
+    'oxido-reduccion': [
+      {tipo:'vf', enunciado:'La oxidación es la pérdida de electrones.', correcta:true, explicacion:'Correcto — "quien pierde, se oxida."'},
+      {tipo:'vf', enunciado:'El agente oxidante es el que se oxida.', correcta:false, explicacion:'Falso — el agente oxidante es el que se REDUCE (gana electrones), causando que el otro se oxide.'},
+      {tipo:'opcion', enunciado:'En la reacción Zn + Cu²⁺ → Zn²⁺ + Cu, ¿qué le pasa al zinc?', opciones:['Se oxida','Se reduce','No cambia','Se evapora'], correcta:0, explicacion:'El Zn pasa de 0 a +2 — pierde electrones, se oxida.'},
+      {tipo:'opcion', enunciado:'¿Cuál de estos metales es más reactivo (se oxida más fácil)?', opciones:['Oro','Cobre','Potasio','Plata'], correcta:2, explicacion:'El potasio está muy arriba en la serie de actividad — reacciona hasta con agua fría.'}
+    ],
+    'estequiometria': [
+      {tipo:'vf', enunciado:'Un mol de cualquier sustancia contiene el mismo número de partículas (6.022×10²³).', correcta:true, explicacion:'Correcto — esa es la definición del número de Avogadro.'},
+      {tipo:'vf', enunciado:'La molaridad se calcula dividiendo la masa por el volumen.', correcta:false, explicacion:'Falso — la molaridad es moles/volumen (M=n/V), no masa/volumen.'},
+      {tipo:'opcion', enunciado:'¿Qué determina cuál es el reactivo limitante en una reacción?', opciones:['El que sobra al final','El que se agota primero','El más pesado','El más caro'], correcta:1, explicacion:'El reactivo limitante es el que se termina primero, limitando cuánto producto se puede formar.'},
+      {tipo:'opcion', enunciado:'¿Cuántas partículas hay en 2 moles de cualquier sustancia?', opciones:['6.022×10²³','12.044×10²³','3.011×10²³','1 mol'], correcta:1, explicacion:'2 × 6.022×10²³ = 12.044×10²³ partículas.'}
+    ],
+    'gases': [
+      {tipo:'vf', enunciado:'Según la Ley de Boyle, a temperatura constante, si el volumen de un gas disminuye, la presión aumenta.', correcta:true, explicacion:'Correcto — P y V son inversamente proporcionales a temperatura constante.'},
+      {tipo:'vf', enunciado:'En la ecuación del gas ideal, la temperatura se usa en grados Celsius.', correcta:false, explicacion:'Falso — siempre debe usarse en Kelvin, una escala absoluta.'},
+      {tipo:'opcion', enunciado:'¿Qué le pasa al volumen de un gas si se duplica su temperatura absoluta (a presión constante)?', opciones:['Se duplica','Se reduce a la mitad','No cambia','Se cuadriplica'], correcta:0, explicacion:'Según la Ley de Charles, V y T son directamente proporcionales.'},
+      {tipo:'opcion', enunciado:'¿Cuántos litros ocupa 1 mol de gas ideal en condiciones normales (CNPT)?', opciones:['1 L','22.4 L','100 L','6.022×10²³ L'], correcta:1, explicacion:'22.4 L es el volumen molar en condiciones normales de presión y temperatura.'}
+    ],
+    'relatividad': [
+      {tipo:'vf', enunciado:'Según la Relatividad Especial, el tiempo pasa igual para todos los observadores sin importar su velocidad.', correcta:false, explicacion:'Falso — justamente lo contrario: el tiempo es relativo, depende de la velocidad del observador.'},
+      {tipo:'vf', enunciado:'Cuanto más cerca de la velocidad de la luz se mueve algo, más lento pasa el tiempo para eso, visto desde un observador en reposo.', correcta:true, explicacion:'Correcto — eso es la dilatación temporal.'},
+      {tipo:'opcion', enunciado:'¿Quién propuso la Teoría de la Relatividad?', opciones:['Isaac Newton','Albert Einstein','Niels Bohr','Marie Curie'], correcta:1, explicacion:'Albert Einstein, con la Relatividad Especial (1905) y General (1915).'},
+      {tipo:'opcion', enunciado:'¿Por qué los satélites GPS necesitan corrección relativista?', opciones:['Por su velocidad y la gravedad distinta a la que sienten','Porque son muy pesados','Porque usan mucha energía','No necesitan ninguna corrección'], correcta:0, explicacion:'Su velocidad y su distancia del centro de la Tierra alteran cómo pasa el tiempo para ellos, comparado con la superficie.'}
+    ],
+    'nuclear': [
+      {tipo:'vf', enunciado:'En la fisión nuclear, un núcleo pesado se divide en núcleos más chicos.', correcta:true, explicacion:'Correcto — así funcionan las centrales nucleares actuales.'},
+      {tipo:'vf', enunciado:'En la fusión nuclear, se dividen núcleos livianos en partículas más chicas.', correcta:false, explicacion:'Falso — en la fusión, núcleos LIVIANOS se UNEN para formar uno más pesado (lo opuesto a dividir).'},
+      {tipo:'opcion', enunciado:'¿Quién descubrió la radiactividad?', opciones:['Marie Curie','Henri Becquerel','Albert Einstein','Ernest Rutherford'], correcta:1, explicacion:'Henri Becquerel, en 1896, de forma accidental con sales de uranio.'},
+      {tipo:'opcion', enunciado:'¿Qué representa la vida media de un isótopo radiactivo?', opciones:['El tiempo total que tarda en desaparecer completamente','El tiempo en que se desintegra la mitad de la muestra','La energía que libera','El tipo de radiación que emite'], correcta:1, explicacion:'La vida media es el tiempo que tarda en desintegrarse exactamente la mitad de una muestra.'}
+    ],
+    'fluidos': [
+      {tipo:'vf', enunciado:'La presión hidrostática aumenta con la profundidad.', correcta:true, explicacion:'Correcto — P=ρgh, a mayor profundidad h, mayor presión.'},
+      {tipo:'vf', enunciado:'Según el Principio de Arquímedes, un objeto flota si su densidad es mayor que la del fluido.', correcta:false, explicacion:'Falso — flota si su densidad es MENOR que la del fluido.'},
+      {tipo:'opcion', enunciado:'¿De qué depende el empuje que siente un objeto sumergido?', opciones:['Solo de su peso','De la densidad del fluido y el volumen desplazado','Solo de su forma','De la temperatura del objeto'], correcta:1, explicacion:'E=ρ·g·V — depende de la densidad del fluido y el volumen que el objeto desplaza.'},
+      {tipo:'opcion', enunciado:'¿Por qué es más fácil flotar en el mar que en una pileta de agua dulce?', opciones:['El mar es más profundo','El agua salada es más densa','El mar tiene olas','No hay diferencia real'], correcta:1, explicacion:'El agua salada tiene mayor densidad, lo que aumenta el empuje sobre el cuerpo.'}
+    ],
+  };
+
+  let respuestasTeoria = [];
+
+  function generarTeoria(){
+    const tema = document.getElementById('tema-teoria-select').value;
+    const preguntas = BANCO_TEORIA[tema];
+    respuestasTeoria = new Array(preguntas.length).fill(null);
+    document.getElementById('resultado-teoria-card').style.display = 'none';
+
+    let html = '';
+    preguntas.forEach((p, i) => {
+      html += `<div class="teoria-pregunta" id="teoria-p-${i}">
+        <p class="teoria-enunciado">${i+1}. ${p.enunciado}</p>
+        <div class="teoria-opciones">`;
+      if(p.tipo === 'vf'){
+        html += `
+          <label><input type="radio" name="tp-${i}" value="true" onchange="marcarRespuesta(${i}, true)"> Verdadero</label>
+          <label><input type="radio" name="tp-${i}" value="false" onchange="marcarRespuesta(${i}, false)"> Falso</label>`;
+      } else {
+        p.opciones.forEach((op, j) => {
+          html += `<label><input type="radio" name="tp-${i}" value="${j}" onchange="marcarRespuesta(${i}, ${j})"> ${op}</label>`;
+        });
+      }
+      html += `</div><div class="teoria-feedback" id="teoria-feedback-${i}"></div></div>`;
+    });
+    html += `<button class="calc-btn" onclick="corregirTeoria()">Corregir</button>`;
+    document.getElementById('teoria-container').innerHTML = html;
+  }
+
+  function marcarRespuesta(i, valor){
+    respuestasTeoria[i] = valor;
+  }
+
+  function corregirTeoria(){
+    const tema = document.getElementById('tema-teoria-select').value;
+    const preguntas = BANCO_TEORIA[tema];
+    let correctas = 0;
+
+    preguntas.forEach((p, i) => {
+      const fb = document.getElementById('teoria-feedback-'+i);
+      const respondida = respuestasTeoria[i];
+      const esCorrecta = respondida === p.correcta;
+      if(esCorrecta) correctas++;
+      fb.className = 'teoria-feedback ' + (esCorrecta ? 'correcto' : 'incorrecto');
+      fb.innerText = (esCorrecta ? '✓ Correcto. ' : '✗ Incorrecto. ') + p.explicacion;
+    });
+
+    document.getElementById('resultado-teoria-card').style.display = 'block';
+    document.getElementById('resultado-teoria-titulo').innerText = `Resultado: ${correctas} / ${preguntas.length}`;
+    let mensaje = '';
+    if(correctas === preguntas.length) mensaje = '¡Perfecto! Entendiste el tema a fondo.';
+    else if(correctas >= preguntas.length*0.6) mensaje = 'Bien, pero repasá las que fallaste.';
+    else mensaje = 'Convendría repasar la teoría de este tema antes de seguir.';
+    document.getElementById('resultado-teoria-detalle').innerText = mensaje;
   }
 
   const TEMAS = {
