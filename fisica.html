@@ -265,6 +265,31 @@
   }
   .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
 
+  .topic-index{margin-top:2px;}
+  .topic-index-grupo{margin-bottom:18px;}
+  .topic-index-grupo:last-child{margin-bottom:0;}
+  .topic-index-titulo{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;font-weight:700;
+    text-transform:uppercase;letter-spacing:0.06em;
+    color:var(--ink-soft);
+    margin:0 0 8px;
+    padding-bottom:6px;
+    border-bottom:1px solid var(--line);
+  }
+  .topic-index-links{
+    display:flex;flex-wrap:wrap;
+    gap:8px 10px;
+  }
+  .topic-index-links a{
+    font-size:14px;
+    color:var(--ink);
+    text-decoration:none;
+    padding:5px 0;
+    border-bottom:1px dashed var(--ink-soft);
+  }
+  .topic-index-links a:hover{color:var(--pine-dark);border-bottom-color:var(--pine-dark);}
+
   .mach-grupo{margin-bottom:36px;}
   .mach-titulo{
     font-family:'Fraunces', serif;
@@ -529,7 +554,55 @@
     <div id="timeline-fisica" class="timeline-interactiva"></div>
   </div>
 
-  <!-- MECÁNICA -->
+    <div class="card">
+    <h2>Índice de temas</h2>
+    <p style="color:var(--ink-soft);font-size:14px;margin-top:-4px;">Busca un tema por su nombre. Las tarjetas con fórmulas están más abajo.</p>
+    <div class="topic-index">
+      <div class="topic-index-grupo">
+        <p class="topic-index-titulo">Mecánica</p>
+        <div class="topic-index-links">
+          <a href="mru.html">MRU</a>
+          <a href="mruv.html">MRUV</a>
+          <a href="tiro-oblicuo.html">Tiro Oblicuo</a>
+          <a href="mcu.html">MCU</a>
+          <a href="newton.html">2ª Ley de Newton</a>
+          <a href="trabajo-energia.html">Trabajo y Energía</a>
+          <a href="impulso-momentum.html">Impulso</a>
+          <a href="estatica-torque.html">Estática y Torque</a>
+          <a href="maquinas-simples.html">Máquinas Simples</a>
+        </div>
+      </div>
+      <div class="topic-index-grupo">
+        <p class="topic-index-titulo">Electricidad</p>
+        <div class="topic-index-links">
+          <a href="ley-ohm.html">Ley de Ohm</a>
+          <a href="potencia-electrica.html">Potencia Eléctrica</a>
+          <a href="circuitos.html">Circuitos</a>
+          <a href="electromagnetismo.html">Electromagnetismo</a>
+          <a href="corriente-continua-alterna.html">Corriente Continua y Alterna</a>
+        </div>
+      </div>
+      <div class="topic-index-grupo">
+        <p class="topic-index-titulo">Termodinámica y Fluidos</p>
+        <div class="topic-index-links">
+          <a href="calor-especifico.html">Calor Específico</a>
+          <a href="dilatacion-termica.html">Dilatación Térmica</a>
+          <a href="fluidos.html">Presión Hidrostática</a>
+          <a href="caudal-continuidad.html">Caudal y Continuidad</a>
+          <a href="maquinas-termicas.html">Máquinas Térmicas</a>
+        </div>
+      </div>
+      <div class="topic-index-grupo">
+        <p class="topic-index-titulo">Física Moderna</p>
+        <div class="topic-index-links">
+          <a href="relatividad.html">Relatividad</a>
+          <a href="energia-nuclear.html">Energía Nuclear</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- MECÁNICA -->
   <div class="mach-grupo mecanica">
     <h2 class="mach-titulo">Mecánica</h2>
     <div class="mach-grid">

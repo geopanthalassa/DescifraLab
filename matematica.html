@@ -265,6 +265,31 @@
   }
   .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
 
+  .topic-index{margin-top:2px;}
+  .topic-index-grupo{margin-bottom:18px;}
+  .topic-index-grupo:last-child{margin-bottom:0;}
+  .topic-index-titulo{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;font-weight:700;
+    text-transform:uppercase;letter-spacing:0.06em;
+    color:var(--ink-soft);
+    margin:0 0 8px;
+    padding-bottom:6px;
+    border-bottom:1px solid var(--line);
+  }
+  .topic-index-links{
+    display:flex;flex-wrap:wrap;
+    gap:8px 10px;
+  }
+  .topic-index-links a{
+    font-size:14px;
+    color:var(--ink);
+    text-decoration:none;
+    padding:5px 0;
+    border-bottom:1px dashed var(--ink-soft);
+  }
+  .topic-index-links a:hover{color:var(--pine-dark);border-bottom-color:var(--pine-dark);}
+
   .mach-grupo{margin-bottom:36px;}
   .mach-titulo{
     font-family:'Fraunces', serif;
@@ -525,7 +550,51 @@
     <p style="color:var(--ink-soft);font-size:14.5px;">Todos los temas incluyen una calculadora o graficador interactivo, ejemplos resueltos paso a paso, y ejercicios con respuesta explicada — no solo el resultado final.</p>
   </div>
 
-  <!-- MATEMÁTICA -->
+    <div class="card">
+    <h2>Índice de temas</h2>
+    <p style="color:var(--ink-soft);font-size:14px;margin-top:-4px;">Busca un tema por su nombre. Las tarjetas con fórmulas están más abajo.</p>
+    <div class="topic-index">
+      <div class="topic-index-grupo">
+        <p class="topic-index-titulo">Álgebra</p>
+        <div class="topic-index-links">
+          <a href="ecuaciones-primer-grado.html">Ecuaciones de Primer Grado</a>
+          <a href="ecuaciones-segundo-grado.html">Ecuaciones de Segundo Grado</a>
+          <a href="sistema-ecuaciones.html">Sistemas de Ecuaciones</a>
+          <a href="inecuaciones.html">Inecuaciones</a>
+        </div>
+      </div>
+      <div class="topic-index-grupo">
+        <p class="topic-index-titulo">Funciones</p>
+        <div class="topic-index-links">
+          <a href="funciones.html">Funciones</a>
+          <a href="funcion-racional.html">Función Racional</a>
+          <a href="logaritmos.html">Logaritmos</a>
+        </div>
+      </div>
+      <div class="topic-index-grupo">
+        <p class="topic-index-titulo">Sucesiones y finanzas</p>
+        <div class="topic-index-links">
+          <a href="sucesiones.html">Sucesiones y Series</a>
+          <a href="interes-compuesto.html">Interés Compuesto</a>
+        </div>
+      </div>
+      <div class="topic-index-grupo">
+        <p class="topic-index-titulo">Estadística y probabilidad</p>
+        <div class="topic-index-links">
+          <a href="estadistica.html">Estadística</a>
+          <a href="probabilidad.html">Probabilidad</a>
+        </div>
+      </div>
+      <div class="topic-index-grupo">
+        <p class="topic-index-titulo">Geometría</p>
+        <div class="topic-index-links">
+          <a href="geometria-analitica.html">Geometría Analítica</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- MATEMÁTICA -->
   <div class="mach-grupo matematica">
     <h2 class="mach-titulo">Álgebra</h2>
     <div class="mach-grid">

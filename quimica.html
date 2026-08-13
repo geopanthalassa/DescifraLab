@@ -265,6 +265,31 @@
   }
   .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
 
+  .topic-index{margin-top:2px;}
+  .topic-index-grupo{margin-bottom:18px;}
+  .topic-index-grupo:last-child{margin-bottom:0;}
+  .topic-index-titulo{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;font-weight:700;
+    text-transform:uppercase;letter-spacing:0.06em;
+    color:var(--ink-soft);
+    margin:0 0 8px;
+    padding-bottom:6px;
+    border-bottom:1px solid var(--line);
+  }
+  .topic-index-links{
+    display:flex;flex-wrap:wrap;
+    gap:8px 10px;
+  }
+  .topic-index-links a{
+    font-size:14px;
+    color:var(--ink);
+    text-decoration:none;
+    padding:5px 0;
+    border-bottom:1px dashed var(--ink-soft);
+  }
+  .topic-index-links a:hover{color:var(--pine-dark);border-bottom-color:var(--pine-dark);}
+
   .mach-grupo{margin-bottom:36px;}
   .mach-titulo{
     font-family:'Fraunces', serif;
@@ -530,7 +555,38 @@
   </div>
 
 
-  <!-- QUÍMICA -->
+    <div class="card">
+    <h2>Índice de temas</h2>
+    <p style="color:var(--ink-soft);font-size:14px;margin-top:-4px;">Busca un tema por su nombre. Las tarjetas con fórmulas están más abajo.</p>
+    <div class="topic-index">
+      <div class="topic-index-grupo">
+        <p class="topic-index-titulo">Estructura de la materia</p>
+        <div class="topic-index-links">
+          <a href="modelo-atomico.html">Modelo Atómico</a>
+          <a href="configuracion-electronica.html">Config. Electrónica</a>
+          <a href="enlaces-quimicos.html">Enlaces Químicos</a>
+        </div>
+      </div>
+      <div class="topic-index-grupo">
+        <p class="topic-index-titulo">Reacciones</p>
+        <div class="topic-index-links">
+          <a href="estequiometria.html">Estequiometría</a>
+          <a href="oxido-reduccion.html">Óxido-Reducción</a>
+          <a href="acido-base.html">Ácido-Base y pH</a>
+        </div>
+      </div>
+      <div class="topic-index-grupo">
+        <p class="topic-index-titulo">Materia y soluciones</p>
+        <div class="topic-index-links">
+          <a href="concentracion-soluciones.html">Concentración de Soluciones</a>
+          <a href="mezclas-separacion.html">Mezclas y Separación</a>
+          <a href="leyes-gases.html">Leyes de los Gases</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- QUÍMICA -->
   <div class="mach-grupo quimica">
     <h2 class="mach-titulo">Estructura de la materia</h2>
     <div class="mach-grid">
