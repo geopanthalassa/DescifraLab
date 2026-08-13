@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Máquinas Térmicas y Eficiencia — Motor y Refrigerador — DescifraLab</title>
+<title>Funciones — Tipos y Gráficos Interactivos — DescifraLab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -284,25 +284,15 @@
     <a href="docentes.html">Para Docentes</a>
     <a href="banco-preguntas.html">Banco de Preguntas</a>
     <a href="ecuaciones-primer-grado.html">Matemática</a>
-    <a href="ecuaciones-segundo-grado.html">Ecuaciones de Segundo Grado</a>
-    <a href="funciones.html">Funciones</a>
-    <a href="inecuaciones.html">Inecuaciones</a>
-    <a href="logaritmos.html">Logaritmos</a>
-    <a href="sucesiones.html">Sucesiones y Series</a>
-    <a href="interes-compuesto.html">Interés Compuesto</a>
-    <a href="estadistica.html">Estadística</a>
-    <a href="funcion-racional.html">Función Racional</a>
-    <a href="probabilidad.html">Probabilidad</a>
-    <a href="geometria-analitica.html">Geometría Analítica</a>
     <a href="evaluaciones.html">Evaluaciones</a>
     <a href="sobre-nosotros.html">Sobre la Fundadora</a>
   </div>
 </nav>
 
 <header class="top">
-  <div class="eyebrow">Termodinámica · Máquinas</div>
-  <h1>Máquinas Térmicas y Eficiencia</h1>
-  <p class="subtitle">Motor térmico, refrigerador, eficiencia, y el impacto ambiental de convertir calor en trabajo.</p>
+  <div class="eyebrow">Matemática · Funciones</div>
+  <h1>Funciones</h1>
+  <p class="subtitle">Qué es una función, los tipos más comunes (lineal, cuadrática, exponencial), y un graficador interactivo real para ver cómo cambia cada una.</p>
   <nav class="level-nav">
     <button class="level-btn active" data-target="basico">Básico</button>
     <button class="level-btn" data-target="avanzado">Avanzado</button>
@@ -315,48 +305,49 @@
   <section class="level active" data-level="basico">
 
     <div class="card" data-tag="Concepto">
-      <h2>Motor térmico y refrigerador: ideas opuestas</h2>
-      <p>Un <strong>motor térmico</strong> transforma parte del calor que recibe en trabajo útil — por ejemplo, un motor de auto quema combustible (calor) para mover el vehículo (trabajo).</p>
-      <p>Un <strong>refrigerador</strong> hace lo contrario en cierto sentido: usa trabajo (electricidad) para transferir calor desde una zona fría hacia una zona más caliente — sacando calor de adentro de la heladera y expulsándolo afuera, en contra de la dirección natural en la que el calor fluiría solo.</p>
+      <h2>¿Qué es una función?</h2>
+      <p>Una función es una "máquina" que toma un número de entrada (x) y devuelve exactamente un número de salida (y) — nunca dos resultados distintos para la misma entrada. Se escribe y=f(x), que se lee "y es función de x".</p>
+      <p style="color:var(--ink-soft);font-size:14.5px;">Pensalo como una máquina expendedora: metes un código (x) y siempre sale el mismo producto (y) para ese código — nunca sale algo distinto al azar.</p>
     </div>
 
     <div class="card" data-tag="Concepto">
-      <h2>Eficiencia: nunca se aprovecha todo el calor</h2>
-      <p>Ninguna máquina térmica convierte el 100% del calor recibido en trabajo útil — siempre se pierde una parte (generalmente como calor que se escapa sin aprovechar).</p>
-      <div class="formula-box">η = (E útil / E total) × 100</div>
-      <p class="var-list"><span>η</span> = eficiencia (%) &nbsp;·&nbsp; <span>E útil</span> = energía que se aprovecha realmente &nbsp;·&nbsp; <span>E total</span> = energía total que entra al sistema</p>
+      <h2>La función lineal: la más simple de todas</h2>
+      <div class="formula-box">y = m·x + b</div>
+      <p class="var-list"><span>m</span> = pendiente (qué tan inclinada es la recta) &nbsp;·&nbsp; <span>b</span> = ordenada al origen (dónde cruza el eje y, cuando x=0)</p>
     </div>
 
-    <div class="card" data-tag="Calculadora">
-      <h2>Calcula la eficiencia</h2>
+    <div class="card" data-tag="Simulación">
+      <h2>Graficador interactivo — función lineal</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Mueves m y b, y miras la recta cambiar en vivo.</p>
       <div class="calc-grid">
-        <div class="field"><label>Energía útil obtenida (J)</label><input type="number" id="b-Eutil" value="2500"></div>
-        <div class="field"><label>Energía total entregada (J)</label><input type="number" id="b-Etotal" value="10000"></div>
+        <div class="field"><label>m (pendiente)</label><input type="range" id="lin-m" min="-5" max="5" step="0.5" value="1" oninput="actualizarLineal()"><span id="lin-m-val" style="font-family:'JetBrains Mono',monospace;">1</span></div>
+        <div class="field"><label>b (ordenada al origen)</label><input type="range" id="lin-b" min="-10" max="10" step="1" value="0" oninput="actualizarLineal()"><span id="lin-b-val" style="font-family:'JetBrains Mono',monospace;">0</span></div>
       </div>
-      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
-      <div class="readout" id="b-readout"></div>
+      <div class="sim-box">
+        <canvas id="lineal-canvas" width="680" height="280"></canvas>
+      </div>
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
       <h2>Ejemplo</h2>
       <div class="example">
-        <p><strong>Un motor recibe 10.000 J de energía del combustible, y produce 2.500 J de trabajo útil. ¿Cuál es su eficiencia?</strong></p>
-        <p>η = (2500/10000) × 100 = <strong>25%</strong></p>
-        <p>El otro 75% se pierde principalmente como calor que se escapa por el escape y el radiador — típico de un motor de combustión interna real.</p>
+        <p><strong>Para y=2x+3, ¿cuál es el valor de y cuando x=4?</strong></p>
+        <p>y = 2×4+3 = 8+3 = <strong>11</strong></p>
+        <p>El punto (4, 11) está sobre esa recta.</p>
       </div>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
       <h2>Ejercicios con respuesta</h2>
       <ol>
-        <li>Una máquina recibe 5000 J y produce 1500 J de trabajo útil. ¿Cuál es su eficiencia?
-          <details><summary>Ver respuesta</summary>η = (1500/5000)×100 = 30%</details>
+        <li>Para y=3x−1, ¿cuál es y cuando x=2?
+          <details><summary>Ver respuesta</summary>y=3×2−1=5</details>
         </li>
-        <li>¿Por qué ninguna máquina térmica puede tener 100% de eficiencia?
-          <details><summary>Ver respuesta</summary>Porque siempre hay pérdidas (fricción, calor que se escapa sin aprovechar) — es una consecuencia de la Segunda Ley de la Termodinámica, no solo un problema de mala ingeniería.</details>
+        <li>¿Qué representa la pendiente m en la vida real, si x es tiempo e y es distancia recorrida?
+          <details><summary>Ver respuesta</summary>Representa la velocidad — cuánto cambia la distancia por cada unidad de tiempo</details>
         </li>
-        <li>¿Un refrigerador "crea frío"?
-          <details><summary>Ver respuesta</summary>No — no existe tal cosa como "crear frío". Lo que hace es extraer calor de adentro y expulsarlo afuera, usando trabajo eléctrico para forzar ese flujo en contra de su dirección natural.</details>
+        <li>Si b=0, ¿por dónde pasa siempre la recta?
+          <details><summary>Ver respuesta</summary>Por el origen (0,0), porque cuando x=0, y=m×0+0=0</details>
         </li>
       </ol>
     </div>
@@ -367,46 +358,58 @@
   <section class="level" data-level="avanzado">
 
     <div class="card" data-tag="Concepto">
-      <h2>Impacto ambiental de las máquinas térmicas</h2>
-      <p>La mayoría de las máquinas térmicas reales (motores de combustión, centrales eléctricas a carbón o gas) queman combustibles fósiles para generar el calor inicial. Eso tiene un costo ambiental real:</p>
+      <h2>Otros tipos de función</h2>
       <ul style="padding-left:20px;margin:10px 0;">
-        <li><strong>Emisiones de gases de efecto invernadero</strong> (principalmente CO₂), que contribuyen al calentamiento global.</li>
-        <li><strong>Contaminación del aire</strong> local, con impacto directo en la salud respiratoria.</li>
-        <li><strong>Agotamiento de recursos</strong> no renovables (petróleo, carbón, gas natural).</li>
+        <li><strong>Función cuadrática:</strong> y=ax²+bx+c — su gráfico es una parábola.</li>
+        <li><strong>Función exponencial:</strong> y=a·bˣ — crece (o decrece) cada vez más rápido, típica de crecimiento poblacional o desintegración radiactiva.</li>
       </ul>
-      <p style="color:var(--ink-soft);font-size:14.5px;">Por eso mejorar la eficiencia de una máquina térmica no es solo un tema económico — una máquina más eficiente necesita quemar menos combustible para producir el mismo trabajo útil, reduciendo directamente su huella ambiental.</p>
     </div>
 
-    <div class="card" data-tag="Calculadora">
-      <h2>Calcula cuánta energía se pierde</h2>
+    <div class="card" data-tag="Simulación">
+      <h2>Graficador interactivo — elige el tipo</h2>
       <div class="calc-grid">
-        <div class="field"><label>Eficiencia del sistema (%)</label><input type="number" id="a-eficiencia" value="35"></div>
-        <div class="field"><label>Energía total consumida (kWh)</label><input type="number" id="a-energiaTotal" value="100"></div>
+        <div class="field">
+          <label>Tipo de función</label>
+          <select id="tipo-funcion" onchange="cambiarTipoFuncion()" style="width:100%;padding:10px 12px;border:2px solid var(--ink);font-family:'JetBrains Mono', monospace;font-size:15px;background:var(--white);">
+            <option value="cuadratica">Cuadrática: y=ax²+bx+c</option>
+            <option value="exponencial">Exponencial: y=a·bˣ</option>
+          </select>
+        </div>
       </div>
-      <button class="calc-btn" onclick="calcAvanzado()">Calcular</button>
-      <div class="readout" id="a-readout"></div>
+      <div id="controles-cuadratica" class="calc-grid">
+        <div class="field"><label>a</label><input type="range" id="cuad-a" min="-3" max="3" step="0.25" value="1" oninput="actualizarAvanzado()"><span id="cuad-a-val" style="font-family:'JetBrains Mono',monospace;">1</span></div>
+        <div class="field"><label>b</label><input type="range" id="cuad-b" min="-5" max="5" step="0.5" value="0" oninput="actualizarAvanzado()"><span id="cuad-b-val" style="font-family:'JetBrains Mono',monospace;">0</span></div>
+        <div class="field"><label>c</label><input type="range" id="cuad-c" min="-10" max="10" step="1" value="0" oninput="actualizarAvanzado()"><span id="cuad-c-val" style="font-family:'JetBrains Mono',monospace;">0</span></div>
+      </div>
+      <div id="controles-exponencial" class="calc-grid" style="display:none;">
+        <div class="field"><label>a (valor inicial)</label><input type="range" id="exp-a" min="0.5" max="5" step="0.5" value="1" oninput="actualizarAvanzado()"><span id="exp-a-val" style="font-family:'JetBrains Mono',monospace;">1</span></div>
+        <div class="field"><label>b (base)</label><input type="range" id="exp-b" min="0.2" max="3" step="0.1" value="2" oninput="actualizarAvanzado()"><span id="exp-b-val" style="font-family:'JetBrains Mono',monospace;">2</span></div>
+      </div>
+      <div class="sim-box">
+        <canvas id="avanzado-canvas" width="680" height="280"></canvas>
+      </div>
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
       <h2>Ejemplo</h2>
       <div class="example">
-        <p><strong>Una central térmica tiene 35% de eficiencia, y consume 100 kWh de combustible. ¿Cuánta energía útil produce, y cuánta se pierde?</strong></p>
-        <p>Energía útil = 100 × 0.35 = <strong>35 kWh</strong></p>
-        <p>Energía perdida = 100 − 35 = <strong>65 kWh</strong> — más de la mitad del combustible consumido no llega a convertirse en electricidad útil.</p>
+        <p><strong>Un cultivo de bacterias se duplica cada hora, empezando con 100. ¿Cuántas hay después de 3 horas?</strong></p>
+        <p>y = 100 × 2ˣ, con x=3: y = 100×2³ = 100×8 = <strong>800 bacterias</strong></p>
+        <p>Este es un ejemplo real de función exponencial (a=100, b=2).</p>
       </div>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
       <h2>Ejercicios con respuesta</h2>
       <ol>
-        <li>Una máquina con 60% de eficiencia consume 50 kWh. ¿Cuánta energía útil produce?
-          <details><summary>Ver respuesta</summary>50×0.60 = 30 kWh</details>
+        <li>Para y=x²−4, ¿cuál es y cuando x=3?
+          <details><summary>Ver respuesta</summary>y=9−4=5</details>
         </li>
-        <li>¿Por qué las centrales eléctricas modernas de ciclo combinado son más eficientes que las tradicionales?
-          <details><summary>Ver respuesta</summary>Porque reutilizan el calor "perdido" de una primera etapa (turbina de gas) para generar más electricidad en una segunda etapa (turbina de vapor), aprovechando energía que de otra forma se escaparía sin uso.</details>
+        <li>¿Qué le pasa a una función exponencial con base b entre 0 y 1?
+          <details><summary>Ver respuesta</summary>Decrece en vez de crecer — representa un decaimiento, como la desintegración radiactiva</details>
         </li>
-        <li>¿Por qué mejorar en 10 puntos porcentuales la eficiencia de una central grande tiene tanto impacto ambiental?
-          <details><summary>Ver respuesta</summary>Porque a esa escala, cada punto porcentual de eficiencia representa una cantidad enorme de combustible fósil que ya no hace falta quemar — multiplicado por millones de horas de operación, la reducción de emisiones es muy significativa.</details>
+        <li>¿Por qué el gráfico de una función cuadrática nunca es una línea recta?
+          <details><summary>Ver respuesta</summary>Porque tiene un término x² — al elevar al cuadrado, el crecimiento no es constante como en una recta, sino que se curva, formando una parábola.</details>
         </li>
       </ol>
     </div>
@@ -415,24 +418,24 @@
 
   <div class="card faq" data-tag="FAQ">
     <h2>Preguntas frecuentes</h2>
-    <h3>¿Cuál es la eficiencia real de un auto a nafta?</h3>
-    <p>Ronda entre 20% y 35% típicamente — la mayor parte de la energía del combustible se pierde como calor por el radiador y el escape, y una parte más chica en fricción mecánica. Los autos eléctricos tienen eficiencias mucho más altas (arriba del 85%) porque no dependen de convertir calor en trabajo.</p>
-    <h3>¿El aire acondicionado es lo mismo que un refrigerador?</h3>
-    <p>Sí, funciona con el mismo principio — extrae calor de adentro (el ambiente que enfría) y lo expulsa afuera, usando trabajo eléctrico para forzar ese flujo de calor en sentido contrario al natural.</p>
-    <h3>¿Por qué no se puede simplemente hacer una máquina 100% eficiente?</h3>
-    <p>Es una consecuencia fundamental de la Segunda Ley de la Termodinámica, no un problema de ingeniería que se pueda resolver con mejor tecnología — siempre hay una porción de energía que se degrada de una forma que ya no se puede aprovechar como trabajo útil.</p>
+    <h3>¿Qué es el dominio de una función?</h3>
+    <p>Son todos los valores de x para los que la función tiene sentido — por ejemplo, no puedes dividir por cero, así que cualquier x que haga eso queda afuera del dominio.</p>
+    <h3>¿Cómo distingo una función lineal de una cuadrática con solo mirar la fórmula?</h3>
+    <p>Fijate si aparece x² — si la máxima potencia de x es 1 (como en y=3x+2), es lineal. Si aparece x² (como en y=x²+3x+2), es cuadrática.</p>
+    <h3>¿Por qué la función exponencial crece tan rápido comparada con las otras?</h3>
+    <p>Porque el crecimiento se multiplica constantemente en vez de sumarse — cada paso multiplica el resultado anterior por la base, así que el crecimiento se acelera cada vez más, a diferencia de la función lineal (que crece siempre la misma cantidad).</p>
   </div>
 
   <div class="related">
     <h2>Temas relacionados</h2>
     <div class="related-links">
-      <a href="calor-especifico.html">Calor Específico y Cambios de Estado</a>
-      <a href="trabajo-energia.html">Trabajo y Energía</a>
-      <a href="energia-nuclear.html">Energía Nuclear</a>
+      <a href="ecuaciones-primer-grado.html">Ecuaciones de Primer Grado</a>
+      <a href="ecuaciones-segundo-grado.html">Ecuaciones de Segundo Grado</a>
       <a href="formulario.html">Machete de Fórmulas</a>
       <a href="evaluaciones.html">Evaluaciones</a>
       <a href="sobre-nosotros.html">Sobre la Fundadora</a>
-      <a href="experimentos.html">Experimentos Caseros</a>
+      <a href="docentes.html">Para Docentes</a>
+      <a href="banco-preguntas.html">Banco de Preguntas</a>
     </div>
   </div>
 
@@ -452,24 +455,110 @@
     });
   });
 
-  function calcBasico(){
-    const Eutil = parseFloat(document.getElementById('b-Eutil').value)||0;
-    const Etotal = parseFloat(document.getElementById('b-Etotal').value)||1;
-    const eficiencia = (Eutil/Etotal)*100;
-    const out = document.getElementById('b-readout');
-    out.innerText = `η = (${Eutil}/${Etotal}) × 100 = ${eficiencia.toFixed(1)}%`;
-    out.classList.add('show');
+  function drawEjes(ctx, w, h, scale){
+    const cx = w/2, cy = h/2;
+    ctx.strokeStyle = '#3A4756';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(0, cy); ctx.lineTo(w, cy);
+    ctx.moveTo(cx, 0); ctx.lineTo(cx, h);
+    ctx.stroke();
   }
 
-  function calcAvanzado(){
-    const eficiencia = parseFloat(document.getElementById('a-eficiencia').value)||0;
-    const Etotal = parseFloat(document.getElementById('a-energiaTotal').value)||0;
-    const Eutil = Etotal*(eficiencia/100);
-    const Eperdida = Etotal-Eutil;
-    const out = document.getElementById('a-readout');
-    out.innerText = `Energía útil = ${Etotal} × ${(eficiencia/100).toFixed(2)} = ${Eutil.toFixed(1)} kWh\nEnergía perdida = ${Etotal} − ${Eutil.toFixed(1)} = ${Eperdida.toFixed(1)} kWh`;
-    out.classList.add('show');
+  function actualizarLineal(){
+    const m = parseFloat(document.getElementById('lin-m').value);
+    const b = parseFloat(document.getElementById('lin-b').value);
+    document.getElementById('lin-m-val').innerText = m;
+    document.getElementById('lin-b-val').innerText = b;
+
+    const canvas = document.getElementById('lineal-canvas');
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height, cx = w/2, cy = h/2, scale = 20;
+    ctx.clearRect(0,0,w,h);
+    drawEjes(ctx, w, h, scale);
+
+    ctx.strokeStyle = '#D9A441';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    for(let px=0; px<=w; px++){
+      const xMat = (px-cx)/scale;
+      const yMat = m*xMat + b;
+      const py = cy - yMat*scale;
+      if(px===0) ctx.moveTo(px,py); else ctx.lineTo(px,py);
+    }
+    ctx.stroke();
+
+    ctx.font = '11px JetBrains Mono';
+    ctx.fillStyle = '#5C6B7A';
+    ctx.fillText(`y = ${m}x + ${b}`, 12, 18);
   }
+
+  function cambiarTipoFuncion(){
+    const tipo = document.getElementById('tipo-funcion').value;
+    document.getElementById('controles-cuadratica').style.display = tipo==='cuadratica' ? 'grid' : 'none';
+    document.getElementById('controles-exponencial').style.display = tipo==='exponencial' ? 'grid' : 'none';
+    actualizarAvanzado();
+  }
+
+  function actualizarAvanzado(){
+    const tipo = document.getElementById('tipo-funcion').value;
+    const canvas = document.getElementById('avanzado-canvas');
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height, cx = w/2, cy = h/2, scale = 20;
+    ctx.clearRect(0,0,w,h);
+    drawEjes(ctx, w, h, scale);
+
+    if(tipo === 'cuadratica'){
+      const a = parseFloat(document.getElementById('cuad-a').value);
+      const b = parseFloat(document.getElementById('cuad-b').value);
+      const c = parseFloat(document.getElementById('cuad-c').value);
+      document.getElementById('cuad-a-val').innerText = a;
+      document.getElementById('cuad-b-val').innerText = b;
+      document.getElementById('cuad-c-val').innerText = c;
+
+      ctx.strokeStyle = '#D9A441';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      let first = true;
+      for(let px=0; px<=w; px++){
+        const xMat = (px-cx)/scale;
+        const yMat = a*xMat*xMat + b*xMat + c;
+        const py = cy - yMat*scale;
+        if(py < -2000 || py > h+2000) continue;
+        if(first){ ctx.moveTo(px,py); first=false; } else { ctx.lineTo(px,py); }
+      }
+      ctx.stroke();
+      ctx.font = '11px JetBrains Mono';
+      ctx.fillStyle = '#5C6B7A';
+      ctx.fillText(`y = ${a}x² + ${b}x + ${c}`, 12, 18);
+    } else {
+      const a = parseFloat(document.getElementById('exp-a').value);
+      const b = parseFloat(document.getElementById('exp-b').value);
+      document.getElementById('exp-a-val').innerText = a;
+      document.getElementById('exp-b-val').innerText = b;
+
+      ctx.strokeStyle = '#2F6B5E';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      let first = true;
+      for(let px=0; px<=w; px++){
+        const xMat = (px-cx)/scale;
+        const yMat = a*Math.pow(b, xMat);
+        const py = cy - yMat*scale;
+        if(py < -2000 || py > h+2000) continue;
+        if(first){ ctx.moveTo(px,py); first=false; } else { ctx.lineTo(px,py); }
+      }
+      ctx.stroke();
+      ctx.font = '11px JetBrains Mono';
+      ctx.fillStyle = '#5C6B7A';
+      ctx.fillText(`y = ${a}×${b}^x`, 12, 18);
+    }
+  }
+
+  window.addEventListener('load', ()=>{
+    actualizarLineal();
+    actualizarAvanzado();
+  });
 </script>
 
 </body>

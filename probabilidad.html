@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Movimiento Circular Uniforme (MCU) | Simulador de Rotación — DescifraLab</title>
+<title>Probabilidad — Cálculo de Chances y Probabilidad Condicional — DescifraLab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -287,22 +287,15 @@
     <a href="ecuaciones-segundo-grado.html">Ecuaciones de Segundo Grado</a>
     <a href="funciones.html">Funciones</a>
     <a href="inecuaciones.html">Inecuaciones</a>
-    <a href="logaritmos.html">Logaritmos</a>
-    <a href="sucesiones.html">Sucesiones y Series</a>
-    <a href="interes-compuesto.html">Interés Compuesto</a>
-    <a href="estadistica.html">Estadística</a>
-    <a href="funcion-racional.html">Función Racional</a>
-    <a href="probabilidad.html">Probabilidad</a>
-    <a href="geometria-analitica.html">Geometría Analítica</a>
     <a href="evaluaciones.html">Evaluaciones</a>
     <a href="sobre-nosotros.html">Sobre la Fundadora</a>
   </div>
 </nav>
 
 <header class="top">
-  <div class="eyebrow">Mecánica · Cinemática</div>
-  <h1>Movimiento Circular Uniforme (MCU)</h1>
-  <p class="subtitle">Fórmulas, simulador de rotación con velocidad angular y fuerza centrípeta, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
+  <div class="eyebrow">Matemática · Álgebra</div>
+  <h1>Probabilidad</h1>
+  <p class="subtitle">Cómo calcular la chance de que pase algo, y probabilidad condicional — cuando un evento cambia la chance del siguiente.</p>
   <nav class="level-nav">
     <button class="level-btn active" data-target="basico">Básico</button>
     <button class="level-btn" data-target="avanzado">Avanzado</button>
@@ -315,56 +308,42 @@
   <section class="level active" data-level="basico">
 
     <div class="card" data-tag="Concepto">
-      <h2>¿Qué es el MCU?</h2>
-      <p>Es el movimiento de un objeto que da vueltas a velocidad constante alrededor de un centro fijo — como las agujas de un reloj o un caballito de calesita. La velocidad angular (qué tan rápido gira) no cambia, aunque la dirección del movimiento sí cambia todo el tiempo.</p>
-      <div class="formula-box">ω = 2π / T</div>
-      <div class="formula-box">v = ω · r</div>
-      <p class="var-list"><span>ω</span> = velocidad angular (rad/s) &nbsp;·&nbsp; <span>T</span> = período, tiempo de una vuelta completa (s) &nbsp;·&nbsp; <span>v</span> = velocidad tangencial (m/s) &nbsp;·&nbsp; <span>r</span> = radio (m)</p>
+      <h2>¿Qué es la probabilidad?</h2>
+      <p>Mide qué tan probable es que ocurra algo, en una escala de 0 (imposible) a 1 (seguro) — o expresado en porcentaje, de 0% a 100%.</p>
+      <div class="formula-box">P(evento) = casos favorables / casos posibles</div>
+      <p class="var-list"><span>Casos favorables</span> = las formas en que puede pasar lo que te interesa &nbsp;·&nbsp; <span>Casos posibles</span> = todas las formas en que puede terminar la situación</p>
     </div>
 
     <div class="card" data-tag="Calculadora">
-      <h2>Calcula velocidad angular y tangencial</h2>
+      <h2>Calcula una probabilidad simple</h2>
       <div class="calc-grid">
-        <div class="field"><label>Período T (s) — tiempo de una vuelta</label><input type="number" id="b-T" value="4"></div>
-        <div class="field"><label>Radio r (m)</label><input type="number" id="b-r" value="2"></div>
+        <div class="field"><label>Casos favorables</label><input type="number" id="b-fav" value="1"></div>
+        <div class="field"><label>Casos posibles</label><input type="number" id="b-pos" value="6"></div>
       </div>
       <button class="calc-btn" onclick="calcBasico()">Calcular</button>
       <div class="readout" id="b-readout"></div>
     </div>
 
-    <div class="card" data-tag="Simulación">
-      <h2>Mira girar el objeto</h2>
-      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Con los valores de arriba, mira el objeto dar vueltas al ritmo real calculado.</p>
-      <div class="sim-box">
-        <canvas id="mcu-canvas" width="680" height="220"></canvas>
-        <div class="sim-readout">
-          <span id="mcu-ang">Ángulo: 0°</span>
-          <span id="mcu-v">v = 0 m/s</span>
-        </div>
-      </div>
-      <button class="calc-btn" id="mcu-btn" onclick="toggleMCU()">▶ Reproducir</button>
-    </div>
-
     <div class="card" data-tag="Ejemplo resuelto">
       <h2>Ejemplo</h2>
       <div class="example">
-        <p><strong>Un caballito de calesita da una vuelta completa cada 4 s, a 2 m del centro. ¿Cuál es su velocidad tangencial?</strong></p>
-        <p>ω = 2π/4 = <strong>1.57 rad/s</strong></p>
-        <p>v = 1.57 × 2 = <strong>3.14 m/s</strong></p>
+        <p><strong>¿Cuál es la probabilidad de sacar un 4 al tirar un dado de 6 caras?</strong></p>
+        <p>Casos favorables = 1 (solo hay un 4) &nbsp;·&nbsp; Casos posibles = 6 (números del 1 al 6)</p>
+        <p>P = 1/6 ≈ <strong>0.167 (16.7%)</strong></p>
       </div>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
       <h2>Ejercicios con respuesta</h2>
       <ol>
-        <li>Una rueda da una vuelta cada 2 s. ¿Cuál es su velocidad angular?
-          <details><summary>Ver respuesta</summary>ω = 2π/2 = 3.14 rad/s</details>
+        <li>¿Cuál es la probabilidad de sacar cara al tirar una moneda?
+          <details><summary>Ver respuesta</summary>1/2=0.5 (50%)</details>
         </li>
-        <li>Un punto a 0.5 m del eje de esa rueda, ¿a qué velocidad tangencial se mueve?
-          <details><summary>Ver respuesta</summary>v = 3.14×0.5 = 1.57 m/s</details>
+        <li>En una bolsa con 3 bolitas rojas y 7 azules, ¿cuál es la probabilidad de sacar una roja?
+          <details><summary>Ver respuesta</summary>3/10=0.3 (30%)</details>
         </li>
-        <li>¿Por qué un punto más alejado del centro de un disco que gira se mueve más rápido que uno cerca del centro, aunque ambos den la misma vuelta en el mismo tiempo?
-          <details><summary>Ver respuesta</summary>Porque tienen la misma velocidad angular (ω) pero distinto radio — como v=ω×r, a mayor r, mayor v tangencial, aunque completen la vuelta en el mismo T.</details>
+        <li>¿Por qué la probabilidad siempre está entre 0 y 1 (o entre 0% y 100%)?
+          <details><summary>Ver respuesta</summary>Porque los casos favorables nunca pueden ser más que los casos posibles totales — 0 significa que nunca pasa, y 1 (o 100%) significa que siempre pasa, no hay valores fuera de ese rango.</details>
         </li>
       </ol>
     </div>
@@ -375,18 +354,18 @@
   <section class="level" data-level="avanzado">
 
     <div class="card" data-tag="Concepto">
-      <h2>Fuerza centrípeta</h2>
-      <p>Para que algo se mueva en círculo, necesita una fuerza constante empujándolo hacia el centro — sin esa fuerza, seguiría en línea recta (por la inercia). Esta fuerza no cambia la velocidad del objeto, solo su dirección.</p>
-      <div class="formula-box">F<sub>c</sub> = m · v² / r</div>
-      <p class="var-list">Ejemplos de qué hace de fuerza centrípeta: la tensión de una cuerda al hacer girar una piedra, la fricción de los neumáticos en una curva, o la gravedad manteniendo a la Luna en órbita.</p>
+      <h2>Probabilidad condicional: cuando un evento afecta al siguiente</h2>
+      <p>Es la probabilidad de que pase algo, sabiendo que ya pasó otra cosa antes — se escribe P(A|B), que se lee "probabilidad de A dado B".</p>
+      <div class="formula-box">P(A|B) = P(A y B) / P(B)</div>
+      <p class="var-list">Es distinta de la probabilidad "normal" porque el conocimiento previo (que B ya pasó) cambia el conjunto de posibilidades restantes.</p>
     </div>
 
     <div class="card" data-tag="Calculadora">
-      <h2>Calcula la fuerza centrípeta</h2>
+      <h2>Calcula una probabilidad sin reposición</h2>
+      <p style="color:var(--ink-soft);font-size:13.5px;margin-top:-4px;">Sacás una bolita de un color específico sin devolverla, y después sacás otra. ¿Cuál es la probabilidad de que la segunda también sea de ese color?</p>
       <div class="calc-grid">
-        <div class="field"><label>Masa m (kg)</label><input type="number" id="a-m" value="0.5"></div>
-        <div class="field"><label>Velocidad v (m/s)</label><input type="number" id="a-v" value="4"></div>
-        <div class="field"><label>Radio r (m)</label><input type="number" id="a-r" value="1"></div>
+        <div class="field"><label>Cantidad del color que buscas</label><input type="number" id="a-favorable" value="3"></div>
+        <div class="field"><label>Total de bolitas</label><input type="number" id="a-total" value="10"></div>
       </div>
       <button class="calc-btn" onclick="calcAvanzado()">Calcular</button>
       <div class="readout" id="a-readout"></div>
@@ -395,64 +374,50 @@
     <div class="card" data-tag="Ejemplo resuelto">
       <h2>Ejemplo</h2>
       <div class="example">
-        <p><strong>Haces girar una piedra de 0.5 kg atada a una cuerda de 1 m, a 4 m/s. ¿Qué tensión soporta la cuerda?</strong></p>
-        <p>F<sub>c</sub> = 0.5×4² / 1 = 0.5×16/1 = <strong>8 N</strong></p>
-        <p>Esa es la tensión mínima que necesita la cuerda para no romperse y mantener la piedra en su órbita circular.</p>
+        <p><strong>Una bolsa tiene 3 bolitas rojas y 7 azules (10 total). Sacás una roja SIN devolverla, y después otra. ¿Cuál es la probabilidad de que la segunda también sea roja?</strong></p>
+        <p>Primera extracción: P(roja) = 3/10</p>
+        <p>Como ya sacaste una roja y no la devolviste, ahora quedan 2 rojas de 9 bolitas totales</p>
+        <p>Segunda extracción: P(roja | ya salió roja) = 2/9 ≈ <strong>0.222 (22.2%)</strong></p>
+        <p>Fijate que bajó de 3/10 (30%) a 2/9 (22.2%) — el primer resultado cambió las probabilidades del segundo.</p>
       </div>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
       <h2>Ejercicios con respuesta</h2>
       <ol>
-        <li>Un auto de 1000 kg toma una curva de 50 m de radio a 20 m/s. ¿Qué fuerza centrípeta necesita?
-          <details><summary>Ver respuesta</summary>Fc = 1000×20²/50 = 1000×400/50 = 8000 N</details>
+        <li>De un mazo de 40 cartas con 10 de oro, sacás una de oro sin devolverla. ¿Cuál es la probabilidad de sacar otra de oro?
+          <details><summary>Ver respuesta</summary>Quedan 9 de oro entre 39 cartas: 9/39≈0.231 (23.1%)</details>
         </li>
-        <li>¿Qué le pasa a un auto si la curva es más cerrada (menor radio) a la misma velocidad?
-          <details><summary>Ver respuesta</summary>Necesita más fuerza centrípeta (Fc aumenta cuando r disminuye), y si la fricción de los neumáticos no alcanza a proveerla, el auto derrapa hacia afuera de la curva.</details>
+        <li>¿Por qué la probabilidad condicional es distinta si SÍ devolvés la bolita antes de la segunda extracción?
+          <details><summary>Ver respuesta</summary>Porque si la devolvés, la situación vuelve a ser exactamente igual que al principio (3/10 otra vez) — el primer resultado no afecta al segundo, son eventos independientes.</details>
         </li>
-        <li>¿Por qué los astronautas en órbita "flotan" sin peso aparente?
-          <details><summary>Ver respuesta</summary>Porque están en caída libre constante alrededor de la Tierra — la gravedad actúa como fuerza centrípeta exacta para mantener la órbita, así que no sienten una fuerza "extra" de apoyo como en el suelo.</details>
+        <li>¿Qué significa que dos eventos sean "independientes"?
+          <details><summary>Ver respuesta</summary>Que el resultado de uno no cambia en absoluto la probabilidad del otro — como tirar dos dados distintos, donde el resultado del primero no afecta al segundo.</details>
         </li>
       </ol>
     </div>
 
   </section>
-
   <div class="card faq" data-tag="FAQ">
     <h2>Preguntas frecuentes</h2>
-    <h3>¿Por qué se llama "uniforme" si la velocidad cambia de dirección?</h3>
-    <p>"Uniforme" se refiere a que la rapidez (el valor numérico de la velocidad) es constante — lo que cambia es solo la dirección. Por eso, aunque la rapidez no cambia, sí hay aceleración (la centrípeta), porque la dirección del vector velocidad cambia todo el tiempo.</p>
-    <h3>¿Fuerza centrípeta y fuerza centrífuga son lo mismo?</h3>
-    <p>No. La centrípeta es real y apunta hacia el centro (la que efectivamente causa el giro). La "centrífuga" que sientes empujándote hacia afuera en una curva es una fuerza aparente, producto de tu propia inercia resistiéndose al giro — no es una fuerza real actuando sobre ti.</p>
-    <h3>¿Por qué las curvas de las rutas suelen estar peraltadas (inclinadas)?</h3>
-    <p>Para que parte de la fuerza centrípeta la aporte la normal de la pista (inclinada) además de la fricción, permitiendo tomar la curva a mayor velocidad sin derrapar.</p>
+    <h3>¿Por qué la probabilidad de "ganar la lotería" es tan baja?</h3>
+    <p>Porque los casos posibles (todas las combinaciones de números que podrían salir) son un número enormemente grande, mientras que los casos favorables (tu combinación específica) es solo 1 — la división de esos dos números da una probabilidad extremadamente chica.</p>
+    <h3>¿Qué es la probabilidad de un evento imposible o seguro?</h3>
+    <p>Un evento imposible tiene probabilidad 0 (por ejemplo, sacar un 7 en un dado de 6 caras). Un evento seguro tiene probabilidad 1 (por ejemplo, que salga un número entre 1 y 6 al tirar ese mismo dado).</p>
+    <h3>¿Cómo calculo la probabilidad de que pasen DOS cosas independientes a la vez?</h3>
+    <p>Se multiplican las probabilidades individuales — por ejemplo, la probabilidad de sacar cara en dos monedas tiradas por separado es (1/2)×(1/2)=1/4, porque son eventos independientes.</p>
   </div>
 
   <div class="related">
     <h2>Temas relacionados</h2>
     <div class="related-links">
-      <a href="tiro-oblicuo.html">Tiro Oblicuo — Movimiento Parabólico</a>
-      <a href="newton.html">Segunda Ley de Newton (F = m·a)</a>
+      <a href="estadistica.html">Estadística</a>
+      <a href="energia-nuclear.html">Energía Nuclear (vida media)</a>
       <a href="formulario.html">Machete de Fórmulas</a>
-      <a href="maquinas-termicas.html">Máquinas Térmicas y Eficiencia</a>
-      <a href="corriente-continua-alterna.html">Corriente Continua y Alterna</a>
-      <a href="caudal-continuidad.html">Caudal y Continuidad</a>
-      <a href="electromagnetismo.html">Electromagnetismo</a>
-      <a href="maquinas-simples.html">Máquinas Simples</a>
-      <a href="conversor-unidades.html">Conversor de Unidades</a>
       <a href="evaluaciones.html">Evaluaciones</a>
       <a href="sobre-nosotros.html">Sobre la Fundadora</a>
-      <a href="experimentos.html">Experimentos Caseros</a>
-      <a href="modelo-atomico.html">Modelo Atómico y Tabla Periódica</a>
-      <a href="estequiometria.html">Estequiometría y El Mol</a>
-      <a href="configuracion-electronica.html">Configuración Electrónica</a>
-      <a href="oxido-reduccion.html">Óxido-Reducción</a>
-      <a href="enlaces-quimicos.html">Enlaces Químicos</a>
-      <a href="acido-base.html">Ácido-Base y pH</a>
-      <a href="concentracion-soluciones.html">Concentración de Soluciones</a>
-      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
-      <a href="leyes-gases.html">Leyes de los Gases</a>
-      <a href="energia-nuclear.html">Energía Nuclear</a>
+      <a href="docentes.html">Para Docentes</a>
+      <a href="banco-preguntas.html">Banco de Preguntas</a>
     </div>
   </div>
 
@@ -472,105 +437,28 @@
     });
   });
 
+  function parseDatos(str){
+    return str.split(',').map(s=>parseFloat(s.trim())).filter(n=>!isNaN(n));
+  }
+
   function calcBasico(){
-    const T = parseFloat(document.getElementById('b-T').value)||1;
-    const r = parseFloat(document.getElementById('b-r').value)||0;
-    const omega = (2*Math.PI)/T;
-    const v = omega*r;
+    const fav = parseFloat(document.getElementById('b-fav').value)||0;
+    const pos = parseFloat(document.getElementById('b-pos').value)||1;
+    const p = fav/pos;
     const out = document.getElementById('b-readout');
-    out.innerText = `ω = 2π/${T} = ${omega.toFixed(2)} rad/s\nv = ${omega.toFixed(2)}×${r} = ${v.toFixed(2)} m/s`;
+    out.innerText = `P = ${fav}/${pos} = ${p.toFixed(3)} (${(p*100).toFixed(1)}%)`;
     out.classList.add('show');
   }
 
   function calcAvanzado(){
-    const m = parseFloat(document.getElementById('a-m').value)||0;
-    const v = parseFloat(document.getElementById('a-v').value)||0;
-    const r = parseFloat(document.getElementById('a-r').value)||0.0001;
-    const Fc = (m*v*v)/r;
+    const favorable = parseFloat(document.getElementById('a-favorable').value)||0;
+    const total = parseFloat(document.getElementById('a-total').value)||1;
+    const p1 = favorable/total;
+    const p2 = (favorable-1)/(total-1);
     const out = document.getElementById('a-readout');
-    out.innerText = `Fc = m×v²/r = ${m}×${v}²/${r} = ${Fc.toFixed(2)} N`;
+    out.innerText = `Primera extracción: P = ${favorable}/${total} = ${p1.toFixed(3)}\nSegunda extracción (sin reposición): P = ${favorable-1}/${total-1} = ${p2.toFixed(3)}`;
     out.classList.add('show');
   }
-
-  // ---- Simulador de rotación circular ----
-  let mcuState = {running:false, angle:0, omega:1, r:60, lastFrame:null};
-
-  function drawMCU(ctx, w, h, angle, r){
-    ctx.clearRect(0,0,w,h);
-    const cx = w/2, cy = h/2;
-
-    // circunferencia de referencia
-    ctx.strokeStyle = '#3A4756';
-    ctx.setLineDash([3,4]);
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI*2);
-    ctx.stroke();
-    ctx.setLineDash([]);
-
-    // centro
-    ctx.fillStyle = '#5C6B7A';
-    ctx.beginPath();
-    ctx.arc(cx, cy, 3, 0, Math.PI*2);
-    ctx.fill();
-
-    // radio (línea del centro al objeto)
-    const objX = cx + r*Math.cos(angle);
-    const objY = cy + r*Math.sin(angle);
-    ctx.strokeStyle = '#7FB8E3';
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.moveTo(cx,cy); ctx.lineTo(objX,objY);
-    ctx.stroke();
-
-    // objeto
-    ctx.font = '26px sans-serif';
-    ctx.textAlign='center';
-    ctx.fillText('🪐', objX, objY+8);
-    ctx.textAlign='left';
-  }
-
-  function toggleMCU(){
-    const btn = document.getElementById('mcu-btn');
-    const s = mcuState;
-    if(s.running){
-      s.running = false;
-      btn.innerText = '▶ Reproducir';
-      return;
-    }
-    const T = parseFloat(document.getElementById('b-T').value)||4;
-    s.omega = (2*Math.PI)/T;
-    s.running = true;
-    btn.innerText = '⏸ Pausar';
-    s.lastFrame = performance.now();
-    requestAnimationFrame(mcuFrame);
-  }
-
-  function mcuFrame(now){
-    const s = mcuState;
-    if(!s.running) return;
-    const canvas = document.getElementById('mcu-canvas');
-    const ctx = canvas.getContext('2d');
-
-    const dt = (now - s.lastFrame)/1000;
-    s.lastFrame = now;
-    s.angle += s.omega*dt;
-
-    drawMCU(ctx, canvas.width, canvas.height, s.angle, s.r);
-
-    const r = parseFloat(document.getElementById('b-r').value)||1;
-    const v = s.omega*r;
-    const angDeg = ((s.angle*180/Math.PI) % 360 + 360) % 360;
-    document.getElementById('mcu-ang').innerText = `Ángulo: ${angDeg.toFixed(0)}°`;
-    document.getElementById('mcu-v').innerText = `v = ${v.toFixed(2)} m/s`;
-
-    requestAnimationFrame(mcuFrame);
-  }
-
-  window.addEventListener('load', ()=>{
-    const canvas = document.getElementById('mcu-canvas');
-    drawMCU(canvas.getContext('2d'), canvas.width, canvas.height, 0, 60);
-  });
 </script>
 
 </body>

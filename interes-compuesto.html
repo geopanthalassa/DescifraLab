@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Movimiento Circular Uniforme (MCU) | Simulador de Rotación — DescifraLab</title>
+<title>Interés Compuesto — Cómo Crece el Dinero — DescifraLab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -287,22 +287,15 @@
     <a href="ecuaciones-segundo-grado.html">Ecuaciones de Segundo Grado</a>
     <a href="funciones.html">Funciones</a>
     <a href="inecuaciones.html">Inecuaciones</a>
-    <a href="logaritmos.html">Logaritmos</a>
-    <a href="sucesiones.html">Sucesiones y Series</a>
-    <a href="interes-compuesto.html">Interés Compuesto</a>
-    <a href="estadistica.html">Estadística</a>
-    <a href="funcion-racional.html">Función Racional</a>
-    <a href="probabilidad.html">Probabilidad</a>
-    <a href="geometria-analitica.html">Geometría Analítica</a>
     <a href="evaluaciones.html">Evaluaciones</a>
     <a href="sobre-nosotros.html">Sobre la Fundadora</a>
   </div>
 </nav>
 
 <header class="top">
-  <div class="eyebrow">Mecánica · Cinemática</div>
-  <h1>Movimiento Circular Uniforme (MCU)</h1>
-  <p class="subtitle">Fórmulas, simulador de rotación con velocidad angular y fuerza centrípeta, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
+  <div class="eyebrow">Matemática · Álgebra</div>
+  <h1>Interés Compuesto</h1>
+  <p class="subtitle">Cómo crece el dinero cuando el interés se calcula también sobre los intereses acumulados, no solo sobre el capital inicial.</p>
   <nav class="level-nav">
     <button class="level-btn active" data-target="basico">Básico</button>
     <button class="level-btn" data-target="avanzado">Avanzado</button>
@@ -315,56 +308,43 @@
   <section class="level active" data-level="basico">
 
     <div class="card" data-tag="Concepto">
-      <h2>¿Qué es el MCU?</h2>
-      <p>Es el movimiento de un objeto que da vueltas a velocidad constante alrededor de un centro fijo — como las agujas de un reloj o un caballito de calesita. La velocidad angular (qué tan rápido gira) no cambia, aunque la dirección del movimiento sí cambia todo el tiempo.</p>
-      <div class="formula-box">ω = 2π / T</div>
-      <div class="formula-box">v = ω · r</div>
-      <p class="var-list"><span>ω</span> = velocidad angular (rad/s) &nbsp;·&nbsp; <span>T</span> = período, tiempo de una vuelta completa (s) &nbsp;·&nbsp; <span>v</span> = velocidad tangencial (m/s) &nbsp;·&nbsp; <span>r</span> = radio (m)</p>
+      <h2>El interés se calcula también sobre los intereses acumulados</h2>
+      <p>En el interés compuesto, cada período no solo ganas interés sobre tu capital inicial, sino también sobre todo el interés que ya habías ganado antes — por eso el dinero crece cada vez más rápido con el tiempo, como una sucesión geométrica.</p>
+      <div class="formula-box">C_final = C_inicial · (1 + i)^n</div>
+      <p class="var-list"><span>C_inicial</span> = capital inicial &nbsp;·&nbsp; <span>i</span> = tasa de interés por período (en decimal) &nbsp;·&nbsp; <span>n</span> = cantidad de períodos &nbsp;·&nbsp; <span>C_final</span> = capital final</p>
     </div>
 
     <div class="card" data-tag="Calculadora">
-      <h2>Calcula velocidad angular y tangencial</h2>
+      <h2>Calcula cuánto crece tu dinero</h2>
       <div class="calc-grid">
-        <div class="field"><label>Período T (s) — tiempo de una vuelta</label><input type="number" id="b-T" value="4"></div>
-        <div class="field"><label>Radio r (m)</label><input type="number" id="b-r" value="2"></div>
+        <div class="field"><label>Capital inicial</label><input type="number" id="b-capital" value="1000"></div>
+        <div class="field"><label>Tasa de interés por período (%)</label><input type="number" id="b-tasa" value="5"></div>
+        <div class="field"><label>Cantidad de períodos</label><input type="number" id="b-n" value="3"></div>
       </div>
       <button class="calc-btn" onclick="calcBasico()">Calcular</button>
       <div class="readout" id="b-readout"></div>
     </div>
 
-    <div class="card" data-tag="Simulación">
-      <h2>Mira girar el objeto</h2>
-      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Con los valores de arriba, mira el objeto dar vueltas al ritmo real calculado.</p>
-      <div class="sim-box">
-        <canvas id="mcu-canvas" width="680" height="220"></canvas>
-        <div class="sim-readout">
-          <span id="mcu-ang">Ángulo: 0°</span>
-          <span id="mcu-v">v = 0 m/s</span>
-        </div>
-      </div>
-      <button class="calc-btn" id="mcu-btn" onclick="toggleMCU()">▶ Reproducir</button>
-    </div>
-
     <div class="card" data-tag="Ejemplo resuelto">
       <h2>Ejemplo</h2>
       <div class="example">
-        <p><strong>Un caballito de calesita da una vuelta completa cada 4 s, a 2 m del centro. ¿Cuál es su velocidad tangencial?</strong></p>
-        <p>ω = 2π/4 = <strong>1.57 rad/s</strong></p>
-        <p>v = 1.57 × 2 = <strong>3.14 m/s</strong></p>
+        <p><strong>Invertís $1000 al 5% de interés compuesto anual, durante 3 años. ¿Cuánto tienes al final?</strong></p>
+        <p>C_final = 1000 × (1.05)³ = 1000 × 1.157625 = <strong>$1157.63</strong></p>
+        <p>Compara con el interés simple (que solo aplica sobre el capital inicial): 1000+3×(1000×0.05)=$1150 — el compuesto siempre da más, porque los intereses también generan intereses.</p>
       </div>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
       <h2>Ejercicios con respuesta</h2>
       <ol>
-        <li>Una rueda da una vuelta cada 2 s. ¿Cuál es su velocidad angular?
-          <details><summary>Ver respuesta</summary>ω = 2π/2 = 3.14 rad/s</details>
+        <li>$2000 al 10% anual durante 2 años, con interés compuesto. ¿Cuánto hay al final?
+          <details><summary>Ver respuesta</summary>2000×(1.10)²=2000×1.21=$2420</details>
         </li>
-        <li>Un punto a 0.5 m del eje de esa rueda, ¿a qué velocidad tangencial se mueve?
-          <details><summary>Ver respuesta</summary>v = 3.14×0.5 = 1.57 m/s</details>
+        <li>¿Por qué el interés compuesto crece más rápido cuantos más períodos pasen?
+          <details><summary>Ver respuesta</summary>Porque cada período nuevo aplica el interés sobre un capital cada vez más grande (que ya incluye los intereses anteriores) — es un crecimiento exponencial, no lineal.</details>
         </li>
-        <li>¿Por qué un punto más alejado del centro de un disco que gira se mueve más rápido que uno cerca del centro, aunque ambos den la misma vuelta en el mismo tiempo?
-          <details><summary>Ver respuesta</summary>Porque tienen la misma velocidad angular (ω) pero distinto radio — como v=ω×r, a mayor r, mayor v tangencial, aunque completen la vuelta en el mismo T.</details>
+        <li>¿Qué le pasa al resultado si la tasa de interés es 0%?
+          <details><summary>Ver respuesta</summary>El capital nunca cambia — (1+0)ⁿ=1ⁿ=1, así que C_final=C_inicial×1=C_inicial</details>
         </li>
       </ol>
     </div>
@@ -375,43 +355,44 @@
   <section class="level" data-level="avanzado">
 
     <div class="card" data-tag="Concepto">
-      <h2>Fuerza centrípeta</h2>
-      <p>Para que algo se mueva en círculo, necesita una fuerza constante empujándolo hacia el centro — sin esa fuerza, seguiría en línea recta (por la inercia). Esta fuerza no cambia la velocidad del objeto, solo su dirección.</p>
-      <div class="formula-box">F<sub>c</sub> = m · v² / r</div>
-      <p class="var-list">Ejemplos de qué hace de fuerza centrípeta: la tensión de una cuerda al hacer girar una piedra, la fricción de los neumáticos en una curva, o la gravedad manteniendo a la Luna en órbita.</p>
+      <h2>Comparando interés simple vs. compuesto en el largo plazo</h2>
+      <p>La diferencia entre interés simple y compuesto parece chica al principio, pero se vuelve enorme con el tiempo — el compuesto crece exponencialmente, el simple crece linealmente.</p>
+      <div class="formula-box">Interés simple: C_final = C_inicial × (1 + i×n)</div>
+      <div class="formula-box">Interés compuesto: C_final = C_inicial × (1 + i)^n</div>
     </div>
 
     <div class="card" data-tag="Calculadora">
-      <h2>Calcula la fuerza centrípeta</h2>
+      <h2>Comparalos lado a lado</h2>
       <div class="calc-grid">
-        <div class="field"><label>Masa m (kg)</label><input type="number" id="a-m" value="0.5"></div>
-        <div class="field"><label>Velocidad v (m/s)</label><input type="number" id="a-v" value="4"></div>
-        <div class="field"><label>Radio r (m)</label><input type="number" id="a-r" value="1"></div>
+        <div class="field"><label>Capital inicial</label><input type="number" id="a-capital" value="1000"></div>
+        <div class="field"><label>Tasa (%)</label><input type="number" id="a-tasa" value="8"></div>
+        <div class="field"><label>Años</label><input type="number" id="a-n" value="20"></div>
       </div>
-      <button class="calc-btn" onclick="calcAvanzado()">Calcular</button>
+      <button class="calc-btn" onclick="calcAvanzado()">Comparar</button>
       <div class="readout" id="a-readout"></div>
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
       <h2>Ejemplo</h2>
       <div class="example">
-        <p><strong>Haces girar una piedra de 0.5 kg atada a una cuerda de 1 m, a 4 m/s. ¿Qué tensión soporta la cuerda?</strong></p>
-        <p>F<sub>c</sub> = 0.5×4² / 1 = 0.5×16/1 = <strong>8 N</strong></p>
-        <p>Esa es la tensión mínima que necesita la cuerda para no romperse y mantener la piedra en su órbita circular.</p>
+        <p><strong>$1000 al 8% anual durante 20 años: ¿cuánta diferencia hay entre simple y compuesto?</strong></p>
+        <p>Simple: 1000×(1+0.08×20) = 1000×2.6 = $2600</p>
+        <p>Compuesto: 1000×(1.08)²⁰ ≈ 1000×4.66 ≈ <strong>$4661</strong></p>
+        <p>Casi el doble — esa es la diferencia real que hace el tiempo con el interés compuesto, y por qué empezar a ahorrar temprano importa tanto.</p>
       </div>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
       <h2>Ejercicios con respuesta</h2>
       <ol>
-        <li>Un auto de 1000 kg toma una curva de 50 m de radio a 20 m/s. ¿Qué fuerza centrípeta necesita?
-          <details><summary>Ver respuesta</summary>Fc = 1000×20²/50 = 1000×400/50 = 8000 N</details>
+        <li>$500 al 6% anual durante 10 años, interés compuesto. ¿Cuánto hay al final?
+          <details><summary>Ver respuesta</summary>500×(1.06)¹⁰≈500×1.79≈$895.42</details>
         </li>
-        <li>¿Qué le pasa a un auto si la curva es más cerrada (menor radio) a la misma velocidad?
-          <details><summary>Ver respuesta</summary>Necesita más fuerza centrípeta (Fc aumenta cuando r disminuye), y si la fricción de los neumáticos no alcanza a proveerla, el auto derrapa hacia afuera de la curva.</details>
+        <li>¿Por qué los bancos casi siempre usan interés compuesto y no simple para sus préstamos?
+          <details><summary>Ver respuesta</summary>Porque genera más ganancia para quien presta el dinero — cada período no solo cobra interés sobre el capital, sino también sobre los intereses ya generados.</details>
         </li>
-        <li>¿Por qué los astronautas en órbita "flotan" sin peso aparente?
-          <details><summary>Ver respuesta</summary>Porque están en caída libre constante alrededor de la Tierra — la gravedad actúa como fuerza centrípeta exacta para mantener la órbita, así que no sienten una fuerza "extra" de apoyo como en el suelo.</details>
+        <li>Si duplicás la tasa de interés, ¿se duplica el capital final?
+          <details><summary>Ver respuesta</summary>No — como la tasa está dentro de una potencia, el efecto no es proporcional. Duplicar la tasa aumenta el capital final más que el doble, especialmente a mayor cantidad de períodos.</details>
         </li>
       </ol>
     </div>
@@ -420,39 +401,24 @@
 
   <div class="card faq" data-tag="FAQ">
     <h2>Preguntas frecuentes</h2>
-    <h3>¿Por qué se llama "uniforme" si la velocidad cambia de dirección?</h3>
-    <p>"Uniforme" se refiere a que la rapidez (el valor numérico de la velocidad) es constante — lo que cambia es solo la dirección. Por eso, aunque la rapidez no cambia, sí hay aceleración (la centrípeta), porque la dirección del vector velocidad cambia todo el tiempo.</p>
-    <h3>¿Fuerza centrípeta y fuerza centrífuga son lo mismo?</h3>
-    <p>No. La centrípeta es real y apunta hacia el centro (la que efectivamente causa el giro). La "centrífuga" que sientes empujándote hacia afuera en una curva es una fuerza aparente, producto de tu propia inercia resistiéndose al giro — no es una fuerza real actuando sobre ti.</p>
-    <h3>¿Por qué las curvas de las rutas suelen estar peraltadas (inclinadas)?</h3>
-    <p>Para que parte de la fuerza centrípeta la aporte la normal de la pista (inclinada) además de la fricción, permitiendo tomar la curva a mayor velocidad sin derrapar.</p>
+    <h3>¿Por qué la tasa se pone en decimal en la fórmula?</h3>
+    <p>Porque "5%" en realidad significa 5 de cada 100, que como fracción decimal es 0.05 — usar el porcentaje sin convertir daría un resultado completamente distinto (y erróneo).</p>
+    <h3>¿El interés compuesto siempre es anual?</h3>
+    <p>No — el período puede ser cualquiera (mensual, trimestral, diario), siempre que la tasa y la cantidad de períodos (n) coincidan con esa unidad de tiempo.</p>
+    <h3>¿Por qué se dice que el interés compuesto es "el interés de los intereses"?</h3>
+    <p>Porque en cada período nuevo, la base sobre la que se calcula el interés ya incluye los intereses ganados en períodos anteriores — no es solo el capital original, sino el capital original más todo lo acumulado hasta ese momento.</p>
   </div>
 
   <div class="related">
     <h2>Temas relacionados</h2>
     <div class="related-links">
-      <a href="tiro-oblicuo.html">Tiro Oblicuo — Movimiento Parabólico</a>
-      <a href="newton.html">Segunda Ley de Newton (F = m·a)</a>
+      <a href="sucesiones.html">Sucesiones y Series</a>
+      <a href="funciones.html">Funciones</a>
       <a href="formulario.html">Machete de Fórmulas</a>
-      <a href="maquinas-termicas.html">Máquinas Térmicas y Eficiencia</a>
-      <a href="corriente-continua-alterna.html">Corriente Continua y Alterna</a>
-      <a href="caudal-continuidad.html">Caudal y Continuidad</a>
-      <a href="electromagnetismo.html">Electromagnetismo</a>
-      <a href="maquinas-simples.html">Máquinas Simples</a>
-      <a href="conversor-unidades.html">Conversor de Unidades</a>
       <a href="evaluaciones.html">Evaluaciones</a>
       <a href="sobre-nosotros.html">Sobre la Fundadora</a>
-      <a href="experimentos.html">Experimentos Caseros</a>
-      <a href="modelo-atomico.html">Modelo Atómico y Tabla Periódica</a>
-      <a href="estequiometria.html">Estequiometría y El Mol</a>
-      <a href="configuracion-electronica.html">Configuración Electrónica</a>
-      <a href="oxido-reduccion.html">Óxido-Reducción</a>
-      <a href="enlaces-quimicos.html">Enlaces Químicos</a>
-      <a href="acido-base.html">Ácido-Base y pH</a>
-      <a href="concentracion-soluciones.html">Concentración de Soluciones</a>
-      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
-      <a href="leyes-gases.html">Leyes de los Gases</a>
-      <a href="energia-nuclear.html">Energía Nuclear</a>
+      <a href="docentes.html">Para Docentes</a>
+      <a href="banco-preguntas.html">Banco de Preguntas</a>
     </div>
   </div>
 
@@ -473,104 +439,25 @@
   });
 
   function calcBasico(){
-    const T = parseFloat(document.getElementById('b-T').value)||1;
-    const r = parseFloat(document.getElementById('b-r').value)||0;
-    const omega = (2*Math.PI)/T;
-    const v = omega*r;
+    const capital = parseFloat(document.getElementById('b-capital').value)||0;
+    const tasa = parseFloat(document.getElementById('b-tasa').value)||0;
+    const n = parseFloat(document.getElementById('b-n').value)||0;
+    const final = capital*Math.pow(1+tasa/100, n);
     const out = document.getElementById('b-readout');
-    out.innerText = `ω = 2π/${T} = ${omega.toFixed(2)} rad/s\nv = ${omega.toFixed(2)}×${r} = ${v.toFixed(2)} m/s`;
+    out.innerText = `C_final = ${capital}×(1+${tasa}/100)^${n} = $${final.toFixed(2)}`;
     out.classList.add('show');
   }
 
   function calcAvanzado(){
-    const m = parseFloat(document.getElementById('a-m').value)||0;
-    const v = parseFloat(document.getElementById('a-v').value)||0;
-    const r = parseFloat(document.getElementById('a-r').value)||0.0001;
-    const Fc = (m*v*v)/r;
+    const capital = parseFloat(document.getElementById('a-capital').value)||0;
+    const tasa = parseFloat(document.getElementById('a-tasa').value)||0;
+    const n = parseFloat(document.getElementById('a-n').value)||0;
+    const simple = capital*(1+(tasa/100)*n);
+    const compuesto = capital*Math.pow(1+tasa/100, n);
     const out = document.getElementById('a-readout');
-    out.innerText = `Fc = m×v²/r = ${m}×${v}²/${r} = ${Fc.toFixed(2)} N`;
+    out.innerText = `Interés simple: $${simple.toFixed(2)}\nInterés compuesto: $${compuesto.toFixed(2)}\nDiferencia: $${(compuesto-simple).toFixed(2)}`;
     out.classList.add('show');
   }
-
-  // ---- Simulador de rotación circular ----
-  let mcuState = {running:false, angle:0, omega:1, r:60, lastFrame:null};
-
-  function drawMCU(ctx, w, h, angle, r){
-    ctx.clearRect(0,0,w,h);
-    const cx = w/2, cy = h/2;
-
-    // circunferencia de referencia
-    ctx.strokeStyle = '#3A4756';
-    ctx.setLineDash([3,4]);
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI*2);
-    ctx.stroke();
-    ctx.setLineDash([]);
-
-    // centro
-    ctx.fillStyle = '#5C6B7A';
-    ctx.beginPath();
-    ctx.arc(cx, cy, 3, 0, Math.PI*2);
-    ctx.fill();
-
-    // radio (línea del centro al objeto)
-    const objX = cx + r*Math.cos(angle);
-    const objY = cy + r*Math.sin(angle);
-    ctx.strokeStyle = '#7FB8E3';
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.moveTo(cx,cy); ctx.lineTo(objX,objY);
-    ctx.stroke();
-
-    // objeto
-    ctx.font = '26px sans-serif';
-    ctx.textAlign='center';
-    ctx.fillText('🪐', objX, objY+8);
-    ctx.textAlign='left';
-  }
-
-  function toggleMCU(){
-    const btn = document.getElementById('mcu-btn');
-    const s = mcuState;
-    if(s.running){
-      s.running = false;
-      btn.innerText = '▶ Reproducir';
-      return;
-    }
-    const T = parseFloat(document.getElementById('b-T').value)||4;
-    s.omega = (2*Math.PI)/T;
-    s.running = true;
-    btn.innerText = '⏸ Pausar';
-    s.lastFrame = performance.now();
-    requestAnimationFrame(mcuFrame);
-  }
-
-  function mcuFrame(now){
-    const s = mcuState;
-    if(!s.running) return;
-    const canvas = document.getElementById('mcu-canvas');
-    const ctx = canvas.getContext('2d');
-
-    const dt = (now - s.lastFrame)/1000;
-    s.lastFrame = now;
-    s.angle += s.omega*dt;
-
-    drawMCU(ctx, canvas.width, canvas.height, s.angle, s.r);
-
-    const r = parseFloat(document.getElementById('b-r').value)||1;
-    const v = s.omega*r;
-    const angDeg = ((s.angle*180/Math.PI) % 360 + 360) % 360;
-    document.getElementById('mcu-ang').innerText = `Ángulo: ${angDeg.toFixed(0)}°`;
-    document.getElementById('mcu-v').innerText = `v = ${v.toFixed(2)} m/s`;
-
-    requestAnimationFrame(mcuFrame);
-  }
-
-  window.addEventListener('load', ()=>{
-    const canvas = document.getElementById('mcu-canvas');
-    drawMCU(canvas.getContext('2d'), canvas.width, canvas.height, 0, 60);
-  });
 </script>
 
 </body>

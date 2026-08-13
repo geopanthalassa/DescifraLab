@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Movimiento Circular Uniforme (MCU) | Simulador de Rotación — DescifraLab</title>
+<title>Logaritmos — Qué son y Propiedades — DescifraLab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -287,22 +287,15 @@
     <a href="ecuaciones-segundo-grado.html">Ecuaciones de Segundo Grado</a>
     <a href="funciones.html">Funciones</a>
     <a href="inecuaciones.html">Inecuaciones</a>
-    <a href="logaritmos.html">Logaritmos</a>
-    <a href="sucesiones.html">Sucesiones y Series</a>
-    <a href="interes-compuesto.html">Interés Compuesto</a>
-    <a href="estadistica.html">Estadística</a>
-    <a href="funcion-racional.html">Función Racional</a>
-    <a href="probabilidad.html">Probabilidad</a>
-    <a href="geometria-analitica.html">Geometría Analítica</a>
     <a href="evaluaciones.html">Evaluaciones</a>
     <a href="sobre-nosotros.html">Sobre la Fundadora</a>
   </div>
 </nav>
 
 <header class="top">
-  <div class="eyebrow">Mecánica · Cinemática</div>
-  <h1>Movimiento Circular Uniforme (MCU)</h1>
-  <p class="subtitle">Fórmulas, simulador de rotación con velocidad angular y fuerza centrípeta, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
+  <div class="eyebrow">Matemática · Álgebra</div>
+  <h1>Logaritmos</h1>
+  <p class="subtitle">Qué pregunta responde un logaritmo, sus propiedades, y por qué aparecen en pH, escalas de terremotos, y decibeles.</p>
   <nav class="level-nav">
     <button class="level-btn active" data-target="basico">Básico</button>
     <button class="level-btn" data-target="avanzado">Avanzado</button>
@@ -315,56 +308,43 @@
   <section class="level active" data-level="basico">
 
     <div class="card" data-tag="Concepto">
-      <h2>¿Qué es el MCU?</h2>
-      <p>Es el movimiento de un objeto que da vueltas a velocidad constante alrededor de un centro fijo — como las agujas de un reloj o un caballito de calesita. La velocidad angular (qué tan rápido gira) no cambia, aunque la dirección del movimiento sí cambia todo el tiempo.</p>
-      <div class="formula-box">ω = 2π / T</div>
-      <div class="formula-box">v = ω · r</div>
-      <p class="var-list"><span>ω</span> = velocidad angular (rad/s) &nbsp;·&nbsp; <span>T</span> = período, tiempo de una vuelta completa (s) &nbsp;·&nbsp; <span>v</span> = velocidad tangencial (m/s) &nbsp;·&nbsp; <span>r</span> = radio (m)</p>
+      <h2>¿Qué pregunta responde un logaritmo?</h2>
+      <p>Un logaritmo responde exactamente esta pregunta: "¿a qué exponente tengo que elevar la base para obtener este número?" — es literalmente la operación inversa de elevar a una potencia.</p>
+      <div class="formula-box">log_a(b) = c &nbsp;⟺&nbsp; a^c = b</div>
+      <p class="var-list"><span>a</span> = base &nbsp;·&nbsp; <span>b</span> = el número al que le sacás el logaritmo &nbsp;·&nbsp; <span>c</span> = el resultado (el exponente que buscas)</p>
+      <p style="color:var(--ink-soft);font-size:14.5px;">Ejemplo: log₂(8)=3, porque 2³=8. La pregunta era "¿a qué exponente hay que elevar 2 para obtener 8?", y la respuesta es 3.</p>
     </div>
 
     <div class="card" data-tag="Calculadora">
-      <h2>Calcula velocidad angular y tangencial</h2>
+      <h2>Calcula un logaritmo</h2>
       <div class="calc-grid">
-        <div class="field"><label>Período T (s) — tiempo de una vuelta</label><input type="number" id="b-T" value="4"></div>
-        <div class="field"><label>Radio r (m)</label><input type="number" id="b-r" value="2"></div>
+        <div class="field"><label>Base (a)</label><input type="number" id="b-a" value="2"></div>
+        <div class="field"><label>Número (b)</label><input type="number" id="b-b" value="8"></div>
       </div>
-      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
+      <button class="calc-btn" onclick="calcBasico()">Calcular log</button>
       <div class="readout" id="b-readout"></div>
-    </div>
-
-    <div class="card" data-tag="Simulación">
-      <h2>Mira girar el objeto</h2>
-      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Con los valores de arriba, mira el objeto dar vueltas al ritmo real calculado.</p>
-      <div class="sim-box">
-        <canvas id="mcu-canvas" width="680" height="220"></canvas>
-        <div class="sim-readout">
-          <span id="mcu-ang">Ángulo: 0°</span>
-          <span id="mcu-v">v = 0 m/s</span>
-        </div>
-      </div>
-      <button class="calc-btn" id="mcu-btn" onclick="toggleMCU()">▶ Reproducir</button>
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
       <h2>Ejemplo</h2>
       <div class="example">
-        <p><strong>Un caballito de calesita da una vuelta completa cada 4 s, a 2 m del centro. ¿Cuál es su velocidad tangencial?</strong></p>
-        <p>ω = 2π/4 = <strong>1.57 rad/s</strong></p>
-        <p>v = 1.57 × 2 = <strong>3.14 m/s</strong></p>
+        <p><strong>¿Cuánto vale log₃(81)?</strong></p>
+        <p>Buscamos: ¿a qué exponente elevo 3 para obtener 81? → 3⁴=81</p>
+        <p>log₃(81) = <strong>4</strong></p>
       </div>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
       <h2>Ejercicios con respuesta</h2>
       <ol>
-        <li>Una rueda da una vuelta cada 2 s. ¿Cuál es su velocidad angular?
-          <details><summary>Ver respuesta</summary>ω = 2π/2 = 3.14 rad/s</details>
+        <li>¿Cuánto vale log₅(25)?
+          <details><summary>Ver respuesta</summary>5²=25 → log₅(25)=2</details>
         </li>
-        <li>Un punto a 0.5 m del eje de esa rueda, ¿a qué velocidad tangencial se mueve?
-          <details><summary>Ver respuesta</summary>v = 3.14×0.5 = 1.57 m/s</details>
+        <li>¿Cuánto vale log₁₀(1000)?
+          <details><summary>Ver respuesta</summary>10³=1000 → log₁₀(1000)=3</details>
         </li>
-        <li>¿Por qué un punto más alejado del centro de un disco que gira se mueve más rápido que uno cerca del centro, aunque ambos den la misma vuelta en el mismo tiempo?
-          <details><summary>Ver respuesta</summary>Porque tienen la misma velocidad angular (ω) pero distinto radio — como v=ω×r, a mayor r, mayor v tangencial, aunque completen la vuelta en el mismo T.</details>
+        <li>¿Por qué log_a(1) siempre da 0, sin importar la base?
+          <details><summary>Ver respuesta</summary>Porque cualquier número elevado a la 0 da 1 (a⁰=1) — así que la respuesta a "¿a qué exponente elevo a para obtener 1?" es siempre 0.</details>
         </li>
       </ol>
     </div>
@@ -375,43 +355,43 @@
   <section class="level" data-level="avanzado">
 
     <div class="card" data-tag="Concepto">
-      <h2>Fuerza centrípeta</h2>
-      <p>Para que algo se mueva en círculo, necesita una fuerza constante empujándolo hacia el centro — sin esa fuerza, seguiría en línea recta (por la inercia). Esta fuerza no cambia la velocidad del objeto, solo su dirección.</p>
-      <div class="formula-box">F<sub>c</sub> = m · v² / r</div>
-      <p class="var-list">Ejemplos de qué hace de fuerza centrípeta: la tensión de una cuerda al hacer girar una piedra, la fricción de los neumáticos en una curva, o la gravedad manteniendo a la Luna en órbita.</p>
+      <h2>Propiedades de los logaritmos</h2>
+      <div class="formula-box">log(a·b) = log(a) + log(b)</div>
+      <div class="formula-box">log(a/b) = log(a) − log(b)</div>
+      <div class="formula-box">log(aⁿ) = n·log(a)</div>
+      <p class="var-list">Estas propiedades convierten multiplicaciones en sumas, divisiones en restas, y potencias en multiplicaciones — por eso los logaritmos se usaban históricamente para simplificar cálculos complejos antes de las calculadoras.</p>
     </div>
 
     <div class="card" data-tag="Calculadora">
-      <h2>Calcula la fuerza centrípeta</h2>
+      <h2>Aplicá la propiedad del producto</h2>
       <div class="calc-grid">
-        <div class="field"><label>Masa m (kg)</label><input type="number" id="a-m" value="0.5"></div>
-        <div class="field"><label>Velocidad v (m/s)</label><input type="number" id="a-v" value="4"></div>
-        <div class="field"><label>Radio r (m)</label><input type="number" id="a-r" value="1"></div>
+        <div class="field"><label>a</label><input type="number" id="a-a" value="4"></div>
+        <div class="field"><label>b</label><input type="number" id="a-b" value="25"></div>
       </div>
-      <button class="calc-btn" onclick="calcAvanzado()">Calcular</button>
+      <button class="calc-btn" onclick="calcAvanzado()">Calcular log₁₀(a×b)</button>
       <div class="readout" id="a-readout"></div>
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
+      <h2>Ejemplo — dónde aparecen en la vida real</h2>
       <div class="example">
-        <p><strong>Haces girar una piedra de 0.5 kg atada a una cuerda de 1 m, a 4 m/s. ¿Qué tensión soporta la cuerda?</strong></p>
-        <p>F<sub>c</sub> = 0.5×4² / 1 = 0.5×16/1 = <strong>8 N</strong></p>
-        <p>Esa es la tensión mínima que necesita la cuerda para no romperse y mantener la piedra en su órbita circular.</p>
+        <p><strong>La escala de pH que ya viste en Química: pH=−log[H⁺]. Si [H⁺]=10⁻⁵, ¿cuál es el pH?</strong></p>
+        <p>pH = −log(10⁻⁵) = −(−5) = <strong>5</strong></p>
+        <p>Los logaritmos también se usan en la escala Richter de terremotos y en los decibeles del sonido — cualquier fenómeno donde el rango de valores es tan enorme que conviene "comprimirlo" con una escala logarítmica.</p>
       </div>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
       <h2>Ejercicios con respuesta</h2>
       <ol>
-        <li>Un auto de 1000 kg toma una curva de 50 m de radio a 20 m/s. ¿Qué fuerza centrípeta necesita?
-          <details><summary>Ver respuesta</summary>Fc = 1000×20²/50 = 1000×400/50 = 8000 N</details>
+        <li>Sabiendo que log(2)≈0.301 y log(3)≈0.477, calcula log(6) usando la propiedad del producto.
+          <details><summary>Ver respuesta</summary>log(6)=log(2×3)=log(2)+log(3)≈0.301+0.477=0.778</details>
         </li>
-        <li>¿Qué le pasa a un auto si la curva es más cerrada (menor radio) a la misma velocidad?
-          <details><summary>Ver respuesta</summary>Necesita más fuerza centrípeta (Fc aumenta cuando r disminuye), y si la fricción de los neumáticos no alcanza a proveerla, el auto derrapa hacia afuera de la curva.</details>
+        <li>¿Cuánto vale log(100)?
+          <details><summary>Ver respuesta</summary>10²=100 → log₁₀(100)=2</details>
         </li>
-        <li>¿Por qué los astronautas en órbita "flotan" sin peso aparente?
-          <details><summary>Ver respuesta</summary>Porque están en caída libre constante alrededor de la Tierra — la gravedad actúa como fuerza centrípeta exacta para mantener la órbita, así que no sienten una fuerza "extra" de apoyo como en el suelo.</details>
+        <li>¿Por qué log(aⁿ)=n·log(a) tiene sentido, pensando en la propiedad del producto?
+          <details><summary>Ver respuesta</summary>Porque aⁿ es a multiplicado por sí mismo n veces — aplicando la propiedad del producto n-1 veces, log(a)+log(a)+...+log(a) (n veces) es lo mismo que n×log(a).</details>
         </li>
       </ol>
     </div>
@@ -420,39 +400,24 @@
 
   <div class="card faq" data-tag="FAQ">
     <h2>Preguntas frecuentes</h2>
-    <h3>¿Por qué se llama "uniforme" si la velocidad cambia de dirección?</h3>
-    <p>"Uniforme" se refiere a que la rapidez (el valor numérico de la velocidad) es constante — lo que cambia es solo la dirección. Por eso, aunque la rapidez no cambia, sí hay aceleración (la centrípeta), porque la dirección del vector velocidad cambia todo el tiempo.</p>
-    <h3>¿Fuerza centrípeta y fuerza centrífuga son lo mismo?</h3>
-    <p>No. La centrípeta es real y apunta hacia el centro (la que efectivamente causa el giro). La "centrífuga" que sientes empujándote hacia afuera en una curva es una fuerza aparente, producto de tu propia inercia resistiéndose al giro — no es una fuerza real actuando sobre ti.</p>
-    <h3>¿Por qué las curvas de las rutas suelen estar peraltadas (inclinadas)?</h3>
-    <p>Para que parte de la fuerza centrípeta la aporte la normal de la pista (inclinada) además de la fricción, permitiendo tomar la curva a mayor velocidad sin derrapar.</p>
+    <h3>¿Se puede calcular el logaritmo de un número negativo?</h3>
+    <p>No, dentro de los números reales — no existe ningún exponente que, aplicado a una base positiva, dé como resultado un número negativo. Por eso el dominio de la función logarítmica son solo los números positivos.</p>
+    <h3>¿Qué es "ln"?</h3>
+    <p>Es el logaritmo natural, que usa como base el número e (≈2.718) en vez de 10 — se usa mucho en cálculo y ciencias, pero las propiedades funcionan exactamente igual que con cualquier otra base.</p>
+    <h3>¿Por qué log(0) no existe?</h3>
+    <p>Porque no hay ningún exponente que, aplicado a una base positiva, dé como resultado 0 — por más grande o chico que sea el exponente, la potencia nunca llega exactamente a 0.</p>
   </div>
 
   <div class="related">
     <h2>Temas relacionados</h2>
     <div class="related-links">
-      <a href="tiro-oblicuo.html">Tiro Oblicuo — Movimiento Parabólico</a>
-      <a href="newton.html">Segunda Ley de Newton (F = m·a)</a>
+      <a href="funciones.html">Funciones</a>
+      <a href="acido-base.html">Ácido-Base y pH</a>
       <a href="formulario.html">Machete de Fórmulas</a>
-      <a href="maquinas-termicas.html">Máquinas Térmicas y Eficiencia</a>
-      <a href="corriente-continua-alterna.html">Corriente Continua y Alterna</a>
-      <a href="caudal-continuidad.html">Caudal y Continuidad</a>
-      <a href="electromagnetismo.html">Electromagnetismo</a>
-      <a href="maquinas-simples.html">Máquinas Simples</a>
-      <a href="conversor-unidades.html">Conversor de Unidades</a>
       <a href="evaluaciones.html">Evaluaciones</a>
       <a href="sobre-nosotros.html">Sobre la Fundadora</a>
-      <a href="experimentos.html">Experimentos Caseros</a>
-      <a href="modelo-atomico.html">Modelo Atómico y Tabla Periódica</a>
-      <a href="estequiometria.html">Estequiometría y El Mol</a>
-      <a href="configuracion-electronica.html">Configuración Electrónica</a>
-      <a href="oxido-reduccion.html">Óxido-Reducción</a>
-      <a href="enlaces-quimicos.html">Enlaces Químicos</a>
-      <a href="acido-base.html">Ácido-Base y pH</a>
-      <a href="concentracion-soluciones.html">Concentración de Soluciones</a>
-      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
-      <a href="leyes-gases.html">Leyes de los Gases</a>
-      <a href="energia-nuclear.html">Energía Nuclear</a>
+      <a href="docentes.html">Para Docentes</a>
+      <a href="banco-preguntas.html">Banco de Preguntas</a>
     </div>
   </div>
 
@@ -473,104 +438,28 @@
   });
 
   function calcBasico(){
-    const T = parseFloat(document.getElementById('b-T').value)||1;
-    const r = parseFloat(document.getElementById('b-r').value)||0;
-    const omega = (2*Math.PI)/T;
-    const v = omega*r;
+    const a = parseFloat(document.getElementById('b-a').value)||2;
+    const b = parseFloat(document.getElementById('b-b').value)||1;
     const out = document.getElementById('b-readout');
-    out.innerText = `ω = 2π/${T} = ${omega.toFixed(2)} rad/s\nv = ${omega.toFixed(2)}×${r} = ${v.toFixed(2)} m/s`;
+    if(a<=0 || a===1 || b<=0){
+      out.innerText = 'La base tiene que ser positiva y distinta de 1, y el número tiene que ser positivo.';
+    } else {
+      const resultado = Math.log(b)/Math.log(a);
+      out.innerText = `log_${a}(${b}) = ${resultado.toFixed(4)}\n(porque ${a}^${resultado.toFixed(4)} ≈ ${b})`;
+    }
     out.classList.add('show');
   }
 
   function calcAvanzado(){
-    const m = parseFloat(document.getElementById('a-m').value)||0;
-    const v = parseFloat(document.getElementById('a-v').value)||0;
-    const r = parseFloat(document.getElementById('a-r').value)||0.0001;
-    const Fc = (m*v*v)/r;
+    const a = parseFloat(document.getElementById('a-a').value)||1;
+    const b = parseFloat(document.getElementById('a-b').value)||1;
+    const logA = Math.log10(a);
+    const logB = Math.log10(b);
+    const logProducto = Math.log10(a*b);
     const out = document.getElementById('a-readout');
-    out.innerText = `Fc = m×v²/r = ${m}×${v}²/${r} = ${Fc.toFixed(2)} N`;
+    out.innerText = `log(${a}) ≈ ${logA.toFixed(4)}\nlog(${b}) ≈ ${logB.toFixed(4)}\nlog(${a})+log(${b}) ≈ ${(logA+logB).toFixed(4)}\nlog(${a}×${b}) = log(${a*b}) ≈ ${logProducto.toFixed(4)} — coinciden ✓`;
     out.classList.add('show');
   }
-
-  // ---- Simulador de rotación circular ----
-  let mcuState = {running:false, angle:0, omega:1, r:60, lastFrame:null};
-
-  function drawMCU(ctx, w, h, angle, r){
-    ctx.clearRect(0,0,w,h);
-    const cx = w/2, cy = h/2;
-
-    // circunferencia de referencia
-    ctx.strokeStyle = '#3A4756';
-    ctx.setLineDash([3,4]);
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI*2);
-    ctx.stroke();
-    ctx.setLineDash([]);
-
-    // centro
-    ctx.fillStyle = '#5C6B7A';
-    ctx.beginPath();
-    ctx.arc(cx, cy, 3, 0, Math.PI*2);
-    ctx.fill();
-
-    // radio (línea del centro al objeto)
-    const objX = cx + r*Math.cos(angle);
-    const objY = cy + r*Math.sin(angle);
-    ctx.strokeStyle = '#7FB8E3';
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.moveTo(cx,cy); ctx.lineTo(objX,objY);
-    ctx.stroke();
-
-    // objeto
-    ctx.font = '26px sans-serif';
-    ctx.textAlign='center';
-    ctx.fillText('🪐', objX, objY+8);
-    ctx.textAlign='left';
-  }
-
-  function toggleMCU(){
-    const btn = document.getElementById('mcu-btn');
-    const s = mcuState;
-    if(s.running){
-      s.running = false;
-      btn.innerText = '▶ Reproducir';
-      return;
-    }
-    const T = parseFloat(document.getElementById('b-T').value)||4;
-    s.omega = (2*Math.PI)/T;
-    s.running = true;
-    btn.innerText = '⏸ Pausar';
-    s.lastFrame = performance.now();
-    requestAnimationFrame(mcuFrame);
-  }
-
-  function mcuFrame(now){
-    const s = mcuState;
-    if(!s.running) return;
-    const canvas = document.getElementById('mcu-canvas');
-    const ctx = canvas.getContext('2d');
-
-    const dt = (now - s.lastFrame)/1000;
-    s.lastFrame = now;
-    s.angle += s.omega*dt;
-
-    drawMCU(ctx, canvas.width, canvas.height, s.angle, s.r);
-
-    const r = parseFloat(document.getElementById('b-r').value)||1;
-    const v = s.omega*r;
-    const angDeg = ((s.angle*180/Math.PI) % 360 + 360) % 360;
-    document.getElementById('mcu-ang').innerText = `Ángulo: ${angDeg.toFixed(0)}°`;
-    document.getElementById('mcu-v').innerText = `v = ${v.toFixed(2)} m/s`;
-
-    requestAnimationFrame(mcuFrame);
-  }
-
-  window.addEventListener('load', ()=>{
-    const canvas = document.getElementById('mcu-canvas');
-    drawMCU(canvas.getContext('2d'), canvas.width, canvas.height, 0, 60);
-  });
 </script>
 
 </body>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Movimiento Circular Uniforme (MCU) | Simulador de Rotación — DescifraLab</title>
+<title>Ecuaciones de Primer Grado — Resolver despejando la incógnita — DescifraLab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -300,9 +300,9 @@
 </nav>
 
 <header class="top">
-  <div class="eyebrow">Mecánica · Cinemática</div>
-  <h1>Movimiento Circular Uniforme (MCU)</h1>
-  <p class="subtitle">Fórmulas, simulador de rotación con velocidad angular y fuerza centrípeta, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
+  <div class="eyebrow">Matemática · Álgebra</div>
+  <h1>Ecuaciones de Primer Grado</h1>
+  <p class="subtitle">Cómo despejar la incógnita, ecuaciones con la incógnita en ambos lados, y calculadora paso a paso.</p>
   <nav class="level-nav">
     <button class="level-btn active" data-target="basico">Básico</button>
     <button class="level-btn" data-target="avanzado">Avanzado</button>
@@ -315,56 +315,46 @@
   <section class="level active" data-level="basico">
 
     <div class="card" data-tag="Concepto">
-      <h2>¿Qué es el MCU?</h2>
-      <p>Es el movimiento de un objeto que da vueltas a velocidad constante alrededor de un centro fijo — como las agujas de un reloj o un caballito de calesita. La velocidad angular (qué tan rápido gira) no cambia, aunque la dirección del movimiento sí cambia todo el tiempo.</p>
-      <div class="formula-box">ω = 2π / T</div>
-      <div class="formula-box">v = ω · r</div>
-      <p class="var-list"><span>ω</span> = velocidad angular (rad/s) &nbsp;·&nbsp; <span>T</span> = período, tiempo de una vuelta completa (s) &nbsp;·&nbsp; <span>v</span> = velocidad tangencial (m/s) &nbsp;·&nbsp; <span>r</span> = radio (m)</p>
+      <h2>¿Qué es resolver una ecuación?</h2>
+      <p>Una ecuación es una igualdad que tiene un número desconocido (la <strong>incógnita</strong>, casi siempre llamada x). Resolverla significa encontrar qué valor de x hace que la igualdad sea verdadera.</p>
+      <p>Pensalo como una balanza equilibrada: lo que le hagas a un lado, tienes que hacérselo al otro también, para que se mantenga en equilibrio. Si sumas algo de un lado, sumas lo mismo del otro. Si divides un lado, divides el otro.</p>
+      <div class="formula-box">a·x + b = c &nbsp;→&nbsp; x = (c − b) / a</div>
+      <p class="var-list"><span>a</span> = número que multiplica a x &nbsp;·&nbsp; <span>b</span> = número que se suma o resta &nbsp;·&nbsp; <span>c</span> = resultado del otro lado de la igualdad</p>
     </div>
 
     <div class="card" data-tag="Calculadora">
-      <h2>Calcula velocidad angular y tangencial</h2>
+      <h2>Resolvé una ecuación paso a paso</h2>
+      <p style="color:var(--ink-soft);font-size:13.5px;margin-top:-4px;">Para una ecuación con la forma a·x + b = c</p>
       <div class="calc-grid">
-        <div class="field"><label>Período T (s) — tiempo de una vuelta</label><input type="number" id="b-T" value="4"></div>
-        <div class="field"><label>Radio r (m)</label><input type="number" id="b-r" value="2"></div>
+        <div class="field"><label>a (coeficiente de x)</label><input type="number" id="b-a" value="3"></div>
+        <div class="field"><label>b (término que se suma)</label><input type="number" id="b-b" value="5"></div>
+        <div class="field"><label>c (resultado)</label><input type="number" id="b-c" value="20"></div>
       </div>
-      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
+      <button class="calc-btn" onclick="calcBasico()">Resolver</button>
       <div class="readout" id="b-readout"></div>
     </div>
 
-    <div class="card" data-tag="Simulación">
-      <h2>Mira girar el objeto</h2>
-      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Con los valores de arriba, mira el objeto dar vueltas al ritmo real calculado.</p>
-      <div class="sim-box">
-        <canvas id="mcu-canvas" width="680" height="220"></canvas>
-        <div class="sim-readout">
-          <span id="mcu-ang">Ángulo: 0°</span>
-          <span id="mcu-v">v = 0 m/s</span>
-        </div>
-      </div>
-      <button class="calc-btn" id="mcu-btn" onclick="toggleMCU()">▶ Reproducir</button>
-    </div>
-
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
+      <h2>Ejemplo, paso a paso</h2>
       <div class="example">
-        <p><strong>Un caballito de calesita da una vuelta completa cada 4 s, a 2 m del centro. ¿Cuál es su velocidad tangencial?</strong></p>
-        <p>ω = 2π/4 = <strong>1.57 rad/s</strong></p>
-        <p>v = 1.57 × 2 = <strong>3.14 m/s</strong></p>
+        <p><strong>Resolvé: 3x + 5 = 20</strong></p>
+        <p>Paso 1 — restás 5 de los dos lados: 3x + 5 − 5 = 20 − 5 → 3x = 15</p>
+        <p>Paso 2 — divides los dos lados por 3: 3x/3 = 15/3 → <strong>x = 5</strong></p>
+        <p>Verificación: 3×5+5 = 15+5 = 20 ✓ — coincide con el resultado original, así que está bien resuelto.</p>
       </div>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
       <h2>Ejercicios con respuesta</h2>
       <ol>
-        <li>Una rueda da una vuelta cada 2 s. ¿Cuál es su velocidad angular?
-          <details><summary>Ver respuesta</summary>ω = 2π/2 = 3.14 rad/s</details>
+        <li>Resolvé: 2x + 4 = 14
+          <details><summary>Ver respuesta</summary>2x=10 → x=5</details>
         </li>
-        <li>Un punto a 0.5 m del eje de esa rueda, ¿a qué velocidad tangencial se mueve?
-          <details><summary>Ver respuesta</summary>v = 3.14×0.5 = 1.57 m/s</details>
+        <li>Resolvé: 5x − 3 = 17
+          <details><summary>Ver respuesta</summary>5x=20 → x=4</details>
         </li>
-        <li>¿Por qué un punto más alejado del centro de un disco que gira se mueve más rápido que uno cerca del centro, aunque ambos den la misma vuelta en el mismo tiempo?
-          <details><summary>Ver respuesta</summary>Porque tienen la misma velocidad angular (ω) pero distinto radio — como v=ω×r, a mayor r, mayor v tangencial, aunque completen la vuelta en el mismo T.</details>
+        <li>¿Por qué siempre hay que hacer la misma operación a los dos lados de la ecuación?
+          <details><summary>Ver respuesta</summary>Porque una ecuación es una igualdad — si le haces algo a un solo lado, deja de ser verdadera esa igualdad. Hacer lo mismo en ambos lados mantiene el equilibrio.</details>
         </li>
       </ol>
     </div>
@@ -375,43 +365,46 @@
   <section class="level" data-level="avanzado">
 
     <div class="card" data-tag="Concepto">
-      <h2>Fuerza centrípeta</h2>
-      <p>Para que algo se mueva en círculo, necesita una fuerza constante empujándolo hacia el centro — sin esa fuerza, seguiría en línea recta (por la inercia). Esta fuerza no cambia la velocidad del objeto, solo su dirección.</p>
-      <div class="formula-box">F<sub>c</sub> = m · v² / r</div>
-      <p class="var-list">Ejemplos de qué hace de fuerza centrípeta: la tensión de una cuerda al hacer girar una piedra, la fricción de los neumáticos en una curva, o la gravedad manteniendo a la Luna en órbita.</p>
+      <h2>Ecuaciones con la incógnita en ambos lados</h2>
+      <p>A veces la ecuación tiene x en los dos lados de la igualdad. La estrategia es la misma — despejar hasta dejar todas las x de un lado y los números del otro.</p>
+      <div class="formula-box">a·x + b = c·x + d &nbsp;→&nbsp; x = (d − b) / (a − c)</div>
+      <p class="var-list">Se agrupan los términos con x de un lado (restando c·x de ambos lados) y los números del otro (restando b de ambos lados).</p>
     </div>
 
     <div class="card" data-tag="Calculadora">
-      <h2>Calcula la fuerza centrípeta</h2>
+      <h2>Resolvé con la incógnita en ambos lados</h2>
       <div class="calc-grid">
-        <div class="field"><label>Masa m (kg)</label><input type="number" id="a-m" value="0.5"></div>
-        <div class="field"><label>Velocidad v (m/s)</label><input type="number" id="a-v" value="4"></div>
-        <div class="field"><label>Radio r (m)</label><input type="number" id="a-r" value="1"></div>
+        <div class="field"><label>a (coeficiente de x, lado izquierdo)</label><input type="number" id="a-a" value="5"></div>
+        <div class="field"><label>b (término, lado izquierdo)</label><input type="number" id="a-b" value="3"></div>
+        <div class="field"><label>c (coeficiente de x, lado derecho)</label><input type="number" id="a-c" value="2"></div>
+        <div class="field"><label>d (término, lado derecho)</label><input type="number" id="a-d" value="12"></div>
       </div>
-      <button class="calc-btn" onclick="calcAvanzado()">Calcular</button>
+      <button class="calc-btn" onclick="calcAvanzado()">Resolver</button>
       <div class="readout" id="a-readout"></div>
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
+      <h2>Ejemplo, paso a paso</h2>
       <div class="example">
-        <p><strong>Haces girar una piedra de 0.5 kg atada a una cuerda de 1 m, a 4 m/s. ¿Qué tensión soporta la cuerda?</strong></p>
-        <p>F<sub>c</sub> = 0.5×4² / 1 = 0.5×16/1 = <strong>8 N</strong></p>
-        <p>Esa es la tensión mínima que necesita la cuerda para no romperse y mantener la piedra en su órbita circular.</p>
+        <p><strong>Resolvé: 5x + 3 = 2x + 12</strong></p>
+        <p>Paso 1 — restás 2x de los dos lados: 5x−2x+3 = 12 → 3x+3 = 12</p>
+        <p>Paso 2 — restás 3 de los dos lados: 3x = 9</p>
+        <p>Paso 3 — divides por 3: <strong>x = 3</strong></p>
+        <p>Verificación: 5×3+3=18, y 2×3+12=18 — coinciden ✓</p>
       </div>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
       <h2>Ejercicios con respuesta</h2>
       <ol>
-        <li>Un auto de 1000 kg toma una curva de 50 m de radio a 20 m/s. ¿Qué fuerza centrípeta necesita?
-          <details><summary>Ver respuesta</summary>Fc = 1000×20²/50 = 1000×400/50 = 8000 N</details>
+        <li>Resolvé: 4x + 2 = x + 11
+          <details><summary>Ver respuesta</summary>3x=9 → x=3</details>
         </li>
-        <li>¿Qué le pasa a un auto si la curva es más cerrada (menor radio) a la misma velocidad?
-          <details><summary>Ver respuesta</summary>Necesita más fuerza centrípeta (Fc aumenta cuando r disminuye), y si la fricción de los neumáticos no alcanza a proveerla, el auto derrapa hacia afuera de la curva.</details>
+        <li>Resolvé: 7x − 5 = 3x + 11
+          <details><summary>Ver respuesta</summary>4x=16 → x=4</details>
         </li>
-        <li>¿Por qué los astronautas en órbita "flotan" sin peso aparente?
-          <details><summary>Ver respuesta</summary>Porque están en caída libre constante alrededor de la Tierra — la gravedad actúa como fuerza centrípeta exacta para mantener la órbita, así que no sienten una fuerza "extra" de apoyo como en el suelo.</details>
+        <li>¿Qué pasa si a=c (los coeficientes de x son iguales) en una ecuación de este tipo?
+          <details><summary>Ver respuesta</summary>El denominador (a−c) se vuelve 0, así que no hay una solución única — la ecuación no tiene solución (si b≠d), o tiene infinitas soluciones (si además b=d, en cuyo caso ambos lados son idénticos).</details>
         </li>
       </ol>
     </div>
@@ -420,39 +413,22 @@
 
   <div class="card faq" data-tag="FAQ">
     <h2>Preguntas frecuentes</h2>
-    <h3>¿Por qué se llama "uniforme" si la velocidad cambia de dirección?</h3>
-    <p>"Uniforme" se refiere a que la rapidez (el valor numérico de la velocidad) es constante — lo que cambia es solo la dirección. Por eso, aunque la rapidez no cambia, sí hay aceleración (la centrípeta), porque la dirección del vector velocidad cambia todo el tiempo.</p>
-    <h3>¿Fuerza centrípeta y fuerza centrífuga son lo mismo?</h3>
-    <p>No. La centrípeta es real y apunta hacia el centro (la que efectivamente causa el giro). La "centrífuga" que sientes empujándote hacia afuera en una curva es una fuerza aparente, producto de tu propia inercia resistiéndose al giro — no es una fuerza real actuando sobre ti.</p>
-    <h3>¿Por qué las curvas de las rutas suelen estar peraltadas (inclinadas)?</h3>
-    <p>Para que parte de la fuerza centrípeta la aporte la normal de la pista (inclinada) además de la fricción, permitiendo tomar la curva a mayor velocidad sin derrapar.</p>
+    <h3>¿Siempre hay que empezar restando o sumando antes de dividir?</h3>
+    <p>Sí, como regla general — primero se "deshacen" las sumas y restas, y recién al final se divide o multiplica, siguiendo el orden inverso al que se armó la ecuación. Es el mismo principio que el orden de las operaciones, pero al revés.</p>
+    <h3>¿Qué significa que una ecuación "no tenga solución"?</h3>
+    <p>Significa que ningún valor de x hace verdadera la igualdad — por ejemplo, 2x+3=2x+5 nunca se cumple, porque al restar 2x de ambos lados queda 3=5, que es falso sin importar el valor de x.</p>
+    <h3>¿Cómo compruebo si resolví bien una ecuación?</h3>
+    <p>Reemplazá el valor de x que encontraste en la ecuación original — si ambos lados dan el mismo número, está bien resuelta. Es un chequeo rápido que conviene hacer siempre.</p>
   </div>
 
   <div class="related">
     <h2>Temas relacionados</h2>
     <div class="related-links">
-      <a href="tiro-oblicuo.html">Tiro Oblicuo — Movimiento Parabólico</a>
-      <a href="newton.html">Segunda Ley de Newton (F = m·a)</a>
       <a href="formulario.html">Machete de Fórmulas</a>
-      <a href="maquinas-termicas.html">Máquinas Térmicas y Eficiencia</a>
-      <a href="corriente-continua-alterna.html">Corriente Continua y Alterna</a>
-      <a href="caudal-continuidad.html">Caudal y Continuidad</a>
-      <a href="electromagnetismo.html">Electromagnetismo</a>
-      <a href="maquinas-simples.html">Máquinas Simples</a>
-      <a href="conversor-unidades.html">Conversor de Unidades</a>
       <a href="evaluaciones.html">Evaluaciones</a>
       <a href="sobre-nosotros.html">Sobre la Fundadora</a>
-      <a href="experimentos.html">Experimentos Caseros</a>
-      <a href="modelo-atomico.html">Modelo Atómico y Tabla Periódica</a>
-      <a href="estequiometria.html">Estequiometría y El Mol</a>
-      <a href="configuracion-electronica.html">Configuración Electrónica</a>
-      <a href="oxido-reduccion.html">Óxido-Reducción</a>
-      <a href="enlaces-quimicos.html">Enlaces Químicos</a>
-      <a href="acido-base.html">Ácido-Base y pH</a>
-      <a href="concentracion-soluciones.html">Concentración de Soluciones</a>
-      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
-      <a href="leyes-gases.html">Leyes de los Gases</a>
-      <a href="energia-nuclear.html">Energía Nuclear</a>
+      <a href="docentes.html">Para Docentes</a>
+      <a href="banco-preguntas.html">Banco de Preguntas</a>
     </div>
   </div>
 
@@ -473,104 +449,30 @@
   });
 
   function calcBasico(){
-    const T = parseFloat(document.getElementById('b-T').value)||1;
-    const r = parseFloat(document.getElementById('b-r').value)||0;
-    const omega = (2*Math.PI)/T;
-    const v = omega*r;
+    const a = parseFloat(document.getElementById('b-a').value)||1;
+    const b = parseFloat(document.getElementById('b-b').value)||0;
+    const c = parseFloat(document.getElementById('b-c').value)||0;
+    const x = (c-b)/a;
     const out = document.getElementById('b-readout');
-    out.innerText = `ω = 2π/${T} = ${omega.toFixed(2)} rad/s\nv = ${omega.toFixed(2)}×${r} = ${v.toFixed(2)} m/s`;
+    out.innerText = `${a}x + ${b} = ${c}\n${a}x = ${c} − ${b} = ${c-b}\nx = ${c-b}/${a} = ${x.toFixed(3)}`;
     out.classList.add('show');
   }
 
   function calcAvanzado(){
-    const m = parseFloat(document.getElementById('a-m').value)||0;
-    const v = parseFloat(document.getElementById('a-v').value)||0;
-    const r = parseFloat(document.getElementById('a-r').value)||0.0001;
-    const Fc = (m*v*v)/r;
+    const a = parseFloat(document.getElementById('a-a').value)||0;
+    const b = parseFloat(document.getElementById('a-b').value)||0;
+    const c = parseFloat(document.getElementById('a-c').value)||0;
+    const d = parseFloat(document.getElementById('a-d').value)||0;
     const out = document.getElementById('a-readout');
-    out.innerText = `Fc = m×v²/r = ${m}×${v}²/${r} = ${Fc.toFixed(2)} N`;
-    out.classList.add('show');
-  }
-
-  // ---- Simulador de rotación circular ----
-  let mcuState = {running:false, angle:0, omega:1, r:60, lastFrame:null};
-
-  function drawMCU(ctx, w, h, angle, r){
-    ctx.clearRect(0,0,w,h);
-    const cx = w/2, cy = h/2;
-
-    // circunferencia de referencia
-    ctx.strokeStyle = '#3A4756';
-    ctx.setLineDash([3,4]);
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI*2);
-    ctx.stroke();
-    ctx.setLineDash([]);
-
-    // centro
-    ctx.fillStyle = '#5C6B7A';
-    ctx.beginPath();
-    ctx.arc(cx, cy, 3, 0, Math.PI*2);
-    ctx.fill();
-
-    // radio (línea del centro al objeto)
-    const objX = cx + r*Math.cos(angle);
-    const objY = cy + r*Math.sin(angle);
-    ctx.strokeStyle = '#7FB8E3';
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.moveTo(cx,cy); ctx.lineTo(objX,objY);
-    ctx.stroke();
-
-    // objeto
-    ctx.font = '26px sans-serif';
-    ctx.textAlign='center';
-    ctx.fillText('🪐', objX, objY+8);
-    ctx.textAlign='left';
-  }
-
-  function toggleMCU(){
-    const btn = document.getElementById('mcu-btn');
-    const s = mcuState;
-    if(s.running){
-      s.running = false;
-      btn.innerText = '▶ Reproducir';
+    if(a-c === 0){
+      out.innerText = (b===d) ? 'Ambos lados son idénticos — infinitas soluciones (cualquier x sirve).' : 'No tiene solución — los coeficientes de x son iguales pero los términos no.';
+      out.classList.add('show');
       return;
     }
-    const T = parseFloat(document.getElementById('b-T').value)||4;
-    s.omega = (2*Math.PI)/T;
-    s.running = true;
-    btn.innerText = '⏸ Pausar';
-    s.lastFrame = performance.now();
-    requestAnimationFrame(mcuFrame);
+    const x = (d-b)/(a-c);
+    out.innerText = `${a}x + ${b} = ${c}x + ${d}\n${a-c}x = ${d-b}\nx = ${d-b}/${a-c} = ${x.toFixed(3)}`;
+    out.classList.add('show');
   }
-
-  function mcuFrame(now){
-    const s = mcuState;
-    if(!s.running) return;
-    const canvas = document.getElementById('mcu-canvas');
-    const ctx = canvas.getContext('2d');
-
-    const dt = (now - s.lastFrame)/1000;
-    s.lastFrame = now;
-    s.angle += s.omega*dt;
-
-    drawMCU(ctx, canvas.width, canvas.height, s.angle, s.r);
-
-    const r = parseFloat(document.getElementById('b-r').value)||1;
-    const v = s.omega*r;
-    const angDeg = ((s.angle*180/Math.PI) % 360 + 360) % 360;
-    document.getElementById('mcu-ang').innerText = `Ángulo: ${angDeg.toFixed(0)}°`;
-    document.getElementById('mcu-v').innerText = `v = ${v.toFixed(2)} m/s`;
-
-    requestAnimationFrame(mcuFrame);
-  }
-
-  window.addEventListener('load', ()=>{
-    const canvas = document.getElementById('mcu-canvas');
-    drawMCU(canvas.getContext('2d'), canvas.width, canvas.height, 0, 60);
-  });
 </script>
 
 </body>

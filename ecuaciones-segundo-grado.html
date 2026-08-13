@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Movimiento Circular Uniforme (MCU) | Simulador de Rotación — DescifraLab</title>
+<title>Ecuaciones de Segundo Grado — Fórmula Resolvente y Discriminante — DescifraLab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -284,25 +284,15 @@
     <a href="docentes.html">Para Docentes</a>
     <a href="banco-preguntas.html">Banco de Preguntas</a>
     <a href="ecuaciones-primer-grado.html">Matemática</a>
-    <a href="ecuaciones-segundo-grado.html">Ecuaciones de Segundo Grado</a>
-    <a href="funciones.html">Funciones</a>
-    <a href="inecuaciones.html">Inecuaciones</a>
-    <a href="logaritmos.html">Logaritmos</a>
-    <a href="sucesiones.html">Sucesiones y Series</a>
-    <a href="interes-compuesto.html">Interés Compuesto</a>
-    <a href="estadistica.html">Estadística</a>
-    <a href="funcion-racional.html">Función Racional</a>
-    <a href="probabilidad.html">Probabilidad</a>
-    <a href="geometria-analitica.html">Geometría Analítica</a>
     <a href="evaluaciones.html">Evaluaciones</a>
     <a href="sobre-nosotros.html">Sobre la Fundadora</a>
   </div>
 </nav>
 
 <header class="top">
-  <div class="eyebrow">Mecánica · Cinemática</div>
-  <h1>Movimiento Circular Uniforme (MCU)</h1>
-  <p class="subtitle">Fórmulas, simulador de rotación con velocidad angular y fuerza centrípeta, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
+  <div class="eyebrow">Matemática · Álgebra</div>
+  <h1>Ecuaciones de Segundo Grado</h1>
+  <p class="subtitle">Fórmula resolvente, discriminante, y por qué a veces hay 2 soluciones, a veces 1, y a veces ninguna real.</p>
   <nav class="level-nav">
     <button class="level-btn active" data-target="basico">Básico</button>
     <button class="level-btn" data-target="avanzado">Avanzado</button>
@@ -315,56 +305,45 @@
   <section class="level active" data-level="basico">
 
     <div class="card" data-tag="Concepto">
-      <h2>¿Qué es el MCU?</h2>
-      <p>Es el movimiento de un objeto que da vueltas a velocidad constante alrededor de un centro fijo — como las agujas de un reloj o un caballito de calesita. La velocidad angular (qué tan rápido gira) no cambia, aunque la dirección del movimiento sí cambia todo el tiempo.</p>
-      <div class="formula-box">ω = 2π / T</div>
-      <div class="formula-box">v = ω · r</div>
-      <p class="var-list"><span>ω</span> = velocidad angular (rad/s) &nbsp;·&nbsp; <span>T</span> = período, tiempo de una vuelta completa (s) &nbsp;·&nbsp; <span>v</span> = velocidad tangencial (m/s) &nbsp;·&nbsp; <span>r</span> = radio (m)</p>
+      <h2>¿Qué es una ecuación cuadrática?</h2>
+      <p>Es una ecuación donde la incógnita aparece elevada al cuadrado (x²). A diferencia de las ecuaciones de primer grado (que tienen una sola solución), estas pueden tener hasta <strong>dos</strong> soluciones distintas.</p>
+      <div class="formula-box">a·x² + b·x + c = 0</div>
+      <div class="formula-box">x = (−b ± √(b²−4ac)) / 2a</div>
+      <p class="var-list">Esta segunda fórmula se llama <strong>fórmula resolvente</strong> (o "de Bhaskara") — funciona para cualquier ecuación cuadrática, sin importar los valores de a, b y c.</p>
     </div>
 
     <div class="card" data-tag="Calculadora">
-      <h2>Calcula velocidad angular y tangencial</h2>
+      <h2>Resolvé una ecuación cuadrática</h2>
       <div class="calc-grid">
-        <div class="field"><label>Período T (s) — tiempo de una vuelta</label><input type="number" id="b-T" value="4"></div>
-        <div class="field"><label>Radio r (m)</label><input type="number" id="b-r" value="2"></div>
+        <div class="field"><label>a</label><input type="number" id="b-a" value="1"></div>
+        <div class="field"><label>b</label><input type="number" id="b-b" value="-5"></div>
+        <div class="field"><label>c</label><input type="number" id="b-c" value="6"></div>
       </div>
-      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
+      <button class="calc-btn" onclick="calcBasico()">Resolver</button>
       <div class="readout" id="b-readout"></div>
     </div>
 
-    <div class="card" data-tag="Simulación">
-      <h2>Mira girar el objeto</h2>
-      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Con los valores de arriba, mira el objeto dar vueltas al ritmo real calculado.</p>
-      <div class="sim-box">
-        <canvas id="mcu-canvas" width="680" height="220"></canvas>
-        <div class="sim-readout">
-          <span id="mcu-ang">Ángulo: 0°</span>
-          <span id="mcu-v">v = 0 m/s</span>
-        </div>
-      </div>
-      <button class="calc-btn" id="mcu-btn" onclick="toggleMCU()">▶ Reproducir</button>
-    </div>
-
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
+      <h2>Ejemplo, paso a paso</h2>
       <div class="example">
-        <p><strong>Un caballito de calesita da una vuelta completa cada 4 s, a 2 m del centro. ¿Cuál es su velocidad tangencial?</strong></p>
-        <p>ω = 2π/4 = <strong>1.57 rad/s</strong></p>
-        <p>v = 1.57 × 2 = <strong>3.14 m/s</strong></p>
+        <p><strong>Resolvé: x² − 5x + 6 = 0</strong></p>
+        <p>Acá a=1, b=−5, c=6</p>
+        <p>x = (−(−5) ± √((−5)²−4×1×6)) / (2×1) = (5 ± √(25−24)) / 2 = (5 ± 1) / 2</p>
+        <p>x₁ = (5+1)/2 = <strong>3</strong> &nbsp;·&nbsp; x₂ = (5−1)/2 = <strong>2</strong></p>
       </div>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
       <h2>Ejercicios con respuesta</h2>
       <ol>
-        <li>Una rueda da una vuelta cada 2 s. ¿Cuál es su velocidad angular?
-          <details><summary>Ver respuesta</summary>ω = 2π/2 = 3.14 rad/s</details>
+        <li>Resolvé: x² − 3x + 2 = 0
+          <details><summary>Ver respuesta</summary>x₁=2, x₂=1</details>
         </li>
-        <li>Un punto a 0.5 m del eje de esa rueda, ¿a qué velocidad tangencial se mueve?
-          <details><summary>Ver respuesta</summary>v = 3.14×0.5 = 1.57 m/s</details>
+        <li>Resolvé: x² − 4 = 0 (acá b=0)
+          <details><summary>Ver respuesta</summary>x=(0±√16)/2 → x₁=2, x₂=−2</details>
         </li>
-        <li>¿Por qué un punto más alejado del centro de un disco que gira se mueve más rápido que uno cerca del centro, aunque ambos den la misma vuelta en el mismo tiempo?
-          <details><summary>Ver respuesta</summary>Porque tienen la misma velocidad angular (ω) pero distinto radio — como v=ω×r, a mayor r, mayor v tangencial, aunque completen la vuelta en el mismo T.</details>
+        <li>¿Por qué la fórmula tiene un símbolo "±"?
+          <details><summary>Ver respuesta</summary>Porque la raíz cuadrada de un número positivo tiene dos resultados posibles (uno positivo y uno negativo) que satisfacen la ecuación original — de ahí las dos soluciones posibles.</details>
         </li>
       </ol>
     </div>
@@ -375,43 +354,51 @@
   <section class="level" data-level="avanzado">
 
     <div class="card" data-tag="Concepto">
-      <h2>Fuerza centrípeta</h2>
-      <p>Para que algo se mueva en círculo, necesita una fuerza constante empujándolo hacia el centro — sin esa fuerza, seguiría en línea recta (por la inercia). Esta fuerza no cambia la velocidad del objeto, solo su dirección.</p>
-      <div class="formula-box">F<sub>c</sub> = m · v² / r</div>
-      <p class="var-list">Ejemplos de qué hace de fuerza centrípeta: la tensión de una cuerda al hacer girar una piedra, la fricción de los neumáticos en una curva, o la gravedad manteniendo a la Luna en órbita.</p>
+      <h2>El discriminante: cuántas soluciones va a tener, antes de resolver</h2>
+      <p>La parte de adentro de la raíz cuadrada (b²−4ac) se llama <strong>discriminante</strong> (Δ). Su signo te dice, sin resolver toda la ecuación, cuántas soluciones reales tiene:</p>
+      <div class="formula-box">Δ = b² − 4ac</div>
+      <p class="var-list">Δ &gt; 0 → 2 soluciones reales distintas &nbsp;·&nbsp; Δ = 0 → 1 solución real (doble) &nbsp;·&nbsp; Δ &lt; 0 → ninguna solución real</p>
     </div>
 
     <div class="card" data-tag="Calculadora">
-      <h2>Calcula la fuerza centrípeta</h2>
+      <h2>Calcula el discriminante</h2>
       <div class="calc-grid">
-        <div class="field"><label>Masa m (kg)</label><input type="number" id="a-m" value="0.5"></div>
-        <div class="field"><label>Velocidad v (m/s)</label><input type="number" id="a-v" value="4"></div>
-        <div class="field"><label>Radio r (m)</label><input type="number" id="a-r" value="1"></div>
+        <div class="field"><label>a</label><input type="number" id="a-a" value="1"></div>
+        <div class="field"><label>b</label><input type="number" id="a-b" value="2"></div>
+        <div class="field"><label>c</label><input type="number" id="a-c" value="5"></div>
       </div>
-      <button class="calc-btn" onclick="calcAvanzado()">Calcular</button>
+      <button class="calc-btn" onclick="calcAvanzado()">Calcular Δ</button>
       <div class="readout" id="a-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Mira cómo cambia la parábola</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">La ecuación cuadrática es la parábola y=ax²+bx+c — sus soluciones son justo los puntos donde cruza el eje x. Con los valores de arriba, mira dónde (y si) cruza.</p>
+      <div class="sim-box">
+        <canvas id="parabola-canvas" width="680" height="280"></canvas>
+      </div>
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
       <h2>Ejemplo</h2>
       <div class="example">
-        <p><strong>Haces girar una piedra de 0.5 kg atada a una cuerda de 1 m, a 4 m/s. ¿Qué tensión soporta la cuerda?</strong></p>
-        <p>F<sub>c</sub> = 0.5×4² / 1 = 0.5×16/1 = <strong>8 N</strong></p>
-        <p>Esa es la tensión mínima que necesita la cuerda para no romperse y mantener la piedra en su órbita circular.</p>
+        <p><strong>¿Cuántas soluciones reales tiene x² + 2x + 5 = 0, sin resolverla completa?</strong></p>
+        <p>Δ = 2² − 4×1×5 = 4 − 20 = <strong>−16</strong></p>
+        <p>Como Δ&lt;0, <strong>no tiene soluciones reales</strong> — la parábola nunca toca el eje x.</p>
       </div>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
       <h2>Ejercicios con respuesta</h2>
       <ol>
-        <li>Un auto de 1000 kg toma una curva de 50 m de radio a 20 m/s. ¿Qué fuerza centrípeta necesita?
-          <details><summary>Ver respuesta</summary>Fc = 1000×20²/50 = 1000×400/50 = 8000 N</details>
+        <li>¿Cuántas soluciones reales tiene x² − 6x + 9 = 0?
+          <details><summary>Ver respuesta</summary>Δ=36−36=0 → 1 solución real (doble): x=3</details>
         </li>
-        <li>¿Qué le pasa a un auto si la curva es más cerrada (menor radio) a la misma velocidad?
-          <details><summary>Ver respuesta</summary>Necesita más fuerza centrípeta (Fc aumenta cuando r disminuye), y si la fricción de los neumáticos no alcanza a proveerla, el auto derrapa hacia afuera de la curva.</details>
+        <li>¿Cuántas soluciones reales tiene 2x² + 3x − 5 = 0?
+          <details><summary>Ver respuesta</summary>Δ=9−4×2×(−5)=9+40=49>0 → 2 soluciones reales distintas</details>
         </li>
-        <li>¿Por qué los astronautas en órbita "flotan" sin peso aparente?
-          <details><summary>Ver respuesta</summary>Porque están en caída libre constante alrededor de la Tierra — la gravedad actúa como fuerza centrípeta exacta para mantener la órbita, así que no sienten una fuerza "extra" de apoyo como en el suelo.</details>
+        <li>¿Qué significa gráficamente que Δ=0?
+          <details><summary>Ver respuesta</summary>Que la parábola toca el eje x en un solo punto (el vértice está justo sobre el eje x), en vez de cruzarlo en dos puntos distintos o no tocarlo nunca.</details>
         </li>
       </ol>
     </div>
@@ -420,39 +407,23 @@
 
   <div class="card faq" data-tag="FAQ">
     <h2>Preguntas frecuentes</h2>
-    <h3>¿Por qué se llama "uniforme" si la velocidad cambia de dirección?</h3>
-    <p>"Uniforme" se refiere a que la rapidez (el valor numérico de la velocidad) es constante — lo que cambia es solo la dirección. Por eso, aunque la rapidez no cambia, sí hay aceleración (la centrípeta), porque la dirección del vector velocidad cambia todo el tiempo.</p>
-    <h3>¿Fuerza centrípeta y fuerza centrífuga son lo mismo?</h3>
-    <p>No. La centrípeta es real y apunta hacia el centro (la que efectivamente causa el giro). La "centrífuga" que sientes empujándote hacia afuera en una curva es una fuerza aparente, producto de tu propia inercia resistiéndose al giro — no es una fuerza real actuando sobre ti.</p>
-    <h3>¿Por qué las curvas de las rutas suelen estar peraltadas (inclinadas)?</h3>
-    <p>Para que parte de la fuerza centrípeta la aporte la normal de la pista (inclinada) además de la fricción, permitiendo tomar la curva a mayor velocidad sin derrapar.</p>
+    <h3>¿Qué pasa si a=0 en una ecuación cuadrática?</h3>
+    <p>Deja de ser cuadrática — se convierte en una ecuación de primer grado (bx+c=0), porque el término con x² desaparece. La fórmula resolvente no aplica en ese caso.</p>
+    <h3>¿Las dos soluciones siempre son números distintos?</h3>
+    <p>No necesariamente — cuando el discriminante es 0, las dos soluciones coinciden en el mismo valor (se dice que hay "una solución doble"), porque la parábola toca el eje x en un solo punto.</p>
+    <h3>¿Por qué a veces "no hay solución real"?</h3>
+    <p>Porque la raíz cuadrada de un número negativo no existe dentro de los números reales — existen los "números complejos" para ese caso, pero eso ya es un tema más avanzado que no vas a necesitar en la secundaria típicamente.</p>
   </div>
 
   <div class="related">
     <h2>Temas relacionados</h2>
     <div class="related-links">
-      <a href="tiro-oblicuo.html">Tiro Oblicuo — Movimiento Parabólico</a>
-      <a href="newton.html">Segunda Ley de Newton (F = m·a)</a>
+      <a href="ecuaciones-primer-grado.html">Ecuaciones de Primer Grado</a>
       <a href="formulario.html">Machete de Fórmulas</a>
-      <a href="maquinas-termicas.html">Máquinas Térmicas y Eficiencia</a>
-      <a href="corriente-continua-alterna.html">Corriente Continua y Alterna</a>
-      <a href="caudal-continuidad.html">Caudal y Continuidad</a>
-      <a href="electromagnetismo.html">Electromagnetismo</a>
-      <a href="maquinas-simples.html">Máquinas Simples</a>
-      <a href="conversor-unidades.html">Conversor de Unidades</a>
       <a href="evaluaciones.html">Evaluaciones</a>
       <a href="sobre-nosotros.html">Sobre la Fundadora</a>
-      <a href="experimentos.html">Experimentos Caseros</a>
-      <a href="modelo-atomico.html">Modelo Atómico y Tabla Periódica</a>
-      <a href="estequiometria.html">Estequiometría y El Mol</a>
-      <a href="configuracion-electronica.html">Configuración Electrónica</a>
-      <a href="oxido-reduccion.html">Óxido-Reducción</a>
-      <a href="enlaces-quimicos.html">Enlaces Químicos</a>
-      <a href="acido-base.html">Ácido-Base y pH</a>
-      <a href="concentracion-soluciones.html">Concentración de Soluciones</a>
-      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
-      <a href="leyes-gases.html">Leyes de los Gases</a>
-      <a href="energia-nuclear.html">Energía Nuclear</a>
+      <a href="docentes.html">Para Docentes</a>
+      <a href="banco-preguntas.html">Banco de Preguntas</a>
     </div>
   </div>
 
@@ -473,103 +444,89 @@
   });
 
   function calcBasico(){
-    const T = parseFloat(document.getElementById('b-T').value)||1;
-    const r = parseFloat(document.getElementById('b-r').value)||0;
-    const omega = (2*Math.PI)/T;
-    const v = omega*r;
+    const a = parseFloat(document.getElementById('b-a').value)||1;
+    const b = parseFloat(document.getElementById('b-b').value)||0;
+    const c = parseFloat(document.getElementById('b-c').value)||0;
+    const disc = b*b - 4*a*c;
     const out = document.getElementById('b-readout');
-    out.innerText = `ω = 2π/${T} = ${omega.toFixed(2)} rad/s\nv = ${omega.toFixed(2)}×${r} = ${v.toFixed(2)} m/s`;
+    if(disc < 0){
+      out.innerText = `Δ = ${b}² − 4×${a}×${c} = ${disc.toFixed(2)}\nComo Δ < 0, no hay soluciones reales.`;
+    } else {
+      const x1 = (-b + Math.sqrt(disc))/(2*a);
+      const x2 = (-b - Math.sqrt(disc))/(2*a);
+      out.innerText = `x = (−(${b}) ± √${disc.toFixed(2)}) / (2×${a})\nx₁ = ${x1.toFixed(3)}\nx₂ = ${x2.toFixed(3)}`;
+    }
     out.classList.add('show');
+  }
+
+  function drawParabola(ctx, w, h, a, b, c){
+    ctx.clearRect(0,0,w,h);
+    const cx = w/2, cy = h/2;
+    const scale = 20; // píxeles por unidad
+
+    // ejes
+    ctx.strokeStyle = '#3A4756';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(0, cy); ctx.lineTo(w, cy);
+    ctx.moveTo(cx, 0); ctx.lineTo(cx, h);
+    ctx.stroke();
+
+    // parábola: y = ax²+bx+c, graficada de izquierda a derecha
+    ctx.strokeStyle = '#D9A441';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    let first = true;
+    for(let px=0; px<=w; px++){
+      const xMat = (px-cx)/scale;
+      const yMat = a*xMat*xMat + b*xMat + c;
+      const py = cy - yMat*scale;
+      if(py < -1000 || py > h+1000) continue;
+      if(first){ ctx.moveTo(px,py); first=false; } else { ctx.lineTo(px,py); }
+    }
+    ctx.stroke();
+
+    // marcar las raíces (si son reales) sobre el eje x
+    const disc = b*b-4*a*c;
+    if(disc >= 0 && a !== 0){
+      const x1 = (-b+Math.sqrt(disc))/(2*a);
+      const x2 = (-b-Math.sqrt(disc))/(2*a);
+      [x1,x2].forEach(xr=>{
+        const px = cx + xr*scale;
+        ctx.beginPath();
+        ctx.arc(px, cy, 6, 0, Math.PI*2);
+        ctx.fillStyle = '#2F6B5E';
+        ctx.fill();
+        ctx.strokeStyle = '#1C2733';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      });
+    }
+
+    ctx.font = '11px JetBrains Mono';
+    ctx.fillStyle = '#5C6B7A';
+    ctx.fillText(`y = ${a}x² + ${b}x + ${c}`, 12, 18);
   }
 
   function calcAvanzado(){
-    const m = parseFloat(document.getElementById('a-m').value)||0;
-    const v = parseFloat(document.getElementById('a-v').value)||0;
-    const r = parseFloat(document.getElementById('a-r').value)||0.0001;
-    const Fc = (m*v*v)/r;
+    const a = parseFloat(document.getElementById('a-a').value)||1;
+    const b = parseFloat(document.getElementById('a-b').value)||0;
+    const c = parseFloat(document.getElementById('a-c').value)||0;
+    const disc = b*b - 4*a*c;
     const out = document.getElementById('a-readout');
-    out.innerText = `Fc = m×v²/r = ${m}×${v}²/${r} = ${Fc.toFixed(2)} N`;
+    let tipo;
+    if(disc > 0) tipo = '2 soluciones reales distintas';
+    else if(disc === 0) tipo = '1 solución real (doble)';
+    else tipo = 'ninguna solución real';
+    out.innerText = `Δ = ${b}² − 4×${a}×${c} = ${disc.toFixed(2)}\n${tipo}`;
     out.classList.add('show');
-  }
 
-  // ---- Simulador de rotación circular ----
-  let mcuState = {running:false, angle:0, omega:1, r:60, lastFrame:null};
-
-  function drawMCU(ctx, w, h, angle, r){
-    ctx.clearRect(0,0,w,h);
-    const cx = w/2, cy = h/2;
-
-    // circunferencia de referencia
-    ctx.strokeStyle = '#3A4756';
-    ctx.setLineDash([3,4]);
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI*2);
-    ctx.stroke();
-    ctx.setLineDash([]);
-
-    // centro
-    ctx.fillStyle = '#5C6B7A';
-    ctx.beginPath();
-    ctx.arc(cx, cy, 3, 0, Math.PI*2);
-    ctx.fill();
-
-    // radio (línea del centro al objeto)
-    const objX = cx + r*Math.cos(angle);
-    const objY = cy + r*Math.sin(angle);
-    ctx.strokeStyle = '#7FB8E3';
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.moveTo(cx,cy); ctx.lineTo(objX,objY);
-    ctx.stroke();
-
-    // objeto
-    ctx.font = '26px sans-serif';
-    ctx.textAlign='center';
-    ctx.fillText('🪐', objX, objY+8);
-    ctx.textAlign='left';
-  }
-
-  function toggleMCU(){
-    const btn = document.getElementById('mcu-btn');
-    const s = mcuState;
-    if(s.running){
-      s.running = false;
-      btn.innerText = '▶ Reproducir';
-      return;
-    }
-    const T = parseFloat(document.getElementById('b-T').value)||4;
-    s.omega = (2*Math.PI)/T;
-    s.running = true;
-    btn.innerText = '⏸ Pausar';
-    s.lastFrame = performance.now();
-    requestAnimationFrame(mcuFrame);
-  }
-
-  function mcuFrame(now){
-    const s = mcuState;
-    if(!s.running) return;
-    const canvas = document.getElementById('mcu-canvas');
-    const ctx = canvas.getContext('2d');
-
-    const dt = (now - s.lastFrame)/1000;
-    s.lastFrame = now;
-    s.angle += s.omega*dt;
-
-    drawMCU(ctx, canvas.width, canvas.height, s.angle, s.r);
-
-    const r = parseFloat(document.getElementById('b-r').value)||1;
-    const v = s.omega*r;
-    const angDeg = ((s.angle*180/Math.PI) % 360 + 360) % 360;
-    document.getElementById('mcu-ang').innerText = `Ángulo: ${angDeg.toFixed(0)}°`;
-    document.getElementById('mcu-v').innerText = `v = ${v.toFixed(2)} m/s`;
-
-    requestAnimationFrame(mcuFrame);
+    const canvas = document.getElementById('parabola-canvas');
+    drawParabola(canvas.getContext('2d'), canvas.width, canvas.height, a, b, c);
   }
 
   window.addEventListener('load', ()=>{
-    const canvas = document.getElementById('mcu-canvas');
-    drawMCU(canvas.getContext('2d'), canvas.width, canvas.height, 0, 60);
+    calcAvanzado();
   });
 </script>
 

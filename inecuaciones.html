@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Movimiento Circular Uniforme (MCU) | Simulador de Rotación — DescifraLab</title>
+<title>Inecuaciones — Resolver Desigualdades — DescifraLab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -284,25 +284,15 @@
     <a href="docentes.html">Para Docentes</a>
     <a href="banco-preguntas.html">Banco de Preguntas</a>
     <a href="ecuaciones-primer-grado.html">Matemática</a>
-    <a href="ecuaciones-segundo-grado.html">Ecuaciones de Segundo Grado</a>
-    <a href="funciones.html">Funciones</a>
-    <a href="inecuaciones.html">Inecuaciones</a>
-    <a href="logaritmos.html">Logaritmos</a>
-    <a href="sucesiones.html">Sucesiones y Series</a>
-    <a href="interes-compuesto.html">Interés Compuesto</a>
-    <a href="estadistica.html">Estadística</a>
-    <a href="funcion-racional.html">Función Racional</a>
-    <a href="probabilidad.html">Probabilidad</a>
-    <a href="geometria-analitica.html">Geometría Analítica</a>
     <a href="evaluaciones.html">Evaluaciones</a>
     <a href="sobre-nosotros.html">Sobre la Fundadora</a>
   </div>
 </nav>
 
 <header class="top">
-  <div class="eyebrow">Mecánica · Cinemática</div>
-  <h1>Movimiento Circular Uniforme (MCU)</h1>
-  <p class="subtitle">Fórmulas, simulador de rotación con velocidad angular y fuerza centrípeta, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
+  <div class="eyebrow">Matemática · Álgebra</div>
+  <h1>Inecuaciones</h1>
+  <p class="subtitle">Resolver desigualdades, el cuidado especial al multiplicar por un número negativo, y visualización en la recta numérica.</p>
   <nav class="level-nav">
     <button class="level-btn active" data-target="basico">Básico</button>
     <button class="level-btn" data-target="avanzado">Avanzado</button>
@@ -315,56 +305,66 @@
   <section class="level active" data-level="basico">
 
     <div class="card" data-tag="Concepto">
-      <h2>¿Qué es el MCU?</h2>
-      <p>Es el movimiento de un objeto que da vueltas a velocidad constante alrededor de un centro fijo — como las agujas de un reloj o un caballito de calesita. La velocidad angular (qué tan rápido gira) no cambia, aunque la dirección del movimiento sí cambia todo el tiempo.</p>
-      <div class="formula-box">ω = 2π / T</div>
-      <div class="formula-box">v = ω · r</div>
-      <p class="var-list"><span>ω</span> = velocidad angular (rad/s) &nbsp;·&nbsp; <span>T</span> = período, tiempo de una vuelta completa (s) &nbsp;·&nbsp; <span>v</span> = velocidad tangencial (m/s) &nbsp;·&nbsp; <span>r</span> = radio (m)</p>
+      <h2>¿Qué es una inecuación?</h2>
+      <p>Es como una ecuación, pero en vez de un signo igual (=), tiene una desigualdad: mayor (&gt;), menor (&lt;), mayor o igual (≥), o menor o igual (≤). En vez de una solución única, la respuesta suele ser un <strong>rango</strong> completo de valores.</p>
+      <div class="formula-box">a·x + b &gt; c &nbsp;→&nbsp; x &gt; (c − b) / a &nbsp;(si a&gt;0)</div>
+      <p class="var-list" style="background:#FBEAE5;border:1px solid #A0442E;padding:10px;border-radius:6px;"><strong>¡Ojo con esto!</strong> Si multiplicas o divides los dos lados por un número <strong>negativo</strong>, el signo de la desigualdad se da vuelta (el &gt; pasa a ser &lt;, y viceversa).</p>
     </div>
 
     <div class="card" data-tag="Calculadora">
-      <h2>Calcula velocidad angular y tangencial</h2>
+      <h2>Resolvé una inecuación</h2>
       <div class="calc-grid">
-        <div class="field"><label>Período T (s) — tiempo de una vuelta</label><input type="number" id="b-T" value="4"></div>
-        <div class="field"><label>Radio r (m)</label><input type="number" id="b-r" value="2"></div>
-      </div>
-      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
-      <div class="readout" id="b-readout"></div>
-    </div>
-
-    <div class="card" data-tag="Simulación">
-      <h2>Mira girar el objeto</h2>
-      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Con los valores de arriba, mira el objeto dar vueltas al ritmo real calculado.</p>
-      <div class="sim-box">
-        <canvas id="mcu-canvas" width="680" height="220"></canvas>
-        <div class="sim-readout">
-          <span id="mcu-ang">Ángulo: 0°</span>
-          <span id="mcu-v">v = 0 m/s</span>
+        <div class="field"><label>a</label><input type="number" id="b-a" value="2"></div>
+        <div class="field"><label>b</label><input type="number" id="b-b" value="3"></div>
+        <div class="field">
+          <label>Símbolo</label>
+          <select id="b-simbolo" style="width:100%;padding:10px 12px;border:2px solid var(--ink);font-family:'JetBrains Mono', monospace;font-size:15px;background:var(--white);">
+            <option value=">">&gt;</option>
+            <option value="<">&lt;</option>
+            <option value=">=">≥</option>
+            <option value="<=">≤</option>
+          </select>
         </div>
+        <div class="field"><label>c</label><input type="number" id="b-c" value="11"></div>
       </div>
-      <button class="calc-btn" id="mcu-btn" onclick="toggleMCU()">▶ Reproducir</button>
+      <button class="calc-btn" onclick="calcBasico()">Resolver</button>
+      <div class="readout" id="b-readout"></div>
+      <div class="sim-box" style="margin-top:14px;">
+        <canvas id="recta-canvas" width="680" height="120"></canvas>
+      </div>
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
+      <h2>Ejemplo, paso a paso</h2>
       <div class="example">
-        <p><strong>Un caballito de calesita da una vuelta completa cada 4 s, a 2 m del centro. ¿Cuál es su velocidad tangencial?</strong></p>
-        <p>ω = 2π/4 = <strong>1.57 rad/s</strong></p>
-        <p>v = 1.57 × 2 = <strong>3.14 m/s</strong></p>
+        <p><strong>Resolvé: 2x + 3 &gt; 11</strong></p>
+        <p>Paso 1 — restás 3: 2x &gt; 8</p>
+        <p>Paso 2 — divides por 2 (positivo, no cambia el signo): <strong>x &gt; 4</strong></p>
+        <p>La solución es "todo número mayor a 4" — infinitos valores, no uno solo.</p>
+      </div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo con número negativo (el caso especial)</h2>
+      <div class="example">
+        <p><strong>Resolvé: −2x + 3 &gt; 11</strong></p>
+        <p>Paso 1 — restás 3: −2x &gt; 8</p>
+        <p>Paso 2 — divides por −2 (¡negativo! el signo se da vuelta): <strong>x &lt; −4</strong></p>
+        <p>Fijate cómo el &gt; se convirtió en &lt; justo al dividir por un negativo.</p>
       </div>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
       <h2>Ejercicios con respuesta</h2>
       <ol>
-        <li>Una rueda da una vuelta cada 2 s. ¿Cuál es su velocidad angular?
-          <details><summary>Ver respuesta</summary>ω = 2π/2 = 3.14 rad/s</details>
+        <li>Resolvé: 3x − 2 ≤ 10
+          <details><summary>Ver respuesta</summary>3x≤12 → x≤4</details>
         </li>
-        <li>Un punto a 0.5 m del eje de esa rueda, ¿a qué velocidad tangencial se mueve?
-          <details><summary>Ver respuesta</summary>v = 3.14×0.5 = 1.57 m/s</details>
+        <li>Resolvé: −x + 5 &lt; 2
+          <details><summary>Ver respuesta</summary>−x&lt;−3 → x&gt;3 (el signo se dio vuelta al dividir por −1)</details>
         </li>
-        <li>¿Por qué un punto más alejado del centro de un disco que gira se mueve más rápido que uno cerca del centro, aunque ambos den la misma vuelta en el mismo tiempo?
-          <details><summary>Ver respuesta</summary>Porque tienen la misma velocidad angular (ω) pero distinto radio — como v=ω×r, a mayor r, mayor v tangencial, aunque completen la vuelta en el mismo T.</details>
+        <li>¿Por qué al multiplicar por un negativo se invierte el signo de la desigualdad?
+          <details><summary>Ver respuesta</summary>Porque multiplicar por un negativo invierte el orden de los números en la recta numérica — por ejemplo, 2&lt;5, pero al multiplicar por −1: −2&gt;−5, así que la desigualdad tiene que invertirse para seguir siendo verdadera.</details>
         </li>
       </ol>
     </div>
@@ -375,43 +375,44 @@
   <section class="level" data-level="avanzado">
 
     <div class="card" data-tag="Concepto">
-      <h2>Fuerza centrípeta</h2>
-      <p>Para que algo se mueva en círculo, necesita una fuerza constante empujándolo hacia el centro — sin esa fuerza, seguiría en línea recta (por la inercia). Esta fuerza no cambia la velocidad del objeto, solo su dirección.</p>
-      <div class="formula-box">F<sub>c</sub> = m · v² / r</div>
-      <p class="var-list">Ejemplos de qué hace de fuerza centrípeta: la tensión de una cuerda al hacer girar una piedra, la fricción de los neumáticos en una curva, o la gravedad manteniendo a la Luna en órbita.</p>
+      <h2>Sistemas de inecuaciones: dos condiciones a la vez</h2>
+      <p>A veces la solución tiene que cumplir dos inecuaciones al mismo tiempo — la solución final es la <strong>intersección</strong> (lo que cumple ambas condiciones a la vez), no la unión.</p>
+      <div class="formula-box">a &lt; x &lt; b significa: x &gt; a Y x &lt; b, ambas a la vez</div>
     </div>
 
     <div class="card" data-tag="Calculadora">
-      <h2>Calcula la fuerza centrípeta</h2>
+      <h2>Encuentra la intersección de dos condiciones</h2>
       <div class="calc-grid">
-        <div class="field"><label>Masa m (kg)</label><input type="number" id="a-m" value="0.5"></div>
-        <div class="field"><label>Velocidad v (m/s)</label><input type="number" id="a-v" value="4"></div>
-        <div class="field"><label>Radio r (m)</label><input type="number" id="a-r" value="1"></div>
+        <div class="field"><label>Límite inferior (x &gt; este valor)</label><input type="number" id="a-inf" value="2"></div>
+        <div class="field"><label>Límite superior (x &lt; este valor)</label><input type="number" id="a-sup" value="8"></div>
       </div>
-      <button class="calc-btn" onclick="calcAvanzado()">Calcular</button>
+      <button class="calc-btn" onclick="calcAvanzado()">Mostrar intersección</button>
       <div class="readout" id="a-readout"></div>
+      <div class="sim-box" style="margin-top:14px;">
+        <canvas id="recta-avanzada-canvas" width="680" height="120"></canvas>
+      </div>
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
       <h2>Ejemplo</h2>
       <div class="example">
-        <p><strong>Haces girar una piedra de 0.5 kg atada a una cuerda de 1 m, a 4 m/s. ¿Qué tensión soporta la cuerda?</strong></p>
-        <p>F<sub>c</sub> = 0.5×4² / 1 = 0.5×16/1 = <strong>8 N</strong></p>
-        <p>Esa es la tensión mínima que necesita la cuerda para no romperse y mantener la piedra en su órbita circular.</p>
+        <p><strong>Un número tiene que ser mayor a 2 y menor a 8 al mismo tiempo. ¿Cuál es el conjunto solución?</strong></p>
+        <p>2 &lt; x &lt; 8 — todos los números entre 2 y 8 (sin incluir los extremos)</p>
+        <p>Por ejemplo, 3, 5, 7.5 son soluciones válidas — pero 2, 8, o 10 no lo son.</p>
       </div>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
       <h2>Ejercicios con respuesta</h2>
       <ol>
-        <li>Un auto de 1000 kg toma una curva de 50 m de radio a 20 m/s. ¿Qué fuerza centrípeta necesita?
-          <details><summary>Ver respuesta</summary>Fc = 1000×20²/50 = 1000×400/50 = 8000 N</details>
+        <li>¿Qué números cumplen x≥0 Y x&lt;5 al mismo tiempo?
+          <details><summary>Ver respuesta</summary>0≤x&lt;5 — incluye el 0, pero no incluye el 5</details>
         </li>
-        <li>¿Qué le pasa a un auto si la curva es más cerrada (menor radio) a la misma velocidad?
-          <details><summary>Ver respuesta</summary>Necesita más fuerza centrípeta (Fc aumenta cuando r disminuye), y si la fricción de los neumáticos no alcanza a proveerla, el auto derrapa hacia afuera de la curva.</details>
+        <li>Si un sistema pide x&gt;10 Y x&lt;5 al mismo tiempo, ¿qué pasa?
+          <details><summary>Ver respuesta</summary>No hay solución — ningún número puede ser mayor a 10 y menor a 5 simultáneamente, las condiciones son incompatibles</details>
         </li>
-        <li>¿Por qué los astronautas en órbita "flotan" sin peso aparente?
-          <details><summary>Ver respuesta</summary>Porque están en caída libre constante alrededor de la Tierra — la gravedad actúa como fuerza centrípeta exacta para mantener la órbita, así que no sienten una fuerza "extra" de apoyo como en el suelo.</details>
+        <li>¿Por qué se usa un círculo relleno o vacío en la recta numérica según el símbolo?
+          <details><summary>Ver respuesta</summary>Relleno (●) cuando el límite SÍ está incluido (≥ o ≤), vacío (○) cuando NO está incluido (&gt; o &lt; estrictos) — indica visualmente si el extremo forma parte de la solución o no.</details>
         </li>
       </ol>
     </div>
@@ -420,39 +421,25 @@
 
   <div class="card faq" data-tag="FAQ">
     <h2>Preguntas frecuentes</h2>
-    <h3>¿Por qué se llama "uniforme" si la velocidad cambia de dirección?</h3>
-    <p>"Uniforme" se refiere a que la rapidez (el valor numérico de la velocidad) es constante — lo que cambia es solo la dirección. Por eso, aunque la rapidez no cambia, sí hay aceleración (la centrípeta), porque la dirección del vector velocidad cambia todo el tiempo.</p>
-    <h3>¿Fuerza centrípeta y fuerza centrífuga son lo mismo?</h3>
-    <p>No. La centrípeta es real y apunta hacia el centro (la que efectivamente causa el giro). La "centrífuga" que sientes empujándote hacia afuera en una curva es una fuerza aparente, producto de tu propia inercia resistiéndose al giro — no es una fuerza real actuando sobre ti.</p>
-    <h3>¿Por qué las curvas de las rutas suelen estar peraltadas (inclinadas)?</h3>
-    <p>Para que parte de la fuerza centrípeta la aporte la normal de la pista (inclinada) además de la fricción, permitiendo tomar la curva a mayor velocidad sin derrapar.</p>
+    <h3>¿Por qué la solución de una inecuación tiene infinitos valores?</h3>
+    <p>Porque cualquier número dentro del rango encontrado cumple la condición — no hay un único valor que la "resuelva", sino todo un intervalo continuo de números.</p>
+    <h3>¿Se puede sumar o restar sin cuidado especial en una inecuación?</h3>
+    <p>Sí — sumar o restar el mismo número a ambos lados NUNCA cambia el sentido de la desigualdad. El cuidado especial es solo al multiplicar o dividir por un número negativo.</p>
+    <h3>¿Cómo represento la solución de una inecuación?</h3>
+    <p>De tres formas equivalentes: con la desigualdad misma (x&gt;4), en la recta numérica (con un círculo y una flecha), o como intervalo (4, +∞).</p>
   </div>
 
   <div class="related">
     <h2>Temas relacionados</h2>
     <div class="related-links">
-      <a href="tiro-oblicuo.html">Tiro Oblicuo — Movimiento Parabólico</a>
-      <a href="newton.html">Segunda Ley de Newton (F = m·a)</a>
+      <a href="ecuaciones-primer-grado.html">Ecuaciones de Primer Grado</a>
+      <a href="ecuaciones-segundo-grado.html">Ecuaciones de Segundo Grado</a>
+      <a href="funciones.html">Funciones</a>
       <a href="formulario.html">Machete de Fórmulas</a>
-      <a href="maquinas-termicas.html">Máquinas Térmicas y Eficiencia</a>
-      <a href="corriente-continua-alterna.html">Corriente Continua y Alterna</a>
-      <a href="caudal-continuidad.html">Caudal y Continuidad</a>
-      <a href="electromagnetismo.html">Electromagnetismo</a>
-      <a href="maquinas-simples.html">Máquinas Simples</a>
-      <a href="conversor-unidades.html">Conversor de Unidades</a>
       <a href="evaluaciones.html">Evaluaciones</a>
       <a href="sobre-nosotros.html">Sobre la Fundadora</a>
-      <a href="experimentos.html">Experimentos Caseros</a>
-      <a href="modelo-atomico.html">Modelo Atómico y Tabla Periódica</a>
-      <a href="estequiometria.html">Estequiometría y El Mol</a>
-      <a href="configuracion-electronica.html">Configuración Electrónica</a>
-      <a href="oxido-reduccion.html">Óxido-Reducción</a>
-      <a href="enlaces-quimicos.html">Enlaces Químicos</a>
-      <a href="acido-base.html">Ácido-Base y pH</a>
-      <a href="concentracion-soluciones.html">Concentración de Soluciones</a>
-      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
-      <a href="leyes-gases.html">Leyes de los Gases</a>
-      <a href="energia-nuclear.html">Energía Nuclear</a>
+      <a href="docentes.html">Para Docentes</a>
+      <a href="banco-preguntas.html">Banco de Preguntas</a>
     </div>
   </div>
 
@@ -472,104 +459,128 @@
     });
   });
 
+  function drawRectaNumerica(ctx, w, h, valor, tipo){
+    // tipo: '>', '<', '>=', '<='
+    ctx.clearRect(0,0,w,h);
+    const cy = h/2;
+    const margin = 40;
+    const scale = (w-margin*2)/20; // 20 unidades visibles, centradas en el valor
+
+    ctx.strokeStyle = '#3A4756';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(margin, cy); ctx.lineTo(w-margin, cy);
+    ctx.stroke();
+
+    // marcas cada 2 unidades
+    ctx.font = '10px JetBrains Mono';
+    ctx.fillStyle = '#5C6B7A';
+    ctx.textAlign = 'center';
+    for(let i=-10; i<=10; i+=2){
+      const px = margin + (w-margin*2)/2 + i*scale;
+      ctx.beginPath();
+      ctx.moveTo(px, cy-4); ctx.lineTo(px, cy+4);
+      ctx.stroke();
+      ctx.fillText((valor+i).toFixed(0), px, cy+18);
+    }
+
+    const px0 = margin + (w-margin*2)/2; // posición del valor central
+    const esIncluido = tipo==='>=' || tipo==='<=';
+    const vaHaciaDerecha = tipo==='>' || tipo==='>=';
+
+    // flecha de la solución
+    ctx.strokeStyle = '#D9A441';
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    if(vaHaciaDerecha){ ctx.moveTo(px0, cy); ctx.lineTo(w-margin, cy); }
+    else { ctx.moveTo(margin, cy); ctx.lineTo(px0, cy); }
+    ctx.stroke();
+
+    // círculo relleno o vacío en el punto límite
+    ctx.beginPath();
+    ctx.arc(px0, cy, 7, 0, Math.PI*2);
+    ctx.fillStyle = esIncluido ? '#D9A441' : '#F6F4EF';
+    ctx.fill();
+    ctx.strokeStyle = '#1C2733';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.textAlign = 'left';
+  }
+
   function calcBasico(){
-    const T = parseFloat(document.getElementById('b-T').value)||1;
-    const r = parseFloat(document.getElementById('b-r').value)||0;
-    const omega = (2*Math.PI)/T;
-    const v = omega*r;
+    const a = parseFloat(document.getElementById('b-a').value)||1;
+    const b = parseFloat(document.getElementById('b-b').value)||0;
+    const c = parseFloat(document.getElementById('b-c').value)||0;
+    let simbolo = document.getElementById('b-simbolo').value;
+    let x = (c-b)/a;
+    let seInvirtio = false;
+    if(a < 0){
+      seInvirtio = true;
+      const invertir = {'>':'<', '<':'>', '>=':'<=', '<=':'>='};
+      simbolo = invertir[simbolo];
+    }
+    const simboloTexto = {'>':'>', '<':'<', '>=':'≥', '<=':'≤'}[simbolo];
     const out = document.getElementById('b-readout');
-    out.innerText = `ω = 2π/${T} = ${omega.toFixed(2)} rad/s\nv = ${omega.toFixed(2)}×${r} = ${v.toFixed(2)} m/s`;
+    out.innerText = `${a}x + ${b} ${document.getElementById('b-simbolo').options[document.getElementById('b-simbolo').selectedIndex].text} ${c}\n${a}x ${document.getElementById('b-simbolo').options[document.getElementById('b-simbolo').selectedIndex].text} ${c-b}\n${seInvirtio ? '(dividimos por un negativo, el signo se invierte)\n' : ''}x ${simboloTexto} ${x.toFixed(3)}`;
     out.classList.add('show');
+
+    const canvas = document.getElementById('recta-canvas');
+    drawRectaNumerica(canvas.getContext('2d'), canvas.width, canvas.height, x, simbolo);
   }
 
   function calcAvanzado(){
-    const m = parseFloat(document.getElementById('a-m').value)||0;
-    const v = parseFloat(document.getElementById('a-v').value)||0;
-    const r = parseFloat(document.getElementById('a-r').value)||0.0001;
-    const Fc = (m*v*v)/r;
+    const inf = parseFloat(document.getElementById('a-inf').value)||0;
+    const sup = parseFloat(document.getElementById('a-sup').value)||0;
     const out = document.getElementById('a-readout');
-    out.innerText = `Fc = m×v²/r = ${m}×${v}²/${r} = ${Fc.toFixed(2)} N`;
-    out.classList.add('show');
-  }
-
-  // ---- Simulador de rotación circular ----
-  let mcuState = {running:false, angle:0, omega:1, r:60, lastFrame:null};
-
-  function drawMCU(ctx, w, h, angle, r){
-    ctx.clearRect(0,0,w,h);
-    const cx = w/2, cy = h/2;
-
-    // circunferencia de referencia
-    ctx.strokeStyle = '#3A4756';
-    ctx.setLineDash([3,4]);
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI*2);
-    ctx.stroke();
-    ctx.setLineDash([]);
-
-    // centro
-    ctx.fillStyle = '#5C6B7A';
-    ctx.beginPath();
-    ctx.arc(cx, cy, 3, 0, Math.PI*2);
-    ctx.fill();
-
-    // radio (línea del centro al objeto)
-    const objX = cx + r*Math.cos(angle);
-    const objY = cy + r*Math.sin(angle);
-    ctx.strokeStyle = '#7FB8E3';
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.moveTo(cx,cy); ctx.lineTo(objX,objY);
-    ctx.stroke();
-
-    // objeto
-    ctx.font = '26px sans-serif';
-    ctx.textAlign='center';
-    ctx.fillText('🪐', objX, objY+8);
-    ctx.textAlign='left';
-  }
-
-  function toggleMCU(){
-    const btn = document.getElementById('mcu-btn');
-    const s = mcuState;
-    if(s.running){
-      s.running = false;
-      btn.innerText = '▶ Reproducir';
-      return;
+    if(inf >= sup){
+      out.innerText = `${inf} < x < ${sup} no tiene solución (el límite inferior no es menor al superior).`;
+    } else {
+      out.innerText = `Solución: ${inf} < x < ${sup}\nCualquier número entre ${inf} y ${sup} (sin incluir los extremos) cumple ambas condiciones a la vez.`;
     }
-    const T = parseFloat(document.getElementById('b-T').value)||4;
-    s.omega = (2*Math.PI)/T;
-    s.running = true;
-    btn.innerText = '⏸ Pausar';
-    s.lastFrame = performance.now();
-    requestAnimationFrame(mcuFrame);
-  }
+    out.classList.add('show');
 
-  function mcuFrame(now){
-    const s = mcuState;
-    if(!s.running) return;
-    const canvas = document.getElementById('mcu-canvas');
+    const canvas = document.getElementById('recta-avanzada-canvas');
     const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height, cy = h/2, margin = 40;
+    const centro = (inf+sup)/2;
+    const rango = Math.max(sup-inf, 4);
+    const scale = (w-margin*2)/(rango*2.2);
 
-    const dt = (now - s.lastFrame)/1000;
-    s.lastFrame = now;
-    s.angle += s.omega*dt;
+    ctx.clearRect(0,0,w,h);
+    ctx.strokeStyle = '#3A4756';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(margin, cy); ctx.lineTo(w-margin, cy);
+    ctx.stroke();
 
-    drawMCU(ctx, canvas.width, canvas.height, s.angle, s.r);
+    const pxInf = w/2 - (centro-inf)*scale;
+    const pxSup = w/2 + (sup-centro)*scale;
 
-    const r = parseFloat(document.getElementById('b-r').value)||1;
-    const v = s.omega*r;
-    const angDeg = ((s.angle*180/Math.PI) % 360 + 360) % 360;
-    document.getElementById('mcu-ang').innerText = `Ángulo: ${angDeg.toFixed(0)}°`;
-    document.getElementById('mcu-v').innerText = `v = ${v.toFixed(2)} m/s`;
+    ctx.strokeStyle = '#2F6B5E';
+    ctx.lineWidth = 5;
+    ctx.beginPath();
+    ctx.moveTo(pxInf, cy); ctx.lineTo(pxSup, cy);
+    ctx.stroke();
 
-    requestAnimationFrame(mcuFrame);
+    [[pxInf, inf], [pxSup, sup]].forEach(([px, val])=>{
+      ctx.beginPath();
+      ctx.arc(px, cy, 7, 0, Math.PI*2);
+      ctx.fillStyle = '#F6F4EF';
+      ctx.fill();
+      ctx.strokeStyle = '#1C2733';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.font = '11px JetBrains Mono';
+      ctx.fillStyle = '#5C6B7A';
+      ctx.textAlign = 'center';
+      ctx.fillText(val, px, cy+24);
+    });
+    ctx.textAlign = 'left';
   }
 
   window.addEventListener('load', ()=>{
-    const canvas = document.getElementById('mcu-canvas');
-    drawMCU(canvas.getContext('2d'), canvas.width, canvas.height, 0, 60);
+    calcBasico();
+    calcAvanzado();
   });
 </script>
 
