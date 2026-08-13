@@ -275,15 +275,15 @@
   <button class="navbar-toggle" onclick="toggleNavMobile()" aria-label="Abrir menú">
     <span></span><span></span><span></span>
   </button>
-  <div class="navbar-links">
+      <div class="navbar-links">
     <a href="fisica.html">Física</a>
     <a href="quimica.html">Química</a>
+    <a href="matematica.html">Matemática</a>
     <a href="formulario.html">Machete de Fórmulas</a>
     <a href="conversor-unidades.html">Conversor</a>
     <a href="experimentos.html">Experimentos</a>
     <a href="docentes.html">Para Docentes</a>
     <a href="banco-preguntas.html">Banco de Preguntas</a>
-    <a href="ecuaciones-primer-grado.html">Matemática</a>
     <a href="evaluaciones.html">Evaluaciones</a>
     <a href="sobre-nosotros.html">Sobre la Fundadora</a>
   </div>
@@ -338,7 +338,7 @@
       <h2>Ejemplo, paso a paso</h2>
       <div class="example">
         <p><strong>Resolvé: 2x + 3 &gt; 11</strong></p>
-        <p>Paso 1 — restás 3: 2x &gt; 8</p>
+        <p>Paso 1 — restas 3: 2x &gt; 8</p>
         <p>Paso 2 — divides por 2 (positivo, no cambia el signo): <strong>x &gt; 4</strong></p>
         <p>La solución es "todo número mayor a 4" — infinitos valores, no uno solo.</p>
       </div>
@@ -348,9 +348,9 @@
       <h2>Ejemplo con número negativo (el caso especial)</h2>
       <div class="example">
         <p><strong>Resolvé: −2x + 3 &gt; 11</strong></p>
-        <p>Paso 1 — restás 3: −2x &gt; 8</p>
+        <p>Paso 1 — restas 3: −2x &gt; 8</p>
         <p>Paso 2 — divides por −2 (¡negativo! el signo se da vuelta): <strong>x &lt; −4</strong></p>
-        <p>Fijate cómo el &gt; se convirtió en &lt; justo al dividir por un negativo.</p>
+        <p>Fíjate cómo el &gt; se convirtió en &lt; justo al dividir por un negativo.</p>
       </div>
     </div>
 
@@ -402,6 +402,36 @@
       </div>
     </div>
 
+    <div class="card" data-tag="Concepto">
+      <h2>Unión de dos condiciones</h2>
+      <p>Otras veces la solución es válida si se cumple <strong>una condición o la otra</strong> (no hace falta que sean las dos a la vez) — eso es la <strong>unión</strong>, y se escribe con el símbolo ∪. Es típico cuando las dos condiciones "miran" en direcciones opuestas, por ejemplo x menor que un número Y x mayor que otro número más grande.</p>
+      <div class="formula-box">x &lt; a ∪ x &gt; b se lee: "x menor que a, o x mayor que b"</div>
+      <p style="color:var(--ink-soft);font-size:14.5px;">La diferencia clave con la intersección: en la intersección el resultado es un tramo cerrado entre dos valores (todo lo que cumple ambas). En la unión el resultado son dos tramos separados que se extienden hacia afuera (todo lo que cumple al menos una).</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Encuentra la unión de dos condiciones</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:0;">Caso: x menor que el primer valor, o x mayor que el segundo valor.</p>
+      <div class="calc-grid">
+        <div class="field"><label>x menor que este valor</label><input type="number" id="u-izq" value="2"></div>
+        <div class="field"><label>x mayor que este valor</label><input type="number" id="u-der" value="7"></div>
+      </div>
+      <button class="calc-btn" onclick="calcUnion()">Mostrar unión</button>
+      <div class="readout" id="u-readout"></div>
+      <div class="sim-box" style="margin-top:14px;">
+        <canvas id="recta-union-canvas" width="680" height="120"></canvas>
+      </div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>Un número tiene que ser menor a 2, o mayor a 7. ¿Cuál es el conjunto solución?</strong></p>
+        <p>x &lt; 2 ∪ x &gt; 7 — dos tramos separados, sin nada en común entre ellos</p>
+        <p>Por ejemplo, −3, 0, 1.9 cumplen la primera condición; 8, 10, 100 cumplen la segunda. Pero 4 no cumple ninguna, así que no es solución.</p>
+      </div>
+    </div>
+
     <div class="card exercises" data-tag="Ejercicios">
       <h2>Ejercicios con respuesta</h2>
       <ol>
@@ -413,6 +443,12 @@
         </li>
         <li>¿Por qué se usa un círculo relleno o vacío en la recta numérica según el símbolo?
           <details><summary>Ver respuesta</summary>Relleno (●) cuando el límite SÍ está incluido (≥ o ≤), vacío (○) cuando NO está incluido (&gt; o &lt; estrictos) — indica visualmente si el extremo forma parte de la solución o no.</details>
+        </li>
+        <li>¿Cuál es la diferencia entre escribir "Y" (intersección, ∩) y escribir "O" (unión, ∪) al combinar dos condiciones?
+          <details><summary>Ver respuesta</summary>Con "Y" (∩) el número tiene que cumplir ambas condiciones a la vez — el resultado suele ser un tramo entre dos valores. Con "O" (∪) alcanza con que cumpla al menos una — el resultado suele ser dos tramos separados que se extienden hacia afuera.</details>
+        </li>
+        <li>¿Qué números cumplen x&lt;−1 ∪ x&gt;3?
+          <details><summary>Ver respuesta</summary>Todo número menor a −1, o todo número mayor a 3 — por ejemplo −5, −2, 4, 10. El número 0 no es solución porque no cumple ninguna de las dos condiciones.</details>
         </li>
       </ol>
     </div>
@@ -427,6 +463,8 @@
     <p>Sí — sumar o restar el mismo número a ambos lados NUNCA cambia el sentido de la desigualdad. El cuidado especial es solo al multiplicar o dividir por un número negativo.</p>
     <h3>¿Cómo represento la solución de una inecuación?</h3>
     <p>De tres formas equivalentes: con la desigualdad misma (x&gt;4), en la recta numérica (con un círculo y una flecha), o como intervalo (4, +∞).</p>
+    <h3>¿Cómo sé si tengo que usar intersección (∩) o unión (∪)?</h3>
+    <p>Fíjate en la conjunción que conecta las dos condiciones. Si el problema dice "Y" (ambas cosas a la vez), es intersección — el resultado suele ser un tramo cerrado entre dos valores. Si dice "O" (al menos una de las dos), es unión — el resultado suele ser dos tramos separados que se extienden hacia afuera.</p>
   </div>
 
   <div class="related">
@@ -578,9 +616,64 @@
     ctx.textAlign = 'left';
   }
 
+  function calcUnion(){
+    const izq = parseFloat(document.getElementById('u-izq').value)||0;
+    const der = parseFloat(document.getElementById('u-der').value)||0;
+    const out = document.getElementById('u-readout');
+    if(izq >= der){
+      out.innerText = `x < ${izq} ∪ x > ${der}\nComo ${izq} no es menor que ${der}, los dos tramos se superponen: la unión cubre prácticamente toda la recta.`;
+    } else {
+      out.innerText = `Solución: x < ${izq} ∪ x > ${der}\nDos tramos separados: todo lo menor a ${izq}, más todo lo mayor a ${der}. Lo que queda entre ${izq} y ${der} NO es solución.`;
+    }
+    out.classList.add('show');
+
+    const canvas = document.getElementById('recta-union-canvas');
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height, cy = h/2, margin = 40;
+    const centro = (izq+der)/2;
+    const rango = Math.max(der-izq, 4);
+    const scale = (w-margin*2)/(rango*2.2);
+
+    ctx.clearRect(0,0,w,h);
+    ctx.strokeStyle = '#3A4756';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(margin, cy); ctx.lineTo(w-margin, cy);
+    ctx.stroke();
+
+    const pxIzq = w/2 - (centro-izq)*scale;
+    const pxDer = w/2 + (der-centro)*scale;
+
+    // dos tramos de solución, hacia afuera
+    ctx.strokeStyle = '#D9A441';
+    ctx.lineWidth = 5;
+    ctx.beginPath();
+    ctx.moveTo(margin, cy); ctx.lineTo(pxIzq, cy);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(pxDer, cy); ctx.lineTo(w-margin, cy);
+    ctx.stroke();
+
+    [[pxIzq, izq], [pxDer, der]].forEach(([px, val])=>{
+      ctx.beginPath();
+      ctx.arc(px, cy, 7, 0, Math.PI*2);
+      ctx.fillStyle = '#F6F4EF';
+      ctx.fill();
+      ctx.strokeStyle = '#1C2733';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.font = '11px JetBrains Mono';
+      ctx.fillStyle = '#5C6B7A';
+      ctx.textAlign = 'center';
+      ctx.fillText(val, px, cy+24);
+    });
+    ctx.textAlign = 'left';
+  }
+
   window.addEventListener('load', ()=>{
     calcBasico();
     calcAvanzado();
+    calcUnion();
   });
 </script>
 

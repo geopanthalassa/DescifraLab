@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Física — Qué es, Historia y Línea de Tiempo Interactiva — DescifraLab</title>
+<title>Matemática — Todos los Temas: Álgebra, Funciones, Estadística y Más — DescifraLab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <style>
@@ -283,6 +283,7 @@
   .mach-grupo.moderna .mach-titulo{background:#8A5FC7;}
   .mach-grupo.quimica .mach-titulo{background:#3FA05C;}
   .mach-grupo.herramientas .mach-titulo{background:#5C6B7A;}
+  .mach-grupo.matematica .mach-titulo{background:#1F7A8C;}
 
   .mach-grid{
     display:grid;
@@ -311,6 +312,7 @@
   .mach-grupo.moderna .mach-card::before{background:#8A5FC7;}
   .mach-grupo.quimica .mach-card::before{background:#3FA05C;}
   .mach-grupo.herramientas .mach-card::before{background:#5C6B7A;}
+  .mach-grupo.matematica .mach-card::before{background:#1F7A8C;}
 
   .mach-card:hover{
     transform:translateY(-4px) rotate(-0.5deg);
@@ -511,132 +513,93 @@
     <path d="M20,4 C30,4 34,12 34,22 L34,50 C34,60 28,64 20,64 C12,64 8,58 8,50 L8,20 C8,14 12,10 16,10 L16,50 C16,54 18,56 20,56 C22,56 24,54 24,50 L24,18" fill="none" stroke="#8A94A0" stroke-width="3.5" stroke-linecap="round"/>
   </svg>
   <div class="eyebrow">Portada de materia</div>
-  <h1>Física</h1>
-  <p class="subtitle">Qué es, cómo se construyó su conocimiento a lo largo de la historia, y todos los temas del sitio organizados en un solo lugar.</p>
+  <h1>Matemática</h1>
+  <p class="subtitle">El lenguaje que describe patrones, cantidades y relaciones — todos los temas del sitio organizados en un solo lugar.</p>
 </header>
 
 <div class="wrap" style="position:relative;">
 
   <div class="card">
-    <h2>¿Qué es la Física?</h2>
-    <p>La Física es la ciencia que estudia por qué las cosas se mueven, por qué existe la energía, cómo interactúan la materia y las fuerzas — desde por qué se te cae un vaso al piso, hasta cómo funciona una estrella. Es, probablemente, la ciencia más antigua de todas, porque desde siempre la humanidad se preguntó "¿por qué pasa esto?" mirando el cielo, el fuego, el agua, el movimiento.</p>
-    <p style="color:var(--ink-soft);font-size:14.5px;">Lo interesante es que no siempre se hizo de la misma forma. Durante siglos, la física fue casi pura filosofía — razonamiento sin experimentos. Recién hace unos 400 años empezó a construirse como la conocemos hoy: con experimentos, mediciones, y la posibilidad de estar equivocado y corregirse.</p>
+    <h2>¿Qué es la Matemática?</h2>
+    <p>La Matemática no es una lista de fórmulas para memorizar — es un lenguaje para describir patrones: cuánto vale algo desconocido (ecuaciones), cómo cambia una cantidad respecto a otra (funciones), qué tan probable es un evento (probabilidad), o cómo se relacionan la forma y el número (geometría analítica). Cada tema de esta sección parte de una pregunta cotidiana antes de llegar a la fórmula.</p>
+    <p style="color:var(--ink-soft);font-size:14.5px;">Todos los temas incluyen una calculadora o graficador interactivo, ejemplos resueltos paso a paso, y ejercicios con respuesta explicada — no solo el resultado final.</p>
   </div>
 
-  <div class="card">
-    <h2>Línea de tiempo interactiva</h2>
-    <p style="color:var(--ink-soft);font-size:14.5px;">Toca cualquier año para ver qué pasó — 2400 años de historia, en 8 momentos clave.</p>
-    <div id="timeline-fisica" class="timeline-interactiva"></div>
-  </div>
-
-  <!-- MECÁNICA -->
-  <div class="mach-grupo mecanica">
-    <h2 class="mach-titulo">Mecánica</h2>
+  <!-- MATEMÁTICA -->
+  <div class="mach-grupo matematica">
+    <h2 class="mach-titulo">Álgebra</h2>
     <div class="mach-grid">
-      <a href="mru.html" class="mach-card">
-        <h3>MRU</h3>
-        <div class="mach-formula">x = x₀ + v·t</div>
+      <a href="ecuaciones-primer-grado.html" class="mach-card matematica">
+        <h3>Ecuaciones de Primer Grado</h3>
+        <div class="mach-formula">ax + b = c</div>
       </a>
-      <a href="mruv.html" class="mach-card">
-        <h3>MRUV</h3>
-        <div class="mach-formula">v = v₀ + a·t</div>
+      <a href="ecuaciones-segundo-grado.html" class="mach-card matematica">
+        <h3>Ecuaciones de Segundo Grado</h3>
+        <div class="mach-formula" style="font-size:13px;">x = (−b±√(b²−4ac)) / 2a</div>
       </a>
-      <a href="tiro-oblicuo.html" class="mach-card">
-        <h3>Tiro Oblicuo</h3>
-        <div class="mach-formula">R = v₀²sen(2θ)/g</div>
+      <a href="sistema-ecuaciones.html" class="mach-card matematica">
+        <h3>Sistemas de Ecuaciones</h3>
+        <div class="mach-formula" style="font-size:12px;">Sustitución, igualación, reducción</div>
       </a>
-      <a href="mcu.html" class="mach-card">
-        <h3>MCU</h3>
-        <div class="mach-formula">Fc = mv²/r</div>
-      </a>
-      <a href="newton.html" class="mach-card">
-        <h3>2ª Ley de Newton</h3>
-        <div class="mach-formula">F = m·a</div>
-      </a>
-      <a href="trabajo-energia.html" class="mach-card">
-        <h3>Trabajo y Energía</h3>
-        <div class="mach-formula">W = F·d</div>
-      </a>
-      <a href="impulso-momentum.html" class="mach-card">
-        <h3>Impulso</h3>
-        <div class="mach-formula">p = m·v</div>
-      </a>
-      <a href="estatica-torque.html" class="mach-card">
-        <h3>Estática y Torque</h3>
-        <div class="mach-formula">τ = F·d</div>
-      </a>
-      <a href="maquinas-simples.html" class="mach-card">
-        <h3>Máquinas Simples</h3>
-        <div class="mach-formula">VM = dₚ/dᵣ</div>
+      <a href="inecuaciones.html" class="mach-card matematica">
+        <h3>Inecuaciones</h3>
+        <div class="mach-formula">x &gt; a, x ≤ b</div>
       </a>
     </div>
   </div>
 
-  <!-- ELECTRICIDAD -->
-  <div class="mach-grupo electricidad">
-    <h2 class="mach-titulo">Electricidad</h2>
+  <div class="mach-grupo matematica">
+    <h2 class="mach-titulo">Funciones</h2>
     <div class="mach-grid">
-      <a href="ley-ohm.html" class="mach-card">
-        <h3>Ley de Ohm</h3>
-        <div class="mach-formula">V = I·R</div>
+      <a href="funciones.html" class="mach-card matematica">
+        <h3>Funciones</h3>
+        <div class="mach-formula">y = f(x)</div>
       </a>
-      <a href="potencia-electrica.html" class="mach-card">
-        <h3>Potencia Eléctrica</h3>
-        <div class="mach-formula">P = V·I</div>
+      <a href="funcion-racional.html" class="mach-card matematica">
+        <h3>Función Racional</h3>
+        <div class="mach-formula" style="font-size:14px;">f(x) = p(x)/q(x)</div>
       </a>
-      <a href="circuitos.html" class="mach-card">
-        <h3>Circuitos</h3>
-        <div class="mach-formula" style="font-size:12px;">Serie y paralelo</div>
-      </a>
-      <a href="electromagnetismo.html" class="mach-card">
-        <h3>Electromagnetismo</h3>
-        <div class="mach-formula" style="font-size:12px;">Fuerza de Lorentz</div>
-      </a>
-      <a href="corriente-continua-alterna.html" class="mach-card">
-        <h3>Corriente Continua y Alterna</h3>
-        <div class="mach-formula" style="font-size:12px;">CC vs. CA, valor eficaz</div>
+      <a href="logaritmos.html" class="mach-card matematica">
+        <h3>Logaritmos</h3>
+        <div class="mach-formula">log_b(x) = y</div>
       </a>
     </div>
   </div>
 
-  <!-- TERMODINÁMICA Y FLUIDOS -->
-  <div class="mach-grupo termo">
-    <h2 class="mach-titulo">Termodinámica y Fluidos</h2>
+  <div class="mach-grupo matematica">
+    <h2 class="mach-titulo">Sucesiones y finanzas</h2>
     <div class="mach-grid">
-      <a href="calor-especifico.html" class="mach-card">
-        <h3>Calor Específico</h3>
-        <div class="mach-formula">Q = m·c·ΔT</div>
+      <a href="sucesiones.html" class="mach-card matematica">
+        <h3>Sucesiones y Series</h3>
+        <div class="mach-formula" style="font-size:13px;">aₙ = a₁ + (n−1)d</div>
       </a>
-      <a href="dilatacion-termica.html" class="mach-card">
-        <h3>Dilatación Térmica</h3>
-        <div class="mach-formula">ΔL = L₀·α·ΔT</div>
-      </a>
-      <a href="fluidos.html" class="mach-card">
-        <h3>Presión Hidrostática</h3>
-        <div class="mach-formula">P = ρ·g·h</div>
-      </a>
-      <a href="caudal-continuidad.html" class="mach-card">
-        <h3>Caudal y Continuidad</h3>
-        <div class="mach-formula" style="font-size:12px;">Q=Av, A₁v₁=A₂v₂</div>
-      </a>
-      <a href="maquinas-termicas.html" class="mach-card">
-        <h3>Máquinas Térmicas</h3>
-        <div class="mach-formula" style="font-size:12px;">Eficiencia, motor, refrigerador</div>
+      <a href="interes-compuesto.html" class="mach-card matematica">
+        <h3>Interés Compuesto</h3>
+        <div class="mach-formula" style="font-size:14px;">M = C(1+i)ⁿ</div>
       </a>
     </div>
   </div>
 
-  <!-- FÍSICA MODERNA -->
-  <div class="mach-grupo moderna">
-    <h2 class="mach-titulo">Física Moderna</h2>
+  <div class="mach-grupo matematica">
+    <h2 class="mach-titulo">Estadística y probabilidad</h2>
     <div class="mach-grid">
-      <a href="relatividad.html" class="mach-card">
-        <h3>Relatividad</h3>
-        <div class="mach-formula">Δt' = Δt/√(1−v²/c²)</div>
+      <a href="estadistica.html" class="mach-card matematica">
+        <h3>Estadística</h3>
+        <div class="mach-formula" style="font-size:12px;">Media, mediana, moda</div>
       </a>
-      <a href="energia-nuclear.html" class="mach-card">
-        <h3>Energía Nuclear</h3>
-        <div class="mach-formula">E = m·c²</div>
+      <a href="probabilidad.html" class="mach-card matematica">
+        <h3>Probabilidad</h3>
+        <div class="mach-formula">P(A) = casos/total</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="mach-grupo matematica">
+    <h2 class="mach-titulo">Geometría</h2>
+    <div class="mach-grid">
+      <a href="geometria-analitica.html" class="mach-card matematica">
+        <h3>Geometría Analítica</h3>
+        <div class="mach-formula" style="font-size:13px;">(x−h)² + (y−k)² = r²</div>
       </a>
     </div>
   </div>
@@ -651,43 +614,6 @@
   function toggleNavMobile(){
     document.querySelector('.navbar-links').classList.toggle('open');
   }
-
-  const TIMELINE_FISICA = [
-    {año:'~350 a.C.', titulo:'Aristóteles y el movimiento', texto:'Propone que los objetos pesados caen más rápido que los livianos, y que el movimiento necesita una fuerza constante para mantenerse — ideas que parecían obvias, pero que estaban equivocadas. Sostuvo la física durante casi 2000 años, hasta Galileo.'},
-    {año:'~1600', titulo:'Galileo y el método experimental', texto:'Deja caer objetos (probablemente no literalmente desde la Torre de Pisa, es más leyenda que hecho) y demuestra que, sin el aire de por medio, todo cae a la misma velocidad — contradiciendo a Aristóteles con evidencia real. Es considerado el padre del método científico moderno.'},
-    {año:'1687', titulo:'Newton publica su obra más importante', texto:'Isaac Newton publica los Philosophiæ Naturalis Principia Mathematica — un libro tan influyente que se lo conoce simplemente como "los Principia". Ahí unifica por primera vez las leyes que gobiernan el movimiento en la Tierra con las que gobiernan los planetas — sus tres leyes del movimiento y la gravitación universal dominan la física durante más de 200 años.'},
-    {año:'1820-1860s', titulo:'Faraday y Maxwell: el electromagnetismo', texto:'Michael Faraday descubre experimentalmente la inducción electromagnética (la base de generadores y motores). James Clerk Maxwell unifica electricidad, magnetismo y luz en un solo conjunto de ecuaciones — una de las mayores unificaciones de la historia de la ciencia.'},
-    {año:'1905-1915', titulo:'Einstein y la Relatividad', texto:'Albert Einstein publica primero la Relatividad Especial (1905, tiempo y espacio no son absolutos) y después la General (1915, la gravedad como curvatura del espacio-tiempo) — cambiando por completo cómo entendemos el universo a gran escala.'},
-    {año:'1900-1927', titulo:'Nace la física cuántica', texto:'Planck, Bohr, Heisenberg y otros descubren que a escala atómica el mundo se comporta de forma radicalmente distinta a lo cotidiano — la energía viene en paquetes discretos, y hay un límite fundamental a cuánto se puede saber sobre una partícula a la vez.'},
-    {año:'1942', titulo:'Primera reacción nuclear controlada', texto:'Enrico Fermi logra la primera reacción en cadena controlada de la historia, abriendo la puerta a la energía nuclear — tanto para generar electricidad como, trágicamente, para las armas nucleares.'},
-    {año:'2015', titulo:'Primera detección de ondas gravitacionales', texto:'Cien años después de que Einstein las predijera, el observatorio LIGO detecta por primera vez ondas gravitacionales — "arrugas" en el espacio-tiempo generadas por el choque de dos agujeros negros a 1300 millones de años luz.'},
-  ];
-
-  function renderTimelineFisica(){
-    const cont = document.getElementById('timeline-fisica');
-    let html = '';
-    TIMELINE_FISICA.forEach((item, i)=>{
-      html += `
-        <div class="ti-item" id="ti-item-${i}">
-          <button class="ti-boton" onclick="toggleTimelineItem(${i})">
-            <span class="ti-año">${item.año}</span>
-            <span class="ti-titulo">${item.titulo}</span>
-            <span class="ti-flecha">▶</span>
-          </button>
-          <div class="ti-detalle"><p>${item.texto}</p></div>
-        </div>`;
-    });
-    cont.innerHTML = html;
-  }
-
-  function toggleTimelineItem(i){
-    const item = document.getElementById('ti-item-'+i);
-    item.classList.toggle('abierto');
-  }
-
-  window.addEventListener('load', ()=>{
-    renderTimelineFisica();
-  });
 </script>
 
 </body>

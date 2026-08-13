@@ -275,15 +275,15 @@
   <button class="navbar-toggle" onclick="toggleNavMobile()" aria-label="Abrir menú">
     <span></span><span></span><span></span>
   </button>
-  <div class="navbar-links">
+      <div class="navbar-links">
     <a href="fisica.html">Física</a>
     <a href="quimica.html">Química</a>
+    <a href="matematica.html">Matemática</a>
     <a href="formulario.html">Machete de Fórmulas</a>
     <a href="conversor-unidades.html">Conversor</a>
     <a href="experimentos.html">Experimentos</a>
     <a href="docentes.html">Para Docentes</a>
     <a href="banco-preguntas.html">Banco de Preguntas</a>
-    <a href="ecuaciones-primer-grado.html">Matemática</a>
     <a href="evaluaciones.html">Evaluaciones</a>
     <a href="sobre-nosotros.html">Sobre la Fundadora</a>
   </div>
@@ -307,7 +307,7 @@
     <div class="card" data-tag="Concepto">
       <h2>¿Qué es una función?</h2>
       <p>Una función es una "máquina" que toma un número de entrada (x) y devuelve exactamente un número de salida (y) — nunca dos resultados distintos para la misma entrada. Se escribe y=f(x), que se lee "y es función de x".</p>
-      <p style="color:var(--ink-soft);font-size:14.5px;">Pensalo como una máquina expendedora: metes un código (x) y siempre sale el mismo producto (y) para ese código — nunca sale algo distinto al azar.</p>
+      <p style="color:var(--ink-soft);font-size:14.5px;">Imagínala como una máquina expendedora: metes un código (x) y siempre sale el mismo producto (y) para ese código — nunca sale algo distinto al azar.</p>
     </div>
 
     <div class="card" data-tag="Concepto">
@@ -390,6 +390,34 @@
       </div>
     </div>
 
+    <div class="card" data-tag="Concepto">
+      <h2>Analizar una función: más allá de graficarla</h2>
+      <p>Graficar una función es el primer paso — pero "leer" ese gráfico es lo que realmente importa. Para una función cuadrática y=ax²+bx+c, hay seis preguntas clave que se responden con el gráfico y unas pocas cuentas:</p>
+      <ul style="padding-left:20px;margin:10px 0;">
+        <li><strong>Dominio:</strong> todos los valores de x para los que la función existe. En una cuadrática, siempre son todos los reales.</li>
+        <li><strong>Rango:</strong> todos los valores de y que la función puede tomar — depende de dónde está el vértice y hacia dónde abre la parábola.</li>
+        <li><strong>Corte con el eje y:</strong> el valor de y cuando x=0 — siempre es c.</li>
+        <li><strong>Cortes con el eje x (raíces):</strong> los valores de x donde y=0 — pueden ser dos, uno, o ninguno.</li>
+        <li><strong>Vértice:</strong> el punto más alto o más bajo de la parábola.</li>
+        <li><strong>Crecimiento y decrecimiento:</strong> en qué tramos la función sube y en qué tramos baja, a partir del vértice.</li>
+      </ul>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Analizador gráfico completo</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Ingresa a, b y c de y=ax²+bx+c y obtén el análisis completo.</p>
+      <div class="calc-grid">
+        <div class="field"><label>a</label><input type="number" id="an-a" value="1" step="0.5"></div>
+        <div class="field"><label>b</label><input type="number" id="an-b" value="-2" step="0.5"></div>
+        <div class="field"><label>c</label><input type="number" id="an-c" value="-3" step="1"></div>
+      </div>
+      <button class="calc-btn" onclick="analizarFuncion()">Analizar función</button>
+      <div class="readout" id="an-readout"></div>
+      <div class="sim-box" style="margin-top:14px;">
+        <canvas id="analisis-canvas" width="680" height="280"></canvas>
+      </div>
+    </div>
+
     <div class="card" data-tag="Ejemplo resuelto">
       <h2>Ejemplo</h2>
       <div class="example">
@@ -411,6 +439,15 @@
         <li>¿Por qué el gráfico de una función cuadrática nunca es una línea recta?
           <details><summary>Ver respuesta</summary>Porque tiene un término x² — al elevar al cuadrado, el crecimiento no es constante como en una recta, sino que se curva, formando una parábola.</details>
         </li>
+        <li>Para y=x²−4, ¿cuáles son los cortes con el eje x?
+          <details><summary>Ver respuesta</summary>x²−4=0 → x²=4 → x=2 y x=−2. La parábola cruza el eje x en (2,0) y (−2,0).</details>
+        </li>
+        <li>Si el coeficiente a de una cuadrática es negativo, ¿la parábola abre hacia arriba o hacia abajo, y qué significa eso para el rango?
+          <details><summary>Ver respuesta</summary>Abre hacia abajo — el vértice es un punto máximo, así que el rango es "y menor o igual" al valor de y del vértice (nunca sube más que eso).</details>
+        </li>
+        <li>¿Por qué el dominio de cualquier función cuadrática son siempre todos los números reales?
+          <details><summary>Ver respuesta</summary>Porque no hay ninguna operación prohibida (como dividir por cero o sacar raíz de un negativo) — cualquier valor de x, por más grande o negativo que sea, se puede elevar al cuadrado y multiplicar sin problema.</details>
+        </li>
       </ol>
     </div>
 
@@ -421,7 +458,7 @@
     <h3>¿Qué es el dominio de una función?</h3>
     <p>Son todos los valores de x para los que la función tiene sentido — por ejemplo, no puedes dividir por cero, así que cualquier x que haga eso queda afuera del dominio.</p>
     <h3>¿Cómo distingo una función lineal de una cuadrática con solo mirar la fórmula?</h3>
-    <p>Fijate si aparece x² — si la máxima potencia de x es 1 (como en y=3x+2), es lineal. Si aparece x² (como en y=x²+3x+2), es cuadrática.</p>
+    <p>Fíjate si aparece x² — si la máxima potencia de x es 1 (como en y=3x+2), es lineal. Si aparece x² (como en y=x²+3x+2), es cuadrática.</p>
     <h3>¿Por qué la función exponencial crece tan rápido comparada con las otras?</h3>
     <p>Porque el crecimiento se multiplica constantemente en vez de sumarse — cada paso multiplica el resultado anterior por la base, así que el crecimiento se acelera cada vez más, a diferencia de la función lineal (que crece siempre la misma cantidad).</p>
   </div>
@@ -555,9 +592,99 @@
     }
   }
 
+  function analizarFuncion(){
+    const a = parseFloat(document.getElementById('an-a').value)||1;
+    const b = parseFloat(document.getElementById('an-b').value)||0;
+    const c = parseFloat(document.getElementById('an-c').value)||0;
+
+    const vx = -b/(2*a);
+    const vy = a*vx*vx + b*vx + c;
+    const discriminante = b*b - 4*a*c;
+
+    let raicesTexto;
+    let raices = [];
+    if(discriminante > 0){
+      const x1 = (-b + Math.sqrt(discriminante))/(2*a);
+      const x2 = (-b - Math.sqrt(discriminante))/(2*a);
+      raices = [x1, x2];
+      raicesTexto = `x = ${x1.toFixed(2)} y x = ${x2.toFixed(2)}`;
+    } else if(discriminante === 0){
+      const x1 = -b/(2*a);
+      raices = [x1];
+      raicesTexto = `x = ${x1.toFixed(2)} (toca el eje en un solo punto, el vértice)`;
+    } else {
+      raicesTexto = 'no hay — la parábola no toca el eje x';
+    }
+
+    const rangoTexto = a > 0
+      ? `y ≥ ${vy.toFixed(2)} (el vértice es el punto más bajo)`
+      : `y ≤ ${vy.toFixed(2)} (el vértice es el punto más alto)`;
+
+    const crecTexto = a > 0
+      ? `decrece para x < ${vx.toFixed(2)}, crece para x > ${vx.toFixed(2)}`
+      : `crece para x < ${vx.toFixed(2)}, decrece para x > ${vx.toFixed(2)}`;
+
+    const out = document.getElementById('an-readout');
+    out.innerText =
+`y = ${a}x² + ${b>=0?'+':''}${b}x + ${c>=0?'+':''}${c}
+Dominio: todos los reales
+Rango: ${rangoTexto}
+Corte con eje y: (0, ${c})
+Cortes con eje x: ${raicesTexto}
+Vértice: (${vx.toFixed(2)}, ${vy.toFixed(2)})
+Crecimiento: ${crecTexto}`;
+    out.classList.add('show');
+
+    const canvas = document.getElementById('analisis-canvas');
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height, cx = w/2, cy = h/2, scale = 20;
+    ctx.clearRect(0,0,w,h);
+    drawEjes(ctx, w, h, scale);
+
+    ctx.strokeStyle = '#2F6B5E';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    let first = true;
+    for(let px=0; px<=w; px++){
+      const xMat = (px-cx)/scale;
+      const yMat = a*xMat*xMat + b*xMat + c;
+      const py = cy - yMat*scale;
+      if(py < -2000 || py > h+2000) continue;
+      if(first){ ctx.moveTo(px,py); first=false; } else { ctx.lineTo(px,py); }
+    }
+    ctx.stroke();
+
+    // vértice
+    const vpx = cx + vx*scale, vpy = cy - vy*scale;
+    ctx.beginPath();
+    ctx.arc(vpx, vpy, 6, 0, Math.PI*2);
+    ctx.fillStyle = '#D9A441';
+    ctx.fill();
+    ctx.strokeStyle = '#1C2733';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // raíces sobre el eje x
+    raices.forEach(rx=>{
+      const rpx = cx + rx*scale;
+      ctx.beginPath();
+      ctx.arc(rpx, cy, 5, 0, Math.PI*2);
+      ctx.fillStyle = '#F6F4EF';
+      ctx.fill();
+      ctx.strokeStyle = '#1C2733';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    });
+
+    ctx.font = '11px JetBrains Mono';
+    ctx.fillStyle = '#5C6B7A';
+    ctx.fillText(`y = ${a}x² ${b>=0?'+':''}${b}x ${c>=0?'+':''}${c}`, 12, 18);
+  }
+
   window.addEventListener('load', ()=>{
     actualizarLineal();
     actualizarAvanzado();
+    analizarFuncion();
   });
 </script>
 

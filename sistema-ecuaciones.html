@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistemas de Ecuaciones — Sustitución, Igualación, Reducción y Método Gráfico — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;
+    --grid:#E4E0D4;
+    --ink:#1C2733;
+    --ink-soft:#4A5568;
+    --amber:#D9A441;
+    --amber-dark:#B8842E;
+    --pine:#2F6B5E;
+    --pine-dark:#225046;
+    --white:#FFFFFF;
+    --line:#D8D3C4;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+  header.top{
+    padding:36px 20px 28px;
+    max-width:760px;margin:0 auto;
+    border-bottom:2px solid var(--ink);
+  }
+  .brand-link{
+    display:inline-block;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--amber-dark);
+    text-decoration:none;
+    margin-bottom:12px;
+    letter-spacing:0.01em;
+  }
+  .brand-link:hover{text-decoration:underline;}
+  .navbar{
+    background:var(--ink);
+    padding:14px 20px;
+    display:flex;align-items:center;justify-content:space-between;
+    flex-wrap:wrap;gap:12px;
+    position:sticky;top:0;z-index:50;
+  }
+  .navbar-brand{
+    font-family:'Fraunces', serif;font-weight:700;font-size:19px;
+    color:var(--amber);text-decoration:none;
+  }
+  .navbar-links{display:flex;gap:4px;flex-wrap:wrap;}
+  .navbar-links a{
+    color:#D8D3C4;text-decoration:none;
+    font-size:13.5px;font-weight:500;
+    padding:8px 12px;border-radius:6px;
+    transition:background 0.15s, color 0.15s;
+  }
+  .navbar-links a:hover{background:rgba(255,255,255,0.08);color:#fff;}
+  .navbar-toggle{
+    display:none;
+    background:none;border:none;cursor:pointer;
+    padding:6px;
+  }
+  .navbar-toggle span{
+    display:block;width:24px;height:2.5px;
+    background:#D8D3C4;margin:5px 0;
+    transition:transform 0.2s, opacity 0.2s;
+  }
+  @media(max-width:768px){
+    .navbar-links{
+      display:none;
+      width:100%;
+      flex-direction:column;
+      gap:2px;
+      order:3;
+    }
+    .navbar-links.open{display:flex;}
+    .navbar-toggle{display:block;}
+    .navbar-links a{padding:12px 14px;}
+  }
+
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--pine-dark);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px,5vw,46px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--ink-soft);font-size:16px;max-width:56ch;}
+
+  .level-nav{
+    display:flex;gap:8px;margin:28px 0 0;
+  }
+  .level-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;font-weight:700;
+    padding:10px 18px;
+    border:2px solid var(--ink);
+    background:var(--paper);
+    cursor:pointer;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .level-btn.active{background:var(--ink);color:var(--paper);}
+
+  section.level{display:none;margin-top:36px;}
+  section.level.active{display:block;}
+
+  .card{
+    background:var(--white);
+    border:2px solid var(--ink);
+    padding:28px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .card::before{
+    content:attr(data-tag);
+    position:absolute;
+    top:-13px;left:20px;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+  }
+  section.level[data-level="avanzado"] .card::before{background:var(--pine);color:var(--white);}
+
+  h2{font-family:'Fraunces', serif;font-size:22px;font-weight:600;margin:6px 0 14px;}
+
+  .formula-box{
+    font-family:'JetBrains Mono', monospace;
+    font-size:20px;
+    font-weight:700;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    padding:16px 20px;
+    margin:14px 0;
+    text-align:center;
+    letter-spacing:0.02em;
+  }
+  .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
+  .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+
+  /* Calculadora */
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media(max-width:520px){.calc-grid{grid-template-columns:1fr;}}
+  .field label{
+    display:block;font-size:12px;font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;
+  }
+  .field input{
+    width:100%;padding:10px 12px;
+    border:2px solid var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;background:var(--white);
+  }
+  .field input:focus{outline:3px solid var(--amber);outline-offset:1px;}
+  .calc-btn{
+    margin-top:16px;
+    background:var(--amber);
+    border:2px solid var(--ink);
+    padding:12px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.05em;
+    cursor:pointer;
+  }
+  .calc-btn:hover{background:var(--amber-dark);}
+  .readout{
+    margin-top:18px;
+    background:var(--ink);
+    color:#8FE3C7;
+    font-family:'JetBrains Mono', monospace;
+    padding:18px 20px;
+    font-size:15px;
+    min-height:24px;
+    display:none;
+    white-space:pre-line;
+  }
+  .readout.show{display:block;}
+
+  .example{
+    background:var(--paper);
+    border-left:4px solid var(--pine);
+    padding:16px 18px;
+    font-size:15px;
+    margin-top:10px;
+  }
+  section.level[data-level="basico"] .example{border-left-color:var(--amber-dark);}
+
+  .exercises ol{padding-left:20px;}
+  .exercises li{margin-bottom:14px;}
+  details{
+    margin-top:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  details summary{cursor:pointer;color:var(--pine-dark);font-weight:700;}
+
+  .faq h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;}
+  .faq p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .related{
+    margin-top:40px;padding-top:24px;border-top:2px solid var(--ink);
+  }
+  .related h2{font-size:16px;}
+  .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+  .related-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    background:var(--white);
+  }
+  .related-links a:hover{border-color:var(--ink);}
+
+  .sim-box{
+    background:var(--ink);
+    border:2px solid var(--ink);
+    padding:14px;
+    margin-top:16px;
+  }
+  .sim-box canvas{
+    display:block;width:100%;height:auto;
+  }
+  .sim-readout{
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    color:#8FE3C7;font-size:13px;
+    margin-top:10px;padding-top:10px;
+    border-top:1px solid #3A4756;
+  }
+  .speed-row{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-left:14px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;color:var(--ink-soft);
+  }
+  .speed-btn{
+    border:1px solid var(--line);background:var(--white);
+    padding:6px 10px;font-family:'JetBrains Mono', monospace;
+    font-size:12px;cursor:pointer;
+  }
+  .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="navbar-brand">DescifraLab</a>
+  <button class="navbar-toggle" onclick="toggleNavMobile()" aria-label="Abrir menú">
+    <span></span><span></span><span></span>
+  </button>
+      <div class="navbar-links">
+    <a href="fisica.html">Física</a>
+    <a href="quimica.html">Química</a>
+    <a href="matematica.html">Matemática</a>
+    <a href="formulario.html">Machete de Fórmulas</a>
+    <a href="conversor-unidades.html">Conversor</a>
+    <a href="experimentos.html">Experimentos</a>
+    <a href="docentes.html">Para Docentes</a>
+    <a href="banco-preguntas.html">Banco de Preguntas</a>
+    <a href="evaluaciones.html">Evaluaciones</a>
+    <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="eyebrow">Matemática · Álgebra</div>
+  <h1>Sistemas de Ecuaciones</h1>
+  <p class="subtitle">Dos ecuaciones, dos incógnitas — método de sustitución, y las tres formas clásicas de resolverlo, más su interpretación gráfica.</p>
+  <nav class="level-nav">
+    <button class="level-btn active" data-target="basico">Básico</button>
+    <button class="level-btn" data-target="avanzado">Avanzado</button>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- NIVEL BÁSICO -->
+  <section class="level active" data-level="basico">
+
+    <div class="card" data-tag="Concepto">
+      <h2>¿Qué es un sistema de ecuaciones?</h2>
+      <p>Es un conjunto de dos (o más) ecuaciones con las mismas dos incógnitas (x e y), donde buscas el par de valores que hace <strong>verdaderas a las dos ecuaciones a la vez</strong>. No alcanza con resolver una sola — la solución tiene que cumplir ambas.</p>
+      <div class="formula-box">a₁x + b₁y = c₁<br>a₂x + b₂y = c₂</div>
+      <p class="var-list">La solución es un par ordenado (x, y) — el único punto que satisface las dos ecuaciones al mismo tiempo.</p>
+    </div>
+
+    <div class="card" data-tag="Concepto">
+      <h2>Método de sustitución</h2>
+      <p>Es el método más intuitivo: despejas una incógnita en una de las ecuaciones, y la reemplazas ("sustituyes") en la otra. Así te queda una sola ecuación con una sola incógnita, que ya sabes resolver.</p>
+      <ol style="padding-left:20px;margin:10px 0;">
+        <li>Despeja una variable (por ejemplo, y) en una de las dos ecuaciones.</li>
+        <li>Sustituye esa expresión en la otra ecuación — te queda una ecuación con una sola incógnita.</li>
+        <li>Resuelve esa ecuación para encontrar el primer valor.</li>
+        <li>Reemplaza ese valor en cualquiera de las ecuaciones originales para encontrar el segundo.</li>
+      </ol>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Resuelve un sistema por sustitución</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Forma: a₁x + b₁y = c₁ &nbsp;/&nbsp; a₂x + b₂y = c₂</p>
+      <div class="calc-grid">
+        <div class="field"><label>a₁</label><input type="number" id="b-a1" value="2"></div>
+        <div class="field"><label>b₁</label><input type="number" id="b-b1" value="1"></div>
+        <div class="field"><label>c₁</label><input type="number" id="b-c1" value="10"></div>
+        <div class="field"><label>a₂</label><input type="number" id="b-a2" value="1"></div>
+        <div class="field"><label>b₂</label><input type="number" id="b-b2" value="3"></div>
+        <div class="field"><label>c₂</label><input type="number" id="b-c2" value="15"></div>
+      </div>
+      <button class="calc-btn" onclick="calcBasico()">Resolver</button>
+      <div class="readout" id="b-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo, paso a paso</h2>
+      <div class="example">
+        <p><strong>Resuelve: x + y = 10 &nbsp;/&nbsp; x − y = 2</strong></p>
+        <p>Despejamos x en la primera: x = 10 − y</p>
+        <p>Sustituimos en la segunda: (10 − y) − y = 2 → 10 − 2y = 2 → −2y = −8 → <strong>y = 4</strong></p>
+        <p>Reemplazamos y=4 en x = 10 − y → x = 10 − 4 = <strong>x = 6</strong></p>
+        <p>Solución: (6, 4) — comprobación: 6+4=10 ✓ y 6−4=2 ✓</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Resuelve por sustitución: x + y = 7 &nbsp;/&nbsp; x − y = 1
+          <details><summary>Ver respuesta</summary>De la primera: x=7−y. Sustituyendo: (7−y)−y=1 → 7−2y=1 → y=3. Entonces x=7−3=4. Solución: (4, 3)</details>
+        </li>
+        <li>Resuelve por sustitución: y = 2x &nbsp;/&nbsp; x + y = 9
+          <details><summary>Ver respuesta</summary>Ya está despejada y. Sustituyendo: x+2x=9 → 3x=9 → x=3. Entonces y=2×3=6. Solución: (3, 6)</details>
+        </li>
+        <li>¿Por qué la solución de un sistema es un par de valores, y no uno solo?
+          <details><summary>Ver respuesta</summary>Porque hay dos incógnitas (x e y) que deben cumplir ambas ecuaciones a la vez — un solo valor no alcanza para describir un punto, hacen falta las dos coordenadas.</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <!-- NIVEL AVANZADO -->
+  <section class="level" data-level="avanzado">
+
+    <div class="card" data-tag="Concepto">
+      <h2>Los otros dos métodos algebraicos</h2>
+      <p><strong>Igualación:</strong> despejas la misma incógnita en ambas ecuaciones, y como las dos expresiones valen lo mismo (son iguales a esa incógnita), las igualas entre sí.</p>
+      <p><strong>Reducción (o suma y resta):</strong> multiplicas una o ambas ecuaciones por un número para que los coeficientes de una incógnita queden opuestos, y luego sumas las dos ecuaciones — esa incógnita se cancela.</p>
+      <div class="formula-box">Sustitución · Igualación · Reducción → los tres llegan a la misma solución</div>
+      <p class="var-list">No hay un método "correcto" — cada sistema tiene uno que resulta más rápido según cómo estén escritas sus ecuaciones.</p>
+    </div>
+
+    <div class="card" data-tag="Calculadora">
+      <h2>Resuelve por reducción</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Forma: a₁x + b₁y = c₁ &nbsp;/&nbsp; a₂x + b₂y = c₂</p>
+      <div class="calc-grid">
+        <div class="field"><label>a₁</label><input type="number" id="a-a1" value="3"></div>
+        <div class="field"><label>b₁</label><input type="number" id="a-b1" value="2"></div>
+        <div class="field"><label>c₁</label><input type="number" id="a-c1" value="16"></div>
+        <div class="field"><label>a₂</label><input type="number" id="a-a2" value="2"></div>
+        <div class="field"><label>b₂</label><input type="number" id="a-b2" value="-2"></div>
+        <div class="field"><label>c₂</label><input type="number" id="a-c2" value="4"></div>
+      </div>
+      <button class="calc-btn" onclick="calcAvanzado()">Resolver por reducción</button>
+      <div class="readout" id="a-readout"></div>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Método gráfico: dos rectas que se cruzan</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Cada ecuación es una recta. La solución del sistema es el punto donde ambas rectas se cruzan — usa los valores de arriba para verlo.</p>
+      <div class="sim-box">
+        <canvas id="rectas-canvas" width="680" height="280"></canvas>
+      </div>
+    </div>
+
+    <div class="card" data-tag="Concepto">
+      <h2>Los tres casos posibles</h2>
+      <p>Gráficamente, dos rectas solo pueden relacionarse de tres formas — y eso te dice de antemano qué tipo de solución vas a encontrar:</p>
+      <ul style="padding-left:20px;margin:10px 0;">
+        <li><strong>Se cruzan en un punto</strong> → sistema compatible determinado: una única solución (x, y).</li>
+        <li><strong>Son paralelas (nunca se tocan)</strong> → sistema incompatible: no hay solución.</li>
+        <li><strong>Son la misma recta</strong> → sistema compatible indeterminado: infinitas soluciones (todos los puntos de esa recta).</li>
+      </ul>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo</h2>
+      <div class="example">
+        <p><strong>Resuelve por reducción: 3x + 2y = 16 &nbsp;/&nbsp; 2x − 2y = 4</strong></p>
+        <p>Los coeficientes de y ya son opuestos (2 y −2) — sumamos las dos ecuaciones directamente:</p>
+        <p>(3x + 2y) + (2x − 2y) = 16 + 4 → 5x = 20 → <strong>x = 4</strong></p>
+        <p>Reemplazamos x=4 en la primera: 3×4 + 2y = 16 → 12 + 2y = 16 → 2y = 4 → <strong>y = 2</strong></p>
+        <p>Solución: (4, 2)</p>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Resuelve por reducción: x + y = 8 &nbsp;/&nbsp; x − y = 2
+          <details><summary>Ver respuesta</summary>Sumando: 2x=10 → x=5. Reemplazando: 5+y=8 → y=3. Solución: (5, 3)</details>
+        </li>
+        <li>Resuelve por igualación: y = 3x − 1 &nbsp;/&nbsp; y = x + 5
+          <details><summary>Ver respuesta</summary>Como ambas son igual a y: 3x−1=x+5 → 2x=6 → x=3. Entonces y=3+5=8. Solución: (3, 8)</details>
+        </li>
+        <li>Si al graficar dos rectas de un sistema resultan paralelas, ¿qué tipo de sistema es y cuántas soluciones tiene?
+          <details><summary>Ver respuesta</summary>Es un sistema incompatible — no tiene solución, porque las rectas nunca se cruzan.</details>
+        </li>
+        <li>¿Qué significa que un sistema sea "compatible indeterminado"?
+          <details><summary>Ver respuesta</summary>Que las dos ecuaciones representan la misma recta — cualquier punto de esa recta es solución, así que hay infinitas soluciones.</details>
+        </li>
+      </ol>
+    </div>
+
+  </section>
+
+  <div class="card faq" data-tag="FAQ">
+    <h2>Preguntas frecuentes</h2>
+    <h3>¿Cómo elijo qué método usar: sustitución, igualación o reducción?</h3>
+    <p>Si una ecuación ya tiene una variable despejada (como y=2x+1), sustitución es directo. Si ambas ecuaciones ya tienen la misma variable despejada, igualación es más rápido. Si los coeficientes de una variable son iguales o fáciles de igualar multiplicando, reducción suele ser el más corto.</p>
+    <h3>¿Un sistema de ecuaciones siempre tiene solución?</h3>
+    <p>No — puede tener una única solución, ninguna (si las rectas son paralelas), o infinitas (si son la misma recta). Los tres casos son igual de válidos como respuesta.</p>
+    <h3>¿Por qué se llama sistema "2x2"?</h3>
+    <p>Porque tiene 2 ecuaciones y 2 incógnitas. También existen sistemas más grandes (3x3, con tres ecuaciones y tres incógnitas), pero siguen la misma lógica general.</p>
+  </div>
+
+  <div class="related">
+    <h2>Temas relacionados</h2>
+    <div class="related-links">
+      <a href="ecuaciones-primer-grado.html">Ecuaciones de Primer Grado</a>
+      <a href="ecuaciones-segundo-grado.html">Ecuaciones de Segundo Grado</a>
+      <a href="inecuaciones.html">Inecuaciones</a>
+      <a href="funciones.html">Funciones</a>
+      <a href="formulario.html">Machete de Fórmulas</a>
+      <a href="evaluaciones.html">Evaluaciones</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function toggleNavMobile(){
+    document.querySelector('.navbar-links').classList.toggle('open');
+  }
+
+  document.querySelectorAll('.level-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('section.level').forEach(s=>s.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`section.level[data-level="${btn.dataset.target}"]`).classList.add('active');
+    });
+  });
+
+  function calcBasico(){
+    const a1 = parseFloat(document.getElementById('b-a1').value)||0;
+    const b1 = parseFloat(document.getElementById('b-b1').value)||0;
+    const c1 = parseFloat(document.getElementById('b-c1').value)||0;
+    const a2 = parseFloat(document.getElementById('b-a2').value)||0;
+    const b2 = parseFloat(document.getElementById('b-b2').value)||0;
+    const c2 = parseFloat(document.getElementById('b-c2').value)||0;
+    const out = document.getElementById('b-readout');
+
+    const det = a1*b2 - a2*b1;
+    if(det === 0){
+      // ¿son la misma recta o son paralelas?
+      const mismaRecta = (a1*c2 - a2*c1 === 0) && (b1*c2 - b2*c1 === 0);
+      out.innerText = mismaRecta
+        ? 'Sistema compatible indeterminado: las dos ecuaciones son la misma recta — infinitas soluciones.'
+        : 'Sistema incompatible: las rectas son paralelas — no hay solución.';
+    } else {
+      const x = (c1*b2 - c2*b1)/det;
+      const y = (a1*c2 - a2*c1)/det;
+      out.innerText = `Despejando y sustituyendo:\nx = ${x.toFixed(3)}\ny = ${y.toFixed(3)}\nSolución: (${x.toFixed(2)}, ${y.toFixed(2)})`;
+    }
+    out.classList.add('show');
+  }
+
+  function drawRectas(ctx, w, h, a1, b1, c1, a2, b2, c2){
+    ctx.clearRect(0,0,w,h);
+    const cx = w/2, cy = h/2;
+    const scale = 20;
+
+    ctx.strokeStyle = '#3A4756';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(0, cy); ctx.lineTo(w, cy);
+    ctx.moveTo(cx, 0); ctx.lineTo(cx, h);
+    ctx.stroke();
+
+    function dibujarRecta(a, b, c, color){
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      let first = true;
+      for(let px=0; px<=w; px++){
+        const xMat = (px-cx)/scale;
+        if(b === 0) continue; // recta vertical, se omite en este barrido simple
+        const yMat = (c - a*xMat)/b;
+        const py = cy - yMat*scale;
+        if(py < -1000 || py > h+1000) continue;
+        if(first){ ctx.moveTo(px,py); first=false; } else { ctx.lineTo(px,py); }
+      }
+      ctx.stroke();
+    }
+
+    dibujarRecta(a1, b1, c1, '#D9A441');
+    dibujarRecta(a2, b2, c2, '#2F6B5E');
+
+    const det = a1*b2 - a2*b1;
+    if(det !== 0){
+      const x = (c1*b2 - c2*b1)/det;
+      const y = (a1*c2 - a2*c1)/det;
+      const px = cx + x*scale, py = cy - y*scale;
+      ctx.beginPath();
+      ctx.arc(px, py, 6, 0, Math.PI*2);
+      ctx.fillStyle = '#1C2733';
+      ctx.fill();
+    }
+
+    ctx.font = '11px JetBrains Mono';
+    ctx.fillStyle = '#D9A441';
+    ctx.fillText(`${a1}x + ${b1}y = ${c1}`, 12, 18);
+    ctx.fillStyle = '#2F6B5E';
+    ctx.fillText(`${a2}x + ${b2}y = ${c2}`, 12, 34);
+  }
+
+  function calcAvanzado(){
+    const a1 = parseFloat(document.getElementById('a-a1').value)||0;
+    const b1 = parseFloat(document.getElementById('a-b1').value)||0;
+    const c1 = parseFloat(document.getElementById('a-c1').value)||0;
+    const a2 = parseFloat(document.getElementById('a-a2').value)||0;
+    const b2 = parseFloat(document.getElementById('a-b2').value)||0;
+    const c2 = parseFloat(document.getElementById('a-c2').value)||0;
+    const out = document.getElementById('a-readout');
+
+    const det = a1*b2 - a2*b1;
+    if(det === 0){
+      const mismaRecta = (a1*c2 - a2*c1 === 0) && (b1*c2 - b2*c1 === 0);
+      out.innerText = mismaRecta
+        ? 'Sistema compatible indeterminado: infinitas soluciones (misma recta).'
+        : 'Sistema incompatible: no hay solución (rectas paralelas).';
+    } else {
+      const x = (c1*b2 - c2*b1)/det;
+      const y = (a1*c2 - a2*c1)/det;
+      out.innerText = `Multiplicando y sumando para cancelar una variable:\nx = ${x.toFixed(3)}\ny = ${y.toFixed(3)}\nSolución: (${x.toFixed(2)}, ${y.toFixed(2)})`;
+    }
+    out.classList.add('show');
+
+    const canvas = document.getElementById('rectas-canvas');
+    drawRectas(canvas.getContext('2d'), canvas.width, canvas.height, a1, b1, c1, a2, b2, c2);
+  }
+
+  window.addEventListener('load', ()=>{
+    calcBasico();
+    calcAvanzado();
+  });
+</script>
+
+</body>
+</html>
