@@ -57,8 +57,7 @@
     display:none;
     background:none;border:none;cursor:pointer;
     padding:6px;
-  }
-  .nav-drop{position:relative;}
+  }  .nav-drop{position:relative;}
   .nav-drop summary{
     list-style:none;cursor:pointer;
     color:#D8D3C4;font-size:13.5px;font-weight:500;
@@ -76,13 +75,15 @@
     border:2px solid var(--amber);
     border-radius:8px;
     padding:14px;
-    min-width:240px;
-    max-width:520px;
     z-index:80;
     box-shadow:5px 5px 0 rgba(0,0,0,0.25);
-    display:flex;flex-wrap:wrap;gap:16px;
+    display:flex;flex-wrap:nowrap;gap:16px;
+    max-height:min(520px, calc(100vh - 130px));
+    overflow-y:auto;
   }
-  .nav-panel-col{min-width:200px;}
+  .nav-panel.cols-1{width:260px;}
+  .nav-panel.cols-2{width:500px;}
+  .nav-panel-col{width:220px;flex:0 0 220px;}
   .nav-panel-toplink{
     display:block;font-family:'JetBrains Mono', monospace;
     font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;
@@ -103,12 +104,13 @@
   }
   .nav-panel a.nav-panel-link:hover{color:#fff;text-decoration:underline;}
   @media(max-width:768px){
-    .nav-panel{
+    .nav-panel, .nav-panel.cols-1, .nav-panel.cols-2{
       position:static;border:none;box-shadow:none;
       background:rgba(255,255,255,0.04);
       margin-top:4px;padding:10px 10px 10px 18px;
-      display:block;
+      display:block;width:auto;max-height:none;overflow-y:visible;
     }
+    .nav-panel-col{width:auto;flex:none;}
     .nav-drop summary{padding:12px 14px;}
   }
 
@@ -241,10 +243,10 @@
   <button class="navbar-toggle" onclick="toggleNavMobile()" aria-label="Abrir menú">
     <span></span><span></span><span></span>
   </button>
-        <div class="navbar-links">
+          <div class="navbar-links">
     <details class="nav-drop">
       <summary>Física</summary>
-      <div class="nav-panel">
+      <div class="nav-panel cols-2">
         <div class="nav-panel-col">
           <a href="fisica.html" class="nav-panel-toplink">Ver portada de Física →</a>
           <p class="nav-panel-titulo">Mecánica</p>
@@ -279,7 +281,7 @@
     </details>
     <details class="nav-drop">
       <summary>Matemática</summary>
-      <div class="nav-panel">
+      <div class="nav-panel cols-2">
         <div class="nav-panel-col">
           <a href="matematica.html" class="nav-panel-toplink">Ver portada de Matemática →</a>
           <p class="nav-panel-titulo">Álgebra</p>
@@ -306,7 +308,7 @@
     </details>
     <details class="nav-drop">
       <summary>Química</summary>
-      <div class="nav-panel">
+      <div class="nav-panel cols-1">
         <div class="nav-panel-col">
           <a href="quimica.html" class="nav-panel-toplink">Ver portada de Química →</a>
           <p class="nav-panel-titulo">Estructura de la materia</p>
@@ -326,7 +328,7 @@
     </details>
     <details class="nav-drop">
       <summary>Material</summary>
-      <div class="nav-panel">
+      <div class="nav-panel cols-1">
         <div class="nav-panel-col">
           <a href="evaluaciones.html" class="nav-panel-link">Evaluaciones</a>
           <a href="banco-preguntas.html" class="nav-panel-link">Banco de Preguntas</a>
@@ -339,7 +341,7 @@
     </details>
     <details class="nav-drop">
       <summary>Machete</summary>
-      <div class="nav-panel">
+      <div class="nav-panel cols-1">
         <div class="nav-panel-col">
           <a href="formulario.html#fisica" class="nav-panel-link">Machete de Física</a>
           <a href="formulario.html#quimica" class="nav-panel-link">Machete de Química</a>
@@ -411,6 +413,20 @@
 <script>
   function toggleNavMobile(){
     document.querySelector('.navbar-links').classList.toggle('open');
+  }
+
+  const navLinksEl = document.querySelector('.navbar-links');
+  if(navLinksEl && window.matchMedia('(hover: hover)').matches){
+    const drops = navLinksEl.querySelectorAll('.nav-drop');
+    drops.forEach(drop=>{
+      drop.addEventListener('mouseenter', ()=>{
+        drops.forEach(d=>{ if(d!==drop) d.removeAttribute('open'); });
+        drop.setAttribute('open','');
+      });
+    });
+    navLinksEl.addEventListener('mouseleave', ()=>{
+      drops.forEach(d=>d.removeAttribute('open'));
+    });
   }
 
 const INDICE_BUSQUEDA = [{"url": "acido-base.html", "titulo": "Ácido-Base y pH", "categoria": "Química · Reacciones"}, {"url": "calor-especifico.html", "titulo": "Calor Específico y Cambios de Estado", "categoria": "Termodinámica"}, {"url": "caudal-continuidad.html", "titulo": "Caudal y Continuidad", "categoria": "Hidráulica y Fluidos"}, {"url": "circuitos.html", "titulo": "Circuitos en Serie y Paralelo", "categoria": "Electricidad"}, {"url": "concentracion-soluciones.html", "titulo": "Concentración de Soluciones", "categoria": "Química · Soluciones"}, {"url": "configuracion-electronica.html", "titulo": "Configuración Electrónica", "categoria": "Química · Estructura de la materia"}, {"url": "conversor-unidades.html", "titulo": "Conversor de Unidades", "categoria": "Herramientas · Magnitudes"}, {"url": "corriente-continua-alterna.html", "titulo": "Corriente Continua y Alterna", "categoria": "Electricidad"}, {"url": "dilatacion-termica.html", "titulo": "Dilatación Térmica", "categoria": "Termodinámica"}, {"url": "docentes.html", "titulo": "Para Docentes", "categoria": "Recursos pedagógicos"}, {"url": "electromagnetismo.html", "titulo": "Electromagnetismo", "categoria": "Electricidad · Magnetismo"}, {"url": "energia-nuclear.html", "titulo": "Energía Nuclear", "categoria": "Física Moderna"}, {"url": "enlaces-quimicos.html", "titulo": "Enlaces Químicos", "categoria": "Química · Enlaces"}, {"url": "estatica-torque.html", "titulo": "Estática y Torque", "categoria": "Mecánica · Dinámica"}, {"url": "estequiometria.html", "titulo": "Estequiometría y El Mol", "categoria": "Química · Reacciones"}, {"url": "evaluaciones.html", "titulo": "Evaluaciones", "categoria": "Herramientas · Autoevaluación"}, {"url": "experimentos.html", "titulo": "Experimentos Caseros", "categoria": "Aprender con las manos"}, {"url": "fisica.html", "titulo": "Física", "categoria": "Portada de materia"}, {"url": "fluidos.html", "titulo": "Presión Hidrostática y Flotación", "categoria": "Hidráulica y Fluidos"}, {"url": "impulso-momentum.html", "titulo": "Impulso y Cantidad de Movimiento", "categoria": "Mecánica · Dinámica"}, {"url": "ley-ohm.html", "titulo": "Ley de Ohm (V = I·R)", "categoria": "Electricidad"}, {"url": "leyes-gases.html", "titulo": "Leyes de los Gases", "categoria": "Química · Estados de la materia"}, {"url": "maquinas-simples.html", "titulo": "Máquinas Simples", "categoria": "Mecánica · Dinámica"}, {"url": "maquinas-termicas.html", "titulo": "Máquinas Térmicas y Eficiencia", "categoria": "Termodinámica · Máquinas"}, {"url": "mcu.html", "titulo": "Movimiento Circular Uniforme (MCU)", "categoria": "Mecánica · Cinemática"}, {"url": "mezclas-separacion.html", "titulo": "Mezclas y Métodos de Separación", "categoria": "Química · Materia"}, {"url": "modelo-atomico.html", "titulo": "Modelo Atómico y Tabla Periódica", "categoria": "Química · Estructura de la materia"}, {"url": "mru.html", "titulo": "MRU — Movimiento Rectilíneo Uniforme", "categoria": "Mecánica · Cinemática"}, {"url": "mruv.html", "titulo": "MRUV — Movimiento Rectilíneo Uniformemente Variado", "categoria": "Mecánica · Cinemática"}, {"url": "newton.html", "titulo": "Segunda Ley de Newton (F = m·a)", "categoria": "Mecánica · Dinámica"}, {"url": "oxido-reduccion.html", "titulo": "Óxido-Reducción", "categoria": "Química · Reacciones"}, {"url": "potencia-electrica.html", "titulo": "Potencia Eléctrica (P = V·I)", "categoria": "Electricidad"}, {"url": "quimica.html", "titulo": "Química", "categoria": "Portada de materia"}, {"url": "relatividad.html", "titulo": "Dilatación Temporal y Curvatura del Espacio-Tiempo", "categoria": "Relatividad"}, {"url": "sobre-nosotros.html", "titulo": "Sobre la Fundadora", "categoria": "Quiénes somos"}, {"url": "tiro-oblicuo.html", "titulo": "Tiro Oblicuo — Movimiento Parabólico", "categoria": "Mecánica · Cinemática"}, {"url": "trabajo-energia.html", "titulo": "Trabajo y Energía", "categoria": "Mecánica · Energía"}, {"url": "matematica.html", "titulo": "Matemática", "categoria": "Portada de materia"}, {"url": "ecuaciones-primer-grado.html", "titulo": "Ecuaciones de Primer Grado", "categoria": "Matemática · Álgebra"}, {"url": "ecuaciones-segundo-grado.html", "titulo": "Ecuaciones de Segundo Grado", "categoria": "Matemática · Álgebra"}, {"url": "sistema-ecuaciones.html", "titulo": "Sistemas de Ecuaciones", "categoria": "Matemática · Álgebra"}, {"url": "inecuaciones.html", "titulo": "Inecuaciones", "categoria": "Matemática · Álgebra"}, {"url": "funciones.html", "titulo": "Funciones", "categoria": "Matemática · Funciones"}, {"url": "funcion-racional.html", "titulo": "Función Racional", "categoria": "Matemática · Funciones"}, {"url": "logaritmos.html", "titulo": "Logaritmos", "categoria": "Matemática · Funciones"}, {"url": "sucesiones.html", "titulo": "Sucesiones y Series", "categoria": "Matemática · Sucesiones"}, {"url": "interes-compuesto.html", "titulo": "Interés Compuesto", "categoria": "Matemática · Finanzas"}, {"url": "estadistica.html", "titulo": "Estadística", "categoria": "Matemática · Estadística"}, {"url": "probabilidad.html", "titulo": "Probabilidad", "categoria": "Matemática · Estadística"}, {"url": "geometria-analitica.html", "titulo": "Geometría Analítica", "categoria": "Matemática · Geometría"}];

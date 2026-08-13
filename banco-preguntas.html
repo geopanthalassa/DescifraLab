@@ -69,8 +69,7 @@
     display:none;
     background:none;border:none;cursor:pointer;
     padding:6px;
-  }
-  .nav-drop{position:relative;}
+  }  .nav-drop{position:relative;}
   .nav-drop summary{
     list-style:none;cursor:pointer;
     color:#D8D3C4;font-size:13.5px;font-weight:500;
@@ -88,13 +87,15 @@
     border:2px solid var(--amber);
     border-radius:8px;
     padding:14px;
-    min-width:240px;
-    max-width:520px;
     z-index:80;
     box-shadow:5px 5px 0 rgba(0,0,0,0.25);
-    display:flex;flex-wrap:wrap;gap:16px;
+    display:flex;flex-wrap:nowrap;gap:16px;
+    max-height:min(520px, calc(100vh - 130px));
+    overflow-y:auto;
   }
-  .nav-panel-col{min-width:200px;}
+  .nav-panel.cols-1{width:260px;}
+  .nav-panel.cols-2{width:500px;}
+  .nav-panel-col{width:220px;flex:0 0 220px;}
   .nav-panel-toplink{
     display:block;font-family:'JetBrains Mono', monospace;
     font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;
@@ -115,12 +116,13 @@
   }
   .nav-panel a.nav-panel-link:hover{color:#fff;text-decoration:underline;}
   @media(max-width:768px){
-    .nav-panel{
+    .nav-panel, .nav-panel.cols-1, .nav-panel.cols-2{
       position:static;border:none;box-shadow:none;
       background:rgba(255,255,255,0.04);
       margin-top:4px;padding:10px 10px 10px 18px;
-      display:block;
+      display:block;width:auto;max-height:none;overflow-y:visible;
     }
+    .nav-panel-col{width:auto;flex:none;}
     .nav-drop summary{padding:12px 14px;}
   }
 
@@ -555,10 +557,10 @@
   <button class="navbar-toggle" onclick="toggleNavMobile()" aria-label="Abrir menú">
     <span></span><span></span><span></span>
   </button>
-        <div class="navbar-links">
+          <div class="navbar-links">
     <details class="nav-drop">
       <summary>Física</summary>
-      <div class="nav-panel">
+      <div class="nav-panel cols-2">
         <div class="nav-panel-col">
           <a href="fisica.html" class="nav-panel-toplink">Ver portada de Física →</a>
           <p class="nav-panel-titulo">Mecánica</p>
@@ -593,7 +595,7 @@
     </details>
     <details class="nav-drop">
       <summary>Matemática</summary>
-      <div class="nav-panel">
+      <div class="nav-panel cols-2">
         <div class="nav-panel-col">
           <a href="matematica.html" class="nav-panel-toplink">Ver portada de Matemática →</a>
           <p class="nav-panel-titulo">Álgebra</p>
@@ -620,7 +622,7 @@
     </details>
     <details class="nav-drop">
       <summary>Química</summary>
-      <div class="nav-panel">
+      <div class="nav-panel cols-1">
         <div class="nav-panel-col">
           <a href="quimica.html" class="nav-panel-toplink">Ver portada de Química →</a>
           <p class="nav-panel-titulo">Estructura de la materia</p>
@@ -640,7 +642,7 @@
     </details>
     <details class="nav-drop">
       <summary>Material</summary>
-      <div class="nav-panel">
+      <div class="nav-panel cols-1">
         <div class="nav-panel-col">
           <a href="evaluaciones.html" class="nav-panel-link">Evaluaciones</a>
           <a href="banco-preguntas.html" class="nav-panel-link">Banco de Preguntas</a>
@@ -653,7 +655,7 @@
     </details>
     <details class="nav-drop">
       <summary>Machete</summary>
-      <div class="nav-panel">
+      <div class="nav-panel cols-1">
         <div class="nav-panel-col">
           <a href="formulario.html#fisica" class="nav-panel-link">Machete de Física</a>
           <a href="formulario.html#quimica" class="nav-panel-link">Machete de Química</a>
@@ -943,6 +945,20 @@
 
   function toggleNavMobile(){
     document.querySelector('.navbar-links').classList.toggle('open');
+  }
+
+  const navLinksEl = document.querySelector('.navbar-links');
+  if(navLinksEl && window.matchMedia('(hover: hover)').matches){
+    const drops = navLinksEl.querySelectorAll('.nav-drop');
+    drops.forEach(drop=>{
+      drop.addEventListener('mouseenter', ()=>{
+        drops.forEach(d=>{ if(d!==drop) d.removeAttribute('open'); });
+        drop.setAttribute('open','');
+      });
+    });
+    navLinksEl.addEventListener('mouseleave', ()=>{
+      drops.forEach(d=>d.removeAttribute('open'));
+    });
   }
 
   // Esta página es solo de referencia — no necesita lógica interactiva,
