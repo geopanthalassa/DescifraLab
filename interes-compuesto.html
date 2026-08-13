@@ -322,6 +322,59 @@
     font-size:12px;cursor:pointer;
   }
   .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  /* Sistema de color para partes de una fórmula (mismo color = mismo rol en toda la página) */
+  .term-1{color:#B8842E;font-weight:800;}
+  .term-2{color:#2F6B5E;font-weight:800;}
+  .term-3{color:#7A4FB0;font-weight:800;}
+  .term-4{color:#2A6FA8;font-weight:800;}
+  .term-5{color:#C0562E;font-weight:800;}
+  .formula-leyenda{
+    display:flex;flex-wrap:wrap;gap:8px 20px;
+    margin-top:12px;padding-top:12px;
+    border-top:1px dashed var(--line);
+  }
+  .formula-leyenda .leyenda-item{
+    display:flex;align-items:flex-start;gap:7px;
+    font-size:13.5px;color:var(--ink-soft);max-width:260px;
+  }
+  .formula-leyenda .swatch{
+    display:inline-block;width:11px;height:11px;border-radius:3px;
+    margin-top:3px;flex-shrink:0;
+  }
+  .swatch-1{background:#B8842E;} .swatch-2{background:#2F6B5E;}
+  .swatch-3{background:#7A4FB0;} .swatch-4{background:#2A6FA8;} .swatch-5{background:#C0562E;}
+
+  /* Paso a paso con color por paso */
+  .pasos-resueltos{margin:14px 0;}
+  .paso{
+    display:flex;gap:12px;align-items:flex-start;
+    padding:12px 14px;margin-bottom:8px;border-radius:8px;
+    background:var(--paper);border-left:4px solid var(--ink-soft);
+  }
+  .paso-num{
+    font-family:'JetBrains Mono', monospace;font-weight:800;font-size:12.5px;
+    width:22px;height:22px;border-radius:50%;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;color:#fff;
+    background:var(--ink-soft);
+  }
+  .paso:nth-child(1){border-left-color:#B8842E;} .paso:nth-child(1) .paso-num{background:#B8842E;}
+  .paso:nth-child(2){border-left-color:#2F6B5E;} .paso:nth-child(2) .paso-num{background:#2F6B5E;}
+  .paso:nth-child(3){border-left-color:#7A4FB0;} .paso:nth-child(3) .paso-num{background:#7A4FB0;}
+  .paso:nth-child(4){border-left-color:#2A6FA8;} .paso:nth-child(4) .paso-num{background:#2A6FA8;}
+  .paso:nth-child(5){border-left-color:#C0562E;} .paso:nth-child(5) .paso-num{background:#C0562E;}
+  .paso p{margin:0;font-size:14.5px;}
+  .paso .paso-titulo{font-weight:700;display:block;margin-bottom:2px;}
+
+  .analogia{
+    background:#FBF3E2;border:1.5px dashed #B8842E;border-radius:8px;
+    padding:14px 16px;margin:14px 0;font-size:14.5px;
+  }
+  .analogia .analogia-tag{
+    font-family:'JetBrains Mono', monospace;font-size:11px;font-weight:700;
+    text-transform:uppercase;letter-spacing:0.06em;color:#B8842E;
+    display:block;margin-bottom:6px;
+  }
 </style>
 </head>
 <body>
@@ -331,7 +384,7 @@
   <button class="navbar-toggle" onclick="toggleNavMobile()" aria-label="Abrir menú">
     <span></span><span></span><span></span>
   </button>
-          <div class="navbar-links">
+            <div class="navbar-links">
     <details class="nav-drop">
       <summary>Física</summary>
       <div class="nav-panel cols-2">
@@ -377,20 +430,24 @@
           <a href="ecuaciones-segundo-grado.html" class="nav-panel-link">Ecuaciones de Segundo Grado</a>
           <a href="sistema-ecuaciones.html" class="nav-panel-link">Sistemas de Ecuaciones</a>
           <a href="inecuaciones.html" class="nav-panel-link">Inecuaciones</a>
-          <p class="nav-panel-titulo">Sucesiones y finanzas</p>
-          <a href="sucesiones.html" class="nav-panel-link">Sucesiones y Series</a>
-          <a href="interes-compuesto.html" class="nav-panel-link">Interés Compuesto</a>
-          <p class="nav-panel-titulo">Geometría</p>
-          <a href="geometria-analitica.html" class="nav-panel-link">Geometría Analítica</a>
+          <a href="valor-absoluto.html" class="nav-panel-link">Valor Absoluto</a>
+          <p class="nav-panel-titulo">Trigonometría</p>
+          <a href="trigonometria.html" class="nav-panel-link">Trigonometría</a>
+          <a href="teorema-seno-coseno.html" class="nav-panel-link">Teorema del Seno y del Coseno</a>
+          <p class="nav-panel-titulo">Estadística y probabilidad</p>
+          <a href="estadistica.html" class="nav-panel-link">Estadística</a>
+          <a href="probabilidad.html" class="nav-panel-link">Probabilidad</a>
         </div>
         <div class="nav-panel-col">
           <p class="nav-panel-titulo">Funciones</p>
           <a href="funciones.html" class="nav-panel-link">Funciones</a>
           <a href="funcion-racional.html" class="nav-panel-link">Función Racional</a>
           <a href="logaritmos.html" class="nav-panel-link">Logaritmos</a>
-          <p class="nav-panel-titulo">Estadística y probabilidad</p>
-          <a href="estadistica.html" class="nav-panel-link">Estadística</a>
-          <a href="probabilidad.html" class="nav-panel-link">Probabilidad</a>
+          <p class="nav-panel-titulo">Sucesiones y finanzas</p>
+          <a href="sucesiones.html" class="nav-panel-link">Sucesiones y Series</a>
+          <a href="interes-compuesto.html" class="nav-panel-link">Interés Compuesto</a>
+          <p class="nav-panel-titulo">Geometría</p>
+          <a href="geometria-analitica.html" class="nav-panel-link">Geometría Analítica</a>
         </div>
       </div>
     </details>
@@ -459,8 +516,17 @@
     <div class="card" data-tag="Concepto">
       <h2>El interés se calcula también sobre los intereses acumulados</h2>
       <p>En el interés compuesto, cada período no solo ganas interés sobre tu capital inicial, sino también sobre todo el interés que ya habías ganado antes — por eso el dinero crece cada vez más rápido con el tiempo, como una sucesión geométrica.</p>
-      <div class="formula-box">C_final = C_inicial · (1 + i)^n</div>
-      <p class="var-list"><span>C_inicial</span> = capital inicial &nbsp;·&nbsp; <span>i</span> = tasa de interés por período (en decimal) &nbsp;·&nbsp; <span>n</span> = cantidad de períodos &nbsp;·&nbsp; <span>C_final</span> = capital final</p>
+      <div class="formula-box"><span class="term-1">C_final</span> = <span class="term-2">C_inicial</span> · (1 + <span class="term-3">i</span>)^<span class="term-4">n</span></div>
+      <div class="formula-leyenda">
+        <div class="leyenda-item"><span class="swatch swatch-2"></span> <strong class="term-2">C_inicial</strong> = cuánto dinero pones al principio</div>
+        <div class="leyenda-item"><span class="swatch swatch-3"></span> <strong class="term-3">i</strong> = la tasa de interés por período (en decimal, ej. 5%=0.05)</div>
+        <div class="leyenda-item"><span class="swatch swatch-4"></span> <strong class="term-4">n</strong> = cuántos períodos pasan</div>
+        <div class="leyenda-item"><span class="swatch swatch-1"></span> <strong class="term-1">C_final</strong> = cuánto dinero tienes al final</div>
+      </div>
+      <div class="analogia">
+        <span class="analogia-tag">Piénsalo así</span>
+        Es como una bola de nieve rodando cuesta abajo: al principio es chica, pero a medida que rueda, se pega más nieve — y esa nieve nueva también ayuda a pegar todavía más nieve. Cada vuelta suma sobre todo lo acumulado hasta ese momento, no solo sobre el tamaño original. Por eso el interés compuesto crece cada vez más rápido, mientras que el interés simple (que solo mira el capital inicial) crece siempre al mismo ritmo.
+      </div>
     </div>
 
     <div class="card" data-tag="Calculadora">
@@ -475,10 +541,27 @@
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
+      <h2>Paso a paso</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">Inviertes $1000 al 5% de interés compuesto anual, durante 3 años. ¿Cuánto tienes al final?</p>
+      <div class="pasos-resueltos">
+        <div class="paso">
+          <div class="paso-num">1</div>
+          <div><span class="paso-titulo">Convierte la tasa a decimal</span><p>5% → <span class="term-3">i=0.05</span></p></div>
+        </div>
+        <div class="paso">
+          <div class="paso-num">2</div>
+          <div><span class="paso-titulo">Reemplaza en la fórmula</span><p>C_final = <span class="term-2">1000</span> × (1 + <span class="term-3">0.05</span>)^<span class="term-4">3</span></p></div>
+        </div>
+        <div class="paso">
+          <div class="paso-num">3</div>
+          <div><span class="paso-titulo">Resuelve la potencia primero</span><p>(1.05)³ = 1.157625</p></div>
+        </div>
+        <div class="paso">
+          <div class="paso-num">4</div>
+          <div><span class="paso-titulo">Multiplica por el capital inicial</span><p>C_final = 1000 × 1.157625 = <strong>$1157.63</strong></p></div>
+        </div>
+      </div>
       <div class="example">
-        <p><strong>Invertís $1000 al 5% de interés compuesto anual, durante 3 años. ¿Cuánto tienes al final?</strong></p>
-        <p>C_final = 1000 × (1.05)³ = 1000 × 1.157625 = <strong>$1157.63</strong></p>
         <p>Compara con el interés simple (que solo aplica sobre el capital inicial): 1000+3×(1000×0.05)=$1150 — el compuesto siempre da más, porque los intereses también generan intereses.</p>
       </div>
     </div>

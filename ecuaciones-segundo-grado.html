@@ -322,6 +322,59 @@
     font-size:12px;cursor:pointer;
   }
   .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  /* Sistema de color para partes de una fórmula (mismo color = mismo rol en toda la página) */
+  .term-1{color:#B8842E;font-weight:800;}
+  .term-2{color:#2F6B5E;font-weight:800;}
+  .term-3{color:#7A4FB0;font-weight:800;}
+  .term-4{color:#2A6FA8;font-weight:800;}
+  .term-5{color:#C0562E;font-weight:800;}
+  .formula-leyenda{
+    display:flex;flex-wrap:wrap;gap:8px 20px;
+    margin-top:12px;padding-top:12px;
+    border-top:1px dashed var(--line);
+  }
+  .formula-leyenda .leyenda-item{
+    display:flex;align-items:flex-start;gap:7px;
+    font-size:13.5px;color:var(--ink-soft);max-width:260px;
+  }
+  .formula-leyenda .swatch{
+    display:inline-block;width:11px;height:11px;border-radius:3px;
+    margin-top:3px;flex-shrink:0;
+  }
+  .swatch-1{background:#B8842E;} .swatch-2{background:#2F6B5E;}
+  .swatch-3{background:#7A4FB0;} .swatch-4{background:#2A6FA8;} .swatch-5{background:#C0562E;}
+
+  /* Paso a paso con color por paso */
+  .pasos-resueltos{margin:14px 0;}
+  .paso{
+    display:flex;gap:12px;align-items:flex-start;
+    padding:12px 14px;margin-bottom:8px;border-radius:8px;
+    background:var(--paper);border-left:4px solid var(--ink-soft);
+  }
+  .paso-num{
+    font-family:'JetBrains Mono', monospace;font-weight:800;font-size:12.5px;
+    width:22px;height:22px;border-radius:50%;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;color:#fff;
+    background:var(--ink-soft);
+  }
+  .paso:nth-child(1){border-left-color:#B8842E;} .paso:nth-child(1) .paso-num{background:#B8842E;}
+  .paso:nth-child(2){border-left-color:#2F6B5E;} .paso:nth-child(2) .paso-num{background:#2F6B5E;}
+  .paso:nth-child(3){border-left-color:#7A4FB0;} .paso:nth-child(3) .paso-num{background:#7A4FB0;}
+  .paso:nth-child(4){border-left-color:#2A6FA8;} .paso:nth-child(4) .paso-num{background:#2A6FA8;}
+  .paso:nth-child(5){border-left-color:#C0562E;} .paso:nth-child(5) .paso-num{background:#C0562E;}
+  .paso p{margin:0;font-size:14.5px;}
+  .paso .paso-titulo{font-weight:700;display:block;margin-bottom:2px;}
+
+  .analogia{
+    background:#FBF3E2;border:1.5px dashed #B8842E;border-radius:8px;
+    padding:14px 16px;margin:14px 0;font-size:14.5px;
+  }
+  .analogia .analogia-tag{
+    font-family:'JetBrains Mono', monospace;font-size:11px;font-weight:700;
+    text-transform:uppercase;letter-spacing:0.06em;color:#B8842E;
+    display:block;margin-bottom:6px;
+  }
 </style>
 </head>
 <body>
@@ -331,7 +384,7 @@
   <button class="navbar-toggle" onclick="toggleNavMobile()" aria-label="Abrir menú">
     <span></span><span></span><span></span>
   </button>
-          <div class="navbar-links">
+            <div class="navbar-links">
     <details class="nav-drop">
       <summary>Física</summary>
       <div class="nav-panel cols-2">
@@ -377,20 +430,24 @@
           <a href="ecuaciones-segundo-grado.html" class="nav-panel-link">Ecuaciones de Segundo Grado</a>
           <a href="sistema-ecuaciones.html" class="nav-panel-link">Sistemas de Ecuaciones</a>
           <a href="inecuaciones.html" class="nav-panel-link">Inecuaciones</a>
-          <p class="nav-panel-titulo">Sucesiones y finanzas</p>
-          <a href="sucesiones.html" class="nav-panel-link">Sucesiones y Series</a>
-          <a href="interes-compuesto.html" class="nav-panel-link">Interés Compuesto</a>
-          <p class="nav-panel-titulo">Geometría</p>
-          <a href="geometria-analitica.html" class="nav-panel-link">Geometría Analítica</a>
+          <a href="valor-absoluto.html" class="nav-panel-link">Valor Absoluto</a>
+          <p class="nav-panel-titulo">Trigonometría</p>
+          <a href="trigonometria.html" class="nav-panel-link">Trigonometría</a>
+          <a href="teorema-seno-coseno.html" class="nav-panel-link">Teorema del Seno y del Coseno</a>
+          <p class="nav-panel-titulo">Estadística y probabilidad</p>
+          <a href="estadistica.html" class="nav-panel-link">Estadística</a>
+          <a href="probabilidad.html" class="nav-panel-link">Probabilidad</a>
         </div>
         <div class="nav-panel-col">
           <p class="nav-panel-titulo">Funciones</p>
           <a href="funciones.html" class="nav-panel-link">Funciones</a>
           <a href="funcion-racional.html" class="nav-panel-link">Función Racional</a>
           <a href="logaritmos.html" class="nav-panel-link">Logaritmos</a>
-          <p class="nav-panel-titulo">Estadística y probabilidad</p>
-          <a href="estadistica.html" class="nav-panel-link">Estadística</a>
-          <a href="probabilidad.html" class="nav-panel-link">Probabilidad</a>
+          <p class="nav-panel-titulo">Sucesiones y finanzas</p>
+          <a href="sucesiones.html" class="nav-panel-link">Sucesiones y Series</a>
+          <a href="interes-compuesto.html" class="nav-panel-link">Interés Compuesto</a>
+          <p class="nav-panel-titulo">Geometría</p>
+          <a href="geometria-analitica.html" class="nav-panel-link">Geometría Analítica</a>
         </div>
       </div>
     </details>
@@ -459,13 +516,22 @@
     <div class="card" data-tag="Concepto">
       <h2>¿Qué es una ecuación cuadrática?</h2>
       <p>Es una ecuación donde la incógnita aparece elevada al cuadrado (x²). A diferencia de las ecuaciones de primer grado (que tienen una sola solución), estas pueden tener hasta <strong>dos</strong> soluciones distintas.</p>
-      <div class="formula-box">a·x² + b·x + c = 0</div>
-      <div class="formula-box">x = (−b ± √(b²−4ac)) / 2a</div>
-      <p class="var-list">Esta segunda fórmula se llama <strong>fórmula resolvente</strong> (o "de Bhaskara") — funciona para cualquier ecuación cuadrática, sin importar los valores de a, b y c.</p>
+      <div class="formula-box"><span class="term-1">a</span>·x² + <span class="term-2">b</span>·x + <span class="term-3">c</span> = 0</div>
+      <div class="formula-box">x = (−<span class="term-2">b</span> ± √(<span class="term-2">b</span>²−4<span class="term-1">a</span><span class="term-3">c</span>)) / 2<span class="term-1">a</span></div>
+      <div class="formula-leyenda">
+        <div class="leyenda-item"><span class="swatch swatch-1"></span> <strong class="term-1">a</strong> = multiplica a x² — nunca puede ser 0, o dejaría de ser cuadrática</div>
+        <div class="leyenda-item"><span class="swatch swatch-2"></span> <strong class="term-2">b</strong> = multiplica a x</div>
+        <div class="leyenda-item"><span class="swatch swatch-3"></span> <strong class="term-3">c</strong> = el término suelto, sin x</div>
+      </div>
+      <p class="var-list">La segunda fórmula se llama <strong>fórmula resolvente</strong> (o "de Bhaskara") — funciona para cualquier ecuación cuadrática, sin importar los valores de a, b y c.</p>
+      <div class="analogia">
+        <span class="analogia-tag">Piénsalo así</span>
+        Si lanzas una pelota hacia arriba, su altura en cada momento sigue una curva (una parábola) — sube, llega a un punto máximo, y baja. Preguntar "¿cuándo la ecuación cuadrática da cero?" es como preguntar "¿en qué momentos la pelota está a la altura del piso?" — al principio (cuando la lanzas) y al final (cuando cae). Por eso hay hasta dos soluciones.
+      </div>
     </div>
 
     <div class="card" data-tag="Calculadora">
-      <h2>Resolvé una ecuación cuadrática</h2>
+      <h2>Resuelve una ecuación cuadrática</h2>
       <div class="calc-grid">
         <div class="field"><label>a</label><input type="number" id="b-a" value="1"></div>
         <div class="field"><label>b</label><input type="number" id="b-b" value="-5"></div>
@@ -476,22 +542,35 @@
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo, paso a paso</h2>
-      <div class="example">
-        <p><strong>Resolvé: x² − 5x + 6 = 0</strong></p>
-        <p>Acá a=1, b=−5, c=6</p>
-        <p>x = (−(−5) ± √((−5)²−4×1×6)) / (2×1) = (5 ± √(25−24)) / 2 = (5 ± 1) / 2</p>
-        <p>x₁ = (5+1)/2 = <strong>3</strong> &nbsp;·&nbsp; x₂ = (5−1)/2 = <strong>2</strong></p>
+      <h2>Paso a paso</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">Resuelve: x² − 5x + 6 = 0</p>
+      <div class="pasos-resueltos">
+        <div class="paso">
+          <div class="paso-num">1</div>
+          <div><span class="paso-titulo">Identifica a, b y c</span><p><span class="term-1">a=1</span>, <span class="term-2">b=−5</span>, <span class="term-3">c=6</span></p></div>
+        </div>
+        <div class="paso">
+          <div class="paso-num">2</div>
+          <div><span class="paso-titulo">Reemplaza en la fórmula resolvente</span><p>x = (−(−5) ± √((−5)²−4×1×6)) / (2×1)</p></div>
+        </div>
+        <div class="paso">
+          <div class="paso-num">3</div>
+          <div><span class="paso-titulo">Resuelve adentro de la raíz primero</span><p>x = (5 ± √(25−24)) / 2 = (5 ± 1) / 2</p></div>
+        </div>
+        <div class="paso">
+          <div class="paso-num">4</div>
+          <div><span class="paso-titulo">Calcula las dos soluciones (una con +, otra con −)</span><p>x₁ = (5+1)/2 = <strong>3</strong> &nbsp;·&nbsp; x₂ = (5−1)/2 = <strong>2</strong></p></div>
+        </div>
       </div>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
       <h2>Ejercicios con respuesta</h2>
       <ol>
-        <li>Resolvé: x² − 3x + 2 = 0
+        <li>Resuelve: x² − 3x + 2 = 0
           <details><summary>Ver respuesta</summary>x₁=2, x₂=1</details>
         </li>
-        <li>Resolvé: x² − 4 = 0 (acá b=0)
+        <li>Resuelve: x² − 4 = 0 (acá b=0)
           <details><summary>Ver respuesta</summary>x=(0±√16)/2 → x₁=2, x₂=−2</details>
         </li>
         <li>¿Por qué la fórmula tiene un símbolo "±"?

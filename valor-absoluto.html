@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sucesiones y Series — Aritmética y Geométrica — DescifraLab</title>
+<title>Valor Absoluto — Ecuaciones e Inecuaciones, Explicado con Ejemplos — DescifraLab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -500,8 +500,8 @@
 
 <header class="top">
   <div class="eyebrow">Matemática · Álgebra</div>
-  <h1>Sucesiones y Series</h1>
-  <p class="subtitle">Sucesión aritmética y geométrica, cómo predecir cualquier término, y cómo sumarlos todos sin sumar uno por uno.</p>
+  <h1>Valor Absoluto</h1>
+  <p class="subtitle">Qué significa la distancia sin dirección, y cómo resolver ecuaciones e inecuaciones que lo contienen.</p>
   <nav class="level-nav">
     <button class="level-btn active" data-target="basico">Básico</button>
     <button class="level-btn" data-target="avanzado">Avanzado</button>
@@ -514,47 +514,42 @@
   <section class="level active" data-level="basico">
 
     <div class="card" data-tag="Concepto">
-      <h2>Sucesión aritmética: siempre se suma lo mismo</h2>
-      <p>Es una lista ordenada de números donde cada término se obtiene sumando (o restando) siempre la misma cantidad al anterior — como contar de 3 en 3.</p>
-      <div class="formula-box"><span class="term-1">aₙ</span> = <span class="term-2">a₁</span> + (<span class="term-3">n</span>−1)·<span class="term-4">d</span></div>
-      <div class="formula-leyenda">
-        <div class="leyenda-item"><span class="swatch swatch-1"></span> <strong class="term-1">aₙ</strong> = el término que buscas (en la posición n)</div>
-        <div class="leyenda-item"><span class="swatch swatch-2"></span> <strong class="term-2">a₁</strong> = el primer término de la sucesión</div>
-        <div class="leyenda-item"><span class="swatch swatch-3"></span> <strong class="term-3">n</strong> = la posición del término que buscas</div>
-        <div class="leyenda-item"><span class="swatch swatch-4"></span> <strong class="term-4">d</strong> = la diferencia — lo que se suma cada vez</div>
-      </div>
+      <h2>¿Qué es el valor absoluto?</h2>
+      <p>El valor absoluto de un número es su <strong>distancia hasta el cero</strong>, sin importar si el número es positivo o negativo. Por eso el resultado de un valor absoluto <strong>siempre es positivo o cero</strong> — nunca negativo.</p>
+      <div class="formula-box">|<span class="term-1">x</span>| = <span class="term-1">x</span> si <span class="term-1">x</span> ≥ 0 &nbsp;·&nbsp; |<span class="term-1">x</span>| = −<span class="term-1">x</span> si <span class="term-1">x</span> &lt; 0</div>
       <div class="analogia">
         <span class="analogia-tag">Piénsalo así</span>
-        Imagina las filas de asientos numerados de un cine: la fila 1, la fila 2, la fila 3... si cada fila está a 50 cm de la anterior, para saber a qué distancia está la fila 10 no necesitas medir fila por fila — sabes que son 9 saltos de 50 cm desde la fila 1. Eso es exactamente lo que hace la fórmula: cuenta cuántos "saltos" de tamaño <span class="term-4">d</span> hay que dar desde el primer término.
+        Si caminas 5 pasos hacia adelante o 5 pasos hacia atrás, en ambos casos caminaste <strong>5 pasos</strong> — la dirección cambia, pero la cantidad de pasos (la distancia recorrida) es la misma. Eso es exactamente el valor absoluto: |5| = 5, y |−5| = 5 también.
       </div>
     </div>
 
     <div class="card" data-tag="Calculadora">
-      <h2>Encuentra cualquier término</h2>
+      <h2>Calcula el valor absoluto</h2>
       <div class="calc-grid">
-        <div class="field"><label>Primer término (a₁)</label><input type="number" id="b-a1" value="3"></div>
-        <div class="field"><label>Diferencia (d)</label><input type="number" id="b-d" value="5"></div>
-        <div class="field"><label>Posición (n)</label><input type="number" id="b-n" value="10"></div>
+        <div class="field"><label>x</label><input type="number" id="b-x" value="-7"></div>
       </div>
-      <button class="calc-btn" onclick="calcBasico()">Calcular término</button>
+      <button class="calc-btn" onclick="calcBasico()">Calcular |x|</button>
       <div class="readout" id="b-readout"></div>
+      <div class="sim-box" style="margin-top:14px;">
+        <canvas id="recta-valor-canvas" width="680" height="120"></canvas>
+      </div>
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
       <h2>Paso a paso</h2>
-      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">Una sucesión empieza en 3 y suma 5 cada vez: 3, 8, 13, 18... ¿Cuál es el término 10?</p>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">¿Cuánto vale |−7|?</p>
       <div class="pasos-resueltos">
         <div class="paso">
           <div class="paso-num">1</div>
-          <div><span class="paso-titulo">Identifica los datos</span><p><span class="term-2">a₁=3</span>, <span class="term-4">d=5</span>, <span class="term-3">n=10</span></p></div>
+          <div><span class="paso-titulo">Mira el signo del número adentro de las barras</span><p>−7 es negativo</p></div>
         </div>
         <div class="paso">
           <div class="paso-num">2</div>
-          <div><span class="paso-titulo">Cuenta cuántos "saltos" hay desde el primer término</span><p>n−1 = 10−1 = 9 saltos</p></div>
+          <div><span class="paso-titulo">Si es negativo, cambia el signo (queda positivo)</span><p>|−7| = −(−7) = 7</p></div>
         </div>
         <div class="paso">
           <div class="paso-num">3</div>
-          <div><span class="paso-titulo">Multiplica los saltos por el tamaño de cada uno, y suma el primer término</span><p>a₁₀ = 3 + 9×5 = 3 + 45 = <strong>48</strong></p></div>
+          <div><span class="paso-titulo">El resultado</span><p>|−7| = <strong>7</strong> — porque −7 está a una distancia de 7 unidades del cero</p></div>
         </div>
       </div>
     </div>
@@ -562,14 +557,14 @@
     <div class="card exercises" data-tag="Ejercicios">
       <h2>Ejercicios con respuesta</h2>
       <ol>
-        <li>Una sucesión empieza en 2 con d=4. ¿Cuál es el término 6?
-          <details><summary>Ver respuesta</summary>a₆=2+(6−1)×4=2+20=22</details>
+        <li>¿Cuánto vale |12|?
+          <details><summary>Ver respuesta</summary>12 — porque ya es positivo, el valor absoluto no lo cambia</details>
         </li>
-        <li>¿Cuál es la diferencia (d) de la sucesión 10, 7, 4, 1...?
-          <details><summary>Ver respuesta</summary>d=−3 (cada término resta 3 al anterior)</details>
+        <li>¿Cuánto vale |−3|?
+          <details><summary>Ver respuesta</summary>3 — está a 3 unidades de distancia del cero</details>
         </li>
-        <li>¿Por qué en la fórmula aparece (n−1) y no simplemente n?
-          <details><summary>Ver respuesta</summary>Porque el primer término (n=1) no le suma ninguna diferencia todavía — recién a partir del segundo término se empieza a sumar d, así que se resta 1 a n para contar cuántas veces se sumó d.</details>
+        <li>¿Puede el resultado de un valor absoluto ser negativo?
+          <details><summary>Ver respuesta</summary>Nunca — el valor absoluto siempre es la distancia al cero, y una distancia nunca es negativa. Como mínimo puede ser 0 (que es |0|).</details>
         </li>
       </ol>
     </div>
@@ -580,44 +575,80 @@
   <section class="level" data-level="avanzado">
 
     <div class="card" data-tag="Concepto">
-      <h2>Sucesión geométrica y la suma de una sucesión aritmética</h2>
-      <p>En una sucesión <strong>geométrica</strong>, cada término se obtiene multiplicando (no sumando) el anterior por una razón fija.</p>
-      <div class="formula-box">aₙ = a₁ · r^(n−1)</div>
-      <p class="var-list"><span>r</span> = razón (lo que se multiplica cada vez)</p>
-      <div class="formula-box">Suma de una sucesión aritmética: Sₙ = n·(a₁+aₙ)/2</div>
+      <h2>Ecuaciones con valor absoluto</h2>
+      <p>Si |x| = a (con a positivo), en realidad hay <strong>dos</strong> números que están a esa distancia del cero: el positivo y el negativo. Por eso una ecuación con valor absoluto casi siempre tiene dos soluciones.</p>
+      <div class="formula-box">|<span class="term-1">x</span>| = <span class="term-2">a</span> &nbsp;⟹&nbsp; <span class="term-1">x</span> = <span class="term-2">a</span> &nbsp;o&nbsp; <span class="term-1">x</span> = −<span class="term-2">a</span></div>
+      <div class="analogia">
+        <span class="analogia-tag">Piénsalo así</span>
+        Si te dicen "estás a 5 cuadras de tu casa" (sin decir en qué dirección), podrías estar 5 cuadras al norte, o 5 cuadras al sur — ambas opciones cumplen "5 cuadras de distancia". Por eso |x|=5 tiene dos respuestas: x=5 y x=−5.
+      </div>
     </div>
 
     <div class="card" data-tag="Calculadora">
-      <h2>Encuentra un término de una sucesión geométrica</h2>
+      <h2>Resuelve una ecuación con valor absoluto</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Forma: |x| = a</p>
       <div class="calc-grid">
-        <div class="field"><label>Primer término (a₁)</label><input type="number" id="a-a1" value="2"></div>
-        <div class="field"><label>Razón (r)</label><input type="number" id="a-r" value="3"></div>
-        <div class="field"><label>Posición (n)</label><input type="number" id="a-n" value="5"></div>
+        <div class="field"><label>a</label><input type="number" id="a-a" value="9"></div>
       </div>
-      <button class="calc-btn" onclick="calcAvanzado()">Calcular término</button>
+      <button class="calc-btn" onclick="calcEcuacion()">Resolver</button>
       <div class="readout" id="a-readout"></div>
     </div>
 
+    <div class="card" data-tag="Concepto">
+      <h2>Inecuaciones con valor absoluto</h2>
+      <p>Acá es donde se conecta con lo que ya viste en <a href="inecuaciones.html">Inecuaciones</a>: |x| &lt; a se convierte en una <strong>intersección</strong> (un tramo entre dos valores), y |x| &gt; a se convierte en una <strong>unión</strong> (dos tramos separados).</p>
+      <div class="formula-box">|<span class="term-1">x</span>| &lt; <span class="term-2">a</span> &nbsp;⟹&nbsp; −<span class="term-2">a</span> &lt; <span class="term-1">x</span> &lt; <span class="term-2">a</span> &nbsp;(intersección ∩)</div>
+      <div class="formula-box">|<span class="term-1">x</span>| &gt; <span class="term-2">a</span> &nbsp;⟹&nbsp; <span class="term-1">x</span> &lt; −<span class="term-2">a</span> ∪ <span class="term-1">x</span> &gt; <span class="term-2">a</span> &nbsp;(unión ∪)</div>
+      <div class="analogia">
+        <span class="analogia-tag">Piénsalo así</span>
+        "Estar a menos de 5 cuadras de casa" te deja en un solo rango continuo alrededor de tu casa (entre 5 cuadras al sur y 5 cuadras al norte) — eso es |x|&lt;5. Pero "estar a más de 5 cuadras" te deja en dos zonas separadas, lejos hacia cualquiera de los dos lados — eso es |x|&gt;5.
+      </div>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Mira la diferencia en la recta numérica</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">|x| &lt; a (verde, un solo tramo) vs |x| &gt; a (ámbar, dos tramos hacia afuera).</p>
+      <div class="calc-grid">
+        <div class="field"><label>a</label><input type="number" id="i-a" value="4" oninput="dibujarValorAbsoluto()"></div>
+      </div>
+      <div class="sim-box" style="margin-top:14px;">
+        <canvas id="valor-abs-canvas" width="680" height="160"></canvas>
+      </div>
+    </div>
+
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
-      <div class="example">
-        <p><strong>Una sucesión geométrica empieza en 2 y se multiplica por 3 cada vez: 2, 6, 18, 54... ¿Cuál es el término 5?</strong></p>
-        <p>a₅ = 2 × 3^(5−1) = 2 × 81 = <strong>162</strong></p>
-        <p>Este tipo de crecimiento (multiplicativo, no aditivo) es el mismo que aparece en el interés compuesto y en el crecimiento poblacional.</p>
+      <h2>Paso a paso</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">Resuelve: |x − 3| = 7</p>
+      <div class="pasos-resueltos">
+        <div class="paso">
+          <div class="paso-num">1</div>
+          <div><span class="paso-titulo">Plantea las dos posibilidades</span><p>x − 3 = 7 &nbsp;o&nbsp; x − 3 = −7</p></div>
+        </div>
+        <div class="paso">
+          <div class="paso-num">2</div>
+          <div><span class="paso-titulo">Resuelve cada ecuación por separado</span><p>x − 3 = 7 → x = 10 &nbsp;·&nbsp; x − 3 = −7 → x = −4</p></div>
+        </div>
+        <div class="paso">
+          <div class="paso-num">3</div>
+          <div><span class="paso-titulo">Las dos son solución</span><p>x = 10 y x = −4 — comprobación: |10−3|=|7|=7 ✓ y |−4−3|=|−7|=7 ✓</p></div>
+        </div>
       </div>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
       <h2>Ejercicios con respuesta</h2>
       <ol>
-        <li>Sucesión geométrica con a₁=5, r=2. ¿Cuál es el término 4?
-          <details><summary>Ver respuesta</summary>a₄=5×2³=5×8=40</details>
+        <li>Resuelve: |x| = 6
+          <details><summary>Ver respuesta</summary>x = 6 o x = −6</details>
         </li>
-        <li>Sumá los primeros 10 términos de la sucesión aritmética 1,3,5,7... (a₁=1, d=2)
-          <details><summary>Ver respuesta</summary>a₁₀=1+9×2=19; S₁₀=10×(1+19)/2=100</details>
+        <li>Resuelve: |x + 2| = 5
+          <details><summary>Ver respuesta</summary>x+2=5 → x=3 &nbsp;·&nbsp; x+2=−5 → x=−7. Soluciones: x=3, x=−7</details>
         </li>
-        <li>¿Por qué una sucesión geométrica con razón menor a 1 (como r=0.5) decrece en vez de crecer?
-          <details><summary>Ver respuesta</summary>Porque multiplicar por un número menor a 1 (pero positivo) hace que el resultado sea cada vez más chico — es el mismo comportamiento que una desintegración radiactiva o una dilución sucesiva.</details>
+        <li>Resuelve la inecuación: |x| &lt; 3
+          <details><summary>Ver respuesta</summary>−3 &lt; x &lt; 3 — un solo tramo (intersección)</details>
+        </li>
+        <li>Resuelve la inecuación: |x| &gt; 3
+          <details><summary>Ver respuesta</summary>x &lt; −3 ∪ x &gt; 3 — dos tramos separados (unión)</details>
         </li>
       </ol>
     </div>
@@ -626,24 +657,22 @@
 
   <div class="card faq" data-tag="FAQ">
     <h2>Preguntas frecuentes</h2>
-    <h3>¿Cómo distingo si una sucesión es aritmética o geométrica?</h3>
-    <p>Fíjate qué operación se repite entre términos consecutivos — si siempre Sumas lo mismo, es aritmética. Si siempre Multiplicas por lo mismo, es geométrica.</p>
-    <h3>¿Una sucesión geométrica puede tener razón negativa?</h3>
-    <p>Sí — en ese caso, los términos van alternando de signo (positivo, negativo, positivo...), porque multiplicar por un número negativo invierte el signo cada vez.</p>
-    <h3>¿Para qué sirve la fórmula de la suma en la vida real?</h3>
-    <p>Sirve para sumar muchísimos términos sin tener que sumarlos uno por uno — por ejemplo, para calcular rápido cuántos asientos hay en un estadio con filas que van aumentando de a una cantidad fija.</p>
+    <h3>¿Por qué |x|&lt;a da un solo tramo, pero |x|&gt;a da dos tramos separados?</h3>
+    <p>Porque "estar cerca del cero" (menos que a de distancia) solo puede pasar en una zona continua alrededor del cero. Pero "estar lejos del cero" (más que a de distancia) puede pasar tanto muy a la izquierda como muy a la derecha — dos zonas separadas.</p>
+    <h3>¿Una ecuación con valor absoluto siempre tiene dos soluciones?</h3>
+    <p>Casi siempre, pero no siempre: si |x|=0, la única solución es x=0 (una sola). Y si te piden |x|=un número negativo, no hay ninguna solución, porque el valor absoluto nunca puede dar negativo.</p>
+    <h3>¿Para qué sirve el valor absoluto en la vida real?</h3>
+    <p>Para medir diferencias sin que importe la dirección: el margen de error en una medición, la diferencia de temperatura entre dos días, o cuánto te falta o sobra respecto de un objetivo — en todos esos casos, lo que importa es "cuánto", no si es de más o de menos.</p>
   </div>
 
   <div class="related">
     <h2>Temas relacionados</h2>
     <div class="related-links">
+      <a href="inecuaciones.html">Inecuaciones</a>
+      <a href="ecuaciones-primer-grado.html">Ecuaciones de Primer Grado</a>
       <a href="funciones.html">Funciones</a>
-      <a href="logaritmos.html">Logaritmos</a>
       <a href="formulario.html">Machete de Fórmulas</a>
       <a href="evaluaciones.html">Evaluaciones</a>
-      <a href="sobre-nosotros.html">Sobre la Fundadora</a>
-      <a href="docentes.html">Para Docentes</a>
-      <a href="banco-preguntas.html">Banco de Preguntas</a>
     </div>
   </div>
 
@@ -677,25 +706,138 @@
     });
   });
 
+  function drawRectaValor(canvasId, x, esDistancia){
+    const canvas = document.getElementById(canvasId);
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height, cy = h/2, margin = 40;
+    const scale = (w-margin*2)/20;
+    ctx.clearRect(0,0,w,h);
+
+    ctx.strokeStyle = '#3A4756';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(margin, cy); ctx.lineTo(w-margin, cy);
+    ctx.stroke();
+
+    const px0 = w/2; // el cero, centrado
+    ctx.font = '10px JetBrains Mono';
+    ctx.fillStyle = '#5C6B7A';
+    ctx.textAlign = 'center';
+    for(let i=-9; i<=9; i+=3){
+      const px = px0 + i*scale;
+      ctx.beginPath();
+      ctx.moveTo(px, cy-4); ctx.lineTo(px, cy+4);
+      ctx.stroke();
+      ctx.fillText(i, px, cy+18);
+    }
+
+    // segmento desde el cero hasta x (la "distancia")
+    const pxx = px0 + x*scale;
+    ctx.strokeStyle = '#D9A441';
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(px0, cy); ctx.lineTo(pxx, cy);
+    ctx.stroke();
+
+    [px0, pxx].forEach(px=>{
+      ctx.beginPath();
+      ctx.arc(px, cy, 6, 0, Math.PI*2);
+      ctx.fillStyle = '#1C2733';
+      ctx.fill();
+    });
+
+    ctx.textAlign = 'left';
+  }
+
   function calcBasico(){
-    const a1 = parseFloat(document.getElementById('b-a1').value)||0;
-    const d = parseFloat(document.getElementById('b-d').value)||0;
-    const n = parseInt(document.getElementById('b-n').value)||1;
-    const an = a1 + (n-1)*d;
+    const x = parseFloat(document.getElementById('b-x').value)||0;
+    const abs = Math.abs(x);
     const out = document.getElementById('b-readout');
-    out.innerText = `a${n} = ${a1} + (${n}−1)×${d} = ${an}`;
+    out.innerText = `|${x}| = ${abs}\nDistancia entre ${x} y el 0: ${abs} unidades`;
+    out.classList.add('show');
+    drawRectaValor('recta-valor-canvas', x);
+  }
+
+  function calcEcuacion(){
+    const a = parseFloat(document.getElementById('a-a').value)||0;
+    const out = document.getElementById('a-readout');
+    if(a < 0){
+      out.innerText = `|x| = ${a}\nNo tiene solución — el valor absoluto nunca puede dar un resultado negativo.`;
+    } else if(a === 0){
+      out.innerText = `|x| = 0\nÚnica solución: x = 0`;
+    } else {
+      out.innerText = `|x| = ${a}\nx = ${a}  o  x = ${-a}`;
+    }
     out.classList.add('show');
   }
 
-  function calcAvanzado(){
-    const a1 = parseFloat(document.getElementById('a-a1').value)||0;
-    const r = parseFloat(document.getElementById('a-r').value)||1;
-    const n = parseInt(document.getElementById('a-n').value)||1;
-    const an = a1 * Math.pow(r, n-1);
-    const out = document.getElementById('a-readout');
-    out.innerText = `a${n} = ${a1} × ${r}^(${n}−1) = ${an.toFixed(3)}`;
-    out.classList.add('show');
+  function dibujarValorAbsoluto(){
+    const a = parseFloat(document.getElementById('i-a').value)||0;
+    const canvas = document.getElementById('valor-abs-canvas');
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height, margin = 40;
+    const scale = (w-margin*2)/20;
+    const px0 = w/2;
+    const cyMenor = 55, cyMayor = 115;
+
+    ctx.clearRect(0,0,w,h);
+
+    [cyMenor, cyMayor].forEach(cy=>{
+      ctx.strokeStyle = '#3A4756';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(margin, cy); ctx.lineTo(w-margin, cy);
+      ctx.stroke();
+    });
+
+    const pxIzq = px0 - a*scale, pxDer = px0 + a*scale;
+
+    // |x| < a : tramo entre -a y a (verde)
+    ctx.strokeStyle = '#2F6B5E';
+    ctx.lineWidth = 5;
+    ctx.beginPath();
+    ctx.moveTo(pxIzq, cyMenor); ctx.lineTo(pxDer, cyMenor);
+    ctx.stroke();
+
+    // |x| > a : dos tramos hacia afuera (ámbar)
+    ctx.strokeStyle = '#D9A441';
+    ctx.lineWidth = 5;
+    ctx.beginPath();
+    ctx.moveTo(margin, cyMayor); ctx.lineTo(pxIzq, cyMayor);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(pxDer, cyMayor); ctx.lineTo(w-margin, cyMayor);
+    ctx.stroke();
+
+    ctx.font = '10px JetBrains Mono';
+    ctx.fillStyle = '#5C6B7A';
+    ctx.textAlign = 'center';
+    [pxIzq, pxDer].forEach((px, i)=>{
+      [cyMenor, cyMayor].forEach(cy=>{
+        ctx.beginPath();
+        ctx.arc(px, cy, 5, 0, Math.PI*2);
+        ctx.fillStyle = '#F6F4EF';
+        ctx.fill();
+        ctx.strokeStyle = '#1C2733';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      });
+      ctx.fillStyle = '#5C6B7A';
+      ctx.fillText(i===0 ? -a : a, px, cyMayor+20);
+    });
+
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#2F6B5E';
+    ctx.fillText(`|x| < ${a}`, 12, cyMenor - 12);
+    ctx.fillStyle = '#D9A441';
+    ctx.fillText(`|x| > ${a}`, 12, cyMayor - 12);
   }
+
+  window.addEventListener('load', ()=>{
+    calcBasico();
+    calcEcuacion();
+    dibujarValorAbsoluto();
+  });
 </script>
 
 </body>

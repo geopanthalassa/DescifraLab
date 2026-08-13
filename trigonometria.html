@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sucesiones y Series — Aritmética y Geométrica — DescifraLab</title>
+<title>Trigonometría — Seno, Coseno, Tangente y Circunferencia Trigonométrica — DescifraLab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -500,8 +500,8 @@
 
 <header class="top">
   <div class="eyebrow">Matemática · Álgebra</div>
-  <h1>Sucesiones y Series</h1>
-  <p class="subtitle">Sucesión aritmética y geométrica, cómo predecir cualquier término, y cómo sumarlos todos sin sumar uno por uno.</p>
+  <h1>Trigonometría</h1>
+  <p class="subtitle">Seno, coseno y tangente en el triángulo rectángulo, y la circunferencia trigonométrica que los extiende a cualquier ángulo.</p>
   <nav class="level-nav">
     <button class="level-btn active" data-target="basico">Básico</button>
     <button class="level-btn" data-target="avanzado">Avanzado</button>
@@ -514,47 +514,54 @@
   <section class="level active" data-level="basico">
 
     <div class="card" data-tag="Concepto">
-      <h2>Sucesión aritmética: siempre se suma lo mismo</h2>
-      <p>Es una lista ordenada de números donde cada término se obtiene sumando (o restando) siempre la misma cantidad al anterior — como contar de 3 en 3.</p>
-      <div class="formula-box"><span class="term-1">aₙ</span> = <span class="term-2">a₁</span> + (<span class="term-3">n</span>−1)·<span class="term-4">d</span></div>
-      <div class="formula-leyenda">
-        <div class="leyenda-item"><span class="swatch swatch-1"></span> <strong class="term-1">aₙ</strong> = el término que buscas (en la posición n)</div>
-        <div class="leyenda-item"><span class="swatch swatch-2"></span> <strong class="term-2">a₁</strong> = el primer término de la sucesión</div>
-        <div class="leyenda-item"><span class="swatch swatch-3"></span> <strong class="term-3">n</strong> = la posición del término que buscas</div>
-        <div class="leyenda-item"><span class="swatch swatch-4"></span> <strong class="term-4">d</strong> = la diferencia — lo que se suma cada vez</div>
-      </div>
+      <h2>Las tres razones del triángulo rectángulo</h2>
+      <p>En cualquier triángulo rectángulo, si eliges uno de los ángulos agudos (que no sea el de 90°), sus tres lados quedan "bautizados" según su posición respecto de ese ángulo:</p>
+      <ul style="padding-left:20px;margin:10px 0;">
+        <li><strong class="term-1">Hipotenusa:</strong> el lado más largo, siempre opuesto al ángulo de 90°.</li>
+        <li><strong class="term-2">Cateto opuesto:</strong> el lado que está enfrente del ángulo que elegiste.</li>
+        <li><strong class="term-3">Cateto adyacente:</strong> el lado que toca al ángulo que elegiste (sin ser la hipotenusa).</li>
+      </ul>
+      <div class="formula-box">sen(θ) = <span class="term-2">opuesto</span> / <span class="term-1">hipotenusa</span></div>
+      <div class="formula-box">cos(θ) = <span class="term-3">adyacente</span> / <span class="term-1">hipotenusa</span></div>
+      <div class="formula-box">tan(θ) = <span class="term-2">opuesto</span> / <span class="term-3">adyacente</span></div>
+      <p class="var-list">Se recuerda con la palabra <strong>SOH-CAH-TOA</strong>: Seno=Opuesto/Hipotenusa, Coseno=Adyacente/Hipotenusa, Tangente=Opuesto/Adyacente.</p>
       <div class="analogia">
         <span class="analogia-tag">Piénsalo así</span>
-        Imagina las filas de asientos numerados de un cine: la fila 1, la fila 2, la fila 3... si cada fila está a 50 cm de la anterior, para saber a qué distancia está la fila 10 no necesitas medir fila por fila — sabes que son 9 saltos de 50 cm desde la fila 1. Eso es exactamente lo que hace la fórmula: cuenta cuántos "saltos" de tamaño <span class="term-4">d</span> hay que dar desde el primer término.
+        Imagina un edificio que proyecta una sombra al atardecer. La altura del edificio es el <strong class="term-2">cateto opuesto</strong>, la sombra en el piso es el <strong class="term-3">cateto adyacente</strong>, y el rayo de sol que va desde la punta del edificio hasta el final de la sombra es la <strong class="term-1">hipotenusa</strong>. El ángulo del sol sobre el horizonte determina cómo se relacionan esos tres largos — eso es justamente lo que miden seno, coseno y tangente.
       </div>
     </div>
 
     <div class="card" data-tag="Calculadora">
-      <h2>Encuentra cualquier término</h2>
+      <h2>Calcula seno, coseno y tangente de un ángulo</h2>
       <div class="calc-grid">
-        <div class="field"><label>Primer término (a₁)</label><input type="number" id="b-a1" value="3"></div>
-        <div class="field"><label>Diferencia (d)</label><input type="number" id="b-d" value="5"></div>
-        <div class="field"><label>Posición (n)</label><input type="number" id="b-n" value="10"></div>
+        <div class="field"><label>Ángulo (en grados)</label><input type="number" id="b-angulo" value="30"></div>
       </div>
-      <button class="calc-btn" onclick="calcBasico()">Calcular término</button>
+      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
       <div class="readout" id="b-readout"></div>
+      <div class="sim-box" style="margin-top:14px;">
+        <canvas id="triangulo-canvas" width="680" height="280"></canvas>
+      </div>
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
       <h2>Paso a paso</h2>
-      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">Una sucesión empieza en 3 y suma 5 cada vez: 3, 8, 13, 18... ¿Cuál es el término 10?</p>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">Un triángulo rectángulo tiene hipotenusa de 10 m y un ángulo de 30°. ¿Cuánto mide el cateto opuesto a ese ángulo?</p>
       <div class="pasos-resueltos">
         <div class="paso">
           <div class="paso-num">1</div>
-          <div><span class="paso-titulo">Identifica los datos</span><p><span class="term-2">a₁=3</span>, <span class="term-4">d=5</span>, <span class="term-3">n=10</span></p></div>
+          <div><span class="paso-titulo">Identifica qué lado buscas y cuál conoces</span><p>Buscas el <span class="term-2">cateto opuesto</span>, conoces la <span class="term-1">hipotenusa</span> — la razón que relaciona esos dos lados es el seno</p></div>
         </div>
         <div class="paso">
           <div class="paso-num">2</div>
-          <div><span class="paso-titulo">Cuenta cuántos "saltos" hay desde el primer término</span><p>n−1 = 10−1 = 9 saltos</p></div>
+          <div><span class="paso-titulo">Escribe la fórmula y reemplaza los datos</span><p>sen(30°) = <span class="term-2">opuesto</span> / <span class="term-1">10</span></p></div>
         </div>
         <div class="paso">
           <div class="paso-num">3</div>
-          <div><span class="paso-titulo">Multiplica los saltos por el tamaño de cada uno, y suma el primer término</span><p>a₁₀ = 3 + 9×5 = 3 + 45 = <strong>48</strong></p></div>
+          <div><span class="paso-titulo">Despeja el lado que buscas</span><p>opuesto = sen(30°) × 10 = 0.5 × 10</p></div>
+        </div>
+        <div class="paso">
+          <div class="paso-num">4</div>
+          <div><span class="paso-titulo">Resuelve la cuenta</span><p>opuesto = <strong>5 m</strong></p></div>
         </div>
       </div>
     </div>
@@ -562,14 +569,14 @@
     <div class="card exercises" data-tag="Ejercicios">
       <h2>Ejercicios con respuesta</h2>
       <ol>
-        <li>Una sucesión empieza en 2 con d=4. ¿Cuál es el término 6?
-          <details><summary>Ver respuesta</summary>a₆=2+(6−1)×4=2+20=22</details>
+        <li>Un triángulo tiene un ángulo de 45° y su cateto adyacente mide 6 m. ¿Cuánto mide la hipotenusa?
+          <details><summary>Ver respuesta</summary>cos(45°)=adyacente/hipotenusa → hipotenusa=6/cos(45°)=6/0.707≈8.49 m</details>
         </li>
-        <li>¿Cuál es la diferencia (d) de la sucesión 10, 7, 4, 1...?
-          <details><summary>Ver respuesta</summary>d=−3 (cada término resta 3 al anterior)</details>
+        <li>¿Por qué el seno y el coseno de un ángulo siempre dan un resultado entre −1 y 1?
+          <details><summary>Ver respuesta</summary>Porque en un triángulo rectángulo, ni el cateto opuesto ni el adyacente pueden ser más largos que la hipotenusa (que es el lado más largo) — entonces esa división siempre da un número igual o menor a 1.</details>
         </li>
-        <li>¿Por qué en la fórmula aparece (n−1) y no simplemente n?
-          <details><summary>Ver respuesta</summary>Porque el primer término (n=1) no le suma ninguna diferencia todavía — recién a partir del segundo término se empieza a sumar d, así que se resta 1 a n para contar cuántas veces se sumó d.</details>
+        <li>Si conoces los dos catetos de un triángulo rectángulo, ¿qué razón trigonométrica usas para encontrar el ángulo?
+          <details><summary>Ver respuesta</summary>La tangente, porque relaciona directamente el cateto opuesto con el adyacente, sin necesitar la hipotenusa.</details>
         </li>
       </ol>
     </div>
@@ -580,44 +587,69 @@
   <section class="level" data-level="avanzado">
 
     <div class="card" data-tag="Concepto">
-      <h2>Sucesión geométrica y la suma de una sucesión aritmética</h2>
-      <p>En una sucesión <strong>geométrica</strong>, cada término se obtiene multiplicando (no sumando) el anterior por una razón fija.</p>
-      <div class="formula-box">aₙ = a₁ · r^(n−1)</div>
-      <p class="var-list"><span>r</span> = razón (lo que se multiplica cada vez)</p>
-      <div class="formula-box">Suma de una sucesión aritmética: Sₙ = n·(a₁+aₙ)/2</div>
+      <h2>La circunferencia trigonométrica</h2>
+      <p>El triángulo rectángulo solo funciona para ángulos entre 0° y 90°. Para ángulos más grandes (o negativos), se usa la <strong>circunferencia trigonométrica</strong>: un círculo de radio 1, centrado en el origen. Para cualquier ángulo θ medido desde el eje x, el punto donde "aterriza" en el círculo tiene coordenadas (cos θ, sen θ).</p>
+      <div class="formula-box">Punto en el círculo = (<span class="term-3">cos θ</span>, <span class="term-2">sen θ</span>)</div>
+      <div class="analogia">
+        <span class="analogia-tag">Piénsalo así</span>
+        Imagina la manecilla de un reloj gigante, pegada al centro, con longitud 1. A medida que gira, su punta va dibujando el círculo. La altura de la punta (cuánto sube o baja) es el <strong class="term-2">seno</strong>. Cuánto se corre hacia los costados es el <strong class="term-3">coseno</strong>.
+      </div>
     </div>
 
-    <div class="card" data-tag="Calculadora">
-      <h2>Encuentra un término de una sucesión geométrica</h2>
+    <div class="card" data-tag="Simulación">
+      <h2>Mueve el ángulo y mira el punto en el círculo</h2>
       <div class="calc-grid">
-        <div class="field"><label>Primer término (a₁)</label><input type="number" id="a-a1" value="2"></div>
-        <div class="field"><label>Razón (r)</label><input type="number" id="a-r" value="3"></div>
-        <div class="field"><label>Posición (n)</label><input type="number" id="a-n" value="5"></div>
+        <div class="field"><label>Ángulo (0° a 360°)</label><input type="range" id="angulo-slider" min="0" max="360" step="1" value="45" oninput="actualizarCirculo()"><span id="angulo-val" style="font-family:'JetBrains Mono',monospace;">45°</span></div>
       </div>
-      <button class="calc-btn" onclick="calcAvanzado()">Calcular término</button>
-      <div class="readout" id="a-readout"></div>
+      <div class="sim-box" style="margin-top:14px;">
+        <canvas id="circulo-canvas" width="680" height="320"></canvas>
+      </div>
+    </div>
+
+    <div class="card" data-tag="Concepto">
+      <h2>Ángulos notables y signos por cuadrante</h2>
+      <p>Hay algunos ángulos que aparecen todo el tiempo y conviene memorizar, porque dan resultados exactos (no aproximados):</p>
+      <table style="width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;">
+        <tr style="border-bottom:2px solid var(--ink);"><th style="text-align:left;padding:6px;">Ángulo</th><th style="padding:6px;">sen</th><th style="padding:6px;">cos</th><th style="padding:6px;">tan</th></tr>
+        <tr style="border-bottom:1px solid var(--line);"><td style="padding:6px;">0°</td><td style="text-align:center;padding:6px;">0</td><td style="text-align:center;padding:6px;">1</td><td style="text-align:center;padding:6px;">0</td></tr>
+        <tr style="border-bottom:1px solid var(--line);"><td style="padding:6px;">30°</td><td style="text-align:center;padding:6px;">1/2</td><td style="text-align:center;padding:6px;">√3/2</td><td style="text-align:center;padding:6px;">√3/3</td></tr>
+        <tr style="border-bottom:1px solid var(--line);"><td style="padding:6px;">45°</td><td style="text-align:center;padding:6px;">√2/2</td><td style="text-align:center;padding:6px;">√2/2</td><td style="text-align:center;padding:6px;">1</td></tr>
+        <tr style="border-bottom:1px solid var(--line);"><td style="padding:6px;">60°</td><td style="text-align:center;padding:6px;">√3/2</td><td style="text-align:center;padding:6px;">1/2</td><td style="text-align:center;padding:6px;">√3</td></tr>
+        <tr><td style="padding:6px;">90°</td><td style="text-align:center;padding:6px;">1</td><td style="text-align:center;padding:6px;">0</td><td style="text-align:center;padding:6px;">no existe</td></tr>
+      </table>
+      <p class="var-list">Y el signo cambia según el cuadrante: en el 1° (0°-90°) todo es positivo, en el 2° (90°-180°) solo el seno es positivo, en el 3° (180°-270°) solo la tangente es positiva, y en el 4° (270°-360°) solo el coseno es positivo.</p>
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
-      <div class="example">
-        <p><strong>Una sucesión geométrica empieza en 2 y se multiplica por 3 cada vez: 2, 6, 18, 54... ¿Cuál es el término 5?</strong></p>
-        <p>a₅ = 2 × 3^(5−1) = 2 × 81 = <strong>162</strong></p>
-        <p>Este tipo de crecimiento (multiplicativo, no aditivo) es el mismo que aparece en el interés compuesto y en el crecimiento poblacional.</p>
+      <h2>Paso a paso</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">¿Cuál es el signo de sen(200°)?</p>
+      <div class="pasos-resueltos">
+        <div class="paso">
+          <div class="paso-num">1</div>
+          <div><span class="paso-titulo">Ubica en qué cuadrante cae el ángulo</span><p>200° está entre 180° y 270° → 3er cuadrante</p></div>
+        </div>
+        <div class="paso">
+          <div class="paso-num">2</div>
+          <div><span class="paso-titulo">Recuerda qué es positivo en ese cuadrante</span><p>En el 3er cuadrante solo la tangente es positiva — seno y coseno son negativos</p></div>
+        </div>
+        <div class="paso">
+          <div class="paso-num">3</div>
+          <div><span class="paso-titulo">La respuesta</span><p>sen(200°) es <strong>negativo</strong></p></div>
+        </div>
       </div>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
       <h2>Ejercicios con respuesta</h2>
       <ol>
-        <li>Sucesión geométrica con a₁=5, r=2. ¿Cuál es el término 4?
-          <details><summary>Ver respuesta</summary>a₄=5×2³=5×8=40</details>
+        <li>¿Cuánto vale sen(30°) sin usar calculadora?
+          <details><summary>Ver respuesta</summary>1/2 (0.5) — es uno de los ángulos notables</details>
         </li>
-        <li>Sumá los primeros 10 términos de la sucesión aritmética 1,3,5,7... (a₁=1, d=2)
-          <details><summary>Ver respuesta</summary>a₁₀=1+9×2=19; S₁₀=10×(1+19)/2=100</details>
+        <li>¿En qué cuadrante está un ángulo de 100°, y qué razón es positiva ahí?
+          <details><summary>Ver respuesta</summary>2° cuadrante (90°-180°) — solo el seno es positivo</details>
         </li>
-        <li>¿Por qué una sucesión geométrica con razón menor a 1 (como r=0.5) decrece en vez de crecer?
-          <details><summary>Ver respuesta</summary>Porque multiplicar por un número menor a 1 (pero positivo) hace que el resultado sea cada vez más chico — es el mismo comportamiento que una desintegración radiactiva o una dilución sucesiva.</details>
+        <li>¿Por qué la tangente de 90° "no existe"?
+          <details><summary>Ver respuesta</summary>Porque tan(θ)=sen(θ)/cos(θ), y cos(90°)=0 — dividir por cero no está definido.</details>
         </li>
       </ol>
     </div>
@@ -626,24 +658,22 @@
 
   <div class="card faq" data-tag="FAQ">
     <h2>Preguntas frecuentes</h2>
-    <h3>¿Cómo distingo si una sucesión es aritmética o geométrica?</h3>
-    <p>Fíjate qué operación se repite entre términos consecutivos — si siempre Sumas lo mismo, es aritmética. Si siempre Multiplicas por lo mismo, es geométrica.</p>
-    <h3>¿Una sucesión geométrica puede tener razón negativa?</h3>
-    <p>Sí — en ese caso, los términos van alternando de signo (positivo, negativo, positivo...), porque multiplicar por un número negativo invierte el signo cada vez.</p>
-    <h3>¿Para qué sirve la fórmula de la suma en la vida real?</h3>
-    <p>Sirve para sumar muchísimos términos sin tener que sumarlos uno por uno — por ejemplo, para calcular rápido cuántos asientos hay en un estadio con filas que van aumentando de a una cantidad fija.</p>
+    <h3>¿Por qué el radio de la circunferencia trigonométrica siempre es 1?</h3>
+    <p>Para que las coordenadas del punto sean directamente el seno y el coseno, sin tener que dividir por nada más — simplifica todas las fórmulas y es la convención universal.</p>
+    <h3>¿Trigonometría solo sirve para triángulos?</h3>
+    <p>No — también describe cualquier cosa que se repite en ciclos: el sonido, la corriente eléctrica alterna, las olas, las mareas, incluso las horas de luz solar durante el año siguen patrones que se modelan con seno y coseno.</p>
+    <h3>¿Cómo calculo el ángulo si ya conozco los lados del triángulo?</h3>
+    <p>Usas la función inversa: si conoces opuesto/hipotenusa, el ángulo es arcsen (sen⁻¹) de ese cociente. Lo mismo con arccos y arctan para las otras razones.</p>
   </div>
 
   <div class="related">
     <h2>Temas relacionados</h2>
     <div class="related-links">
+      <a href="teorema-seno-coseno.html">Teorema del Seno y del Coseno</a>
+      <a href="geometria-analitica.html">Geometría Analítica</a>
       <a href="funciones.html">Funciones</a>
-      <a href="logaritmos.html">Logaritmos</a>
       <a href="formulario.html">Machete de Fórmulas</a>
       <a href="evaluaciones.html">Evaluaciones</a>
-      <a href="sobre-nosotros.html">Sobre la Fundadora</a>
-      <a href="docentes.html">Para Docentes</a>
-      <a href="banco-preguntas.html">Banco de Preguntas</a>
     </div>
   </div>
 
@@ -677,25 +707,92 @@
     });
   });
 
-  function calcBasico(){
-    const a1 = parseFloat(document.getElementById('b-a1').value)||0;
-    const d = parseFloat(document.getElementById('b-d').value)||0;
-    const n = parseInt(document.getElementById('b-n').value)||1;
-    const an = a1 + (n-1)*d;
-    const out = document.getElementById('b-readout');
-    out.innerText = `a${n} = ${a1} + (${n}−1)×${d} = ${an}`;
-    out.classList.add('show');
+  function dibujarTriangulo(angDeg){
+    const canvas = document.getElementById('triangulo-canvas');
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height;
+    ctx.clearRect(0,0,w,h);
+
+    const angRad = angDeg * Math.PI / 180;
+    const hipo = 200;
+    const ox = 100, oy = h - 60; // vértice del ángulo, abajo a la izquierda
+    const ex = ox + hipo*Math.cos(angRad);
+    const ey = oy - hipo*Math.sin(angRad);
+    const rx = ox + hipo*Math.cos(angRad); // pie de la perpendicular (mismo x que el extremo)
+    const ry = oy;
+
+    // catetos y hipotenusa
+    ctx.strokeStyle = '#7A4FB0'; ctx.lineWidth = 3; // adyacente
+    ctx.beginPath(); ctx.moveTo(ox,oy); ctx.lineTo(rx,ry); ctx.stroke();
+    ctx.strokeStyle = '#2F6B5E'; ctx.lineWidth = 3; // opuesto
+    ctx.beginPath(); ctx.moveTo(rx,ry); ctx.lineTo(ex,ey); ctx.stroke();
+    ctx.strokeStyle = '#B8842E'; ctx.lineWidth = 3; // hipotenusa
+    ctx.beginPath(); ctx.moveTo(ox,oy); ctx.lineTo(ex,ey); ctx.stroke();
+
+    // ángulo recto
+    ctx.strokeStyle = '#3A4756'; ctx.lineWidth = 1.5;
+    ctx.strokeRect(rx-10, ry-10, 10, 10);
+
+    ctx.font = '13px JetBrains Mono';
+    ctx.fillStyle = '#7A4FB0'; ctx.fillText('adyacente', (ox+rx)/2-30, oy+20);
+    ctx.fillStyle = '#2F6B5E'; ctx.save(); ctx.translate(rx+14, (ry+ey)/2); ctx.fillText('opuesto', 0, 0); ctx.restore();
+    ctx.fillStyle = '#B8842E'; ctx.fillText('hipotenusa', (ox+ex)/2-40, (oy+ey)/2-10);
+    ctx.fillStyle = '#1C2733'; ctx.fillText(angDeg+'°', ox+30, oy-10);
   }
 
-  function calcAvanzado(){
-    const a1 = parseFloat(document.getElementById('a-a1').value)||0;
-    const r = parseFloat(document.getElementById('a-r').value)||1;
-    const n = parseInt(document.getElementById('a-n').value)||1;
-    const an = a1 * Math.pow(r, n-1);
-    const out = document.getElementById('a-readout');
-    out.innerText = `a${n} = ${a1} × ${r}^(${n}−1) = ${an.toFixed(3)}`;
+  function calcBasico(){
+    const ang = parseFloat(document.getElementById('b-angulo').value)||0;
+    const rad = ang * Math.PI / 180;
+    const sen = Math.sin(rad), cos = Math.cos(rad), tan = Math.tan(rad);
+    const out = document.getElementById('b-readout');
+    out.innerText = `sen(${ang}°) = ${sen.toFixed(4)}\ncos(${ang}°) = ${cos.toFixed(4)}\ntan(${ang}°) = ${Math.abs(tan)>1000 ? 'no existe' : tan.toFixed(4)}`;
     out.classList.add('show');
+    dibujarTriangulo(Math.max(5, Math.min(85, ang)));
   }
+
+  function actualizarCirculo(){
+    const ang = parseFloat(document.getElementById('angulo-slider').value)||0;
+    document.getElementById('angulo-val').innerText = ang + '°';
+    const rad = ang * Math.PI / 180;
+    const sen = Math.sin(rad), cos = Math.cos(rad);
+
+    const canvas = document.getElementById('circulo-canvas');
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height, cx = w/2, cy = h/2, R = 110;
+    ctx.clearRect(0,0,w,h);
+
+    // ejes
+    ctx.strokeStyle = '#3A4756'; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(0,cy); ctx.lineTo(w,cy); ctx.moveTo(cx,0); ctx.lineTo(cx,h); ctx.stroke();
+
+    // círculo
+    ctx.strokeStyle = '#5C6B7A'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI*2); ctx.stroke();
+
+    const px = cx + cos*R, py = cy - sen*R;
+
+    // radio hasta el punto
+    ctx.strokeStyle = '#1C2733'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(px,py); ctx.stroke();
+
+    // proyección del seno (vertical, verde) y coseno (horizontal, morado)
+    ctx.strokeStyle = '#2F6B5E'; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(px,cy); ctx.lineTo(px,py); ctx.stroke();
+    ctx.strokeStyle = '#7A4FB0'; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(px,cy); ctx.stroke();
+
+    // punto
+    ctx.beginPath(); ctx.arc(px,py,6,0,Math.PI*2); ctx.fillStyle = '#B8842E'; ctx.fill();
+
+    ctx.font = '12px JetBrains Mono';
+    ctx.fillStyle = '#2F6B5E'; ctx.fillText(`sen = ${sen.toFixed(2)}`, 12, 20);
+    ctx.fillStyle = '#7A4FB0'; ctx.fillText(`cos = ${cos.toFixed(2)}`, 12, 38);
+  }
+
+  window.addEventListener('load', ()=>{
+    calcBasico();
+    actualizarCirculo();
+  });
 </script>
 
 </body>

@@ -322,6 +322,59 @@
     font-size:12px;cursor:pointer;
   }
   .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  /* Sistema de color para partes de una fórmula (mismo color = mismo rol en toda la página) */
+  .term-1{color:#B8842E;font-weight:800;}
+  .term-2{color:#2F6B5E;font-weight:800;}
+  .term-3{color:#7A4FB0;font-weight:800;}
+  .term-4{color:#2A6FA8;font-weight:800;}
+  .term-5{color:#C0562E;font-weight:800;}
+  .formula-leyenda{
+    display:flex;flex-wrap:wrap;gap:8px 20px;
+    margin-top:12px;padding-top:12px;
+    border-top:1px dashed var(--line);
+  }
+  .formula-leyenda .leyenda-item{
+    display:flex;align-items:flex-start;gap:7px;
+    font-size:13.5px;color:var(--ink-soft);max-width:260px;
+  }
+  .formula-leyenda .swatch{
+    display:inline-block;width:11px;height:11px;border-radius:3px;
+    margin-top:3px;flex-shrink:0;
+  }
+  .swatch-1{background:#B8842E;} .swatch-2{background:#2F6B5E;}
+  .swatch-3{background:#7A4FB0;} .swatch-4{background:#2A6FA8;} .swatch-5{background:#C0562E;}
+
+  /* Paso a paso con color por paso */
+  .pasos-resueltos{margin:14px 0;}
+  .paso{
+    display:flex;gap:12px;align-items:flex-start;
+    padding:12px 14px;margin-bottom:8px;border-radius:8px;
+    background:var(--paper);border-left:4px solid var(--ink-soft);
+  }
+  .paso-num{
+    font-family:'JetBrains Mono', monospace;font-weight:800;font-size:12.5px;
+    width:22px;height:22px;border-radius:50%;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;color:#fff;
+    background:var(--ink-soft);
+  }
+  .paso:nth-child(1){border-left-color:#B8842E;} .paso:nth-child(1) .paso-num{background:#B8842E;}
+  .paso:nth-child(2){border-left-color:#2F6B5E;} .paso:nth-child(2) .paso-num{background:#2F6B5E;}
+  .paso:nth-child(3){border-left-color:#7A4FB0;} .paso:nth-child(3) .paso-num{background:#7A4FB0;}
+  .paso:nth-child(4){border-left-color:#2A6FA8;} .paso:nth-child(4) .paso-num{background:#2A6FA8;}
+  .paso:nth-child(5){border-left-color:#C0562E;} .paso:nth-child(5) .paso-num{background:#C0562E;}
+  .paso p{margin:0;font-size:14.5px;}
+  .paso .paso-titulo{font-weight:700;display:block;margin-bottom:2px;}
+
+  .analogia{
+    background:#FBF3E2;border:1.5px dashed #B8842E;border-radius:8px;
+    padding:14px 16px;margin:14px 0;font-size:14.5px;
+  }
+  .analogia .analogia-tag{
+    font-family:'JetBrains Mono', monospace;font-size:11px;font-weight:700;
+    text-transform:uppercase;letter-spacing:0.06em;color:#B8842E;
+    display:block;margin-bottom:6px;
+  }
 </style>
 </head>
 <body>
@@ -331,7 +384,7 @@
   <button class="navbar-toggle" onclick="toggleNavMobile()" aria-label="Abrir menú">
     <span></span><span></span><span></span>
   </button>
-          <div class="navbar-links">
+            <div class="navbar-links">
     <details class="nav-drop">
       <summary>Física</summary>
       <div class="nav-panel cols-2">
@@ -377,20 +430,24 @@
           <a href="ecuaciones-segundo-grado.html" class="nav-panel-link">Ecuaciones de Segundo Grado</a>
           <a href="sistema-ecuaciones.html" class="nav-panel-link">Sistemas de Ecuaciones</a>
           <a href="inecuaciones.html" class="nav-panel-link">Inecuaciones</a>
-          <p class="nav-panel-titulo">Sucesiones y finanzas</p>
-          <a href="sucesiones.html" class="nav-panel-link">Sucesiones y Series</a>
-          <a href="interes-compuesto.html" class="nav-panel-link">Interés Compuesto</a>
-          <p class="nav-panel-titulo">Geometría</p>
-          <a href="geometria-analitica.html" class="nav-panel-link">Geometría Analítica</a>
+          <a href="valor-absoluto.html" class="nav-panel-link">Valor Absoluto</a>
+          <p class="nav-panel-titulo">Trigonometría</p>
+          <a href="trigonometria.html" class="nav-panel-link">Trigonometría</a>
+          <a href="teorema-seno-coseno.html" class="nav-panel-link">Teorema del Seno y del Coseno</a>
+          <p class="nav-panel-titulo">Estadística y probabilidad</p>
+          <a href="estadistica.html" class="nav-panel-link">Estadística</a>
+          <a href="probabilidad.html" class="nav-panel-link">Probabilidad</a>
         </div>
         <div class="nav-panel-col">
           <p class="nav-panel-titulo">Funciones</p>
           <a href="funciones.html" class="nav-panel-link">Funciones</a>
           <a href="funcion-racional.html" class="nav-panel-link">Función Racional</a>
           <a href="logaritmos.html" class="nav-panel-link">Logaritmos</a>
-          <p class="nav-panel-titulo">Estadística y probabilidad</p>
-          <a href="estadistica.html" class="nav-panel-link">Estadística</a>
-          <a href="probabilidad.html" class="nav-panel-link">Probabilidad</a>
+          <p class="nav-panel-titulo">Sucesiones y finanzas</p>
+          <a href="sucesiones.html" class="nav-panel-link">Sucesiones y Series</a>
+          <a href="interes-compuesto.html" class="nav-panel-link">Interés Compuesto</a>
+          <p class="nav-panel-titulo">Geometría</p>
+          <a href="geometria-analitica.html" class="nav-panel-link">Geometría Analítica</a>
         </div>
       </div>
     </details>
@@ -459,13 +516,20 @@
     <div class="card" data-tag="Concepto">
       <h2>¿Qué es resolver una ecuación?</h2>
       <p>Una ecuación es una igualdad que tiene un número desconocido (la <strong>incógnita</strong>, casi siempre llamada x). Resolverla significa encontrar qué valor de x hace que la igualdad sea verdadera.</p>
-      <p>Imagínala como una balanza equilibrada: lo que le hagas a un lado, tienes que hazrselo al otro también, para que se mantenga en equilibrio. Si sumas algo de un lado, sumas lo mismo del otro. Si divides un lado, divides el otro.</p>
-      <div class="formula-box">a·x + b = c &nbsp;→&nbsp; x = (c − b) / a</div>
-      <p class="var-list"><span>a</span> = número que multiplica a x &nbsp;·&nbsp; <span>b</span> = número que se suma o resta &nbsp;·&nbsp; <span>c</span> = resultado del otro lado de la igualdad</p>
+      <div class="formula-box"><span class="term-1">a</span>·x + <span class="term-2">b</span> = <span class="term-3">c</span></div>
+      <div class="formula-leyenda">
+        <div class="leyenda-item"><span class="swatch swatch-1"></span> <strong class="term-1">a</strong> = el número que multiplica a x</div>
+        <div class="leyenda-item"><span class="swatch swatch-2"></span> <strong class="term-2">b</strong> = el número que se suma o resta</div>
+        <div class="leyenda-item"><span class="swatch swatch-3"></span> <strong class="term-3">c</strong> = el resultado, del otro lado del signo igual</div>
+      </div>
+      <div class="analogia">
+        <span class="analogia-tag">Piénsalo así</span>
+        Imagina una balanza equilibrada, con cosas en cada plato. Lo que le hagas a un lado, tienes que hacérselo también al otro — si no, la balanza se desnivela y deja de estar en equilibrio. Si sumas algo de un lado, sumas lo mismo del otro. Eso es exactamente resolver una ecuación: mantener el equilibrio en cada paso, hasta dejar sola a la x.
+      </div>
     </div>
 
     <div class="card" data-tag="Calculadora">
-      <h2>Resolvé una ecuación paso a paso</h2>
+      <h2>Resuelve una ecuación paso a paso</h2>
       <p style="color:var(--ink-soft);font-size:13.5px;margin-top:-4px;">Para una ecuación con la forma a·x + b = c</p>
       <div class="calc-grid">
         <div class="field"><label>a (coeficiente de x)</label><input type="number" id="b-a" value="3"></div>
@@ -477,22 +541,31 @@
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo, paso a paso</h2>
-      <div class="example">
-        <p><strong>Resolvé: 3x + 5 = 20</strong></p>
-        <p>Paso 1 — restas 5 de los dos lados: 3x + 5 − 5 = 20 − 5 → 3x = 15</p>
-        <p>Paso 2 — divides los dos lados por 3: 3x/3 = 15/3 → <strong>x = 5</strong></p>
-        <p>Verificación: 3×5+5 = 15+5 = 20 ✓ — coincide con el resultado original, así que está bien resuelto.</p>
+      <h2>Paso a paso</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">Resuelve: 3x + 5 = 20</p>
+      <div class="pasos-resueltos">
+        <div class="paso">
+          <div class="paso-num">1</div>
+          <div><span class="paso-titulo">Resta 5 de los dos lados (para dejar sola la parte con x)</span><p>3x + 5 − 5 = 20 − 5 → 3x = 15</p></div>
+        </div>
+        <div class="paso">
+          <div class="paso-num">2</div>
+          <div><span class="paso-titulo">Divide los dos lados por 3 (para que quede solo x, sin el 3 multiplicando)</span><p>3x/3 = 15/3 → x = 5</p></div>
+        </div>
+        <div class="paso">
+          <div class="paso-num">3</div>
+          <div><span class="paso-titulo">Verifica reemplazando en la ecuación original</span><p>3×5+5 = 15+5 = 20 ✓ — coincide, está bien resuelto</p></div>
+        </div>
       </div>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
       <h2>Ejercicios con respuesta</h2>
       <ol>
-        <li>Resolvé: 2x + 4 = 14
+        <li>Resuelve: 2x + 4 = 14
           <details><summary>Ver respuesta</summary>2x=10 → x=5</details>
         </li>
-        <li>Resolvé: 5x − 3 = 17
+        <li>Resuelve: 5x − 3 = 17
           <details><summary>Ver respuesta</summary>5x=20 → x=4</details>
         </li>
         <li>¿Por qué siempre hay que hacer la misma operación a los dos lados de la ecuación?
@@ -514,7 +587,7 @@
     </div>
 
     <div class="card" data-tag="Calculadora">
-      <h2>Resolvé con la incógnita en ambos lados</h2>
+      <h2>Resuelve con la incógnita en ambos lados</h2>
       <div class="calc-grid">
         <div class="field"><label>a (coeficiente de x, lado izquierdo)</label><input type="number" id="a-a" value="5"></div>
         <div class="field"><label>b (término, lado izquierdo)</label><input type="number" id="a-b" value="3"></div>
@@ -528,7 +601,7 @@
     <div class="card" data-tag="Ejemplo resuelto">
       <h2>Ejemplo, paso a paso</h2>
       <div class="example">
-        <p><strong>Resolvé: 5x + 3 = 2x + 12</strong></p>
+        <p><strong>Resuelve: 5x + 3 = 2x + 12</strong></p>
         <p>Paso 1 — restas 2x de los dos lados: 5x−2x+3 = 12 → 3x+3 = 12</p>
         <p>Paso 2 — restas 3 de los dos lados: 3x = 9</p>
         <p>Paso 3 — divides por 3: <strong>x = 3</strong></p>
@@ -539,10 +612,10 @@
     <div class="card exercises" data-tag="Ejercicios">
       <h2>Ejercicios con respuesta</h2>
       <ol>
-        <li>Resolvé: 4x + 2 = x + 11
+        <li>Resuelve: 4x + 2 = x + 11
           <details><summary>Ver respuesta</summary>3x=9 → x=3</details>
         </li>
-        <li>Resolvé: 7x − 5 = 3x + 11
+        <li>Resuelve: 7x − 5 = 3x + 11
           <details><summary>Ver respuesta</summary>4x=16 → x=4</details>
         </li>
         <li>¿Qué pasa si a=c (los coeficientes de x son iguales) en una ecuación de este tipo?

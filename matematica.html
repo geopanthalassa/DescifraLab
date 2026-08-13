@@ -575,7 +575,7 @@
   <button class="navbar-toggle" onclick="toggleNavMobile()" aria-label="Abrir menú">
     <span></span><span></span><span></span>
   </button>
-          <div class="navbar-links">
+            <div class="navbar-links">
     <details class="nav-drop">
       <summary>Física</summary>
       <div class="nav-panel cols-2">
@@ -621,20 +621,24 @@
           <a href="ecuaciones-segundo-grado.html" class="nav-panel-link">Ecuaciones de Segundo Grado</a>
           <a href="sistema-ecuaciones.html" class="nav-panel-link">Sistemas de Ecuaciones</a>
           <a href="inecuaciones.html" class="nav-panel-link">Inecuaciones</a>
-          <p class="nav-panel-titulo">Sucesiones y finanzas</p>
-          <a href="sucesiones.html" class="nav-panel-link">Sucesiones y Series</a>
-          <a href="interes-compuesto.html" class="nav-panel-link">Interés Compuesto</a>
-          <p class="nav-panel-titulo">Geometría</p>
-          <a href="geometria-analitica.html" class="nav-panel-link">Geometría Analítica</a>
+          <a href="valor-absoluto.html" class="nav-panel-link">Valor Absoluto</a>
+          <p class="nav-panel-titulo">Trigonometría</p>
+          <a href="trigonometria.html" class="nav-panel-link">Trigonometría</a>
+          <a href="teorema-seno-coseno.html" class="nav-panel-link">Teorema del Seno y del Coseno</a>
+          <p class="nav-panel-titulo">Estadística y probabilidad</p>
+          <a href="estadistica.html" class="nav-panel-link">Estadística</a>
+          <a href="probabilidad.html" class="nav-panel-link">Probabilidad</a>
         </div>
         <div class="nav-panel-col">
           <p class="nav-panel-titulo">Funciones</p>
           <a href="funciones.html" class="nav-panel-link">Funciones</a>
           <a href="funcion-racional.html" class="nav-panel-link">Función Racional</a>
           <a href="logaritmos.html" class="nav-panel-link">Logaritmos</a>
-          <p class="nav-panel-titulo">Estadística y probabilidad</p>
-          <a href="estadistica.html" class="nav-panel-link">Estadística</a>
-          <a href="probabilidad.html" class="nav-panel-link">Probabilidad</a>
+          <p class="nav-panel-titulo">Sucesiones y finanzas</p>
+          <a href="sucesiones.html" class="nav-panel-link">Sucesiones y Series</a>
+          <a href="interes-compuesto.html" class="nav-panel-link">Interés Compuesto</a>
+          <p class="nav-panel-titulo">Geometría</p>
+          <a href="geometria-analitica.html" class="nav-panel-link">Geometría Analítica</a>
         </div>
       </div>
     </details>
@@ -702,6 +706,12 @@
     <p style="color:var(--ink-soft);font-size:14.5px;">Todos los temas incluyen una calculadora o graficador interactivo, ejemplos resueltos paso a paso, y ejercicios con respuesta explicada — no solo el resultado final.</p>
   </div>
 
+  <div class="card">
+    <h2>Línea de tiempo interactiva</h2>
+    <p style="color:var(--ink-soft);font-size:14.5px;">Toca cualquier año para ver qué pasó — casi 4000 años de historia, en 8 momentos clave.</p>
+    <div id="timeline-matematica" class="timeline-interactiva"></div>
+  </div>
+
   <!-- MATEMÁTICA -->
   <div class="mach-grupo matematica">
     <h2 class="mach-titulo">Álgebra</h2>
@@ -722,7 +732,15 @@
         <h3>Inecuaciones</h3>
         <div class="mach-formula">x &gt; a, x ≤ b</div>
       </a>
+      <a href="valor-absoluto.html" class="mach-card matematica">
+        <h3>Valor Absoluto</h3>
+        <div class="mach-formula">|x| = distancia al 0</div>
+      </a>
     </div>
+  </div>
+
+  <div class="card" data-tag="Dato freak" style="text-align:center;">
+    <p style="margin:0;font-size:14.5px;">La palabra <strong>"álgebra"</strong> viene del árabe <em>al-jabr</em> — literalmente "restaurar" o "recomponer" — y aparece en el título de un libro de matemática del año 825. Y la palabra <strong>"algoritmo"</strong> es directamente el nombre de su autor, Al-Juarismi, deformado con el paso de los siglos.</p>
   </div>
 
   <div class="mach-grupo matematica">
@@ -744,6 +762,20 @@
   </div>
 
   <div class="mach-grupo matematica">
+    <h2 class="mach-titulo">Trigonometría</h2>
+    <div class="mach-grid">
+      <a href="trigonometria.html" class="mach-card matematica">
+        <h3>Trigonometría</h3>
+        <div class="mach-formula" style="font-size:13px;">sen, cos, tan</div>
+      </a>
+      <a href="teorema-seno-coseno.html" class="mach-card matematica">
+        <h3>Teorema del Seno y del Coseno</h3>
+        <div class="mach-formula" style="font-size:12px;">Triángulos sin ángulo recto</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="mach-grupo matematica">
     <h2 class="mach-titulo">Sucesiones y finanzas</h2>
     <div class="mach-grid">
       <a href="sucesiones.html" class="mach-card matematica">
@@ -755,6 +787,10 @@
         <div class="mach-formula" style="font-size:14px;">M = C(1+i)ⁿ</div>
       </a>
     </div>
+  </div>
+
+  <div class="card" data-tag="Dato freak" style="text-align:center;">
+    <p style="margin:0;font-size:14.5px;">La sucesión de Fibonacci (1, 1, 2, 3, 5, 8, 13, 21...) no es solo un ejercicio de clase — aparece en la cantidad de pétalos de casi todas las flores, en la espiral de un caracol, y en cómo se acomodan las semillas de un girasol.</p>
   </div>
 
   <div class="mach-grupo matematica">
@@ -769,6 +805,10 @@
         <div class="mach-formula">P(A) = casos/total</div>
       </a>
     </div>
+  </div>
+
+  <div class="card" data-tag="Dato freak" style="text-align:center;">
+    <p style="margin:0;font-size:14.5px;">En un salón de solo 23 personas, la probabilidad de que dos compartan cumpleaños ya supera el 50% — aunque hay 365 días posibles. Se llama la "paradoja del cumpleaños", y no es magia: es que hay muchísimos más pares posibles de personas de los que parece a simple vista.</p>
   </div>
 
   <div class="mach-grupo matematica">
@@ -791,6 +831,43 @@
   function toggleNavMobile(){
     document.querySelector('.navbar-links').classList.toggle('open');
   }
+
+  const TIMELINE_MATEMATICA = [
+    {año:'~1800 a.C.', titulo:'Babilonia y Egipto: matemática práctica', texto:'Las primeras civilizaciones desarrollan matemática para resolver problemas concretos: repartir tierras, cobrar impuestos, predecir crecidas del río, construir pirámides. Los babilonios usaban un sistema de base 60 (sexagesimal). Dato freak: por eso hoy una hora tiene 60 minutos, un minuto tiene 60 segundos, y un círculo tiene 360 grados — es herencia babilónica de hace casi 4000 años.'},
+    {año:'~300 a.C.', titulo:'Euclides y los Elementos', texto:'Euclides escribe "Los Elementos", un libro que organiza toda la geometría conocida a partir de unas pocas reglas básicas (axiomas) y demuestra todo lo demás con lógica pura. Dato freak: fue el libro de texto de geometría más usado del mundo durante más de 2000 años, y algunos dicen que es el segundo libro más publicado de la historia después de la Biblia.'},
+    {año:'~250 a.C.', titulo:'Arquímedes y el cálculo de áreas', texto:'Arquímedes calcula el área de un círculo y el volumen de una esfera con métodos que se adelantan casi 2000 años al cálculo integral. Dato freak: según la leyenda, estaba tan concentrado resolviendo un problema de geometría dibujado en la arena que ni se dio cuenta de que un soldado romano lo estaba por matar.'},
+    {año:'825 d.C.', titulo:'Al-Juarismi y el nacimiento del álgebra', texto:'El matemático persa Al-Juarismi escribe un libro sobre cómo resolver ecuaciones de forma sistemática, usando el método de "al-jabr" (reorganizar términos). Dato freak: de "al-jabr" viene la palabra "álgebra", y de su propio nombre (deformado con los siglos) viene la palabra "algoritmo".'},
+    {año:'1202', titulo:'Fibonacci y los números que usamos hoy', texto:'Leonardo Fibonacci publica "Liber Abaci", el libro que introduce en Europa los números indo-arábigos (0,1,2,3...) que usamos hoy, reemplazando a los números romanos para calcular. También presenta la famosa sucesión que lleva su nombre. Dato freak: esa sucesión aparece en la naturaleza — en pétalos de flores, en la espiral de un caracol, en las semillas de un girasol.'},
+    {año:'1637', titulo:'Descartes une el álgebra con la geometría', texto:'René Descartes publica "La Géométrie", donde introduce el plano cartesiano — la idea de representar cualquier punto con dos números (x, y), uniendo por primera vez el álgebra y la geometría en un mismo lenguaje. Es la base de toda la geometría analítica que usas hoy. Dato freak: cuenta la leyenda (no confirmada) que se le ocurrió mirando una mosca caminar por el techo de su habitación.'},
+    {año:'1665-1680s', titulo:'Newton y Leibniz inventan el cálculo', texto:'Isaac Newton y Gottfried Leibniz desarrollan el cálculo diferencial e integral de forma independiente, casi al mismo tiempo — la herramienta matemática que describe el cambio y el movimiento, y que hoy es la base de toda la física, ingeniería y economía moderna. Dato freak: esto desató una de las peleas más famosas de la historia de la ciencia sobre quién lo inventó primero, que duró décadas y nunca se resolvió del todo.'},
+    {año:'1854', titulo:'George Boole y la lógica que mueve las computadoras', texto:'George Boole publica "Las leyes del pensamiento", donde reduce la lógica a operaciones matemáticas con solo dos valores: verdadero y falso (1 y 0). Dato freak: Boole murió en 1864, casi 100 años antes de que existiera la primera computadora — pero su álgebra booleana es exactamente lo que hace funcionar, hasta hoy, cada chip electrónico del planeta.'},
+  ];
+
+  function renderTimelineMatematica(){
+    const cont = document.getElementById('timeline-matematica');
+    let html = '';
+    TIMELINE_MATEMATICA.forEach((item, i)=>{
+      html += `
+        <div class="ti-item" id="ti-item-${i}">
+          <button class="ti-boton" onclick="toggleTimelineItem(${i})">
+            <span class="ti-año">${item.año}</span>
+            <span class="ti-titulo">${item.titulo}</span>
+            <span class="ti-flecha">▶</span>
+          </button>
+          <div class="ti-detalle"><p>${item.texto}</p></div>
+        </div>`;
+    });
+    cont.innerHTML = html;
+  }
+
+  function toggleTimelineItem(i){
+    const item = document.getElementById('ti-item-'+i);
+    item.classList.toggle('abierto');
+  }
+
+  window.addEventListener('load', ()=>{
+    renderTimelineMatematica();
+  });
 
   const navLinksEl = document.querySelector('.navbar-links');
   if(navLinksEl && window.matchMedia('(hover: hover)').matches){
