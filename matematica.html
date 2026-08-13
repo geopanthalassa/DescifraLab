@@ -69,7 +69,7 @@
     display:none;
     background:none;border:none;cursor:pointer;
     padding:6px;
-  }  .nav-drop{position:relative;}
+  }    .nav-drop{position:relative;}
   .nav-drop summary{
     list-style:none;cursor:pointer;
     color:#D8D3C4;font-size:13.5px;font-weight:500;
@@ -78,51 +78,42 @@
     transition:background 0.15s, color 0.15s;
   }
   .nav-drop summary::-webkit-details-marker{display:none;}
-  .nav-drop summary::after{content:'▾';font-size:10px;opacity:0.7;}
   .nav-drop summary:hover{background:rgba(255,255,255,0.08);color:#fff;}
   .nav-drop[open] summary{background:rgba(255,255,255,0.1);color:#fff;}
+  .nav-toplink-label{color:inherit;text-decoration:none;}
+  .nav-toplink-label:hover{text-decoration:underline;}
+  .nav-caret{font-size:10px;opacity:0.7;padding:2px;}
   .nav-panel{
-    position:absolute;top:calc(100% + 6px);left:0;
+    position:absolute;top:100%;left:0;
     background:var(--ink);
     border:2px solid var(--amber);
     border-radius:8px;
-    padding:14px;
+    padding:10px;
     z-index:80;
     box-shadow:5px 5px 0 rgba(0,0,0,0.25);
-    display:flex;flex-wrap:nowrap;gap:16px;
-    max-height:min(520px, calc(100vh - 130px));
+    width:270px;
+    max-height:min(480px, calc(100vh - 130px));
     overflow-y:auto;
   }
-  .nav-panel.cols-1{width:260px;}
-  .nav-panel.cols-2{width:500px;}
-  .nav-panel-col{width:220px;flex:0 0 220px;}
-  .nav-panel-toplink{
-    display:block;font-family:'JetBrains Mono', monospace;
-    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;
-    color:var(--amber);text-decoration:none;
-    margin-bottom:10px;padding-bottom:8px;
-    border-bottom:1px solid rgba(255,255,255,0.15);
-  }
-  .nav-panel-toplink:hover{color:#fff;}
   .nav-panel-titulo{
     font-family:'JetBrains Mono', monospace;
     font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;
-    color:#8A94A0;margin:10px 0 6px;
+    color:#8A94A0;margin:12px 0 6px;
+    padding-top:8px;border-top:1px solid rgba(255,255,255,0.1);
   }
-  .nav-panel-col:first-child .nav-panel-titulo:first-of-type{margin-top:0;}
+  .nav-panel-titulo:first-child{margin-top:0;padding-top:0;border-top:none;}
   .nav-panel a.nav-panel-link{
     display:block;color:#D8D3C4;text-decoration:none;
-    font-size:13px;padding:4px 0;
+    font-size:13.5px;padding:6px 4px;border-radius:4px;
   }
-  .nav-panel a.nav-panel-link:hover{color:#fff;text-decoration:underline;}
+  .nav-panel a.nav-panel-link:hover{background:rgba(255,255,255,0.08);color:#fff;}
   @media(max-width:768px){
-    .nav-panel, .nav-panel.cols-1, .nav-panel.cols-2{
+    .nav-panel{
       position:static;border:none;box-shadow:none;
       background:rgba(255,255,255,0.04);
-      margin-top:4px;padding:10px 10px 10px 18px;
-      display:block;width:auto;max-height:none;overflow-y:visible;
+      margin-top:4px;padding:6px 6px 6px 18px;
+      width:auto;max-height:none;overflow-y:visible;
     }
-    .nav-panel-col{width:auto;flex:none;}
     .nav-drop summary{padding:12px 14px;}
   }
 
@@ -575,114 +566,97 @@
   <button class="navbar-toggle" onclick="toggleNavMobile()" aria-label="Abrir menú">
     <span></span><span></span><span></span>
   </button>
-            <div class="navbar-links">
+              <div class="navbar-links">
     <details class="nav-drop">
-      <summary>Física</summary>
-      <div class="nav-panel cols-2">
-        <div class="nav-panel-col">
-          <a href="fisica.html" class="nav-panel-toplink">Ver portada de Física →</a>
-          <p class="nav-panel-titulo">Mecánica</p>
-          <a href="mru.html" class="nav-panel-link">MRU</a>
-          <a href="mruv.html" class="nav-panel-link">MRUV</a>
-          <a href="tiro-oblicuo.html" class="nav-panel-link">Tiro Oblicuo</a>
-          <a href="mcu.html" class="nav-panel-link">MCU</a>
-          <a href="newton.html" class="nav-panel-link">2ª Ley de Newton</a>
-          <a href="trabajo-energia.html" class="nav-panel-link">Trabajo y Energía</a>
-          <a href="impulso-momentum.html" class="nav-panel-link">Impulso y Cantidad de Movimiento</a>
-          <a href="estatica-torque.html" class="nav-panel-link">Estática y Torque</a>
-          <a href="maquinas-simples.html" class="nav-panel-link">Máquinas Simples</a>
-          <p class="nav-panel-titulo">Termodinámica y Fluidos</p>
-          <a href="calor-especifico.html" class="nav-panel-link">Calor Específico</a>
-          <a href="dilatacion-termica.html" class="nav-panel-link">Dilatación Térmica</a>
-          <a href="fluidos.html" class="nav-panel-link">Presión Hidrostática</a>
-          <a href="caudal-continuidad.html" class="nav-panel-link">Caudal y Continuidad</a>
-          <a href="maquinas-termicas.html" class="nav-panel-link">Máquinas Térmicas</a>
-        </div>
-        <div class="nav-panel-col">
-          <p class="nav-panel-titulo">Electricidad</p>
-          <a href="ley-ohm.html" class="nav-panel-link">Ley de Ohm</a>
-          <a href="potencia-electrica.html" class="nav-panel-link">Potencia Eléctrica</a>
-          <a href="circuitos.html" class="nav-panel-link">Circuitos</a>
-          <a href="electromagnetismo.html" class="nav-panel-link">Electromagnetismo</a>
-          <a href="corriente-continua-alterna.html" class="nav-panel-link">Corriente Continua y Alterna</a>
-          <p class="nav-panel-titulo">Física Moderna</p>
-          <a href="relatividad.html" class="nav-panel-link">Relatividad</a>
-          <a href="energia-nuclear.html" class="nav-panel-link">Energía Nuclear</a>
-        </div>
+      <summary><a href="fisica.html" class="nav-toplink-label">Física</a><span class="nav-caret">▾</span></summary>
+      <div class="nav-panel">
+        <p class="nav-panel-titulo">Mecánica</p>
+        <a href="mru.html" class="nav-panel-link">MRU</a>
+        <a href="mruv.html" class="nav-panel-link">MRUV</a>
+        <a href="tiro-oblicuo.html" class="nav-panel-link">Tiro Oblicuo</a>
+        <a href="mcu.html" class="nav-panel-link">MCU</a>
+        <a href="newton.html" class="nav-panel-link">2ª Ley de Newton</a>
+        <a href="trabajo-energia.html" class="nav-panel-link">Trabajo y Energía</a>
+        <a href="impulso-momentum.html" class="nav-panel-link">Impulso y Cantidad de Movimiento</a>
+        <a href="estatica-torque.html" class="nav-panel-link">Estática y Torque</a>
+        <a href="maquinas-simples.html" class="nav-panel-link">Máquinas Simples</a>
+        <p class="nav-panel-titulo">Electricidad</p>
+        <a href="ley-ohm.html" class="nav-panel-link">Ley de Ohm</a>
+        <a href="potencia-electrica.html" class="nav-panel-link">Potencia Eléctrica</a>
+        <a href="circuitos.html" class="nav-panel-link">Circuitos</a>
+        <a href="electromagnetismo.html" class="nav-panel-link">Electromagnetismo</a>
+        <a href="corriente-continua-alterna.html" class="nav-panel-link">Corriente Continua y Alterna</a>
+        <p class="nav-panel-titulo">Termodinámica y Fluidos</p>
+        <a href="calor-especifico.html" class="nav-panel-link">Calor Específico</a>
+        <a href="dilatacion-termica.html" class="nav-panel-link">Dilatación Térmica</a>
+        <a href="fluidos.html" class="nav-panel-link">Presión Hidrostática</a>
+        <a href="caudal-continuidad.html" class="nav-panel-link">Caudal y Continuidad</a>
+        <a href="maquinas-termicas.html" class="nav-panel-link">Máquinas Térmicas</a>
+        <p class="nav-panel-titulo">Física Moderna</p>
+        <a href="relatividad.html" class="nav-panel-link">Relatividad</a>
+        <a href="energia-nuclear.html" class="nav-panel-link">Energía Nuclear</a>
       </div>
     </details>
     <details class="nav-drop">
-      <summary>Matemática</summary>
-      <div class="nav-panel cols-2">
-        <div class="nav-panel-col">
-          <a href="matematica.html" class="nav-panel-toplink">Ver portada de Matemática →</a>
-          <p class="nav-panel-titulo">Álgebra</p>
-          <a href="ecuaciones-primer-grado.html" class="nav-panel-link">Ecuaciones de Primer Grado</a>
-          <a href="ecuaciones-segundo-grado.html" class="nav-panel-link">Ecuaciones de Segundo Grado</a>
-          <a href="sistema-ecuaciones.html" class="nav-panel-link">Sistemas de Ecuaciones</a>
-          <a href="inecuaciones.html" class="nav-panel-link">Inecuaciones</a>
-          <a href="valor-absoluto.html" class="nav-panel-link">Valor Absoluto</a>
-          <p class="nav-panel-titulo">Trigonometría</p>
-          <a href="trigonometria.html" class="nav-panel-link">Trigonometría</a>
-          <a href="teorema-seno-coseno.html" class="nav-panel-link">Teorema del Seno y del Coseno</a>
-          <p class="nav-panel-titulo">Estadística y probabilidad</p>
-          <a href="estadistica.html" class="nav-panel-link">Estadística</a>
-          <a href="probabilidad.html" class="nav-panel-link">Probabilidad</a>
-        </div>
-        <div class="nav-panel-col">
-          <p class="nav-panel-titulo">Funciones</p>
-          <a href="funciones.html" class="nav-panel-link">Funciones</a>
-          <a href="funcion-racional.html" class="nav-panel-link">Función Racional</a>
-          <a href="logaritmos.html" class="nav-panel-link">Logaritmos</a>
-          <p class="nav-panel-titulo">Sucesiones y finanzas</p>
-          <a href="sucesiones.html" class="nav-panel-link">Sucesiones y Series</a>
-          <a href="interes-compuesto.html" class="nav-panel-link">Interés Compuesto</a>
-          <p class="nav-panel-titulo">Geometría</p>
-          <a href="geometria-analitica.html" class="nav-panel-link">Geometría Analítica</a>
-        </div>
+      <summary><a href="matematica.html" class="nav-toplink-label">Matemática</a><span class="nav-caret">▾</span></summary>
+      <div class="nav-panel">
+        <p class="nav-panel-titulo">Álgebra</p>
+        <a href="ecuaciones-primer-grado.html" class="nav-panel-link">Ecuaciones de Primer Grado</a>
+        <a href="ecuaciones-segundo-grado.html" class="nav-panel-link">Ecuaciones de Segundo Grado</a>
+        <a href="sistema-ecuaciones.html" class="nav-panel-link">Sistemas de Ecuaciones</a>
+        <a href="inecuaciones.html" class="nav-panel-link">Inecuaciones</a>
+        <a href="valor-absoluto.html" class="nav-panel-link">Valor Absoluto</a>
+        <p class="nav-panel-titulo">Funciones</p>
+        <a href="funciones.html" class="nav-panel-link">Funciones</a>
+        <a href="funcion-racional.html" class="nav-panel-link">Función Racional</a>
+        <a href="logaritmos.html" class="nav-panel-link">Logaritmos</a>
+        <p class="nav-panel-titulo">Trigonometría</p>
+        <a href="trigonometria.html" class="nav-panel-link">Trigonometría</a>
+        <a href="teorema-seno-coseno.html" class="nav-panel-link">Teorema del Seno y del Coseno</a>
+        <p class="nav-panel-titulo">Sucesiones y finanzas</p>
+        <a href="sucesiones.html" class="nav-panel-link">Sucesiones y Series</a>
+        <a href="interes-compuesto.html" class="nav-panel-link">Interés Compuesto</a>
+        <p class="nav-panel-titulo">Estadística y probabilidad</p>
+        <a href="estadistica.html" class="nav-panel-link">Estadística</a>
+        <a href="probabilidad.html" class="nav-panel-link">Probabilidad</a>
+        <p class="nav-panel-titulo">Geometría</p>
+        <a href="geometria-analitica.html" class="nav-panel-link">Geometría Analítica</a>
       </div>
     </details>
     <details class="nav-drop">
-      <summary>Química</summary>
-      <div class="nav-panel cols-1">
-        <div class="nav-panel-col">
-          <a href="quimica.html" class="nav-panel-toplink">Ver portada de Química →</a>
-          <p class="nav-panel-titulo">Estructura de la materia</p>
-          <a href="modelo-atomico.html" class="nav-panel-link">Modelo Atómico</a>
-          <a href="configuracion-electronica.html" class="nav-panel-link">Config. Electrónica</a>
-          <a href="enlaces-quimicos.html" class="nav-panel-link">Enlaces Químicos</a>
-          <p class="nav-panel-titulo">Reacciones</p>
-          <a href="estequiometria.html" class="nav-panel-link">Estequiometría</a>
-          <a href="oxido-reduccion.html" class="nav-panel-link">Óxido-Reducción</a>
-          <a href="acido-base.html" class="nav-panel-link">Ácido-Base y pH</a>
-          <p class="nav-panel-titulo">Materia y soluciones</p>
-          <a href="concentracion-soluciones.html" class="nav-panel-link">Concentración de Soluciones</a>
-          <a href="mezclas-separacion.html" class="nav-panel-link">Mezclas y Separación</a>
-          <a href="leyes-gases.html" class="nav-panel-link">Leyes de los Gases</a>
-        </div>
+      <summary><a href="quimica.html" class="nav-toplink-label">Química</a><span class="nav-caret">▾</span></summary>
+      <div class="nav-panel">
+        <p class="nav-panel-titulo">Estructura de la materia</p>
+        <a href="modelo-atomico.html" class="nav-panel-link">Modelo Atómico</a>
+        <a href="configuracion-electronica.html" class="nav-panel-link">Config. Electrónica</a>
+        <a href="enlaces-quimicos.html" class="nav-panel-link">Enlaces Químicos</a>
+        <p class="nav-panel-titulo">Reacciones</p>
+        <a href="estequiometria.html" class="nav-panel-link">Estequiometría</a>
+        <a href="oxido-reduccion.html" class="nav-panel-link">Óxido-Reducción</a>
+        <a href="acido-base.html" class="nav-panel-link">Ácido-Base y pH</a>
+        <p class="nav-panel-titulo">Materia y soluciones</p>
+        <a href="concentracion-soluciones.html" class="nav-panel-link">Concentración de Soluciones</a>
+        <a href="mezclas-separacion.html" class="nav-panel-link">Mezclas y Separación</a>
+        <a href="leyes-gases.html" class="nav-panel-link">Leyes de los Gases</a>
       </div>
     </details>
     <details class="nav-drop">
-      <summary>Material</summary>
-      <div class="nav-panel cols-1">
-        <div class="nav-panel-col">
-          <a href="evaluaciones.html" class="nav-panel-link">Evaluaciones</a>
-          <a href="banco-preguntas.html" class="nav-panel-link">Banco de Preguntas</a>
-          <a href="docentes.html" class="nav-panel-link">Para Docentes</a>
-          <a href="experimentos.html" class="nav-panel-link">Experimentos Caseros</a>
-          <a href="conversor-unidades.html" class="nav-panel-link">Conversor de Unidades</a>
-          <a href="sobre-nosotros.html" class="nav-panel-link">Sobre la Fundadora</a>
-        </div>
+      <summary>Material<span class="nav-caret">▾</span></summary>
+      <div class="nav-panel">
+        <a href="evaluaciones.html" class="nav-panel-link">Evaluaciones</a>
+        <a href="banco-preguntas.html" class="nav-panel-link">Banco de Preguntas</a>
+        <a href="docentes.html" class="nav-panel-link">Para Docentes</a>
+        <a href="experimentos.html" class="nav-panel-link">Experimentos Caseros</a>
+        <a href="conversor-unidades.html" class="nav-panel-link">Conversor de Unidades</a>
+        <a href="sobre-nosotros.html" class="nav-panel-link">Sobre la Fundadora</a>
       </div>
     </details>
     <details class="nav-drop">
-      <summary>Machete</summary>
-      <div class="nav-panel cols-1">
-        <div class="nav-panel-col">
-          <a href="formulario.html#fisica" class="nav-panel-link">Machete de Física</a>
-          <a href="formulario.html#quimica" class="nav-panel-link">Machete de Química</a>
-          <a href="formulario.html#matematica" class="nav-panel-link">Machete de Matemática</a>
-        </div>
+      <summary>Machete<span class="nav-caret">▾</span></summary>
+      <div class="nav-panel">
+        <a href="formulario.html#fisica" class="nav-panel-link">Machete de Física</a>
+        <a href="formulario.html#quimica" class="nav-panel-link">Machete de Química</a>
+        <a href="formulario.html#matematica" class="nav-panel-link">Machete de Matemática</a>
       </div>
     </details>
     <a href="sobre-nosotros.html">Sobre la Fundadora</a>
