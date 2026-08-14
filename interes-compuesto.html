@@ -282,19 +282,10 @@
     <a href="conversor-unidades.html">Conversor</a>
     <a href="experimentos.html">Experimentos</a>
     <a href="docentes.html">Para Docentes</a>
-    <a href="funcion-racional.html">Función Racional</a>
-      <a href="probabilidad.html">Probabilidad</a>
-      <a href="geometria-analitica.html">Geometría Analítica</a>
       <a href="banco-preguntas.html">Banco de Preguntas</a>
-    <a href="ecuaciones-primer-grado.html">Matemática</a>
-    <a href="ecuaciones-segundo-grado.html">Ecuaciones de Segundo Grado</a>
-    <a href="funciones.html">Funciones</a>
-    <a href="inecuaciones.html">Inecuaciones</a>
     <a href="evaluaciones.html">Evaluaciones</a>
     <a href="sobre-nosotros.html">Sobre la Fundadora</a>
-  <a href="valor-absoluto.html">Valor Absoluto</a>
-    <a href="trigonometria.html">Trigonometría</a>
-    <a href="teoremas-seno-coseno.html">Teoremas del Seno y Coseno</a>
+    <a href="matematica.html">Matemática</a>
   </div>
 </nav>
 
@@ -302,108 +293,88 @@
   <div class="eyebrow">Matemática · Álgebra</div>
   <h1>Interés Compuesto</h1>
   <p class="subtitle">Cómo crece el dinero cuando el interés se calcula también sobre los intereses acumulados, no solo sobre el capital inicial.</p>
-  <nav class="level-nav">
-    <button class="level-btn active" data-target="basico">Básico</button>
-    <button class="level-btn" data-target="avanzado">Avanzado</button>
-  </nav>
 </header>
 
 <div class="wrap">
 
-  <!-- NIVEL BÁSICO -->
-  <section class="level active" data-level="basico">
+  <div class="card" data-tag="Concepto">
+    <h2>El interés se calcula también sobre los intereses acumulados</h2>
+    <p>En el interés compuesto, cada período no solo ganas interés sobre tu capital inicial, sino también sobre todo el interés que ya habías ganado antes — por eso el dinero crece cada vez más rápido con el tiempo, como una sucesión geométrica.</p>
+    <div class="formula-box">C_final = C_inicial · (1 + i)^n</div>
+    <p class="var-list"><span>C_inicial</span> = capital inicial &nbsp;·&nbsp; <span>i</span> = tasa de interés por período (en decimal) &nbsp;·&nbsp; <span>n</span> = cantidad de períodos &nbsp;·&nbsp; <span>C_final</span> = capital final</p>
+  </div>
 
-    <div class="card" data-tag="Concepto">
-      <h2>El interés se calcula también sobre los intereses acumulados</h2>
-      <p>En el interés compuesto, cada período no solo ganas interés sobre tu capital inicial, sino también sobre todo el interés que ya habías ganado antes — por eso el dinero crece cada vez más rápido con el tiempo, como una sucesión geométrica.</p>
-      <div class="formula-box">C_final = C_inicial · (1 + i)^n</div>
-      <p class="var-list"><span>C_inicial</span> = capital inicial &nbsp;·&nbsp; <span>i</span> = tasa de interés por período (en decimal) &nbsp;·&nbsp; <span>n</span> = cantidad de períodos &nbsp;·&nbsp; <span>C_final</span> = capital final</p>
+  <div class="card" data-tag="Calculadora">
+    <h2>Calcula cuánto crece tu dinero</h2>
+    <div class="calc-grid">
+      <div class="field"><label>Capital inicial</label><input type="number" id="b-capital" value="1000"></div>
+      <div class="field"><label>Tasa de interés por período (%)</label><input type="number" id="b-tasa" value="5"></div>
+      <div class="field"><label>Cantidad de períodos</label><input type="number" id="b-n" value="3"></div>
     </div>
+    <button class="calc-btn" onclick="calcBasico()">Calcular</button>
+    <div class="readout" id="b-readout"></div>
+  </div>
 
-    <div class="card" data-tag="Calculadora">
-      <h2>Calcula cuánto crece tu dinero</h2>
-      <div class="calc-grid">
-        <div class="field"><label>Capital inicial</label><input type="number" id="b-capital" value="1000"></div>
-        <div class="field"><label>Tasa de interés por período (%)</label><input type="number" id="b-tasa" value="5"></div>
-        <div class="field"><label>Cantidad de períodos</label><input type="number" id="b-n" value="3"></div>
-      </div>
-      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
-      <div class="readout" id="b-readout"></div>
+  <div class="card" data-tag="Ejemplo resuelto">
+    <h2>Ejemplo</h2>
+    <div class="example">
+      <p><strong>Inviertes $1000 al 5% de interés compuesto anual, durante 3 años. ¿Cuánto tienes al final?</strong></p>
+      <p>C_final = 1000 × (1.05)³ = 1000 × 1.157625 = <strong>$1157.63</strong></p>
+      <p>Compara con el interés simple (que solo aplica sobre el capital inicial): 1000+3×(1000×0.05)=$1150 — el compuesto siempre da más, porque los intereses también generan intereses.</p>
     </div>
+  </div>
 
-    <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
-      <div class="example">
-        <p><strong>Inviertes $1000 al 5% de interés compuesto anual, durante 3 años. ¿Cuánto tienes al final?</strong></p>
-        <p>C_final = 1000 × (1.05)³ = 1000 × 1.157625 = <strong>$1157.63</strong></p>
-        <p>Compara con el interés simple (que solo aplica sobre el capital inicial): 1000+3×(1000×0.05)=$1150 — el compuesto siempre da más, porque los intereses también generan intereses.</p>
-      </div>
+  <div class="card" data-tag="Concepto">
+    <h2>Comparando interés simple vs. compuesto en el largo plazo</h2>
+    <p>La diferencia entre interés simple y compuesto parece chica al principio, pero se vuelve enorme con el tiempo — el compuesto crece exponencialmente, el simple crece linealmente.</p>
+    <div class="formula-box">Interés simple: C_final = C_inicial × (1 + i×n)</div>
+    <div class="formula-box">Interés compuesto: C_final = C_inicial × (1 + i)^n</div>
+  </div>
+
+  <div class="card" data-tag="Calculadora">
+    <h2>Compáralos lado a lado</h2>
+    <div class="calc-grid">
+      <div class="field"><label>Capital inicial</label><input type="number" id="a-capital" value="1000"></div>
+      <div class="field"><label>Tasa (%)</label><input type="number" id="a-tasa" value="8"></div>
+      <div class="field"><label>Años</label><input type="number" id="a-n" value="20"></div>
     </div>
+    <button class="calc-btn" onclick="calcAvanzado()">Comparar</button>
+    <div class="readout" id="a-readout"></div>
+  </div>
 
-    <div class="card exercises" data-tag="Ejercicios">
-      <h2>Ejercicios con respuesta</h2>
-      <ol>
-        <li>$2000 al 10% anual durante 2 años, con interés compuesto. ¿Cuánto hay al final?
-          <details><summary>Ver respuesta</summary>2000×(1.10)²=2000×1.21=$2420</details>
-        </li>
-        <li>¿Por qué el interés compuesto crece más rápido cuantos más períodos pasen?
-          <details><summary>Ver respuesta</summary>Porque cada período nuevo aplica el interés sobre un capital cada vez más grande (que ya incluye los intereses anteriores) — es un crecimiento exponencial, no lineal.</details>
-        </li>
-        <li>¿Qué le pasa al resultado si la tasa de interés es 0%?
-          <details><summary>Ver respuesta</summary>El capital nunca cambia — (1+0)ⁿ=1ⁿ=1, así que C_final=C_inicial×1=C_inicial</details>
-        </li>
-      </ol>
+  <div class="card" data-tag="Ejemplo resuelto">
+    <h2>Ejemplo</h2>
+    <div class="example">
+      <p><strong>$1000 al 8% anual durante 20 años: ¿cuánta diferencia hay entre simple y compuesto?</strong></p>
+      <p>Simple: 1000×(1+0.08×20) = 1000×2.6 = $2600</p>
+      <p>Compuesto: 1000×(1.08)²⁰ ≈ 1000×4.66 ≈ <strong>$4661</strong></p>
+      <p>Casi el doble — esa es la diferencia real que hace el tiempo con el interés compuesto, y por qué empezar a ahorrar temprano importa tanto.</p>
     </div>
+  </div>
 
-  </section>
-
-  <!-- NIVEL AVANZADO -->
-  <section class="level" data-level="avanzado">
-
-    <div class="card" data-tag="Concepto">
-      <h2>Comparando interés simple vs. compuesto en el largo plazo</h2>
-      <p>La diferencia entre interés simple y compuesto parece chica al principio, pero se vuelve enorme con el tiempo — el compuesto crece exponencialmente, el simple crece linealmente.</p>
-      <div class="formula-box">Interés simple: C_final = C_inicial × (1 + i×n)</div>
-      <div class="formula-box">Interés compuesto: C_final = C_inicial × (1 + i)^n</div>
-    </div>
-
-    <div class="card" data-tag="Calculadora">
-      <h2>Comparalos lado a lado</h2>
-      <div class="calc-grid">
-        <div class="field"><label>Capital inicial</label><input type="number" id="a-capital" value="1000"></div>
-        <div class="field"><label>Tasa (%)</label><input type="number" id="a-tasa" value="8"></div>
-        <div class="field"><label>Años</label><input type="number" id="a-n" value="20"></div>
-      </div>
-      <button class="calc-btn" onclick="calcAvanzado()">Comparar</button>
-      <div class="readout" id="a-readout"></div>
-    </div>
-
-    <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
-      <div class="example">
-        <p><strong>$1000 al 8% anual durante 20 años: ¿cuánta diferencia hay entre simple y compuesto?</strong></p>
-        <p>Simple: 1000×(1+0.08×20) = 1000×2.6 = $2600</p>
-        <p>Compuesto: 1000×(1.08)²⁰ ≈ 1000×4.66 ≈ <strong>$4661</strong></p>
-        <p>Casi el doble — esa es la diferencia real que hace el tiempo con el interés compuesto, y por qué empezar a ahorrar temprano importa tanto.</p>
-      </div>
-    </div>
-
-    <div class="card exercises" data-tag="Ejercicios">
-      <h2>Ejercicios con respuesta</h2>
-      <ol>
-        <li>$500 al 6% anual durante 10 años, interés compuesto. ¿Cuánto hay al final?
-          <details><summary>Ver respuesta</summary>500×(1.06)¹⁰≈500×1.79≈$895.42</details>
-        </li>
-        <li>¿Por qué los bancos casi siempre usan interés compuesto y no simple para sus préstamos?
-          <details><summary>Ver respuesta</summary>Porque genera más ganancia para quien presta el dinero — cada período no solo cobra interés sobre el capital, sino también sobre los intereses ya generados.</details>
-        </li>
-        <li>Si duplicas la tasa de interés, ¿se duplica el capital final?
-          <details><summary>Ver respuesta</summary>No — como la tasa está dentro de una potencia, el efecto no es proporcional. Duplicar la tasa aumenta el capital final más que el doble, especialmente a mayor cantidad de períodos.</details>
-        </li>
-      </ol>
-    </div>
-
-  </section>
+  <div class="card exercises" data-tag="Ejercicios">
+    <h2>Ejercicios con respuesta</h2>
+    <ol>
+      <li>$2000 al 10% anual durante 2 años, con interés compuesto. ¿Cuánto hay al final?
+        <details><summary>Ver respuesta</summary>2000×(1.10)²=2000×1.21=$2420</details>
+      </li>
+      <li>¿Por qué el interés compuesto crece más rápido cuantos más períodos pasen?
+        <details><summary>Ver respuesta</summary>Porque cada período nuevo aplica el interés sobre un capital cada vez más grande (que ya incluye los intereses anteriores) — es un crecimiento exponencial, no lineal.</details>
+      </li>
+      <li>¿Qué le pasa al resultado si la tasa de interés es 0%?
+        <details><summary>Ver respuesta</summary>El capital nunca cambia — (1+0)ⁿ=1ⁿ=1, así que C_final=C_inicial×1=C_inicial</details>
+      </li>
+      <li>$500 al 6% anual durante 10 años, interés compuesto. ¿Cuánto hay al final?
+        <details><summary>Ver respuesta</summary>500×(1.06)¹⁰≈500×1.79≈$895.42</details>
+      </li>
+      <li>¿Por qué los bancos casi siempre usan interés compuesto y no simple para sus préstamos?
+        <details><summary>Ver respuesta</summary>Porque genera más ganancia para quien presta el dinero — cada período no solo cobra interés sobre el capital, sino también sobre los intereses ya generados.</details>
+      </li>
+      <li>Si duplicas la tasa de interés, ¿se duplica el capital final?
+        <details><summary>Ver respuesta</summary>No — como la tasa está dentro de una potencia, el efecto no es proporcional. Duplicar la tasa aumenta el capital final más que el doble, especialmente a mayor cantidad de períodos.</details>
+      </li>
+    </ol>
+  </div>
 
   <div class="card faq" data-tag="FAQ">
     <h2>Preguntas frecuentes</h2>
@@ -434,15 +405,6 @@
   function toggleNavMobile(){
     document.querySelector('.navbar-links').classList.toggle('open');
   }
-
-  document.querySelectorAll('.level-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
-      document.querySelectorAll('section.level').forEach(s=>s.classList.remove('active'));
-      btn.classList.add('active');
-      document.querySelector(`section.level[data-level="${btn.dataset.target}"]`).classList.add('active');
-    });
-  });
 
   function calcBasico(){
     const capital = parseFloat(document.getElementById('b-capital').value)||0;

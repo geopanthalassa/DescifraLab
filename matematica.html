@@ -3,12 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/x-icon" href="favicon.ico?v=4">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=4">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=4">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=4">
-<link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png?v=4">
-<title>Matemática — Todos los Temas: Álgebra, Funciones, Estadística y Más — DescifraLab</title>
+<title>Matemática — Qué es, Historia y Línea de Tiempo Interactiva — DescifraLab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <style>
@@ -53,17 +48,16 @@
   }
   .navbar{
     background:var(--ink);
-    padding:8px 20px;
+    padding:14px 20px;
     display:flex;align-items:center;justify-content:space-between;
     flex-wrap:wrap;gap:12px;
     position:sticky;top:0;z-index:50;
   }
   .navbar-brand{
-    font-family:'Fraunces', serif;font-weight:700;font-size:17px;
+    font-family:'Fraunces', serif;font-weight:700;font-size:19px;
     color:var(--amber);text-decoration:none;
-    line-height:1.25;max-width:220px;
   }
-  .navbar-links{display:flex;gap:4px;flex-wrap:wrap;align-items:center;}
+  .navbar-links{display:flex;gap:4px;flex-wrap:wrap;}
   .navbar-links a{
     color:#D8D3C4;text-decoration:none;
     font-size:13.5px;font-weight:500;
@@ -75,54 +69,7 @@
     display:none;
     background:none;border:none;cursor:pointer;
     padding:6px;
-  }    .nav-drop{position:relative;}
-  .nav-drop summary{
-    list-style:none;cursor:pointer;
-    color:#D8D3C4;font-size:13.5px;font-weight:500;
-    padding:8px 12px;border-radius:6px;
-    display:inline-flex;align-items:center;gap:5px;
-    transition:background 0.15s, color 0.15s;
   }
-  .nav-drop summary::-webkit-details-marker{display:none;}
-  .nav-drop summary:hover{background:rgba(255,255,255,0.08);color:#fff;}
-  .nav-drop[open] summary{background:rgba(255,255,255,0.1);color:#fff;}
-  .nav-toplink-label{color:inherit;text-decoration:none;}
-  .nav-toplink-label:hover{text-decoration:underline;}
-  .nav-caret{font-size:10px;opacity:0.7;padding:2px;}
-  .nav-panel{
-    position:absolute;top:100%;left:0;
-    background:var(--ink);
-    border:2px solid var(--amber);
-    border-radius:8px;
-    padding:10px;
-    z-index:80;
-    box-shadow:5px 5px 0 rgba(0,0,0,0.25);
-    width:270px;
-    max-height:min(480px, calc(100vh - 130px));
-    overflow-y:auto;
-  }
-  .nav-panel-titulo{
-    font-family:'JetBrains Mono', monospace;
-    font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;
-    color:#8A94A0;margin:12px 0 6px;
-    padding-top:8px;border-top:1px solid rgba(255,255,255,0.1);
-  }
-  .nav-panel-titulo:first-child{margin-top:0;padding-top:0;border-top:none;}
-  .nav-panel a.nav-panel-link{
-    display:block;color:#D8D3C4;text-decoration:none;
-    font-size:13.5px;padding:6px 4px;border-radius:4px;
-  }
-  .nav-panel a.nav-panel-link:hover{background:rgba(255,255,255,0.08);color:#fff;}
-  @media(max-width:768px){
-    .nav-panel{
-      position:static;border:none;box-shadow:none;
-      background:rgba(255,255,255,0.04);
-      margin-top:4px;padding:6px 6px 6px 18px;
-      width:auto;max-height:none;overflow-y:visible;
-    }
-    .nav-drop summary{padding:12px 14px;}
-  }
-
   .navbar-toggle span{
     display:block;width:24px;height:2.5px;
     background:#D8D3C4;margin:5px 0;
@@ -136,13 +83,7 @@
       gap:2px;
       order:3;
     }
-    .navbar-links.open{
-      display:flex;
-      max-height:calc(100vh - 64px);
-      overflow-y:auto;
-      -webkit-overflow-scrolling:touch;
-      padding-bottom:20px;
-    }
+    .navbar-links.open{display:flex;}
     .navbar-toggle{display:block;}
     .navbar-links a{padding:12px 14px;}
   }
@@ -324,31 +265,6 @@
   }
   .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
 
-  .topic-index{margin-top:2px;}
-  .topic-index-grupo{margin-bottom:18px;}
-  .topic-index-grupo:last-child{margin-bottom:0;}
-  .topic-index-titulo{
-    font-family:'JetBrains Mono', monospace;
-    font-size:12px;font-weight:700;
-    text-transform:uppercase;letter-spacing:0.06em;
-    color:var(--ink-soft);
-    margin:0 0 8px;
-    padding-bottom:6px;
-    border-bottom:1px solid var(--line);
-  }
-  .topic-index-links{
-    display:flex;flex-wrap:wrap;
-    gap:8px 10px;
-  }
-  .topic-index-links a{
-    font-size:14px;
-    color:var(--ink);
-    text-decoration:none;
-    padding:5px 0;
-    border-bottom:1px dashed var(--ink-soft);
-  }
-  .topic-index-links a:hover{color:var(--pine-dark);border-bottom-color:var(--pine-dark);}
-
   .mach-grupo{margin-bottom:36px;}
   .mach-titulo{
     font-family:'Fraunces', serif;
@@ -367,7 +283,6 @@
   .mach-grupo.moderna .mach-titulo{background:#8A5FC7;}
   .mach-grupo.quimica .mach-titulo{background:#3FA05C;}
   .mach-grupo.herramientas .mach-titulo{background:#5C6B7A;}
-  .mach-grupo.matematica .mach-titulo{background:#1F7A8C;}
 
   .mach-grid{
     display:grid;
@@ -396,7 +311,6 @@
   .mach-grupo.moderna .mach-card::before{background:#8A5FC7;}
   .mach-grupo.quimica .mach-card::before{background:#3FA05C;}
   .mach-grupo.herramientas .mach-card::before{background:#5C6B7A;}
-  .mach-grupo.matematica .mach-card::before{background:#1F7A8C;}
 
   .mach-card:hover{
     transform:translateY(-4px) rotate(-0.5deg);
@@ -574,104 +488,21 @@
 <body>
 
 <nav class="navbar">
-  <a href="index.html" class="navbar-brand">Entiende. Calcula. Experimenta.</a>
+  <a href="index.html" class="navbar-brand">DescifraLab</a>
   <button class="navbar-toggle" onclick="toggleNavMobile()" aria-label="Abrir menú">
     <span></span><span></span><span></span>
   </button>
-              <div class="navbar-links">
-    <details class="nav-drop">
-      <summary><a href="fisica.html" class="nav-toplink-label">Física</a><span class="nav-caret">▾</span></summary>
-      <div class="nav-panel">
-        <p class="nav-panel-titulo">Mecánica</p>
-        <a href="mru.html" class="nav-panel-link">MRU</a>
-        <a href="mruv.html" class="nav-panel-link">MRUV</a>
-        <a href="tiro-oblicuo.html" class="nav-panel-link">Tiro Oblicuo</a>
-        <a href="mcu.html" class="nav-panel-link">MCU</a>
-        <a href="newton.html" class="nav-panel-link">2ª Ley de Newton</a>
-        <a href="trabajo-energia.html" class="nav-panel-link">Trabajo y Energía</a>
-        <a href="impulso-momentum.html" class="nav-panel-link">Impulso y Cantidad de Movimiento</a>
-        <a href="estatica-torque.html" class="nav-panel-link">Estática y Torque</a>
-        <a href="maquinas-simples.html" class="nav-panel-link">Máquinas Simples</a>
-        <p class="nav-panel-titulo">Electricidad</p>
-        <a href="ley-ohm.html" class="nav-panel-link">Ley de Ohm</a>
-        <a href="potencia-electrica.html" class="nav-panel-link">Potencia Eléctrica</a>
-        <a href="circuitos.html" class="nav-panel-link">Circuitos</a>
-        <a href="electromagnetismo.html" class="nav-panel-link">Electromagnetismo</a>
-        <a href="corriente-continua-alterna.html" class="nav-panel-link">Corriente Continua y Alterna</a>
-        <p class="nav-panel-titulo">Termodinámica y Fluidos</p>
-        <a href="calor-especifico.html" class="nav-panel-link">Calor Específico</a>
-        <a href="dilatacion-termica.html" class="nav-panel-link">Dilatación Térmica</a>
-        <a href="fluidos.html" class="nav-panel-link">Presión Hidrostática</a>
-        <a href="caudal-continuidad.html" class="nav-panel-link">Caudal y Continuidad</a>
-        <a href="maquinas-termicas.html" class="nav-panel-link">Máquinas Térmicas</a>
-        <p class="nav-panel-titulo">Física Moderna</p>
-        <a href="relatividad.html" class="nav-panel-link">Relatividad</a>
-        <a href="energia-nuclear.html" class="nav-panel-link">Energía Nuclear</a>
-      </div>
-    </details>
-    <details class="nav-drop">
-      <summary><a href="matematica.html" class="nav-toplink-label">Matemática</a><span class="nav-caret">▾</span></summary>
-      <div class="nav-panel">
-        <p class="nav-panel-titulo">Álgebra</p>
-        <a href="ecuaciones-primer-grado.html" class="nav-panel-link">Ecuaciones de Primer Grado</a>
-        <a href="ecuaciones-segundo-grado.html" class="nav-panel-link">Ecuaciones de Segundo Grado</a>
-        <a href="sistema-ecuaciones.html" class="nav-panel-link">Sistemas de Ecuaciones</a>
-        <a href="inecuaciones.html" class="nav-panel-link">Inecuaciones</a>
-        <a href="valor-absoluto.html" class="nav-panel-link">Valor Absoluto</a>
-        <p class="nav-panel-titulo">Funciones</p>
-        <a href="funciones.html" class="nav-panel-link">Funciones</a>
-        <a href="funcion-racional.html" class="nav-panel-link">Función Racional</a>
-        <a href="logaritmos.html" class="nav-panel-link">Logaritmos</a>
-        <p class="nav-panel-titulo">Trigonometría</p>
-        <a href="trigonometria.html" class="nav-panel-link">Trigonometría</a>
-        <a href="teorema-seno-coseno.html" class="nav-panel-link">Teorema del Seno y del Coseno</a>
-        <p class="nav-panel-titulo">Sucesiones y finanzas</p>
-        <a href="sucesiones.html" class="nav-panel-link">Sucesiones y Series</a>
-        <a href="interes-compuesto.html" class="nav-panel-link">Interés Compuesto</a>
-        <p class="nav-panel-titulo">Estadística y probabilidad</p>
-        <a href="estadistica.html" class="nav-panel-link">Estadística</a>
-        <a href="probabilidad.html" class="nav-panel-link">Probabilidad</a>
-        <p class="nav-panel-titulo">Geometría</p>
-        <a href="geometria-analitica.html" class="nav-panel-link">Geometría Analítica</a>
-      </div>
-    </details>
-    <details class="nav-drop">
-      <summary><a href="quimica.html" class="nav-toplink-label">Química</a><span class="nav-caret">▾</span></summary>
-      <div class="nav-panel">
-        <p class="nav-panel-titulo">Estructura de la materia</p>
-        <a href="modelo-atomico.html" class="nav-panel-link">Modelo Atómico</a>
-        <a href="configuracion-electronica.html" class="nav-panel-link">Config. Electrónica</a>
-        <a href="enlaces-quimicos.html" class="nav-panel-link">Enlaces Químicos</a>
-        <p class="nav-panel-titulo">Reacciones</p>
-        <a href="estequiometria.html" class="nav-panel-link">Estequiometría</a>
-        <a href="oxido-reduccion.html" class="nav-panel-link">Óxido-Reducción</a>
-        <a href="acido-base.html" class="nav-panel-link">Ácido-Base y pH</a>
-        <p class="nav-panel-titulo">Materia y soluciones</p>
-        <a href="concentracion-soluciones.html" class="nav-panel-link">Concentración de Soluciones</a>
-        <a href="mezclas-separacion.html" class="nav-panel-link">Mezclas y Separación</a>
-        <a href="leyes-gases.html" class="nav-panel-link">Leyes de los Gases</a>
-      </div>
-    </details>
-    <details class="nav-drop">
-      <summary>Material<span class="nav-caret">▾</span></summary>
-      <div class="nav-panel">
-        <a href="evaluaciones.html" class="nav-panel-link">Evaluaciones</a>
-        <a href="banco-preguntas.html" class="nav-panel-link">Banco de Preguntas</a>
-        <a href="docentes.html" class="nav-panel-link">Para Docentes</a>
-        <a href="experimentos.html" class="nav-panel-link">Experimentos Caseros</a>
-        <a href="conversor-unidades.html" class="nav-panel-link">Conversor de Unidades</a>
-        <a href="sobre-nosotros.html" class="nav-panel-link">Sobre la Fundadora</a>
-      </div>
-    </details>
-    <details class="nav-drop">
-      <summary>Machete<span class="nav-caret">▾</span></summary>
-      <div class="nav-panel">
-        <a href="formulario.html#fisica" class="nav-panel-link">Machete de Física</a>
-        <a href="formulario.html#quimica" class="nav-panel-link">Machete de Química</a>
-        <a href="formulario.html#matematica" class="nav-panel-link">Machete de Matemática</a>
-      </div>
-    </details>
+  <div class="navbar-links">
+    <a href="fisica.html">Física</a>
+    <a href="quimica.html">Química</a>
+    <a href="formulario.html">Machete de Fórmulas</a>
+    <a href="conversor-unidades.html">Conversor</a>
+    <a href="experimentos.html">Experimentos</a>
+    <a href="docentes.html">Para Docentes</a>
+    <a href="banco-preguntas.html">Banco de Preguntas</a>
+    <a href="evaluaciones.html">Evaluaciones</a>
     <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+    <a href="matematica.html">Matemática</a>
   </div>
 </nav>
 
@@ -681,128 +512,110 @@
   </svg>
   <div class="eyebrow">Portada de materia</div>
   <h1>Matemática</h1>
-  <p class="subtitle">El lenguaje que describe patrones, cantidades y relaciones — todos los temas del sitio organizados en un solo lugar.</p>
+  <p class="subtitle">Qué es, cómo se construyó su conocimiento a lo largo de la historia, y todos los temas del sitio organizados en un solo lugar.</p>
 </header>
 
 <div class="wrap" style="position:relative;">
 
   <div class="card">
     <h2>¿Qué es la Matemática?</h2>
-    <p>La Matemática no es una lista de fórmulas para memorizar — es un lenguaje para describir patrones: cuánto vale algo desconocido (ecuaciones), cómo cambia una cantidad respecto a otra (funciones), qué tan probable es un evento (probabilidad), o cómo se relacionan la forma y el número (geometría analítica). Cada tema de esta sección parte de una pregunta cotidiana antes de llegar a la fórmula.</p>
-    <p style="color:var(--ink-soft);font-size:14.5px;">Todos los temas incluyen una calculadora o graficador interactivo, ejemplos resueltos paso a paso, y ejercicios con respuesta explicada — no solo el resultado final.</p>
+    <p>La Matemática estudia patrones, cantidades, formas, y las relaciones lógicas entre ellos — no describe directamente el mundo como la física o la química, pero es el lenguaje que ambas necesitan para expresarse con precisión. Cada fórmula que usaste en Física o Química es, en el fondo, matemática aplicada.</p>
+    <p style="color:var(--ink-soft);font-size:14.5px;">Es probablemente la disciplina más antigua y a la vez más "viva" — los mismos números que usaban los babilonios hace 4000 años siguen siendo válidos hoy, pero constantemente se siguen descubriendo relaciones y estructuras nuevas.</p>
   </div>
 
   <div class="card">
     <h2>Línea de tiempo interactiva</h2>
-    <p style="color:var(--ink-soft);font-size:14.5px;">Toca cualquier año para ver qué pasó — casi 4000 años de historia, en 8 momentos clave.</p>
-    <div id="timeline-matematica" class="timeline-interactiva"></div>
+    <p style="color:var(--ink-soft);font-size:14.5px;">Toca cualquier año para ver qué pasó — 3800 años de historia, en 6 momentos clave.</p>
+    <div id="timeline-fisica" class="timeline-interactiva"></div>
   </div>
 
-  <!-- MATEMÁTICA -->
-  <div class="mach-grupo matematica">
+  <!-- ÁLGEBRA -->
+  <div class="mach-grupo mecanica">
     <h2 class="mach-titulo">Álgebra</h2>
     <div class="mach-grid">
-      <a href="ecuaciones-primer-grado.html" class="mach-card matematica">
+      <a href="ecuaciones-primer-grado.html" class="mach-card">
         <h3>Ecuaciones de Primer Grado</h3>
-        <div class="mach-formula">ax + b = c</div>
+        <div class="mach-formula" style="font-size:12px;">Despejar la incógnita</div>
       </a>
-      <a href="ecuaciones-segundo-grado.html" class="mach-card matematica">
+      <a href="ecuaciones-segundo-grado.html" class="mach-card">
         <h3>Ecuaciones de Segundo Grado</h3>
-        <div class="mach-formula" style="font-size:13px;">x = (−b±√(b²−4ac)) / 2a</div>
+        <div class="mach-formula" style="font-size:12px;">Fórmula resolvente</div>
       </a>
-      <a href="sistema-ecuaciones.html" class="mach-card matematica">
-        <h3>Sistemas de Ecuaciones</h3>
-        <div class="mach-formula" style="font-size:12px;">Sustitución, igualación, reducción</div>
-      </a>
-      <a href="inecuaciones.html" class="mach-card matematica">
+      <a href="inecuaciones.html" class="mach-card">
         <h3>Inecuaciones</h3>
-        <div class="mach-formula">x &gt; a, x ≤ b</div>
+        <div class="mach-formula" style="font-size:12px;">Desigualdades</div>
       </a>
-      <a href="valor-absoluto.html" class="mach-card matematica">
+      <a href="valor-absoluto.html" class="mach-card">
         <h3>Valor Absoluto</h3>
-        <div class="mach-formula">|x| = distancia al 0</div>
+        <div class="mach-formula" style="font-size:12px;">|x−a|=b</div>
       </a>
     </div>
   </div>
 
-  <div class="card" data-tag="Dato freak" style="text-align:center;">
-    <p style="margin:0;font-size:14.5px;">La palabra <strong>"álgebra"</strong> viene del árabe <em>al-jabr</em> — literalmente "restaurar" o "recomponer" — y aparece en el título de un libro de matemática del año 825. Y la palabra <strong>"algoritmo"</strong> es directamente el nombre de su autor, Al-Juarismi, deformado con el paso de los siglos.</p>
-  </div>
-
-  <div class="mach-grupo matematica">
+  <!-- FUNCIONES -->
+  <div class="mach-grupo electricidad">
     <h2 class="mach-titulo">Funciones</h2>
     <div class="mach-grid">
-      <a href="funciones.html" class="mach-card matematica">
+      <a href="funciones.html" class="mach-card">
         <h3>Funciones</h3>
-        <div class="mach-formula">y = f(x)</div>
+        <div class="mach-formula" style="font-size:12px;">Lineal, cuadrática, exponencial</div>
       </a>
-      <a href="funcion-racional.html" class="mach-card matematica">
+      <a href="funcion-racional.html" class="mach-card">
         <h3>Función Racional</h3>
-        <div class="mach-formula" style="font-size:14px;">f(x) = p(x)/q(x)</div>
+        <div class="mach-formula" style="font-size:12px;">Asíntotas</div>
       </a>
-      <a href="logaritmos.html" class="mach-card matematica">
+      <a href="logaritmos.html" class="mach-card">
         <h3>Logaritmos</h3>
-        <div class="mach-formula">log_b(x) = y</div>
+        <div class="mach-formula" style="font-size:12px;">log_a(b)=c</div>
       </a>
     </div>
   </div>
 
-  <div class="mach-grupo matematica">
-    <h2 class="mach-titulo">Trigonometría</h2>
+  <!-- SUCESIONES Y FINANZAS -->
+  <div class="mach-grupo termo">
+    <h2 class="mach-titulo">Sucesiones y Finanzas</h2>
     <div class="mach-grid">
-      <a href="trigonometria.html" class="mach-card matematica">
-        <h3>Trigonometría</h3>
-        <div class="mach-formula" style="font-size:13px;">sen, cos, tan</div>
-      </a>
-      <a href="teorema-seno-coseno.html" class="mach-card matematica">
-        <h3>Teorema del Seno y del Coseno</h3>
-        <div class="mach-formula" style="font-size:12px;">Triángulos sin ángulo recto</div>
-      </a>
-    </div>
-  </div>
-
-  <div class="mach-grupo matematica">
-    <h2 class="mach-titulo">Sucesiones y finanzas</h2>
-    <div class="mach-grid">
-      <a href="sucesiones.html" class="mach-card matematica">
+      <a href="sucesiones.html" class="mach-card">
         <h3>Sucesiones y Series</h3>
-        <div class="mach-formula" style="font-size:13px;">aₙ = a₁ + (n−1)d</div>
+        <div class="mach-formula" style="font-size:12px;">Aritmética y geométrica</div>
       </a>
-      <a href="interes-compuesto.html" class="mach-card matematica">
+      <a href="interes-compuesto.html" class="mach-card">
         <h3>Interés Compuesto</h3>
-        <div class="mach-formula" style="font-size:14px;">M = C(1+i)ⁿ</div>
+        <div class="mach-formula" style="font-size:12px;">Cómo crece el dinero</div>
       </a>
     </div>
   </div>
 
-  <div class="card" data-tag="Dato freak" style="text-align:center;">
-    <p style="margin:0;font-size:14.5px;">La sucesión de Fibonacci (1, 1, 2, 3, 5, 8, 13, 21...) no es solo un ejercicio de clase — aparece en la cantidad de pétalos de casi todas las flores, en la espiral de un caracol, y en cómo se acomodan las semillas de un girasol.</p>
-  </div>
-
-  <div class="mach-grupo matematica">
-    <h2 class="mach-titulo">Estadística y probabilidad</h2>
+  <!-- ESTADÍSTICA Y PROBABILIDAD -->
+  <div class="mach-grupo moderna">
+    <h2 class="mach-titulo">Estadística y Probabilidad</h2>
     <div class="mach-grid">
-      <a href="estadistica.html" class="mach-card matematica">
+      <a href="estadistica.html" class="mach-card">
         <h3>Estadística</h3>
         <div class="mach-formula" style="font-size:12px;">Media, mediana, moda</div>
       </a>
-      <a href="probabilidad.html" class="mach-card matematica">
+      <a href="probabilidad.html" class="mach-card">
         <h3>Probabilidad</h3>
-        <div class="mach-formula">P(A) = casos/total</div>
+        <div class="mach-formula" style="font-size:12px;">Simple y condicional</div>
       </a>
     </div>
   </div>
 
-  <div class="card" data-tag="Dato freak" style="text-align:center;">
-    <p style="margin:0;font-size:14.5px;">En un salón de solo 23 personas, la probabilidad de que dos compartan cumpleaños ya supera el 50% — aunque hay 365 días posibles. Se llama la "paradoja del cumpleaños", y no es magia: es que hay muchísimos más pares posibles de personas de los que parece a simple vista.</p>
-  </div>
-
-  <div class="mach-grupo matematica">
-    <h2 class="mach-titulo">Geometría</h2>
+  <!-- GEOMETRÍA Y TRIGONOMETRÍA -->
+  <div class="mach-grupo quimica">
+    <h2 class="mach-titulo">Geometría y Trigonometría</h2>
     <div class="mach-grid">
-      <a href="geometria-analitica.html" class="mach-card matematica">
+      <a href="geometria-analitica.html" class="mach-card quimica">
         <h3>Geometría Analítica</h3>
-        <div class="mach-formula" style="font-size:13px;">(x−h)² + (y−k)² = r²</div>
+        <div class="mach-formula" style="font-size:12px;">Distancia, circunferencia</div>
+      </a>
+      <a href="trigonometria.html" class="mach-card quimica">
+        <h3>Trigonometría</h3>
+        <div class="mach-formula" style="font-size:12px;">Seno, coseno, tangente</div>
+      </a>
+      <a href="teoremas-seno-coseno.html" class="mach-card quimica">
+        <h3>Teoremas del Seno y Coseno</h3>
+        <div class="mach-formula" style="font-size:12px;">Triangulación</div>
       </a>
     </div>
   </div>
@@ -819,18 +632,16 @@
   }
 
   const TIMELINE_MATEMATICA = [
-    {año:'~1800 a.C.', titulo:'Babilonia y Egipto: matemática práctica', texto:'Las primeras civilizaciones desarrollan matemática para resolver problemas concretos: repartir tierras, cobrar impuestos, predecir crecidas del río, construir pirámides. Los babilonios usaban un sistema de base 60 (sexagesimal). Dato freak: por eso hoy una hora tiene 60 minutos, un minuto tiene 60 segundos, y un círculo tiene 360 grados — es herencia babilónica de hace casi 4000 años.'},
-    {año:'~300 a.C.', titulo:'Euclides y los Elementos', texto:'Euclides escribe "Los Elementos", un libro que organiza toda la geometría conocida a partir de unas pocas reglas básicas (axiomas) y demuestra todo lo demás con lógica pura. Dato freak: fue el libro de texto de geometría más usado del mundo durante más de 2000 años, y algunos dicen que es el segundo libro más publicado de la historia después de la Biblia.'},
-    {año:'~250 a.C.', titulo:'Arquímedes y el cálculo de áreas', texto:'Arquímedes calcula el área de un círculo y el volumen de una esfera con métodos que se adelantan casi 2000 años al cálculo integral. Dato freak: según la leyenda, estaba tan concentrado resolviendo un problema de geometría dibujado en la arena que ni se dio cuenta de que un soldado romano lo estaba por matar.'},
-    {año:'825 d.C.', titulo:'Al-Juarismi y el nacimiento del álgebra', texto:'El matemático persa Al-Juarismi escribe un libro sobre cómo resolver ecuaciones de forma sistemática, usando el método de "al-jabr" (reorganizar términos). Dato freak: de "al-jabr" viene la palabra "álgebra", y de su propio nombre (deformado con los siglos) viene la palabra "algoritmo".'},
-    {año:'1202', titulo:'Fibonacci y los números que usamos hoy', texto:'Leonardo Fibonacci publica "Liber Abaci", el libro que introduce en Europa los números indo-arábigos (0,1,2,3...) que usamos hoy, reemplazando a los números romanos para calcular. También presenta la famosa sucesión que lleva su nombre. Dato freak: esa sucesión aparece en la naturaleza — en pétalos de flores, en la espiral de un caracol, en las semillas de un girasol.'},
-    {año:'1637', titulo:'Descartes une el álgebra con la geometría', texto:'René Descartes publica "La Géométrie", donde introduce el plano cartesiano — la idea de representar cualquier punto con dos números (x, y), uniendo por primera vez el álgebra y la geometría en un mismo lenguaje. Es la base de toda la geometría analítica que usas hoy. Dato freak: cuenta la leyenda (no confirmada) que se le ocurrió mirando una mosca caminar por el techo de su habitación.'},
-    {año:'1665-1680s', titulo:'Newton y Leibniz inventan el cálculo', texto:'Isaac Newton y Gottfried Leibniz desarrollan el cálculo diferencial e integral de forma independiente, casi al mismo tiempo — la herramienta matemática que describe el cambio y el movimiento, y que hoy es la base de toda la física, ingeniería y economía moderna. Dato freak: esto desató una de las peleas más famosas de la historia de la ciencia sobre quién lo inventó primero, que duró décadas y nunca se resolvió del todo.'},
-    {año:'1854', titulo:'George Boole y la lógica que mueve las computadoras', texto:'George Boole publica "Las leyes del pensamiento", donde reduce la lógica a operaciones matemáticas con solo dos valores: verdadero y falso (1 y 0). Dato freak: Boole murió en 1864, casi 100 años antes de que existiera la primera computadora — pero su álgebra booleana es exactamente lo que hace funcionar, hasta hoy, cada chip electrónico del planeta.'},
+    {año:'~1800 a.C.', titulo:'Los babilonios y las primeras ecuaciones', texto:'En tablillas de arcilla se encontraron problemas que hoy reconoceríamos como ecuaciones cuadráticas, resueltas con métodos prácticos — sin álgebra simbólica como la conocemos, pero con la misma lógica de fondo.'},
+    {año:'~300 a.C.', titulo:'Euclides y la geometría axiomática', texto:'Euclides escribe "Los Elementos", organizando toda la geometría conocida a partir de un puñado de reglas básicas (axiomas) de las que se deduce todo lo demás — el modelo de razonamiento lógico que la matemática usa hasta hoy.'},
+    {año:'~820', titulo:'Al-Juarismi y el nacimiento del álgebra', texto:'El matemático persa Al-Juarismi escribe un tratado llamado "Al-jabr" — de ahí viene la palabra "álgebra". Fue el primero en tratar la resolución de ecuaciones como un método sistemático, no caso por caso.'},
+    {año:'1637', titulo:'Descartes une el álgebra con la geometría', texto:'René Descartes inventa el sistema de coordenadas (los ejes x e y que usas en cualquier gráfico) — con eso, cualquier problema geométrico se puede resolver con álgebra, y viceversa. Nace la geometría analítica.'},
+    {año:'1654', titulo:'Pascal y Fermat fundan la teoría de la probabilidad', texto:'Todo empezó con una duda de un jugador de cartas sobre cómo repartir las apuestas si un juego se interrumpe a la mitad — la correspondencia entre estos dos matemáticos sentó las bases de toda la probabilidad moderna.'},
+    {año:'1801', titulo:'Gauss y la curva normal', texto:'Carl Friedrich Gauss desarrolla la distribución que lleva su nombre (la "campana de Gauss") estudiando errores de medición astronómica — hoy es la base de la estadística moderna, desde exámenes hasta control de calidad industrial.'},
   ];
 
   function renderTimelineMatematica(){
-    const cont = document.getElementById('timeline-matematica');
+    const cont = document.getElementById('timeline-fisica');
     let html = '';
     TIMELINE_MATEMATICA.forEach((item, i)=>{
       html += `
@@ -854,20 +665,6 @@
   window.addEventListener('load', ()=>{
     renderTimelineMatematica();
   });
-
-  const navLinksEl = document.querySelector('.navbar-links');
-  if(navLinksEl && window.matchMedia('(hover: hover)').matches){
-    const drops = navLinksEl.querySelectorAll('.nav-drop');
-    drops.forEach(drop=>{
-      drop.addEventListener('mouseenter', ()=>{
-        drops.forEach(d=>{ if(d!==drop) d.removeAttribute('open'); });
-        drop.setAttribute('open','');
-      });
-    });
-    navLinksEl.addEventListener('mouseleave', ()=>{
-      drops.forEach(d=>d.removeAttribute('open'));
-    });
-  }
 </script>
 
 </body>

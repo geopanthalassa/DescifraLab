@@ -282,16 +282,10 @@
     <a href="conversor-unidades.html">Conversor</a>
     <a href="experimentos.html">Experimentos</a>
     <a href="docentes.html">Para Docentes</a>
-    <a href="funcion-racional.html">Función Racional</a>
-      <a href="probabilidad.html">Probabilidad</a>
-      <a href="geometria-analitica.html">Geometría Analítica</a>
       <a href="banco-preguntas.html">Banco de Preguntas</a>
-    <a href="ecuaciones-primer-grado.html">Matemática</a>
-    <a href="ecuaciones-segundo-grado.html">Ecuaciones de Segundo Grado</a>
-    <a href="funciones.html">Funciones</a>
-    <a href="inecuaciones.html">Inecuaciones</a>
     <a href="evaluaciones.html">Evaluaciones</a>
     <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+    <a href="matematica.html">Matemática</a>
   </div>
 </nav>
 
@@ -299,107 +293,87 @@
   <div class="eyebrow">Matemática · Álgebra</div>
   <h1>Teoremas del Seno y del Coseno</h1>
   <p class="subtitle">Para triángulos que no son rectángulos, y cómo medir una distancia sin cruzarla (triangulación).</p>
-  <nav class="level-nav">
-    <button class="level-btn active" data-target="basico">Básico</button>
-    <button class="level-btn" data-target="avanzado">Avanzado</button>
-  </nav>
 </header>
 
 <div class="wrap">
 
-  <!-- NIVEL BÁSICO -->
-  <section class="level active" data-level="basico">
+  <div class="card" data-tag="Concepto">
+    <h2>Teorema del Seno: para cualquier triángulo, no solo los rectángulos</h2>
+    <p>El seno y coseno que ya viste solo funcionan directo en triángulos rectángulos. El Teorema del Seno extiende esa idea a <strong>cualquier</strong> triángulo, relacionando cada lado con el seno del ángulo opuesto a él.</p>
+    <div class="formula-box">a/sen(A) = b/sen(B) = c/sen(C)</div>
+    <p class="var-list">Cada lado (a, b, c) está enfrente de su ángulo correspondiente (A, B, C) — útil cuando conoces un lado con su ángulo opuesto, y necesitas otro lado.</p>
+  </div>
 
-    <div class="card" data-tag="Concepto">
-      <h2>Teorema del Seno: para cualquier triángulo, no solo los rectángulos</h2>
-      <p>El seno y coseno que ya viste solo funcionan directo en triángulos rectángulos. El Teorema del Seno extiende esa idea a <strong>cualquier</strong> triángulo, relacionando cada lado con el seno del ángulo opuesto a él.</p>
-      <div class="formula-box">a/sen(A) = b/sen(B) = c/sen(C)</div>
-      <p class="var-list">Cada lado (a, b, c) está enfrente de su ángulo correspondiente (A, B, C) — útil cuando conoces un lado con su ángulo opuesto, y necesitas otro lado.</p>
+  <div class="card" data-tag="Calculadora">
+    <h2>Calcula un lado con el Teorema del Seno</h2>
+    <div class="calc-grid">
+      <div class="field"><label>Lado conocido (a)</label><input type="number" id="b-a" value="10"></div>
+      <div class="field"><label>Ángulo opuesto a ese lado (A, grados)</label><input type="number" id="b-A" value="40"></div>
+      <div class="field"><label>Ángulo opuesto al lado que buscas (B, grados)</label><input type="number" id="b-B" value="60"></div>
     </div>
+    <button class="calc-btn" onclick="calcBasico()">Calcular lado b</button>
+    <div class="readout" id="b-readout"></div>
+  </div>
 
-    <div class="card" data-tag="Calculadora">
-      <h2>Calcula un lado con el Teorema del Seno</h2>
-      <div class="calc-grid">
-        <div class="field"><label>Lado conocido (a)</label><input type="number" id="b-a" value="10"></div>
-        <div class="field"><label>Ángulo opuesto a ese lado (A, grados)</label><input type="number" id="b-A" value="40"></div>
-        <div class="field"><label>Ángulo opuesto al lado que buscas (B, grados)</label><input type="number" id="b-B" value="60"></div>
-      </div>
-      <button class="calc-btn" onclick="calcBasico()">Calcular lado b</button>
-      <div class="readout" id="b-readout"></div>
+  <div class="card" data-tag="Ejemplo resuelto">
+    <h2>Ejemplo</h2>
+    <div class="example">
+      <p><strong>Un triángulo tiene a=10, A=40°, B=60°. ¿Cuánto mide el lado b?</strong></p>
+      <p>a/sen(A) = b/sen(B) → 10/sen(40°) = b/sen(60°)</p>
+      <p>b = 10×sen(60°)/sen(40°) = 10×0.866/0.643 ≈ <strong>13.47</strong></p>
     </div>
+  </div>
 
-    <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
-      <div class="example">
-        <p><strong>Un triángulo tiene a=10, A=40°, B=60°. ¿Cuánto mide el lado b?</strong></p>
-        <p>a/sen(A) = b/sen(B) → 10/sen(40°) = b/sen(60°)</p>
-        <p>b = 10×sen(60°)/sen(40°) = 10×0.866/0.643 ≈ <strong>13.47</strong></p>
-      </div>
+  <div class="card" data-tag="Concepto">
+    <h2>Teorema del Coseno: cuando no tienes un par lado-ángulo opuesto</h2>
+    <p>Es una generalización del Teorema de Pitágoras para cualquier triángulo — se usa cuando conoces dos lados y el ángulo entre ellos, o los tres lados.</p>
+    <div class="formula-box">c² = a² + b² − 2ab·cos(C)</div>
+    <p class="var-list">Si C=90°, cos(90°)=0, y la fórmula se reduce exactamente al Teorema de Pitágoras (c²=a²+b²) — por eso es una generalización.</p>
+  </div>
+
+  <div class="card" data-tag="Calculadora">
+    <h2>Calcula el tercer lado con el Teorema del Coseno</h2>
+    <div class="calc-grid">
+      <div class="field"><label>Lado a</label><input type="number" id="a-a" value="7"></div>
+      <div class="field"><label>Lado b</label><input type="number" id="a-b" value="9"></div>
+      <div class="field"><label>Ángulo entre ellos, C (grados)</label><input type="number" id="a-C" value="60"></div>
     </div>
+    <button class="calc-btn" onclick="calcAvanzado()">Calcular lado c</button>
+    <div class="readout" id="a-readout"></div>
+  </div>
 
-    <div class="card exercises" data-tag="Ejercicios">
-      <h2>Ejercicios con respuesta</h2>
-      <ol>
-        <li>Un triángulo tiene a=8, A=30°, B=70°. ¿Cuánto mide b?
-          <details><summary>Ver respuesta</summary>b=8×sen(70°)/sen(30°)≈8×0.940/0.5≈15.03</details>
-        </li>
-        <li>¿Cuándo conviene usar el Teorema del Seno en vez de trigonometría básica?
-          <details><summary>Ver respuesta</summary>Cuando el triángulo NO tiene un ángulo recto — la trigonometría básica (sen=opuesto/hipotenusa) solo funciona directamente en triángulos rectángulos.</details>
-        </li>
-        <li>¿Qué datos mínimos necesitas para aplicar el Teorema del Seno?
-          <details><summary>Ver respuesta</summary>Un lado con su ángulo opuesto (un par completo), más otro ángulo o lado del triángulo</details>
-        </li>
-      </ol>
+  <div class="card" data-tag="Ejemplo resuelto">
+    <h2>Ejemplo — triangulación</h2>
+    <div class="example">
+      <p><strong>Quieres medir la distancia hasta un árbol al otro lado de un río, sin cruzarlo. Caminas 50 m por tu orilla, mides que el ángulo hacia el árbol cambió 35° entre los dos puntos donde te paraste, y desde el segundo punto el ángulo hacia el árbol respecto a tu línea de caminata es 70°. ¿Cómo lo resolverías?</strong></p>
+      <p>Con esos dos ángulos y el lado conocido (50 m, tu caminata), el tercer ángulo del triángulo sale de que los tres ángulos suman 180° — y de ahí puedes usar el Teorema del Seno para encontrar la distancia real hasta el árbol, sin necesidad de cruzar el río.</p>
+      <p>Esta es exactamente la técnica de <strong>triangulación</strong>: mides distancias y ángulos accesibles, y usas los teoremas del seno y coseno para calcular lo que no puedes medir directo.</p>
     </div>
+  </div>
 
-  </section>
-
-  <!-- NIVEL AVANZADO -->
-  <section class="level" data-level="avanzado">
-
-    <div class="card" data-tag="Concepto">
-      <h2>Teorema del Coseno: cuando no tienes un par lado-ángulo opuesto</h2>
-      <p>Es una generalización del Teorema de Pitágoras para cualquier triángulo — se usa cuando conoces dos lados y el ángulo entre ellos, o los tres lados.</p>
-      <div class="formula-box">c² = a² + b² − 2ab·cos(C)</div>
-      <p class="var-list">Si C=90°, cos(90°)=0, y la fórmula se reduce exactamente al Teorema de Pitágoras (c²=a²+b²) — por eso es una generalización.</p>
-    </div>
-
-    <div class="card" data-tag="Calculadora">
-      <h2>Calcula el tercer lado con el Teorema del Coseno</h2>
-      <div class="calc-grid">
-        <div class="field"><label>Lado a</label><input type="number" id="a-a" value="7"></div>
-        <div class="field"><label>Lado b</label><input type="number" id="a-b" value="9"></div>
-        <div class="field"><label>Ángulo entre ellos, C (grados)</label><input type="number" id="a-C" value="60"></div>
-      </div>
-      <button class="calc-btn" onclick="calcAvanzado()">Calcular lado c</button>
-      <div class="readout" id="a-readout"></div>
-    </div>
-
-    <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo — triangulación</h2>
-      <div class="example">
-        <p><strong>Quieres medir la distancia hasta un árbol al otro lado de un río, sin cruzarlo. Caminas 50 m por tu orilla, mides que el ángulo hacia el árbol cambió 35° entre los dos puntos donde te paraste, y desde el segundo punto el ángulo hacia el árbol respecto a tu línea de caminata es 70°. ¿Cómo lo resolverías?</strong></p>
-        <p>Con esos dos ángulos y el lado conocido (50 m, tu caminata), el tercer ángulo del triángulo sale de que los tres ángulos suman 180° — y de ahí puedes usar el Teorema del Seno para encontrar la distancia real hasta el árbol, sin necesidad de cruzar el río.</p>
-        <p>Esta es exactamente la técnica de <strong>triangulación</strong>: mides distancias y ángulos accesibles, y usas los teoremas del seno y coseno para calcular lo que no puedes medir directo.</p>
-      </div>
-    </div>
-
-    <div class="card exercises" data-tag="Ejercicios">
-      <h2>Ejercicios con respuesta</h2>
-      <ol>
-        <li>Un triángulo tiene a=5, b=8, C=90°. ¿Cuánto mide c? (verifica que coincide con Pitágoras)
-          <details><summary>Ver respuesta</summary>c²=25+64−2×5×8×cos(90°)=89−0=89 → c=√89≈9.43, igual que Pitágoras (5²+8²=89)</details>
-        </li>
-        <li>Un triángulo tiene a=6, b=6, C=60°. ¿Cuánto mide c?
-          <details><summary>Ver respuesta</summary>c²=36+36−2×6×6×cos(60°)=72−36=36 → c=6 (es un triángulo equilátero)</details>
-        </li>
-        <li>¿Por qué la triangulación fue clave en la cartografía antes del GPS?
-          <details><summary>Ver respuesta</summary>Porque permitía calcular distancias y ubicaciones exactas de lugares inaccesibles (montañas, el otro lado de un río, estrellas) midiendo solo ángulos desde puntos accesibles conocidos, sin necesitar llegar físicamente al lugar.</details>
-        </li>
-      </ol>
-    </div>
-
-  </section>
+  <div class="card exercises" data-tag="Ejercicios">
+    <h2>Ejercicios con respuesta</h2>
+    <ol>
+      <li>Un triángulo tiene a=8, A=30°, B=70°. ¿Cuánto mide b?
+        <details><summary>Ver respuesta</summary>b=8×sen(70°)/sen(30°)≈8×0.940/0.5≈15.03</details>
+      </li>
+      <li>¿Cuándo conviene usar el Teorema del Seno en vez de trigonometría básica?
+        <details><summary>Ver respuesta</summary>Cuando el triángulo NO tiene un ángulo recto — la trigonometría básica (sen=opuesto/hipotenusa) solo funciona directamente en triángulos rectángulos.</details>
+      </li>
+      <li>¿Qué datos mínimos necesitas para aplicar el Teorema del Seno?
+        <details><summary>Ver respuesta</summary>Un lado con su ángulo opuesto (un par completo), más otro ángulo o lado del triángulo</details>
+      </li>
+      <li>Un triángulo tiene a=5, b=8, C=90°. ¿Cuánto mide c? (verifica que coincide con Pitágoras)
+        <details><summary>Ver respuesta</summary>c²=25+64−2×5×8×cos(90°)=89−0=89 → c=√89≈9.43, igual que Pitágoras (5²+8²=89)</details>
+      </li>
+      <li>Un triángulo tiene a=6, b=6, C=60°. ¿Cuánto mide c?
+        <details><summary>Ver respuesta</summary>c²=36+36−2×6×6×cos(60°)=72−36=36 → c=6 (es un triángulo equilátero)</details>
+      </li>
+      <li>¿Por qué la triangulación fue clave en la cartografía antes del GPS?
+        <details><summary>Ver respuesta</summary>Porque permitía calcular distancias y ubicaciones exactas de lugares inaccesibles (montañas, el otro lado de un río, estrellas) midiendo solo ángulos desde puntos accesibles conocidos, sin necesitar llegar físicamente al lugar.</details>
+      </li>
+    </ol>
+  </div>
 
   <div class="card faq" data-tag="FAQ">
     <h2>Preguntas frecuentes</h2>
@@ -429,15 +403,6 @@
   function toggleNavMobile(){
     document.querySelector('.navbar-links').classList.toggle('open');
   }
-
-  document.querySelectorAll('.level-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
-      document.querySelectorAll('section.level').forEach(s=>s.classList.remove('active'));
-      btn.classList.add('active');
-      document.querySelector(`section.level[data-level="${btn.dataset.target}"]`).classList.add('active');
-    });
-  });
 
   function calcBasico(){
     const a = parseFloat(document.getElementById('b-a').value)||0;
