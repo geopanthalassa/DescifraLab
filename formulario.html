@@ -449,15 +449,12 @@
     .postit-margen{display:none;}
   }
 
-  .var-tip-btn{
-    display:inline-flex;align-items:center;gap:4px;
-    font-family:'JetBrains Mono', monospace;font-size:11px;font-weight:700;
-    color:var(--amber-dark);background:rgba(217,164,65,0.12);
-    border:1px solid var(--amber-dark);border-radius:12px;
-    padding:3px 10px;margin-top:8px;cursor:pointer;
-    text-transform:uppercase;letter-spacing:0.04em;
+  .var-tip{
+    cursor:pointer;border-bottom:1.5px dotted var(--amber-dark);
+    border-radius:3px;transition:background 0.15s;
+    padding:0 1px;
   }
-  .var-tip-btn:hover{background:rgba(217,164,65,0.25);}
+  .var-tip:hover, .var-tip:active{background:rgba(217,164,65,0.18);}
   .vartip-popover{
     display:none;position:absolute;z-index:200;
     width:300px;max-width:calc(100vw - 24px);
@@ -615,65 +612,47 @@
     <div class="mach-grid">
       <a href="mru.html" class="mach-card">
         <h3>MRU</h3>
-        <div class="mach-formula">x = x₀ + v·t</div>
-      
-        <span class="var-tip-btn" data-grupo="mecanica" data-vars="x₀|v|x|t" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="x" onclick="mostrarVariable(this)">x</span> = <span class="var-tip" data-grupo="mecanica" data-var="x₀" onclick="mostrarVariable(this)">x₀</span> + <span class="var-tip" data-grupo="mecanica" data-var="v" onclick="mostrarVariable(this)">v</span>·<span class="var-tip" data-grupo="mecanica" data-var="t" onclick="mostrarVariable(this)">t</span></div>
       </a>
       <a href="mruv.html" class="mach-card">
         <h3>MRUV</h3>
-        <div class="mach-formula">v = v₀ + a·t</div>
-        <div class="mach-formula">x = x₀ + v₀t + ½at²</div>
-      
-        <span class="var-tip-btn" data-grupo="mecanica" data-vars="v₀|x₀|v|a|x|t" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="v" onclick="mostrarVariable(this)">v</span> = <span class="var-tip" data-grupo="mecanica" data-var="v₀" onclick="mostrarVariable(this)">v₀</span> + <span class="var-tip" data-grupo="mecanica" data-var="a" onclick="mostrarVariable(this)">a</span>·<span class="var-tip" data-grupo="mecanica" data-var="t" onclick="mostrarVariable(this)">t</span></div>
+        <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="x" onclick="mostrarVariable(this)">x</span> = <span class="var-tip" data-grupo="mecanica" data-var="x₀" onclick="mostrarVariable(this)">x₀</span> + <span class="var-tip" data-grupo="mecanica" data-var="v" onclick="mostrarVariable(this)">v</span>₀<span class="var-tip" data-grupo="mecanica" data-var="t" onclick="mostrarVariable(this)">t</span> + ½at²</div>
       </a>
       <a href="tiro-oblicuo.html" class="mach-card">
         <h3>Tiro Oblicuo</h3>
-        <div class="mach-formula">R = v₀²sen(2θ)/g</div>
-        <div class="mach-formula">H = (v₀senθ)²/2g</div>
-      
-        <span class="var-tip-btn" data-grupo="mecanica" data-vars="v₀|g|θ|H|R" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="R" onclick="mostrarVariable(this)">R</span> = <span class="var-tip" data-grupo="mecanica" data-var="v₀" onclick="mostrarVariable(this)">v₀</span>²sen(2<span class="var-tip" data-grupo="mecanica" data-var="θ" onclick="mostrarVariable(this)">θ</span>)/<span class="var-tip" data-grupo="mecanica" data-var="g" onclick="mostrarVariable(this)">g</span></div>
+        <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="H" onclick="mostrarVariable(this)">H</span> = (<span class="var-tip" data-grupo="mecanica" data-var="v" onclick="mostrarVariable(this)">v</span>₀senθ)²/2<span class="var-tip" data-grupo="mecanica" data-var="g" onclick="mostrarVariable(this)">g</span></div>
       </a>
       <a href="mcu.html" class="mach-card">
         <h3>MCU</h3>
-        <div class="mach-formula">ω = 2π/T</div>
-        <div class="mach-formula">Fc = mv²/r</div>
-      
-        <span class="var-tip-btn" data-grupo="mecanica" data-vars="Fc|r|v|m|ω|T" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="ω" onclick="mostrarVariable(this)">ω</span> = 2π/<span class="var-tip" data-grupo="mecanica" data-var="T" onclick="mostrarVariable(this)">T</span></div>
+        <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="Fc" onclick="mostrarVariable(this)">Fc</span> = mv²/<span class="var-tip" data-grupo="mecanica" data-var="r" onclick="mostrarVariable(this)">r</span></div>
       </a>
       <a href="newton.html" class="mach-card">
         <h3>2ª Ley de Newton</h3>
-        <div class="mach-formula">F = m·a</div>
-        <div class="mach-formula">Froz = μ·m·g</div>
-      
-        <span class="var-tip-btn" data-grupo="mecanica" data-vars="Froz|g|a|m|F|μ" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="F" onclick="mostrarVariable(this)">F</span> = <span class="var-tip" data-grupo="mecanica" data-var="m" onclick="mostrarVariable(this)">m</span>·<span class="var-tip" data-grupo="mecanica" data-var="a" onclick="mostrarVariable(this)">a</span></div>
+        <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="Froz" onclick="mostrarVariable(this)">Froz</span> = <span class="var-tip" data-grupo="mecanica" data-var="μ" onclick="mostrarVariable(this)">μ</span>·<span class="var-tip" data-grupo="mecanica" data-var="m" onclick="mostrarVariable(this)">m</span>·<span class="var-tip" data-grupo="mecanica" data-var="g" onclick="mostrarVariable(this)">g</span></div>
       </a>
       <a href="trabajo-energia.html" class="mach-card">
         <h3>Trabajo y Energía</h3>
-        <div class="mach-formula">W = F·d</div>
-        <div class="mach-formula">Ec = ½mv² · Ep = mgh</div>
-      
-        <span class="var-tip-btn" data-grupo="mecanica" data-vars="Ep|Ec|g|h|d|v|W|m|F" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="W" onclick="mostrarVariable(this)">W</span> = <span class="var-tip" data-grupo="mecanica" data-var="F" onclick="mostrarVariable(this)">F</span>·<span class="var-tip" data-grupo="mecanica" data-var="d" onclick="mostrarVariable(this)">d</span></div>
+        <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="Ec" onclick="mostrarVariable(this)">Ec</span> = ½mv² · <span class="var-tip" data-grupo="mecanica" data-var="Ep" onclick="mostrarVariable(this)">Ep</span> = mgh</div>
       </a>
       <a href="impulso-momentum.html" class="mach-card">
         <h3>Impulso</h3>
-        <div class="mach-formula">p = m·v</div>
-        <div class="mach-formula">J = F·Δt = Δp</div>
-      
-        <span class="var-tip-btn" data-grupo="mecanica" data-vars="Δp|Δt|J|p|v|m|F" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="p" onclick="mostrarVariable(this)">p</span> = <span class="var-tip" data-grupo="mecanica" data-var="m" onclick="mostrarVariable(this)">m</span>·<span class="var-tip" data-grupo="mecanica" data-var="v" onclick="mostrarVariable(this)">v</span></div>
+        <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="J" onclick="mostrarVariable(this)">J</span> = <span class="var-tip" data-grupo="mecanica" data-var="F" onclick="mostrarVariable(this)">F</span>·<span class="var-tip" data-grupo="mecanica" data-var="Δt" onclick="mostrarVariable(this)">Δt</span> = <span class="var-tip" data-grupo="mecanica" data-var="Δp" onclick="mostrarVariable(this)">Δp</span></div>
       </a>
       <a href="estatica-torque.html" class="mach-card">
         <h3>Estática y Torque</h3>
-        <div class="mach-formula">τ = F·d</div>
-        <div class="mach-formula">F₁d₁ = F₂d₂</div>
-      
-        <span class="var-tip-btn" data-grupo="mecanica" data-vars="τ|d|F" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="τ" onclick="mostrarVariable(this)">τ</span> = <span class="var-tip" data-grupo="mecanica" data-var="F" onclick="mostrarVariable(this)">F</span>·<span class="var-tip" data-grupo="mecanica" data-var="d" onclick="mostrarVariable(this)">d</span></div>
+        <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="F" onclick="mostrarVariable(this)">F</span>₁<span class="var-tip" data-grupo="mecanica" data-var="d" onclick="mostrarVariable(this)">d</span>₁ = <span class="var-tip" data-grupo="mecanica" data-var="F" onclick="mostrarVariable(this)">F</span>₂<span class="var-tip" data-grupo="mecanica" data-var="d" onclick="mostrarVariable(this)">d</span>₂</div>
       </a>
       <a href="maquinas-simples.html" class="mach-card">
         <h3>Máquinas Simples</h3>
-        <div class="mach-formula">VM = dₚ/dᵣ</div>
+        <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="VM" onclick="mostrarVariable(this)">VM</span> = <span class="var-tip" data-grupo="mecanica" data-var="dₚ" onclick="mostrarVariable(this)">dₚ</span>/<span class="var-tip" data-grupo="mecanica" data-var="dᵣ" onclick="mostrarVariable(this)">dᵣ</span></div>
         <div class="mach-formula" style="font-size:12px;">Palanca, poleas, plano inclinado</div>
-      
-        <span class="var-tip-btn" data-grupo="mecanica" data-vars="dᵣ|dₚ|VM|d|p|a" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
     </div>
   </div>
@@ -685,36 +664,26 @@
     <div class="mach-grid">
       <a href="ley-ohm.html" class="mach-card">
         <h3>Ley de Ohm</h3>
-        <div class="mach-formula">V = I·R</div>
-      
-        <span class="var-tip-btn" data-grupo="electricidad" data-vars="I|R|V" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula"><span class="var-tip" data-grupo="electricidad" data-var="V" onclick="mostrarVariable(this)">V</span> = <span class="var-tip" data-grupo="electricidad" data-var="I" onclick="mostrarVariable(this)">I</span>·<span class="var-tip" data-grupo="electricidad" data-var="R" onclick="mostrarVariable(this)">R</span></div>
       </a>
       <a href="potencia-electrica.html" class="mach-card">
         <h3>Potencia Eléctrica</h3>
-        <div class="mach-formula">P = V·I</div>
-        <div class="mach-formula">E = P·t</div>
-      
-        <span class="var-tip-btn" data-grupo="electricidad" data-vars="I|E|P|t|V" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula"><span class="var-tip" data-grupo="electricidad" data-var="P" onclick="mostrarVariable(this)">P</span> = <span class="var-tip" data-grupo="electricidad" data-var="V" onclick="mostrarVariable(this)">V</span>·<span class="var-tip" data-grupo="electricidad" data-var="I" onclick="mostrarVariable(this)">I</span></div>
+        <div class="mach-formula"><span class="var-tip" data-grupo="electricidad" data-var="E" onclick="mostrarVariable(this)">E</span> = <span class="var-tip" data-grupo="electricidad" data-var="P" onclick="mostrarVariable(this)">P</span>·<span class="var-tip" data-grupo="electricidad" data-var="t" onclick="mostrarVariable(this)">t</span></div>
       </a>
       <a href="circuitos.html" class="mach-card">
         <h3>Circuitos</h3>
-        <div class="mach-formula">Serie: Req=R₁+R₂</div>
-        <div class="mach-formula">Paralelo: 1/Req=1/R₁+1/R₂</div>
-      
-        <span class="var-tip-btn" data-grupo="electricidad" data-vars="Req|P|R" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula">Serie: <span class="var-tip" data-grupo="electricidad" data-var="Req" onclick="mostrarVariable(this)">Req</span>=<span class="var-tip" data-grupo="electricidad" data-var="R" onclick="mostrarVariable(this)">R</span>₁+<span class="var-tip" data-grupo="electricidad" data-var="R" onclick="mostrarVariable(this)">R</span>₂</div>
+        <div class="mach-formula">Paralelo: 1/<span class="var-tip" data-grupo="electricidad" data-var="Req" onclick="mostrarVariable(this)">Req</span>=1/<span class="var-tip" data-grupo="electricidad" data-var="R" onclick="mostrarVariable(this)">R</span>₁+1/<span class="var-tip" data-grupo="electricidad" data-var="R" onclick="mostrarVariable(this)">R</span>₂</div>
       </a>
       <a href="electromagnetismo.html" class="mach-card">
         <h3>Electromagnetismo</h3>
-        <div class="mach-formula">F = q·v·B·sen(θ)</div>
-      
-        <span class="var-tip-btn" data-grupo="electricidad" data-vars="B|q|θ|v" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula">F = <span class="var-tip" data-grupo="electricidad" data-var="q" onclick="mostrarVariable(this)">q</span>·<span class="var-tip" data-grupo="electricidad" data-var="v" onclick="mostrarVariable(this)">v</span>·<span class="var-tip" data-grupo="electricidad" data-var="B" onclick="mostrarVariable(this)">B</span>·sen(<span class="var-tip" data-grupo="electricidad" data-var="θ" onclick="mostrarVariable(this)">θ</span>)</div>
       </a>
       <a href="corriente-continua-alterna.html" class="mach-card">
         <h3>Corriente Continua y Alterna</h3>
-        <div class="mach-formula">f = 1/T</div>
-        <div class="mach-formula">V_ef = V_máx/√2</div>
-      
-        <span class="var-tip-btn" data-grupo="electricidad" data-vars="V_máx|V_ef|f" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula"><span class="var-tip" data-grupo="electricidad" data-var="f" onclick="mostrarVariable(this)">f</span> = 1/T</div>
+        <div class="mach-formula"><span class="var-tip" data-grupo="electricidad" data-var="V_ef" onclick="mostrarVariable(this)">V_ef</span> = <span class="var-tip" data-grupo="electricidad" data-var="V_máx" onclick="mostrarVariable(this)">V_máx</span>/√2</div>
       </a>
     </div>
   </div>
@@ -725,37 +694,27 @@
     <div class="mach-grid">
       <a href="calor-especifico.html" class="mach-card">
         <h3>Calor Específico</h3>
-        <div class="mach-formula">Q = m·c·ΔT</div>
-        <div class="mach-formula">Q = m·L (latente)</div>
-      
-        <span class="var-tip-btn" data-grupo="termo" data-vars="ΔT|Q|m|L|c" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula"><span class="var-tip" data-grupo="termo" data-var="Q" onclick="mostrarVariable(this)">Q</span> = <span class="var-tip" data-grupo="termo" data-var="m" onclick="mostrarVariable(this)">m</span>·<span class="var-tip" data-grupo="termo" data-var="c" onclick="mostrarVariable(this)">c</span>·<span class="var-tip" data-grupo="termo" data-var="ΔT" onclick="mostrarVariable(this)">ΔT</span></div>
+        <div class="mach-formula"><span class="var-tip" data-grupo="termo" data-var="Q" onclick="mostrarVariable(this)">Q</span> = <span class="var-tip" data-grupo="termo" data-var="m" onclick="mostrarVariable(this)">m</span>·<span class="var-tip" data-grupo="termo" data-var="L" onclick="mostrarVariable(this)">L</span> (latente)</div>
       </a>
       <a href="dilatacion-termica.html" class="mach-card">
         <h3>Dilatación Térmica</h3>
-        <div class="mach-formula">ΔL = L₀·α·ΔT</div>
-        <div class="mach-formula">ΔV = V₀·3α·ΔT</div>
-      
-        <span class="var-tip-btn" data-grupo="termo" data-vars="L₀|V₀|ΔT|ΔL|ΔV|α" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula"><span class="var-tip" data-grupo="termo" data-var="ΔL" onclick="mostrarVariable(this)">ΔL</span> = <span class="var-tip" data-grupo="termo" data-var="L₀" onclick="mostrarVariable(this)">L₀</span>·<span class="var-tip" data-grupo="termo" data-var="α" onclick="mostrarVariable(this)">α</span>·<span class="var-tip" data-grupo="termo" data-var="ΔT" onclick="mostrarVariable(this)">ΔT</span></div>
+        <div class="mach-formula"><span class="var-tip" data-grupo="termo" data-var="ΔV" onclick="mostrarVariable(this)">ΔV</span> = <span class="var-tip" data-grupo="termo" data-var="V₀" onclick="mostrarVariable(this)">V₀</span>·3<span class="var-tip" data-grupo="termo" data-var="α" onclick="mostrarVariable(this)">α</span>·<span class="var-tip" data-grupo="termo" data-var="ΔT" onclick="mostrarVariable(this)">ΔT</span></div>
       </a>
       <a href="fluidos.html" class="mach-card">
         <h3>Presión Hidrostática</h3>
-        <div class="mach-formula">P = ρ·g·h</div>
-        <div class="mach-formula">Empuje: E = ρ·g·V</div>
-      
-        <span class="var-tip-btn" data-grupo="termo" data-vars="ρ|h|V|m|P" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula"><span class="var-tip" data-grupo="termo" data-var="P" onclick="mostrarVariable(this)">P</span> = <span class="var-tip" data-grupo="termo" data-var="ρ" onclick="mostrarVariable(this)">ρ</span>·g·<span class="var-tip" data-grupo="termo" data-var="h" onclick="mostrarVariable(this)">h</span></div>
+        <div class="mach-formula">Empuje: E = <span class="var-tip" data-grupo="termo" data-var="ρ" onclick="mostrarVariable(this)">ρ</span>·g·<span class="var-tip" data-grupo="termo" data-var="V" onclick="mostrarVariable(this)">V</span></div>
       </a>
       <a href="caudal-continuidad.html" class="mach-card">
         <h3>Caudal y Continuidad</h3>
-        <div class="mach-formula">Q = A·v</div>
-        <div class="mach-formula">A₁v₁ = A₂v₂</div>
-      
-        <span class="var-tip-btn" data-grupo="termo" data-vars="Q|A|v" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula"><span class="var-tip" data-grupo="termo" data-var="Q" onclick="mostrarVariable(this)">Q</span> = <span class="var-tip" data-grupo="termo" data-var="A" onclick="mostrarVariable(this)">A</span>·<span class="var-tip" data-grupo="termo" data-var="v" onclick="mostrarVariable(this)">v</span></div>
+        <div class="mach-formula"><span class="var-tip" data-grupo="termo" data-var="A" onclick="mostrarVariable(this)">A</span>₁<span class="var-tip" data-grupo="termo" data-var="v" onclick="mostrarVariable(this)">v</span>₁ = <span class="var-tip" data-grupo="termo" data-var="A" onclick="mostrarVariable(this)">A</span>₂<span class="var-tip" data-grupo="termo" data-var="v" onclick="mostrarVariable(this)">v</span>₂</div>
       </a>
       <a href="maquinas-termicas.html" class="mach-card">
         <h3>Máquinas Térmicas</h3>
-        <div class="mach-formula">η = (Eútil/Etotal)×100</div>
-      
-        <span class="var-tip-btn" data-grupo="termo" data-vars="Etotal|Eútil|η" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula"><span class="var-tip" data-grupo="termo" data-var="η" onclick="mostrarVariable(this)">η</span> = (<span class="var-tip" data-grupo="termo" data-var="Eútil" onclick="mostrarVariable(this)">Eútil</span>/<span class="var-tip" data-grupo="termo" data-var="Etotal" onclick="mostrarVariable(this)">Etotal</span>)×100</div>
       </a>
     </div>
   </div>
@@ -766,16 +725,12 @@
     <div class="mach-grid">
       <a href="relatividad.html" class="mach-card">
         <h3>Relatividad</h3>
-        <div class="mach-formula">Δt' = Δt/√(1−v²/c²)</div>
-      
-        <span class="var-tip-btn" data-grupo="moderna" data-vars="Δt|c|v" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula"><span class="var-tip" data-grupo="moderna" data-var="Δt" onclick="mostrarVariable(this)">Δt</span>' = <span class="var-tip" data-grupo="moderna" data-var="Δt" onclick="mostrarVariable(this)">Δt</span>/√(1−<span class="var-tip" data-grupo="moderna" data-var="v" onclick="mostrarVariable(this)">v</span>²/<span class="var-tip" data-grupo="moderna" data-var="c" onclick="mostrarVariable(this)">c</span>²)</div>
       </a>
       <a href="energia-nuclear.html" class="mach-card">
         <h3>Energía Nuclear</h3>
-        <div class="mach-formula">E = m·c²</div>
-        <div class="mach-formula">N = N₀·(1/2)^(t/T)</div>
-      
-        <span class="var-tip-btn" data-grupo="moderna" data-vars="N₀|c|E|m|t|T|N" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula"><span class="var-tip" data-grupo="moderna" data-var="E" onclick="mostrarVariable(this)">E</span> = <span class="var-tip" data-grupo="moderna" data-var="m" onclick="mostrarVariable(this)">m</span>·<span class="var-tip" data-grupo="moderna" data-var="c" onclick="mostrarVariable(this)">c</span>²</div>
+        <div class="mach-formula"><span class="var-tip" data-grupo="moderna" data-var="N" onclick="mostrarVariable(this)">N</span> = <span class="var-tip" data-grupo="moderna" data-var="N₀" onclick="mostrarVariable(this)">N₀</span>·(1/2)^(<span class="var-tip" data-grupo="moderna" data-var="t" onclick="mostrarVariable(this)">t</span>/<span class="var-tip" data-grupo="moderna" data-var="T" onclick="mostrarVariable(this)">T</span>)</div>
       </a>
     </div>
   </div>
@@ -791,66 +746,48 @@
     <div class="mach-grid">
       <a href="modelo-atomico.html" class="mach-card quimica">
         <h3>Modelo Atómico</h3>
-        <div class="mach-formula">Z = protones</div>
-        <div class="mach-formula">A = protones + neutrones</div>
-      
-        <span class="var-tip-btn" data-grupo="quimica" data-vars="A|n|Z" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula"><span class="var-tip" data-grupo="quimica" data-var="Z" onclick="mostrarVariable(this)">Z</span> = protones</div>
+        <div class="mach-formula"><span class="var-tip" data-grupo="quimica" data-var="A" onclick="mostrarVariable(this)">A</span> = protones + neutrones</div>
       </a>
       <a href="configuracion-electronica.html" class="mach-card quimica">
         <h3>Config. Electrónica</h3>
-        <div class="mach-formula">Capacidad de capa = 2n²</div>
+        <div class="mach-formula">Capacidad de capa = 2<span class="var-tip" data-grupo="quimica" data-var="n" onclick="mostrarVariable(this)">n</span>²</div>
         <div class="mach-formula">s,p,d,f = 2,6,10,14 e⁻</div>
-      
-        <span class="var-tip-btn" data-grupo="quimica" data-vars="n" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="estequiometria.html" class="mach-card quimica">
         <h3>Estequiometría</h3>
-        <div class="mach-formula">n = m / M</div>
-        <div class="mach-formula">N° partículas = n × 6.022×10²³</div>
-      
-        <span class="var-tip-btn" data-grupo="quimica" data-vars="M|m|n" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula"><span class="var-tip" data-grupo="quimica" data-var="n" onclick="mostrarVariable(this)">n</span> = <span class="var-tip" data-grupo="quimica" data-var="m" onclick="mostrarVariable(this)">m</span> / <span class="var-tip" data-grupo="quimica" data-var="M" onclick="mostrarVariable(this)">M</span></div>
+        <div class="mach-formula">N° partículas = <span class="var-tip" data-grupo="quimica" data-var="n" onclick="mostrarVariable(this)">n</span> × 6.022×10²³</div>
       </a>
       <a href="oxido-reduccion.html" class="mach-card quimica">
         <h3>Óxido-Reducción</h3>
         <div class="mach-formula">Oxidación = pierde e⁻</div>
         <div class="mach-formula">Reducción = gana e⁻</div>
-      
-        <span class="var-tip-btn" data-grupo="quimica" data-vars="n|R" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="enlaces-quimicos.html" class="mach-card quimica">
         <h3>Enlaces Químicos</h3>
-        <div class="mach-formula">ΔEN≥1.7 → iónico</div>
-        <div class="mach-formula">ΔEN&lt;0.4 → covalente apolar</div>
-      
-        <span class="var-tip-btn" data-grupo="quimica" data-vars="ΔEN|n" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula"><span class="var-tip" data-grupo="quimica" data-var="ΔEN" onclick="mostrarVariable(this)">ΔEN</span>≥1.7 → iónico</div>
+        <div class="mach-formula"><span class="var-tip" data-grupo="quimica" data-var="ΔEN" onclick="mostrarVariable(this)">ΔEN</span>&lt;0.4 → covalente apolar</div>
       </a>
       <a href="acido-base.html" class="mach-card quimica">
         <h3>Ácido-Base y pH</h3>
-        <div class="mach-formula">pH = −log[H⁺]</div>
-        <div class="mach-formula">pH + pOH = 14</div>
-      
-        <span class="var-tip-btn" data-grupo="quimica" data-vars="pOH|H⁺|pH" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula"><span class="var-tip" data-grupo="quimica" data-var="pH" onclick="mostrarVariable(this)">pH</span> = −log[<span class="var-tip" data-grupo="quimica" data-var="H⁺" onclick="mostrarVariable(this)">H⁺</span>]</div>
+        <div class="mach-formula"><span class="var-tip" data-grupo="quimica" data-var="pH" onclick="mostrarVariable(this)">pH</span> + <span class="var-tip" data-grupo="quimica" data-var="pOH" onclick="mostrarVariable(this)">pOH</span> = 14</div>
       </a>
       <a href="concentracion-soluciones.html" class="mach-card quimica">
         <h3>Concentración de Soluciones</h3>
-        <div class="mach-formula">M = n / V</div>
-        <div class="mach-formula">M₁V₁ = M₂V₂</div>
-      
-        <span class="var-tip-btn" data-grupo="quimica" data-vars="M|n|V" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula"><span class="var-tip" data-grupo="quimica" data-var="M" onclick="mostrarVariable(this)">M</span> = <span class="var-tip" data-grupo="quimica" data-var="n" onclick="mostrarVariable(this)">n</span> / <span class="var-tip" data-grupo="quimica" data-var="V" onclick="mostrarVariable(this)">V</span></div>
+        <div class="mach-formula"><span class="var-tip" data-grupo="quimica" data-var="M" onclick="mostrarVariable(this)">M</span>₁<span class="var-tip" data-grupo="quimica" data-var="V" onclick="mostrarVariable(this)">V</span>₁ = <span class="var-tip" data-grupo="quimica" data-var="M" onclick="mostrarVariable(this)">M</span>₂<span class="var-tip" data-grupo="quimica" data-var="V" onclick="mostrarVariable(this)">V</span>₂</div>
       </a>
       <a href="mezclas-separacion.html" class="mach-card quimica">
         <h3>Mezclas y Separación</h3>
-        <div class="mach-formula">Rendimiento = (mᵣ/mᵢ)×100</div>
+        <div class="mach-formula">Rendimiento = (<span class="var-tip" data-grupo="quimica" data-var="mᵣ" onclick="mostrarVariable(this)">mᵣ</span>/<span class="var-tip" data-grupo="quimica" data-var="mᵢ" onclick="mostrarVariable(this)">mᵢ</span>)×100</div>
         <div class="mach-formula" style="font-size:12px;">Filtración, decantación, destilación...</div>
-      
-        <span class="var-tip-btn" data-grupo="quimica" data-vars="mᵣ|mᵢ|m|n|R" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="leyes-gases.html" class="mach-card quimica">
         <h3>Leyes de los Gases</h3>
-        <div class="mach-formula">P₁V₁ = P₂V₂</div>
+        <div class="mach-formula"><span class="var-tip" data-grupo="quimica" data-var="P" onclick="mostrarVariable(this)">P</span>₁<span class="var-tip" data-grupo="quimica" data-var="V" onclick="mostrarVariable(this)">V</span>₁ = <span class="var-tip" data-grupo="quimica" data-var="P" onclick="mostrarVariable(this)">P</span>₂<span class="var-tip" data-grupo="quimica" data-var="V" onclick="mostrarVariable(this)">V</span>₂</div>
         <div class="mach-formula">PV = nRT</div>
-      
-        <span class="var-tip-btn" data-grupo="quimica" data-vars="P|n|T|R|V" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
     </div>
   </div>
@@ -862,99 +799,69 @@
     <div class="mach-grid">
       <a href="ecuaciones-primer-grado.html" class="mach-card matematica">
         <h3>Ecuaciones de Primer Grado</h3>
-        <div class="mach-formula">a·x + b = c</div>
-        <div class="mach-formula">x = (c − b) / a</div>
-      
-        <span class="var-tip-btn" data-grupo="matematica" data-vars="a|c|b|x" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula"><span class="var-tip" data-grupo="matematica" data-var="a" onclick="mostrarVariable(this)">a</span>·<span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span> + <span class="var-tip" data-grupo="matematica" data-var="b" onclick="mostrarVariable(this)">b</span> = <span class="var-tip" data-grupo="matematica" data-var="c" onclick="mostrarVariable(this)">c</span></div>
+        <div class="mach-formula"><span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span> = (<span class="var-tip" data-grupo="matematica" data-var="c" onclick="mostrarVariable(this)">c</span> − <span class="var-tip" data-grupo="matematica" data-var="b" onclick="mostrarVariable(this)">b</span>) / <span class="var-tip" data-grupo="matematica" data-var="a" onclick="mostrarVariable(this)">a</span></div>
       </a>
       <a href="ecuaciones-segundo-grado.html" class="mach-card matematica">
         <h3>Ecuaciones de Segundo Grado</h3>
-        <div class="mach-formula" style="font-size:13px;">x = (−b±√(b²−4ac)) / 2a</div>
-        <div class="mach-formula" style="font-size:12px;">Δ = b²−4ac</div>
-      
-        <span class="var-tip-btn" data-grupo="matematica" data-vars="a|c|b|Δ|x" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula" style="font-size:13px;"><span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span> = (−<span class="var-tip" data-grupo="matematica" data-var="b" onclick="mostrarVariable(this)">b</span>±√(<span class="var-tip" data-grupo="matematica" data-var="b" onclick="mostrarVariable(this)">b</span>²−4ac)) / 2<span class="var-tip" data-grupo="matematica" data-var="a" onclick="mostrarVariable(this)">a</span></div>
+        <div class="mach-formula" style="font-size:12px;"><span class="var-tip" data-grupo="matematica" data-var="Δ" onclick="mostrarVariable(this)">Δ</span> = <span class="var-tip" data-grupo="matematica" data-var="b" onclick="mostrarVariable(this)">b</span>²−4ac</div>
       </a>
       <a href="sistema-ecuaciones.html" class="mach-card matematica">
         <h3>Sistemas de Ecuaciones</h3>
         <div class="mach-formula" style="font-size:12px;">Sustitución, igualación, reducción</div>
-      
-        <span class="var-tip-btn" data-grupo="matematica" data-vars="a|c|r|i|n|d" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="inecuaciones.html" class="mach-card matematica">
         <h3>Inecuaciones</h3>
-        <div class="mach-formula">x &gt; a, x ≤ b</div>
+        <div class="mach-formula"><span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span> &gt; <span class="var-tip" data-grupo="matematica" data-var="a" onclick="mostrarVariable(this)">a</span>, <span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span> ≤ <span class="var-tip" data-grupo="matematica" data-var="b" onclick="mostrarVariable(this)">b</span></div>
         <div class="mach-formula" style="font-size:12px;">∩ intersección · ∪ unión</div>
-      
-        <span class="var-tip-btn" data-grupo="matematica" data-vars="a|c|r|b|i|x|n" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="valor-absoluto.html" class="mach-card matematica">
         <h3>Valor Absoluto</h3>
-        <div class="mach-formula" style="font-size:13px;">|x|=x si x≥0; |x|=−x si x&lt;0</div>
-      
-        <span class="var-tip-btn" data-grupo="matematica" data-vars="i|x" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula" style="font-size:13px;">|<span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span>|=<span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span> si <span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span>≥0; |<span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span>|=−<span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span> si <span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span>&lt;0</div>
       </a>
       <a href="funciones.html" class="mach-card matematica">
         <h3>Funciones</h3>
-        <div class="mach-formula">y = m·x + b</div>
-        <div class="mach-formula">y = a·x² + b·x + c</div>
-      
-        <span class="var-tip-btn" data-grupo="matematica" data-vars="a|c|b|x|y" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula"><span class="var-tip" data-grupo="matematica" data-var="y" onclick="mostrarVariable(this)">y</span> = m·<span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span> + <span class="var-tip" data-grupo="matematica" data-var="b" onclick="mostrarVariable(this)">b</span></div>
+        <div class="mach-formula"><span class="var-tip" data-grupo="matematica" data-var="y" onclick="mostrarVariable(this)">y</span> = <span class="var-tip" data-grupo="matematica" data-var="a" onclick="mostrarVariable(this)">a</span>·<span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span>² + <span class="var-tip" data-grupo="matematica" data-var="b" onclick="mostrarVariable(this)">b</span>·<span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span> + <span class="var-tip" data-grupo="matematica" data-var="c" onclick="mostrarVariable(this)">c</span></div>
       </a>
       <a href="funcion-racional.html" class="mach-card matematica">
         <h3>Función Racional</h3>
-        <div class="mach-formula" style="font-size:14px;">f(x) = p(x)/q(x)</div>
-      
-        <span class="var-tip-btn" data-grupo="matematica" data-vars="x" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula" style="font-size:14px;">f(<span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span>) = p(<span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span>)/q(<span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span>)</div>
       </a>
       <a href="logaritmos.html" class="mach-card matematica">
         <h3>Logaritmos</h3>
-        <div class="mach-formula">log_b(x) = y ⟺ b^y = x</div>
-      
-        <span class="var-tip-btn" data-grupo="matematica" data-vars="b|x|y" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula">log_<span class="var-tip" data-grupo="matematica" data-var="b" onclick="mostrarVariable(this)">b</span>(<span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span>) = <span class="var-tip" data-grupo="matematica" data-var="y" onclick="mostrarVariable(this)">y</span> ⟺ <span class="var-tip" data-grupo="matematica" data-var="b" onclick="mostrarVariable(this)">b</span>^<span class="var-tip" data-grupo="matematica" data-var="y" onclick="mostrarVariable(this)">y</span> = <span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span></div>
       </a>
       <a href="trigonometria.html" class="mach-card matematica">
         <h3>Trigonometría</h3>
         <div class="mach-formula" style="font-size:13px;">sen=op/hip, cos=ady/hip, tan=op/ady</div>
-      
-        <span class="var-tip-btn" data-grupo="matematica" data-vars="a|c|i|h|n|d|y" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="teorema-seno-coseno.html" class="mach-card matematica">
         <h3>Teorema del Seno y del Coseno</h3>
-        <div class="mach-formula" style="font-size:13px;">a/senA = b/senB = c/senC</div>
-        <div class="mach-formula" style="font-size:13px;">a² = b²+c²−2bc·cosA</div>
-      
-        <span class="var-tip-btn" data-grupo="matematica" data-vars="a|c|b|n|C" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula" style="font-size:13px;"><span class="var-tip" data-grupo="matematica" data-var="a" onclick="mostrarVariable(this)">a</span>/senA = <span class="var-tip" data-grupo="matematica" data-var="b" onclick="mostrarVariable(this)">b</span>/senB = <span class="var-tip" data-grupo="matematica" data-var="c" onclick="mostrarVariable(this)">c</span>/senC</div>
+        <div class="mach-formula" style="font-size:13px;"><span class="var-tip" data-grupo="matematica" data-var="a" onclick="mostrarVariable(this)">a</span>² = <span class="var-tip" data-grupo="matematica" data-var="b" onclick="mostrarVariable(this)">b</span>²+<span class="var-tip" data-grupo="matematica" data-var="c" onclick="mostrarVariable(this)">c</span>²−2bc·cosA</div>
       </a>
       <a href="sucesiones.html" class="mach-card matematica">
         <h3>Sucesiones y Series</h3>
-        <div class="mach-formula" style="font-size:13px;">aₙ = a₁ + (n−1)d</div>
-        <div class="mach-formula" style="font-size:13px;">aₙ = a₁·rⁿ⁻¹</div>
-      
-        <span class="var-tip-btn" data-grupo="matematica" data-vars="a|r|n|d" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula" style="font-size:13px;">aₙ = <span class="var-tip" data-grupo="matematica" data-var="a" onclick="mostrarVariable(this)">a</span>₁ + (<span class="var-tip" data-grupo="matematica" data-var="n" onclick="mostrarVariable(this)">n</span>−1)<span class="var-tip" data-grupo="matematica" data-var="d" onclick="mostrarVariable(this)">d</span></div>
+        <div class="mach-formula" style="font-size:13px;">aₙ = <span class="var-tip" data-grupo="matematica" data-var="a" onclick="mostrarVariable(this)">a</span>₁·rⁿ⁻¹</div>
       </a>
       <a href="interes-compuesto.html" class="mach-card matematica">
         <h3>Interés Compuesto</h3>
-        <div class="mach-formula" style="font-size:14px;">M = C(1+i)ⁿ</div>
-      
-        <span class="var-tip-btn" data-grupo="matematica" data-vars="i|C" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula" style="font-size:14px;">M = <span class="var-tip" data-grupo="matematica" data-var="C" onclick="mostrarVariable(this)">C</span>(1+<span class="var-tip" data-grupo="matematica" data-var="i" onclick="mostrarVariable(this)">i</span>)ⁿ</div>
       </a>
       <a href="estadistica.html" class="mach-card matematica">
         <h3>Estadística</h3>
         <div class="mach-formula" style="font-size:12px;">Media, mediana, moda</div>
-      
-        <span class="var-tip-btn" data-grupo="matematica" data-vars="a|i|n|d" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="probabilidad.html" class="mach-card matematica">
         <h3>Probabilidad</h3>
         <div class="mach-formula">P(A) = casos/total</div>
-      
-        <span class="var-tip-btn" data-grupo="matematica" data-vars="a|c" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="geometria-analitica.html" class="mach-card matematica">
         <h3>Geometría Analítica</h3>
-        <div class="mach-formula" style="font-size:13px;">(x−h)² + (y−k)² = r²</div>
-      
-        <span class="var-tip-btn" data-grupo="matematica" data-vars="r|x|k|h|y" onclick="mostrarVariables(this)">ℹ Variables</span>
+        <div class="mach-formula" style="font-size:13px;">(<span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span>−<span class="var-tip" data-grupo="matematica" data-var="h" onclick="mostrarVariable(this)">h</span>)² + (<span class="var-tip" data-grupo="matematica" data-var="y" onclick="mostrarVariable(this)">y</span>−<span class="var-tip" data-grupo="matematica" data-var="k" onclick="mostrarVariable(this)">k</span>)² = <span class="var-tip" data-grupo="matematica" data-var="r" onclick="mostrarVariable(this)">r</span>²</div>
       </a>
     </div>
   </div>
@@ -1111,26 +1018,13 @@
     moderna: 'Física Moderna', quimica: 'Química', matematica: 'Matemática', herramientas: 'Herramientas'
   };
 
-  function mostrarVariables(btn){
+  function mostrarVariable(el){
     event.preventDefault();
     event.stopPropagation();
-    const grupo = btn.dataset.grupo;
-    const vars = btn.dataset.vars.split('|').filter(Boolean);
-    const dict = VAR_DICT[grupo] || {};
-
-    let html = '';
-    vars.forEach(v=>{
-      const info = dict[v];
-      if(!info) return;
-      html += `<div class="vartip-item">
-        <span class="vartip-simbolo">${v}</span>
-        <div>
-          <div class="vartip-nombre">${info.nombre} <span class="vartip-unidad">(${info.unidad})</span></div>
-          <div class="vartip-def">${info.def}</div>
-        </div>
-      </div>`;
-    });
-    if(!html) html = '<div class="vartip-item"><div class="vartip-def">No hay variables registradas para esta fórmula todavía.</div></div>';
+    const grupo = el.dataset.grupo;
+    const simbolo = el.dataset.var;
+    const info = (VAR_DICT[grupo] || {})[simbolo];
+    if(!info) return;
 
     let popover = document.getElementById('vartip-popover');
     if(!popover){
@@ -1139,11 +1033,18 @@
       popover.className = 'vartip-popover';
       document.body.appendChild(popover);
     }
-    popover.innerHTML = `<div class="vartip-header">Variables de esta fórmula<span class="vartip-close" onclick="cerrarVariables()">✕</span></div>${html}`;
+    popover.innerHTML = `<div class="vartip-header">${NOMBRE_GRUPO[grupo] || ''}<span class="vartip-close" onclick="cerrarVariables()">✕</span></div>
+      <div class="vartip-item">
+        <span class="vartip-simbolo">${simbolo}</span>
+        <div>
+          <div class="vartip-nombre">${info.nombre} <span class="vartip-unidad">(${info.unidad})</span></div>
+          <div class="vartip-def">${info.def}</div>
+        </div>
+      </div>`;
     popover.classList.add('show');
 
-    const rect = btn.getBoundingClientRect();
-    const popW = 300;
+    const rect = el.getBoundingClientRect();
+    const popW = 280;
     let left = rect.left + window.scrollX;
     if(left + popW > window.innerWidth - 12) left = window.innerWidth - popW - 12;
     popover.style.left = Math.max(12,left) + 'px';
@@ -1157,7 +1058,7 @@
 
   document.addEventListener('click', (e)=>{
     const popover = document.getElementById('vartip-popover');
-    if(popover && popover.classList.contains('show') && !popover.contains(e.target) && !e.target.classList.contains('var-tip-btn')){
+    if(popover && popover.classList.contains('show') && !popover.contains(e.target) && !e.target.classList.contains('var-tip')){
       popover.classList.remove('show');
     }
   });
