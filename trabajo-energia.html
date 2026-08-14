@@ -339,6 +339,117 @@
     margin-top:14px;
     padding:8px;
   }
+
+  /* Sistema de color para partes de una fórmula (mismo color = mismo rol en toda la página) */
+  .term-1{color:#B8842E;font-weight:800;}
+  .term-2{color:#2F6B5E;font-weight:800;}
+  .term-3{color:#7A4FB0;font-weight:800;}
+  .term-4{color:#2A6FA8;font-weight:800;}
+  .term-5{color:#C0562E;font-weight:800;}
+  .formula-leyenda{
+    display:flex;flex-wrap:wrap;gap:8px 20px;
+    margin-top:12px;padding-top:12px;
+    border-top:1px dashed var(--line);
+  }
+  .formula-leyenda .leyenda-item{
+    display:flex;align-items:flex-start;gap:7px;
+    font-size:13.5px;color:var(--ink-soft);max-width:260px;
+  }
+  .formula-leyenda .swatch{
+    display:inline-block;width:11px;height:11px;border-radius:3px;
+    margin-top:3px;flex-shrink:0;
+  }
+  .swatch-1{background:#B8842E;} .swatch-2{background:#2F6B5E;}
+  .swatch-3{background:#7A4FB0;} .swatch-4{background:#2A6FA8;} .swatch-5{background:#C0562E;}
+
+  /* Paso a paso con color por paso */
+  .pasos-resueltos{margin:14px 0;}
+  .paso{
+    display:flex;gap:12px;align-items:flex-start;
+    padding:12px 14px;margin-bottom:8px;border-radius:8px;
+    background:var(--paper);border-left:4px solid var(--ink-soft);
+  }
+  .paso-num{
+    font-family:'JetBrains Mono', monospace;font-weight:800;font-size:12.5px;
+    width:22px;height:22px;border-radius:50%;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;color:#fff;
+    background:var(--ink-soft);
+  }
+  .paso:nth-child(1){border-left-color:#B8842E;} .paso:nth-child(1) .paso-num{background:#B8842E;}
+  .paso:nth-child(2){border-left-color:#2F6B5E;} .paso:nth-child(2) .paso-num{background:#2F6B5E;}
+  .paso:nth-child(3){border-left-color:#7A4FB0;} .paso:nth-child(3) .paso-num{background:#7A4FB0;}
+  .paso:nth-child(4){border-left-color:#2A6FA8;} .paso:nth-child(4) .paso-num{background:#2A6FA8;}
+  .paso:nth-child(5){border-left-color:#C0562E;} .paso:nth-child(5) .paso-num{background:#C0562E;}
+  .paso p{margin:0;font-size:14.5px;}
+  .paso .paso-titulo{font-weight:700;display:block;margin-bottom:2px;}
+
+  .analogia{
+    background:#FBF3E2;border:1.5px dashed #B8842E;border-radius:8px;
+    padding:14px 16px;margin:14px 0;font-size:14.5px;
+  }
+  .analogia .analogia-tag{
+    font-family:'JetBrains Mono', monospace;font-size:11px;font-weight:700;
+    text-transform:uppercase;letter-spacing:0.06em;color:#B8842E;
+    display:block;margin-bottom:6px;
+  }
+
+  /* Sistema de resolución estructurada: Datos / Fórmula / Resolución / Respuesta */
+  .resolucion{
+    border:2px solid var(--ink);border-radius:10px;
+    margin:16px 0;overflow:hidden;
+  }
+  .resolucion-bloque{
+    padding:14px 18px;border-bottom:1px solid var(--line);
+  }
+  .resolucion-bloque:last-child{border-bottom:none;}
+  .resolucion-bloque.datos{background:#FBF3E2;}
+  .resolucion-bloque.formula-usada{background:var(--paper);}
+  .resolucion-bloque.pasos{background:#FFFFFF;}
+  .resolucion-bloque.respuesta{background:#EAF3EE;}
+  .resolucion-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;
+    color:var(--ink-soft);margin:0 0 10px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .resolucion-label .num-badge{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:28px;height:28px;border-radius:50%;flex-shrink:0;
+    background:var(--ink);color:#fff;font-size:15px;font-weight:800;
+    font-family:'Inter', sans-serif;
+  }
+  .datos-lista{list-style:none;margin:0;padding:0;display:grid;gap:6px;}
+  .datos-lista li{
+    display:flex;align-items:baseline;gap:8px;font-size:14.5px;
+  }
+  .datos-lista .dato-simbolo{
+    font-family:'JetBrains Mono', monospace;font-weight:800;
+    min-width:34px;
+  }
+  .datos-lista .dato-nombre{color:var(--ink-soft);}
+  .datos-lista .dato-valor{font-weight:700;margin-left:auto;font-family:'JetBrains Mono', monospace;}
+  .resolucion-bloque.pasos .paso-r{
+    margin-bottom:10px;padding-left:14px;border-left:3px solid var(--ink-soft);
+  }
+  .resolucion-bloque.pasos .paso-r:last-child{margin-bottom:0;}
+  .resolucion-bloque.pasos .paso-r-titulo{
+    display:block;font-weight:700;font-size:13.5px;margin-bottom:2px;
+  }
+  .resolucion-bloque.respuesta p{
+    margin:0;font-size:15.5px;font-weight:700;color:var(--pine-dark);
+  }
+  .unidad{color:var(--ink-soft);font-weight:500;font-size:0.88em;}
+  .aviso-unidades{
+    display:flex;align-items:center;gap:8px;
+    background:#FBEAE5;border:1px solid #C0562E;border-radius:6px;
+    padding:8px 12px;margin-top:10px;font-size:13px;color:#8A3A1E;
+  }
+  .aviso-unidades strong{color:#8A3A1E;}
+
+  /* Errores frecuentes (mismo patrón visual que FAQ) */
+  .errores h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;color:#A0442E;}
+  .errores h3:first-of-type{margin-top:8px;}
+  .errores p{margin:0;color:var(--ink-soft);font-size:14.5px;}
 </style>
 </head>
 <body>
@@ -463,9 +574,16 @@
     <div class="card" data-tag="Concepto">
       <h2>¿Qué es el trabajo mecánico?</h2>
       <p>En física, "trabajo" tiene un significado preciso: es la energía que transfieres a un objeto cuando lo empujas una cierta distancia. Si empujas con mucha fuerza pero el objeto no se mueve, el trabajo es cero — por más esfuerzo que sientas.</p>
-      <div class="formula-box">W = F · d</div>
-      <p class="var-list"><span>W</span> = trabajo (en Joule, J) &nbsp;·&nbsp; <span>F</span> = fuerza en la dirección del movimiento (N) &nbsp;·&nbsp; <span>d</span> = distancia recorrida (m)</p>
-      <p style="color:var(--ink-soft);font-size:14.5px;">Esta fórmula vale cuando la fuerza va en la misma dirección que el movimiento. Si la fuerza está en diagonal respecto al desplazamiento, solo cuenta la parte de la fuerza que "empuja" en la dirección en la que el objeto se mueve.</p>
+      <div class="formula-box"><span class="term-1">W</span> = <span class="term-2">F</span> · <span class="term-3">d</span></div>
+      <div class="formula-leyenda">
+        <div class="leyenda-item"><span class="swatch swatch-1"></span> <strong class="term-1">W</strong> = trabajo — en Joule (J)</div>
+        <div class="leyenda-item"><span class="swatch swatch-2"></span> <strong class="term-2">F</strong> = fuerza en la dirección del movimiento — en Newton (N)</div>
+        <div class="leyenda-item"><span class="swatch swatch-3"></span> <strong class="term-3">d</strong> = distancia recorrida — en metros (m)</div>
+      </div>
+      <div class="analogia">
+        <span class="analogia-tag">Cómo reconocer los datos en un problema</span>
+        La unidad delata cada dato: <strong>N</strong> (Newton) es fuerza, <strong>m</strong> es distancia. Esta fórmula vale cuando la fuerza va en la misma dirección que el movimiento — si está en diagonal, solo cuenta la parte de la fuerza que "empuja" hacia donde el objeto se mueve.
+      </div>
     </div>
 
     <div class="card" data-tag="Calculadora">
@@ -498,12 +616,47 @@
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
-      <div class="example">
-        <p><strong>Empujas una caja con una fuerza de 15 N a lo largo de 6 metros.</strong></p>
-        <p>W = F × d = 15 × 6 = <strong>90 J</strong></p>
-        <p>Le transferiste 90 Joule de energía a la caja durante ese recorrido.</p>
+      <h2>Ejemplo resuelto, paso a paso</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">Empujas una caja con una fuerza de 15 N a lo largo de 6 metros. ¿Qué trabajo realizaste?</p>
+      <div class="resolucion">
+        <div class="resolucion-bloque datos">
+          <p class="resolucion-label"><span class="num-badge">1</span>Datos</p>
+          <ul class="datos-lista">
+            <li><span class="dato-simbolo term-2">F</span><span class="dato-nombre">fuerza (dice "N" — Newton confirma que es fuerza)</span><span class="dato-valor term-2">15 N</span></li>
+            <li><span class="dato-simbolo term-3">d</span><span class="dato-nombre">distancia (dice "metros")</span><span class="dato-valor term-3">6 m</span></li>
+          </ul>
+        </div>
+        <div class="resolucion-bloque formula-usada">
+          <p class="resolucion-label"><span class="num-badge">2</span>Fórmula utilizada</p>
+          <div class="formula-box" style="margin:0;"><span class="term-1">W</span> = <span class="term-2">F</span> · <span class="term-3">d</span></div>
+        </div>
+        <div class="resolucion-bloque pasos">
+          <p class="resolucion-label"><span class="num-badge">3</span>Resolución</p>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Reemplazo cada incógnita por su dato</span>
+            <span class="term-1">W</span> = <span class="term-2">15 N</span> · <span class="term-3">6 m</span>
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Resuelvo la ecuación</span>
+            W = 15×6 = <strong>90 J</strong>
+          </div>
+          <div class="aviso-unidades"><strong>Ojo con las unidades:</strong> N × m = J (Joule) — así se define la unidad de trabajo y energía.</div>
+        </div>
+        <div class="resolucion-bloque respuesta">
+          <p class="resolucion-label"><span class="num-badge">4</span>Respuesta</p>
+          <p>Le transferiste <span class="term-1">W = 90 J</span> de energía a la caja durante ese recorrido</p>
+        </div>
       </div>
+    </div>
+
+    <div class="card errores" data-tag="Errores frecuentes">
+      <h2>Errores frecuentes</h2>
+      <h3>Confundir fuerza aplicada con fuerza en la dirección del movimiento</h3>
+      <p>Si empujás en diagonal, solo cuenta la parte de la fuerza que va en la misma dirección que el desplazamiento — no toda la fuerza que hacés con el cuerpo.</p>
+      <h3>Pensar que "esfuerzo" es lo mismo que "trabajo"</h3>
+      <p>Si empujás una pared y no se mueve, el trabajo físico es cero, aunque te hayas cansado mucho — el trabajo depende del desplazamiento, no del esfuerzo sentido.</p>
+      <h3>Olvidar que el trabajo puede ser negativo</h3>
+      <p>Si la fuerza va en contra del movimiento (como el rozamiento frenando), el trabajo de esa fuerza es negativo — resta energía en vez de sumarla.</p>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
@@ -529,10 +682,19 @@
     <div class="card" data-tag="Concepto">
       <h2>Energía cinética, potencial y el Teorema Trabajo-Energía</h2>
       <p>La energía no aparece de la nada: el trabajo que le haces a un objeto se convierte en energía. Hay dos formas básicas: la energía por movimiento (cinética) y la energía por altura (potencial gravitatoria).</p>
-      <div class="formula-box">E<sub>c</sub> = ½ · m · v²</div>
-      <div class="formula-box">E<sub>p</sub> = m · g · h</div>
-      <p class="var-list"><span>v</span> = velocidad (m/s) &nbsp;·&nbsp; <span>h</span> = altura (m) &nbsp;·&nbsp; <span>g</span> = 9.8 m/s²</p>
-      <p style="color:var(--ink-soft);font-size:14.5px;">El Teorema Trabajo-Energía dice que el trabajo neto sobre un objeto es igual al cambio en su energía cinética: W = ΔE<sub>c</sub>. Y si no hay rozamiento, la energía total (cinética + potencial) se conserva: lo que un objeto pierde de una, lo gana de la otra.</p>
+      <div class="formula-box"><span class="term-1">E<sub>c</sub></span> = ½ · <span class="term-2">m</span> · <span class="term-3">v</span>²</div>
+      <div class="formula-box"><span class="term-4">E<sub>p</sub></span> = <span class="term-2">m</span> · g · <span class="term-5">h</span></div>
+      <div class="formula-leyenda">
+        <div class="leyenda-item"><span class="swatch swatch-1"></span> <strong class="term-1">Ec</strong> = energía cinética — en Joule (J)</div>
+        <div class="leyenda-item"><span class="swatch swatch-2"></span> <strong class="term-2">m</strong> = masa — en kg</div>
+        <div class="leyenda-item"><span class="swatch swatch-3"></span> <strong class="term-3">v</strong> = velocidad — en m/s</div>
+        <div class="leyenda-item"><span class="swatch swatch-4"></span> <strong class="term-4">Ep</strong> = energía potencial — en Joule (J)</div>
+        <div class="leyenda-item"><span class="swatch swatch-5"></span> <strong class="term-5">h</strong> = altura — en m (g=9.8 m/s² siempre)</div>
+      </div>
+      <div class="analogia">
+        <span class="analogia-tag">Cómo reconocer los datos en un problema</span>
+        El Teorema Trabajo-Energía dice que el trabajo neto sobre un objeto es igual al cambio en su energía cinética: W = ΔEc. Y si no hay rozamiento, la energía total (cinética + potencial) se conserva: lo que un objeto pierde de una, lo gana de la otra — por eso al caer, la Ep se transforma en Ec.
+      </div>
     </div>
 
     <div class="card" data-tag="Calculadora">
@@ -545,14 +707,53 @@
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
-      <div class="example">
-        <p><strong>Un objeto se suelta desde 20 m de altura, sin rozamiento del aire. ¿Con qué velocidad llega al piso?</strong></p>
-        <p>Toda la energía potencial se convierte en cinética: m·g·h = ½·m·v²</p>
-        <p>Simplificando la masa: v² = 2·g·h = 2×9.8×20 = 392</p>
-        <p>v = √392 = <strong>19.8 m/s</strong></p>
-        <p>Fíjate que la masa se cancela — por eso, sin rozamiento del aire, dos objetos de distinto peso caen a la misma velocidad.</p>
+      <h2>Ejemplo resuelto, paso a paso</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">Un objeto se suelta desde 20 m de altura, sin rozamiento del aire. ¿Con qué velocidad llega al piso?</p>
+      <div class="resolucion">
+        <div class="resolucion-bloque datos">
+          <p class="resolucion-label"><span class="num-badge">1</span>Datos</p>
+          <ul class="datos-lista">
+            <li><span class="dato-simbolo term-5">h</span><span class="dato-nombre">altura (dice "metros")</span><span class="dato-valor term-5">20 m</span></li>
+            <li><span class="dato-simbolo">g</span><span class="dato-nombre">gravedad (constante, siempre igual en la Tierra)</span><span class="dato-valor">9.8 m/s²</span></li>
+          </ul>
+        </div>
+        <div class="resolucion-bloque formula-usada">
+          <p class="resolucion-label"><span class="num-badge">2</span>Fórmula utilizada</p>
+          <p style="color:var(--ink-soft);font-size:13.5px;margin:0 0 8px;">Toda la energía potencial se convierte en cinética (se conserva la energía):</p>
+          <div class="formula-box" style="margin:0;"><span class="term-2">m</span>·g·<span class="term-5">h</span> = ½·<span class="term-2">m</span>·<span class="term-3">v</span>²</div>
+        </div>
+        <div class="resolucion-bloque pasos">
+          <p class="resolucion-label"><span class="num-badge">3</span>Resolución</p>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Simplifico la masa (aparece en los dos lados, se cancela)</span>
+            <span class="term-3">v</span>² = 2·g·<span class="term-5">h</span>
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Reemplazo cada incógnita por su dato</span>
+            v² = 2 · 9.8 m/s² · 20 m
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Resuelvo la ecuación</span>
+            v² = 392 → v = √392 = <strong>19.8 m/s</strong>
+          </div>
+          <div class="aviso-unidades"><strong>Ojo con las unidades:</strong> m/s² × m = m²/s² — al sacar la raíz cuadrada, queda en m/s, la unidad correcta de velocidad.</div>
+        </div>
+        <div class="resolucion-bloque respuesta">
+          <p class="resolucion-label"><span class="num-badge">4</span>Respuesta</p>
+          <p>El objeto llega al piso a <span class="term-3">v = 19.8 m/s</span></p>
+        </div>
       </div>
+      <p style="color:var(--ink-soft);font-size:14px;margin-top:10px;">Fíjate que la masa se cancela — por eso, sin rozamiento del aire, dos objetos de distinto peso caen a la misma velocidad.</p>
+    </div>
+
+    <div class="card errores" data-tag="Errores frecuentes">
+      <h2>Errores frecuentes</h2>
+      <h3>Olvidarse de sacar la raíz cuadrada al final</h3>
+      <p>Muchas veces se calcula v² correctamente pero se da esa cifra como si fuera la velocidad — la respuesta final necesita la raíz cuadrada de ese resultado.</p>
+      <h3>Pensar que un objeto más pesado cae más rápido</h3>
+      <p>Sin rozamiento del aire, la masa se cancela en la fórmula — todos los objetos caen con la misma aceleración, sin importar su peso.</p>
+      <h3>Usar la fórmula de conservación de energía cuando hay rozamiento</h3>
+      <p>Si hay rozamiento (aire, superficie), parte de la energía se pierde como calor — la energía mecánica ya no se conserva del todo, y hace falta restar esa pérdida.</p>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
