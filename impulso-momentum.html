@@ -332,6 +332,117 @@
     font-size:12px;cursor:pointer;
   }
   .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  /* Sistema de color para partes de una fórmula (mismo color = mismo rol en toda la página) */
+  .term-1{color:#B8842E;font-weight:800;}
+  .term-2{color:#2F6B5E;font-weight:800;}
+  .term-3{color:#7A4FB0;font-weight:800;}
+  .term-4{color:#2A6FA8;font-weight:800;}
+  .term-5{color:#C0562E;font-weight:800;}
+  .formula-leyenda{
+    display:flex;flex-wrap:wrap;gap:8px 20px;
+    margin-top:12px;padding-top:12px;
+    border-top:1px dashed var(--line);
+  }
+  .formula-leyenda .leyenda-item{
+    display:flex;align-items:flex-start;gap:7px;
+    font-size:13.5px;color:var(--ink-soft);max-width:260px;
+  }
+  .formula-leyenda .swatch{
+    display:inline-block;width:11px;height:11px;border-radius:3px;
+    margin-top:3px;flex-shrink:0;
+  }
+  .swatch-1{background:#B8842E;} .swatch-2{background:#2F6B5E;}
+  .swatch-3{background:#7A4FB0;} .swatch-4{background:#2A6FA8;} .swatch-5{background:#C0562E;}
+
+  /* Paso a paso con color por paso */
+  .pasos-resueltos{margin:14px 0;}
+  .paso{
+    display:flex;gap:12px;align-items:flex-start;
+    padding:12px 14px;margin-bottom:8px;border-radius:8px;
+    background:var(--paper);border-left:4px solid var(--ink-soft);
+  }
+  .paso-num{
+    font-family:'JetBrains Mono', monospace;font-weight:800;font-size:12.5px;
+    width:22px;height:22px;border-radius:50%;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;color:#fff;
+    background:var(--ink-soft);
+  }
+  .paso:nth-child(1){border-left-color:#B8842E;} .paso:nth-child(1) .paso-num{background:#B8842E;}
+  .paso:nth-child(2){border-left-color:#2F6B5E;} .paso:nth-child(2) .paso-num{background:#2F6B5E;}
+  .paso:nth-child(3){border-left-color:#7A4FB0;} .paso:nth-child(3) .paso-num{background:#7A4FB0;}
+  .paso:nth-child(4){border-left-color:#2A6FA8;} .paso:nth-child(4) .paso-num{background:#2A6FA8;}
+  .paso:nth-child(5){border-left-color:#C0562E;} .paso:nth-child(5) .paso-num{background:#C0562E;}
+  .paso p{margin:0;font-size:14.5px;}
+  .paso .paso-titulo{font-weight:700;display:block;margin-bottom:2px;}
+
+  .analogia{
+    background:#FBF3E2;border:1.5px dashed #B8842E;border-radius:8px;
+    padding:14px 16px;margin:14px 0;font-size:14.5px;
+  }
+  .analogia .analogia-tag{
+    font-family:'JetBrains Mono', monospace;font-size:11px;font-weight:700;
+    text-transform:uppercase;letter-spacing:0.06em;color:#B8842E;
+    display:block;margin-bottom:6px;
+  }
+
+  /* Sistema de resolución estructurada: Datos / Fórmula / Resolución / Respuesta */
+  .resolucion{
+    border:2px solid var(--ink);border-radius:10px;
+    margin:16px 0;overflow:hidden;
+  }
+  .resolucion-bloque{
+    padding:14px 18px;border-bottom:1px solid var(--line);
+  }
+  .resolucion-bloque:last-child{border-bottom:none;}
+  .resolucion-bloque.datos{background:#FBF3E2;}
+  .resolucion-bloque.formula-usada{background:var(--paper);}
+  .resolucion-bloque.pasos{background:#FFFFFF;}
+  .resolucion-bloque.respuesta{background:#EAF3EE;}
+  .resolucion-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;
+    color:var(--ink-soft);margin:0 0 10px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .resolucion-label .num-badge{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:28px;height:28px;border-radius:50%;flex-shrink:0;
+    background:var(--ink);color:#fff;font-size:15px;font-weight:800;
+    font-family:'Inter', sans-serif;
+  }
+  .datos-lista{list-style:none;margin:0;padding:0;display:grid;gap:6px;}
+  .datos-lista li{
+    display:flex;align-items:baseline;gap:8px;font-size:14.5px;
+  }
+  .datos-lista .dato-simbolo{
+    font-family:'JetBrains Mono', monospace;font-weight:800;
+    min-width:34px;
+  }
+  .datos-lista .dato-nombre{color:var(--ink-soft);}
+  .datos-lista .dato-valor{font-weight:700;margin-left:auto;font-family:'JetBrains Mono', monospace;}
+  .resolucion-bloque.pasos .paso-r{
+    margin-bottom:10px;padding-left:14px;border-left:3px solid var(--ink-soft);
+  }
+  .resolucion-bloque.pasos .paso-r:last-child{margin-bottom:0;}
+  .resolucion-bloque.pasos .paso-r-titulo{
+    display:block;font-weight:700;font-size:13.5px;margin-bottom:2px;
+  }
+  .resolucion-bloque.respuesta p{
+    margin:0;font-size:15.5px;font-weight:700;color:var(--pine-dark);
+  }
+  .unidad{color:var(--ink-soft);font-weight:500;font-size:0.88em;}
+  .aviso-unidades{
+    display:flex;align-items:center;gap:8px;
+    background:#FBEAE5;border:1px solid #C0562E;border-radius:6px;
+    padding:8px 12px;margin-top:10px;font-size:13px;color:#8A3A1E;
+  }
+  .aviso-unidades strong{color:#8A3A1E;}
+
+  /* Errores frecuentes (mismo patrón visual que FAQ) */
+  .errores h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;color:#A0442E;}
+  .errores h3:first-of-type{margin-top:8px;}
+  .errores p{margin:0;color:var(--ink-soft);font-size:14.5px;}
 </style>
 </head>
 <body>
@@ -456,10 +567,18 @@
     <div class="card" data-tag="Concepto">
       <h2>¿Qué es la cantidad de movimiento?</h2>
       <p>Es una medida de "cuánto cuesta detener algo" — combina masa y velocidad. Un camión lento puede tener la misma cantidad de movimiento que un auto rápido, y a los dos les cuesta lo mismo pararlos.</p>
-      <div class="formula-box">p = m · v</div>
-      <p class="var-list"><span>p</span> = cantidad de movimiento (kg·m/s) &nbsp;·&nbsp; <span>m</span> = masa (kg) &nbsp;·&nbsp; <span>v</span> = velocidad (m/s)</p>
+      <div class="formula-box"><span class="term-1">p</span> = <span class="term-2">m</span> · <span class="term-3">v</span></div>
+      <div class="formula-leyenda">
+        <div class="leyenda-item"><span class="swatch swatch-1"></span> <strong class="term-1">p</strong> = cantidad de movimiento — en kg·m/s</div>
+        <div class="leyenda-item"><span class="swatch swatch-2"></span> <strong class="term-2">m</strong> = masa — en kg</div>
+        <div class="leyenda-item"><span class="swatch swatch-3"></span> <strong class="term-3">v</strong> = velocidad — en m/s</div>
+      </div>
       <p style="color:var(--ink-soft);font-size:14.5px;">El impulso es lo que cambia la cantidad de movimiento: una fuerza aplicada durante un tiempo. Por eso J = F·Δt es exactamente igual al cambio de p.</p>
-      <div class="formula-box">J = F · Δt = Δp = m·(v<sub>f</sub> − v<sub>0</sub>)</div>
+      <div class="formula-box"><span class="term-4">J</span> = <span class="term-5">F</span> · Δt = Δp = <span class="term-2">m</span>·(v<sub>f</sub> − v<sub>0</sub>)</div>
+      <div class="analogia">
+        <span class="analogia-tag">Cómo reconocer los datos en un problema</span>
+        Si el problema dice "una fuerza actúa durante tantos segundos", eso es F y Δt para calcular el impulso J. Si te dan directamente masa y velocidad, calculás p sin pasar por el impulso.
+      </div>
     </div>
 
     <div class="card" data-tag="Calculadora">
@@ -475,13 +594,54 @@
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo — patear una pelota</h2>
-      <div class="example">
-        <p><strong>Una pelota de 0.5 kg está quieta (v₀=0). Un jugador la patea con 20 N durante 0.1 s. ¿Con qué velocidad sale?</strong></p>
-        <p>J = F×Δt = 20×0.1 = 2 kg·m/s</p>
-        <p>Δv = J/m = 2/0.5 = 4 m/s</p>
-        <p>v<sub>f</sub> = v₀ + Δv = 0 + 4 = <strong>4 m/s</strong></p>
+      <h2>Ejemplo resuelto, paso a paso — patear una pelota</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">Una pelota de 0.5 kg está quieta. Un jugador la patea con 20 N durante 0.1 s. ¿Con qué velocidad sale?</p>
+      <div class="resolucion">
+        <div class="resolucion-bloque datos">
+          <p class="resolucion-label"><span class="num-badge">1</span>Datos</p>
+          <ul class="datos-lista">
+            <li><span class="dato-simbolo term-2">m</span><span class="dato-nombre">masa (dice "kg")</span><span class="dato-valor term-2">0.5 kg</span></li>
+            <li><span class="dato-nombre">velocidad inicial ("está quieta")</span><span class="dato-valor">v₀ = 0 m/s</span></li>
+            <li><span class="dato-simbolo term-5">F</span><span class="dato-nombre">fuerza (dice "N" — Newton confirma que es fuerza)</span><span class="dato-valor term-5">20 N</span></li>
+            <li><span class="dato-nombre">tiempo de contacto (dice "segundos")</span><span class="dato-valor">Δt = 0.1 s</span></li>
+          </ul>
+        </div>
+        <div class="resolucion-bloque formula-usada">
+          <p class="resolucion-label"><span class="num-badge">2</span>Fórmula utilizada</p>
+          <div class="formula-box" style="margin:0 0 8px;"><span class="term-4">J</span> = <span class="term-5">F</span> · Δt</div>
+          <div class="formula-box" style="margin:0;">Δv = <span class="term-4">J</span> / <span class="term-2">m</span> &nbsp;·&nbsp; v<sub>f</sub> = v₀ + Δv</div>
+        </div>
+        <div class="resolucion-bloque pasos">
+          <p class="resolucion-label"><span class="num-badge">3</span>Resolución</p>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Calculo el impulso</span>
+            <span class="term-4">J</span> = <span class="term-5">20 N</span> × 0.1 s = <strong>2 kg·m/s</strong>
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Calculo cuánto cambió la velocidad</span>
+            Δv = 2 kg·m/s / <span class="term-2">0.5 kg</span> = <strong>4 m/s</strong>
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Sumo el cambio a la velocidad inicial</span>
+            v<sub>f</sub> = 0 + 4 = <strong>4 m/s</strong>
+          </div>
+          <div class="aviso-unidades"><strong>Ojo con las unidades:</strong> N × s = kg·m/s — por eso el impulso y la cantidad de movimiento comparten exactamente la misma unidad.</div>
+        </div>
+        <div class="resolucion-bloque respuesta">
+          <p class="resolucion-label"><span class="num-badge">4</span>Respuesta</p>
+          <p>La pelota sale disparada a <span class="term-3">v<sub>f</sub> = 4 m/s</span></p>
+        </div>
       </div>
+    </div>
+
+    <div class="card errores" data-tag="Errores frecuentes">
+      <h2>Errores frecuentes</h2>
+      <h3>Olvidar sumar la velocidad inicial</h3>
+      <p>Δv es solo el cambio de velocidad — si el objeto ya se movía antes del impulso, hay que sumarle esa velocidad inicial para obtener la velocidad final real.</p>
+      <h3>Confundir impulso con fuerza</h3>
+      <p>El impulso (J) depende tanto de la fuerza como del tiempo que dura — la misma fuerza aplicada más tiempo produce más impulso, y por lo tanto más cambio de velocidad.</p>
+      <h3>No poner el signo correcto en un choque o rebote</h3>
+      <p>Si un objeto rebota (cambia de dirección), la velocidad final tiene signo contrario a la inicial — hay que restar, no sumar, si van en sentidos opuestos.</p>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">

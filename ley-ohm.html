@@ -353,6 +353,117 @@
     margin-top:14px;
     padding:8px;
   }
+
+  /* Sistema de color para partes de una fórmula (mismo color = mismo rol en toda la página) */
+  .term-1{color:#B8842E;font-weight:800;}
+  .term-2{color:#2F6B5E;font-weight:800;}
+  .term-3{color:#7A4FB0;font-weight:800;}
+  .term-4{color:#2A6FA8;font-weight:800;}
+  .term-5{color:#C0562E;font-weight:800;}
+  .formula-leyenda{
+    display:flex;flex-wrap:wrap;gap:8px 20px;
+    margin-top:12px;padding-top:12px;
+    border-top:1px dashed var(--line);
+  }
+  .formula-leyenda .leyenda-item{
+    display:flex;align-items:flex-start;gap:7px;
+    font-size:13.5px;color:var(--ink-soft);max-width:260px;
+  }
+  .formula-leyenda .swatch{
+    display:inline-block;width:11px;height:11px;border-radius:3px;
+    margin-top:3px;flex-shrink:0;
+  }
+  .swatch-1{background:#B8842E;} .swatch-2{background:#2F6B5E;}
+  .swatch-3{background:#7A4FB0;} .swatch-4{background:#2A6FA8;} .swatch-5{background:#C0562E;}
+
+  /* Paso a paso con color por paso */
+  .pasos-resueltos{margin:14px 0;}
+  .paso{
+    display:flex;gap:12px;align-items:flex-start;
+    padding:12px 14px;margin-bottom:8px;border-radius:8px;
+    background:var(--paper);border-left:4px solid var(--ink-soft);
+  }
+  .paso-num{
+    font-family:'JetBrains Mono', monospace;font-weight:800;font-size:12.5px;
+    width:22px;height:22px;border-radius:50%;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;color:#fff;
+    background:var(--ink-soft);
+  }
+  .paso:nth-child(1){border-left-color:#B8842E;} .paso:nth-child(1) .paso-num{background:#B8842E;}
+  .paso:nth-child(2){border-left-color:#2F6B5E;} .paso:nth-child(2) .paso-num{background:#2F6B5E;}
+  .paso:nth-child(3){border-left-color:#7A4FB0;} .paso:nth-child(3) .paso-num{background:#7A4FB0;}
+  .paso:nth-child(4){border-left-color:#2A6FA8;} .paso:nth-child(4) .paso-num{background:#2A6FA8;}
+  .paso:nth-child(5){border-left-color:#C0562E;} .paso:nth-child(5) .paso-num{background:#C0562E;}
+  .paso p{margin:0;font-size:14.5px;}
+  .paso .paso-titulo{font-weight:700;display:block;margin-bottom:2px;}
+
+  .analogia{
+    background:#FBF3E2;border:1.5px dashed #B8842E;border-radius:8px;
+    padding:14px 16px;margin:14px 0;font-size:14.5px;
+  }
+  .analogia .analogia-tag{
+    font-family:'JetBrains Mono', monospace;font-size:11px;font-weight:700;
+    text-transform:uppercase;letter-spacing:0.06em;color:#B8842E;
+    display:block;margin-bottom:6px;
+  }
+
+  /* Sistema de resolución estructurada: Datos / Fórmula / Resolución / Respuesta */
+  .resolucion{
+    border:2px solid var(--ink);border-radius:10px;
+    margin:16px 0;overflow:hidden;
+  }
+  .resolucion-bloque{
+    padding:14px 18px;border-bottom:1px solid var(--line);
+  }
+  .resolucion-bloque:last-child{border-bottom:none;}
+  .resolucion-bloque.datos{background:#FBF3E2;}
+  .resolucion-bloque.formula-usada{background:var(--paper);}
+  .resolucion-bloque.pasos{background:#FFFFFF;}
+  .resolucion-bloque.respuesta{background:#EAF3EE;}
+  .resolucion-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;
+    color:var(--ink-soft);margin:0 0 10px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .resolucion-label .num-badge{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:28px;height:28px;border-radius:50%;flex-shrink:0;
+    background:var(--ink);color:#fff;font-size:15px;font-weight:800;
+    font-family:'Inter', sans-serif;
+  }
+  .datos-lista{list-style:none;margin:0;padding:0;display:grid;gap:6px;}
+  .datos-lista li{
+    display:flex;align-items:baseline;gap:8px;font-size:14.5px;
+  }
+  .datos-lista .dato-simbolo{
+    font-family:'JetBrains Mono', monospace;font-weight:800;
+    min-width:34px;
+  }
+  .datos-lista .dato-nombre{color:var(--ink-soft);}
+  .datos-lista .dato-valor{font-weight:700;margin-left:auto;font-family:'JetBrains Mono', monospace;}
+  .resolucion-bloque.pasos .paso-r{
+    margin-bottom:10px;padding-left:14px;border-left:3px solid var(--ink-soft);
+  }
+  .resolucion-bloque.pasos .paso-r:last-child{margin-bottom:0;}
+  .resolucion-bloque.pasos .paso-r-titulo{
+    display:block;font-weight:700;font-size:13.5px;margin-bottom:2px;
+  }
+  .resolucion-bloque.respuesta p{
+    margin:0;font-size:15.5px;font-weight:700;color:var(--pine-dark);
+  }
+  .unidad{color:var(--ink-soft);font-weight:500;font-size:0.88em;}
+  .aviso-unidades{
+    display:flex;align-items:center;gap:8px;
+    background:#FBEAE5;border:1px solid #C0562E;border-radius:6px;
+    padding:8px 12px;margin-top:10px;font-size:13px;color:#8A3A1E;
+  }
+  .aviso-unidades strong{color:#8A3A1E;}
+
+  /* Errores frecuentes (mismo patrón visual que FAQ) */
+  .errores h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;color:#A0442E;}
+  .errores h3:first-of-type{margin-top:8px;}
+  .errores p{margin:0;color:var(--ink-soft);font-size:14.5px;}
 </style>
 </head>
 <body>
@@ -477,9 +588,16 @@
     <div class="card" data-tag="Concepto">
       <h2>¿Qué es la Ley de Ohm?</h2>
       <p>Relaciona tres cosas en un circuito eléctrico simple: cuánta "presión eléctrica" empuja a la corriente (voltaje), cuánta corriente circula, y cuánto se resiste el material al paso de esa corriente.</p>
-      <div class="formula-box">V = I · R</div>
-      <p class="var-list"><span>V</span> = voltaje (Volt, V) &nbsp;·&nbsp; <span>I</span> = corriente (Ampere, A) &nbsp;·&nbsp; <span>R</span> = resistencia (Ohm, Ω)</p>
-      <p style="color:var(--ink-soft);font-size:14.5px;">Imagínalo como una manguera de agua: el voltaje es la presión, la corriente es cuánta agua fluye, y la resistencia es qué tan angosta es la manguera. Más presión o menos resistencia = más flujo.</p>
+      <div class="formula-box"><span class="term-1">V</span> = <span class="term-2">I</span> · <span class="term-3">R</span></div>
+      <div class="formula-leyenda">
+        <div class="leyenda-item"><span class="swatch swatch-1"></span> <strong class="term-1">V</strong> = voltaje — en Volt (V)</div>
+        <div class="leyenda-item"><span class="swatch swatch-2"></span> <strong class="term-2">I</strong> = corriente — en Ampere (A)</div>
+        <div class="leyenda-item"><span class="swatch swatch-3"></span> <strong class="term-3">R</strong> = resistencia — en Ohm (Ω)</div>
+      </div>
+      <div class="analogia">
+        <span class="analogia-tag">Piénsalo así</span>
+        Imagínalo como una manguera de agua: el voltaje es la presión, la corriente es cuánta agua fluye, y la resistencia es qué tan angosta es la manguera. Más presión o menos resistencia = más flujo.
+      </div>
     </div>
 
     <div class="card historia-card" data-tag="Historia">
@@ -518,12 +636,48 @@
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
-      <div class="example">
-        <p><strong>Una pila de 12 V está conectada a una resistencia de 4 Ω.</strong></p>
-        <p>I = V / R = 12 / 4 = <strong>3 A</strong></p>
-        <p>Circulan 3 Ampere por el circuito.</p>
+      <h2>Ejemplo resuelto, paso a paso</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">Una pila de 12 V está conectada a una resistencia de 4 Ω. ¿Cuánta corriente circula?</p>
+      <div class="resolucion">
+        <div class="resolucion-bloque datos">
+          <p class="resolucion-label"><span class="num-badge">1</span>Datos</p>
+          <ul class="datos-lista">
+            <li><span class="dato-simbolo term-1">V</span><span class="dato-nombre">voltaje (dice "V" — Volt confirma que es voltaje)</span><span class="dato-valor term-1">12 V</span></li>
+            <li><span class="dato-simbolo term-3">R</span><span class="dato-nombre">resistencia (dice "Ω" — Ohm confirma que es resistencia)</span><span class="dato-valor term-3">4 Ω</span></li>
+          </ul>
+        </div>
+        <div class="resolucion-bloque formula-usada">
+          <p class="resolucion-label"><span class="num-badge">2</span>Fórmula utilizada</p>
+          <p style="color:var(--ink-soft);font-size:13.5px;margin:0 0 8px;">Como me piden la corriente, despejo <span class="term-2">I</span> de la fórmula original:</p>
+          <div class="formula-box" style="margin:0;"><span class="term-2">I</span> = <span class="term-1">V</span> / <span class="term-3">R</span></div>
+        </div>
+        <div class="resolucion-bloque pasos">
+          <p class="resolucion-label"><span class="num-badge">3</span>Resolución</p>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Reemplazo cada incógnita por su dato</span>
+            <span class="term-2">I</span> = <span class="term-1">12 V</span> / <span class="term-3">4 Ω</span>
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Resuelvo la ecuación</span>
+            I = 12/4 = <strong>3 A</strong>
+          </div>
+          <div class="aviso-unidades"><strong>Ojo con las unidades:</strong> V/Ω = A — así se define la unidad de corriente, no hace falta convertir nada.</div>
+        </div>
+        <div class="resolucion-bloque respuesta">
+          <p class="resolucion-label"><span class="num-badge">4</span>Respuesta</p>
+          <p>Circulan <span class="term-2">I = 3 A</span> por el circuito</p>
+        </div>
       </div>
+    </div>
+
+    <div class="card errores" data-tag="Errores frecuentes">
+      <h2>Errores frecuentes</h2>
+      <h3>Confundir voltaje con corriente</h3>
+      <p>El voltaje (V, Volt) es la "presión" que empuja la corriente; la corriente (I, Ampere) es lo que efectivamente circula. Son cosas distintas, aunque estén relacionadas.</p>
+      <h3>Despejar mal la fórmula</h3>
+      <p>Si te piden la resistencia en vez de la corriente, la fórmula despejada es R=V/I, no V/R al revés — verificá siempre qué letra estás buscando antes de dividir.</p>
+      <h3>Mezclar unidades sin convertir (mA, kΩ)</h3>
+      <p>Si la corriente está en miliamperes (mA) o la resistencia en kilo-ohms (kΩ), hay que convertir todo a unidades base (A y Ω) antes de aplicar la fórmula.</p>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">

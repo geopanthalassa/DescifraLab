@@ -332,6 +332,117 @@
     font-size:12px;cursor:pointer;
   }
   .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  /* Sistema de color para partes de una fórmula (mismo color = mismo rol en toda la página) */
+  .term-1{color:#B8842E;font-weight:800;}
+  .term-2{color:#2F6B5E;font-weight:800;}
+  .term-3{color:#7A4FB0;font-weight:800;}
+  .term-4{color:#2A6FA8;font-weight:800;}
+  .term-5{color:#C0562E;font-weight:800;}
+  .formula-leyenda{
+    display:flex;flex-wrap:wrap;gap:8px 20px;
+    margin-top:12px;padding-top:12px;
+    border-top:1px dashed var(--line);
+  }
+  .formula-leyenda .leyenda-item{
+    display:flex;align-items:flex-start;gap:7px;
+    font-size:13.5px;color:var(--ink-soft);max-width:260px;
+  }
+  .formula-leyenda .swatch{
+    display:inline-block;width:11px;height:11px;border-radius:3px;
+    margin-top:3px;flex-shrink:0;
+  }
+  .swatch-1{background:#B8842E;} .swatch-2{background:#2F6B5E;}
+  .swatch-3{background:#7A4FB0;} .swatch-4{background:#2A6FA8;} .swatch-5{background:#C0562E;}
+
+  /* Paso a paso con color por paso */
+  .pasos-resueltos{margin:14px 0;}
+  .paso{
+    display:flex;gap:12px;align-items:flex-start;
+    padding:12px 14px;margin-bottom:8px;border-radius:8px;
+    background:var(--paper);border-left:4px solid var(--ink-soft);
+  }
+  .paso-num{
+    font-family:'JetBrains Mono', monospace;font-weight:800;font-size:12.5px;
+    width:22px;height:22px;border-radius:50%;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;color:#fff;
+    background:var(--ink-soft);
+  }
+  .paso:nth-child(1){border-left-color:#B8842E;} .paso:nth-child(1) .paso-num{background:#B8842E;}
+  .paso:nth-child(2){border-left-color:#2F6B5E;} .paso:nth-child(2) .paso-num{background:#2F6B5E;}
+  .paso:nth-child(3){border-left-color:#7A4FB0;} .paso:nth-child(3) .paso-num{background:#7A4FB0;}
+  .paso:nth-child(4){border-left-color:#2A6FA8;} .paso:nth-child(4) .paso-num{background:#2A6FA8;}
+  .paso:nth-child(5){border-left-color:#C0562E;} .paso:nth-child(5) .paso-num{background:#C0562E;}
+  .paso p{margin:0;font-size:14.5px;}
+  .paso .paso-titulo{font-weight:700;display:block;margin-bottom:2px;}
+
+  .analogia{
+    background:#FBF3E2;border:1.5px dashed #B8842E;border-radius:8px;
+    padding:14px 16px;margin:14px 0;font-size:14.5px;
+  }
+  .analogia .analogia-tag{
+    font-family:'JetBrains Mono', monospace;font-size:11px;font-weight:700;
+    text-transform:uppercase;letter-spacing:0.06em;color:#B8842E;
+    display:block;margin-bottom:6px;
+  }
+
+  /* Sistema de resolución estructurada: Datos / Fórmula / Resolución / Respuesta */
+  .resolucion{
+    border:2px solid var(--ink);border-radius:10px;
+    margin:16px 0;overflow:hidden;
+  }
+  .resolucion-bloque{
+    padding:14px 18px;border-bottom:1px solid var(--line);
+  }
+  .resolucion-bloque:last-child{border-bottom:none;}
+  .resolucion-bloque.datos{background:#FBF3E2;}
+  .resolucion-bloque.formula-usada{background:var(--paper);}
+  .resolucion-bloque.pasos{background:#FFFFFF;}
+  .resolucion-bloque.respuesta{background:#EAF3EE;}
+  .resolucion-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;
+    color:var(--ink-soft);margin:0 0 10px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .resolucion-label .num-badge{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:28px;height:28px;border-radius:50%;flex-shrink:0;
+    background:var(--ink);color:#fff;font-size:15px;font-weight:800;
+    font-family:'Inter', sans-serif;
+  }
+  .datos-lista{list-style:none;margin:0;padding:0;display:grid;gap:6px;}
+  .datos-lista li{
+    display:flex;align-items:baseline;gap:8px;font-size:14.5px;
+  }
+  .datos-lista .dato-simbolo{
+    font-family:'JetBrains Mono', monospace;font-weight:800;
+    min-width:34px;
+  }
+  .datos-lista .dato-nombre{color:var(--ink-soft);}
+  .datos-lista .dato-valor{font-weight:700;margin-left:auto;font-family:'JetBrains Mono', monospace;}
+  .resolucion-bloque.pasos .paso-r{
+    margin-bottom:10px;padding-left:14px;border-left:3px solid var(--ink-soft);
+  }
+  .resolucion-bloque.pasos .paso-r:last-child{margin-bottom:0;}
+  .resolucion-bloque.pasos .paso-r-titulo{
+    display:block;font-weight:700;font-size:13.5px;margin-bottom:2px;
+  }
+  .resolucion-bloque.respuesta p{
+    margin:0;font-size:15.5px;font-weight:700;color:var(--pine-dark);
+  }
+  .unidad{color:var(--ink-soft);font-weight:500;font-size:0.88em;}
+  .aviso-unidades{
+    display:flex;align-items:center;gap:8px;
+    background:#FBEAE5;border:1px solid #C0562E;border-radius:6px;
+    padding:8px 12px;margin-top:10px;font-size:13px;color:#8A3A1E;
+  }
+  .aviso-unidades strong{color:#8A3A1E;}
+
+  /* Errores frecuentes (mismo patrón visual que FAQ) */
+  .errores h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;color:#A0442E;}
+  .errores h3:first-of-type{margin-top:8px;}
+  .errores p{margin:0;color:var(--ink-soft);font-size:14.5px;}
 </style>
 </head>
 <body>
@@ -456,9 +567,18 @@
     <div class="card" data-tag="Concepto">
       <h2>¿Qué es el tiro oblicuo?</h2>
       <p>Es cuando lanzas algo con un ángulo (no derecho hacia arriba ni horizontal puro) y solo actúa la gravedad. La clave para resolverlo: separa el movimiento en dos ejes independientes — horizontal (velocidad constante, sin gravedad) y vertical (como una caída libre con velocidad inicial).</p>
-      <div class="formula-box">Alcance máximo: R = v₀² · sen(2θ) / g</div>
-      <div class="formula-box">Altura máxima: H = (v₀ · senθ)² / (2g)</div>
-      <p class="var-list"><span>v₀</span> = velocidad inicial (m/s) &nbsp;·&nbsp; <span>θ</span> = ángulo de lanzamiento &nbsp;·&nbsp; <span>g</span> = 9.8 m/s²</p>
+      <div class="formula-box">Alcance máximo: <span class="term-1">R</span> = <span class="term-2">v₀</span>² · sen(2<span class="term-3">θ</span>) / g</div>
+      <div class="formula-box">Altura máxima: <span class="term-4">H</span> = (<span class="term-2">v₀</span> · sen<span class="term-3">θ</span>)² / (2g)</div>
+      <div class="formula-leyenda">
+        <div class="leyenda-item"><span class="swatch swatch-1"></span> <strong class="term-1">R</strong> = alcance — distancia horizontal, en metros (m)</div>
+        <div class="leyenda-item"><span class="swatch swatch-2"></span> <strong class="term-2">v₀</strong> = velocidad inicial — en m/s</div>
+        <div class="leyenda-item"><span class="swatch swatch-3"></span> <strong class="term-3">θ</strong> = ángulo de lanzamiento — respecto a la horizontal</div>
+        <div class="leyenda-item"><span class="swatch swatch-4"></span> <strong class="term-4">H</strong> = altura máxima — en metros (m; g=9.8 m/s² siempre)</div>
+      </div>
+      <div class="analogia">
+        <span class="analogia-tag">Cómo reconocer los datos en un problema</span>
+        Si el problema dice "se lanza a tantos m/s con un ángulo de tantos grados", ya tienes v₀ y θ. Si te preguntan "hasta dónde llega" es el alcance R; si preguntan "qué tan alto sube" es la altura máxima H.
+      </div>
     </div>
 
     <div class="card" data-tag="Calculadora">
@@ -472,13 +592,57 @@
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
-      <div class="example">
-        <p><strong>Se lanza un proyectil a 20 m/s con un ángulo de 45°. ¿Cuál es su alcance y altura máxima?</strong></p>
-        <p>R = 20² × sen(90°) / 9.8 = 400 × 1 / 9.8 = <strong>40.8 m</strong></p>
-        <p>H = (20×sen45°)² / (2×9.8) = (14.14)² / 19.6 = <strong>10.2 m</strong></p>
-        <p>45° siempre da el alcance máximo posible para una velocidad inicial dada — por eso es el ángulo "ideal" en muchos deportes.</p>
+      <h2>Ejemplo resuelto, paso a paso</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">Se lanza un proyectil a 20 m/s con un ángulo de 45°. ¿Cuál es su alcance y su altura máxima?</p>
+      <div class="resolucion">
+        <div class="resolucion-bloque datos">
+          <p class="resolucion-label"><span class="num-badge">1</span>Datos</p>
+          <ul class="datos-lista">
+            <li><span class="dato-simbolo term-2">v₀</span><span class="dato-nombre">velocidad inicial (dice "m/s")</span><span class="dato-valor term-2">20 m/s</span></li>
+            <li><span class="dato-simbolo term-3">θ</span><span class="dato-nombre">ángulo de lanzamiento (dice "45°")</span><span class="dato-valor term-3">45°</span></li>
+            <li><span class="dato-simbolo">g</span><span class="dato-nombre">gravedad (constante, siempre igual en la Tierra)</span><span class="dato-valor">9.8 m/s²</span></li>
+          </ul>
+        </div>
+        <div class="resolucion-bloque formula-usada">
+          <p class="resolucion-label"><span class="num-badge">2</span>Fórmula utilizada</p>
+          <div class="formula-box" style="margin:0 0 8px;"><span class="term-1">R</span> = <span class="term-2">v₀</span>² · sen(2<span class="term-3">θ</span>) / g</div>
+          <div class="formula-box" style="margin:0;"><span class="term-4">H</span> = (<span class="term-2">v₀</span> · sen<span class="term-3">θ</span>)² / (2g)</div>
+        </div>
+        <div class="resolucion-bloque pasos">
+          <p class="resolucion-label"><span class="num-badge">3</span>Resolución</p>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Reemplazo cada incógnita por su dato (alcance)</span>
+            <span class="term-1">R</span> = (<span class="term-2">20 m/s</span>)² · sen(2×<span class="term-3">45°</span>) / 9.8 m/s²
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Resuelvo la ecuación (alcance)</span>
+            R = 400 × sen(90°) / 9.8 = 400 × 1 / 9.8 = <strong>40.8 m</strong>
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Reemplazo cada incógnita por su dato (altura)</span>
+            <span class="term-4">H</span> = (<span class="term-2">20 m/s</span> × sen<span class="term-3">45°</span>)² / (2×9.8 m/s²)
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Resuelvo la ecuación (altura)</span>
+            H = (14.14)² / 19.6 = <strong>10.2 m</strong>
+          </div>
+        </div>
+        <div class="resolucion-bloque respuesta">
+          <p class="resolucion-label"><span class="num-badge">4</span>Respuesta</p>
+          <p>Alcanza <span class="term-1">R = 40.8 m</span> de distancia y sube hasta <span class="term-4">H = 10.2 m</span> de altura</p>
+        </div>
       </div>
+      <p style="color:var(--ink-soft);font-size:14px;margin-top:10px;">45° siempre da el alcance máximo posible para una velocidad inicial dada — por eso es el ángulo "ideal" en muchos deportes.</p>
+    </div>
+
+    <div class="card errores" data-tag="Errores frecuentes">
+      <h2>Errores frecuentes</h2>
+      <h3>Usar la calculadora en modo incorrecto (radianes en vez de grados)</h3>
+      <p>Si el ángulo está en grados pero la calculadora está en modo radianes (o al revés), el resultado del seno sale completamente distinto — revisá siempre el modo antes de calcular.</p>
+      <h3>Confundir alcance con altura máxima</h3>
+      <p>R (alcance) es la distancia horizontal total recorrida; H (altura máxima) es solo el punto más alto — son dos preguntas distintas con dos fórmulas distintas.</p>
+      <h3>Olvidar que 2θ va adentro del seno, no θ solo</h3>
+      <p>En la fórmula del alcance, el ángulo se duplica antes de aplicar el seno — sen(2θ), no 2×sen(θ), que da un resultado diferente.</p>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
