@@ -3,11 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/x-icon" href="favicon.ico?v=7">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=7">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=7">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=7">
-<link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png?v=7">
 <title>MRUV — Movimiento Rectilíneo Uniformemente Variado | Fórmula y Calculadora — DescifraLab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -55,21 +50,16 @@
   .brand-link:hover{text-decoration:underline;}
   .navbar{
     background:var(--ink);
-    padding:8px 20px;
+    padding:14px 20px;
     display:flex;align-items:center;justify-content:space-between;
     flex-wrap:wrap;gap:12px;
     position:sticky;top:0;z-index:50;
   }
   .navbar-brand{
-    font-family:'Fraunces', serif;font-weight:700;font-size:16px;
+    font-family:'Fraunces', serif;font-weight:700;font-size:19px;
     color:var(--amber);text-decoration:none;
-    white-space:nowrap;
-    display:inline-flex;align-items:center;gap:8px;
   }
-  .navbar-brand img{
-    height:30px;width:auto;display:block;
-  }
-  .navbar-links{display:flex;gap:4px;flex-wrap:wrap;align-items:center;}
+  .navbar-links{display:flex;gap:4px;flex-wrap:wrap;}
   .navbar-links a{
     color:#D8D3C4;text-decoration:none;
     font-size:13.5px;font-weight:500;
@@ -81,54 +71,7 @@
     display:none;
     background:none;border:none;cursor:pointer;
     padding:6px;
-  }    .nav-drop{position:relative;}
-  .nav-drop summary{
-    list-style:none;cursor:pointer;
-    color:#D8D3C4;font-size:13.5px;font-weight:500;
-    padding:8px 12px;border-radius:6px;
-    display:inline-flex;align-items:center;gap:5px;
-    transition:background 0.15s, color 0.15s;
   }
-  .nav-drop summary::-webkit-details-marker{display:none;}
-  .nav-drop summary:hover{background:rgba(255,255,255,0.08);color:#fff;}
-  .nav-drop[open] summary{background:rgba(255,255,255,0.1);color:#fff;}
-  .nav-toplink-label{color:inherit;text-decoration:none;}
-  .nav-toplink-label:hover{text-decoration:underline;}
-  .nav-caret{font-size:10px;opacity:0.7;padding:2px;}
-  .nav-panel{
-    position:absolute;top:100%;left:0;
-    background:var(--ink);
-    border:2px solid var(--amber);
-    border-radius:8px;
-    padding:10px;
-    z-index:80;
-    box-shadow:5px 5px 0 rgba(0,0,0,0.25);
-    width:270px;
-    max-height:min(480px, calc(100vh - 130px));
-    overflow-y:auto;
-  }
-  .nav-panel-titulo{
-    font-family:'JetBrains Mono', monospace;
-    font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;
-    color:#8A94A0;margin:12px 0 6px;
-    padding-top:8px;border-top:1px solid rgba(255,255,255,0.1);
-  }
-  .nav-panel-titulo:first-child{margin-top:0;padding-top:0;border-top:none;}
-  .nav-panel a.nav-panel-link{
-    display:block;color:#D8D3C4;text-decoration:none;
-    font-size:13.5px;padding:6px 4px;border-radius:4px;
-  }
-  .nav-panel a.nav-panel-link:hover{background:rgba(255,255,255,0.08);color:#fff;}
-  @media(max-width:768px){
-    .nav-panel, .nav-panel.cols-1, .nav-panel.cols-2{
-      position:static;border:none;box-shadow:none;
-      background:rgba(255,255,255,0.04);
-      margin-top:4px;padding:6px 6px 6px 18px;
-      width:auto;max-height:none;overflow-y:visible;
-    }
-    .nav-drop summary{padding:12px 14px;}
-  }
-
   .navbar-toggle span{
     display:block;width:24px;height:2.5px;
     background:#D8D3C4;margin:5px 0;
@@ -139,18 +82,10 @@
       display:none;
       width:100%;
       flex-direction:column;
-      flex-wrap:nowrap;
       gap:2px;
       order:3;
     }
-    .navbar-links.open{
-      display:flex;
-      flex-wrap:nowrap;
-      max-height:calc(100vh - 64px);
-      overflow-y:auto;
-      -webkit-overflow-scrolling:touch;
-      padding-bottom:20px;
-    }
+    .navbar-links.open{display:flex;}
     .navbar-toggle{display:block;}
     .navbar-links a{padding:12px 14px;}
   }
@@ -336,104 +271,34 @@
 <body>
 
 <nav class="navbar">
-  <a href="index.html" class="navbar-brand"><img src="data:image/png;base64,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" alt="DescifraLab">Entiende. Calcula. Experimenta.</a>
+  <a href="index.html" class="navbar-brand">DescifraLab</a>
   <button class="navbar-toggle" onclick="toggleNavMobile()" aria-label="Abrir menú">
     <span></span><span></span><span></span>
   </button>
-              <div class="navbar-links">
-    <details class="nav-drop">
-      <summary><a href="fisica.html" class="nav-toplink-label">Física</a><span class="nav-caret">▾</span></summary>
-      <div class="nav-panel">
-        <p class="nav-panel-titulo">Mecánica</p>
-        <a href="mru.html" class="nav-panel-link">MRU</a>
-        <a href="mruv.html" class="nav-panel-link">MRUV</a>
-        <a href="tiro-oblicuo.html" class="nav-panel-link">Tiro Oblicuo</a>
-        <a href="mcu.html" class="nav-panel-link">MCU</a>
-        <a href="newton.html" class="nav-panel-link">2ª Ley de Newton</a>
-        <a href="trabajo-energia.html" class="nav-panel-link">Trabajo y Energía</a>
-        <a href="impulso-momentum.html" class="nav-panel-link">Impulso y Cantidad de Movimiento</a>
-        <a href="estatica-torque.html" class="nav-panel-link">Estática y Torque</a>
-        <a href="maquinas-simples.html" class="nav-panel-link">Máquinas Simples</a>
-        <p class="nav-panel-titulo">Electricidad</p>
-        <a href="ley-ohm.html" class="nav-panel-link">Ley de Ohm</a>
-        <a href="potencia-electrica.html" class="nav-panel-link">Potencia Eléctrica</a>
-        <a href="circuitos.html" class="nav-panel-link">Circuitos</a>
-        <a href="electromagnetismo.html" class="nav-panel-link">Electromagnetismo</a>
-        <a href="corriente-continua-alterna.html" class="nav-panel-link">Corriente Continua y Alterna</a>
-        <p class="nav-panel-titulo">Termodinámica y Fluidos</p>
-        <a href="calor-especifico.html" class="nav-panel-link">Calor Específico</a>
-        <a href="dilatacion-termica.html" class="nav-panel-link">Dilatación Térmica</a>
-        <a href="fluidos.html" class="nav-panel-link">Presión Hidrostática</a>
-        <a href="caudal-continuidad.html" class="nav-panel-link">Caudal y Continuidad</a>
-        <a href="maquinas-termicas.html" class="nav-panel-link">Máquinas Térmicas</a>
-        <p class="nav-panel-titulo">Física Moderna</p>
-        <a href="relatividad.html" class="nav-panel-link">Relatividad</a>
-        <a href="energia-nuclear.html" class="nav-panel-link">Energía Nuclear</a>
-      </div>
-    </details>
-    <details class="nav-drop">
-      <summary><a href="matematica.html" class="nav-toplink-label">Matemática</a><span class="nav-caret">▾</span></summary>
-      <div class="nav-panel">
-        <p class="nav-panel-titulo">Álgebra</p>
-        <a href="ecuaciones-primer-grado.html" class="nav-panel-link">Ecuaciones de Primer Grado</a>
-        <a href="ecuaciones-segundo-grado.html" class="nav-panel-link">Ecuaciones de Segundo Grado</a>
-        <a href="sistema-ecuaciones.html" class="nav-panel-link">Sistemas de Ecuaciones</a>
-        <a href="inecuaciones.html" class="nav-panel-link">Inecuaciones</a>
-        <a href="valor-absoluto.html" class="nav-panel-link">Valor Absoluto</a>
-        <p class="nav-panel-titulo">Funciones</p>
-        <a href="funciones.html" class="nav-panel-link">Funciones</a>
-        <a href="funcion-racional.html" class="nav-panel-link">Función Racional</a>
-        <a href="logaritmos.html" class="nav-panel-link">Logaritmos</a>
-        <p class="nav-panel-titulo">Trigonometría</p>
-        <a href="trigonometria.html" class="nav-panel-link">Trigonometría</a>
-        <a href="teorema-seno-coseno.html" class="nav-panel-link">Teorema del Seno y del Coseno</a>
-        <p class="nav-panel-titulo">Sucesiones y finanzas</p>
-        <a href="sucesiones.html" class="nav-panel-link">Sucesiones y Series</a>
-        <a href="interes-compuesto.html" class="nav-panel-link">Interés Compuesto</a>
-        <p class="nav-panel-titulo">Estadística y probabilidad</p>
-        <a href="estadistica.html" class="nav-panel-link">Estadística</a>
-        <a href="probabilidad.html" class="nav-panel-link">Probabilidad</a>
-        <p class="nav-panel-titulo">Geometría</p>
-        <a href="geometria-analitica.html" class="nav-panel-link">Geometría Analítica</a>
-      </div>
-    </details>
-    <details class="nav-drop">
-      <summary><a href="quimica.html" class="nav-toplink-label">Química</a><span class="nav-caret">▾</span></summary>
-      <div class="nav-panel">
-        <p class="nav-panel-titulo">Estructura de la materia</p>
-        <a href="modelo-atomico.html" class="nav-panel-link">Modelo Atómico</a>
-        <a href="configuracion-electronica.html" class="nav-panel-link">Config. Electrónica</a>
-        <a href="enlaces-quimicos.html" class="nav-panel-link">Enlaces Químicos</a>
-        <p class="nav-panel-titulo">Reacciones</p>
-        <a href="estequiometria.html" class="nav-panel-link">Estequiometría</a>
-        <a href="oxido-reduccion.html" class="nav-panel-link">Óxido-Reducción</a>
-        <a href="acido-base.html" class="nav-panel-link">Ácido-Base y pH</a>
-        <p class="nav-panel-titulo">Materia y soluciones</p>
-        <a href="concentracion-soluciones.html" class="nav-panel-link">Concentración de Soluciones</a>
-        <a href="mezclas-separacion.html" class="nav-panel-link">Mezclas y Separación</a>
-        <a href="leyes-gases.html" class="nav-panel-link">Leyes de los Gases</a>
-      </div>
-    </details>
-    <details class="nav-drop">
-      <summary><a href="material.html" class="nav-toplink-label">Material</a><span class="nav-caret">▾</span></summary>
-      <div class="nav-panel">
-        <a href="evaluaciones.html" class="nav-panel-link">Evaluaciones</a>
-        <a href="banco-preguntas.html" class="nav-panel-link">Banco de Preguntas</a>
-        <a href="docentes.html" class="nav-panel-link">Para Docentes</a>
-        <a href="experimentos.html" class="nav-panel-link">Experimentos Caseros</a>
-        <a href="conversor-unidades.html" class="nav-panel-link">Conversor de Unidades</a>
-        <a href="sobre-nosotros.html" class="nav-panel-link">Sobre la Fundadora</a>
-      </div>
-    </details>
-    <details class="nav-drop">
-      <summary>Machete<span class="nav-caret">▾</span></summary>
-      <div class="nav-panel">
-        <a href="formulario.html#fisica" class="nav-panel-link">Machete de Física</a>
-        <a href="formulario.html#quimica" class="nav-panel-link">Machete de Química</a>
-        <a href="formulario.html#matematica" class="nav-panel-link">Machete de Matemática</a>
-      </div>
-    </details>
+  <div class="navbar-links">
+    <a href="fisica.html">Física</a>
+    <a href="quimica.html">Química</a>
+    <a href="formulario.html">Machete de Fórmulas</a>
+    <a href="conversor-unidades.html">Conversor</a>
+    <a href="experimentos.html">Experimentos</a>
+    <a href="docentes.html">Para Docentes</a>
+    <a href="banco-preguntas.html">Banco de Preguntas</a>
+    <a href="ecuaciones-primer-grado.html">Matemática</a>
+    <a href="ecuaciones-segundo-grado.html">Ecuaciones de Segundo Grado</a>
+    <a href="funciones.html">Funciones</a>
+    <a href="inecuaciones.html">Inecuaciones</a>
+    <a href="logaritmos.html">Logaritmos</a>
+    <a href="sucesiones.html">Sucesiones y Series</a>
+    <a href="interes-compuesto.html">Interés Compuesto</a>
+    <a href="estadistica.html">Estadística</a>
+    <a href="funcion-racional.html">Función Racional</a>
+    <a href="probabilidad.html">Probabilidad</a>
+    <a href="geometria-analitica.html">Geometría Analítica</a>
+    <a href="evaluaciones.html">Evaluaciones</a>
     <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+  <a href="valor-absoluto.html">Valor Absoluto</a>
+    <a href="trigonometria.html">Trigonometría</a>
+    <a href="teoremas-seno-coseno.html">Teoremas del Seno y Coseno</a>
   </div>
 </nav>
 
@@ -605,6 +470,33 @@
       <a href="newton.html">Segunda Ley de Newton (F = m·a)</a>
       <a href="trabajo-energia.html">Trabajo y Energía</a>
       <a href="calor-especifico.html">Calor Específico y Cambios de Estado</a>
+      <a href="dilatacion-termica.html">Dilatación Térmica</a>
+      <a href="fluidos.html">Presión Hidrostática y Flotación</a>
+      <a href="relatividad.html">Relatividad: Dilatación Temporal</a>
+      <a href="formulario.html">Machete de Fórmulas</a>
+      <a href="maquinas-termicas.html">Máquinas Térmicas y Eficiencia</a>
+      <a href="corriente-continua-alterna.html">Corriente Continua y Alterna</a>
+      <a href="caudal-continuidad.html">Caudal y Continuidad</a>
+      <a href="electromagnetismo.html">Electromagnetismo</a>
+      <a href="conversor-unidades.html">Conversor de Unidades</a>
+      <a href="evaluaciones.html">Evaluaciones</a>
+      <a href="sobre-nosotros.html">Sobre la Fundadora</a>
+      <a href="experimentos.html">Experimentos Caseros</a>
+      <a href="modelo-atomico.html">Modelo Atómico y Tabla Periódica</a>
+      <a href="estequiometria.html">Estequiometría y El Mol</a>
+      <a href="configuracion-electronica.html">Configuración Electrónica</a>
+      <a href="oxido-reduccion.html">Óxido-Reducción</a>
+      <a href="enlaces-quimicos.html">Enlaces Químicos</a>
+      <a href="acido-base.html">Ácido-Base y pH</a>
+      <a href="concentracion-soluciones.html">Concentración de Soluciones</a>
+      <a href="mezclas-separacion.html">Mezclas y Métodos de Separación</a>
+      <a href="leyes-gases.html">Leyes de los Gases</a>
+      <a href="energia-nuclear.html">Energía Nuclear</a>
+      <a href="tiro-oblicuo.html">Tiro Oblicuo — Movimiento Parabólico</a>
+      <a href="mcu.html">Movimiento Circular Uniforme (MCU)</a>
+      <a href="impulso-momentum.html">Impulso y Cantidad de Movimiento</a>
+      <a href="estatica-torque.html">Estática y Torque</a>
+      <a href="maquinas-simples.html">Máquinas Simples</a>
     </div>
   </div>
 
@@ -613,20 +505,6 @@
 <script>
   function toggleNavMobile(){
     document.querySelector('.navbar-links').classList.toggle('open');
-  }
-
-  const navLinksEl = document.querySelector('.navbar-links');
-  if(navLinksEl && window.matchMedia('(hover: hover)').matches){
-    const drops = navLinksEl.querySelectorAll('.nav-drop');
-    drops.forEach(drop=>{
-      drop.addEventListener('mouseenter', ()=>{
-        drops.forEach(d=>{ if(d!==drop) d.removeAttribute('open'); });
-        drop.setAttribute('open','');
-      });
-    });
-    navLinksEl.addEventListener('mouseleave', ()=>{
-      drops.forEach(d=>d.removeAttribute('open'));
-    });
   }
 
   document.querySelectorAll('.level-btn').forEach(btn=>{

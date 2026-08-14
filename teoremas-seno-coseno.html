@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Valor Absoluto — Ecuaciones e Inecuaciones — DescifraLab</title>
+<title>Teoremas del Seno y del Coseno — Triangulación — DescifraLab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -297,8 +297,8 @@
 
 <header class="top">
   <div class="eyebrow">Matemática · Álgebra</div>
-  <h1>Valor Absoluto</h1>
-  <p class="subtitle">Qué significa la distancia sin signo, y cómo resolver ecuaciones e inecuaciones que lo tienen.</p>
+  <h1>Teoremas del Seno y del Coseno</h1>
+  <p class="subtitle">Para triángulos que no son rectángulos, y cómo medir una distancia sin cruzarla (triangulación).</p>
   <nav class="level-nav">
     <button class="level-btn active" data-target="basico">Básico</button>
     <button class="level-btn" data-target="avanzado">Avanzado</button>
@@ -311,43 +311,43 @@
   <section class="level active" data-level="basico">
 
     <div class="card" data-tag="Concepto">
-      <h2>El valor absoluto es una distancia, y las distancias no son negativas</h2>
-      <p>El valor absoluto de un número es su distancia a 0 en la recta numérica, sin importar el signo — |5|=5 y |−5|=5, porque ambos están a 5 unidades de 0.</p>
-      <div class="formula-box">|x−a| = b &nbsp;⟺&nbsp; x = a+b &nbsp;o&nbsp; x = a−b</div>
-      <p class="var-list">Esto significa "x está a una distancia b de a" — hay dos puntos que cumplen eso, uno a cada lado.</p>
+      <h2>Teorema del Seno: para cualquier triángulo, no solo los rectángulos</h2>
+      <p>El seno y coseno que ya viste solo funcionan directo en triángulos rectángulos. El Teorema del Seno extiende esa idea a <strong>cualquier</strong> triángulo, relacionando cada lado con el seno del ángulo opuesto a él.</p>
+      <div class="formula-box">a/sen(A) = b/sen(B) = c/sen(C)</div>
+      <p class="var-list">Cada lado (a, b, c) está enfrente de su ángulo correspondiente (A, B, C) — útil cuando conoces un lado con su ángulo opuesto, y necesitas otro lado.</p>
     </div>
 
     <div class="card" data-tag="Calculadora">
-      <h2>Resuelve una ecuación con valor absoluto</h2>
+      <h2>Calcula un lado con el Teorema del Seno</h2>
       <div class="calc-grid">
-        <div class="field"><label>a</label><input type="number" id="b-a" value="3"></div>
-        <div class="field"><label>b</label><input type="number" id="b-b" value="2"></div>
+        <div class="field"><label>Lado conocido (a)</label><input type="number" id="b-a" value="10"></div>
+        <div class="field"><label>Ángulo opuesto a ese lado (A, grados)</label><input type="number" id="b-A" value="40"></div>
+        <div class="field"><label>Ángulo opuesto al lado que buscas (B, grados)</label><input type="number" id="b-B" value="60"></div>
       </div>
-      <button class="calc-btn" onclick="calcBasico()">Resolver |x−a|=b</button>
+      <button class="calc-btn" onclick="calcBasico()">Calcular lado b</button>
       <div class="readout" id="b-readout"></div>
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
       <h2>Ejemplo</h2>
       <div class="example">
-        <p><strong>Resuelve: |x−3| = 2</strong></p>
-        <p>Significa: x está a 2 unidades de distancia de 3</p>
-        <p>x = 3+2 = <strong>5</strong> &nbsp;o&nbsp; x = 3−2 = <strong>1</strong></p>
-        <p>Verificación: |5−3|=|2|=2 ✓ &nbsp;·&nbsp; |1−3|=|−2|=2 ✓</p>
+        <p><strong>Un triángulo tiene a=10, A=40°, B=60°. ¿Cuánto mide el lado b?</strong></p>
+        <p>a/sen(A) = b/sen(B) → 10/sen(40°) = b/sen(60°)</p>
+        <p>b = 10×sen(60°)/sen(40°) = 10×0.866/0.643 ≈ <strong>13.47</strong></p>
       </div>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
       <h2>Ejercicios con respuesta</h2>
       <ol>
-        <li>Resuelve: |x−5|=4
-          <details><summary>Ver respuesta</summary>x=9 o x=1</details>
+        <li>Un triángulo tiene a=8, A=30°, B=70°. ¿Cuánto mide b?
+          <details><summary>Ver respuesta</summary>b=8×sen(70°)/sen(30°)≈8×0.940/0.5≈15.03</details>
         </li>
-        <li>Resuelve: |x|=7 (acá a=0)
-          <details><summary>Ver respuesta</summary>x=7 o x=−7</details>
+        <li>¿Cuándo conviene usar el Teorema del Seno en vez de trigonometría básica?
+          <details><summary>Ver respuesta</summary>Cuando el triángulo NO tiene un ángulo recto — la trigonometría básica (sen=opuesto/hipotenusa) solo funciona directamente en triángulos rectángulos.</details>
         </li>
-        <li>¿Por qué |x−a|=b tiene dos soluciones (si b&gt;0)?
-          <details><summary>Ver respuesta</summary>Porque hay exactamente dos puntos en la recta numérica que están a la misma distancia b de a — uno hacia la derecha, otro hacia la izquierda.</details>
+        <li>¿Qué datos mínimos necesitas para aplicar el Teorema del Seno?
+          <details><summary>Ver respuesta</summary>Un lado con su ángulo opuesto (un par completo), más otro ángulo o lado del triángulo</details>
         </li>
       </ol>
     </div>
@@ -358,49 +358,43 @@
   <section class="level" data-level="avanzado">
 
     <div class="card" data-tag="Concepto">
-      <h2>Inecuaciones con valor absoluto</h2>
-      <div class="formula-box">|x−a| &lt; b &nbsp;⟺&nbsp; a−b &lt; x &lt; a+b</div>
-      <div class="formula-box">|x−a| &gt; b &nbsp;⟺&nbsp; x &lt; a−b &nbsp;o&nbsp; x &gt; a+b</div>
-      <p class="var-list">Con "&lt;" el conjunto solución es un intervalo cerrado alrededor de a. Con "&gt;" son dos rayos separados, alejándose de a en ambas direcciones.</p>
+      <h2>Teorema del Coseno: cuando no tienes un par lado-ángulo opuesto</h2>
+      <p>Es una generalización del Teorema de Pitágoras para cualquier triángulo — se usa cuando conoces dos lados y el ángulo entre ellos, o los tres lados.</p>
+      <div class="formula-box">c² = a² + b² − 2ab·cos(C)</div>
+      <p class="var-list">Si C=90°, cos(90°)=0, y la fórmula se reduce exactamente al Teorema de Pitágoras (c²=a²+b²) — por eso es una generalización.</p>
     </div>
 
     <div class="card" data-tag="Calculadora">
-      <h2>Resuelve una inecuación con valor absoluto</h2>
+      <h2>Calcula el tercer lado con el Teorema del Coseno</h2>
       <div class="calc-grid">
-        <div class="field"><label>a</label><input type="number" id="a-a" value="4"></div>
-        <div class="field"><label>b</label><input type="number" id="a-b" value="3"></div>
-        <div class="field">
-          <label>Símbolo</label>
-          <select id="a-simbolo" style="width:100%;padding:10px 12px;border:2px solid var(--ink);font-family:'JetBrains Mono', monospace;font-size:15px;background:var(--white);">
-            <option value="<">&lt;</option>
-            <option value=">">&gt;</option>
-          </select>
-        </div>
+        <div class="field"><label>Lado a</label><input type="number" id="a-a" value="7"></div>
+        <div class="field"><label>Lado b</label><input type="number" id="a-b" value="9"></div>
+        <div class="field"><label>Ángulo entre ellos, C (grados)</label><input type="number" id="a-C" value="60"></div>
       </div>
-      <button class="calc-btn" onclick="calcAvanzado()">Resolver</button>
+      <button class="calc-btn" onclick="calcAvanzado()">Calcular lado c</button>
       <div class="readout" id="a-readout"></div>
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
+      <h2>Ejemplo — triangulación</h2>
       <div class="example">
-        <p><strong>Resuelve: |x−4| &lt; 3</strong></p>
-        <p>4−3 &lt; x &lt; 4+3 → <strong>1 &lt; x &lt; 7</strong></p>
-        <p>Cualquier número entre 1 y 7 cumple la condición — por ejemplo, x=4 (el centro) da |4−4|=0&lt;3 ✓</p>
+        <p><strong>Quieres medir la distancia hasta un árbol al otro lado de un río, sin cruzarlo. Caminas 50 m por tu orilla, mides que el ángulo hacia el árbol cambió 35° entre los dos puntos donde te paraste, y desde el segundo punto el ángulo hacia el árbol respecto a tu línea de caminata es 70°. ¿Cómo lo resolverías?</strong></p>
+        <p>Con esos dos ángulos y el lado conocido (50 m, tu caminata), el tercer ángulo del triángulo sale de que los tres ángulos suman 180° — y de ahí puedes usar el Teorema del Seno para encontrar la distancia real hasta el árbol, sin necesidad de cruzar el río.</p>
+        <p>Esta es exactamente la técnica de <strong>triangulación</strong>: mides distancias y ángulos accesibles, y usas los teoremas del seno y coseno para calcular lo que no puedes medir directo.</p>
       </div>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
       <h2>Ejercicios con respuesta</h2>
       <ol>
-        <li>Resuelve: |x−2| &lt; 5
-          <details><summary>Ver respuesta</summary>−3&lt;x&lt;7</details>
+        <li>Un triángulo tiene a=5, b=8, C=90°. ¿Cuánto mide c? (verifica que coincide con Pitágoras)
+          <details><summary>Ver respuesta</summary>c²=25+64−2×5×8×cos(90°)=89−0=89 → c=√89≈9.43, igual que Pitágoras (5²+8²=89)</details>
         </li>
-        <li>Resuelve: |x| &gt; 6
-          <details><summary>Ver respuesta</summary>x&lt;−6 o x&gt;6</details>
+        <li>Un triángulo tiene a=6, b=6, C=60°. ¿Cuánto mide c?
+          <details><summary>Ver respuesta</summary>c²=36+36−2×6×6×cos(60°)=72−36=36 → c=6 (es un triángulo equilátero)</details>
         </li>
-        <li>¿Por qué "|x−a|&gt;b" da dos rayos separados en vez de un solo intervalo?
-          <details><summary>Ver respuesta</summary>Porque pide que x esté a MÁS de b de distancia de a — eso incluye todo lo que está muy a la izquierda Y todo lo que está muy a la derecha, pero excluye la zona cercana a a, partiendo la solución en dos partes separadas.</details>
+        <li>¿Por qué la triangulación fue clave en la cartografía antes del GPS?
+          <details><summary>Ver respuesta</summary>Porque permitía calcular distancias y ubicaciones exactas de lugares inaccesibles (montañas, el otro lado de un río, estrellas) midiendo solo ángulos desde puntos accesibles conocidos, sin necesitar llegar físicamente al lugar.</details>
         </li>
       </ol>
     </div>
@@ -409,19 +403,18 @@
 
   <div class="card faq" data-tag="FAQ">
     <h2>Preguntas frecuentes</h2>
-    <h3>¿|x| siempre da un resultado positivo o cero?</h3>
-    <p>Sí — el valor absoluto nunca es negativo, por definición. |0|=0 es el único caso donde da exactamente cero; para cualquier otro número, el resultado es siempre positivo.</p>
-    <h3>¿Se puede tener una ecuación con valor absoluto sin solución?</h3>
-    <p>Sí — si |x−a|=b con b negativo, no hay solución, porque el valor absoluto nunca puede dar un resultado negativo. Por ejemplo, |x−3|=−2 no tiene solución.</p>
-    <h3>¿Dónde se usa el valor absoluto fuera de la matemática pura?</h3>
-    <p>En cualquier contexto donde importe "qué tan lejos" sin importar la dirección — por ejemplo, el margen de error en una medición, o la diferencia entre una temperatura esperada y la real, sin importar si fue por arriba o por abajo.</p>
+    <h3>¿Cómo sé si tengo que usar el Teorema del Seno o del Coseno?</h3>
+    <p>Usa el del Seno si tienes un par completo lado-ángulo opuesto conocido. Usa el del Coseno si conoces dos lados y el ángulo entre ellos (sin ese par completo), o los tres lados sin ningún ángulo.</p>
+    <h3>¿El Teorema del Coseno funciona para triángulos rectángulos también?</h3>
+    <p>Sí — de hecho, se reduce exactamente al Teorema de Pitágoras cuando el ángulo es 90°, porque cos(90°)=0 y el último término desaparece. Pitágoras es un caso particular del Teorema del Coseno.</p>
+    <h3>¿La triangulación todavía se usa hoy, con GPS disponible?</h3>
+    <p>Sí — el GPS mismo funciona con un principio similar (triangulación con satélites), y la triangulación tradicional sigue siendo útil en topografía, arquitectura, y cualquier situación donde no se pueda medir una distancia directamente.</p>
   </div>
 
   <div class="related">
     <h2>Temas relacionados</h2>
     <div class="related-links">
-      <a href="ecuaciones-primer-grado.html">Ecuaciones de Primer Grado</a>
-      <a href="inecuaciones.html">Inecuaciones</a>
+      <a href="trigonometria.html">Trigonometría</a>
       <a href="formulario.html">Machete de Fórmulas</a>
       <a href="evaluaciones.html">Evaluaciones</a>
       <a href="sobre-nosotros.html">Sobre la Fundadora</a>
@@ -448,28 +441,25 @@
 
   function calcBasico(){
     const a = parseFloat(document.getElementById('b-a').value)||0;
-    const b = parseFloat(document.getElementById('b-b').value)||0;
+    const A = parseFloat(document.getElementById('b-A').value)||1;
+    const B = parseFloat(document.getElementById('b-B').value)||0;
+    const radA = A*Math.PI/180;
+    const radB = B*Math.PI/180;
+    const b = a*Math.sin(radB)/Math.sin(radA);
     const out = document.getElementById('b-readout');
-    if(b < 0){
-      out.innerText = 'No tiene solución — el valor absoluto nunca puede dar un resultado negativo.';
-    } else {
-      out.innerText = `x = ${a}+${b} = ${a+b}\nx = ${a}−${b} = ${a-b}`;
-    }
+    out.innerText = `b = ${a}×sen(${B}°)/sen(${A}°) = ${a}×${Math.sin(radB).toFixed(3)}/${Math.sin(radA).toFixed(3)} = ${b.toFixed(3)}`;
     out.classList.add('show');
   }
 
   function calcAvanzado(){
     const a = parseFloat(document.getElementById('a-a').value)||0;
     const b = parseFloat(document.getElementById('a-b').value)||0;
-    const simbolo = document.getElementById('a-simbolo').value;
+    const C = parseFloat(document.getElementById('a-C').value)||0;
+    const radC = C*Math.PI/180;
+    const c2 = a*a + b*b - 2*a*b*Math.cos(radC);
+    const c = Math.sqrt(c2);
     const out = document.getElementById('a-readout');
-    if(b < 0){
-      out.innerText = simbolo==='<' ? 'No tiene solución.' : 'Se cumple para cualquier x (todo valor absoluto es mayor a un número negativo).';
-    } else if(simbolo === '<'){
-      out.innerText = `${a-b} < x < ${a+b}`;
-    } else {
-      out.innerText = `x < ${a-b}  o  x > ${a+b}`;
-    }
+    out.innerText = `c² = ${a}² + ${b}² − 2×${a}×${b}×cos(${C}°)\nc² = ${(a*a).toFixed(1)} + ${(b*b).toFixed(1)} − ${(2*a*b*Math.cos(radC)).toFixed(2)} = ${c2.toFixed(2)}\nc = ${c.toFixed(3)}`;
     out.classList.add('show');
   }
 </script>
