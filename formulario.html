@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6334611421204216" crossorigin="anonymous"></script>
 <link rel="icon" type="image/x-icon" href="favicon.ico?v=7">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=7">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=7">
@@ -447,6 +448,44 @@
   @media(max-width:1150px){
     .postit-margen{display:none;}
   }
+
+  .var-tip-btn{
+    display:inline-flex;align-items:center;gap:4px;
+    font-family:'JetBrains Mono', monospace;font-size:11px;font-weight:700;
+    color:var(--amber-dark);background:rgba(217,164,65,0.12);
+    border:1px solid var(--amber-dark);border-radius:12px;
+    padding:3px 10px;margin-top:8px;cursor:pointer;
+    text-transform:uppercase;letter-spacing:0.04em;
+  }
+  .var-tip-btn:hover{background:rgba(217,164,65,0.25);}
+  .vartip-popover{
+    display:none;position:absolute;z-index:200;
+    width:300px;max-width:calc(100vw - 24px);
+    background:#fff;border:2px solid var(--ink);border-radius:10px;
+    box-shadow:5px 5px 0 rgba(0,0,0,0.15);
+    max-height:360px;overflow-y:auto;
+  }
+  .vartip-popover.show{display:block;}
+  .vartip-header{
+    display:flex;align-items:center;justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;font-size:11px;font-weight:700;
+    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);
+    padding:10px 14px;border-bottom:1px solid var(--line);
+    position:sticky;top:0;background:#fff;
+  }
+  .vartip-close{cursor:pointer;font-size:14px;color:var(--ink-soft);padding:2px 4px;}
+  .vartip-close:hover{color:var(--ink);}
+  .vartip-item{
+    display:flex;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);
+  }
+  .vartip-item:last-child{border-bottom:none;}
+  .vartip-simbolo{
+    font-family:'JetBrains Mono', monospace;font-weight:800;font-size:15px;
+    color:var(--amber-dark);min-width:28px;flex-shrink:0;
+  }
+  .vartip-nombre{font-weight:700;font-size:13.5px;}
+  .vartip-unidad{font-weight:500;color:var(--ink-soft);font-size:12px;}
+  .vartip-def{color:var(--ink-soft);font-size:13px;margin-top:2px;line-height:1.4;}
 </style>
 </head>
 <body>
@@ -577,46 +616,64 @@
       <a href="mru.html" class="mach-card">
         <h3>MRU</h3>
         <div class="mach-formula">x = x₀ + v·t</div>
+      
+        <span class="var-tip-btn" data-grupo="mecanica" data-vars="x₀|v|x|t" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="mruv.html" class="mach-card">
         <h3>MRUV</h3>
         <div class="mach-formula">v = v₀ + a·t</div>
         <div class="mach-formula">x = x₀ + v₀t + ½at²</div>
+      
+        <span class="var-tip-btn" data-grupo="mecanica" data-vars="v₀|x₀|v|a|x|t" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="tiro-oblicuo.html" class="mach-card">
         <h3>Tiro Oblicuo</h3>
         <div class="mach-formula">R = v₀²sen(2θ)/g</div>
         <div class="mach-formula">H = (v₀senθ)²/2g</div>
+      
+        <span class="var-tip-btn" data-grupo="mecanica" data-vars="v₀|g|θ|H|R" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="mcu.html" class="mach-card">
         <h3>MCU</h3>
         <div class="mach-formula">ω = 2π/T</div>
         <div class="mach-formula">Fc = mv²/r</div>
+      
+        <span class="var-tip-btn" data-grupo="mecanica" data-vars="Fc|r|v|m|ω|T" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="newton.html" class="mach-card">
         <h3>2ª Ley de Newton</h3>
         <div class="mach-formula">F = m·a</div>
         <div class="mach-formula">Froz = μ·m·g</div>
+      
+        <span class="var-tip-btn" data-grupo="mecanica" data-vars="Froz|g|a|m|F|μ" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="trabajo-energia.html" class="mach-card">
         <h3>Trabajo y Energía</h3>
         <div class="mach-formula">W = F·d</div>
         <div class="mach-formula">Ec = ½mv² · Ep = mgh</div>
+      
+        <span class="var-tip-btn" data-grupo="mecanica" data-vars="Ep|Ec|g|h|d|v|W|m|F" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="impulso-momentum.html" class="mach-card">
         <h3>Impulso</h3>
         <div class="mach-formula">p = m·v</div>
         <div class="mach-formula">J = F·Δt = Δp</div>
+      
+        <span class="var-tip-btn" data-grupo="mecanica" data-vars="Δp|Δt|J|p|v|m|F" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="estatica-torque.html" class="mach-card">
         <h3>Estática y Torque</h3>
         <div class="mach-formula">τ = F·d</div>
         <div class="mach-formula">F₁d₁ = F₂d₂</div>
+      
+        <span class="var-tip-btn" data-grupo="mecanica" data-vars="τ|d|F" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="maquinas-simples.html" class="mach-card">
         <h3>Máquinas Simples</h3>
         <div class="mach-formula">VM = dₚ/dᵣ</div>
         <div class="mach-formula" style="font-size:12px;">Palanca, poleas, plano inclinado</div>
+      
+        <span class="var-tip-btn" data-grupo="mecanica" data-vars="dᵣ|dₚ|VM|d|p|a" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
     </div>
   </div>
@@ -629,25 +686,35 @@
       <a href="ley-ohm.html" class="mach-card">
         <h3>Ley de Ohm</h3>
         <div class="mach-formula">V = I·R</div>
+      
+        <span class="var-tip-btn" data-grupo="electricidad" data-vars="I|R|V" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="potencia-electrica.html" class="mach-card">
         <h3>Potencia Eléctrica</h3>
         <div class="mach-formula">P = V·I</div>
         <div class="mach-formula">E = P·t</div>
+      
+        <span class="var-tip-btn" data-grupo="electricidad" data-vars="I|E|P|t|V" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="circuitos.html" class="mach-card">
         <h3>Circuitos</h3>
         <div class="mach-formula">Serie: Req=R₁+R₂</div>
         <div class="mach-formula">Paralelo: 1/Req=1/R₁+1/R₂</div>
+      
+        <span class="var-tip-btn" data-grupo="electricidad" data-vars="Req|P|R" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="electromagnetismo.html" class="mach-card">
         <h3>Electromagnetismo</h3>
         <div class="mach-formula">F = q·v·B·sen(θ)</div>
+      
+        <span class="var-tip-btn" data-grupo="electricidad" data-vars="B|q|θ|v" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="corriente-continua-alterna.html" class="mach-card">
         <h3>Corriente Continua y Alterna</h3>
         <div class="mach-formula">f = 1/T</div>
         <div class="mach-formula">V_ef = V_máx/√2</div>
+      
+        <span class="var-tip-btn" data-grupo="electricidad" data-vars="V_máx|V_ef|f" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
     </div>
   </div>
@@ -660,25 +727,35 @@
         <h3>Calor Específico</h3>
         <div class="mach-formula">Q = m·c·ΔT</div>
         <div class="mach-formula">Q = m·L (latente)</div>
+      
+        <span class="var-tip-btn" data-grupo="termo" data-vars="ΔT|Q|m|L|c" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="dilatacion-termica.html" class="mach-card">
         <h3>Dilatación Térmica</h3>
         <div class="mach-formula">ΔL = L₀·α·ΔT</div>
         <div class="mach-formula">ΔV = V₀·3α·ΔT</div>
+      
+        <span class="var-tip-btn" data-grupo="termo" data-vars="L₀|V₀|ΔT|ΔL|ΔV|α" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="fluidos.html" class="mach-card">
         <h3>Presión Hidrostática</h3>
         <div class="mach-formula">P = ρ·g·h</div>
         <div class="mach-formula">Empuje: E = ρ·g·V</div>
+      
+        <span class="var-tip-btn" data-grupo="termo" data-vars="ρ|h|V|m|P" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="caudal-continuidad.html" class="mach-card">
         <h3>Caudal y Continuidad</h3>
         <div class="mach-formula">Q = A·v</div>
         <div class="mach-formula">A₁v₁ = A₂v₂</div>
+      
+        <span class="var-tip-btn" data-grupo="termo" data-vars="Q|A|v" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="maquinas-termicas.html" class="mach-card">
         <h3>Máquinas Térmicas</h3>
         <div class="mach-formula">η = (Eútil/Etotal)×100</div>
+      
+        <span class="var-tip-btn" data-grupo="termo" data-vars="Etotal|Eútil|η" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
     </div>
   </div>
@@ -690,11 +767,15 @@
       <a href="relatividad.html" class="mach-card">
         <h3>Relatividad</h3>
         <div class="mach-formula">Δt' = Δt/√(1−v²/c²)</div>
+      
+        <span class="var-tip-btn" data-grupo="moderna" data-vars="Δt|c|v" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="energia-nuclear.html" class="mach-card">
         <h3>Energía Nuclear</h3>
         <div class="mach-formula">E = m·c²</div>
         <div class="mach-formula">N = N₀·(1/2)^(t/T)</div>
+      
+        <span class="var-tip-btn" data-grupo="moderna" data-vars="N₀|c|E|m|t|T|N" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
     </div>
   </div>
@@ -712,46 +793,64 @@
         <h3>Modelo Atómico</h3>
         <div class="mach-formula">Z = protones</div>
         <div class="mach-formula">A = protones + neutrones</div>
+      
+        <span class="var-tip-btn" data-grupo="quimica" data-vars="A|n|Z" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="configuracion-electronica.html" class="mach-card quimica">
         <h3>Config. Electrónica</h3>
         <div class="mach-formula">Capacidad de capa = 2n²</div>
         <div class="mach-formula">s,p,d,f = 2,6,10,14 e⁻</div>
+      
+        <span class="var-tip-btn" data-grupo="quimica" data-vars="n" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="estequiometria.html" class="mach-card quimica">
         <h3>Estequiometría</h3>
         <div class="mach-formula">n = m / M</div>
         <div class="mach-formula">N° partículas = n × 6.022×10²³</div>
+      
+        <span class="var-tip-btn" data-grupo="quimica" data-vars="M|m|n" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="oxido-reduccion.html" class="mach-card quimica">
         <h3>Óxido-Reducción</h3>
         <div class="mach-formula">Oxidación = pierde e⁻</div>
         <div class="mach-formula">Reducción = gana e⁻</div>
+      
+        <span class="var-tip-btn" data-grupo="quimica" data-vars="n|R" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="enlaces-quimicos.html" class="mach-card quimica">
         <h3>Enlaces Químicos</h3>
         <div class="mach-formula">ΔEN≥1.7 → iónico</div>
         <div class="mach-formula">ΔEN&lt;0.4 → covalente apolar</div>
+      
+        <span class="var-tip-btn" data-grupo="quimica" data-vars="ΔEN|n" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="acido-base.html" class="mach-card quimica">
         <h3>Ácido-Base y pH</h3>
         <div class="mach-formula">pH = −log[H⁺]</div>
         <div class="mach-formula">pH + pOH = 14</div>
+      
+        <span class="var-tip-btn" data-grupo="quimica" data-vars="pOH|H⁺|pH" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="concentracion-soluciones.html" class="mach-card quimica">
         <h3>Concentración de Soluciones</h3>
         <div class="mach-formula">M = n / V</div>
         <div class="mach-formula">M₁V₁ = M₂V₂</div>
+      
+        <span class="var-tip-btn" data-grupo="quimica" data-vars="M|n|V" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="mezclas-separacion.html" class="mach-card quimica">
         <h3>Mezclas y Separación</h3>
         <div class="mach-formula">Rendimiento = (mᵣ/mᵢ)×100</div>
         <div class="mach-formula" style="font-size:12px;">Filtración, decantación, destilación...</div>
+      
+        <span class="var-tip-btn" data-grupo="quimica" data-vars="mᵣ|mᵢ|m|n|R" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="leyes-gases.html" class="mach-card quimica">
         <h3>Leyes de los Gases</h3>
         <div class="mach-formula">P₁V₁ = P₂V₂</div>
         <div class="mach-formula">PV = nRT</div>
+      
+        <span class="var-tip-btn" data-grupo="quimica" data-vars="P|n|T|R|V" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
     </div>
   </div>
@@ -765,67 +864,97 @@
         <h3>Ecuaciones de Primer Grado</h3>
         <div class="mach-formula">a·x + b = c</div>
         <div class="mach-formula">x = (c − b) / a</div>
+      
+        <span class="var-tip-btn" data-grupo="matematica" data-vars="a|c|b|x" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="ecuaciones-segundo-grado.html" class="mach-card matematica">
         <h3>Ecuaciones de Segundo Grado</h3>
         <div class="mach-formula" style="font-size:13px;">x = (−b±√(b²−4ac)) / 2a</div>
         <div class="mach-formula" style="font-size:12px;">Δ = b²−4ac</div>
+      
+        <span class="var-tip-btn" data-grupo="matematica" data-vars="a|c|b|Δ|x" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="sistema-ecuaciones.html" class="mach-card matematica">
         <h3>Sistemas de Ecuaciones</h3>
         <div class="mach-formula" style="font-size:12px;">Sustitución, igualación, reducción</div>
+      
+        <span class="var-tip-btn" data-grupo="matematica" data-vars="a|c|r|i|n|d" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="inecuaciones.html" class="mach-card matematica">
         <h3>Inecuaciones</h3>
         <div class="mach-formula">x &gt; a, x ≤ b</div>
         <div class="mach-formula" style="font-size:12px;">∩ intersección · ∪ unión</div>
+      
+        <span class="var-tip-btn" data-grupo="matematica" data-vars="a|c|r|b|i|x|n" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="valor-absoluto.html" class="mach-card matematica">
         <h3>Valor Absoluto</h3>
         <div class="mach-formula" style="font-size:13px;">|x|=x si x≥0; |x|=−x si x&lt;0</div>
+      
+        <span class="var-tip-btn" data-grupo="matematica" data-vars="i|x" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="funciones.html" class="mach-card matematica">
         <h3>Funciones</h3>
         <div class="mach-formula">y = m·x + b</div>
         <div class="mach-formula">y = a·x² + b·x + c</div>
+      
+        <span class="var-tip-btn" data-grupo="matematica" data-vars="a|c|b|x|y" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="funcion-racional.html" class="mach-card matematica">
         <h3>Función Racional</h3>
         <div class="mach-formula" style="font-size:14px;">f(x) = p(x)/q(x)</div>
+      
+        <span class="var-tip-btn" data-grupo="matematica" data-vars="x" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="logaritmos.html" class="mach-card matematica">
         <h3>Logaritmos</h3>
         <div class="mach-formula">log_b(x) = y ⟺ b^y = x</div>
+      
+        <span class="var-tip-btn" data-grupo="matematica" data-vars="b|x|y" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="trigonometria.html" class="mach-card matematica">
         <h3>Trigonometría</h3>
         <div class="mach-formula" style="font-size:13px;">sen=op/hip, cos=ady/hip, tan=op/ady</div>
+      
+        <span class="var-tip-btn" data-grupo="matematica" data-vars="a|c|i|h|n|d|y" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="teorema-seno-coseno.html" class="mach-card matematica">
         <h3>Teorema del Seno y del Coseno</h3>
         <div class="mach-formula" style="font-size:13px;">a/senA = b/senB = c/senC</div>
         <div class="mach-formula" style="font-size:13px;">a² = b²+c²−2bc·cosA</div>
+      
+        <span class="var-tip-btn" data-grupo="matematica" data-vars="a|c|b|n|C" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="sucesiones.html" class="mach-card matematica">
         <h3>Sucesiones y Series</h3>
         <div class="mach-formula" style="font-size:13px;">aₙ = a₁ + (n−1)d</div>
         <div class="mach-formula" style="font-size:13px;">aₙ = a₁·rⁿ⁻¹</div>
+      
+        <span class="var-tip-btn" data-grupo="matematica" data-vars="a|r|n|d" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="interes-compuesto.html" class="mach-card matematica">
         <h3>Interés Compuesto</h3>
         <div class="mach-formula" style="font-size:14px;">M = C(1+i)ⁿ</div>
+      
+        <span class="var-tip-btn" data-grupo="matematica" data-vars="i|C" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="estadistica.html" class="mach-card matematica">
         <h3>Estadística</h3>
         <div class="mach-formula" style="font-size:12px;">Media, mediana, moda</div>
+      
+        <span class="var-tip-btn" data-grupo="matematica" data-vars="a|i|n|d" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="probabilidad.html" class="mach-card matematica">
         <h3>Probabilidad</h3>
         <div class="mach-formula">P(A) = casos/total</div>
+      
+        <span class="var-tip-btn" data-grupo="matematica" data-vars="a|c" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
       <a href="geometria-analitica.html" class="mach-card matematica">
         <h3>Geometría Analítica</h3>
         <div class="mach-formula" style="font-size:13px;">(x−h)² + (y−k)² = r²</div>
+      
+        <span class="var-tip-btn" data-grupo="matematica" data-vars="r|x|k|h|y" onclick="mostrarVariables(this)">ℹ Variables</span>
       </a>
     </div>
   </div>
@@ -860,6 +989,179 @@
 </div>
 
 <script>
+  const VAR_DICT = {
+    mecanica: {
+      'x': {nombre:'Posición final', unidad:'m', def:'Dónde está el objeto al final del movimiento.'},
+      'x₀': {nombre:'Posición inicial', unidad:'m', def:'Dónde estaba el objeto al arrancar.'},
+      'v': {nombre:'Velocidad', unidad:'m/s', def:'Qué tan rápido se mueve un objeto y hacia dónde.'},
+      'v₀': {nombre:'Velocidad inicial', unidad:'m/s', def:'La velocidad del objeto al arrancar.'},
+      'a': {nombre:'Aceleración', unidad:'m/s²', def:'Cuánto cambia la velocidad cada segundo.'},
+      't': {nombre:'Tiempo', unidad:'s', def:'Cuánto tiempo transcurrió.'},
+      'T': {nombre:'Período', unidad:'s', def:'El tiempo que tarda en completar una vuelta o ciclo completo.'},
+      'R': {nombre:'Alcance', unidad:'m', def:'La distancia horizontal que recorre un proyectil antes de caer.'},
+      'H': {nombre:'Altura máxima', unidad:'m', def:'El punto más alto que alcanza un proyectil en su trayectoria.'},
+      'θ': {nombre:'Ángulo', unidad:'° o rad', def:'El ángulo de lanzamiento respecto a la horizontal.'},
+      'g': {nombre:'Gravedad', unidad:'m/s²', def:'La aceleración con la que caen los objetos en la Tierra: 9.8 m/s².'},
+      'ω': {nombre:'Velocidad angular', unidad:'rad/s', def:'Qué tan rápido gira un objeto alrededor de un punto.'},
+      'Fc': {nombre:'Fuerza centrípeta', unidad:'N', def:'La fuerza que mantiene a un objeto girando en un círculo, apuntando hacia el centro.'},
+      'm': {nombre:'Masa', unidad:'kg', def:'La cantidad de materia que tiene un objeto.'},
+      'r': {nombre:'Radio', unidad:'m', def:'La distancia desde el centro hasta el borde de la trayectoria circular.'},
+      'F': {nombre:'Fuerza', unidad:'N (Newton)', def:'Un empuje o tirón que puede cambiar el movimiento de un objeto.'},
+      'Froz': {nombre:'Fuerza de rozamiento', unidad:'N', def:'La fuerza que se opone al movimiento entre dos superficies en contacto.'},
+      'μ': {nombre:'Coeficiente de rozamiento', unidad:'sin unidad', def:'Un número que indica qué tan ásperas son dos superficies en contacto.'},
+      'W': {nombre:'Trabajo', unidad:'J (Joule)', def:'La energía transferida al mover un objeto aplicando una fuerza.'},
+      'd': {nombre:'Distancia', unidad:'m', def:'Qué tan lejos se movió el objeto.'},
+      'Ec': {nombre:'Energía cinética', unidad:'J', def:'La energía que tiene un objeto por estar en movimiento.'},
+      'Ep': {nombre:'Energía potencial', unidad:'J', def:'La energía que tiene un objeto por estar a cierta altura.'},
+      'h': {nombre:'Altura', unidad:'m', def:'Qué tan alto está el objeto respecto al suelo.'},
+      'p': {nombre:'Cantidad de movimiento', unidad:'kg·m/s', def:'El "impulso acumulado" de un objeto en movimiento (masa por velocidad).'},
+      'J': {nombre:'Impulso', unidad:'N·s', def:'El efecto de una fuerza aplicada durante un intervalo de tiempo.'},
+      'Δt': {nombre:'Intervalo de tiempo', unidad:'s', def:'Cuánto duró la aplicación de la fuerza.'},
+      'Δp': {nombre:'Cambio de cantidad de movimiento', unidad:'kg·m/s', def:'Cuánto cambió el momento de un objeto entre el inicio y el final.'},
+      'τ': {nombre:'Torque', unidad:'N·m', def:'La "fuerza de giro" aplicada sobre un punto de apoyo (palanca).'},
+      'VM': {nombre:'Ventaja mecánica', unidad:'sin unidad', def:'Cuántas veces multiplica una máquina simple la fuerza que le aplicás.'},
+      'dₚ': {nombre:'Distancia a la potencia', unidad:'m', def:'La distancia desde el punto de apoyo hasta donde se aplica la fuerza.'},
+      'dᵣ': {nombre:'Distancia a la resistencia', unidad:'m', def:'La distancia desde el punto de apoyo hasta el peso que se quiere mover.'},
+    },
+    electricidad: {
+      'V': {nombre:'Voltaje (tensión)', unidad:'V (Volt)', def:'La diferencia de potencial eléctrico que empuja a la corriente a moverse.'},
+      'I': {nombre:'Corriente eléctrica', unidad:'A (Ampere)', def:'La cantidad de carga eléctrica que fluye por segundo.'},
+      'R': {nombre:'Resistencia', unidad:'Ω (Ohm)', def:'Qué tanto se opone un material al paso de la corriente eléctrica.'},
+      'Req': {nombre:'Resistencia equivalente', unidad:'Ω', def:'La resistencia total de un circuito con varias resistencias combinadas.'},
+      'P': {nombre:'Potencia eléctrica', unidad:'W (Watt)', def:'La energía eléctrica consumida (o entregada) por segundo.'},
+      'E': {nombre:'Energía eléctrica', unidad:'J o kWh', def:'La energía total consumida por un aparato en un período de tiempo.'},
+      't': {nombre:'Tiempo', unidad:'s o h', def:'Cuánto tiempo estuvo funcionando el circuito.'},
+      'q': {nombre:'Carga eléctrica', unidad:'C (Coulomb)', def:'La cantidad de electricidad que tiene una partícula.'},
+      'v': {nombre:'Velocidad', unidad:'m/s', def:'La velocidad con la que se mueve la carga eléctrica.'},
+      'B': {nombre:'Campo magnético', unidad:'T (Tesla)', def:'La intensidad del magnetismo en una zona del espacio.'},
+      'θ': {nombre:'Ángulo', unidad:'°', def:'El ángulo entre la velocidad de la carga y el campo magnético.'},
+      'f': {nombre:'Frecuencia', unidad:'Hz', def:'Cuántos ciclos completos hace la corriente alterna por segundo.'},
+      'V_ef': {nombre:'Voltaje eficaz', unidad:'V', def:'El voltaje "equivalente" de una corriente alterna en su efecto real.'},
+      'V_máx': {nombre:'Voltaje máximo', unidad:'V', def:'El pico más alto que alcanza el voltaje en corriente alterna.'},
+    },
+    termo: {
+      'Q': {nombre:'Calor (o Caudal, según la fórmula)', unidad:'J/cal (calor) o m³/s (caudal)', def:'La energía transferida por diferencia de temperatura, o el volumen de fluido que pasa por segundo.'},
+      'm': {nombre:'Masa', unidad:'kg', def:'La cantidad de materia que se está calentando o enfriando.'},
+      'c': {nombre:'Calor específico', unidad:'J/(kg·°C)', def:'Cuánta energía hace falta para calentar 1 kg de una sustancia, 1°C.'},
+      'ΔT': {nombre:'Variación de temperatura', unidad:'°C', def:'Cuánto cambió la temperatura (temperatura final menos inicial).'},
+      'L': {nombre:'Calor latente', unidad:'J/kg', def:'La energía necesaria para que una sustancia cambie de estado sin cambiar de temperatura.'},
+      'ΔL': {nombre:'Variación de longitud', unidad:'m', def:'Cuánto se estiró o encogió un objeto al cambiar de temperatura.'},
+      'L₀': {nombre:'Longitud inicial', unidad:'m', def:'El largo original del objeto, antes de dilatarse.'},
+      'α': {nombre:'Coeficiente de dilatación', unidad:'1/°C', def:'Qué tanto se expande un material por cada grado de temperatura que sube.'},
+      'ΔV': {nombre:'Variación de volumen', unidad:'m³', def:'Cuánto cambió el volumen de un objeto al cambiar su temperatura.'},
+      'V₀': {nombre:'Volumen inicial', unidad:'m³', def:'El volumen original del objeto, antes de dilatarse.'},
+      'P': {nombre:'Presión', unidad:'Pa (Pascal)', def:'La fuerza que ejerce un fluido por cada unidad de área.'},
+      'ρ': {nombre:'Densidad', unidad:'kg/m³', def:'Cuánta masa hay en cada unidad de volumen de una sustancia.'},
+      'h': {nombre:'Profundidad', unidad:'m', def:'Qué tan hondo está sumergido el punto donde se mide la presión.'},
+      'V': {nombre:'Volumen', unidad:'m³', def:'El espacio que ocupa el objeto sumergido (para el empuje).'},
+      'A': {nombre:'Área', unidad:'m²', def:'La superficie transversal por donde pasa el fluido.'},
+      'v': {nombre:'Velocidad del fluido', unidad:'m/s', def:'Qué tan rápido se mueve el líquido o gas.'},
+      'η': {nombre:'Rendimiento', unidad:'% (porcentaje)', def:'Qué porcentaje de la energía total se aprovecha realmente.'},
+      'Eútil': {nombre:'Energía útil', unidad:'J', def:'La energía que efectivamente se aprovecha para el trabajo deseado.'},
+      'Etotal': {nombre:'Energía total', unidad:'J', def:'Toda la energía que entra al sistema, aprovechada o no.'},
+    },
+    moderna: {
+      "Δt'": {nombre:'Tiempo medido por el observador en movimiento', unidad:'s', def:'El tiempo "dilatado" — distinto al que mide un observador en reposo.'},
+      'Δt': {nombre:'Tiempo medido en reposo', unidad:'s', def:'El tiempo medido por un observador que no se mueve respecto al evento.'},
+      'v': {nombre:'Velocidad', unidad:'m/s', def:'La velocidad del objeto o del observador en movimiento.'},
+      'c': {nombre:'Velocidad de la luz', unidad:'m/s', def:'Una constante universal: 300.000 km/s aproximadamente.'},
+      'E': {nombre:'Energía', unidad:'J', def:'La energía equivalente a una masa, según la fórmula de Einstein.'},
+      'm': {nombre:'Masa', unidad:'kg', def:'La cantidad de materia del objeto.'},
+      'N': {nombre:'Cantidad de núcleos restantes', unidad:'sin unidad', def:'Cuántos átomos radiactivos quedan sin desintegrarse en un momento dado.'},
+      'N₀': {nombre:'Cantidad inicial de núcleos', unidad:'sin unidad', def:'La cantidad de átomos radiactivos que había al principio.'},
+      't': {nombre:'Tiempo transcurrido', unidad:'s, años, etc.', def:'Cuánto tiempo pasó desde el inicio de la desintegración.'},
+      'T': {nombre:'Vida media', unidad:'s, años, etc.', def:'El tiempo que tarda en desintegrarse la mitad de una muestra radiactiva.'},
+    },
+    quimica: {
+      'Z': {nombre:'Número atómico', unidad:'sin unidad', def:'La cantidad de protones en el núcleo — identifica de qué elemento se trata.'},
+      'A': {nombre:'Número másico', unidad:'sin unidad', def:'La suma de protones y neutrones que tiene el átomo.'},
+      'n': {nombre:'Moles (o número de capa electrónica)', unidad:'mol, o número de capa', def:'La cantidad de sustancia medida en moles, o el número de la capa de electrones, según el contexto.'},
+      'm': {nombre:'Masa', unidad:'g', def:'La masa de la sustancia, en gramos.'},
+      'M': {nombre:'Masa molar (o Molaridad)', unidad:'g/mol, o mol/L', def:'La masa de un mol de sustancia, o la concentración de una solución, según el contexto.'},
+      'ΔEN': {nombre:'Diferencia de electronegatividad', unidad:'sin unidad', def:'Qué tanto se diferencian dos átomos en su capacidad de atraer electrones — define el tipo de enlace.'},
+      'pH': {nombre:'Potencial de hidrógeno', unidad:'escala 0 a 14, sin unidad', def:'Qué tan ácida o básica es una solución.'},
+      'H⁺': {nombre:'Ion hidrógeno', unidad:'mol/L', def:'La concentración de iones hidrógeno disueltos en la solución.'},
+      'pOH': {nombre:'Potencial de hidroxilo', unidad:'escala 0 a 14, sin unidad', def:'La medida de qué tan básica es una solución (complementa al pH).'},
+      'V': {nombre:'Volumen', unidad:'L (litros)', def:'El volumen de la solución.'},
+      'mᵣ': {nombre:'Masa real obtenida', unidad:'g', def:'Lo que realmente se obtuvo en el laboratorio, después de la reacción.'},
+      'mᵢ': {nombre:'Masa ideal (teórica)', unidad:'g', def:'Lo que debería haberse obtenido según los cálculos, sin pérdidas.'},
+      'P': {nombre:'Presión', unidad:'atm', def:'La presión que ejerce el gas.'},
+      'T': {nombre:'Temperatura', unidad:'K (Kelvin)', def:'La temperatura del gas, en la escala absoluta (Kelvin, no Celsius).'},
+      'R': {nombre:'Constante de los gases', unidad:'0.082 atm·L/(mol·K)', def:'Un número fijo que conecta presión, volumen, temperatura y moles en un gas ideal.'},
+    },
+    matematica: {
+      'a': {nombre:'Coeficiente de x (o de x²)', unidad:'sin unidad', def:'El número que multiplica a la incógnita.'},
+      'b': {nombre:'Coeficiente lineal (o término independiente)', unidad:'sin unidad', def:'Según la ecuación, el número que acompaña a x, o el que queda solo.'},
+      'c': {nombre:'Término independiente', unidad:'sin unidad', def:'El número que no tiene ninguna x multiplicándolo.'},
+      'x': {nombre:'Incógnita', unidad:'sin unidad', def:'El valor desconocido que hay que encontrar.'},
+      'y': {nombre:'Variable dependiente', unidad:'sin unidad', def:'El resultado que depende del valor que le des a x.'},
+      'Δ': {nombre:'Discriminante', unidad:'sin unidad', def:'Indica cuántas soluciones reales tiene una ecuación cuadrática, antes de resolverla del todo.'},
+      'h': {nombre:'Coordenada x del centro', unidad:'sin unidad', def:'Dónde está el centro de la circunferencia en el eje horizontal.'},
+      'k': {nombre:'Coordenada y del centro', unidad:'sin unidad', def:'Dónde está el centro de la circunferencia en el eje vertical.'},
+      'r': {nombre:'Radio', unidad:'sin unidad', def:'La distancia desde el centro hasta cualquier punto de la circunferencia.'},
+      'n': {nombre:'Posición en la sucesión (o cantidad de períodos)', unidad:'sin unidad', def:'Qué término de la secuencia es, o cuántos períodos pasaron.'},
+      'd': {nombre:'Diferencia común', unidad:'sin unidad', def:'Lo que se suma (o resta) de un término al siguiente, en una sucesión aritmética.'},
+      'C': {nombre:'Capital inicial', unidad:'unidad monetaria', def:'El dinero que se invierte al principio.'},
+      'i': {nombre:'Tasa de interés', unidad:'decimal (ej. 0.05 = 5%)', def:'El porcentaje que se gana (o paga) por cada período.'},
+    },
+  };
+
+  const NOMBRE_GRUPO = {
+    mecanica: 'Mecánica', electricidad: 'Electricidad', termo: 'Termodinámica y Fluidos',
+    moderna: 'Física Moderna', quimica: 'Química', matematica: 'Matemática', herramientas: 'Herramientas'
+  };
+
+  function mostrarVariables(btn){
+    event.preventDefault();
+    event.stopPropagation();
+    const grupo = btn.dataset.grupo;
+    const vars = btn.dataset.vars.split('|').filter(Boolean);
+    const dict = VAR_DICT[grupo] || {};
+
+    let html = '';
+    vars.forEach(v=>{
+      const info = dict[v];
+      if(!info) return;
+      html += `<div class="vartip-item">
+        <span class="vartip-simbolo">${v}</span>
+        <div>
+          <div class="vartip-nombre">${info.nombre} <span class="vartip-unidad">(${info.unidad})</span></div>
+          <div class="vartip-def">${info.def}</div>
+        </div>
+      </div>`;
+    });
+    if(!html) html = '<div class="vartip-item"><div class="vartip-def">No hay variables registradas para esta fórmula todavía.</div></div>';
+
+    let popover = document.getElementById('vartip-popover');
+    if(!popover){
+      popover = document.createElement('div');
+      popover.id = 'vartip-popover';
+      popover.className = 'vartip-popover';
+      document.body.appendChild(popover);
+    }
+    popover.innerHTML = `<div class="vartip-header">Variables de esta fórmula<span class="vartip-close" onclick="cerrarVariables()">✕</span></div>${html}`;
+    popover.classList.add('show');
+
+    const rect = btn.getBoundingClientRect();
+    const popW = 300;
+    let left = rect.left + window.scrollX;
+    if(left + popW > window.innerWidth - 12) left = window.innerWidth - popW - 12;
+    popover.style.left = Math.max(12,left) + 'px';
+    popover.style.top = (rect.bottom + window.scrollY + 8) + 'px';
+  }
+
+  function cerrarVariables(){
+    const popover = document.getElementById('vartip-popover');
+    if(popover) popover.classList.remove('show');
+  }
+
+  document.addEventListener('click', (e)=>{
+    const popover = document.getElementById('vartip-popover');
+    if(popover && popover.classList.contains('show') && !popover.contains(e.target) && !e.target.classList.contains('var-tip-btn')){
+      popover.classList.remove('show');
+    }
+  });
+
   function toggleNavMobile(){
     document.querySelector('.navbar-links').classList.toggle('open');
   }
