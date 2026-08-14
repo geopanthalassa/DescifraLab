@@ -3,6 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YP8YVN6V0Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-YP8YVN6V0Z');
+</script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6334611421204216" crossorigin="anonymous"></script>
 <link rel="icon" type="image/x-icon" href="favicon.ico?v=7">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=7">
@@ -339,6 +346,117 @@
     margin-top:14px;
     padding:8px;
   }
+
+  /* Sistema de color para partes de una fórmula (mismo color = mismo rol en toda la página) */
+  .term-1{color:#B8842E;font-weight:800;}
+  .term-2{color:#2F6B5E;font-weight:800;}
+  .term-3{color:#7A4FB0;font-weight:800;}
+  .term-4{color:#2A6FA8;font-weight:800;}
+  .term-5{color:#C0562E;font-weight:800;}
+  .formula-leyenda{
+    display:flex;flex-wrap:wrap;gap:8px 20px;
+    margin-top:12px;padding-top:12px;
+    border-top:1px dashed var(--line);
+  }
+  .formula-leyenda .leyenda-item{
+    display:flex;align-items:flex-start;gap:7px;
+    font-size:13.5px;color:var(--ink-soft);max-width:260px;
+  }
+  .formula-leyenda .swatch{
+    display:inline-block;width:11px;height:11px;border-radius:3px;
+    margin-top:3px;flex-shrink:0;
+  }
+  .swatch-1{background:#B8842E;} .swatch-2{background:#2F6B5E;}
+  .swatch-3{background:#7A4FB0;} .swatch-4{background:#2A6FA8;} .swatch-5{background:#C0562E;}
+
+  /* Paso a paso con color por paso */
+  .pasos-resueltos{margin:14px 0;}
+  .paso{
+    display:flex;gap:12px;align-items:flex-start;
+    padding:12px 14px;margin-bottom:8px;border-radius:8px;
+    background:var(--paper);border-left:4px solid var(--ink-soft);
+  }
+  .paso-num{
+    font-family:'JetBrains Mono', monospace;font-weight:800;font-size:12.5px;
+    width:22px;height:22px;border-radius:50%;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;color:#fff;
+    background:var(--ink-soft);
+  }
+  .paso:nth-child(1){border-left-color:#B8842E;} .paso:nth-child(1) .paso-num{background:#B8842E;}
+  .paso:nth-child(2){border-left-color:#2F6B5E;} .paso:nth-child(2) .paso-num{background:#2F6B5E;}
+  .paso:nth-child(3){border-left-color:#7A4FB0;} .paso:nth-child(3) .paso-num{background:#7A4FB0;}
+  .paso:nth-child(4){border-left-color:#2A6FA8;} .paso:nth-child(4) .paso-num{background:#2A6FA8;}
+  .paso:nth-child(5){border-left-color:#C0562E;} .paso:nth-child(5) .paso-num{background:#C0562E;}
+  .paso p{margin:0;font-size:14.5px;}
+  .paso .paso-titulo{font-weight:700;display:block;margin-bottom:2px;}
+
+  .analogia{
+    background:#FBF3E2;border:1.5px dashed #B8842E;border-radius:8px;
+    padding:14px 16px;margin:14px 0;font-size:14.5px;
+  }
+  .analogia .analogia-tag{
+    font-family:'JetBrains Mono', monospace;font-size:11px;font-weight:700;
+    text-transform:uppercase;letter-spacing:0.06em;color:#B8842E;
+    display:block;margin-bottom:6px;
+  }
+
+  /* Sistema de resolución estructurada: Datos / Fórmula / Resolución / Respuesta */
+  .resolucion{
+    border:2px solid var(--ink);border-radius:10px;
+    margin:16px 0;overflow:hidden;
+  }
+  .resolucion-bloque{
+    padding:14px 18px;border-bottom:1px solid var(--line);
+  }
+  .resolucion-bloque:last-child{border-bottom:none;}
+  .resolucion-bloque.datos{background:#FBF3E2;}
+  .resolucion-bloque.formula-usada{background:var(--paper);}
+  .resolucion-bloque.pasos{background:#FFFFFF;}
+  .resolucion-bloque.respuesta{background:#EAF3EE;}
+  .resolucion-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;
+    color:var(--ink-soft);margin:0 0 10px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .resolucion-label .num-badge{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:28px;height:28px;border-radius:50%;flex-shrink:0;
+    background:var(--ink);color:#fff;font-size:15px;font-weight:800;
+    font-family:'Inter', sans-serif;
+  }
+  .datos-lista{list-style:none;margin:0;padding:0;display:grid;gap:6px;}
+  .datos-lista li{
+    display:flex;align-items:baseline;gap:8px;font-size:14.5px;
+  }
+  .datos-lista .dato-simbolo{
+    font-family:'JetBrains Mono', monospace;font-weight:800;
+    min-width:34px;
+  }
+  .datos-lista .dato-nombre{color:var(--ink-soft);}
+  .datos-lista .dato-valor{font-weight:700;margin-left:auto;font-family:'JetBrains Mono', monospace;}
+  .resolucion-bloque.pasos .paso-r{
+    margin-bottom:10px;padding-left:14px;border-left:3px solid var(--ink-soft);
+  }
+  .resolucion-bloque.pasos .paso-r:last-child{margin-bottom:0;}
+  .resolucion-bloque.pasos .paso-r-titulo{
+    display:block;font-weight:700;font-size:13.5px;margin-bottom:2px;
+  }
+  .resolucion-bloque.respuesta p{
+    margin:0;font-size:15.5px;font-weight:700;color:var(--pine-dark);
+  }
+  .unidad{color:var(--ink-soft);font-weight:500;font-size:0.88em;}
+  .aviso-unidades{
+    display:flex;align-items:center;gap:8px;
+    background:#FBEAE5;border:1px solid #C0562E;border-radius:6px;
+    padding:8px 12px;margin-top:10px;font-size:13px;color:#8A3A1E;
+  }
+  .aviso-unidades strong{color:#8A3A1E;}
+
+  /* Errores frecuentes (mismo patrón visual que FAQ) */
+  .errores h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;color:#A0442E;}
+  .errores h3:first-of-type{margin-top:8px;}
+  .errores p{margin:0;color:var(--ink-soft);font-size:14.5px;}
 </style>
 </head>
 <body>
@@ -467,8 +585,12 @@
         <li><strong>La corriente es la misma</strong> en todos los puntos del circuito (no tiene otro camino por donde "escaparse").</li>
         <li><strong>El voltaje de la pila se reparte</strong> entre todos los componentes — cuantos más haya, menos voltaje le toca a cada uno.</li>
       </ul>
-      <div class="formula-box">I<sub>total</sub> = I₁ = I₂ = I₃</div>
-      <div class="formula-box">V<sub>total</sub> = V₁ + V₂ + V₃</div>
+      <div class="formula-box"><span class="term-1">I<sub>total</sub></span> = I₁ = I₂ = I₃</div>
+      <div class="formula-box"><span class="term-2">V<sub>total</sub></span> = V₁ + V₂ + V₃</div>
+      <div class="analogia">
+        <span class="analogia-tag">Piénsalo así</span>
+        Es como una fila de personas pasándose un balde de agua: la cantidad de agua que pasa por cada persona (la corriente) es la misma para todos, porque es un solo camino. Pero el esfuerzo (voltaje) se reparte entre todos según cuánto "cuesta" cada tramo.
+      </div>
     </div>
 
     <div class="card" data-tag="Calculadora">
@@ -497,13 +619,54 @@
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
-      <div class="example">
-        <p><strong>Una pila de 12 V alimenta dos resistencias en serie: 4 Ω y 8 Ω.</strong></p>
-        <p>Req = 4 + 8 = 12 Ω → I = 12/12 = <strong>1 A</strong> (la misma corriente en todo el circuito)</p>
-        <p>V₁ = I×R₁ = 1×4 = <strong>4 V</strong> &nbsp;·&nbsp; V₂ = I×R₂ = 1×8 = <strong>8 V</strong></p>
-        <p>Comprobación: 4 + 8 = 12 V, el total de la pila. La resistencia más grande "se queda" con más voltaje.</p>
+      <h2>Ejemplo resuelto, paso a paso</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">Una pila de 12 V alimenta dos resistencias en serie: 4 Ω y 8 Ω. ¿Qué voltaje le toca a cada una?</p>
+      <div class="resolucion">
+        <div class="resolucion-bloque datos">
+          <p class="resolucion-label"><span class="num-badge">1</span>Datos</p>
+          <ul class="datos-lista">
+            <li><span class="dato-nombre">voltaje de la pila</span><span class="dato-valor">V<sub>total</sub> = 12 V</span></li>
+            <li><span class="dato-nombre">primera resistencia</span><span class="dato-valor">R₁ = 4 Ω</span></li>
+            <li><span class="dato-nombre">segunda resistencia</span><span class="dato-valor">R₂ = 8 Ω</span></li>
+          </ul>
+        </div>
+        <div class="resolucion-bloque formula-usada">
+          <p class="resolucion-label"><span class="num-badge">2</span>Fórmula utilizada</p>
+          <p style="color:var(--ink-soft);font-size:13.5px;margin:0 0 8px;">En serie, primero sumo las resistencias, calculo la corriente única, y con eso obtengo cada voltaje:</p>
+          <div class="formula-box" style="margin:0 0 8px;">Req = R₁ + R₂</div>
+          <div class="formula-box" style="margin:0;">I = V<sub>total</sub>/Req &nbsp;·&nbsp; V = I×R</div>
+        </div>
+        <div class="resolucion-bloque pasos">
+          <p class="resolucion-label"><span class="num-badge">3</span>Resolución</p>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Sumo las resistencias</span>
+            Req = 4 + 8 = 12 Ω
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Calculo la corriente única del circuito</span>
+            I = 12 V / 12 Ω = <strong>1 A</strong>
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Calculo el voltaje de cada resistencia con esa misma corriente</span>
+            V₁ = 1×4 = <strong>4 V</strong> &nbsp;·&nbsp; V₂ = 1×8 = <strong>8 V</strong>
+          </div>
+          <div class="aviso-unidades"><strong>Comprobación:</strong> 4 V + 8 V = 12 V, el total de la pila — la resistencia más grande "se queda" con más voltaje.</div>
+        </div>
+        <div class="resolucion-bloque respuesta">
+          <p class="resolucion-label"><span class="num-badge">4</span>Respuesta</p>
+          <p>A R₁ le toca <strong>4 V</strong>, y a R₂ le tocan <strong>8 V</strong></p>
+        </div>
       </div>
+    </div>
+
+    <div class="card errores" data-tag="Errores frecuentes">
+      <h2>Errores frecuentes</h2>
+      <h3>Pensar que la corriente se reparte en serie</h3>
+      <p>En serie, la corriente es la MISMA en todo el circuito — lo que se reparte es el voltaje. Es el error inverso al que se comete en paralelo.</p>
+      <h3>Olvidar sumar todas las resistencias antes de calcular la corriente</h3>
+      <p>Hay que calcular primero la resistencia equivalente (Req) sumando todas — recién con ese total se puede calcular la corriente única del circuito.</p>
+      <h3>No verificar que los voltajes sumen el total de la pila</h3>
+      <p>Una forma rápida de chequear el resultado: los voltajes individuales siempre tienen que sumar exactamente el voltaje total de la pila, en un circuito serie.</p>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
@@ -533,8 +696,12 @@
         <li><strong>El voltaje es el mismo</strong> en cada rama — cada componente recibe el voltaje completo de la pila.</li>
         <li><strong>La corriente se reparte</strong> entre las ramas — cada una toma la corriente que le corresponde según su propia resistencia.</li>
       </ul>
-      <div class="formula-box">V<sub>total</sub> = V₁ = V₂ = V₃</div>
-      <div class="formula-box">I<sub>total</sub> = I₁ + I₂ + I₃</div>
+      <div class="formula-box"><span class="term-2">V<sub>total</sub></span> = V₁ = V₂ = V₃</div>
+      <div class="formula-box"><span class="term-1">I<sub>total</sub></span> = I₁ + I₂ + I₃</div>
+      <div class="analogia">
+        <span class="analogia-tag">Piénsalo así</span>
+        Ahora es como varias mangueras conectadas directo a la misma canilla: todas reciben la misma presión (voltaje) completa, pero el caudal total que sale de la canilla (corriente) se reparte entre todas las mangueras según qué tan ancha sea cada una.
+      </div>
     </div>
 
     <div class="card" data-tag="Calculadora">
@@ -563,13 +730,51 @@
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
-      <div class="example">
-        <p><strong>Las mismas resistencias (4 Ω y 8 Ω) con la misma pila (12 V), ahora en paralelo.</strong></p>
-        <p>I₁ = V/R₁ = 12/4 = <strong>3 A</strong> &nbsp;·&nbsp; I₂ = V/R₂ = 12/8 = <strong>1.5 A</strong></p>
-        <p>I total = 3 + 1.5 = <strong>4.5 A</strong> (mucho más que en serie, donde la corriente total era 1 A)</p>
-        <p>Por eso en paralelo cada lamparita brilla a pleno: recibe los 12 V completos, no una fracción.</p>
+      <h2>Ejemplo resuelto, paso a paso</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">Las mismas resistencias (4 Ω y 8 Ω) con la misma pila (12 V), ahora en paralelo. ¿Cuánta corriente circula por cada rama, y en total?</p>
+      <div class="resolucion">
+        <div class="resolucion-bloque datos">
+          <p class="resolucion-label"><span class="num-badge">1</span>Datos</p>
+          <ul class="datos-lista">
+            <li><span class="dato-nombre">voltaje de la pila (en paralelo, cada rama lo recibe completo)</span><span class="dato-valor">V = 12 V</span></li>
+            <li><span class="dato-nombre">primera resistencia</span><span class="dato-valor">R₁ = 4 Ω</span></li>
+            <li><span class="dato-nombre">segunda resistencia</span><span class="dato-valor">R₂ = 8 Ω</span></li>
+          </ul>
+        </div>
+        <div class="resolucion-bloque formula-usada">
+          <p class="resolucion-label"><span class="num-badge">2</span>Fórmula utilizada</p>
+          <p style="color:var(--ink-soft);font-size:13.5px;margin:0 0 8px;">Cada rama se calcula por separado con la Ley de Ohm, usando siempre el voltaje completo:</p>
+          <div class="formula-box" style="margin:0 0 8px;">I₁ = V/R₁ &nbsp;·&nbsp; I₂ = V/R₂</div>
+          <div class="formula-box" style="margin:0;">I<sub>total</sub> = I₁ + I₂</div>
+        </div>
+        <div class="resolucion-bloque pasos">
+          <p class="resolucion-label"><span class="num-badge">3</span>Resolución</p>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Calculo la corriente de cada rama por separado</span>
+            I₁ = 12/4 = <strong>3 A</strong> &nbsp;·&nbsp; I₂ = 12/8 = <strong>1.5 A</strong>
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Sumo las corrientes para obtener el total</span>
+            I<sub>total</sub> = 3 + 1.5 = <strong>4.5 A</strong>
+          </div>
+          <div class="aviso-unidades"><strong>Compará:</strong> en serie, la corriente total daba 1 A. En paralelo da 4.5 A — mucha más, porque cada rama "jala" su propia corriente en forma independiente.</div>
+        </div>
+        <div class="resolucion-bloque respuesta">
+          <p class="resolucion-label"><span class="num-badge">4</span>Respuesta</p>
+          <p>Circulan <strong>3 A</strong> por R₁, <strong>1.5 A</strong> por R₂, y <strong>4.5 A</strong> en total</p>
+        </div>
       </div>
+      <p style="color:var(--ink-soft);font-size:14px;margin-top:10px;">Por eso en paralelo cada lamparita brilla a pleno: recibe los 12 V completos, no una fracción.</p>
+    </div>
+
+    <div class="card errores" data-tag="Errores frecuentes">
+      <h2>Errores frecuentes</h2>
+      <h3>Pensar que el voltaje se reparte en paralelo</h3>
+      <p>En paralelo, el voltaje es el MISMO en cada rama — lo que se reparte es la corriente. Es el error inverso al que se comete en serie.</p>
+      <h3>Sumar las resistencias directamente en vez de usar 1/Req</h3>
+      <p>La resistencia equivalente en paralelo NO es la suma simple — hay que usar 1/Req = 1/R₁ + 1/R₂, que siempre da un resultado menor a la resistencia más chica de las dos.</p>
+      <h3>Olvidar que la corriente total en paralelo es mayor que en serie</h3>
+      <p>Con los mismos componentes, un circuito en paralelo siempre deja pasar más corriente total que uno en serie — porque cada rama actúa como un camino independiente para la corriente.</p>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">

@@ -3,6 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YP8YVN6V0Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-YP8YVN6V0Z');
+</script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6334611421204216" crossorigin="anonymous"></script>
 <link rel="icon" type="image/x-icon" href="favicon.ico?v=7">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=7">
@@ -332,6 +339,117 @@
     font-size:12px;cursor:pointer;
   }
   .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  /* Sistema de color para partes de una fórmula (mismo color = mismo rol en toda la página) */
+  .term-1{color:#B8842E;font-weight:800;}
+  .term-2{color:#2F6B5E;font-weight:800;}
+  .term-3{color:#7A4FB0;font-weight:800;}
+  .term-4{color:#2A6FA8;font-weight:800;}
+  .term-5{color:#C0562E;font-weight:800;}
+  .formula-leyenda{
+    display:flex;flex-wrap:wrap;gap:8px 20px;
+    margin-top:12px;padding-top:12px;
+    border-top:1px dashed var(--line);
+  }
+  .formula-leyenda .leyenda-item{
+    display:flex;align-items:flex-start;gap:7px;
+    font-size:13.5px;color:var(--ink-soft);max-width:260px;
+  }
+  .formula-leyenda .swatch{
+    display:inline-block;width:11px;height:11px;border-radius:3px;
+    margin-top:3px;flex-shrink:0;
+  }
+  .swatch-1{background:#B8842E;} .swatch-2{background:#2F6B5E;}
+  .swatch-3{background:#7A4FB0;} .swatch-4{background:#2A6FA8;} .swatch-5{background:#C0562E;}
+
+  /* Paso a paso con color por paso */
+  .pasos-resueltos{margin:14px 0;}
+  .paso{
+    display:flex;gap:12px;align-items:flex-start;
+    padding:12px 14px;margin-bottom:8px;border-radius:8px;
+    background:var(--paper);border-left:4px solid var(--ink-soft);
+  }
+  .paso-num{
+    font-family:'JetBrains Mono', monospace;font-weight:800;font-size:12.5px;
+    width:22px;height:22px;border-radius:50%;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;color:#fff;
+    background:var(--ink-soft);
+  }
+  .paso:nth-child(1){border-left-color:#B8842E;} .paso:nth-child(1) .paso-num{background:#B8842E;}
+  .paso:nth-child(2){border-left-color:#2F6B5E;} .paso:nth-child(2) .paso-num{background:#2F6B5E;}
+  .paso:nth-child(3){border-left-color:#7A4FB0;} .paso:nth-child(3) .paso-num{background:#7A4FB0;}
+  .paso:nth-child(4){border-left-color:#2A6FA8;} .paso:nth-child(4) .paso-num{background:#2A6FA8;}
+  .paso:nth-child(5){border-left-color:#C0562E;} .paso:nth-child(5) .paso-num{background:#C0562E;}
+  .paso p{margin:0;font-size:14.5px;}
+  .paso .paso-titulo{font-weight:700;display:block;margin-bottom:2px;}
+
+  .analogia{
+    background:#FBF3E2;border:1.5px dashed #B8842E;border-radius:8px;
+    padding:14px 16px;margin:14px 0;font-size:14.5px;
+  }
+  .analogia .analogia-tag{
+    font-family:'JetBrains Mono', monospace;font-size:11px;font-weight:700;
+    text-transform:uppercase;letter-spacing:0.06em;color:#B8842E;
+    display:block;margin-bottom:6px;
+  }
+
+  /* Sistema de resolución estructurada: Datos / Fórmula / Resolución / Respuesta */
+  .resolucion{
+    border:2px solid var(--ink);border-radius:10px;
+    margin:16px 0;overflow:hidden;
+  }
+  .resolucion-bloque{
+    padding:14px 18px;border-bottom:1px solid var(--line);
+  }
+  .resolucion-bloque:last-child{border-bottom:none;}
+  .resolucion-bloque.datos{background:#FBF3E2;}
+  .resolucion-bloque.formula-usada{background:var(--paper);}
+  .resolucion-bloque.pasos{background:#FFFFFF;}
+  .resolucion-bloque.respuesta{background:#EAF3EE;}
+  .resolucion-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;
+    color:var(--ink-soft);margin:0 0 10px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .resolucion-label .num-badge{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:28px;height:28px;border-radius:50%;flex-shrink:0;
+    background:var(--ink);color:#fff;font-size:15px;font-weight:800;
+    font-family:'Inter', sans-serif;
+  }
+  .datos-lista{list-style:none;margin:0;padding:0;display:grid;gap:6px;}
+  .datos-lista li{
+    display:flex;align-items:baseline;gap:8px;font-size:14.5px;
+  }
+  .datos-lista .dato-simbolo{
+    font-family:'JetBrains Mono', monospace;font-weight:800;
+    min-width:34px;
+  }
+  .datos-lista .dato-nombre{color:var(--ink-soft);}
+  .datos-lista .dato-valor{font-weight:700;margin-left:auto;font-family:'JetBrains Mono', monospace;}
+  .resolucion-bloque.pasos .paso-r{
+    margin-bottom:10px;padding-left:14px;border-left:3px solid var(--ink-soft);
+  }
+  .resolucion-bloque.pasos .paso-r:last-child{margin-bottom:0;}
+  .resolucion-bloque.pasos .paso-r-titulo{
+    display:block;font-weight:700;font-size:13.5px;margin-bottom:2px;
+  }
+  .resolucion-bloque.respuesta p{
+    margin:0;font-size:15.5px;font-weight:700;color:var(--pine-dark);
+  }
+  .unidad{color:var(--ink-soft);font-weight:500;font-size:0.88em;}
+  .aviso-unidades{
+    display:flex;align-items:center;gap:8px;
+    background:#FBEAE5;border:1px solid #C0562E;border-radius:6px;
+    padding:8px 12px;margin-top:10px;font-size:13px;color:#8A3A1E;
+  }
+  .aviso-unidades strong{color:#8A3A1E;}
+
+  /* Errores frecuentes (mismo patrón visual que FAQ) */
+  .errores h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;color:#A0442E;}
+  .errores h3:first-of-type{margin-top:8px;}
+  .errores p{margin:0;color:var(--ink-soft);font-size:14.5px;}
 </style>
 </head>
 <body>
@@ -456,9 +574,16 @@
     <div class="card" data-tag="Concepto">
       <h2>¿Qué es la presión hidrostática?</h2>
       <p>Es la presión que ejerce un líquido por el simple hecho de tener peso. Cuanto más profundo vas, más líquido tienes encima empujando hacia abajo, así que la presión aumenta con la profundidad — por eso te duelen los oídos al bucear.</p>
-      <div class="formula-box">P = ρ · g · h</div>
-      <p class="var-list"><span>P</span> = presión (Pascal, Pa) &nbsp;·&nbsp; <span>ρ</span> = densidad del líquido (kg/m³) &nbsp;·&nbsp; <span>g</span> = 9.8 m/s² &nbsp;·&nbsp; <span>h</span> = profundidad (m)</p>
-      <p style="color:var(--ink-soft);font-size:14.5px;">La densidad del agua es 1000 kg/m³. Esta fórmula no depende de la forma del recipiente ni de cuánta agua hay en total — solo de qué tan profundo estás.</p>
+      <div class="formula-box"><span class="term-1">P</span> = <span class="term-2">ρ</span> · g · <span class="term-3">h</span></div>
+      <div class="formula-leyenda">
+        <div class="leyenda-item"><span class="swatch swatch-1"></span> <strong class="term-1">P</strong> = presión — en Pascal (Pa)</div>
+        <div class="leyenda-item"><span class="swatch swatch-2"></span> <strong class="term-2">ρ</strong> = densidad del líquido — en kg/m³</div>
+        <div class="leyenda-item"><span class="swatch swatch-3"></span> <strong class="term-3">h</strong> = profundidad — en metros (m; g=9.8 m/s² siempre)</div>
+      </div>
+      <div class="analogia">
+        <span class="analogia-tag">Piénsalo así</span>
+        La densidad del agua es 1000 kg/m³. Esta fórmula no depende de la forma del recipiente ni de cuánta agua hay en total — solo de qué tan profundo estás. Un buzo a 10 m en una pileta chica siente la misma presión que uno a 10 m en el océano.
+      </div>
     </div>
 
     <div class="card" data-tag="Calculadora">
@@ -485,12 +610,49 @@
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
-      <div class="example">
-        <p><strong>¿Qué presión hidrostática hay a 10 m de profundidad en agua de mar (ρ≈1025 kg/m³)?</strong></p>
-        <p>P = 1025 × 9.8 × 10 = <strong>100.450 Pa</strong> (≈1 atmósfera extra por cada 10 m)</p>
-        <p>Por eso los buzos necesitan equiparse para profundidades grandes: la presión sube rápido y constante con cada metro.</p>
+      <h2>Ejemplo resuelto, paso a paso</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">¿Qué presión hidrostática hay a 10 m de profundidad en agua de mar (ρ≈1025 kg/m³)?</p>
+      <div class="resolucion">
+        <div class="resolucion-bloque datos">
+          <p class="resolucion-label"><span class="num-badge">1</span>Datos</p>
+          <ul class="datos-lista">
+            <li><span class="dato-simbolo term-2">ρ</span><span class="dato-nombre">densidad del agua de mar (dice "kg/m³")</span><span class="dato-valor term-2">1025 kg/m³</span></li>
+            <li><span class="dato-simbolo term-3">h</span><span class="dato-nombre">profundidad (dice "metros")</span><span class="dato-valor term-3">10 m</span></li>
+            <li><span class="dato-nombre">gravedad (constante, siempre igual en la Tierra)</span><span class="dato-valor">g = 9.8 m/s²</span></li>
+          </ul>
+        </div>
+        <div class="resolucion-bloque formula-usada">
+          <p class="resolucion-label"><span class="num-badge">2</span>Fórmula utilizada</p>
+          <div class="formula-box" style="margin:0;"><span class="term-1">P</span> = <span class="term-2">ρ</span> · g · <span class="term-3">h</span></div>
+        </div>
+        <div class="resolucion-bloque pasos">
+          <p class="resolucion-label"><span class="num-badge">3</span>Resolución</p>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Reemplazo cada incógnita por su dato</span>
+            <span class="term-1">P</span> = <span class="term-2">1025 kg/m³</span> · 9.8 m/s² · <span class="term-3">10 m</span>
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Resuelvo la ecuación</span>
+            P = 1025×9.8×10 = <strong>100.450 Pa</strong>
+          </div>
+          <div class="aviso-unidades"><strong>Ojo con las unidades:</strong> kg/m³ × m/s² × m = Pa (kg/(m·s²)) — así se define el Pascal, la unidad de presión.</div>
+        </div>
+        <div class="resolucion-bloque respuesta">
+          <p class="resolucion-label"><span class="num-badge">4</span>Respuesta</p>
+          <p>La presión es <span class="term-1">P ≈ 100.450 Pa</span> (≈1 atmósfera extra por cada 10 m)</p>
+        </div>
       </div>
+      <p style="color:var(--ink-soft);font-size:14px;margin-top:10px;">Por eso los buzos necesitan equiparse para profundidades grandes: la presión sube rápido y constante con cada metro.</p>
+    </div>
+
+    <div class="card errores" data-tag="Errores frecuentes">
+      <h2>Errores frecuentes</h2>
+      <h3>Usar la densidad del agua dulce para agua de mar (o viceversa)</h3>
+      <p>El agua de mar es más densa (≈1025 kg/m³) que el agua dulce (1000 kg/m³) por la sal disuelta — usar el valor incorrecto cambia el resultado.</p>
+      <h3>Olvidar que esta presión es "extra", no la total</h3>
+      <p>La presión hidrostática se suma a la presión atmosférica que ya existe en la superficie — si te piden la presión total, hay que sumar la atmosférica (≈101.300 Pa al nivel del mar).</p>
+      <h3>Pensar que la forma del recipiente afecta la presión</h3>
+      <p>La presión hidrostática depende solo de la profundidad y la densidad — no importa si el recipiente es ancho, angosto, o tiene forma irregular.</p>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">

@@ -3,6 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YP8YVN6V0Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-YP8YVN6V0Z');
+</script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6334611421204216" crossorigin="anonymous"></script>
 <link rel="icon" type="image/x-icon" href="favicon.ico?v=7">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=7">
@@ -354,6 +361,117 @@
     border-radius:4px;
     margin-bottom:10px;
   }
+
+  /* Sistema de color para partes de una fórmula (mismo color = mismo rol en toda la página) */
+  .term-1{color:#B8842E;font-weight:800;}
+  .term-2{color:#2F6B5E;font-weight:800;}
+  .term-3{color:#7A4FB0;font-weight:800;}
+  .term-4{color:#2A6FA8;font-weight:800;}
+  .term-5{color:#C0562E;font-weight:800;}
+  .formula-leyenda{
+    display:flex;flex-wrap:wrap;gap:8px 20px;
+    margin-top:12px;padding-top:12px;
+    border-top:1px dashed var(--line);
+  }
+  .formula-leyenda .leyenda-item{
+    display:flex;align-items:flex-start;gap:7px;
+    font-size:13.5px;color:var(--ink-soft);max-width:260px;
+  }
+  .formula-leyenda .swatch{
+    display:inline-block;width:11px;height:11px;border-radius:3px;
+    margin-top:3px;flex-shrink:0;
+  }
+  .swatch-1{background:#B8842E;} .swatch-2{background:#2F6B5E;}
+  .swatch-3{background:#7A4FB0;} .swatch-4{background:#2A6FA8;} .swatch-5{background:#C0562E;}
+
+  /* Paso a paso con color por paso */
+  .pasos-resueltos{margin:14px 0;}
+  .paso{
+    display:flex;gap:12px;align-items:flex-start;
+    padding:12px 14px;margin-bottom:8px;border-radius:8px;
+    background:var(--paper);border-left:4px solid var(--ink-soft);
+  }
+  .paso-num{
+    font-family:'JetBrains Mono', monospace;font-weight:800;font-size:12.5px;
+    width:22px;height:22px;border-radius:50%;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;color:#fff;
+    background:var(--ink-soft);
+  }
+  .paso:nth-child(1){border-left-color:#B8842E;} .paso:nth-child(1) .paso-num{background:#B8842E;}
+  .paso:nth-child(2){border-left-color:#2F6B5E;} .paso:nth-child(2) .paso-num{background:#2F6B5E;}
+  .paso:nth-child(3){border-left-color:#7A4FB0;} .paso:nth-child(3) .paso-num{background:#7A4FB0;}
+  .paso:nth-child(4){border-left-color:#2A6FA8;} .paso:nth-child(4) .paso-num{background:#2A6FA8;}
+  .paso:nth-child(5){border-left-color:#C0562E;} .paso:nth-child(5) .paso-num{background:#C0562E;}
+  .paso p{margin:0;font-size:14.5px;}
+  .paso .paso-titulo{font-weight:700;display:block;margin-bottom:2px;}
+
+  .analogia{
+    background:#FBF3E2;border:1.5px dashed #B8842E;border-radius:8px;
+    padding:14px 16px;margin:14px 0;font-size:14.5px;
+  }
+  .analogia .analogia-tag{
+    font-family:'JetBrains Mono', monospace;font-size:11px;font-weight:700;
+    text-transform:uppercase;letter-spacing:0.06em;color:#B8842E;
+    display:block;margin-bottom:6px;
+  }
+
+  /* Sistema de resolución estructurada: Datos / Fórmula / Resolución / Respuesta */
+  .resolucion{
+    border:2px solid var(--ink);border-radius:10px;
+    margin:16px 0;overflow:hidden;
+  }
+  .resolucion-bloque{
+    padding:14px 18px;border-bottom:1px solid var(--line);
+  }
+  .resolucion-bloque:last-child{border-bottom:none;}
+  .resolucion-bloque.datos{background:#FBF3E2;}
+  .resolucion-bloque.formula-usada{background:var(--paper);}
+  .resolucion-bloque.pasos{background:#FFFFFF;}
+  .resolucion-bloque.respuesta{background:#EAF3EE;}
+  .resolucion-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;
+    color:var(--ink-soft);margin:0 0 10px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .resolucion-label .num-badge{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:28px;height:28px;border-radius:50%;flex-shrink:0;
+    background:var(--ink);color:#fff;font-size:15px;font-weight:800;
+    font-family:'Inter', sans-serif;
+  }
+  .datos-lista{list-style:none;margin:0;padding:0;display:grid;gap:6px;}
+  .datos-lista li{
+    display:flex;align-items:baseline;gap:8px;font-size:14.5px;
+  }
+  .datos-lista .dato-simbolo{
+    font-family:'JetBrains Mono', monospace;font-weight:800;
+    min-width:34px;
+  }
+  .datos-lista .dato-nombre{color:var(--ink-soft);}
+  .datos-lista .dato-valor{font-weight:700;margin-left:auto;font-family:'JetBrains Mono', monospace;}
+  .resolucion-bloque.pasos .paso-r{
+    margin-bottom:10px;padding-left:14px;border-left:3px solid var(--ink-soft);
+  }
+  .resolucion-bloque.pasos .paso-r:last-child{margin-bottom:0;}
+  .resolucion-bloque.pasos .paso-r-titulo{
+    display:block;font-weight:700;font-size:13.5px;margin-bottom:2px;
+  }
+  .resolucion-bloque.respuesta p{
+    margin:0;font-size:15.5px;font-weight:700;color:var(--pine-dark);
+  }
+  .unidad{color:var(--ink-soft);font-weight:500;font-size:0.88em;}
+  .aviso-unidades{
+    display:flex;align-items:center;gap:8px;
+    background:#FBEAE5;border:1px solid #C0562E;border-radius:6px;
+    padding:8px 12px;margin-top:10px;font-size:13px;color:#8A3A1E;
+  }
+  .aviso-unidades strong{color:#8A3A1E;}
+
+  /* Errores frecuentes (mismo patrón visual que FAQ) */
+  .errores h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;color:#A0442E;}
+  .errores h3:first-of-type{margin-top:8px;}
+  .errores p{margin:0;color:var(--ink-soft);font-size:14.5px;}
 </style>
 </head>
 <body>
@@ -479,8 +597,11 @@
       <h2>Dos formas distintas de que fluya la corriente</h2>
       <p><strong>Corriente continua (CC):</strong> circula siempre en el mismo sentido, con un valor constante — como la de una pila o batería.</p>
       <p><strong>Corriente alterna (CA):</strong> cambia periódicamente de sentido, oscilando como una onda — es la que llega a los enchufes de tu casa.</p>
-      <div class="formula-box">f = 1 / T</div>
-      <p class="var-list"><span>f</span> = frecuencia (Hz, ciclos por segundo) &nbsp;·&nbsp; <span>T</span> = período (segundos, tiempo de un ciclo completo)</p>
+      <div class="formula-box"><span class="term-1">f</span> = 1 / <span class="term-2">T</span></div>
+      <div class="formula-leyenda">
+        <div class="leyenda-item"><span class="swatch swatch-1"></span> <strong class="term-1">f</strong> = frecuencia — en Hz (ciclos por segundo)</div>
+        <div class="leyenda-item"><span class="swatch swatch-2"></span> <strong class="term-2">T</strong> = período — en segundos (tiempo de un ciclo completo)</div>
+      </div>
     </div>
 
     <div class="card dato-freak">
@@ -502,12 +623,48 @@
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
-      <div class="example">
-        <p><strong>La corriente alterna en Argentina y gran parte de Latinoamérica tiene una frecuencia de 50 Hz. ¿Cuál es su período?</strong></p>
-        <p>T = 1/f = 1/50 = <strong>0.02 s (20 milisegundos)</strong></p>
-        <p>Significa que la corriente cambia de sentido, completa un ciclo entero, ¡50 veces por segundo!</p>
+      <h2>Ejemplo resuelto, paso a paso</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">La corriente alterna en Argentina y gran parte de Latinoamérica tiene una frecuencia de 50 Hz. ¿Cuál es su período?</p>
+      <div class="resolucion">
+        <div class="resolucion-bloque datos">
+          <p class="resolucion-label"><span class="num-badge">1</span>Datos</p>
+          <ul class="datos-lista">
+            <li><span class="dato-simbolo term-1">f</span><span class="dato-nombre">frecuencia (dice "Hz")</span><span class="dato-valor term-1">50 Hz</span></li>
+          </ul>
+        </div>
+        <div class="resolucion-bloque formula-usada">
+          <p class="resolucion-label"><span class="num-badge">2</span>Fórmula utilizada</p>
+          <p style="color:var(--ink-soft);font-size:13.5px;margin:0 0 8px;">Como me piden el período, despejo <span class="term-2">T</span> de la fórmula original:</p>
+          <div class="formula-box" style="margin:0;"><span class="term-2">T</span> = 1 / <span class="term-1">f</span></div>
+        </div>
+        <div class="resolucion-bloque pasos">
+          <p class="resolucion-label"><span class="num-badge">3</span>Resolución</p>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Reemplazo cada incógnita por su dato</span>
+            <span class="term-2">T</span> = 1 / <span class="term-1">50 Hz</span>
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Resuelvo la ecuación</span>
+            T = 1/50 = <strong>0.02 s (20 milisegundos)</strong>
+          </div>
+          <div class="aviso-unidades"><strong>Ojo con las unidades:</strong> 1/Hz = s — el período siempre queda en segundos al invertir la frecuencia.</div>
+        </div>
+        <div class="resolucion-bloque respuesta">
+          <p class="resolucion-label"><span class="num-badge">4</span>Respuesta</p>
+          <p>El período es <span class="term-2">T = 0.02 s</span></p>
+        </div>
       </div>
+      <p style="color:var(--ink-soft);font-size:14px;margin-top:10px;">Significa que la corriente cambia de sentido, completa un ciclo entero, ¡50 veces por segundo!</p>
+    </div>
+
+    <div class="card errores" data-tag="Errores frecuentes">
+      <h2>Errores frecuentes</h2>
+      <h3>Confundir frecuencia con período</h3>
+      <p>La frecuencia (Hz) es cuántos ciclos hay por segundo; el período (s) es cuánto dura un solo ciclo — son inversos uno del otro, no lo mismo.</p>
+      <h3>Dejar el resultado en segundos "raros" sin convertir</h3>
+      <p>Un período de 0.02 s es más fácil de entender como 20 milisegundos — no es obligatorio convertir, pero ayuda a dimensionar qué tan rápido pasa realmente.</p>
+      <h3>Pensar que la corriente continua no tiene ninguna frecuencia</h3>
+      <p>En rigor, la CC tiene frecuencia 0 Hz (nunca cambia de sentido) — no es que "no aplique" el concepto, es un caso particular de él.</p>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
