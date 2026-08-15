@@ -375,6 +375,117 @@
     border-top:1px dashed var(--line);
     padding-top:8px;margin-top:8px !important;
   }
+
+  /* Sistema de color para partes de una fórmula (mismo color = mismo rol en toda la página) */
+  .term-1{color:#B8842E;font-weight:800;}
+  .term-2{color:#2F6B5E;font-weight:800;}
+  .term-3{color:#7A4FB0;font-weight:800;}
+  .term-4{color:#2A6FA8;font-weight:800;}
+  .term-5{color:#C0562E;font-weight:800;}
+  .formula-leyenda{
+    display:flex;flex-wrap:wrap;gap:8px 20px;
+    margin-top:12px;padding-top:12px;
+    border-top:1px dashed var(--line);
+  }
+  .formula-leyenda .leyenda-item{
+    display:flex;align-items:flex-start;gap:7px;
+    font-size:13.5px;color:var(--ink-soft);max-width:260px;
+  }
+  .formula-leyenda .swatch{
+    display:inline-block;width:11px;height:11px;border-radius:3px;
+    margin-top:3px;flex-shrink:0;
+  }
+  .swatch-1{background:#B8842E;} .swatch-2{background:#2F6B5E;}
+  .swatch-3{background:#7A4FB0;} .swatch-4{background:#2A6FA8;} .swatch-5{background:#C0562E;}
+
+  /* Paso a paso con color por paso */
+  .pasos-resueltos{margin:14px 0;}
+  .paso{
+    display:flex;gap:12px;align-items:flex-start;
+    padding:12px 14px;margin-bottom:8px;border-radius:8px;
+    background:var(--paper);border-left:4px solid var(--ink-soft);
+  }
+  .paso-num{
+    font-family:'JetBrains Mono', monospace;font-weight:800;font-size:12.5px;
+    width:22px;height:22px;border-radius:50%;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;color:#fff;
+    background:var(--ink-soft);
+  }
+  .paso:nth-child(1){border-left-color:#B8842E;} .paso:nth-child(1) .paso-num{background:#B8842E;}
+  .paso:nth-child(2){border-left-color:#2F6B5E;} .paso:nth-child(2) .paso-num{background:#2F6B5E;}
+  .paso:nth-child(3){border-left-color:#7A4FB0;} .paso:nth-child(3) .paso-num{background:#7A4FB0;}
+  .paso:nth-child(4){border-left-color:#2A6FA8;} .paso:nth-child(4) .paso-num{background:#2A6FA8;}
+  .paso:nth-child(5){border-left-color:#C0562E;} .paso:nth-child(5) .paso-num{background:#C0562E;}
+  .paso p{margin:0;font-size:14.5px;}
+  .paso .paso-titulo{font-weight:700;display:block;margin-bottom:2px;}
+
+  .analogia{
+    background:#FBF3E2;border:1.5px dashed #B8842E;border-radius:8px;
+    padding:14px 16px;margin:14px 0;font-size:14.5px;
+  }
+  .analogia .analogia-tag{
+    font-family:'JetBrains Mono', monospace;font-size:11px;font-weight:700;
+    text-transform:uppercase;letter-spacing:0.06em;color:#B8842E;
+    display:block;margin-bottom:6px;
+  }
+
+  /* Sistema de resolución estructurada: Datos / Fórmula / Resolución / Respuesta */
+  .resolucion{
+    border:2px solid var(--ink);border-radius:10px;
+    margin:16px 0;overflow:hidden;
+  }
+  .resolucion-bloque{
+    padding:14px 18px;border-bottom:1px solid var(--line);
+  }
+  .resolucion-bloque:last-child{border-bottom:none;}
+  .resolucion-bloque.datos{background:#FBF3E2;}
+  .resolucion-bloque.formula-usada{background:var(--paper);}
+  .resolucion-bloque.pasos{background:#FFFFFF;}
+  .resolucion-bloque.respuesta{background:#EAF3EE;}
+  .resolucion-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;
+    color:var(--ink-soft);margin:0 0 10px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .resolucion-label .num-badge{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:28px;height:28px;border-radius:50%;flex-shrink:0;
+    background:var(--ink);color:#fff;font-size:15px;font-weight:800;
+    font-family:'Inter', sans-serif;
+  }
+  .datos-lista{list-style:none;margin:0;padding:0;display:grid;gap:6px;}
+  .datos-lista li{
+    display:flex;align-items:baseline;gap:8px;font-size:14.5px;
+  }
+  .datos-lista .dato-simbolo{
+    font-family:'JetBrains Mono', monospace;font-weight:800;
+    min-width:34px;
+  }
+  .datos-lista .dato-nombre{color:var(--ink-soft);}
+  .datos-lista .dato-valor{font-weight:700;margin-left:auto;font-family:'JetBrains Mono', monospace;}
+  .resolucion-bloque.pasos .paso-r{
+    margin-bottom:10px;padding-left:14px;border-left:3px solid var(--ink-soft);
+  }
+  .resolucion-bloque.pasos .paso-r:last-child{margin-bottom:0;}
+  .resolucion-bloque.pasos .paso-r-titulo{
+    display:block;font-weight:700;font-size:13.5px;margin-bottom:2px;
+  }
+  .resolucion-bloque.respuesta p{
+    margin:0;font-size:15.5px;font-weight:700;color:var(--pine-dark);
+  }
+  .unidad{color:var(--ink-soft);font-weight:500;font-size:0.88em;}
+  .aviso-unidades{
+    display:flex;align-items:center;gap:8px;
+    background:#FBEAE5;border:1px solid #C0562E;border-radius:6px;
+    padding:8px 12px;margin-top:10px;font-size:13px;color:#8A3A1E;
+  }
+  .aviso-unidades strong{color:#8A3A1E;}
+
+  /* Errores frecuentes (mismo patrón visual que FAQ) */
+  .errores h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;color:#A0442E;}
+  .errores h3:first-of-type{margin-top:8px;}
+  .errores p{margin:0;color:var(--ink-soft);font-size:14.5px;}
 </style>
 </head>
 <body>
@@ -499,9 +610,15 @@
     <div class="card" data-tag="Concepto">
       <h2>¿Qué son los ácidos y las bases?</h2>
       <p>Un <strong>ácido</strong> es una sustancia que libera iones H⁺ (hidrógeno) cuando se disuelve en agua. Una <strong>base</strong> es una sustancia que libera iones OH⁻ (hidróxido), o que "captura" H⁺. Cuantos más H⁺ libres hay, más ácida es la solución.</p>
-      <div class="formula-box">pH = −log[H⁺]</div>
-      <p class="var-list"><span>pH</span> = medida de acidez (escala 0 a 14) &nbsp;·&nbsp; <span>[H⁺]</span> = concentración de iones hidrógeno (mol/L)</p>
-      <p style="color:var(--ink-soft);font-size:14.5px;">Como la fórmula tiene un logaritmo negativo, más H⁺ (más ácido) da un pH más bajo, y menos H⁺ (más básico) da un pH más alto — es una escala invertida respecto a la concentración.</p>
+      <div class="formula-box"><span class="term-1">pH</span> = −log[<span class="term-2">H⁺</span>]</div>
+      <div class="formula-leyenda">
+        <div class="leyenda-item"><span class="swatch swatch-1"></span> <strong class="term-1">pH</strong> = medida de acidez — escala 0 a 14, sin unidad</div>
+        <div class="leyenda-item"><span class="swatch swatch-2"></span> <strong class="term-2">[H⁺]</strong> = concentración de iones hidrógeno — en mol/L</div>
+      </div>
+      <div class="analogia">
+        <span class="analogia-tag">Piénsalo así</span>
+        Como la fórmula tiene un logaritmo negativo, más H⁺ (más ácido) da un pH más bajo, y menos H⁺ (más básico) da un pH más alto — es una escala invertida respecto a la concentración.
+      </div>
     </div>
 
     <div class="card" data-tag="Concepto">
@@ -530,12 +647,46 @@
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
-      <div class="example">
-        <p><strong>Una solución tiene [H⁺] = 0.0001 mol/L (10⁻⁴). ¿Cuál es su pH?</strong></p>
-        <p>pH = −log(10⁻⁴) = <strong>4</strong></p>
-        <p>Con pH=4, es una solución ácida (menor a 7) — similar a un jugo de manzana.</p>
+      <h2>Ejemplo resuelto, paso a paso</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">Una solución tiene [H⁺] = 0.0001 mol/L (10⁻⁴). ¿Cuál es su pH?</p>
+      <div class="resolucion">
+        <div class="resolucion-bloque datos">
+          <p class="resolucion-label"><span class="num-badge">1</span>Datos</p>
+          <ul class="datos-lista">
+            <li><span class="dato-simbolo term-2">[H⁺]</span><span class="dato-nombre">concentración de hidrógeno (dice "mol/L")</span><span class="dato-valor term-2">10⁻⁴ mol/L</span></li>
+          </ul>
+        </div>
+        <div class="resolucion-bloque formula-usada">
+          <p class="resolucion-label"><span class="num-badge">2</span>Fórmula utilizada</p>
+          <div class="formula-box" style="margin:0;"><span class="term-1">pH</span> = −log[<span class="term-2">H⁺</span>]</div>
+        </div>
+        <div class="resolucion-bloque pasos">
+          <p class="resolucion-label"><span class="num-badge">3</span>Resolución</p>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Reemplazo el dato en la fórmula</span>
+            <span class="term-1">pH</span> = −log(<span class="term-2">10⁻⁴</span>)
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Resuelvo el logaritmo (log de 10⁻⁴ es −4)</span>
+            pH = −(−4) = <strong>4</strong>
+          </div>
+        </div>
+        <div class="resolucion-bloque respuesta">
+          <p class="resolucion-label"><span class="num-badge">4</span>Respuesta</p>
+          <p>El pH es <span class="term-1">4</span></p>
+        </div>
       </div>
+      <p style="color:var(--ink-soft);font-size:14px;margin-top:10px;">Con pH=4, es una solución ácida (menor a 7) — similar a un jugo de manzana.</p>
+    </div>
+
+    <div class="card errores" data-tag="Errores frecuentes">
+      <h2>Errores frecuentes</h2>
+      <h3>Olvidar el signo negativo de la fórmula</h3>
+      <p>La fórmula tiene un signo "menos" delante del logaritmo — olvidarlo da un pH negativo cuando en realidad debería ser positivo.</p>
+      <h3>Confundir cuándo el pH sube y cuándo baja</h3>
+      <p>Más concentración de H⁺ (más ácido) da un pH MÁS BAJO, no más alto — es una relación inversa, fácil de confundir a primera vista.</p>
+      <h3>Pensar que pH=0 es "lo más ácido posible"</h3>
+      <p>La escala de pH puede técnicamente ir más allá de 0 o 14 en soluciones muy concentradas — el rango 0-14 es el más común, pero no es un límite absoluto matemático.</p>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
@@ -562,8 +713,11 @@
       <h2>Neutralización: ácido + base = sal + agua</h2>
       <p>Cuando un ácido y una base reaccionan, los iones H⁺ y OH⁻ se combinan para formar agua, y lo que queda de la reacción forma una sal. Este proceso se llama <strong>neutralización</strong>.</p>
       <div class="formula-box">Ácido + Base → Sal + Agua</div>
-      <div class="formula-box">pH + pOH = 14</div>
-      <p class="var-list">Ejemplo clásico: HCl (ácido clorhídrico) + NaOH (hidróxido de sodio) → NaCl (sal de mesa) + H₂O</p>
+      <div class="formula-box"><span class="term-1">pH</span> + <span class="term-2">pOH</span> = 14</div>
+      <div class="analogia">
+        <span class="analogia-tag">Piénsalo así</span>
+        Ejemplo clásico: HCl (ácido clorhídrico) + NaOH (hidróxido de sodio) → NaCl (sal de mesa) + H₂O. El pH y el pOH son complementarios — si conoces uno, el otro sale de restarle 14.
+      </div>
     </div>
 
     <div class="card" data-tag="Calculadora">

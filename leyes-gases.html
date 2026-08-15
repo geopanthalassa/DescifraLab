@@ -375,6 +375,117 @@
     border-top:1px dashed var(--line);
     padding-top:8px;margin-top:8px !important;
   }
+
+  /* Sistema de color para partes de una fórmula (mismo color = mismo rol en toda la página) */
+  .term-1{color:#B8842E;font-weight:800;}
+  .term-2{color:#2F6B5E;font-weight:800;}
+  .term-3{color:#7A4FB0;font-weight:800;}
+  .term-4{color:#2A6FA8;font-weight:800;}
+  .term-5{color:#C0562E;font-weight:800;}
+  .formula-leyenda{
+    display:flex;flex-wrap:wrap;gap:8px 20px;
+    margin-top:12px;padding-top:12px;
+    border-top:1px dashed var(--line);
+  }
+  .formula-leyenda .leyenda-item{
+    display:flex;align-items:flex-start;gap:7px;
+    font-size:13.5px;color:var(--ink-soft);max-width:260px;
+  }
+  .formula-leyenda .swatch{
+    display:inline-block;width:11px;height:11px;border-radius:3px;
+    margin-top:3px;flex-shrink:0;
+  }
+  .swatch-1{background:#B8842E;} .swatch-2{background:#2F6B5E;}
+  .swatch-3{background:#7A4FB0;} .swatch-4{background:#2A6FA8;} .swatch-5{background:#C0562E;}
+
+  /* Paso a paso con color por paso */
+  .pasos-resueltos{margin:14px 0;}
+  .paso{
+    display:flex;gap:12px;align-items:flex-start;
+    padding:12px 14px;margin-bottom:8px;border-radius:8px;
+    background:var(--paper);border-left:4px solid var(--ink-soft);
+  }
+  .paso-num{
+    font-family:'JetBrains Mono', monospace;font-weight:800;font-size:12.5px;
+    width:22px;height:22px;border-radius:50%;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;color:#fff;
+    background:var(--ink-soft);
+  }
+  .paso:nth-child(1){border-left-color:#B8842E;} .paso:nth-child(1) .paso-num{background:#B8842E;}
+  .paso:nth-child(2){border-left-color:#2F6B5E;} .paso:nth-child(2) .paso-num{background:#2F6B5E;}
+  .paso:nth-child(3){border-left-color:#7A4FB0;} .paso:nth-child(3) .paso-num{background:#7A4FB0;}
+  .paso:nth-child(4){border-left-color:#2A6FA8;} .paso:nth-child(4) .paso-num{background:#2A6FA8;}
+  .paso:nth-child(5){border-left-color:#C0562E;} .paso:nth-child(5) .paso-num{background:#C0562E;}
+  .paso p{margin:0;font-size:14.5px;}
+  .paso .paso-titulo{font-weight:700;display:block;margin-bottom:2px;}
+
+  .analogia{
+    background:#FBF3E2;border:1.5px dashed #B8842E;border-radius:8px;
+    padding:14px 16px;margin:14px 0;font-size:14.5px;
+  }
+  .analogia .analogia-tag{
+    font-family:'JetBrains Mono', monospace;font-size:11px;font-weight:700;
+    text-transform:uppercase;letter-spacing:0.06em;color:#B8842E;
+    display:block;margin-bottom:6px;
+  }
+
+  /* Sistema de resolución estructurada: Datos / Fórmula / Resolución / Respuesta */
+  .resolucion{
+    border:2px solid var(--ink);border-radius:10px;
+    margin:16px 0;overflow:hidden;
+  }
+  .resolucion-bloque{
+    padding:14px 18px;border-bottom:1px solid var(--line);
+  }
+  .resolucion-bloque:last-child{border-bottom:none;}
+  .resolucion-bloque.datos{background:#FBF3E2;}
+  .resolucion-bloque.formula-usada{background:var(--paper);}
+  .resolucion-bloque.pasos{background:#FFFFFF;}
+  .resolucion-bloque.respuesta{background:#EAF3EE;}
+  .resolucion-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;
+    color:var(--ink-soft);margin:0 0 10px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .resolucion-label .num-badge{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:28px;height:28px;border-radius:50%;flex-shrink:0;
+    background:var(--ink);color:#fff;font-size:15px;font-weight:800;
+    font-family:'Inter', sans-serif;
+  }
+  .datos-lista{list-style:none;margin:0;padding:0;display:grid;gap:6px;}
+  .datos-lista li{
+    display:flex;align-items:baseline;gap:8px;font-size:14.5px;
+  }
+  .datos-lista .dato-simbolo{
+    font-family:'JetBrains Mono', monospace;font-weight:800;
+    min-width:34px;
+  }
+  .datos-lista .dato-nombre{color:var(--ink-soft);}
+  .datos-lista .dato-valor{font-weight:700;margin-left:auto;font-family:'JetBrains Mono', monospace;}
+  .resolucion-bloque.pasos .paso-r{
+    margin-bottom:10px;padding-left:14px;border-left:3px solid var(--ink-soft);
+  }
+  .resolucion-bloque.pasos .paso-r:last-child{margin-bottom:0;}
+  .resolucion-bloque.pasos .paso-r-titulo{
+    display:block;font-weight:700;font-size:13.5px;margin-bottom:2px;
+  }
+  .resolucion-bloque.respuesta p{
+    margin:0;font-size:15.5px;font-weight:700;color:var(--pine-dark);
+  }
+  .unidad{color:var(--ink-soft);font-weight:500;font-size:0.88em;}
+  .aviso-unidades{
+    display:flex;align-items:center;gap:8px;
+    background:#FBEAE5;border:1px solid #C0562E;border-radius:6px;
+    padding:8px 12px;margin-top:10px;font-size:13px;color:#8A3A1E;
+  }
+  .aviso-unidades strong{color:#8A3A1E;}
+
+  /* Errores frecuentes (mismo patrón visual que FAQ) */
+  .errores h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;color:#A0442E;}
+  .errores h3:first-of-type{margin-top:8px;}
+  .errores p{margin:0;color:var(--ink-soft);font-size:14.5px;}
 </style>
 </head>
 <body>
@@ -499,8 +610,15 @@
     <div class="card" data-tag="Concepto">
       <h2>¿Por qué los gases se comportan así?</h2>
       <p>Según la teoría cinético-molecular, un gas es un montón de partículas moviéndose libremente en todas direcciones, chocando entre sí y contra las paredes del recipiente. Esos choques contra las paredes son justamente lo que sentimos como <strong>presión</strong>.</p>
-      <div class="formula-box">Ley de Boyle: P₁ · V₁ = P₂ · V₂ (a temperatura constante)</div>
-      <p class="var-list"><span>P</span> = presión &nbsp;·&nbsp; <span>V</span> = volumen — a temperatura fija, si comprimes un gas (menos volumen), sus partículas chocan más seguido contra las paredes, así que la presión sube.</p>
+      <div class="formula-box"><span class="term-1">P₁</span> · <span class="term-2">V₁</span> = <span class="term-3">P₂</span> · <span class="term-4">V₂</span></div>
+      <div class="formula-leyenda">
+        <div class="leyenda-item"><span class="swatch swatch-1"></span> <strong class="term-1">P₁</strong>, <strong class="term-2">V₁</strong> = presión y volumen iniciales</div>
+        <div class="leyenda-item"><span class="swatch swatch-3"></span> <strong class="term-3">P₂</strong>, <strong class="term-4">V₂</strong> = presión y volumen finales (a temperatura constante)</div>
+      </div>
+      <div class="analogia">
+        <span class="analogia-tag">Piénsalo así</span>
+        A temperatura fija, si comprimes un gas (menos volumen), sus partículas chocan más seguido contra las paredes, así que la presión sube — como cuando aprietas una jeringa tapada: cuanto más empujas, más te cuesta seguir empujando.
+      </div>
     </div>
 
     <div class="card" data-tag="Calculadora">
@@ -515,12 +633,49 @@
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
-      <div class="example">
-        <p><strong>Un gas ocupa 4 L a 2 atm de presión. Si lo comprimes hasta 4 atm (misma temperatura), ¿qué volumen ocupa?</strong></p>
-        <p>P₁V₁ = P₂V₂ → 2×4 = 4×V₂ → V₂ = 8/4 = <strong>2 L</strong></p>
-        <p>Al duplicar la presión, el volumen se redujo a la mitad — es una relación inversamente proporcional.</p>
+      <h2>Ejemplo resuelto, paso a paso</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">Un gas ocupa 4 L a 2 atm de presión. Si lo comprimes hasta 4 atm (misma temperatura), ¿qué volumen ocupa?</p>
+      <div class="resolucion">
+        <div class="resolucion-bloque datos">
+          <p class="resolucion-label"><span class="num-badge">1</span>Datos</p>
+          <ul class="datos-lista">
+            <li><span class="dato-simbolo term-1">P₁</span><span class="dato-nombre">presión inicial (dice "atm")</span><span class="dato-valor term-1">2 atm</span></li>
+            <li><span class="dato-simbolo term-2">V₁</span><span class="dato-nombre">volumen inicial (dice "litros")</span><span class="dato-valor term-2">4 L</span></li>
+            <li><span class="dato-simbolo term-3">P₂</span><span class="dato-nombre">presión final</span><span class="dato-valor term-3">4 atm</span></li>
+          </ul>
+        </div>
+        <div class="resolucion-bloque formula-usada">
+          <p class="resolucion-label"><span class="num-badge">2</span>Fórmula utilizada</p>
+          <p style="color:var(--ink-soft);font-size:13.5px;margin:0 0 8px;">Como me piden el volumen final, despejo V₂:</p>
+          <div class="formula-box" style="margin:0;"><span class="term-4">V₂</span> = <span class="term-1">P₁</span>·<span class="term-2">V₁</span> / <span class="term-3">P₂</span></div>
+        </div>
+        <div class="resolucion-bloque pasos">
+          <p class="resolucion-label"><span class="num-badge">3</span>Resolución</p>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Reemplazo cada incógnita por su dato</span>
+            <span class="term-4">V₂</span> = (<span class="term-1">2</span> × <span class="term-2">4</span>) / <span class="term-3">4</span>
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Resuelvo la ecuación</span>
+            V₂ = 8/4 = <strong>2 L</strong>
+          </div>
+        </div>
+        <div class="resolucion-bloque respuesta">
+          <p class="resolucion-label"><span class="num-badge">4</span>Respuesta</p>
+          <p>El gas ocupa <span class="term-4">V₂ = 2 L</span></p>
+        </div>
       </div>
+      <p style="color:var(--ink-soft);font-size:14px;margin-top:10px;">Al duplicar la presión, el volumen se redujo a la mitad — es una relación inversamente proporcional.</p>
+    </div>
+
+    <div class="card errores" data-tag="Errores frecuentes">
+      <h2>Errores frecuentes</h2>
+      <h3>Olvidar que la temperatura debe mantenerse constante</h3>
+      <p>La Ley de Boyle solo aplica si la temperatura no cambia — si el problema menciona un cambio de temperatura, hace falta otra ley (Charles o Gay-Lussac) o la ley combinada de los gases.</p>
+      <h3>Pensar que más presión significa más volumen</h3>
+      <p>Es al revés: presión y volumen son inversamente proporcionales — a más presión, menos volumen (y viceversa), mientras la temperatura no cambie.</p>
+      <h3>Mezclar unidades de presión sin convertir</h3>
+      <p>Si un dato está en atm y otro en kPa o mmHg, hay que convertir todo a la misma unidad antes de aplicar la fórmula.</p>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
@@ -547,8 +702,14 @@
       <h2>Ley de Charles y la Ecuación General del Gas Ideal</h2>
       <p>Mientras la Ley de Boyle relaciona presión y volumen, la <strong>Ley de Charles</strong> relaciona volumen y temperatura (a presión constante) — un gas se expande al calentarse. Combinando todas las variables, se llega a la ecuación más general:</p>
       <div class="formula-box">Ley de Charles: V₁/T₁ = V₂/T₂ (a presión constante)</div>
-      <div class="formula-box">Gas ideal: P·V = n·R·T</div>
-      <p class="var-list"><span>n</span> = moles de gas &nbsp;·&nbsp; <span>R</span> = 0.0821 atm·L/(mol·K) &nbsp;·&nbsp; <span>T</span> = temperatura, siempre en <strong>Kelvin</strong> (K = °C + 273)</p>
+      <div class="formula-box">Gas ideal: <span class="term-1">P</span>·<span class="term-2">V</span> = <span class="term-3">n</span>·R·<span class="term-4">T</span></div>
+      <div class="formula-leyenda">
+        <div class="leyenda-item"><span class="swatch swatch-1"></span> <strong class="term-1">P</strong> = presión — en atm</div>
+        <div class="leyenda-item"><span class="swatch swatch-2"></span> <strong class="term-2">V</strong> = volumen — en L</div>
+        <div class="leyenda-item"><span class="swatch swatch-3"></span> <strong class="term-3">n</strong> = moles de gas</div>
+        <div class="leyenda-item"><span class="swatch swatch-4"></span> <strong class="term-4">T</strong> = temperatura — siempre en <strong>Kelvin</strong> (K = °C + 273)</div>
+      </div>
+      <p style="color:var(--ink-soft);font-size:14.5px;">R = 0.0821 atm·L/(mol·K) — es una constante fija, siempre el mismo valor.</p>
     </div>
 
     <div class="card" data-tag="Calculadora">
@@ -563,13 +724,53 @@
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
-      <div class="example">
-        <p><strong>¿Cuántos moles de gas hay en 22.4 L a 1 atm y 0°C (condiciones normales)?</strong></p>
-        <p>T = 0 + 273 = 273 K</p>
-        <p>n = PV/RT = (1×22.4)/(0.0821×273) = 22.4/22.41 ≈ <strong>1 mol</strong></p>
-        <p>No es casualidad — 22.4 L es el volumen que ocupa exactamente 1 mol de cualquier gas ideal en condiciones normales de presión y temperatura (CNPT).</p>
+      <h2>Ejemplo resuelto, paso a paso</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">¿Cuántos moles de gas hay en 22.4 L a 1 atm y 0°C (condiciones normales)?</p>
+      <div class="resolucion">
+        <div class="resolucion-bloque datos">
+          <p class="resolucion-label"><span class="num-badge">1</span>Datos</p>
+          <ul class="datos-lista">
+            <li><span class="dato-simbolo term-1">P</span><span class="dato-nombre">presión (dice "atm")</span><span class="dato-valor term-1">1 atm</span></li>
+            <li><span class="dato-simbolo term-2">V</span><span class="dato-nombre">volumen (dice "litros")</span><span class="dato-valor term-2">22.4 L</span></li>
+            <li><span class="dato-nombre">temperatura (dice "0°C" — hay que convertir a Kelvin)</span><span class="dato-valor">0°C = 273 K</span></li>
+          </ul>
+        </div>
+        <div class="resolucion-bloque formula-usada">
+          <p class="resolucion-label"><span class="num-badge">2</span>Fórmula utilizada</p>
+          <p style="color:var(--ink-soft);font-size:13.5px;margin:0 0 8px;">Como me piden los moles, despejo n:</p>
+          <div class="formula-box" style="margin:0;"><span class="term-3">n</span> = <span class="term-1">P</span>·<span class="term-2">V</span> / (R·<span class="term-4">T</span>)</div>
+        </div>
+        <div class="resolucion-bloque pasos">
+          <p class="resolucion-label"><span class="num-badge">3</span>Resolución</p>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Convierto la temperatura a Kelvin primero</span>
+            <span class="term-4">T</span> = 0 + 273 = 273 K
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Reemplazo cada incógnita por su dato</span>
+            <span class="term-3">n</span> = (<span class="term-1">1</span> × <span class="term-2">22.4</span>) / (0.0821 × <span class="term-4">273</span>)
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Resuelvo la ecuación</span>
+            n = 22.4/22.41 ≈ <strong>1 mol</strong>
+          </div>
+        </div>
+        <div class="resolucion-bloque respuesta">
+          <p class="resolucion-label"><span class="num-badge">4</span>Respuesta</p>
+          <p>Hay <span class="term-3">n ≈ 1 mol</span> de gas</p>
+        </div>
       </div>
+      <p style="color:var(--ink-soft);font-size:14px;margin-top:10px;">No es casualidad — 22.4 L es el volumen que ocupa exactamente 1 mol de cualquier gas ideal en condiciones normales de presión y temperatura (CNPT).</p>
+    </div>
+
+    <div class="card errores" data-tag="Errores frecuentes">
+      <h2>Errores frecuentes</h2>
+      <h3>Usar Celsius en vez de Kelvin</h3>
+      <p>Esta fórmula SIEMPRE necesita la temperatura en Kelvin — usar Celsius directamente da un resultado completamente equivocado, ya que la ecuación depende de que la escala empiece en el cero absoluto.</p>
+      <h3>Olvidar sumar 273 al convertir</h3>
+      <p>La conversión es K = °C + 273 — es un error común restar en vez de sumar, o directamente olvidarse de convertir.</p>
+      <h3>Confundir R con otras constantes de la materia</h3>
+      <p>R=0.0821 atm·L/(mol·K) es específica para trabajar con atm y litros — si el problema usa otras unidades de presión (como Pa), R tiene un valor numérico distinto.</p>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">

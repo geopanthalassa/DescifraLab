@@ -375,6 +375,117 @@
     border-top:1px dashed var(--line);
     padding-top:8px;margin-top:8px !important;
   }
+
+  /* Sistema de color para partes de una fórmula (mismo color = mismo rol en toda la página) */
+  .term-1{color:#B8842E;font-weight:800;}
+  .term-2{color:#2F6B5E;font-weight:800;}
+  .term-3{color:#7A4FB0;font-weight:800;}
+  .term-4{color:#2A6FA8;font-weight:800;}
+  .term-5{color:#C0562E;font-weight:800;}
+  .formula-leyenda{
+    display:flex;flex-wrap:wrap;gap:8px 20px;
+    margin-top:12px;padding-top:12px;
+    border-top:1px dashed var(--line);
+  }
+  .formula-leyenda .leyenda-item{
+    display:flex;align-items:flex-start;gap:7px;
+    font-size:13.5px;color:var(--ink-soft);max-width:260px;
+  }
+  .formula-leyenda .swatch{
+    display:inline-block;width:11px;height:11px;border-radius:3px;
+    margin-top:3px;flex-shrink:0;
+  }
+  .swatch-1{background:#B8842E;} .swatch-2{background:#2F6B5E;}
+  .swatch-3{background:#7A4FB0;} .swatch-4{background:#2A6FA8;} .swatch-5{background:#C0562E;}
+
+  /* Paso a paso con color por paso */
+  .pasos-resueltos{margin:14px 0;}
+  .paso{
+    display:flex;gap:12px;align-items:flex-start;
+    padding:12px 14px;margin-bottom:8px;border-radius:8px;
+    background:var(--paper);border-left:4px solid var(--ink-soft);
+  }
+  .paso-num{
+    font-family:'JetBrains Mono', monospace;font-weight:800;font-size:12.5px;
+    width:22px;height:22px;border-radius:50%;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;color:#fff;
+    background:var(--ink-soft);
+  }
+  .paso:nth-child(1){border-left-color:#B8842E;} .paso:nth-child(1) .paso-num{background:#B8842E;}
+  .paso:nth-child(2){border-left-color:#2F6B5E;} .paso:nth-child(2) .paso-num{background:#2F6B5E;}
+  .paso:nth-child(3){border-left-color:#7A4FB0;} .paso:nth-child(3) .paso-num{background:#7A4FB0;}
+  .paso:nth-child(4){border-left-color:#2A6FA8;} .paso:nth-child(4) .paso-num{background:#2A6FA8;}
+  .paso:nth-child(5){border-left-color:#C0562E;} .paso:nth-child(5) .paso-num{background:#C0562E;}
+  .paso p{margin:0;font-size:14.5px;}
+  .paso .paso-titulo{font-weight:700;display:block;margin-bottom:2px;}
+
+  .analogia{
+    background:#FBF3E2;border:1.5px dashed #B8842E;border-radius:8px;
+    padding:14px 16px;margin:14px 0;font-size:14.5px;
+  }
+  .analogia .analogia-tag{
+    font-family:'JetBrains Mono', monospace;font-size:11px;font-weight:700;
+    text-transform:uppercase;letter-spacing:0.06em;color:#B8842E;
+    display:block;margin-bottom:6px;
+  }
+
+  /* Sistema de resolución estructurada: Datos / Fórmula / Resolución / Respuesta */
+  .resolucion{
+    border:2px solid var(--ink);border-radius:10px;
+    margin:16px 0;overflow:hidden;
+  }
+  .resolucion-bloque{
+    padding:14px 18px;border-bottom:1px solid var(--line);
+  }
+  .resolucion-bloque:last-child{border-bottom:none;}
+  .resolucion-bloque.datos{background:#FBF3E2;}
+  .resolucion-bloque.formula-usada{background:var(--paper);}
+  .resolucion-bloque.pasos{background:#FFFFFF;}
+  .resolucion-bloque.respuesta{background:#EAF3EE;}
+  .resolucion-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;
+    color:var(--ink-soft);margin:0 0 10px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .resolucion-label .num-badge{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:28px;height:28px;border-radius:50%;flex-shrink:0;
+    background:var(--ink);color:#fff;font-size:15px;font-weight:800;
+    font-family:'Inter', sans-serif;
+  }
+  .datos-lista{list-style:none;margin:0;padding:0;display:grid;gap:6px;}
+  .datos-lista li{
+    display:flex;align-items:baseline;gap:8px;font-size:14.5px;
+  }
+  .datos-lista .dato-simbolo{
+    font-family:'JetBrains Mono', monospace;font-weight:800;
+    min-width:34px;
+  }
+  .datos-lista .dato-nombre{color:var(--ink-soft);}
+  .datos-lista .dato-valor{font-weight:700;margin-left:auto;font-family:'JetBrains Mono', monospace;}
+  .resolucion-bloque.pasos .paso-r{
+    margin-bottom:10px;padding-left:14px;border-left:3px solid var(--ink-soft);
+  }
+  .resolucion-bloque.pasos .paso-r:last-child{margin-bottom:0;}
+  .resolucion-bloque.pasos .paso-r-titulo{
+    display:block;font-weight:700;font-size:13.5px;margin-bottom:2px;
+  }
+  .resolucion-bloque.respuesta p{
+    margin:0;font-size:15.5px;font-weight:700;color:var(--pine-dark);
+  }
+  .unidad{color:var(--ink-soft);font-weight:500;font-size:0.88em;}
+  .aviso-unidades{
+    display:flex;align-items:center;gap:8px;
+    background:#FBEAE5;border:1px solid #C0562E;border-radius:6px;
+    padding:8px 12px;margin-top:10px;font-size:13px;color:#8A3A1E;
+  }
+  .aviso-unidades strong{color:#8A3A1E;}
+
+  /* Errores frecuentes (mismo patrón visual que FAQ) */
+  .errores h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;color:#A0442E;}
+  .errores h3:first-of-type{margin-top:8px;}
+  .errores p{margin:0;color:var(--ink-soft);font-size:14.5px;}
 </style>
 </head>
 <body>
@@ -498,9 +609,17 @@
 
     <div class="card" data-tag="Concepto">
       <h2>¿Qué es la concentración de una solución?</h2>
-      <p>Una solución es una mezcla homogénea de un <strong>soluto</strong> (lo que se disuelve, generalmente en menor cantidad) en un <strong>solvente</strong> (lo que disuelve, generalmente en mayor cantidad). La concentración mide cuánto soluto hay por cada cantidad de solución — el café "cargado" tiene más soluto (café) por la misma cantidad de agua que uno "liviano".</p>
-      <div class="formula-box">Molaridad: M = n / V</div>
-      <p class="var-list"><span>M</span> = molaridad (mol/L) &nbsp;·&nbsp; <span>n</span> = moles de soluto &nbsp;·&nbsp; <span>V</span> = volumen de la solución (L, no solo del solvente)</p>
+      <p>Una solución es una mezcla homogénea de un <strong>soluto</strong> (lo que se disuelve, generalmente en menor cantidad) en un <strong>solvente</strong> (lo que disuelve, generalmente en mayor cantidad). La concentración mide cuánto soluto hay por cada cantidad de solución.</p>
+      <div class="formula-box"><span class="term-1">M</span> = <span class="term-2">n</span> / <span class="term-3">V</span></div>
+      <div class="formula-leyenda">
+        <div class="leyenda-item"><span class="swatch swatch-1"></span> <strong class="term-1">M</strong> = molaridad — en mol/L</div>
+        <div class="leyenda-item"><span class="swatch swatch-2"></span> <strong class="term-2">n</strong> = moles de soluto</div>
+        <div class="leyenda-item"><span class="swatch swatch-3"></span> <strong class="term-3">V</strong> = volumen de la solución — en L (no solo del solvente)</div>
+      </div>
+      <div class="analogia">
+        <span class="analogia-tag">Piénsalo así</span>
+        El café "cargado" tiene más soluto (café) por la misma cantidad de agua que uno "liviano" — a más soluto en el mismo volumen, mayor concentración.
+      </div>
     </div>
 
     <div class="card" data-tag="Calculadora">
@@ -514,12 +633,48 @@
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
-      <div class="example">
-        <p><strong>Disuelves 0.5 moles de NaCl en agua hasta completar 2 litros de solución. ¿Cuál es la molaridad?</strong></p>
-        <p>M = n/V = 0.5/2 = <strong>0.25 mol/L</strong></p>
-        <p>Se lee "0.25 molar" (0.25 M) — significa que hay 0.25 moles de NaCl disueltos en cada litro de esa solución.</p>
+      <h2>Ejemplo resuelto, paso a paso</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">Disuelves 0.5 moles de NaCl en agua hasta completar 2 litros de solución. ¿Cuál es la molaridad?</p>
+      <div class="resolucion">
+        <div class="resolucion-bloque datos">
+          <p class="resolucion-label"><span class="num-badge">1</span>Datos</p>
+          <ul class="datos-lista">
+            <li><span class="dato-simbolo term-2">n</span><span class="dato-nombre">moles de soluto (dice "moles")</span><span class="dato-valor term-2">0.5 mol</span></li>
+            <li><span class="dato-simbolo term-3">V</span><span class="dato-nombre">volumen de la solución (dice "litros")</span><span class="dato-valor term-3">2 L</span></li>
+          </ul>
+        </div>
+        <div class="resolucion-bloque formula-usada">
+          <p class="resolucion-label"><span class="num-badge">2</span>Fórmula utilizada</p>
+          <div class="formula-box" style="margin:0;"><span class="term-1">M</span> = <span class="term-2">n</span> / <span class="term-3">V</span></div>
+        </div>
+        <div class="resolucion-bloque pasos">
+          <p class="resolucion-label"><span class="num-badge">3</span>Resolución</p>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Reemplazo cada incógnita por su dato</span>
+            <span class="term-1">M</span> = <span class="term-2">0.5 mol</span> / <span class="term-3">2 L</span>
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Resuelvo la ecuación</span>
+            M = 0.5/2 = <strong>0.25 mol/L</strong>
+          </div>
+          <div class="aviso-unidades"><strong>Ojo con las unidades:</strong> mol/L es la unidad estándar de molaridad — se lee "0.25 molar" (0.25 M).</div>
+        </div>
+        <div class="resolucion-bloque respuesta">
+          <p class="resolucion-label"><span class="num-badge">4</span>Respuesta</p>
+          <p>La molaridad es <span class="term-1">M = 0.25 mol/L</span></p>
+        </div>
       </div>
+      <p style="color:var(--ink-soft);font-size:14px;margin-top:10px;">Significa que hay 0.25 moles de NaCl disueltos en cada litro de esa solución.</p>
+    </div>
+
+    <div class="card errores" data-tag="Errores frecuentes">
+      <h2>Errores frecuentes</h2>
+      <h3>Olvidar convertir mililitros a litros</h3>
+      <p>La fórmula necesita el volumen en litros — si el problema da mL, hay que dividir por 1000 antes de reemplazar (500 mL = 0.5 L).</p>
+      <h3>Usar el volumen del solvente en vez del volumen total de la solución</h3>
+      <p>El volumen de la fórmula es el de la solución ya mezclada (soluto + solvente juntos), no solo el agua que se usó antes de disolver el soluto.</p>
+      <h3>Confundir moles con gramos</h3>
+      <p>Si el problema da la masa del soluto en gramos, hay que convertirla a moles primero (n=m/M, usando la masa molar) antes de calcular la molaridad.</p>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
@@ -545,8 +700,11 @@
     <div class="card" data-tag="Concepto">
       <h2>Dilución: agregar más solvente</h2>
       <p>Diluir una solución significa agregarle más solvente sin agregar más soluto — la cantidad de soluto (moles) no cambia, pero al aumentar el volumen, la concentración baja. Esta relación se resume en una fórmula muy usada en el laboratorio:</p>
-      <div class="formula-box">M₁ · V₁ = M₂ · V₂</div>
-      <p class="var-list"><span>M₁, V₁</span> = molaridad y volumen antes de diluir &nbsp;·&nbsp; <span>M₂, V₂</span> = molaridad y volumen después de diluir</p>
+      <div class="formula-box"><span class="term-1">M₁</span> · <span class="term-2">V₁</span> = <span class="term-3">M₂</span> · <span class="term-4">V₂</span></div>
+      <div class="formula-leyenda">
+        <div class="leyenda-item"><span class="swatch swatch-1"></span> <strong class="term-1">M₁</strong>, <strong class="term-2">V₁</strong> = molaridad y volumen antes de diluir</div>
+        <div class="leyenda-item"><span class="swatch swatch-3"></span> <strong class="term-3">M₂</strong>, <strong class="term-4">V₂</strong> = molaridad y volumen después de diluir</div>
+      </div>
     </div>
 
     <div class="card" data-tag="Calculadora">
@@ -562,12 +720,49 @@
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
-      <div class="example">
-        <p><strong>Tienes 50 mL de una solución 2 M, y quieres diluirla hasta 0.5 M. ¿Qué volumen final necesitas?</strong></p>
-        <p>M₁V₁ = M₂V₂ → 2×50 = 0.5×V₂ → V₂ = 100/0.5 = <strong>200 mL</strong></p>
-        <p>Como ya tenías 50 mL, necesitas agregar 200−50 = <strong>150 mL de solvente</strong> (generalmente agua) para llegar a esa concentración.</p>
+      <h2>Ejemplo resuelto, paso a paso</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">Tienes 50 mL de una solución 2 M, y quieres diluirla hasta 0.5 M. ¿Qué volumen final necesitas?</p>
+      <div class="resolucion">
+        <div class="resolucion-bloque datos">
+          <p class="resolucion-label"><span class="num-badge">1</span>Datos</p>
+          <ul class="datos-lista">
+            <li><span class="dato-simbolo term-1">M₁</span><span class="dato-nombre">molaridad inicial</span><span class="dato-valor term-1">2 mol/L</span></li>
+            <li><span class="dato-simbolo term-2">V₁</span><span class="dato-nombre">volumen inicial</span><span class="dato-valor term-2">50 mL</span></li>
+            <li><span class="dato-simbolo term-3">M₂</span><span class="dato-nombre">molaridad final deseada</span><span class="dato-valor term-3">0.5 mol/L</span></li>
+          </ul>
+        </div>
+        <div class="resolucion-bloque formula-usada">
+          <p class="resolucion-label"><span class="num-badge">2</span>Fórmula utilizada</p>
+          <p style="color:var(--ink-soft);font-size:13.5px;margin:0 0 8px;">Como me piden el volumen final, despejo V₂:</p>
+          <div class="formula-box" style="margin:0;"><span class="term-4">V₂</span> = <span class="term-1">M₁</span>·<span class="term-2">V₁</span> / <span class="term-3">M₂</span></div>
+        </div>
+        <div class="resolucion-bloque pasos">
+          <p class="resolucion-label"><span class="num-badge">3</span>Resolución</p>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Reemplazo cada incógnita por su dato</span>
+            <span class="term-4">V₂</span> = (<span class="term-1">2</span> × <span class="term-2">50</span>) / <span class="term-3">0.5</span>
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Resuelvo la ecuación</span>
+            V₂ = 100/0.5 = <strong>200 mL</strong>
+          </div>
+        </div>
+        <div class="resolucion-bloque respuesta">
+          <p class="resolucion-label"><span class="num-badge">4</span>Respuesta</p>
+          <p>Necesitas un volumen final de <span class="term-4">V₂ = 200 mL</span></p>
+        </div>
       </div>
+      <p style="color:var(--ink-soft);font-size:14px;margin-top:10px;">Como ya tenías 50 mL, necesitas agregar 200−50 = <strong>150 mL de solvente</strong> (generalmente agua) para llegar a esa concentración.</p>
+    </div>
+
+    <div class="card errores" data-tag="Errores frecuentes">
+      <h2>Errores frecuentes</h2>
+      <h3>Confundir el volumen final con el solvente a agregar</h3>
+      <p>V₂ es el volumen TOTAL después de diluir, no la cantidad de solvente que hay que agregar — para eso hay que restar V₁ del resultado (V₂ − V₁).</p>
+      <h3>No usar las mismas unidades en ambos lados</h3>
+      <p>Si V₁ está en mL, el resultado V₂ también sale en mL — no hace falta convertir a litros mientras seas consistente en toda la ecuación.</p>
+      <h3>Pensar que diluir cambia la cantidad de soluto</h3>
+      <p>Diluir solo agrega solvente — la cantidad de soluto (en moles) es exactamente la misma antes y después, lo único que cambia es el volumen total y por lo tanto la concentración.</p>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">

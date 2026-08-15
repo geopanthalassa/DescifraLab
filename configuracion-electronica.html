@@ -400,6 +400,64 @@
     position:absolute;bottom:-16px;left:50%;transform:translateX(-50%);
     font-size:9px;color:var(--ink-soft);white-space:nowrap;
   }
+
+  /* Sistema de resolución estructurada: Datos / Fórmula / Resolución / Respuesta */
+  .resolucion{
+    border:2px solid var(--ink);border-radius:10px;
+    margin:16px 0;overflow:hidden;
+  }
+  .resolucion-bloque{
+    padding:14px 18px;border-bottom:1px solid var(--line);
+  }
+  .resolucion-bloque:last-child{border-bottom:none;}
+  .resolucion-bloque.datos{background:#FBF3E2;}
+  .resolucion-bloque.formula-usada{background:var(--paper);}
+  .resolucion-bloque.pasos{background:#FFFFFF;}
+  .resolucion-bloque.respuesta{background:#EAF3EE;}
+  .resolucion-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;
+    color:var(--ink-soft);margin:0 0 10px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .resolucion-label .num-badge{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:28px;height:28px;border-radius:50%;flex-shrink:0;
+    background:var(--ink);color:#fff;font-size:15px;font-weight:800;
+    font-family:'Inter', sans-serif;
+  }
+  .datos-lista{list-style:none;margin:0;padding:0;display:grid;gap:6px;}
+  .datos-lista li{
+    display:flex;align-items:baseline;gap:8px;font-size:14.5px;
+  }
+  .datos-lista .dato-simbolo{
+    font-family:'JetBrains Mono', monospace;font-weight:800;
+    min-width:34px;
+  }
+  .datos-lista .dato-nombre{color:var(--ink-soft);}
+  .datos-lista .dato-valor{font-weight:700;margin-left:auto;font-family:'JetBrains Mono', monospace;}
+  .resolucion-bloque.pasos .paso-r{
+    margin-bottom:10px;padding-left:14px;border-left:3px solid var(--ink-soft);
+  }
+  .resolucion-bloque.pasos .paso-r:last-child{margin-bottom:0;}
+  .resolucion-bloque.pasos .paso-r-titulo{
+    display:block;font-weight:700;font-size:13.5px;margin-bottom:2px;
+  }
+  .resolucion-bloque.respuesta p{
+    margin:0;font-size:15.5px;font-weight:700;color:var(--pine-dark);
+  }
+  .unidad{color:var(--ink-soft);font-weight:500;font-size:0.88em;}
+  .aviso-unidades{
+    display:flex;align-items:center;gap:8px;
+    background:#FBEAE5;border:1px solid #C0562E;border-radius:6px;
+    padding:8px 12px;margin-top:10px;font-size:13px;color:#8A3A1E;
+  }
+  .aviso-unidades strong{color:#8A3A1E;}
+
+  /* Errores frecuentes (mismo patrón visual que FAQ) */
+  .errores h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;color:#A0442E;}
+  .errores h3:first-of-type{margin-top:8px;}
+  .errores p{margin:0;color:var(--ink-soft);font-size:14.5px;}
 </style>
 </head>
 <body>
@@ -662,14 +720,53 @@
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
-      <div class="example">
-        <p><strong>¿Cuáles son los 4 números cuánticos del último electrón del sodio (Z=11, configuración ...3s¹)?</strong></p>
-        <p>n = <strong>3</strong> (está en la capa 3)</p>
-        <p>l = <strong>0</strong> (porque es un orbital s)</p>
-        <p>m = <strong>0</strong> (el orbital s solo tiene una orientación posible, m=0)</p>
-        <p>s = <strong>+1/2</strong> (por convención, el primer electrón de un orbital se anota +1/2)</p>
+      <h2>Ejemplo resuelto, paso a paso</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">¿Cuáles son los 4 números cuánticos del último electrón del sodio (Z=11, configuración ...3s¹)?</p>
+      <div class="resolucion">
+        <div class="resolucion-bloque datos">
+          <p class="resolucion-label"><span class="num-badge">1</span>Datos</p>
+          <ul class="datos-lista">
+            <li><span class="dato-nombre">último electrón del sodio, ubicado en</span><span class="dato-valor">subnivel 3s¹</span></li>
+          </ul>
+        </div>
+        <div class="resolucion-bloque formula-usada">
+          <p class="resolucion-label"><span class="num-badge">2</span>Fórmula utilizada</p>
+          <p style="color:var(--ink-soft);font-size:13.5px;margin:0;">Leo directamente el subnivel "3s¹" para deducir n y l, y aplico las reglas de m y s.</p>
+        </div>
+        <div class="resolucion-bloque pasos">
+          <p class="resolucion-label"><span class="num-badge">3</span>Resolución</p>
+          <div class="paso-r">
+            <span class="paso-r-titulo">n: el número antes de la letra</span>
+            "3s¹" empieza con 3 → n = <strong>3</strong>
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">l: la letra indica el subnivel</span>
+            "s" corresponde a l=0 → l = <strong>0</strong>
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">m: el orbital s solo tiene una orientación</span>
+            m = <strong>0</strong> (único valor posible cuando l=0)
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">s: por convención, el primer electrón de un orbital</span>
+            s = <strong>+1/2</strong>
+          </div>
+        </div>
+        <div class="resolucion-bloque respuesta">
+          <p class="resolucion-label"><span class="num-badge">4</span>Respuesta</p>
+          <p>n=3, l=0, m=0, s=+1/2</p>
+        </div>
       </div>
+    </div>
+
+    <div class="card errores" data-tag="Errores frecuentes">
+      <h2>Errores frecuentes</h2>
+      <h3>Confundir el número de capa (n) con el subnivel (l)</h3>
+      <p>n es el número que aparece antes de la letra (3s, 4p, etc.); l se deduce de la letra misma (s=0, p=1, d=2, f=3) — son dos números distintos que se leen juntos pero significan cosas diferentes.</p>
+      <h3>Pensar que m puede tomar cualquier valor</h3>
+      <p>m siempre va de −l a +l — si l=0 (orbital s), el único valor posible es m=0, no hay otras opciones.</p>
+      <h3>Olvidar que dos electrones del mismo orbital tienen distinto spin</h3>
+      <p>Por el Principio de Exclusión de Pauli, dos electrones nunca pueden tener los 4 números cuánticos iguales — si comparten n, l, m, entonces necesariamente tienen spin opuesto (+1/2 y −1/2).</p>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">

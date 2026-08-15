@@ -375,6 +375,64 @@
     border-top:1px dashed var(--line);
     padding-top:8px;margin-top:8px !important;
   }
+
+  /* Sistema de resolución estructurada: Datos / Fórmula / Resolución / Respuesta */
+  .resolucion{
+    border:2px solid var(--ink);border-radius:10px;
+    margin:16px 0;overflow:hidden;
+  }
+  .resolucion-bloque{
+    padding:14px 18px;border-bottom:1px solid var(--line);
+  }
+  .resolucion-bloque:last-child{border-bottom:none;}
+  .resolucion-bloque.datos{background:#FBF3E2;}
+  .resolucion-bloque.formula-usada{background:var(--paper);}
+  .resolucion-bloque.pasos{background:#FFFFFF;}
+  .resolucion-bloque.respuesta{background:#EAF3EE;}
+  .resolucion-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;
+    color:var(--ink-soft);margin:0 0 10px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .resolucion-label .num-badge{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:28px;height:28px;border-radius:50%;flex-shrink:0;
+    background:var(--ink);color:#fff;font-size:15px;font-weight:800;
+    font-family:'Inter', sans-serif;
+  }
+  .datos-lista{list-style:none;margin:0;padding:0;display:grid;gap:6px;}
+  .datos-lista li{
+    display:flex;align-items:baseline;gap:8px;font-size:14.5px;
+  }
+  .datos-lista .dato-simbolo{
+    font-family:'JetBrains Mono', monospace;font-weight:800;
+    min-width:34px;
+  }
+  .datos-lista .dato-nombre{color:var(--ink-soft);}
+  .datos-lista .dato-valor{font-weight:700;margin-left:auto;font-family:'JetBrains Mono', monospace;}
+  .resolucion-bloque.pasos .paso-r{
+    margin-bottom:10px;padding-left:14px;border-left:3px solid var(--ink-soft);
+  }
+  .resolucion-bloque.pasos .paso-r:last-child{margin-bottom:0;}
+  .resolucion-bloque.pasos .paso-r-titulo{
+    display:block;font-weight:700;font-size:13.5px;margin-bottom:2px;
+  }
+  .resolucion-bloque.respuesta p{
+    margin:0;font-size:15.5px;font-weight:700;color:var(--pine-dark);
+  }
+  .unidad{color:var(--ink-soft);font-weight:500;font-size:0.88em;}
+  .aviso-unidades{
+    display:flex;align-items:center;gap:8px;
+    background:#FBEAE5;border:1px solid #C0562E;border-radius:6px;
+    padding:8px 12px;margin-top:10px;font-size:13px;color:#8A3A1E;
+  }
+  .aviso-unidades strong{color:#8A3A1E;}
+
+  /* Errores frecuentes (mismo patrón visual que FAQ) */
+  .errores h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;color:#A0442E;}
+  .errores h3:first-of-type{margin-top:8px;}
+  .errores p{margin:0;color:var(--ink-soft);font-size:14.5px;}
 </style>
 </head>
 <body>
@@ -526,12 +584,47 @@
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
-      <div class="example">
-        <p><strong>Filtras 50 g de una mezcla de agua con arena, y recuperas 38 g de arena seca. ¿Cuál fue el rendimiento?</strong></p>
-        <p>Rendimiento = (38/50) × 100 = <strong>76%</strong></p>
-        <p>El otro 24% correspondía al agua (que se separó) más alguna pérdida inevitable del proceso.</p>
+      <h2>Ejemplo resuelto, paso a paso</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">Filtras 50 g de una mezcla de agua con arena, y recuperas 38 g de arena seca. ¿Cuál fue el rendimiento?</p>
+      <div class="resolucion">
+        <div class="resolucion-bloque datos">
+          <p class="resolucion-label"><span class="num-badge">1</span>Datos</p>
+          <ul class="datos-lista">
+            <li><span class="dato-nombre">masa inicial de la mezcla (dice "gramos")</span><span class="dato-valor">50 g</span></li>
+            <li><span class="dato-nombre">masa recuperada del componente</span><span class="dato-valor">38 g</span></li>
+          </ul>
+        </div>
+        <div class="resolucion-bloque formula-usada">
+          <p class="resolucion-label"><span class="num-badge">2</span>Fórmula utilizada</p>
+          <div class="formula-box" style="margin:0;">Rendimiento = (masa recuperada / masa inicial) × 100</div>
+        </div>
+        <div class="resolucion-bloque pasos">
+          <p class="resolucion-label"><span class="num-badge">3</span>Resolución</p>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Reemplazo cada dato en la fórmula</span>
+            Rendimiento = (38/50) × 100
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Resuelvo la ecuación</span>
+            Rendimiento = 0.76 × 100 = <strong>76%</strong>
+          </div>
+        </div>
+        <div class="resolucion-bloque respuesta">
+          <p class="resolucion-label"><span class="num-badge">4</span>Respuesta</p>
+          <p>El rendimiento de la separación fue del <strong>76%</strong></p>
+        </div>
       </div>
+      <p style="color:var(--ink-soft);font-size:14px;margin-top:10px;">El otro 24% correspondía al agua (que se separó) más alguna pérdida inevitable del proceso.</p>
+    </div>
+
+    <div class="card errores" data-tag="Errores frecuentes">
+      <h2>Errores frecuentes</h2>
+      <h3>Invertir masa inicial y masa recuperada</h3>
+      <p>La masa recuperada siempre va arriba (numerador) y la masa inicial de la mezcla completa va abajo (denominador) — invertirlos da un resultado mayor a 100%, que no tiene sentido físico.</p>
+      <h3>Olvidar multiplicar por 100</h3>
+      <p>El cociente da un número entre 0 y 1 — hay que multiplicarlo por 100 para expresarlo como porcentaje.</p>
+      <h3>Pensar que un rendimiento menor a 100% siempre es un error del experimento</h3>
+      <p>Es normal tener algo de pérdida en cualquier proceso de separación real (residuos que quedan pegados al filtro, evaporación, etc.) — un rendimiento del 100% exacto es más la excepción que la regla.</p>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
@@ -576,12 +669,48 @@
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
-      <div class="example">
-        <p><strong>Purificas una sustancia con destilación (85% de rendimiento) y después con cristalización (90% de rendimiento). ¿Cuál es el rendimiento total del proceso?</strong></p>
-        <p>Rendimiento total = 0.85 × 0.90 × 100 = <strong>76.5%</strong></p>
-        <p>No se suman los porcentajes — se multiplican como fracciones, porque cada etapa parte de lo que sobrevivió a la etapa anterior.</p>
+      <h2>Ejemplo resuelto, paso a paso</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">Purificas una sustancia con destilación (85% de rendimiento) y después con cristalización (90% de rendimiento). ¿Cuál es el rendimiento total del proceso?</p>
+      <div class="resolucion">
+        <div class="resolucion-bloque datos">
+          <p class="resolucion-label"><span class="num-badge">1</span>Datos</p>
+          <ul class="datos-lista">
+            <li><span class="dato-nombre">rendimiento etapa 1 (destilación)</span><span class="dato-valor">85%</span></li>
+            <li><span class="dato-nombre">rendimiento etapa 2 (cristalización)</span><span class="dato-valor">90%</span></li>
+          </ul>
+        </div>
+        <div class="resolucion-bloque formula-usada">
+          <p class="resolucion-label"><span class="num-badge">2</span>Fórmula utilizada</p>
+          <p style="color:var(--ink-soft);font-size:13.5px;margin:0 0 8px;">Los rendimientos de etapas sucesivas se multiplican (como fracciones decimales), no se suman:</p>
+          <div class="formula-box" style="margin:0;">Rendimiento total = rendimiento₁ × rendimiento₂ × 100</div>
+        </div>
+        <div class="resolucion-bloque pasos">
+          <p class="resolucion-label"><span class="num-badge">3</span>Resolución</p>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Convierto los porcentajes a decimales</span>
+            85% = 0.85 &nbsp;·&nbsp; 90% = 0.90
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Multiplico y vuelvo a expresar como porcentaje</span>
+            Rendimiento total = 0.85 × 0.90 × 100 = <strong>76.5%</strong>
+          </div>
+        </div>
+        <div class="resolucion-bloque respuesta">
+          <p class="resolucion-label"><span class="num-badge">4</span>Respuesta</p>
+          <p>El rendimiento total del proceso es <strong>76.5%</strong></p>
+        </div>
       </div>
+      <p style="color:var(--ink-soft);font-size:14px;margin-top:10px;">No se suman los porcentajes — se multiplican como fracciones, porque cada etapa parte de lo que sobrevivió a la etapa anterior.</p>
+    </div>
+
+    <div class="card errores" data-tag="Errores frecuentes">
+      <h2>Errores frecuentes</h2>
+      <h3>Sumar los rendimientos en vez de multiplicarlos</h3>
+      <p>85%+90%=175%, que no tiene sentido — el rendimiento nunca puede superar el 100%. La operación correcta entre etapas sucesivas es la multiplicación.</p>
+      <h3>Olvidar convertir el porcentaje a decimal antes de multiplicar</h3>
+      <p>Hay que usar 0.85 y 0.90 en la multiplicación, no 85 y 90 directamente — de lo contrario el resultado sale miles de veces más grande de lo real.</p>
+      <h3>Pensar que el orden de las etapas cambia el resultado</h3>
+      <p>Matemáticamente, 0.85×0.90 da lo mismo que 0.90×0.85 — el rendimiento total no depende del orden en que se hagan las etapas (aunque en la práctica, otros factores sí podrían importar).</p>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">

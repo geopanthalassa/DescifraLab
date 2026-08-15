@@ -339,6 +339,117 @@
     font-size:12px;cursor:pointer;
   }
   .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  /* Sistema de color para partes de una fórmula (mismo color = mismo rol en toda la página) */
+  .term-1{color:#B8842E;font-weight:800;}
+  .term-2{color:#2F6B5E;font-weight:800;}
+  .term-3{color:#7A4FB0;font-weight:800;}
+  .term-4{color:#2A6FA8;font-weight:800;}
+  .term-5{color:#C0562E;font-weight:800;}
+  .formula-leyenda{
+    display:flex;flex-wrap:wrap;gap:8px 20px;
+    margin-top:12px;padding-top:12px;
+    border-top:1px dashed var(--line);
+  }
+  .formula-leyenda .leyenda-item{
+    display:flex;align-items:flex-start;gap:7px;
+    font-size:13.5px;color:var(--ink-soft);max-width:260px;
+  }
+  .formula-leyenda .swatch{
+    display:inline-block;width:11px;height:11px;border-radius:3px;
+    margin-top:3px;flex-shrink:0;
+  }
+  .swatch-1{background:#B8842E;} .swatch-2{background:#2F6B5E;}
+  .swatch-3{background:#7A4FB0;} .swatch-4{background:#2A6FA8;} .swatch-5{background:#C0562E;}
+
+  /* Paso a paso con color por paso */
+  .pasos-resueltos{margin:14px 0;}
+  .paso{
+    display:flex;gap:12px;align-items:flex-start;
+    padding:12px 14px;margin-bottom:8px;border-radius:8px;
+    background:var(--paper);border-left:4px solid var(--ink-soft);
+  }
+  .paso-num{
+    font-family:'JetBrains Mono', monospace;font-weight:800;font-size:12.5px;
+    width:22px;height:22px;border-radius:50%;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;color:#fff;
+    background:var(--ink-soft);
+  }
+  .paso:nth-child(1){border-left-color:#B8842E;} .paso:nth-child(1) .paso-num{background:#B8842E;}
+  .paso:nth-child(2){border-left-color:#2F6B5E;} .paso:nth-child(2) .paso-num{background:#2F6B5E;}
+  .paso:nth-child(3){border-left-color:#7A4FB0;} .paso:nth-child(3) .paso-num{background:#7A4FB0;}
+  .paso:nth-child(4){border-left-color:#2A6FA8;} .paso:nth-child(4) .paso-num{background:#2A6FA8;}
+  .paso:nth-child(5){border-left-color:#C0562E;} .paso:nth-child(5) .paso-num{background:#C0562E;}
+  .paso p{margin:0;font-size:14.5px;}
+  .paso .paso-titulo{font-weight:700;display:block;margin-bottom:2px;}
+
+  .analogia{
+    background:#FBF3E2;border:1.5px dashed #B8842E;border-radius:8px;
+    padding:14px 16px;margin:14px 0;font-size:14.5px;
+  }
+  .analogia .analogia-tag{
+    font-family:'JetBrains Mono', monospace;font-size:11px;font-weight:700;
+    text-transform:uppercase;letter-spacing:0.06em;color:#B8842E;
+    display:block;margin-bottom:6px;
+  }
+
+  /* Sistema de resolución estructurada: Datos / Fórmula / Resolución / Respuesta */
+  .resolucion{
+    border:2px solid var(--ink);border-radius:10px;
+    margin:16px 0;overflow:hidden;
+  }
+  .resolucion-bloque{
+    padding:14px 18px;border-bottom:1px solid var(--line);
+  }
+  .resolucion-bloque:last-child{border-bottom:none;}
+  .resolucion-bloque.datos{background:#FBF3E2;}
+  .resolucion-bloque.formula-usada{background:var(--paper);}
+  .resolucion-bloque.pasos{background:#FFFFFF;}
+  .resolucion-bloque.respuesta{background:#EAF3EE;}
+  .resolucion-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;
+    color:var(--ink-soft);margin:0 0 10px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .resolucion-label .num-badge{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:28px;height:28px;border-radius:50%;flex-shrink:0;
+    background:var(--ink);color:#fff;font-size:15px;font-weight:800;
+    font-family:'Inter', sans-serif;
+  }
+  .datos-lista{list-style:none;margin:0;padding:0;display:grid;gap:6px;}
+  .datos-lista li{
+    display:flex;align-items:baseline;gap:8px;font-size:14.5px;
+  }
+  .datos-lista .dato-simbolo{
+    font-family:'JetBrains Mono', monospace;font-weight:800;
+    min-width:34px;
+  }
+  .datos-lista .dato-nombre{color:var(--ink-soft);}
+  .datos-lista .dato-valor{font-weight:700;margin-left:auto;font-family:'JetBrains Mono', monospace;}
+  .resolucion-bloque.pasos .paso-r{
+    margin-bottom:10px;padding-left:14px;border-left:3px solid var(--ink-soft);
+  }
+  .resolucion-bloque.pasos .paso-r:last-child{margin-bottom:0;}
+  .resolucion-bloque.pasos .paso-r-titulo{
+    display:block;font-weight:700;font-size:13.5px;margin-bottom:2px;
+  }
+  .resolucion-bloque.respuesta p{
+    margin:0;font-size:15.5px;font-weight:700;color:var(--pine-dark);
+  }
+  .unidad{color:var(--ink-soft);font-weight:500;font-size:0.88em;}
+  .aviso-unidades{
+    display:flex;align-items:center;gap:8px;
+    background:#FBEAE5;border:1px solid #C0562E;border-radius:6px;
+    padding:8px 12px;margin-top:10px;font-size:13px;color:#8A3A1E;
+  }
+  .aviso-unidades strong{color:#8A3A1E;}
+
+  /* Errores frecuentes (mismo patrón visual que FAQ) */
+  .errores h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;color:#A0442E;}
+  .errores h3:first-of-type{margin-top:8px;}
+  .errores p{margin:0;color:var(--ink-soft);font-size:14.5px;}
 </style>
 </head>
 <body>
@@ -463,9 +574,16 @@
     <div class="card" data-tag="Concepto">
       <h2>¿Qué es el mol?</h2>
       <p>Los átomos y moléculas son tan chicos que contarlos de a uno no sirve de nada práctico. El <strong>mol</strong> es una unidad que agrupa una cantidad enorme y fija de partículas — igual que "una docena" siempre son 12, "un mol" siempre son 6.022×10²³ partículas (el número de Avogadro).</p>
-      <div class="formula-box">n = m / M</div>
-      <p class="var-list"><span>n</span> = cantidad de sustancia (mol) &nbsp;·&nbsp; <span>m</span> = masa (g) &nbsp;·&nbsp; <span>M</span> = masa molar (g/mol) — la masa de un mol de esa sustancia, se lee de la tabla periódica</p>
-      <p style="color:var(--ink-soft);font-size:14.5px;">La masa molar de un elemento es, en gramos, el mismo número que su masa atómica en la tabla periódica. Para compuestos, se suman las masas molares de todos los átomos que lo forman.</p>
+      <div class="formula-box"><span class="term-1">n</span> = <span class="term-2">m</span> / <span class="term-3">M</span></div>
+      <div class="formula-leyenda">
+        <div class="leyenda-item"><span class="swatch swatch-1"></span> <strong class="term-1">n</strong> = cantidad de sustancia — en mol</div>
+        <div class="leyenda-item"><span class="swatch swatch-2"></span> <strong class="term-2">m</strong> = masa — en gramos (g)</div>
+        <div class="leyenda-item"><span class="swatch swatch-3"></span> <strong class="term-3">M</strong> = masa molar — en g/mol (la masa de un mol de esa sustancia, se lee de la tabla periódica)</div>
+      </div>
+      <div class="analogia">
+        <span class="analogia-tag">Piénsalo así</span>
+        La masa molar de un elemento es, en gramos, el mismo número que su masa atómica en la tabla periódica. Para compuestos, se suman las masas molares de todos los átomos que lo forman.
+      </div>
     </div>
 
     <div class="card" data-tag="Calculadora">
@@ -479,12 +597,48 @@
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
-      <div class="example">
-        <p><strong>¿Cuántos moles hay en 18 g de agua (H₂O, masa molar 18 g/mol)?</strong></p>
-        <p>n = m/M = 18/18 = <strong>1 mol</strong></p>
-        <p>Eso significa que hay 6.022×10²³ moléculas de agua en esos 18 gramos.</p>
+      <h2>Ejemplo resuelto, paso a paso</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">¿Cuántos moles hay en 18 g de agua (H₂O, masa molar 18 g/mol)?</p>
+      <div class="resolucion">
+        <div class="resolucion-bloque datos">
+          <p class="resolucion-label"><span class="num-badge">1</span>Datos</p>
+          <ul class="datos-lista">
+            <li><span class="dato-simbolo term-2">m</span><span class="dato-nombre">masa (dice "gramos")</span><span class="dato-valor term-2">18 g</span></li>
+            <li><span class="dato-simbolo term-3">M</span><span class="dato-nombre">masa molar del agua (dada)</span><span class="dato-valor term-3">18 g/mol</span></li>
+          </ul>
+        </div>
+        <div class="resolucion-bloque formula-usada">
+          <p class="resolucion-label"><span class="num-badge">2</span>Fórmula utilizada</p>
+          <div class="formula-box" style="margin:0;"><span class="term-1">n</span> = <span class="term-2">m</span> / <span class="term-3">M</span></div>
+        </div>
+        <div class="resolucion-bloque pasos">
+          <p class="resolucion-label"><span class="num-badge">3</span>Resolución</p>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Reemplazo cada incógnita por su dato</span>
+            <span class="term-1">n</span> = <span class="term-2">18 g</span> / <span class="term-3">18 g/mol</span>
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Resuelvo la ecuación</span>
+            n = 18/18 = <strong>1 mol</strong>
+          </div>
+          <div class="aviso-unidades"><strong>Ojo con las unidades:</strong> g / (g/mol) = mol — los gramos se cancelan, quedando la cantidad de sustancia en mol.</div>
+        </div>
+        <div class="resolucion-bloque respuesta">
+          <p class="resolucion-label"><span class="num-badge">4</span>Respuesta</p>
+          <p>Hay <span class="term-1">n = 1 mol</span> de agua</p>
+        </div>
       </div>
+      <p style="color:var(--ink-soft);font-size:14px;margin-top:10px;">Eso significa que hay 6.022×10²³ moléculas de agua en esos 18 gramos.</p>
+    </div>
+
+    <div class="card errores" data-tag="Errores frecuentes">
+      <h2>Errores frecuentes</h2>
+      <h3>Confundir masa con masa molar</h3>
+      <p>La masa (m) es cuánto pesa la muestra que tienes en la mano; la masa molar (M) es una propiedad fija de la sustancia (se busca en la tabla periódica o se calcula) — no son lo mismo.</p>
+      <h3>Olvidar sumar todos los átomos al calcular la masa molar de un compuesto</h3>
+      <p>Para H₂O hay que sumar 2×(masa del H) + 1×(masa del O), no usar solo la masa de un átomo — cada subíndice de la fórmula cuenta.</p>
+      <h3>Despejar mal al buscar la masa en vez de los moles</h3>
+      <p>Si te piden la masa en vez de los moles, la fórmula despejada es m=n×M, no m=n/M — verifica siempre qué letra estás buscando.</p>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
@@ -510,8 +664,11 @@
     <div class="card" data-tag="Concepto">
       <h2>Relaciones mol-mol y reactivo limitante</h2>
       <p>En una ecuación química balanceada, los coeficientes indican en qué proporción de moles reaccionan y se forman las sustancias. Cuando hay dos reactivos, el que se termina primero (el <strong>reactivo limitante</strong>) determina cuánto producto se puede formar como máximo — el otro queda "sobrando".</p>
-      <div class="formula-box">2 H₂ + O₂ → 2 H₂O</div>
-      <p class="var-list">Esta ecuación dice: 2 moles de H₂ reaccionan con 1 mol de O₂ para formar 2 moles de H₂O — esa proporción (2:1:2) es fija, viene de los coeficientes balanceados.</p>
+      <div class="formula-box">2 <span class="term-1">H₂</span> + <span class="term-2">O₂</span> → 2 H₂O</div>
+      <div class="analogia">
+        <span class="analogia-tag">Piénsalo así</span>
+        Esta ecuación dice: 2 moles de <span class="term-1">H₂</span> reaccionan con 1 mol de <span class="term-2">O₂</span> para formar 2 moles de H₂O — esa proporción (2:1:2) es fija, viene de los coeficientes balanceados. Es como una receta de cocina: si te falta un ingrediente, no importa cuánto tengas de los demás, la receta se limita a lo que alcance ese ingrediente escaso.
+      </div>
     </div>
 
     <div class="card" data-tag="Calculadora">
@@ -526,12 +683,51 @@
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
-      <div class="example">
-        <p><strong>Tienes 5 moles de H₂ y 2 moles de O₂. ¿Cuál es el reactivo limitante y cuánta agua se forma?</strong></p>
-        <p>Con 2 moles de O₂, según la proporción 2:1, harían falta 2×2=4 moles de H₂ — y tienes 5, así que sobra H₂.</p>
-        <p>El <strong>O₂ es el reactivo limitante</strong> — determina que se formen 2×2 = <strong>4 moles de H₂O</strong> como máximo.</p>
+      <h2>Ejemplo resuelto, paso a paso</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">Tienes 5 moles de H₂ y 2 moles de O₂ para la reacción 2H₂+O₂→2H₂O. ¿Cuál es el reactivo limitante y cuánta agua se forma?</p>
+      <div class="resolucion">
+        <div class="resolucion-bloque datos">
+          <p class="resolucion-label"><span class="num-badge">1</span>Datos</p>
+          <ul class="datos-lista">
+            <li><span class="dato-nombre">moles disponibles de H₂</span><span class="dato-valor">5 mol</span></li>
+            <li><span class="dato-nombre">moles disponibles de O₂</span><span class="dato-valor">2 mol</span></li>
+            <li><span class="dato-nombre">proporción según la ecuación balanceada</span><span class="dato-valor">2:1:2</span></li>
+          </ul>
+        </div>
+        <div class="resolucion-bloque formula-usada">
+          <p class="resolucion-label"><span class="num-badge">2</span>Fórmula utilizada</p>
+          <p style="color:var(--ink-soft);font-size:13.5px;margin:0;">Calculo cuánto H₂ hace falta para reaccionar con todo el O₂ disponible, usando la proporción 2:1.</p>
+        </div>
+        <div class="resolucion-bloque pasos">
+          <p class="resolucion-label"><span class="num-badge">3</span>Resolución</p>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Calculo cuánto H₂ necesitaría el O₂ disponible</span>
+            2 moles de O₂ × (2 mol H₂ / 1 mol O₂) = 4 moles de H₂ necesarios
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Comparo con lo que hay disponible</span>
+            Tengo 5 moles de H₂, necesito solo 4 → sobra H₂, el O₂ se termina primero
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Calculo el agua formada con el limitante (O₂)</span>
+            2 moles de O₂ × (2 mol H₂O / 1 mol O₂) = <strong>4 moles de H₂O</strong>
+          </div>
+        </div>
+        <div class="resolucion-bloque respuesta">
+          <p class="resolucion-label"><span class="num-badge">4</span>Respuesta</p>
+          <p>El <strong>O₂ es el reactivo limitante</strong>, y se forman <strong>4 moles de H₂O</strong> como máximo</p>
+        </div>
       </div>
+    </div>
+
+    <div class="card errores" data-tag="Errores frecuentes">
+      <h2>Errores frecuentes</h2>
+      <h3>Asumir que el reactivo que hay "menos cantidad" es siempre el limitante</h3>
+      <p>No es cuestión de comparar números directamente — hay que tener en cuenta la proporción de la ecuación balanceada. Acá había menos O₂ en cantidad, pero eso coincidió con ser el limitante; no siempre es así.</p>
+      <h3>Usar el reactivo equivocado para calcular el producto</h3>
+      <p>El producto formado se calcula SIEMPRE a partir del reactivo limitante, nunca del que sobra — usar el que sobra da un resultado mayor al real (imposible de lograr).</p>
+      <h3>Olvidar balancear la ecuación antes de calcular</h3>
+      <p>Los coeficientes de la ecuación (2, 1, 2 en este caso) solo son válidos si la ecuación está correctamente balanceada — si no lo está, hay que balancearla primero.</p>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">

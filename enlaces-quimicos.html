@@ -374,6 +374,64 @@
     border-top:1px dashed var(--line);
     padding-top:8px;margin-top:8px !important;
   }
+
+  /* Sistema de resolución estructurada: Datos / Fórmula / Resolución / Respuesta */
+  .resolucion{
+    border:2px solid var(--ink);border-radius:10px;
+    margin:16px 0;overflow:hidden;
+  }
+  .resolucion-bloque{
+    padding:14px 18px;border-bottom:1px solid var(--line);
+  }
+  .resolucion-bloque:last-child{border-bottom:none;}
+  .resolucion-bloque.datos{background:#FBF3E2;}
+  .resolucion-bloque.formula-usada{background:var(--paper);}
+  .resolucion-bloque.pasos{background:#FFFFFF;}
+  .resolucion-bloque.respuesta{background:#EAF3EE;}
+  .resolucion-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;
+    color:var(--ink-soft);margin:0 0 10px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .resolucion-label .num-badge{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:28px;height:28px;border-radius:50%;flex-shrink:0;
+    background:var(--ink);color:#fff;font-size:15px;font-weight:800;
+    font-family:'Inter', sans-serif;
+  }
+  .datos-lista{list-style:none;margin:0;padding:0;display:grid;gap:6px;}
+  .datos-lista li{
+    display:flex;align-items:baseline;gap:8px;font-size:14.5px;
+  }
+  .datos-lista .dato-simbolo{
+    font-family:'JetBrains Mono', monospace;font-weight:800;
+    min-width:34px;
+  }
+  .datos-lista .dato-nombre{color:var(--ink-soft);}
+  .datos-lista .dato-valor{font-weight:700;margin-left:auto;font-family:'JetBrains Mono', monospace;}
+  .resolucion-bloque.pasos .paso-r{
+    margin-bottom:10px;padding-left:14px;border-left:3px solid var(--ink-soft);
+  }
+  .resolucion-bloque.pasos .paso-r:last-child{margin-bottom:0;}
+  .resolucion-bloque.pasos .paso-r-titulo{
+    display:block;font-weight:700;font-size:13.5px;margin-bottom:2px;
+  }
+  .resolucion-bloque.respuesta p{
+    margin:0;font-size:15.5px;font-weight:700;color:var(--pine-dark);
+  }
+  .unidad{color:var(--ink-soft);font-weight:500;font-size:0.88em;}
+  .aviso-unidades{
+    display:flex;align-items:center;gap:8px;
+    background:#FBEAE5;border:1px solid #C0562E;border-radius:6px;
+    padding:8px 12px;margin-top:10px;font-size:13px;color:#8A3A1E;
+  }
+  .aviso-unidades strong{color:#8A3A1E;}
+
+  /* Errores frecuentes (mismo patrón visual que FAQ) */
+  .errores h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;color:#A0442E;}
+  .errores h3:first-of-type{margin-top:8px;}
+  .errores p{margin:0;color:var(--ink-soft);font-size:14.5px;}
 </style>
 </head>
 <body>
@@ -544,7 +602,7 @@
     </div>
 
     <div class="card" data-tag="Calculadora">
-      <h2>Probalo tú: elige dos elementos</h2>
+      <h2>Pruébalo tú: elige dos elementos</h2>
       <p style="color:var(--ink-soft);font-size:13.5px;margin-top:-4px;">El número entre paréntesis es la electronegatividad de cada uno (de la Tabla Periódica que ya vimos).</p>
       <div class="calc-grid">
         <div class="field">
@@ -572,13 +630,47 @@
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo paso a paso</h2>
-      <div class="example">
-        <p><strong>La sal de mesa: sodio (sodio, EN=0.93) + cloro (EN=3.16)</strong></p>
-        <p>1) El sodio es un metal, el cloro no es metal → ya sospechamos que va a ser iónico.</p>
-        <p>2) Confirmamos con la diferencia: 3.16 − 0.93 = <strong>2.23</strong> (un número grande)</p>
-        <p>3) Como es grande, confirma <strong>enlace iónico</strong> — el sodio realmente le regala el electrón al cloro, formando Na⁺ y Cl⁻ que se atraen entre sí, formando el cristal de sal que ves en el salero.</p>
+      <h2>Ejemplo resuelto, paso a paso</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">La sal de mesa: sodio (EN=0.93) + cloro (EN=3.16). ¿Qué tipo de enlace forman?</p>
+      <div class="resolucion">
+        <div class="resolucion-bloque datos">
+          <p class="resolucion-label"><span class="num-badge">1</span>Datos</p>
+          <ul class="datos-lista">
+            <li><span class="dato-nombre">electronegatividad del sodio (metal)</span><span class="dato-valor">EN = 0.93</span></li>
+            <li><span class="dato-nombre">electronegatividad del cloro (no metal)</span><span class="dato-valor">EN = 3.16</span></li>
+          </ul>
+        </div>
+        <div class="resolucion-bloque formula-usada">
+          <p class="resolucion-label"><span class="num-badge">2</span>Fórmula utilizada</p>
+          <div class="formula-box" style="margin:0;">ΔEN = EN mayor − EN menor</div>
+        </div>
+        <div class="resolucion-bloque pasos">
+          <p class="resolucion-label"><span class="num-badge">3</span>Resolución</p>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Identifico el tipo de átomos primero</span>
+            El sodio es un metal, el cloro no es metal → ya sospecho que va a ser iónico
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Confirmo calculando la diferencia de electronegatividad</span>
+            ΔEN = 3.16 − 0.93 = <strong>2.23</strong>
+          </div>
+        </div>
+        <div class="resolucion-bloque respuesta">
+          <p class="resolucion-label"><span class="num-badge">4</span>Respuesta</p>
+          <p>ΔEN=2.23 es un número grande (ΔEN≥1.7) → confirma <strong>enlace iónico</strong></p>
+        </div>
       </div>
+      <p style="color:var(--ink-soft);font-size:14px;margin-top:10px;">El sodio realmente le regala el electrón al cloro, formando Na⁺ y Cl⁻ que se atraen entre sí, formando el cristal de sal que ves en el salero.</p>
+    </div>
+
+    <div class="card errores" data-tag="Errores frecuentes">
+      <h2>Errores frecuentes</h2>
+      <h3>Restar en el orden incorrecto</h3>
+      <p>ΔEN siempre es un valor positivo — se resta el número mayor menos el menor, no importa qué elemento va primero en la fórmula.</p>
+      <h3>Olvidar el paso de identificar metal/no metal primero</h3>
+      <p>Fijarte primero si son metales o no metales te da una intuición rápida — el cálculo de ΔEN sirve para confirmar (o afinar) esa primera sospecha, no reemplaza ese primer vistazo.</p>
+      <h3>Pensar que ΔEN=0 siempre es covalente apolar</h3>
+      <p>Es cierto para átomos idénticos (como O₂), pero dos elementos distintos con ΔEN muy chico también pueden formar covalente apolar — lo importante es qué tan cerca de 0 está esa diferencia.</p>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">

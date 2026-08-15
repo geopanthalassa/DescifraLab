@@ -403,6 +403,117 @@
   }
   .tabla-leyenda span{display:flex;align-items:center;gap:5px;}
   .tabla-leyenda i{width:12px;height:12px;display:inline-block;border:1px solid var(--ink);}
+
+  /* Sistema de color para partes de una fórmula (mismo color = mismo rol en toda la página) */
+  .term-1{color:#B8842E;font-weight:800;}
+  .term-2{color:#2F6B5E;font-weight:800;}
+  .term-3{color:#7A4FB0;font-weight:800;}
+  .term-4{color:#2A6FA8;font-weight:800;}
+  .term-5{color:#C0562E;font-weight:800;}
+  .formula-leyenda{
+    display:flex;flex-wrap:wrap;gap:8px 20px;
+    margin-top:12px;padding-top:12px;
+    border-top:1px dashed var(--line);
+  }
+  .formula-leyenda .leyenda-item{
+    display:flex;align-items:flex-start;gap:7px;
+    font-size:13.5px;color:var(--ink-soft);max-width:260px;
+  }
+  .formula-leyenda .swatch{
+    display:inline-block;width:11px;height:11px;border-radius:3px;
+    margin-top:3px;flex-shrink:0;
+  }
+  .swatch-1{background:#B8842E;} .swatch-2{background:#2F6B5E;}
+  .swatch-3{background:#7A4FB0;} .swatch-4{background:#2A6FA8;} .swatch-5{background:#C0562E;}
+
+  /* Paso a paso con color por paso */
+  .pasos-resueltos{margin:14px 0;}
+  .paso{
+    display:flex;gap:12px;align-items:flex-start;
+    padding:12px 14px;margin-bottom:8px;border-radius:8px;
+    background:var(--paper);border-left:4px solid var(--ink-soft);
+  }
+  .paso-num{
+    font-family:'JetBrains Mono', monospace;font-weight:800;font-size:12.5px;
+    width:22px;height:22px;border-radius:50%;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;color:#fff;
+    background:var(--ink-soft);
+  }
+  .paso:nth-child(1){border-left-color:#B8842E;} .paso:nth-child(1) .paso-num{background:#B8842E;}
+  .paso:nth-child(2){border-left-color:#2F6B5E;} .paso:nth-child(2) .paso-num{background:#2F6B5E;}
+  .paso:nth-child(3){border-left-color:#7A4FB0;} .paso:nth-child(3) .paso-num{background:#7A4FB0;}
+  .paso:nth-child(4){border-left-color:#2A6FA8;} .paso:nth-child(4) .paso-num{background:#2A6FA8;}
+  .paso:nth-child(5){border-left-color:#C0562E;} .paso:nth-child(5) .paso-num{background:#C0562E;}
+  .paso p{margin:0;font-size:14.5px;}
+  .paso .paso-titulo{font-weight:700;display:block;margin-bottom:2px;}
+
+  .analogia{
+    background:#FBF3E2;border:1.5px dashed #B8842E;border-radius:8px;
+    padding:14px 16px;margin:14px 0;font-size:14.5px;
+  }
+  .analogia .analogia-tag{
+    font-family:'JetBrains Mono', monospace;font-size:11px;font-weight:700;
+    text-transform:uppercase;letter-spacing:0.06em;color:#B8842E;
+    display:block;margin-bottom:6px;
+  }
+
+  /* Sistema de resolución estructurada: Datos / Fórmula / Resolución / Respuesta */
+  .resolucion{
+    border:2px solid var(--ink);border-radius:10px;
+    margin:16px 0;overflow:hidden;
+  }
+  .resolucion-bloque{
+    padding:14px 18px;border-bottom:1px solid var(--line);
+  }
+  .resolucion-bloque:last-child{border-bottom:none;}
+  .resolucion-bloque.datos{background:#FBF3E2;}
+  .resolucion-bloque.formula-usada{background:var(--paper);}
+  .resolucion-bloque.pasos{background:#FFFFFF;}
+  .resolucion-bloque.respuesta{background:#EAF3EE;}
+  .resolucion-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;
+    color:var(--ink-soft);margin:0 0 10px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .resolucion-label .num-badge{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:28px;height:28px;border-radius:50%;flex-shrink:0;
+    background:var(--ink);color:#fff;font-size:15px;font-weight:800;
+    font-family:'Inter', sans-serif;
+  }
+  .datos-lista{list-style:none;margin:0;padding:0;display:grid;gap:6px;}
+  .datos-lista li{
+    display:flex;align-items:baseline;gap:8px;font-size:14.5px;
+  }
+  .datos-lista .dato-simbolo{
+    font-family:'JetBrains Mono', monospace;font-weight:800;
+    min-width:34px;
+  }
+  .datos-lista .dato-nombre{color:var(--ink-soft);}
+  .datos-lista .dato-valor{font-weight:700;margin-left:auto;font-family:'JetBrains Mono', monospace;}
+  .resolucion-bloque.pasos .paso-r{
+    margin-bottom:10px;padding-left:14px;border-left:3px solid var(--ink-soft);
+  }
+  .resolucion-bloque.pasos .paso-r:last-child{margin-bottom:0;}
+  .resolucion-bloque.pasos .paso-r-titulo{
+    display:block;font-weight:700;font-size:13.5px;margin-bottom:2px;
+  }
+  .resolucion-bloque.respuesta p{
+    margin:0;font-size:15.5px;font-weight:700;color:var(--pine-dark);
+  }
+  .unidad{color:var(--ink-soft);font-weight:500;font-size:0.88em;}
+  .aviso-unidades{
+    display:flex;align-items:center;gap:8px;
+    background:#FBEAE5;border:1px solid #C0562E;border-radius:6px;
+    padding:8px 12px;margin-top:10px;font-size:13px;color:#8A3A1E;
+  }
+  .aviso-unidades strong{color:#8A3A1E;}
+
+  /* Errores frecuentes (mismo patrón visual que FAQ) */
+  .errores h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;color:#A0442E;}
+  .errores h3:first-of-type{margin-top:8px;}
+  .errores p{margin:0;color:var(--ink-soft);font-size:14.5px;}
 </style>
 </head>
 <body>
@@ -554,9 +665,16 @@
     <div class="card" data-tag="Concepto">
       <h2>¿De qué está hecho un átomo?</h2>
       <p>Todo átomo tiene un núcleo central con protones (carga positiva) y neutrones (sin carga), rodeado por electrones (carga negativa) que giran a su alrededor. El número de protones define de qué elemento se trata — es su "documento de identidad".</p>
-      <div class="formula-box">Número atómico (Z) = cantidad de protones</div>
-      <div class="formula-box">Número másico (A) = protones + neutrones</div>
-      <p class="var-list">En un átomo neutro, la cantidad de electrones es igual a la de protones (Z). Los <strong>isótopos</strong> son átomos del mismo elemento (mismo Z) pero con distinta cantidad de neutrones (distinto A).</p>
+      <div class="formula-box">Número atómico <span class="term-1">Z</span> = cantidad de protones</div>
+      <div class="formula-box">Número másico <span class="term-2">A</span> = protones + neutrones</div>
+      <div class="formula-leyenda">
+        <div class="leyenda-item"><span class="swatch swatch-1"></span> <strong class="term-1">Z</strong> = número atómico — identifica al elemento</div>
+        <div class="leyenda-item"><span class="swatch swatch-2"></span> <strong class="term-2">A</strong> = número másico — protones + neutrones juntos</div>
+      </div>
+      <div class="analogia">
+        <span class="analogia-tag">Piénsalo así</span>
+        En un átomo neutro, la cantidad de electrones es igual a la de protones (Z). Los <strong>isótopos</strong> son átomos del mismo elemento (mismo Z) pero con distinta cantidad de neutrones (distinto A) — como hermanos con el mismo apellido pero distinto peso.
+      </div>
     </div>
 
     <div class="card" data-tag="Calculadora">
@@ -593,13 +711,51 @@
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
-      <div class="example">
-        <p><strong>Un átomo de magnesio tiene Z=12 y A=24. ¿Cuántos protones, neutrones y electrones tiene?</strong></p>
-        <p>Protones = Z = <strong>12</strong></p>
-        <p>Neutrones = A − Z = 24 − 12 = <strong>12</strong></p>
-        <p>Electrones (átomo neutro) = Z = <strong>12</strong></p>
+      <h2>Ejemplo resuelto, paso a paso</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">Un átomo de magnesio tiene Z=12 y A=24. ¿Cuántos protones, neutrones y electrones tiene?</p>
+      <div class="resolucion">
+        <div class="resolucion-bloque datos">
+          <p class="resolucion-label"><span class="num-badge">1</span>Datos</p>
+          <ul class="datos-lista">
+            <li><span class="dato-simbolo term-1">Z</span><span class="dato-nombre">número atómico (dado)</span><span class="dato-valor term-1">12</span></li>
+            <li><span class="dato-simbolo term-2">A</span><span class="dato-nombre">número másico (dado)</span><span class="dato-valor term-2">24</span></li>
+          </ul>
+        </div>
+        <div class="resolucion-bloque formula-usada">
+          <p class="resolucion-label"><span class="num-badge">2</span>Fórmula utilizada</p>
+          <div class="formula-box" style="margin:0 0 8px;">Protones = <span class="term-1">Z</span></div>
+          <div class="formula-box" style="margin:0;">Neutrones = <span class="term-2">A</span> − <span class="term-1">Z</span></div>
+        </div>
+        <div class="resolucion-bloque pasos">
+          <p class="resolucion-label"><span class="num-badge">3</span>Resolución</p>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Los protones son directamente Z</span>
+            Protones = <span class="term-1">12</span>
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Resto A menos Z para los neutrones</span>
+            Neutrones = <span class="term-2">24</span> − <span class="term-1">12</span> = <strong>12</strong>
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Como el átomo es neutro, electrones = protones</span>
+            Electrones = <strong>12</strong>
+          </div>
+        </div>
+        <div class="resolucion-bloque respuesta">
+          <p class="resolucion-label"><span class="num-badge">4</span>Respuesta</p>
+          <p>Tiene <strong>12 protones</strong>, <strong>12 neutrones</strong> y <strong>12 electrones</strong></p>
+        </div>
       </div>
+    </div>
+
+    <div class="card errores" data-tag="Errores frecuentes">
+      <h2>Errores frecuentes</h2>
+      <h3>Confundir número atómico con número másico</h3>
+      <p>Z (número atómico) es solo protones. A (número másico) es protones + neutrones — no son lo mismo, aunque a veces coincidan en valor por casualidad.</p>
+      <h3>Asumir que todos los átomos son neutros</h3>
+      <p>Si el átomo es un ion (tiene carga), la cantidad de electrones NO es igual a Z — hay que sumar o restar electrones según la carga indicada.</p>
+      <h3>Pensar que isótopos son elementos distintos</h3>
+      <p>Los isótopos tienen el mismo número de protones (mismo elemento) pero distinto número de neutrones — siguen siendo el mismo elemento químico, solo con distinta masa.</p>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
@@ -625,9 +781,12 @@
     <div class="card" data-tag="Concepto">
       <h2>Distribución electrónica por capas</h2>
       <p>Los electrones no giran todos a la misma distancia del núcleo — se organizan en capas (niveles de energía), cada una con una capacidad máxima de electrones que sigue la fórmula 2n² (n = número de capa).</p>
-      <div class="formula-box">Capacidad máxima de cada capa = 2n²</div>
-      <p class="var-list">Capa 1: máx. 2 &nbsp;·&nbsp; Capa 2: máx. 8 &nbsp;·&nbsp; Capa 3: máx. 18 &nbsp;·&nbsp; Capa 4: máx. 32</p>
-      <p style="color:var(--ink-soft);font-size:14.5px;">Este modelo simplificado (llenar capa por capa en orden) funciona perfecto hasta el Argón (Z=18). A partir de los metales de transición, el orden real de llenado es más complejo (por ejemplo, el nivel 4s se llena antes que el 3d) — la tabla de abajo usa el modelo simplificado para todos los elementos con fines didácticos, así que a partir de ahí es una aproximación, no la configuración electrónica real exacta.</p>
+      <div class="formula-box">Capacidad máxima de cada capa = 2<span class="term-1">n</span>²</div>
+      <p class="var-list"><span class="term-1">n</span> = número de capa &nbsp;·&nbsp; Capa 1: máx. 2 &nbsp;·&nbsp; Capa 2: máx. 8 &nbsp;·&nbsp; Capa 3: máx. 18 &nbsp;·&nbsp; Capa 4: máx. 32</p>
+      <div class="analogia">
+        <span class="analogia-tag">Piénsalo así</span>
+        Este modelo simplificado (llenar capa por capa en orden) funciona perfecto hasta el Argón (Z=18). A partir de los metales de transición, el orden real de llenado es más complejo — la tabla de abajo usa el modelo simplificado con fines didácticos.
+      </div>
     </div>
 
     <div class="card" data-tag="Calculadora">
@@ -648,14 +807,50 @@
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
-      <div class="example">
-        <p><strong>El sodio (Na) tiene Z=11. ¿Cómo se distribuyen sus electrones?</strong></p>
-        <p>Capa 1: 2 electrones (llena) → quedan 11−2=9</p>
-        <p>Capa 2: 8 electrones (llena) → quedan 9−8=1</p>
-        <p>Capa 3: <strong>1 electrón</strong> (capa de valencia)</p>
-        <p>Por eso el sodio tiende a "perder" ese único electrón de la última capa al reaccionar — le resulta más estable quedar con la capa 2 completa.</p>
+      <h2>Ejemplo resuelto, paso a paso</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">El sodio (Na) tiene Z=11. ¿Cómo se distribuyen sus electrones por capas?</p>
+      <div class="resolucion">
+        <div class="resolucion-bloque datos">
+          <p class="resolucion-label"><span class="num-badge">1</span>Datos</p>
+          <ul class="datos-lista">
+            <li><span class="dato-simbolo">Z</span><span class="dato-nombre">número atómico del sodio (= cantidad de electrones)</span><span class="dato-valor">11</span></li>
+          </ul>
+        </div>
+        <div class="resolucion-bloque formula-usada">
+          <p class="resolucion-label"><span class="num-badge">2</span>Fórmula utilizada</p>
+          <p style="color:var(--ink-soft);font-size:13.5px;margin:0;">Voy llenando cada capa con su capacidad máxima (2, 8, 18, 32...) hasta agotar los 11 electrones.</p>
+        </div>
+        <div class="resolucion-bloque pasos">
+          <p class="resolucion-label"><span class="num-badge">3</span>Resolución</p>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Lleno la capa 1 (máximo 2)</span>
+            Capa 1: 2 electrones (llena) → quedan 11−2=9
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Lleno la capa 2 (máximo 8)</span>
+            Capa 2: 8 electrones (llena) → quedan 9−8=1
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Pongo lo que queda en la capa 3</span>
+            Capa 3: <strong>1 electrón</strong> (capa de valencia)
+          </div>
+        </div>
+        <div class="resolucion-bloque respuesta">
+          <p class="resolucion-label"><span class="num-badge">4</span>Respuesta</p>
+          <p>Distribución: <strong>2, 8, 1</strong></p>
+        </div>
       </div>
+      <p style="color:var(--ink-soft);font-size:14px;margin-top:10px;">Por eso el sodio tiende a "perder" ese único electrón de la última capa al reaccionar — le resulta más estable quedar con la capa 2 completa.</p>
+    </div>
+
+    <div class="card errores" data-tag="Errores frecuentes">
+      <h2>Errores frecuentes</h2>
+      <h3>Olvidar respetar la capacidad máxima de cada capa</h3>
+      <p>No puedes poner más de 2 electrones en la capa 1, ni más de 8 en la capa 2 — hay que llenar cada capa hasta su tope antes de pasar a la siguiente.</p>
+      <h3>Confundir número de capa con capa de valencia</h3>
+      <p>La capa de valencia es siempre la ÚLTIMA capa ocupada (la más externa), no la primera — es la que determina el comportamiento químico del elemento.</p>
+      <h3>Aplicar el modelo simplificado más allá del Argón sin aclarar la aproximación</h3>
+      <p>A partir de los metales de transición (Z>18), el orden real de llenado es más complejo — el modelo de capas simple es una buena aproximación didáctica, pero no siempre coincide con la configuración electrónica real.</p>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">

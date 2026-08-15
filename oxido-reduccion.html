@@ -351,6 +351,64 @@
     font-size:16px;width:36px;flex-shrink:0;
   }
   .serie-desc{font-size:13px;color:var(--ink);}
+
+  /* Sistema de resolución estructurada: Datos / Fórmula / Resolución / Respuesta */
+  .resolucion{
+    border:2px solid var(--ink);border-radius:10px;
+    margin:16px 0;overflow:hidden;
+  }
+  .resolucion-bloque{
+    padding:14px 18px;border-bottom:1px solid var(--line);
+  }
+  .resolucion-bloque:last-child{border-bottom:none;}
+  .resolucion-bloque.datos{background:#FBF3E2;}
+  .resolucion-bloque.formula-usada{background:var(--paper);}
+  .resolucion-bloque.pasos{background:#FFFFFF;}
+  .resolucion-bloque.respuesta{background:#EAF3EE;}
+  .resolucion-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;
+    color:var(--ink-soft);margin:0 0 10px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .resolucion-label .num-badge{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:28px;height:28px;border-radius:50%;flex-shrink:0;
+    background:var(--ink);color:#fff;font-size:15px;font-weight:800;
+    font-family:'Inter', sans-serif;
+  }
+  .datos-lista{list-style:none;margin:0;padding:0;display:grid;gap:6px;}
+  .datos-lista li{
+    display:flex;align-items:baseline;gap:8px;font-size:14.5px;
+  }
+  .datos-lista .dato-simbolo{
+    font-family:'JetBrains Mono', monospace;font-weight:800;
+    min-width:34px;
+  }
+  .datos-lista .dato-nombre{color:var(--ink-soft);}
+  .datos-lista .dato-valor{font-weight:700;margin-left:auto;font-family:'JetBrains Mono', monospace;}
+  .resolucion-bloque.pasos .paso-r{
+    margin-bottom:10px;padding-left:14px;border-left:3px solid var(--ink-soft);
+  }
+  .resolucion-bloque.pasos .paso-r:last-child{margin-bottom:0;}
+  .resolucion-bloque.pasos .paso-r-titulo{
+    display:block;font-weight:700;font-size:13.5px;margin-bottom:2px;
+  }
+  .resolucion-bloque.respuesta p{
+    margin:0;font-size:15.5px;font-weight:700;color:var(--pine-dark);
+  }
+  .unidad{color:var(--ink-soft);font-weight:500;font-size:0.88em;}
+  .aviso-unidades{
+    display:flex;align-items:center;gap:8px;
+    background:#FBEAE5;border:1px solid #C0562E;border-radius:6px;
+    padding:8px 12px;margin-top:10px;font-size:13px;color:#8A3A1E;
+  }
+  .aviso-unidades strong{color:#8A3A1E;}
+
+  /* Errores frecuentes (mismo patrón visual que FAQ) */
+  .errores h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;color:#A0442E;}
+  .errores h3:first-of-type{margin-top:8px;}
+  .errores p{margin:0;color:var(--ink-soft);font-size:14.5px;}
 </style>
 </head>
 <body>
@@ -505,13 +563,48 @@
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
-      <div class="example">
-        <p><strong>¿Cuál es el número de oxidación del azufre en el ion sulfato (SO₄²⁻)?</strong></p>
-        <p>1 átomo de S (desconocido) + 4 átomos de O (−2 cada uno) = carga total −2</p>
-        <p>X + 4×(−2) = −2 → X − 8 = −2 → <strong>X = +6</strong></p>
-        <p>El azufre tiene número de oxidación +6 en el sulfato.</p>
+      <h2>Ejemplo resuelto, paso a paso</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">¿Cuál es el número de oxidación del azufre en el ion sulfato (SO₄²⁻)?</p>
+      <div class="resolucion">
+        <div class="resolucion-bloque datos">
+          <p class="resolucion-label"><span class="num-badge">1</span>Datos</p>
+          <ul class="datos-lista">
+            <li><span class="dato-nombre">átomos de azufre (S) en la fórmula</span><span class="dato-valor">1 (número de oxidación desconocido, X)</span></li>
+            <li><span class="dato-nombre">átomos de oxígeno (O), cada uno con oxidación −2</span><span class="dato-valor">4</span></li>
+            <li><span class="dato-nombre">carga total del ion</span><span class="dato-valor">−2</span></li>
+          </ul>
+        </div>
+        <div class="resolucion-bloque formula-usada">
+          <p class="resolucion-label"><span class="num-badge">2</span>Fórmula utilizada</p>
+          <p style="color:var(--ink-soft);font-size:13.5px;margin:0 0 8px;">En un ion, la suma de todos los números de oxidación tiene que dar igual a la carga del ion:</p>
+          <div class="formula-box" style="margin:0;">X + 4×(−2) = −2</div>
+        </div>
+        <div class="resolucion-bloque pasos">
+          <p class="resolucion-label"><span class="num-badge">3</span>Resolución</p>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Resuelvo la multiplicación de los oxígenos</span>
+            X + (−8) = −2
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Despejo X</span>
+            X = −2 + 8 = <strong>+6</strong>
+          </div>
+        </div>
+        <div class="resolucion-bloque respuesta">
+          <p class="resolucion-label"><span class="num-badge">4</span>Respuesta</p>
+          <p>El azufre tiene número de oxidación <strong>+6</strong> en el sulfato</p>
+        </div>
       </div>
+    </div>
+
+    <div class="card errores" data-tag="Errores frecuentes">
+      <h2>Errores frecuentes</h2>
+      <h3>Olvidar multiplicar el número de oxidación por la cantidad de átomos</h3>
+      <p>Si hay 4 oxígenos con oxidación −2 cada uno, hay que usar 4×(−2)=−8 en la ecuación, no solo −2 — cada átomo cuenta por separado.</p>
+      <h3>Confundir carga del ion con número de oxidación de un átomo específico</h3>
+      <p>La carga total del ion (−2 en este caso) es la suma de TODOS los números de oxidación de la fórmula — no es directamente el número de oxidación del azufre.</p>
+      <h3>Usar −2 para el oxígeno en un peróxido</h3>
+      <p>Es la excepción a la regla: en peróxidos (como H₂O₂), el oxígeno tiene número de oxidación −1, no −2 — hay que reconocer ese caso especial.</p>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
@@ -608,12 +701,46 @@
     </div>
 
     <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
-      <div class="example">
-        <p><strong>En la reacción Zn + Cu²⁺ → Zn²⁺ + Cu, ¿quién es el agente oxidante y quién el reductor?</strong></p>
-        <p>El Zn pasa de 0 a +2 → pierde 2 electrones → <strong>se oxida</strong> → es el agente reductor</p>
-        <p>El Cu²⁺ pasa de +2 a 0 → gana 2 electrones → <strong>se reduce</strong> → es el agente oxidante</p>
+      <h2>Ejemplo resuelto, paso a paso</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">En la reacción Zn + Cu²⁺ → Zn²⁺ + Cu, ¿quién es el agente oxidante y quién el reductor?</p>
+      <div class="resolucion">
+        <div class="resolucion-bloque datos">
+          <p class="resolucion-label"><span class="num-badge">1</span>Datos</p>
+          <ul class="datos-lista">
+            <li><span class="dato-nombre">número de oxidación del Zn antes y después</span><span class="dato-valor">0 → +2</span></li>
+            <li><span class="dato-nombre">número de oxidación del Cu antes y después</span><span class="dato-valor">+2 → 0</span></li>
+          </ul>
+        </div>
+        <div class="resolucion-bloque formula-usada">
+          <p class="resolucion-label"><span class="num-badge">2</span>Fórmula utilizada</p>
+          <p style="color:var(--ink-soft);font-size:13.5px;margin:0;">"Quien pierde electrones se oxida y es agente reductor; quien gana electrones se reduce y es agente oxidante."</p>
+        </div>
+        <div class="resolucion-bloque pasos">
+          <p class="resolucion-label"><span class="num-badge">3</span>Resolución</p>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Analizo qué pasó con el Zn</span>
+            Pasa de 0 a +2 → perdió 2 electrones → <strong>se oxida</strong>
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Analizo qué pasó con el Cu</span>
+            Pasa de +2 a 0 → ganó 2 electrones → <strong>se reduce</strong>
+          </div>
+        </div>
+        <div class="resolucion-bloque respuesta">
+          <p class="resolucion-label"><span class="num-badge">4</span>Respuesta</p>
+          <p>El <strong>Zn es el agente reductor</strong> (se oxida), y el <strong>Cu²⁺ es el agente oxidante</strong> (se reduce)</p>
+        </div>
       </div>
+    </div>
+
+    <div class="card errores" data-tag="Errores frecuentes">
+      <h2>Errores frecuentes</h2>
+      <h3>Confundir "agente oxidante" con "que se oxida"</h3>
+      <p>Es al revés de lo que suena intuitivo: el agente oxidante es el que SE REDUCE (gana electrones) — provoca que el otro se oxide, por eso se llama así.</p>
+      <h3>No comparar el número de oxidación antes y después</h3>
+      <p>Para saber si algo se oxida o se reduce, hay que comparar su número de oxidación en los reactivos contra el de los productos — no alcanza con mirar solo un lado de la ecuación.</p>
+      <h3>Olvidar que oxidación y reducción siempre van juntas</h3>
+      <p>No puede haber oxidación sin reducción en la misma reacción — los electrones que pierde uno son exactamente los que gana el otro.</p>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
