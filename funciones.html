@@ -93,6 +93,7 @@
     color:#D8D3C4;text-decoration:none;
     font-size:13.5px;font-weight:500;
     padding:8px 12px;border-radius:6px;
+    display:inline-flex;align-items:center;
     transition:background 0.15s, color 0.15s;
   }
   .navbar-links a:hover{background:rgba(255,255,255,0.08);color:#fff;}
@@ -111,7 +112,7 @@
   .nav-drop summary::-webkit-details-marker{display:none;}
   .nav-drop summary:hover{background:rgba(255,255,255,0.08);color:#fff;}
   .nav-drop[open] summary{background:rgba(255,255,255,0.1);color:#fff;}
-  .nav-toplink-label{color:inherit;text-decoration:none;}
+  .nav-toplink-label{color:inherit;text-decoration:none;padding:0!important;}
   .nav-toplink-label:hover{text-decoration:underline;}
   .nav-caret{font-size:10px;opacity:0.7;padding:2px;}
   .nav-panel{
@@ -410,6 +411,28 @@
   }
   footer a{color:var(--ink-soft);text-decoration:underline;}
   footer a:hover{color:var(--ink);}
+
+  /* Manipulables interactivos (arrastrar y ver en vivo) */
+  .manip-box{
+    background:var(--paper);border:2px solid var(--ink);border-radius:10px;
+    padding:16px;margin:16px 0;
+  }
+  .manip-canvas-wrap{
+    display:flex;justify-content:center;touch-action:none;
+  }
+  .manip-canvas-wrap canvas{
+    max-width:100%;height:auto;cursor:grab;background:#fff;border-radius:6px;
+  }
+  .manip-canvas-wrap canvas:active{cursor:grabbing;}
+  .manip-readout{
+    margin-top:12px;padding:12px 16px;background:var(--ink);color:#fff;
+    border-radius:8px;font-family:'JetBrains Mono', monospace;
+    font-size:15px;text-align:center;font-weight:700;
+  }
+  .manip-hint{
+    text-align:center;color:var(--ink-soft);font-size:12.5px;margin-top:8px;
+    font-family:'JetBrains Mono', monospace;
+  }
 </style>
 </head>
 <body>
@@ -448,11 +471,22 @@
         <p class="nav-panel-titulo">Física Moderna</p>
         <a href="relatividad.html" class="nav-panel-link">Relatividad</a>
         <a href="energia-nuclear.html" class="nav-panel-link">Energía Nuclear</a>
+        <p class="nav-panel-titulo">Introductorio (1° año)</p>
+        <a href="sistema-solar.html" class="nav-panel-link">Sistema Solar</a>
+        <a href="masa-peso.html" class="nav-panel-link">Masa vs Peso</a>
+        <a href="ondas-sonido.html" class="nav-panel-link">Ondas y Sonido</a>
+        <a href="luz-optica.html" class="nav-panel-link">Luz y Óptica</a>
       </div>
     </details>
     <details class="nav-drop">
       <summary><a href="matematica.html" class="nav-toplink-label">Matemática</a><span class="nav-caret">▾</span></summary>
       <div class="nav-panel">
+        <p class="nav-panel-titulo">Números (1° y 2° año)</p>
+        <a href="numeros-enteros.html" class="nav-panel-link">Números Enteros</a>
+        <a href="numeros-racionales.html" class="nav-panel-link">Números Racionales</a>
+        <a href="multiplos-divisores.html" class="nav-panel-link">Múltiplos, Divisores y Potenciación</a>
+        <a href="proporcionalidad.html" class="nav-panel-link">Proporcionalidad</a>
+        <a href="regularidades.html" class="nav-panel-link">Regularidades y Fórmulas</a>
         <p class="nav-panel-titulo">Álgebra</p>
         <a href="ecuaciones-primer-grado.html" class="nav-panel-link">Ecuaciones de Primer Grado</a>
         <a href="ecuaciones-segundo-grado.html" class="nav-panel-link">Ecuaciones de Segundo Grado</a>
@@ -473,6 +507,9 @@
         <a href="estadistica.html" class="nav-panel-link">Estadística</a>
         <a href="probabilidad.html" class="nav-panel-link">Probabilidad</a>
         <p class="nav-panel-titulo">Geometría</p>
+        <a href="poligonos.html" class="nav-panel-link">Polígonos</a>
+        <a href="teorema-thales.html" class="nav-panel-link">Teorema de Thales</a>
+        <a href="areas-volumenes.html" class="nav-panel-link">Áreas, Perímetros y Volúmenes</a>
         <a href="geometria-analitica.html" class="nav-panel-link">Geometría Analítica</a>
       </div>
     </details>
@@ -488,9 +525,11 @@
         <a href="oxido-reduccion.html" class="nav-panel-link">Óxido-Reducción</a>
         <a href="acido-base.html" class="nav-panel-link">Ácido-Base y pH</a>
         <p class="nav-panel-titulo">Materia y soluciones</p>
+        <a href="estados-materia.html" class="nav-panel-link">Estados de la Materia</a>
         <a href="concentracion-soluciones.html" class="nav-panel-link">Concentración de Soluciones</a>
         <a href="mezclas-separacion.html" class="nav-panel-link">Mezclas y Separación</a>
         <a href="leyes-gases.html" class="nav-panel-link">Leyes de los Gases</a>
+        <a href="quimica-organica.html" class="nav-panel-link">Química Orgánica</a>
       </div>
     </details>
     <details class="nav-drop">
@@ -501,6 +540,7 @@
         <a href="docentes.html" class="nav-panel-link">Para Docentes</a>
         <a href="experimentos.html" class="nav-panel-link">Experimentos Caseros</a>
         <a href="conversor-unidades.html" class="nav-panel-link">Conversor de Unidades</a>
+        <a href="magnitudes.html" class="nav-panel-link">Magnitudes y Sistema Internacional</a>
         <a href="sobre-nosotros.html" class="nav-panel-link">Sobre la Fundadora</a>
       </div>
     </details>
@@ -547,6 +587,18 @@
       <div class="analogia">
         <span class="analogia-tag">Piénsalo así</span>
         Imagina que caminas por una calle en subida. <strong class="term-1">m</strong> es qué tan empinada es la subida (si es 0, la calle es plana; si es grande, subís muy rápido). <strong class="term-2">b</strong> es la altura donde arrancaste a caminar, antes de dar el primer paso.
+      </div>
+    </div>
+
+    <div class="card" data-tag="Manipulable">
+      <h2>Arrastra los puntos y mira cómo cambia la recta</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;">Mueves cualquiera de los dos puntos con el mouse o el dedo — la recta y su ecuación se recalculan al instante, en vivo.</p>
+      <div class="manip-box">
+        <div class="manip-canvas-wrap">
+          <canvas id="func-canvas" width="560" height="400"></canvas>
+        </div>
+        <div class="manip-readout" id="func-readout">y = 1.00x + 0.00</div>
+        <div class="manip-hint">Arrastra los dos puntos naranjas</div>
       </div>
     </div>
 
@@ -731,6 +783,113 @@
   function toggleNavMobile(){
     document.querySelector('.navbar-links').classList.toggle('open');
   }
+
+  // ---- Manipulable: recta arrastrable ----
+  (function(){
+    const canvas = document.getElementById('func-canvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height;
+    const origenX = W/2, origenY = H/2;
+    const escala = 30; // píxeles por unidad
+
+    // puntos en coordenadas de "mundo" (matemáticas), no de pantalla
+    let p1 = {x: -4, y: -2};
+    let p2 = {x: 3, y: 3};
+    let arrastrando = null;
+
+    function mundoAPantalla(px, py){
+      return { x: origenX + px*escala, y: origenY - py*escala };
+    }
+    function pantallaAMundo(sx, sy){
+      return { x: (sx-origenX)/escala, y: -(sy-origenY)/escala };
+    }
+
+    function dibujar(){
+      ctx.clearRect(0,0,W,H);
+
+      // grilla
+      ctx.strokeStyle = '#E8E2D0';
+      ctx.lineWidth = 1;
+      for(let gx=-9; gx<=9; gx++){
+        const sx = origenX + gx*escala;
+        ctx.beginPath(); ctx.moveTo(sx,0); ctx.lineTo(sx,H); ctx.stroke();
+      }
+      for(let gy=-6; gy<=6; gy++){
+        const sy = origenY + gy*escala;
+        ctx.beginPath(); ctx.moveTo(0,sy); ctx.lineTo(W,sy); ctx.stroke();
+      }
+
+      // ejes
+      ctx.strokeStyle = '#3A4756';
+      ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(0,origenY); ctx.lineTo(W,origenY); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(origenX,0); ctx.lineTo(origenX,H); ctx.stroke();
+
+      // calcular m y b
+      const m = (p2.y - p1.y) / (p2.x - p1.x);
+      const b = p1.y - m*p1.x;
+
+      // dibujar la recta extendida por todo el canvas
+      const xIzq = pantallaAMundo(0,0).x;
+      const xDer = pantallaAMundo(W,0).x;
+      const pIzq = mundoAPantalla(xIzq, m*xIzq+b);
+      const pDer = mundoAPantalla(xDer, m*xDer+b);
+      ctx.strokeStyle = '#1F7A8C';
+      ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(pIzq.x, pIzq.y); ctx.lineTo(pDer.x, pDer.y); ctx.stroke();
+
+      // puntos arrastrables
+      [p1, p2].forEach(p=>{
+        const s = mundoAPantalla(p.x, p.y);
+        ctx.fillStyle = '#D9A441';
+        ctx.strokeStyle = '#1C2733';
+        ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.arc(s.x, s.y, 9, 0, Math.PI*2); ctx.fill(); ctx.stroke();
+      });
+
+      document.getElementById('func-readout').innerText =
+        `y = ${m.toFixed(2)}x + ${b.toFixed(2)}`;
+    }
+
+    function posicionEvento(e){
+      const rect = canvas.getBoundingClientRect();
+      const escalaCanvas = canvas.width / rect.width;
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return { x: (clientX-rect.left)*escalaCanvas, y: (clientY-rect.top)*escalaCanvas };
+    }
+
+    function empezarArrastre(e){
+      const pos = posicionEvento(e);
+      [p1,p2].forEach((p,i)=>{
+        const s = mundoAPantalla(p.x, p.y);
+        const dist = Math.hypot(pos.x-s.x, pos.y-s.y);
+        if(dist < 20) arrastrando = (i===0? p1 : p2);
+      });
+      if(arrastrando) e.preventDefault();
+    }
+    function moverArrastre(e){
+      if(!arrastrando) return;
+      e.preventDefault();
+      const pos = posicionEvento(e);
+      const m = pantallaAMundo(pos.x, pos.y);
+      // redondeo suave a la grilla para que sea más fácil leer valores lindos
+      arrastrando.x = Math.round(m.x*2)/2;
+      arrastrando.y = Math.round(m.y*2)/2;
+      dibujar();
+    }
+    function terminarArrastre(){ arrastrando = null; }
+
+    canvas.addEventListener('mousedown', empezarArrastre);
+    canvas.addEventListener('mousemove', moverArrastre);
+    window.addEventListener('mouseup', terminarArrastre);
+    canvas.addEventListener('touchstart', empezarArrastre, {passive:false});
+    canvas.addEventListener('touchmove', moverArrastre, {passive:false});
+    window.addEventListener('touchend', terminarArrastre);
+
+    dibujar();
+  })();
 
   const navLinksEl = document.querySelector('.navbar-links');
   if(navLinksEl && window.matchMedia('(hover: hover)').matches){

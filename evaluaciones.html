@@ -93,6 +93,7 @@
     color:#D8D3C4;text-decoration:none;
     font-size:13.5px;font-weight:500;
     padding:8px 12px;border-radius:6px;
+    display:inline-flex;align-items:center;
     transition:background 0.15s, color 0.15s;
   }
   .navbar-links a:hover{background:rgba(255,255,255,0.08);color:#fff;}
@@ -111,7 +112,7 @@
   .nav-drop summary::-webkit-details-marker{display:none;}
   .nav-drop summary:hover{background:rgba(255,255,255,0.08);color:#fff;}
   .nav-drop[open] summary{background:rgba(255,255,255,0.1);color:#fff;}
-  .nav-toplink-label{color:inherit;text-decoration:none;}
+  .nav-toplink-label{color:inherit;text-decoration:none;padding:0!important;}
   .nav-toplink-label:hover{text-decoration:underline;}
   .nav-caret{font-size:10px;opacity:0.7;padding:2px;}
   .nav-panel{
@@ -426,11 +427,22 @@
         <p class="nav-panel-titulo">Física Moderna</p>
         <a href="relatividad.html" class="nav-panel-link">Relatividad</a>
         <a href="energia-nuclear.html" class="nav-panel-link">Energía Nuclear</a>
+        <p class="nav-panel-titulo">Introductorio (1° año)</p>
+        <a href="sistema-solar.html" class="nav-panel-link">Sistema Solar</a>
+        <a href="masa-peso.html" class="nav-panel-link">Masa vs Peso</a>
+        <a href="ondas-sonido.html" class="nav-panel-link">Ondas y Sonido</a>
+        <a href="luz-optica.html" class="nav-panel-link">Luz y Óptica</a>
       </div>
     </details>
     <details class="nav-drop">
       <summary><a href="matematica.html" class="nav-toplink-label">Matemática</a><span class="nav-caret">▾</span></summary>
       <div class="nav-panel">
+        <p class="nav-panel-titulo">Números (1° y 2° año)</p>
+        <a href="numeros-enteros.html" class="nav-panel-link">Números Enteros</a>
+        <a href="numeros-racionales.html" class="nav-panel-link">Números Racionales</a>
+        <a href="multiplos-divisores.html" class="nav-panel-link">Múltiplos, Divisores y Potenciación</a>
+        <a href="proporcionalidad.html" class="nav-panel-link">Proporcionalidad</a>
+        <a href="regularidades.html" class="nav-panel-link">Regularidades y Fórmulas</a>
         <p class="nav-panel-titulo">Álgebra</p>
         <a href="ecuaciones-primer-grado.html" class="nav-panel-link">Ecuaciones de Primer Grado</a>
         <a href="ecuaciones-segundo-grado.html" class="nav-panel-link">Ecuaciones de Segundo Grado</a>
@@ -451,6 +463,9 @@
         <a href="estadistica.html" class="nav-panel-link">Estadística</a>
         <a href="probabilidad.html" class="nav-panel-link">Probabilidad</a>
         <p class="nav-panel-titulo">Geometría</p>
+        <a href="poligonos.html" class="nav-panel-link">Polígonos</a>
+        <a href="teorema-thales.html" class="nav-panel-link">Teorema de Thales</a>
+        <a href="areas-volumenes.html" class="nav-panel-link">Áreas, Perímetros y Volúmenes</a>
         <a href="geometria-analitica.html" class="nav-panel-link">Geometría Analítica</a>
       </div>
     </details>
@@ -466,9 +481,11 @@
         <a href="oxido-reduccion.html" class="nav-panel-link">Óxido-Reducción</a>
         <a href="acido-base.html" class="nav-panel-link">Ácido-Base y pH</a>
         <p class="nav-panel-titulo">Materia y soluciones</p>
+        <a href="estados-materia.html" class="nav-panel-link">Estados de la Materia</a>
         <a href="concentracion-soluciones.html" class="nav-panel-link">Concentración de Soluciones</a>
         <a href="mezclas-separacion.html" class="nav-panel-link">Mezclas y Separación</a>
         <a href="leyes-gases.html" class="nav-panel-link">Leyes de los Gases</a>
+        <a href="quimica-organica.html" class="nav-panel-link">Química Orgánica</a>
       </div>
     </details>
     <details class="nav-drop">
@@ -479,6 +496,7 @@
         <a href="docentes.html" class="nav-panel-link">Para Docentes</a>
         <a href="experimentos.html" class="nav-panel-link">Experimentos Caseros</a>
         <a href="conversor-unidades.html" class="nav-panel-link">Conversor de Unidades</a>
+        <a href="magnitudes.html" class="nav-panel-link">Magnitudes y Sistema Internacional</a>
         <a href="sobre-nosotros.html" class="nav-panel-link">Sobre la Fundadora</a>
       </div>
     </details>
@@ -535,7 +553,7 @@
 
   <div id="preguntas-container"></div>
 
-  <div class="card" id="resultado-card" style="display:none;" data-tag="Resultado">
+  <div class="card" id="resultado-card" style="display:none;margin-bottom:40px;" data-tag="Resultado">
     <h2 id="resultado-titulo">Resultado</h2>
     <div class="readout show" id="resultado-detalle" style="display:block;"></div>
   </div>
@@ -571,7 +589,7 @@
 
   <div id="teoria-container"></div>
 
-  <div class="card" id="resultado-teoria-card" style="display:none;" data-tag="Resultado">
+  <div class="card" id="resultado-teoria-card" style="display:none;margin-bottom:40px;" data-tag="Resultado">
     <h2 id="resultado-teoria-titulo">Resultado</h2>
     <div class="readout show" id="resultado-teoria-detalle" style="display:block;"></div>
   </div>
@@ -803,44 +821,54 @@
   const TEMAS = {
     mru: () => {
       const v = rand(2,20), t = rand(2,20);
-      return { enunciado: `Un objeto se mueve a ${v} m/s durante ${t} s. ¿Qué distancia recorre?`, respuesta: v*t, unidad: 'm' };
+      return { enunciado: `Un objeto se mueve a ${v} m/s durante ${t} s. ¿Qué distancia recorre?`, respuesta: v*t, unidad: 'm',
+        formula: 'x = v · t', paso: `x = ${v} × ${t}` };
     },
     mruv: () => {
       const v0 = rand(0,10), a = rand(1,8), t = rand(1,10);
-      return { enunciado: `Un objeto parte a ${v0} m/s y acelera a ${a} m/s² durante ${t} s. ¿Qué velocidad final alcanza?`, respuesta: v0+a*t, unidad: 'm/s' };
+      return { enunciado: `Un objeto parte a ${v0} m/s y acelera a ${a} m/s² durante ${t} s. ¿Qué velocidad final alcanza?`, respuesta: v0+a*t, unidad: 'm/s',
+        formula: 'v = v₀ + a·t', paso: `v = ${v0} + ${a}×${t}` };
     },
     newton: () => {
       const F = rand(10,100), m = rand(1,20);
-      return { enunciado: `Una fuerza de ${F} N actúa sobre un objeto de ${m} kg. ¿Cuál es la aceleración?`, respuesta: F/m, unidad: 'm/s²' };
+      return { enunciado: `Una fuerza de ${F} N actúa sobre un objeto de ${m} kg. ¿Cuál es la aceleración?`, respuesta: F/m, unidad: 'm/s²',
+        formula: 'a = F / m', paso: `a = ${F} / ${m}` };
     },
     trabajo: () => {
       const F = rand(5,50), d = rand(1,20);
-      return { enunciado: `Empujas un objeto con ${F} N a lo largo de ${d} m. ¿Cuál es el trabajo realizado?`, respuesta: F*d, unidad: 'J' };
+      return { enunciado: `Empujas un objeto con ${F} N a lo largo de ${d} m. ¿Cuál es el trabajo realizado?`, respuesta: F*d, unidad: 'J',
+        formula: 'W = F · d', paso: `W = ${F} × ${d}` };
     },
     ohm: () => {
       const V = rand(5,220), R = rand(1,50);
-      return { enunciado: `Un circuito tiene ${V} V aplicados sobre una resistencia de ${R} Ω. ¿Cuál es la corriente?`, respuesta: V/R, unidad: 'A' };
+      return { enunciado: `Un circuito tiene ${V} V aplicados sobre una resistencia de ${R} Ω. ¿Cuál es la corriente?`, respuesta: V/R, unidad: 'A',
+        formula: 'I = V / R', paso: `I = ${V} / ${R}` };
     },
     potencia: () => {
       const V = rand(5,220), I = rand(0.5,10,1);
-      return { enunciado: `Un artefacto conectado a ${V} V consume ${I} A. ¿Cuál es su potencia?`, respuesta: V*I, unidad: 'W' };
+      return { enunciado: `Un artefacto conectado a ${V} V consume ${I} A. ¿Cuál es su potencia?`, respuesta: V*I, unidad: 'W',
+        formula: 'P = V · I', paso: `P = ${V} × ${I}` };
     },
     calor: () => {
       const m = rand(0.5,5,1), dT = rand(5,80);
-      return { enunciado: `¿Cuánto calor hace falta para calentar ${m} kg de agua (c=4186 J/kg·°C) en ${dT}°C?`, respuesta: m*4186*dT, unidad: 'J' };
+      return { enunciado: `¿Cuánto calor hace falta para calentar ${m} kg de agua (c=4186 J/kg·°C) en ${dT}°C?`, respuesta: m*4186*dT, unidad: 'J',
+        formula: 'Q = m · c · ΔT', paso: `Q = ${m} × 4186 × ${dT}` };
     },
     dilatacion: () => {
       const L0 = rand(1,50), dT = rand(5,80);
       const dL = L0*0.000012*dT;
-      return { enunciado: `Una barra de acero (α=0.000012 °C⁻¹) de ${L0} m sube su temperatura ${dT}°C. ¿Cuánto se alarga?`, respuesta: dL, unidad: 'm' };
+      return { enunciado: `Una barra de acero (α=0.000012 °C⁻¹) de ${L0} m sube su temperatura ${dT}°C. ¿Cuánto se alarga?`, respuesta: dL, unidad: 'm',
+        formula: 'ΔL = L₀ · α · ΔT', paso: `ΔL = ${L0} × 0.000012 × ${dT}` };
     },
     torque: () => {
       const F = rand(5,100), d = rand(0.1,2,1);
-      return { enunciado: `Aplicas ${F} N a ${d} m del pivote. ¿Cuál es el torque?`, respuesta: F*d, unidad: 'N·m' };
+      return { enunciado: `Aplicas ${F} N a ${d} m del pivote. ¿Cuál es el torque?`, respuesta: F*d, unidad: 'N·m',
+        formula: 'τ = F · d', paso: `τ = ${F} × ${d}` };
     },
     impulso: () => {
       const m = rand(0.5,10,1), v = rand(1,20);
-      return { enunciado: `Un objeto de ${m} kg se mueve a ${v} m/s. ¿Cuál es su cantidad de movimiento?`, respuesta: m*v, unidad: 'kg·m/s' };
+      return { enunciado: `Un objeto de ${m} kg se mueve a ${v} m/s. ¿Cuál es su cantidad de movimiento?`, respuesta: m*v, unidad: 'kg·m/s',
+        formula: 'p = m · v', paso: `p = ${m} × ${v}` };
     }
   };
 
@@ -882,6 +910,15 @@
     document.getElementById('resultado-card').style.display = 'none';
   }
 
+  function formatRespuesta(n){
+    // evita mostrar "121.000" para un número entero: solo usa decimales si hacen falta
+    if(Number.isInteger(n)) return n.toString();
+    const abs = Math.abs(n);
+    // números muy chicos (como dilatación térmica) necesitan más decimales para no perder precisión
+    const decimales = abs < 0.01 ? 8 : 4;
+    return parseFloat(n.toFixed(decimales)).toString();
+  }
+
   function corregirEvaluacion(){
     let correctas = 0;
     evaluacionActual.forEach((problema, i)=>{
@@ -896,10 +933,14 @@
       if(esCorrecta){
         correctas++;
         feedbackEl.style.color = '#2F6B5E';
-        feedbackEl.innerText = `✓ Correcto (${esperada.toFixed(3)} ${problema.unidad})`;
+        feedbackEl.innerHTML = `✓ Correcto (${formatRespuesta(esperada)} ${problema.unidad})`;
       } else {
         feedbackEl.style.color = '#B8842E';
-        feedbackEl.innerText = `✗ La respuesta correcta era ${esperada.toFixed(3)} ${problema.unidad}`;
+        feedbackEl.innerHTML = `✗ La respuesta correcta era ${formatRespuesta(esperada)} ${problema.unidad}
+          <div style="margin-top:8px;padding:10px 12px;background:var(--paper);border:1px dashed var(--ink-soft);border-radius:6px;font-size:12.5px;color:var(--ink);">
+            <strong>Fórmula:</strong> ${problema.formula}<br>
+            <strong>Reemplazo:</strong> ${problema.paso} = ${formatRespuesta(esperada)} ${problema.unidad}
+          </div>`;
       }
     });
 

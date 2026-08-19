@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Aprende MRU (Movimiento Rectilíneo Uniforme) con fórmulas explicadas paso a paso, calculadora interactiva y ejemplos resueltos con datos, unidades y errores…">
-<link rel="canonical" href="https://www.descifralab.com/mru.html">
+<meta name="description" content="Cómo funciona la luz visible, reflexión y refracción explicadas con ejemplos cotidianos, y por qué el arcoíris y el lápiz que se "quiebra" en el agua pasan.">
+<link rel="canonical" href="https://www.descifralab.com/luz-optica.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="DescifraLab">
-<meta property="og:title" content="MRU — Movimiento Rectilíneo Uniforme | Fórmula y Calculadora">
-<meta property="og:description" content="Aprende MRU (Movimiento Rectilíneo Uniforme) con fórmulas explicadas paso a paso, calculadora interactiva y ejemplos resueltos con datos, unidades y errores…">
-<meta property="og:url" content="https://www.descifralab.com/mru.html">
+<meta property="og:title" content="Luz y Óptica | Reflexión y Refracción">
+<meta property="og:description" content="Cómo funciona la luz visible, reflexión y refracción explicadas con ejemplos cotidianos, y por qué el arcoíris y el lápiz que se "quiebra" en el agua pasan.">
+<meta property="og:url" content="https://www.descifralab.com/luz-optica.html">
 <meta property="og:locale" content="es_AR">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MRU — Movimiento Rectilíneo Uniforme | Fórmula y Calculadora">
-<meta name="twitter:description" content="Aprende MRU (Movimiento Rectilíneo Uniforme) con fórmulas explicadas paso a paso, calculadora interactiva y ejemplos resueltos con datos, unidades y errores…">
+<meta name="twitter:title" content="Luz y Óptica | Reflexión y Refracción">
+<meta name="twitter:description" content="Cómo funciona la luz visible, reflexión y refracción explicadas con ejemplos cotidianos, y por qué el arcoíris y el lápiz que se "quiebra" en el agua pasan.">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YP8YVN6V0Z"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -27,7 +27,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=7">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=7">
 <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png?v=7">
-<title>MRU — Movimiento Rectilíneo Uniforme | Fórmula y Calculadora — DescifraLab</title>
+<title>Luz y Óptica | Reflexión y Refracción — DescifraLab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -330,7 +330,7 @@
     padding:14px;
     margin-top:16px;
   }
-  #sim-canvas-basico, #sim-canvas-avanzado{
+  .sim-box canvas{
     display:block;width:100%;height:auto;
   }
   .sim-readout{
@@ -351,20 +351,6 @@
     font-size:12px;cursor:pointer;
   }
   .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
-
-  .historia-card{background:var(--paper);}
-  .historia-flex{display:flex;gap:20px;align-items:center;}
-  .historia-img{
-    width:110px;height:130px;object-fit:cover;
-    border:2.5px solid var(--ink);
-    flex-shrink:0;
-    filter:sepia(15%);
-  }
-  .historia-texto h2{margin-top:0;}
-  @media(max-width:520px){
-    .historia-flex{flex-direction:column;align-items:center;text-align:center;}
-    .historia-img{width:140px;height:160px;}
-  }
 
   /* Sistema de color para partes de una fórmula (mismo color = mismo rol en toda la página) */
   .term-1{color:#B8842E;font-weight:800;}
@@ -476,7 +462,6 @@
   .errores h3{font-family:'Inter';font-size:15px;font-weight:700;margin:16px 0 4px;color:#A0442E;}
   .errores h3:first-of-type{margin-top:8px;}
   .errores p{margin:0;color:var(--ink-soft);font-size:14.5px;}
-
   footer{
     text-align:center;padding:32px 20px;
     color:var(--ink-soft);font-size:13px;
@@ -608,205 +593,92 @@
 </nav>
 
 <header class="top">
-  <div class="eyebrow">Mecánica · Cinemática</div>
-  <h1>MRU — Movimiento Rectilíneo Uniforme</h1>
-  <p class="subtitle">Fórmulas, calculadora interactiva, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
-  <nav class="level-nav">
-    <button class="level-btn active" data-target="basico">Básico</button>
-    <button class="level-btn" data-target="avanzado">Avanzado</button>
-  </nav>
+  <div class="eyebrow">Física · 1° año</div>
+  <h1>Luz y Óptica</h1>
+  <p class="subtitle">Por qué te ves en un espejo, por qué un lápiz parece "quebrarse" al meterlo en un vaso de agua, y qué significa realmente que la luz visible sea solo una parte chica del espectro electromagnético.</p>
 </header>
 
 <div class="wrap">
 
-  <!-- NIVEL BÁSICO -->
-  <section class="level active" data-level="basico">
-
-    <div class="card" data-tag="Concepto">
-      <h2>¿Qué es el MRU?</h2>
-      <p>Es el movimiento en línea recta a velocidad constante: ni acelera ni frena. Esto pasa cuando la fuerza neta sobre el objeto es cero — por la Primera Ley de Newton, un objeto en movimiento sigue así a menos que algo lo empuje o lo frene.</p>
-      <div class="formula-box"><span class="term-1">x</span> = <span class="term-2">x₀</span> + <span class="term-3">v</span>·<span class="term-4">t</span></div>
-      <div class="formula-leyenda">
-        <div class="leyenda-item"><span class="swatch swatch-1"></span> <strong class="term-1">x</strong> = posición final — dónde termina, medida en metros (m)</div>
-        <div class="leyenda-item"><span class="swatch swatch-2"></span> <strong class="term-2">x₀</strong> = posición inicial — dónde arranca, en metros (m)</div>
-        <div class="leyenda-item"><span class="swatch swatch-3"></span> <strong class="term-3">v</strong> = velocidad (constante) — en metros por segundo (m/s)</div>
-        <div class="leyenda-item"><span class="swatch swatch-4"></span> <strong class="term-4">t</strong> = tiempo transcurrido — en segundos (s)</div>
-      </div>
-      <div class="analogia">
-        <span class="analogia-tag">Cómo reconocer los datos en un problema</span>
-        Cuando leas un ejercicio, subrayá los números y preguntate: "¿esto es una velocidad (va con m/s, km/h), una distancia (va con m, km) o un tiempo (va con s, min, h)?" — la <strong>unidad</strong> te dice qué dato es, aunque el problema no lo diga con esas palabras. Si el problema no aclara la posición inicial, casi siempre se puede asumir x₀=0 (arranca "desde el principio").
-      </div>
+  <div class="card" data-tag="Concepto">
+    <h2>¿Qué es la luz visible?</h2>
+    <p>La luz visible es la parte del espectro electromagnético que el ojo humano puede detectar — una franja muy angosta comparada con todo lo que existe (rayos gama, rayos X, ultravioleta, infrarrojo, microondas, ondas de radio). Cada color que ves corresponde a una frecuencia distinta dentro de esa franja visible.</p>
+    <div class="analogia">
+      <span class="analogia-tag">Piénsalo así</span>
+      Es como si tu oído solo pudiera escuchar una octava de todo un piano gigante — hay muchísimo "sonido" (radiación) a tu alrededor que simplemente no puedes percibir sin instrumentos especiales (como una cámara infrarroja o un detector de rayos X).
     </div>
+  </div>
 
-    <div class="card historia-card" data-tag="Historia">
-      <div class="historia-flex">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Justus%20Sustermans%20-%20Portrait%20of%20Galileo%20Galilei%2C%201636.jpg?width=200" alt="Retrato de Galileo Galilei, por Justus Sustermans, 1636" class="historia-img">
-        <div class="historia-texto">
-          <h2>¿Quién fue Galileo Galilei?</h2>
-          <p>Galileo Galilei (1564-1642) fue un físico y astrónomo italiano, considerado el padre del método científico experimental. Fue el primero en estudiar el movimiento de forma sistemática, dejando caer objetos y haciendo rodar bolas por planos inclinados para medir cómo cambiaba su velocidad — sentando las bases de todo lo que hoy llamamos cinemática.</p>
-          <p style="color:var(--ink-soft);font-size:14px;">También construyó uno de los primeros telescopios astronómicos, descubrió las lunas de Júpiter, y defendió el modelo heliocéntrico de Copérnico, lo que le costó un juicio de la Inquisición en 1633.</p>
+  <div class="card" data-tag="Concepto">
+    <h2>Reflexión: el rebote de la luz</h2>
+    <p>Cuando la luz choca contra una superficie (como un espejo), rebota siguiendo una regla exacta: el ángulo con el que llega es igual al ángulo con el que se va, medidos siempre respecto a la línea perpendicular a la superficie (la "normal").</p>
+    <div class="formula-box">Ángulo de incidencia = Ángulo de reflexión</div>
+  </div>
+
+  <div class="card" data-tag="Concepto">
+    <h2>Refracción: cuando la luz cambia de medio</h2>
+    <p>Cuando la luz pasa de un medio a otro (del aire al agua, por ejemplo), cambia de velocidad — y eso hace que también cambie de dirección, se "quiebra" un poco. Por eso un lápiz metido en un vaso de agua parece cortado en el punto donde entra al líquido.</p>
+    <div class="formula-box"><span class="term-1">n₁</span> · sen(<span class="term-2">θ₁</span>) = <span class="term-3">n₂</span> · sen(<span class="term-4">θ₂</span>)</div>
+    <div class="formula-leyenda">
+      <div class="leyenda-item"><span class="swatch swatch-1"></span> <strong class="term-1">n₁, n₂</strong> = índice de refracción de cada medio (aire≈1, agua≈1.33, vidrio≈1.5)</div>
+      <div class="leyenda-item"><span class="swatch swatch-2"></span> <strong class="term-2">θ₁</strong> = ángulo de incidencia (en el primer medio)</div>
+      <div class="leyenda-item"><span class="swatch swatch-4"></span> <strong class="term-4">θ₂</strong> = ángulo de refracción (en el segundo medio)</div>
+    </div>
+  </div>
+
+  <div class="card" data-tag="Ejemplo resuelto">
+    <h2>Ejemplo resuelto, paso a paso</h2>
+    <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">Un rayo de luz pasa del aire (n=1) al agua (n=1.33) con un ángulo de incidencia de 30°. ¿Cuál es el ángulo de refracción?</p>
+    <div class="resolucion">
+      <div class="resolucion-bloque datos">
+        <p class="resolucion-label"><span class="num-badge">1</span>Datos</p>
+        <ul class="datos-lista">
+          <li><span class="dato-simbolo term-1">n₁</span><span class="dato-nombre">índice de refracción del aire (constante conocida)</span><span class="dato-valor term-1">1</span></li>
+          <li><span class="dato-simbolo term-3">n₂</span><span class="dato-nombre">índice de refracción del agua (constante conocida)</span><span class="dato-valor term-3">1.33</span></li>
+          <li><span class="dato-simbolo term-2">θ₁</span><span class="dato-nombre">ángulo de incidencia (dado)</span><span class="dato-valor term-2">30°</span></li>
+        </ul>
+      </div>
+      <div class="resolucion-bloque formula-usada">
+        <p class="resolucion-label"><span class="num-badge">2</span>Fórmula utilizada</p>
+        <p style="color:var(--ink-soft);font-size:13.5px;margin:0 0 8px;">Como me piden θ₂, despejo de la Ley de Snell:</p>
+        <div class="formula-box" style="margin:0;">sen(<span class="term-4">θ₂</span>) = <span class="term-1">n₁</span>·sen(<span class="term-2">θ₁</span>) / <span class="term-3">n₂</span></div>
+      </div>
+      <div class="resolucion-bloque pasos">
+        <p class="resolucion-label"><span class="num-badge">3</span>Resolución</p>
+        <div class="paso-r">
+          <span class="paso-r-titulo">Reemplazo cada incógnita por su dato</span>
+          sen(<span class="term-4">θ₂</span>) = <span class="term-1">1</span> × sen(<span class="term-2">30°</span>) / <span class="term-3">1.33</span>
+        </div>
+        <div class="paso-r">
+          <span class="paso-r-titulo">Resuelvo la ecuación</span>
+          sen(θ₂) = 0.5/1.33 = 0.376 → θ₂ = <strong>22.1°</strong>
         </div>
       </div>
-    </div>
-
-    <div class="card" data-tag="Calculadora">
-      <h2>Calcula la distancia recorrida</h2>
-      <div class="calc-grid">
-        <div class="field"><label>Velocidad v (m/s)</label><input type="number" id="b-v" value="8"></div>
-        <div class="field"><label>Tiempo t (s)</label><input type="number" id="b-t" value="5"></div>
-      </div>
-      <button class="calc-btn" onclick="calcBasico()">Calcular</button>
-      <div class="readout" id="b-readout"></div>
-    </div>
-
-    <div class="card" data-tag="Simulación">
-      <h2>Mira el movimiento</h2>
-      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">El tren se mueve siempre a la misma velocidad, sin nadie empujándolo — no hay fuerza neta actuando.</p>
-      <div class="sim-box">
-        <canvas id="sim-canvas-basico" width="680" height="140"></canvas>
-        <div class="sim-readout">
-          <span id="sim-t-basico">t = 0.0 s</span>
-          <span id="sim-v-basico">v = 0.0 m/s</span>
-          <span id="sim-x-basico">x = 0.0 m</span>
-        </div>
-      </div>
-      <button class="calc-btn" id="sim-btn-basico" onclick="toggleSim('basico')">▶ Reproducir</button>
-      <div class="speed-row">
-        <span>Velocidad:</span>
-        <button class="speed-btn" data-speed="0.5" onclick="setSpeed('basico',0.5,this)">0.5×</button>
-        <button class="speed-btn active" data-speed="1" onclick="setSpeed('basico',1,this)">1×</button>
-        <button class="speed-btn" data-speed="2" onclick="setSpeed('basico',2,this)">2×</button>
+      <div class="resolucion-bloque respuesta">
+        <p class="resolucion-label"><span class="num-badge">4</span>Respuesta</p>
+        <p>El rayo se refracta a <span class="term-4">θ₂ = 22.1°</span></p>
       </div>
     </div>
+    <p style="color:var(--ink-soft);font-size:14px;margin-top:10px;">El ángulo se hace más chico al entrar al agua (que es más "densa" ópticamente que el aire) — por eso el lápiz parece doblarse hacia la superficie.</p>
+  </div>
 
-    <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo resuelto, paso a paso</h2>
-      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">Un tren viaja a 8 m/s constantes durante 5 segundos. ¿Qué distancia recorre?</p>
-      <div class="resolucion">
-        <div class="resolucion-bloque datos">
-          <p class="resolucion-label"><span class="num-badge">1</span>Datos</p>
-          <ul class="datos-lista">
-            <li><span class="dato-simbolo term-3">v</span><span class="dato-nombre">velocidad (dice "m/s" — esa unidad confirma que es velocidad)</span><span class="dato-valor term-3">8 m/s</span></li>
-            <li><span class="dato-simbolo term-4">t</span><span class="dato-nombre">tiempo (dice "segundos" — esa unidad confirma que es tiempo)</span><span class="dato-valor term-4">5 s</span></li>
-            <li><span class="dato-simbolo term-2">x₀</span><span class="dato-nombre">posición inicial (no la menciona → arranca desde 0)</span><span class="dato-valor term-2">0 m</span></li>
-          </ul>
-        </div>
-        <div class="resolucion-bloque formula-usada">
-          <p class="resolucion-label"><span class="num-badge">2</span>Fórmula utilizada</p>
-          <div class="formula-box" style="margin:0;"><span class="term-1">x</span> = <span class="term-2">x₀</span> + <span class="term-3">v</span>·<span class="term-4">t</span></div>
-        </div>
-        <div class="resolucion-bloque pasos">
-          <p class="resolucion-label"><span class="num-badge">3</span>Resolución</p>
-          <div class="paso-r">
-            <span class="paso-r-titulo">Reemplazo cada incógnita por su dato</span>
-            <span class="term-1">x</span> = <span class="term-2">0 m</span> + <span class="term-3">8 m/s</span> · <span class="term-4">5 s</span>
-          </div>
-          <div class="paso-r">
-            <span class="paso-r-titulo">Resuelvo la ecuación</span>
-            x = 0 m + 40 m = <strong>40 m</strong>
-          </div>
-          <div class="aviso-unidades"><strong>Ojo con las unidades:</strong> m/s × s = m — el "s" se cancela y queda solo metros, que es la unidad correcta para una distancia.</div>
-        </div>
-        <div class="resolucion-bloque respuesta">
-          <p class="resolucion-label"><span class="num-badge">4</span>Respuesta</p>
-          <p>El tren recorre <span class="term-1">x = 40 m</span></p>
-        </div>
-      </div>
-      <p style="color:var(--ink-soft);font-size:14px;margin-top:10px;">Como la velocidad no cambia, la distancia crece siempre al mismo ritmo — por eso la gráfica de posición contra tiempo es una línea recta.</p>
-    </div>
-
-    <div class="card errores" data-tag="Errores frecuentes">
-      <h2>Errores frecuentes</h2>
-      <h3>Mezclar las unidades sin convertir</h3>
-      <p>Si la velocidad está en km/h y el tiempo en segundos, el resultado sale mal si no convertís todo al mismo sistema antes de reemplazar en la fórmula (generalmente, todo a metros y segundos).</p>
-      <h3>Olvidarse de la posición inicial</h3>
-      <p>Si el problema dice que el objeto arranca desde una posición distinta de cero (por ejemplo, "un auto que ya estaba en el kilómetro 3"), hay que sumar ese valor — no se puede asumir x₀=0 siempre.</p>
-      <h3>Confundir velocidad con distancia</h3>
-      <p>Un número con unidad m/s es una velocidad, no una distancia — fíjate siempre en la unidad antes de decidir dónde va cada dato en la fórmula.</p>
-    </div>
-
-    <div class="card exercises" data-tag="Ejercicios">
-      <h2>Ejercicios con respuesta</h2>
-      <ol>
-        <li>Un ciclista va a 6 m/s durante 10 s. ¿Qué distancia recorre?
-          <details><summary>Ver respuesta</summary>x = 6×10 = 60 m</details>
-        </li>
-        <li>Un colectivo recorre 150 m en 30 s a velocidad constante. ¿A qué velocidad iba?
-          <details><summary>Ver respuesta</summary>v = x/t = 150/30 = 5 m/s</details>
-        </li>
-        <li>Un caminante a 1.5 m/s tarda en recorrer 300 m. ¿Cuánto tiempo le toma?
-          <details><summary>Ver respuesta</summary>t = x/v = 300/1.5 = 200 s (≈3.3 min)</details>
-        </li>
-      </ol>
-    </div>
-
-  </section>
-
-  <!-- NIVEL AVANZADO -->
-  <section class="level" data-level="avanzado">
-
-    <div class="card" data-tag="Concepto">
-      <h2>Problemas de encuentro</h2>
-      <p>Un clásico de examen: dos móviles parten de puntos distintos, uno hacia el otro (o uno persiguiendo al otro), y hay que encontrar dónde y cuándo se cruzan. Se plantea una ecuación de posición para cada uno y se igualan.</p>
-      <div class="formula-box">x₁(t) = x₂(t)</div>
-      <p class="var-list">Se resuelve la ecuación para <span>t</span>, y ese tiempo se reemplaza en cualquiera de las dos ecuaciones de posición para saber dónde se encontraron.</p>
-    </div>
-
-    <div class="card" data-tag="Calculadora">
-      <h2>Calcula el punto de encuentro</h2>
-      <div class="calc-grid">
-        <div class="field"><label>Distancia inicial entre ambos (m)</label><input type="number" id="a-d" value="300"></div>
-        <div class="field"><label>Velocidad móvil A (m/s)</label><input type="number" id="a-vA" value="4"></div>
-        <div class="field"><label>Velocidad móvil B (m/s)</label><input type="number" id="a-vB" value="6"></div>
-      </div>
-      <button class="calc-btn" onclick="calcAvanzado()">Calcular</button>
-      <div class="readout" id="a-readout"></div>
-    </div>
-
-    <div class="card" data-tag="Ejemplo resuelto">
-      <h2>Ejemplo</h2>
-      <div class="example">
-        <p><strong>Dos ciclistas están a 300 m de distancia y se mueven uno hacia el otro: A a 4 m/s y B a 6 m/s. ¿Cuándo y dónde se cruzan?</strong></p>
-        <p>Como van uno hacia el otro, sus velocidades se suman: 4 + 6 = 10 m/s de acercamiento.</p>
-        <p>t = 300 / 10 = <strong>30 s</strong></p>
-        <p>Posición de A en ese momento: x = 4×30 = <strong>120 m</strong> desde su punto de partida.</p>
-      </div>
-    </div>
-
-    <div class="card exercises" data-tag="Ejercicios">
-      <h2>Ejercicios con respuesta</h2>
-      <ol>
-        <li>Dos autos separados por 500 m se mueven uno hacia el otro, a 20 m/s y 30 m/s. ¿Cuánto tardan en cruzarse?
-          <details><summary>Ver respuesta</summary>t = 500/(20+30) = 10 s</details>
-        </li>
-        <li>Un corredor persigue a otro que le lleva 50 m de ventaja. El perseguidor va a 7 m/s y el perseguido a 5 m/s. ¿Cuánto tarda en alcanzarlo?
-          <details><summary>Ver respuesta</summary>La diferencia de velocidad achica los 50 m a razón de (7−5)=2 m/s → t = 50/2 = 25 s</details>
-        </li>
-        <li>Dos trenes de 600 m de distancia se acercan a 15 m/s y 25 m/s. ¿A qué distancia del punto de partida del primero se cruzan?
-          <details><summary>Ver respuesta</summary>t = 600/(15+25) = 15 s → x = 15×15 = 225 m</details>
-        </li>
-      </ol>
-    </div>
-
-  </section>
-
-  <div class="card faq" data-tag="FAQ">
-    <h2>Preguntas frecuentes</h2>
-    <h3>¿Cuál es la diferencia entre MRU y MRUV?</h3>
-    <p>En el MRU la velocidad es constante (no hay aceleración). En el MRUV la velocidad cambia de forma constante porque hay una aceleración fija.</p>
-    <h3>¿Por qué no hace falta fuerza para mantener el MRU?</h3>
-    <p>Por la Primera Ley de Newton (Ley de Inercia): un objeto en movimiento sigue moviéndose a velocidad constante si no hay una fuerza neta actuando sobre él. En la vida real siempre hay algo de rozamiento, por eso rara vez vemos MRU "puro" sin motor u otra fuerza compensándolo.</p>
-    <h3>¿Cómo sé si dos móviles se acercan o se alejan?</h3>
-    <p>Si van uno hacia el otro, las velocidades se suman para calcular qué tan rápido se acorta la distancia. Si uno persigue al otro en la misma dirección, se resta la velocidad del más lento a la del más rápido.</p>
+  <div class="card errores" data-tag="Errores frecuentes">
+    <h2>Errores frecuentes</h2>
+    <h3>Confundir el ángulo con la normal versus con la superficie</h3>
+    <p>Los ángulos de incidencia y refracción siempre se miden respecto a la línea perpendicular a la superficie (la normal), no respecto a la superficie misma — es un error muy común medirlo al revés.</p>
+    <h3>Usar la calculadora en modo incorrecto (radianes en vez de grados)</h3>
+    <p>Igual que en otros temas con seno y coseno: si el ángulo está en grados pero la calculadora está en modo radianes, el resultado sale mal.</p>
+    <h3>Pensar que un índice de refracción mayor significa "más transparente"</h3>
+    <p>El índice de refracción no mide transparencia — mide cuánto se reduce la velocidad de la luz en ese medio. El vidrio (n≈1.5) y el agua (n≈1.33) son transparentes pero tienen índices distintos.</p>
   </div>
 
   <div class="related">
     <h2>Temas relacionados</h2>
     <div class="related-links">
-      <a href="mruv.html">MRUV — Movimiento Rectilíneo Uniformemente Variado</a>
-      <a href="newton.html">Segunda Ley de Newton (F = m·a)</a>
-      <a href="trabajo-energia.html">Trabajo y Energía</a>
-      <a href="calor-especifico.html">Calor Específico y Cambios de Estado</a>
+      <a href="ondas-sonido.html">Ondas y Sonido</a>
+      <a href="magnitudes.html">Magnitudes y Sistema Internacional</a>
+      <a href="relatividad.html">Relatividad</a>
+      <a href="electromagnetismo.html">Electromagnetismo</a>
     </div>
   </div>
 
@@ -835,142 +707,6 @@
       drops.forEach(d=>d.removeAttribute('open'));
     });
   }
-
-  document.querySelectorAll('.level-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
-      document.querySelectorAll('section.level').forEach(s=>s.classList.remove('active'));
-      btn.classList.add('active');
-      document.querySelector(`section.level[data-level="${btn.dataset.target}"]`).classList.add('active');
-    });
-  });
-
-  function calcBasico(){
-    const v = parseFloat(document.getElementById('b-v').value)||0;
-    const t = parseFloat(document.getElementById('b-t').value)||0;
-    const x = v*t;
-    const out = document.getElementById('b-readout');
-    out.innerText = `x = ${v}×${t} = ${x.toFixed(2)} m`;
-    out.classList.add('show');
-  }
-
-  function calcAvanzado(){
-    const d = parseFloat(document.getElementById('a-d').value)||0;
-    const vA = parseFloat(document.getElementById('a-vA').value)||0;
-    const vB = parseFloat(document.getElementById('a-vB').value)||0;
-    const sumaV = vA + vB;
-    const out = document.getElementById('a-readout');
-    if(sumaV===0){
-      out.innerText = "Si ambas velocidades son 0, nunca se encuentran.";
-      out.classList.add('show');
-      return;
-    }
-    const t = d/sumaV;
-    const xA = vA*t;
-    out.innerText = `t = ${d} / (${vA} + ${vB}) = ${t.toFixed(2)} s\nSe encuentran a ${xA.toFixed(2)} m del punto de partida de A`;
-    out.classList.add('show');
-  }
-
-  // ---- Simulación visual reutilizable ----
-  // Dibuja una pista con marcas de distancia y un ícono que se mueve
-  // según posición x(t) calculada en tiempo real. Sirve para auto, avión, tren, etc.
-  // con solo cambiar el emoji y los datos de entrada.
-
-  function drawTrack(ctx, w, h, xMax, iconX, icon){
-    ctx.clearRect(0,0,w,h);
-    // pista
-    ctx.strokeStyle = '#3A4756';
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(20,h-30); ctx.lineTo(w-20,h-30);
-    ctx.stroke();
-    // marcas de distancia
-    ctx.fillStyle = '#5C6B7A';
-    ctx.font = '11px JetBrains Mono';
-    const steps = 6;
-    for(let i=0;i<=steps;i++){
-      const px = 20 + (i/steps)*(w-40);
-      ctx.beginPath();
-      ctx.moveTo(px,h-34); ctx.lineTo(px,h-26);
-      ctx.stroke();
-      ctx.fillText(Math.round((i/steps)*xMax)+'m', px-10, h-12);
-    }
-    // ícono — invertido horizontalmente para que "mire" hacia la derecha,
-    // la dirección real del movimiento (los emoji de vehículos miran
-    // hacia la izquierda por defecto)
-    ctx.font = '32px sans-serif';
-    ctx.save();
-    ctx.translate(20 + iconX*(w-60) + 16, h-32);
-    ctx.scale(-1,1);
-    ctx.fillText(icon, -16, 0);
-    ctx.restore();
-  }
-
-  // Estado de simulación (solo nivel básico en esta página — el MRU no tiene variante avanzada con animación de un solo objeto)
-  const simState = {
-    basico: {t:0, running:false, speed:1, tMax:5, v:8, xAt:null, lastFrame:null}
-  };
-
-  function setSpeed(level, speed, btn){
-    simState[level].speed = speed;
-    btn.parentElement.querySelectorAll('.speed-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-  }
-
-  function toggleSim(level){
-    const s = simState[level];
-    const btn = document.getElementById('sim-btn-'+level);
-
-    if(s.t === 0 && !s.running){
-      s.v = (parseFloat(document.getElementById('b-v').value)||0) * s.speed;
-      s.tMax = parseFloat(document.getElementById('b-t').value)||5;
-      s.xAt = (t)=> s.v*t;
-      s.xMax = Math.max(s.xAt(s.tMax), 1);
-    }
-
-    if(s.running){
-      s.running = false;
-      btn.innerText = '▶ Continuar';
-    } else {
-      s.running = true;
-      btn.innerText = '⏸ Pausar';
-      s.lastFrame = performance.now();
-      requestAnimationFrame((now)=>simFrame(level, now));
-    }
-  }
-
-  function simFrame(level, now){
-    const s = simState[level];
-    if(!s.running) return;
-
-    const canvas = document.getElementById('sim-canvas-basico');
-    const ctx = canvas.getContext('2d');
-
-    const dt = (now - s.lastFrame)/1000 * (s.tMax / Math.min(Math.max(s.tMax,1),8));
-    s.lastFrame = now;
-    s.t = Math.min(s.t + dt, s.tMax);
-
-    const x = s.xAt(s.t);
-    drawTrack(ctx, canvas.width, canvas.height, s.xMax, x/s.xMax, '🚂');
-
-    document.getElementById('sim-t-basico').innerText = `t = ${s.t.toFixed(1)} s`;
-    document.getElementById('sim-v-basico').innerText = `v = ${s.v.toFixed(1)} m/s`;
-    document.getElementById('sim-x-basico').innerText = `x = ${x.toFixed(1)} m`;
-
-    if(s.t < s.tMax){
-      requestAnimationFrame((n)=>simFrame(level,n));
-    } else {
-      s.running = false;
-      s.t = 0;
-      document.getElementById('sim-btn-basico').innerText = '▶ Reproducir';
-    }
-  }
-
-  // Dibujo inicial en reposo
-  window.addEventListener('load', ()=>{
-    const c1 = document.getElementById('sim-canvas-basico');
-    drawTrack(c1.getContext('2d'), c1.width, c1.height, 40, 0, '🚂');
-  });
 </script>
 
 </body>

@@ -93,6 +93,7 @@
     color:#D8D3C4;text-decoration:none;
     font-size:13.5px;font-weight:500;
     padding:8px 12px;border-radius:6px;
+    display:inline-flex;align-items:center;
     transition:background 0.15s, color 0.15s;
   }
   .navbar-links a:hover{background:rgba(255,255,255,0.08);color:#fff;}
@@ -111,7 +112,7 @@
   .nav-drop summary::-webkit-details-marker{display:none;}
   .nav-drop summary:hover{background:rgba(255,255,255,0.08);color:#fff;}
   .nav-drop[open] summary{background:rgba(255,255,255,0.1);color:#fff;}
-  .nav-toplink-label{color:inherit;text-decoration:none;}
+  .nav-toplink-label{color:inherit;text-decoration:none;padding:0!important;}
   .nav-toplink-label:hover{text-decoration:underline;}
   .nav-caret{font-size:10px;opacity:0.7;padding:2px;}
   .nav-panel{
@@ -440,11 +441,22 @@
         <p class="nav-panel-titulo">Física Moderna</p>
         <a href="relatividad.html" class="nav-panel-link">Relatividad</a>
         <a href="energia-nuclear.html" class="nav-panel-link">Energía Nuclear</a>
+        <p class="nav-panel-titulo">Introductorio (1° año)</p>
+        <a href="sistema-solar.html" class="nav-panel-link">Sistema Solar</a>
+        <a href="masa-peso.html" class="nav-panel-link">Masa vs Peso</a>
+        <a href="ondas-sonido.html" class="nav-panel-link">Ondas y Sonido</a>
+        <a href="luz-optica.html" class="nav-panel-link">Luz y Óptica</a>
       </div>
     </details>
     <details class="nav-drop">
       <summary><a href="matematica.html" class="nav-toplink-label">Matemática</a><span class="nav-caret">▾</span></summary>
       <div class="nav-panel">
+        <p class="nav-panel-titulo">Números (1° y 2° año)</p>
+        <a href="numeros-enteros.html" class="nav-panel-link">Números Enteros</a>
+        <a href="numeros-racionales.html" class="nav-panel-link">Números Racionales</a>
+        <a href="multiplos-divisores.html" class="nav-panel-link">Múltiplos, Divisores y Potenciación</a>
+        <a href="proporcionalidad.html" class="nav-panel-link">Proporcionalidad</a>
+        <a href="regularidades.html" class="nav-panel-link">Regularidades y Fórmulas</a>
         <p class="nav-panel-titulo">Álgebra</p>
         <a href="ecuaciones-primer-grado.html" class="nav-panel-link">Ecuaciones de Primer Grado</a>
         <a href="ecuaciones-segundo-grado.html" class="nav-panel-link">Ecuaciones de Segundo Grado</a>
@@ -465,6 +477,9 @@
         <a href="estadistica.html" class="nav-panel-link">Estadística</a>
         <a href="probabilidad.html" class="nav-panel-link">Probabilidad</a>
         <p class="nav-panel-titulo">Geometría</p>
+        <a href="poligonos.html" class="nav-panel-link">Polígonos</a>
+        <a href="teorema-thales.html" class="nav-panel-link">Teorema de Thales</a>
+        <a href="areas-volumenes.html" class="nav-panel-link">Áreas, Perímetros y Volúmenes</a>
         <a href="geometria-analitica.html" class="nav-panel-link">Geometría Analítica</a>
       </div>
     </details>
@@ -480,9 +495,11 @@
         <a href="oxido-reduccion.html" class="nav-panel-link">Óxido-Reducción</a>
         <a href="acido-base.html" class="nav-panel-link">Ácido-Base y pH</a>
         <p class="nav-panel-titulo">Materia y soluciones</p>
+        <a href="estados-materia.html" class="nav-panel-link">Estados de la Materia</a>
         <a href="concentracion-soluciones.html" class="nav-panel-link">Concentración de Soluciones</a>
         <a href="mezclas-separacion.html" class="nav-panel-link">Mezclas y Separación</a>
         <a href="leyes-gases.html" class="nav-panel-link">Leyes de los Gases</a>
+        <a href="quimica-organica.html" class="nav-panel-link">Química Orgánica</a>
       </div>
     </details>
     <details class="nav-drop">
@@ -493,6 +510,7 @@
         <a href="docentes.html" class="nav-panel-link">Para Docentes</a>
         <a href="experimentos.html" class="nav-panel-link">Experimentos Caseros</a>
         <a href="conversor-unidades.html" class="nav-panel-link">Conversor de Unidades</a>
+        <a href="magnitudes.html" class="nav-panel-link">Magnitudes y Sistema Internacional</a>
         <a href="sobre-nosotros.html" class="nav-panel-link">Sobre la Fundadora</a>
       </div>
     </details>
@@ -678,6 +696,35 @@
         Un corredor a 8 m/s → 8 × 3.6 = <strong>28.8 km/h</strong>.
       </div>
     </div>
+
+    <div class="card" data-tag="Temperatura">
+      <h2>Temperatura — Celsius, Kelvin, Fahrenheit</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;">Esta conversión es distinta a las demás: no es solo multiplicar por un número, hay que sumar o restar un desplazamiento. Por eso tiene su propia calculadora.</p>
+      <div class="calc-grid">
+        <div class="field"><label>Valor</label><input type="number" id="temperatura-valor" value="25" oninput="convertirTemperatura()"></div>
+        <div class="field">
+          <label>Unidad</label>
+          <select id="temperatura-unidad" onchange="convertirTemperatura()" style="width:100%;padding:10px 12px;border:2px solid var(--ink);font-family:'JetBrains Mono', monospace;font-size:15px;background:var(--white);">
+            <option value="c" selected>Celsius (°C)</option>
+            <option value="k">Kelvin (K)</option>
+            <option value="f">Fahrenheit (°F)</option>
+          </select>
+        </div>
+      </div>
+      <div class="readout show" id="temperatura-resultado" style="display:block;"></div>
+    </div>
+
+    <div class="card" data-tag="Fórmulas de temperatura">
+      <h2>Las 3 fórmulas de conversión</h2>
+      <div class="formula-box">K = °C + 273</div>
+      <div class="formula-box">°F = °C × 9/5 + 32</div>
+      <div class="formula-box">°C = (°F − 32) × 5/9</div>
+      <div class="escalera-nota">
+        <strong>Por qué Kelvin no lleva el símbolo °:</strong> Kelvin es una escala absoluta — el 0 K es el "cero absoluto", la temperatura más baja posible en el universo, donde las partículas casi no se mueven. Por eso no se dice "grados Kelvin", solo "Kelvin".<br><br>
+        <strong>Puntos de referencia:</strong> el agua se congela a 0°C (273 K, 32°F) y hierve a 100°C (373 K, 212°F) a nivel del mar.<br><br>
+        <strong>Ejemplo:</strong> 25°C (una temperatura ambiente típica) → K = 25+273 = <strong>298 K</strong> → °F = 25×9/5+32 = <strong>77°F</strong>.
+      </div>
+    </div>
   </section>
 
   <div class="card faq" data-tag="FAQ">
@@ -791,11 +838,35 @@
     document.getElementById(categoria+'-resultado').innerText = lineas.join('\n');
   }
 
+  function convertirTemperatura(){
+    const valor = parseFloat(document.getElementById('temperatura-valor').value) || 0;
+    const unidad = document.getElementById('temperatura-unidad').value;
+
+    // Primero paso lo que sea a Celsius
+    let celsius;
+    if(unidad === 'c') celsius = valor;
+    else if(unidad === 'k') celsius = valor - 273;
+    else if(unidad === 'f') celsius = (valor - 32) * 5/9;
+
+    const kelvin = celsius + 273;
+    const fahrenheit = celsius * 9/5 + 32;
+
+    const valores = {c: celsius, k: kelvin, f: fahrenheit};
+    const etiquetas = {c: '°C', k: 'K', f: '°F'};
+    let lineas = [];
+    for(const u of ['c','k','f']){
+      if(u === unidad) continue;
+      lineas.push(`${etiquetas[u].padEnd(4)} = ${formatNum(valores[u])} ${etiquetas[u]}`);
+    }
+    document.getElementById('temperatura-resultado').innerText = lineas.join('\n');
+  }
+
   window.addEventListener('load', ()=>{
     convertir('longitud');
     convertir('masa');
     convertir('tiempo');
     convertir('velocidad');
+    convertirTemperatura();
   });
 </script>
 
