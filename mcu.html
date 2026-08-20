@@ -471,6 +471,28 @@
   }
   footer a{color:var(--ink-soft);text-decoration:underline;}
   footer a:hover{color:var(--ink);}
+
+  /* Manipulables interactivos (arrastrar y ver en vivo) */
+  .manip-box{
+    background:var(--paper);border:2px solid var(--ink);border-radius:10px;
+    padding:16px;margin:16px 0;
+  }
+  .manip-canvas-wrap{
+    display:flex;justify-content:center;touch-action:none;
+  }
+  .manip-canvas-wrap canvas{
+    max-width:100%;height:auto;cursor:grab;background:#fff;border-radius:6px;
+  }
+  .manip-canvas-wrap canvas:active{cursor:grabbing;}
+  .manip-readout{
+    margin-top:12px;padding:12px 16px;background:var(--ink);color:#fff;
+    border-radius:8px;font-family:'JetBrains Mono', monospace;
+    font-size:15px;text-align:center;font-weight:700;
+  }
+  .manip-hint{
+    text-align:center;color:var(--ink-soft);font-size:12.5px;margin-top:8px;
+    font-family:'JetBrains Mono', monospace;
+  }
 </style>
 </head>
 <body>
@@ -623,6 +645,18 @@
       <div class="analogia">
         <span class="analogia-tag">Cómo reconocer los datos en un problema</span>
         Si el problema dice "da una vuelta cada tantos segundos", eso es el período T. Si dice "a tantos metros del centro", eso es el radio r. Ojo: la velocidad angular (ω) es la misma para todo el disco, pero la velocidad tangencial (v) cambia según qué tan lejos del centro estés.
+      </div>
+    </div>
+
+    <div class="card" data-tag="Manipulable">
+      <h2>Arrastra el punto para cambiar el radio y mira la velocidad en vivo</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;">Con el mismo período (misma velocidad angular ω), un punto más lejos del centro viaja más rápido en línea recta — porque tiene que recorrer una circunferencia más grande en el mismo tiempo.</p>
+      <div class="manip-box">
+        <div class="manip-canvas-wrap">
+          <canvas id="mcu-radio-canvas" width="480" height="480"></canvas>
+        </div>
+        <div class="manip-readout" id="mcu-radio-readout">r = 3.0 m &nbsp;|&nbsp; v = 4.71 m/s</div>
+        <div class="manip-hint">Arrastra el punto dorado (T = 4 s, fijo)</div>
       </div>
     </div>
 
@@ -790,6 +824,108 @@
   function toggleNavMobile(){
     document.querySelector('.navbar-links').classList.toggle('open');
   }
+
+  // ---- Manipulable: radio arrastrable, velocidad tangencial en vivo (MCU) ----
+  (function(){
+    const canvas = document.getElementById('mcu-radio-canvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height;
+    const cx = W/2, cy = H/2;
+    const escalaPxPorMetro = 30; // 1 metro = 30 px
+    const T = 4; // período fijo, en segundos
+    const omega = 2*Math.PI/T;
+    const radioMaxPx = 200;
+
+    let anguloPunto = 40; // grados, posición del punto sobre el radio
+    let radioPx = 90; // radio actual en píxeles (arrastrable)
+    let arrastrando = false;
+
+    function dibujar(){
+      ctx.clearRect(0,0,W,H);
+
+      // círculos guía cada metro
+      ctx.strokeStyle = '#E8E2D0'; ctx.lineWidth = 1;
+      ctx.font = '10px JetBrains Mono'; ctx.fillStyle = '#5C6B7A';
+      for(let m=1; m*escalaPxPorMetro<=radioMaxPx; m++){
+        ctx.beginPath(); ctx.arc(cx,cy,m*escalaPxPorMetro,0,Math.PI*2); ctx.stroke();
+        ctx.fillText(m+'m', cx+m*escalaPxPorMetro+2, cy-2);
+      }
+
+      // ejes
+      ctx.strokeStyle = '#3A4756'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(0,cy); ctx.lineTo(W,cy); ctx.moveTo(cx,0); ctx.lineTo(cx,H); ctx.stroke();
+
+      const rad = anguloPunto*Math.PI/180;
+      const px = cx + radioPx*Math.cos(rad), py = cy - radioPx*Math.sin(rad);
+
+      // radio (línea del centro al punto)
+      ctx.strokeStyle = '#1C2733'; ctx.lineWidth = 2.5;
+      ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(px,py); ctx.stroke();
+
+      // vector velocidad tangencial (perpendicular al radio)
+      const vAngle = rad + Math.PI/2;
+      const vLargo = 50;
+      const vx = px + vLargo*Math.cos(vAngle), vy = py - vLargo*Math.sin(vAngle);
+      ctx.strokeStyle = '#2F6B5E'; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(px,py); ctx.lineTo(vx,vy); ctx.stroke();
+      // punta de flecha
+      ctx.beginPath();
+      ctx.moveTo(vx,vy);
+      ctx.lineTo(vx-8*Math.cos(vAngle-0.4), vy+8*Math.sin(vAngle-0.4));
+      ctx.lineTo(vx-8*Math.cos(vAngle+0.4), vy+8*Math.sin(vAngle+0.4));
+      ctx.closePath(); ctx.fillStyle = '#2F6B5E'; ctx.fill();
+
+      // punto arrastrable
+      ctx.beginPath(); ctx.arc(px,py,10,0,Math.PI*2);
+      ctx.fillStyle = '#D9A441'; ctx.fill();
+      ctx.strokeStyle = '#1C2733'; ctx.lineWidth = 2; ctx.stroke();
+
+      // centro
+      ctx.beginPath(); ctx.arc(cx,cy,4,0,Math.PI*2); ctx.fillStyle = '#1C2733'; ctx.fill();
+
+      const rMetros = radioPx/escalaPxPorMetro;
+      const v = omega*rMetros;
+      document.getElementById('mcu-radio-readout').innerText =
+        `r = ${rMetros.toFixed(1)} m  |  v = ${v.toFixed(2)} m/s`;
+    }
+
+    function posicionEvento(e){
+      const rect = canvas.getBoundingClientRect();
+      const escala = canvas.width / rect.width;
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return { x: (clientX-rect.left)*escala, y: (clientY-rect.top)*escala };
+    }
+
+    function empezar(e){
+      const pos = posicionEvento(e);
+      const rad = anguloPunto*Math.PI/180;
+      const px = cx + radioPx*Math.cos(rad), py = cy - radioPx*Math.sin(rad);
+      if(Math.hypot(pos.x-px, pos.y-py) < 24){ arrastrando = true; e.preventDefault(); }
+    }
+    function mover(e){
+      if(!arrastrando) return;
+      e.preventDefault();
+      const pos = posicionEvento(e);
+      const dx = pos.x-cx, dy = cy-pos.y;
+      let r = Math.hypot(dx,dy);
+      r = Math.max(20, Math.min(radioMaxPx, r));
+      let ang = Math.atan2(dy,dx)*180/Math.PI;
+      radioPx = r; anguloPunto = ang;
+      dibujar();
+    }
+    function terminar(){ arrastrando = false; }
+
+    canvas.addEventListener('mousedown', empezar);
+    canvas.addEventListener('mousemove', mover);
+    window.addEventListener('mouseup', terminar);
+    canvas.addEventListener('touchstart', empezar, {passive:false});
+    canvas.addEventListener('touchmove', mover, {passive:false});
+    window.addEventListener('touchend', terminar);
+
+    dibujar();
+  })();
 
   const navLinksEl = document.querySelector('.navbar-links');
   if(navLinksEl && window.matchMedia('(hover: hover)').matches){
