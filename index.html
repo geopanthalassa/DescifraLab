@@ -172,16 +172,19 @@
   }
   .hero-bg{display:none;}
   .hero-content{position:relative;z-index:1;}
+  .hero-logo-wrap{position:relative;margin:0 auto 24px;max-width:520px;}
   .hero-eyebrow{
+    position:absolute;top:9%;left:0;right:0;
     font-family:'JetBrains Mono', monospace;
-    font-size:12px;letter-spacing:0.12em;text-transform:uppercase;
-    color:var(--pine-dark);font-weight:700;margin-bottom:14px;
+    font-size:13px;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--amber-dark);font-weight:700;text-align:center;
+    text-shadow:0 1px 2px rgba(255,255,255,0.6);
   }
   .hero-eyebrow a{color:inherit;text-decoration:none;border-bottom:1.5px solid transparent;transition:border-color .15s;}
   .hero-eyebrow a:hover{border-color:currentColor;}
   .hero-logo-full{
-    width:100%;max-width:420px;height:auto;
-    display:block;margin:0 auto 24px;
+    width:100%;height:auto;
+    display:block;
   }
   .hero h1{
     font-family:'Fraunces', serif;font-size:44px;font-weight:700;

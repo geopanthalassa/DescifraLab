@@ -577,7 +577,7 @@
       <button class="calc-btn" onclick="calcBasico()">Calcular</button>
       <div class="readout" id="b-readout"></div>
       <div class="sim-box" style="margin-top:14px;">
-        <canvas id="triangulo-canvas" width="680" height="280"></canvas>
+        <canvas id="triangulo-canvas" width="680" height="380"></canvas>
       </div>
     </div>
 
@@ -641,6 +641,10 @@
       </div>
       <div class="sim-box" style="margin-top:14px;">
         <canvas id="circulo-canvas" width="680" height="320"></canvas>
+      </div>
+      <p style="color:var(--ink-soft);font-size:13.5px;margin:14px 0 4px;">Así se ve el mismo ángulo "desenrollado" en un gráfico — el seno y el coseno son, en el fondo, la altura y la sombra de ese punto dando vueltas.</p>
+      <div class="sim-box">
+        <canvas id="onda-canvas" width="680" height="220"></canvas>
       </div>
     </div>
 
@@ -756,30 +760,30 @@
     ctx.clearRect(0,0,w,h);
 
     const angRad = angDeg * Math.PI / 180;
-    const hipo = 200;
-    const ox = 100, oy = h - 60; // vértice del ángulo, abajo a la izquierda
+    const hipo = 290;
+    const ox = 130, oy = h - 70; // vértice del ángulo, abajo a la izquierda
     const ex = ox + hipo*Math.cos(angRad);
     const ey = oy - hipo*Math.sin(angRad);
     const rx = ox + hipo*Math.cos(angRad); // pie de la perpendicular (mismo x que el extremo)
     const ry = oy;
 
     // catetos y hipotenusa
-    ctx.strokeStyle = '#7A4FB0'; ctx.lineWidth = 3; // adyacente
+    ctx.strokeStyle = '#7A4FB0'; ctx.lineWidth = 4; // adyacente
     ctx.beginPath(); ctx.moveTo(ox,oy); ctx.lineTo(rx,ry); ctx.stroke();
-    ctx.strokeStyle = '#2F6B5E'; ctx.lineWidth = 3; // opuesto
+    ctx.strokeStyle = '#2F6B5E'; ctx.lineWidth = 4; // opuesto
     ctx.beginPath(); ctx.moveTo(rx,ry); ctx.lineTo(ex,ey); ctx.stroke();
-    ctx.strokeStyle = '#B8842E'; ctx.lineWidth = 3; // hipotenusa
+    ctx.strokeStyle = '#B8842E'; ctx.lineWidth = 4; // hipotenusa
     ctx.beginPath(); ctx.moveTo(ox,oy); ctx.lineTo(ex,ey); ctx.stroke();
 
     // ángulo recto
-    ctx.strokeStyle = '#3A4756'; ctx.lineWidth = 1.5;
-    ctx.strokeRect(rx-10, ry-10, 10, 10);
+    ctx.strokeStyle = '#3A4756'; ctx.lineWidth = 2;
+    ctx.strokeRect(rx-14, ry-14, 14, 14);
 
-    ctx.font = '13px JetBrains Mono';
-    ctx.fillStyle = '#7A4FB0'; ctx.fillText('adyacente', (ox+rx)/2-30, oy+20);
-    ctx.fillStyle = '#2F6B5E'; ctx.save(); ctx.translate(rx+14, (ry+ey)/2); ctx.fillText('opuesto', 0, 0); ctx.restore();
-    ctx.fillStyle = '#B8842E'; ctx.fillText('hipotenusa', (ox+ex)/2-40, (oy+ey)/2-10);
-    ctx.fillStyle = '#1C2733'; ctx.fillText(angDeg+'°', ox+30, oy-10);
+    ctx.font = 'bold 17px JetBrains Mono';
+    ctx.fillStyle = '#7A4FB0'; ctx.fillText('adyacente', (ox+rx)/2-42, oy+28);
+    ctx.fillStyle = '#2F6B5E'; ctx.save(); ctx.translate(rx+20, (ry+ey)/2); ctx.fillText('opuesto', 0, 0); ctx.restore();
+    ctx.fillStyle = '#B8842E'; ctx.fillText('hipotenusa', (ox+ex)/2-56, (oy+ey)/2-14);
+    ctx.fillStyle = '#1C2733'; ctx.fillText(angDeg+'°', ox+42, oy-14);
   }
 
   function calcBasico(){
@@ -830,6 +834,85 @@
     ctx.font = '12px JetBrains Mono';
     ctx.fillStyle = '#2F6B5E'; ctx.fillText(`sen = ${sen.toFixed(2)}`, 12, 20);
     ctx.fillStyle = '#7A4FB0'; ctx.fillText(`cos = ${cos.toFixed(2)}`, 12, 38);
+
+    // números en los ejes
+    ctx.font = '11px JetBrains Mono';
+    ctx.fillStyle = '#5C6B7A';
+    ctx.fillText('1', cx+R+6, cy+4);
+    ctx.fillText('-1', cx-R-20, cy+4);
+    ctx.fillText('1', cx+4, cy-R-4);
+    ctx.fillText('-1', cx+4, cy+R+12);
+
+    dibujarOnda(ang);
+  }
+
+  function dibujarOnda(angDeg){
+    const canvas = document.getElementById('onda-canvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height;
+    const padL = 40, padR = 20, padT = 16, padB = 30;
+    const plotW = w - padL - padR, plotH = h - padT - padB;
+    const cy = padT + plotH/2; // y=0 al medio
+
+    ctx.clearRect(0,0,w,h);
+
+    function xPix(deg){ return padL + (deg/360)*plotW; }
+    function yPix(val){ return cy - val*(plotH/2); }
+
+    // grilla vertical cada 90°
+    ctx.strokeStyle = '#E8E2D0'; ctx.lineWidth = 1;
+    ctx.font = '11px JetBrains Mono';
+    ctx.fillStyle = '#5C6B7A';
+    for(let d=0; d<=360; d+=90){
+      const x = xPix(d);
+      ctx.beginPath(); ctx.moveTo(x,padT); ctx.lineTo(x,padT+plotH); ctx.stroke();
+      ctx.fillText(d+'°', x-10, h-10);
+    }
+    // números en el eje Y
+    ctx.fillText('1', 6, yPix(1)+4);
+    ctx.fillText('0', 6, yPix(0)+4);
+    ctx.fillText('-1', 2, yPix(-1)+4);
+
+    // eje horizontal en y=0
+    ctx.strokeStyle = '#3A4756'; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(padL,cy); ctx.lineTo(w-padR,cy); ctx.stroke();
+
+    // curva seno (verde)
+    ctx.strokeStyle = '#2F6B5E'; ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    for(let d=0; d<=360; d++){
+      const x = xPix(d), y = yPix(Math.sin(d*Math.PI/180));
+      if(d===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+
+    // curva coseno (morado)
+    ctx.strokeStyle = '#7A4FB0'; ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    for(let d=0; d<=360; d++){
+      const x = xPix(d), y = yPix(Math.cos(d*Math.PI/180));
+      if(d===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+
+    // línea vertical y puntos en el ángulo actual
+    const xAng = xPix(angDeg);
+    ctx.strokeStyle = '#B8842E'; ctx.lineWidth = 1.5;
+    ctx.setLineDash([4,3]);
+    ctx.beginPath(); ctx.moveTo(xAng,padT); ctx.lineTo(xAng,padT+plotH); ctx.stroke();
+    ctx.setLineDash([]);
+
+    const ySen = yPix(Math.sin(angDeg*Math.PI/180));
+    const yCos = yPix(Math.cos(angDeg*Math.PI/180));
+    ctx.fillStyle = '#2F6B5E';
+    ctx.beginPath(); ctx.arc(xAng, ySen, 6, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = '#7A4FB0';
+    ctx.beginPath(); ctx.arc(xAng, yCos, 6, 0, Math.PI*2); ctx.fill();
+
+    ctx.font = '12px JetBrains Mono';
+    ctx.fillStyle = '#2F6B5E'; ctx.fillText('sen(x)', w-90, padT+14);
+    ctx.fillStyle = '#7A4FB0'; ctx.fillText('cos(x)', w-90, padT+30);
   }
 
   // ---- Arrastre directo del punto sobre el círculo ----

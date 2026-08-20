@@ -828,6 +828,21 @@
       ctx.beginPath(); ctx.moveTo(0,origenY); ctx.lineTo(W,origenY); ctx.stroke();
       ctx.beginPath(); ctx.moveTo(origenX,0); ctx.lineTo(origenX,H); ctx.stroke();
 
+      // números en los ejes
+      ctx.font = '11px JetBrains Mono';
+      ctx.fillStyle = '#5C6B7A';
+      for(let gx=-9; gx<=9; gx++){
+        if(gx===0) continue;
+        const sx = origenX + gx*escala;
+        ctx.fillText(gx, sx-4, origenY+14);
+      }
+      for(let gy=-6; gy<=6; gy++){
+        if(gy===0) continue;
+        const sy = origenY - gy*escala;
+        ctx.fillText(gy, origenX+6, sy+4);
+      }
+      ctx.fillText('0', origenX+6, origenY+14);
+
       // calcular m y b
       const m = (p2.y - p1.y) / (p2.x - p1.x);
       const b = p1.y - m*p1.x;

@@ -471,6 +471,28 @@
   }
   footer a{color:var(--ink-soft);text-decoration:underline;}
   footer a:hover{color:var(--ink);}
+
+  /* Manipulables interactivos (arrastrar y ver en vivo) */
+  .manip-box{
+    background:var(--paper);border:2px solid var(--ink);border-radius:10px;
+    padding:16px;margin:16px 0;
+  }
+  .manip-canvas-wrap{
+    display:flex;justify-content:center;touch-action:none;
+  }
+  .manip-canvas-wrap canvas{
+    max-width:100%;height:auto;cursor:grab;background:#fff;border-radius:6px;
+  }
+  .manip-canvas-wrap canvas:active{cursor:grabbing;}
+  .manip-readout{
+    margin-top:12px;padding:12px 16px;background:var(--ink);color:#fff;
+    border-radius:8px;font-family:'JetBrains Mono', monospace;
+    font-size:15px;text-align:center;font-weight:700;
+  }
+  .manip-hint{
+    text-align:center;color:var(--ink-soft);font-size:12.5px;margin-top:8px;
+    font-family:'JetBrains Mono', monospace;
+  }
 </style>
 </head>
 <body>
@@ -612,6 +634,18 @@
     </div>
   </div>
 
+  <div class="card" data-tag="Manipulable">
+    <h2>Arrastra la recta paralela y mira la proporción mantenerse</h2>
+    <p style="color:var(--ink-soft);font-size:14.5px;">Mueves la línea dorada (la segunda paralela) más cerca o más lejos del vértice — los segmentos cambian, pero la proporción entre las dos transversales sigue siendo la misma. Esa es la esencia del teorema.</p>
+    <div class="manip-box">
+      <div class="manip-canvas-wrap">
+        <canvas id="thales-canvas" width="560" height="400"></canvas>
+      </div>
+      <div class="manip-readout" id="thales-readout">a/b = 1.00 &nbsp;|&nbsp; c/d = 1.00</div>
+      <div class="manip-hint">Arrastra el punto dorado sobre la recta paralela</div>
+    </div>
+  </div>
+
   <div class="card" data-tag="Concepto">
     <h2>La historia real: cómo Thales midió la pirámide de Keops</h2>
     <p>Cuenta la historia que Thales de Mileto, sin poder subir ni medir directamente la pirámide, esperó el momento del día en que la sombra de un bastón clavado en el piso medía exactamente lo mismo que su altura. En ese instante, supo que la sombra de la pirámide también medía lo mismo que su altura real — y la midió con una simple cinta, sin trepar nada.</p>
@@ -697,6 +731,118 @@
   function toggleNavMobile(){
     document.querySelector('.navbar-links').classList.toggle('open');
   }
+
+  // ---- Manipulable: Teorema de Thales, recta paralela arrastrable ----
+  (function(){
+    const canvas = document.getElementById('thales-canvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height;
+
+    // vértice común de las dos transversales
+    const O = {x: 60, y: H - 30};
+    // ángulos fijos de las dos transversales (grados, medidos desde el vértice hacia arriba-derecha)
+    const ang1 = 65, ang2 = 35;
+    const rad1 = ang1*Math.PI/180, rad2 = ang2*Math.PI/180;
+
+    // distancia vertical (desde O) de cada recta paralela — la primera fija, la segunda arrastrable
+    let dist1 = 110;
+    let dist2 = 240;
+    let arrastrando = false;
+
+    function puntoEnTransversal(rad, distVertical){
+      // intersección de la transversal con una horizontal a "distVertical" px arriba de O
+      const t = distVertical / Math.sin(rad);
+      return { x: O.x + t*Math.cos(rad), y: O.y - distVertical };
+    }
+    function dist(p1,p2){ return Math.hypot(p1.x-p2.x, p1.y-p2.y); }
+
+    function dibujar(){
+      ctx.clearRect(0,0,W,H);
+
+      const A1 = puntoEnTransversal(rad1, dist1);
+      const A2 = puntoEnTransversal(rad1, dist2);
+      const B1 = puntoEnTransversal(rad2, dist1);
+      const B2 = puntoEnTransversal(rad2, dist2);
+
+      // transversales completas (hasta un poco más allá de la segunda paralela)
+      const extra = 40;
+      const A_end = puntoEnTransversal(rad1, dist2 + extra);
+      const B_end = puntoEnTransversal(rad2, dist2 + extra);
+      ctx.strokeStyle = '#1C2733'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(O.x,O.y); ctx.lineTo(A_end.x,A_end.y); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(O.x,O.y); ctx.lineTo(B_end.x,B_end.y); ctx.stroke();
+
+      // primera paralela (fija, verde) y segunda paralela (arrastrable, dorada)
+      const margen = 30;
+      ctx.strokeStyle = '#2F6B5E'; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(A1.x-margen, A1.y); ctx.lineTo(B1.x+margen, B1.y); ctx.stroke();
+      ctx.strokeStyle = '#D9A441'; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(A2.x-margen, A2.y); ctx.lineTo(B2.x+margen, B2.y); ctx.stroke();
+
+      // vértice y puntos de intersección
+      [O, A1, B1].forEach(p=>{
+        ctx.beginPath(); ctx.arc(p.x,p.y,5,0,Math.PI*2); ctx.fillStyle = '#2F6B5E'; ctx.fill();
+      });
+      [A2, B2].forEach(p=>{
+        ctx.beginPath(); ctx.arc(p.x,p.y,8,0,Math.PI*2); ctx.fillStyle = '#D9A441'; ctx.fill();
+        ctx.strokeStyle = '#1C2733'; ctx.lineWidth = 2; ctx.stroke();
+      });
+
+      // etiquetas
+      ctx.font = '13px JetBrains Mono'; ctx.fillStyle = '#1C2733';
+      ctx.fillText('O', O.x-18, O.y+4);
+      ctx.fillText('A', A1.x-16, A1.y-6);
+      ctx.fillText('A\'', A2.x-16, A2.y-10);
+      ctx.fillText('B', B1.x+10, B1.y-6);
+      ctx.fillText('B\'', B2.x+10, B2.y-10);
+
+      // cálculos de proporción
+      const OA = dist(O,A1), OAp = dist(O,A2);
+      const OB = dist(O,B1), OBp = dist(O,B2);
+      const razon1 = OA/OAp, razon2 = OB/OBp;
+
+      document.getElementById('thales-readout').innerText =
+        `OA/OA' = ${razon1.toFixed(2)}  |  OB/OB' = ${razon2.toFixed(2)}`;
+    }
+
+    function posicionEvento(e){
+      const rect = canvas.getBoundingClientRect();
+      const escala = canvas.width / rect.width;
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return { x: (clientX-rect.left)*escala, y: (clientY-rect.top)*escala };
+    }
+
+    function empezar(e){
+      const pos = posicionEvento(e);
+      const A2 = puntoEnTransversal(rad1, dist2);
+      const B2 = puntoEnTransversal(rad2, dist2);
+      if(Math.hypot(pos.x-A2.x,pos.y-A2.y) < 22 || Math.hypot(pos.x-B2.x,pos.y-B2.y) < 22){
+        arrastrando = true; e.preventDefault();
+      }
+    }
+    function mover(e){
+      if(!arrastrando) return;
+      e.preventDefault();
+      const pos = posicionEvento(e);
+      // la distancia vertical nueva, a partir de qué tan lejos verticalmente está el mouse del vértice
+      let nuevaDist = O.y - pos.y;
+      nuevaDist = Math.max(dist1 + 20, Math.min(H - 40, nuevaDist));
+      dist2 = nuevaDist;
+      dibujar();
+    }
+    function terminar(){ arrastrando = false; }
+
+    canvas.addEventListener('mousedown', empezar);
+    canvas.addEventListener('mousemove', mover);
+    window.addEventListener('mouseup', terminar);
+    canvas.addEventListener('touchstart', empezar, {passive:false});
+    canvas.addEventListener('touchmove', mover, {passive:false});
+    window.addEventListener('touchend', terminar);
+
+    dibujar();
+  })();
   const navLinksEl = document.querySelector('.navbar-links');
   if(navLinksEl && window.matchMedia('(hover: hover)').matches){
     const drops = navLinksEl.querySelectorAll('.nav-drop');
