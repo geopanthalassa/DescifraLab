@@ -89,7 +89,7 @@
     display:inline-flex;align-items:center;
     transition:background 0.15s, color 0.15s;
   }
-  .navbar-links a:hover{background:var(--paper);color:var(--amber-dark);}
+  .navbar-links a:hover{background:var(--paper);color:var(--ink);}
   .navbar-toggle{
     display:none;
     background:none;border:none;cursor:pointer;
@@ -103,8 +103,8 @@
     transition:background 0.15s, color 0.15s;
   }
   .nav-drop summary::-webkit-details-marker{display:none;}
-  .nav-drop summary:hover{background:var(--paper);color:var(--amber-dark);}
-  .nav-drop[open] summary{background:var(--paper);color:var(--amber-dark);}
+  .nav-drop summary:hover{background:var(--paper);color:var(--ink);}
+  .nav-drop[open] summary{background:var(--paper);color:var(--ink);}
   .nav-toplink-label{color:inherit;text-decoration:none;padding:0!important;}
   .nav-toplink-label:hover{text-decoration:underline;}
   .nav-caret{font-size:10px;opacity:0.7;padding:2px;}
@@ -131,7 +131,7 @@
     display:block;color:var(--ink);text-decoration:none;
     font-size:13.5px;padding:6px 4px;border-radius:4px;
   }
-  .nav-panel a.nav-panel-link:hover{background:var(--paper);color:var(--amber-dark);}
+  .nav-panel a.nav-panel-link:hover{background:var(--paper);color:var(--ink);}
   @media(max-width:768px){
     .nav-panel, .nav-panel.cols-1, .nav-panel.cols-2{
       position:static;border:none;box-shadow:none;
@@ -234,21 +234,41 @@
     color:var(--ink-soft);margin-top:12px;
   }
 
-  /* ---- Accesos: fila editorial compacta, sin tarjetas grandes ---- */
+  /* ---- Accesos: grilla compacta pero con presencia visual ---- */
   .wrap{max-width:920px;margin:0 auto;padding:8px 20px 80px;}
+  .section-label{
+    font-family:var(--mono);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--ink-soft);text-align:center;
+    margin:36px 0 18px;
+    padding-top:24px;border-top:1px solid var(--line);
+  }
   .quick-access{
-    display:flex;flex-wrap:wrap;justify-content:center;
-    gap:28px 34px;
-    padding:28px 0 8px;
-    border-top:1px solid var(--line);
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(230px, 1fr));
+    gap:20px;
+    padding:0 0 16px;
   }
-  .quick-access-item{max-width:190px;text-align:center;}
+  .quick-access-item{
+    background:var(--white);
+    border:2px solid var(--line);
+    border-radius:12px;
+    padding:20px 22px 22px;
+    position:relative;overflow:hidden;
+    text-align:left;
+    transition:transform 0.12s, box-shadow 0.12s, border-color 0.12s;
+  }
+  .quick-access-item::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;}
+  .quick-access-item.fisica::before{background:var(--orange);}
+  .quick-access-item.quimica::before{background:var(--pine);}
+  .quick-access-item.matematica::before{background:#1F7A8C;}
+  .quick-access-item.experimentos::before{background:var(--amber-dark);}
+  .quick-access-item.machete::before{background:#7A5FB0;}
+  .quick-access-item.material::before{background:#4A6FA5;}
+  .quick-access-item:hover{transform:translateY(-2px);box-shadow:4px 4px 0 rgba(24,40,58,0.1);border-color:var(--ink);}
   .quick-access-link{
-    font-family:'Fraunces', serif;font-weight:700;font-size:16.5px;
-    text-decoration:none;
-    border-bottom:2px solid transparent;transition:border-color .15s;
+    font-family:'Fraunces', serif;font-weight:700;font-size:19px;
+    text-decoration:none;display:inline-block;margin-top:4px;
   }
-  .quick-access-link:hover{border-color:currentColor;}
   .quick-access-link.c-fisica{color:var(--orange);}
   .quick-access-link.c-quimica{color:var(--pine);}
   .quick-access-link.c-matematica{color:#1F7A8C;}
@@ -256,8 +276,8 @@
   .quick-access-link.c-machete{color:#7A5FB0;}
   .quick-access-link.c-experimentos{color:var(--amber-dark);}
   .quick-access-desc{
-    display:block;font-size:12.5px;color:var(--ink-soft);
-    margin-top:3px;line-height:1.4;
+    display:block;font-size:14px;color:var(--ink-soft);
+    margin-top:6px;line-height:1.5;
   }
 
   .section-titulo{
@@ -422,30 +442,31 @@
 
 <div class="wrap">
 
+  <p class="section-label">Explorá el sitio</p>
   <div class="quick-access">
-    <div class="quick-access-item">
+    <div class="quick-access-item fisica">
       <a href="fisica.html" class="quick-access-link c-fisica">Física</a>
-      <span class="quick-access-desc">Movimiento · energía · electricidad</span>
+      <span class="quick-access-desc">Movimiento, energía, electricidad, termodinámica y física moderna.</span>
     </div>
-    <div class="quick-access-item">
+    <div class="quick-access-item matematica">
       <a href="matematica.html" class="quick-access-link c-matematica">Matemática</a>
-      <span class="quick-access-desc">Funciones · álgebra · geometría</span>
+      <span class="quick-access-desc">Funciones, álgebra, geometría, estadística y probabilidad.</span>
     </div>
-    <div class="quick-access-item">
+    <div class="quick-access-item quimica">
       <a href="quimica.html" class="quick-access-link c-quimica">Química</a>
-      <span class="quick-access-desc">Materia · reacciones · soluciones</span>
+      <span class="quick-access-desc">Estructura de la materia, reacciones y soluciones.</span>
     </div>
-    <div class="quick-access-item">
+    <div class="quick-access-item experimentos">
       <a href="experimentos.html" class="quick-access-link c-experimentos">Experimentos</a>
-      <span class="quick-access-desc">Aprender haciendo, con las manos</span>
+      <span class="quick-access-desc">Aprender haciendo, con materiales que ya tienes en casa.</span>
     </div>
-    <div class="quick-access-item">
+    <div class="quick-access-item machete">
       <a href="formulario.html" class="quick-access-link c-machete">Herramientas</a>
-      <span class="quick-access-desc">Calculadoras · fórmulas · conversiones</span>
+      <span class="quick-access-desc">Calculadoras, fórmulas y conversores de unidades.</span>
     </div>
-    <div class="quick-access-item">
+    <div class="quick-access-item material">
       <a href="material.html" class="quick-access-link c-material">Para docentes</a>
-      <span class="quick-access-desc">Evaluaciones y recursos de clase</span>
+      <span class="quick-access-desc">Evaluaciones con corrección automática y recursos de clase.</span>
     </div>
   </div>
 
