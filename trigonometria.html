@@ -122,12 +122,12 @@
   .nav-caret{font-size:10px;opacity:0.7;padding:2px;}
   .nav-panel{
     position:absolute;top:100%;left:0;
-    background:var(--white);
-    border:2px solid var(--ink);
+    background:var(--ink);
+    border:2px solid var(--amber);
     border-radius:8px;
     padding:10px;
     z-index:80;
-    box-shadow:5px 5px 0 rgba(24,40,58,0.12);
+    box-shadow:5px 5px 0 rgba(24,40,58,0.25);
     width:270px;
     max-height:min(480px, calc(100vh - 130px));
     overflow-y:auto;
@@ -135,20 +135,20 @@
   .nav-panel-titulo{
     font-family:'JetBrains Mono', monospace;
     font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;
-    color:var(--ink-soft);margin:12px 0 6px;
-    padding-top:8px;border-top:1px solid var(--line);
+    color:var(--amber);margin:12px 0 6px;
+    padding-top:8px;border-top:1px solid rgba(255,255,255,0.15);
   }
   .nav-panel-titulo:first-child{margin-top:0;padding-top:0;border-top:none;}
   .nav-panel a.nav-panel-link{
-    display:block;color:var(--ink);text-decoration:none;
+    display:block;color:#EDEAE0;text-decoration:none;
     font-size:13.5px;padding:6px 4px;border-radius:4px;
   }
-  .nav-panel a.nav-panel-link:hover{background:var(--paper);color:var(--ink);}
+  .nav-panel a.nav-panel-link:hover{background:rgba(255,255,255,0.1);color:var(--amber);}
   @media(max-width:768px){
     .nav-panel, .nav-panel.cols-1, .nav-panel.cols-2{
       position:static;border:none;box-shadow:none;
-      background:var(--paper);
-      margin-top:4px;padding:6px 6px 6px 18px;
+      background:var(--ink);border-radius:8px;
+      margin-top:4px;padding:8px 10px;
       width:auto;max-height:none;overflow-y:visible;
     }
     .nav-drop summary{padding:12px 14px;}
@@ -417,6 +417,28 @@
   }
   footer a{color:var(--ink-soft);text-decoration:underline;}
   footer a:hover{color:var(--ink);}
+
+  .dato-freak{
+    background:linear-gradient(135deg, var(--ink) 0%, var(--pine-dark) 100%);
+    color:#EAF2EE;
+    border:none;
+    position:relative;
+    overflow:hidden;
+  }
+  .dato-freak h2{color:#fff;}
+  .dato-freak p{color:#CBDBD3;}
+  .dato-freak strong{color:var(--amber);}
+  .dato-freak-tag{
+    display:inline-block;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;font-weight:700;
+    text-transform:uppercase;letter-spacing:0.05em;
+    padding:4px 10px;
+    border-radius:4px;
+    margin-bottom:10px;
+  }
 </style>
 </head>
 <body>
@@ -710,6 +732,13 @@
     <p>No — también describe cualquier cosa que se repite en ciclos: el sonido, la corriente eléctrica alterna, las olas, las mareas, incluso las horas de luz solar durante el año siguen patrones que se modelan con seno y coseno.</p>
     <h3>¿Cómo calculo el ángulo si ya conozco los lados del triángulo?</h3>
     <p>Usas la función inversa: si conoces opuesto/hipotenusa, el ángulo es arcsen (sen⁻¹) de ese cociente. Lo mismo con arccos y arctan para las otras razones.</p>
+  </div>
+
+  <div class="card dato-freak">
+    <div class="dato-freak-tag">Dato freak</div>
+    <h2>Cómo midieron la Tierra hace más de 2200 años, sin satélites</h2>
+    <p>Alrededor del año 240 a.C., el griego <strong>Eratóstenes</strong> midió el ángulo de la sombra del Sol al mediodía en dos ciudades de Egipto a la vez, y usando esa diferencia de ángulos (pura trigonometría y geometría básica) calculó la circunferencia de la Tierra — sin telescopios, sin satélites, solo con varas, sombras y razonamiento.</p>
+    <p style="color:var(--amber);font-size:13px;">Su resultado se acercó sorprendentemente al valor real que conocemos hoy, con un error de apenas un puñado de puntos porcentuales — una precisión notable para la época.</p>
   </div>
 
   <div class="related">

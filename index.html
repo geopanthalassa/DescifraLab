@@ -110,12 +110,12 @@
   .nav-caret{font-size:10px;opacity:0.7;padding:2px;}
   .nav-panel{
     position:absolute;top:100%;left:0;
-    background:var(--white);
-    border:2px solid var(--ink);
+    background:var(--ink);
+    border:2px solid var(--amber);
     border-radius:8px;
     padding:10px;
     z-index:80;
-    box-shadow:5px 5px 0 rgba(24,40,58,0.12);
+    box-shadow:5px 5px 0 rgba(24,40,58,0.25);
     width:270px;
     max-height:min(480px, calc(100vh - 130px));
     overflow-y:auto;
@@ -123,20 +123,20 @@
   .nav-panel-titulo{
     font-family:var(--mono);
     font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;
-    color:var(--ink-soft);margin:12px 0 6px;
-    padding-top:8px;border-top:1px solid var(--line);
+    color:var(--amber);margin:12px 0 6px;
+    padding-top:8px;border-top:1px solid rgba(255,255,255,0.15);
   }
   .nav-panel-titulo:first-child{margin-top:0;padding-top:0;border-top:none;}
   .nav-panel a.nav-panel-link{
-    display:block;color:var(--ink);text-decoration:none;
+    display:block;color:#EDEAE0;text-decoration:none;
     font-size:13.5px;padding:6px 4px;border-radius:4px;
   }
-  .nav-panel a.nav-panel-link:hover{background:var(--paper);color:var(--ink);}
+  .nav-panel a.nav-panel-link:hover{background:rgba(255,255,255,0.1);color:var(--amber);}
   @media(max-width:768px){
     .nav-panel, .nav-panel.cols-1, .nav-panel.cols-2{
       position:static;border:none;box-shadow:none;
-      background:var(--paper);
-      margin-top:4px;padding:6px 6px 6px 18px;
+      background:var(--ink);border-radius:8px;
+      margin-top:4px;padding:8px 10px;
       width:auto;max-height:none;overflow-y:visible;
     }
     .nav-drop summary{padding:12px 14px;}
@@ -193,6 +193,15 @@
     max-width:520px;margin:0 auto 28px;line-height:1.5;
   }
 
+  /* ---- La onda dorada: la primitiva visual de DescifraLab ----
+     Nace del líquido del logo. Azul = estructura (siempre presente).
+     Dorado = acción (aparece solo cuando algo sucede: focus, resultado, progreso). */
+  .wave-line{
+    height:9px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='9' viewBox='0 0 40 9'%3E%3Cpath d='M0 4.5 Q10 -1 20 4.5 T40 4.5' stroke='%23D99A2B' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat:repeat-x;background-size:40px 9px;
+  }
+
   /* ---- Buscador: elemento principal del hero ---- */
   .search-wrap{position:relative;max-width:560px;margin:0 auto;}
   .search-input{
@@ -210,6 +219,12 @@
     position:absolute;left:18px;top:50%;transform:translateY(-50%);
     font-size:18px;color:var(--ink-soft);pointer-events:none;
   }
+  /* la onda aparece SOLO cuando el buscador está activo: dorado = "está pasando algo" */
+  .search-wave{
+    max-width:0;margin:0 auto;overflow:hidden;
+    transition:max-width .35s ease;
+  }
+  .search-wrap.is-active + .search-wave{max-width:560px;}
   .search-results{
     position:absolute;top:calc(100% + 8px);left:0;right:0;
     background:var(--white);border:2px solid var(--ink);border-radius:10px;
@@ -223,23 +238,28 @@
   .search-result-item{
     display:block;padding:12px 18px;text-decoration:none;color:var(--ink);
     border-bottom:1px solid var(--line);
+    border-left:3px solid transparent;
+    transition:border-color .12s, background .12s;
   }
   .search-result-item:last-child{border-bottom:none;}
-  .search-result-item:hover{background:var(--paper);}
+  .search-result-item:hover{background:var(--paper);border-left-color:var(--amber);}
   .sr-titulo{font-weight:600;font-size:14.5px;}
   .sr-categoria{font-size:12px;color:var(--ink-soft);font-family:var(--mono);}
   .search-empty{padding:16px 18px;color:var(--ink-soft);font-size:14px;}
   .hero-search-helper{
     font-family:var(--mono);font-size:12px;letter-spacing:0.04em;
-    color:var(--ink-soft);margin-top:12px;
+    color:var(--ink-soft);margin-top:14px;
   }
 
-  /* ---- Accesos: grilla compacta pero con presencia visual ---- */
+  /* ---- Separador: la onda del líquido, no una línea recta ---- */
+  .wave-divider{max-width:160px;margin:32px auto 0;opacity:0.55;}
+
+  /* ---- Accesos: una sola marca. Azul en reposo, dorado al interactuar ---- */
   .wrap{max-width:920px;margin:0 auto;padding:8px 20px 80px;}
   .section-label{
     font-family:var(--mono);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;
     color:var(--ink-soft);text-align:center;
-    margin:8px 0 16px;
+    margin:10px 0 16px;
   }
   .quick-access{
     display:grid;
@@ -251,29 +271,23 @@
     background:var(--white);
     border:2px solid var(--line);
     border-radius:12px;
-    padding:20px 22px 22px;
+    padding:20px 22px 18px;
     position:relative;overflow:hidden;
     text-align:left;
     transition:transform 0.12s, box-shadow 0.12s, border-color 0.12s;
   }
-  .quick-access-item::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;}
-  .quick-access-item.fisica::before{background:var(--orange);}
-  .quick-access-item.quimica::before{background:var(--pine);}
-  .quick-access-item.matematica::before{background:#1F7A8C;}
-  .quick-access-item.experimentos::before{background:var(--amber-dark);}
-  .quick-access-item.machete::before{background:#7A5FB0;}
-  .quick-access-item.material::before{background:#4A6FA5;}
+  .quick-access-item .wave-line{
+    position:absolute;left:0;right:0;bottom:0;height:6px;
+    max-width:0;transition:max-width .3s ease;opacity:0.9;
+  }
   .quick-access-item:hover{transform:translateY(-2px);box-shadow:4px 4px 0 rgba(24,40,58,0.1);border-color:var(--ink);}
+  .quick-access-item:hover .wave-line{max-width:100%;}
   .quick-access-link{
     font-family:'Fraunces', serif;font-weight:700;font-size:19px;
     text-decoration:none;display:inline-block;margin-top:4px;
+    color:var(--ink);transition:color .12s;
   }
-  .quick-access-link.c-fisica{color:var(--orange);}
-  .quick-access-link.c-quimica{color:var(--pine);}
-  .quick-access-link.c-matematica{color:#1F7A8C;}
-  .quick-access-link.c-material{color:#4A6FA5;}
-  .quick-access-link.c-machete{color:#7A5FB0;}
-  .quick-access-link.c-experimentos{color:var(--amber-dark);}
+  .quick-access-item:hover .quick-access-link{color:var(--amber-dark);}
   .quick-access-desc{
     display:block;font-size:14px;color:var(--ink-soft);
     margin-top:6px;line-height:1.5;
@@ -426,46 +440,55 @@
   <h1>Entiende. Calcula. Experimenta.</h1>
   <p class="hero-subtitle">Física, Matemática y Química explicadas de forma clara, con herramientas para aprender haciendo.</p>
 
-  <div class="search-wrap">
+  <div class="search-wrap" id="search-wrap">
     <span class="search-icon">
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
         <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="2"/>
         <line x1="12.5" y1="12.5" x2="17" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
       </svg>
     </span>
-    <input type="text" class="search-input" id="search-input" placeholder="¿Qué quieres aprender?" autocomplete="off" oninput="buscar(this.value)">
+    <input type="text" class="search-input" id="search-input" placeholder="¿Qué quieres aprender?" autocomplete="off" oninput="buscar(this.value)" onfocus="document.getElementById('search-wrap').classList.add('is-active')" onblur="document.getElementById('search-wrap').classList.remove('is-active')">
     <div class="search-results" id="search-results"></div>
   </div>
+  <div class="search-wave wave-line"></div>
   <p class="hero-search-helper">Fórmulas · Ejemplos · Ejercicios · Simuladores</p>
 </div>
+
+<div class="wave-line wave-divider"></div>
 
 <div class="wrap">
 
   <p class="section-label">Explora el sitio</p>
   <div class="quick-access">
-    <div class="quick-access-item fisica">
-      <a href="fisica.html" class="quick-access-link c-fisica">Física</a>
+    <div class="quick-access-item">
+      <a href="fisica.html" class="quick-access-link">Física</a>
       <span class="quick-access-desc">Movimiento, energía, electricidad, termodinámica y física moderna.</span>
+      <div class="wave-line"></div>
     </div>
-    <div class="quick-access-item matematica">
-      <a href="matematica.html" class="quick-access-link c-matematica">Matemática</a>
+    <div class="quick-access-item">
+      <a href="matematica.html" class="quick-access-link">Matemática</a>
       <span class="quick-access-desc">Funciones, álgebra, geometría, estadística y probabilidad.</span>
+      <div class="wave-line"></div>
     </div>
-    <div class="quick-access-item quimica">
-      <a href="quimica.html" class="quick-access-link c-quimica">Química</a>
+    <div class="quick-access-item">
+      <a href="quimica.html" class="quick-access-link">Química</a>
       <span class="quick-access-desc">Estructura de la materia, reacciones y soluciones.</span>
+      <div class="wave-line"></div>
     </div>
-    <div class="quick-access-item experimentos">
-      <a href="experimentos.html" class="quick-access-link c-experimentos">Experimentos</a>
+    <div class="quick-access-item">
+      <a href="experimentos.html" class="quick-access-link">Experimentos</a>
       <span class="quick-access-desc">Aprender haciendo, con materiales que ya tienes en casa.</span>
+      <div class="wave-line"></div>
     </div>
-    <div class="quick-access-item machete">
-      <a href="formulario.html" class="quick-access-link c-machete">Herramientas</a>
+    <div class="quick-access-item">
+      <a href="formulario.html" class="quick-access-link">Herramientas</a>
       <span class="quick-access-desc">Calculadoras, fórmulas y conversores de unidades.</span>
+      <div class="wave-line"></div>
     </div>
-    <div class="quick-access-item material">
-      <a href="material.html" class="quick-access-link c-material">Para docentes</a>
+    <div class="quick-access-item">
+      <a href="material.html" class="quick-access-link">Para docentes</a>
       <span class="quick-access-desc">Evaluaciones con corrección automática y recursos de clase.</span>
+      <div class="wave-line"></div>
     </div>
   </div>
 
@@ -496,7 +519,7 @@
     });
   }
 
-const INDICE_BUSQUEDA = [{"url": "acido-base.html", "titulo": "Ácido-Base y pH", "categoria": "Química · Reacciones"}, {"url": "calor-especifico.html", "titulo": "Calor Específico y Cambios de Estado", "categoria": "Termodinámica"}, {"url": "caudal-continuidad.html", "titulo": "Caudal y Continuidad", "categoria": "Hidráulica y Fluidos"}, {"url": "circuitos.html", "titulo": "Circuitos en Serie y Paralelo", "categoria": "Electricidad"}, {"url": "concentracion-soluciones.html", "titulo": "Concentración de Soluciones", "categoria": "Química · Soluciones"}, {"url": "configuracion-electronica.html", "titulo": "Configuración Electrónica", "categoria": "Química · Estructura de la materia"}, {"url": "conversor-unidades.html", "titulo": "Conversor de Unidades", "categoria": "Herramientas · Magnitudes"}, {"url": "corriente-continua-alterna.html", "titulo": "Corriente Continua y Alterna", "categoria": "Electricidad"}, {"url": "dilatacion-termica.html", "titulo": "Dilatación Térmica", "categoria": "Termodinámica"}, {"url": "docentes.html", "titulo": "Para Docentes", "categoria": "Recursos pedagógicos"}, {"url": "electromagnetismo.html", "titulo": "Electromagnetismo", "categoria": "Electricidad · Magnetismo"}, {"url": "energia-nuclear.html", "titulo": "Energía Nuclear", "categoria": "Física Moderna"}, {"url": "enlaces-quimicos.html", "titulo": "Enlaces Químicos", "categoria": "Química · Enlaces"}, {"url": "estatica-torque.html", "titulo": "Estática y Torque", "categoria": "Mecánica · Dinámica"}, {"url": "estequiometria.html", "titulo": "Estequiometría y El Mol", "categoria": "Química · Reacciones"}, {"url": "evaluaciones.html", "titulo": "Evaluaciones", "categoria": "Herramientas · Autoevaluación"}, {"url": "experimentos.html", "titulo": "Experimentos Caseros", "categoria": "Aprender con las manos"}, {"url": "fisica.html", "titulo": "Física", "categoria": "Portada de materia"}, {"url": "material.html", "titulo": "Material", "categoria": "Evaluaciones y recursos para docentes"}, {"url": "fluidos.html", "titulo": "Presión Hidrostática y Flotación", "categoria": "Hidráulica y Fluidos"}, {"url": "impulso-momentum.html", "titulo": "Impulso y Cantidad de Movimiento", "categoria": "Mecánica · Dinámica"}, {"url": "ley-ohm.html", "titulo": "Ley de Ohm (V = I·R)", "categoria": "Electricidad"}, {"url": "leyes-gases.html", "titulo": "Leyes de los Gases", "categoria": "Química · Estados de la materia"}, {"url": "maquinas-simples.html", "titulo": "Máquinas Simples — Palanca, Poleas y Plano Inclinado", "categoria": "Mecánica · Dinámica · poleas polea"}, {"url": "maquinas-termicas.html", "titulo": "Máquinas Térmicas y Eficiencia", "categoria": "Termodinámica · Máquinas"}, {"url": "mcu.html", "titulo": "Movimiento Circular Uniforme (MCU)", "categoria": "Mecánica · Cinemática"}, {"url": "mezclas-separacion.html", "titulo": "Mezclas y Métodos de Separación", "categoria": "Química · Materia"}, {"url": "modelo-atomico.html", "titulo": "Modelo Atómico y Tabla Periódica", "categoria": "Química · Estructura de la materia"}, {"url": "mru.html", "titulo": "MRU — Movimiento Rectilíneo Uniforme", "categoria": "Mecánica · Cinemática"}, {"url": "mruv.html", "titulo": "MRUV — Movimiento Rectilíneo Uniformemente Variado", "categoria": "Mecánica · Cinemática"}, {"url": "newton.html", "titulo": "Segunda Ley de Newton (F = m·a)", "categoria": "Mecánica · Dinámica"}, {"url": "oxido-reduccion.html", "titulo": "Óxido-Reducción", "categoria": "Química · Reacciones"}, {"url": "potencia-electrica.html", "titulo": "Potencia Eléctrica (P = V·I)", "categoria": "Electricidad"}, {"url": "quimica.html", "titulo": "Química", "categoria": "Portada de materia"}, {"url": "relatividad.html", "titulo": "Dilatación Temporal y Curvatura del Espacio-Tiempo", "categoria": "Relatividad"}, {"url": "sobre-nosotros.html", "titulo": "Sobre la Fundadora", "categoria": "Quiénes somos"}, {"url": "tiro-oblicuo.html", "titulo": "Tiro Oblicuo — Movimiento Parabólico", "categoria": "Mecánica · Cinemática"}, {"url": "trabajo-energia.html", "titulo": "Trabajo y Energía", "categoria": "Mecánica · Energía"}, {"url": "matematica.html", "titulo": "Matemática", "categoria": "Portada de materia"}, {"url": "ecuaciones-primer-grado.html", "titulo": "Ecuaciones de Primer Grado", "categoria": "Matemática · Álgebra"}, {"url": "ecuaciones-segundo-grado.html", "titulo": "Ecuaciones de Segundo Grado", "categoria": "Matemática · Álgebra"}, {"url": "sistema-ecuaciones.html", "titulo": "Sistemas de Ecuaciones", "categoria": "Matemática · Álgebra"}, {"url": "inecuaciones.html", "titulo": "Inecuaciones", "categoria": "Matemática · Álgebra"}, {"url": "valor-absoluto.html", "titulo": "Valor Absoluto", "categoria": "Matemática · Álgebra"}, {"url": "funciones.html", "titulo": "Funciones", "categoria": "Matemática · Funciones"}, {"url": "funcion-racional.html", "titulo": "Función Racional", "categoria": "Matemática · Funciones"}, {"url": "logaritmos.html", "titulo": "Logaritmos", "categoria": "Matemática · Funciones"}, {"url": "trigonometria.html", "titulo": "Trigonometría", "categoria": "Matemática · Trigonometría · seno coseno tangente"}, {"url": "teorema-seno-coseno.html", "titulo": "Teorema del Seno y del Coseno", "categoria": "Matemática · Trigonometría · triangulación"}, {"url": "sucesiones.html", "titulo": "Sucesiones y Series", "categoria": "Matemática · Sucesiones"}, {"url": "interes-compuesto.html", "titulo": "Interés Compuesto", "categoria": "Matemática · Finanzas"}, {"url": "estadistica.html", "titulo": "Estadística", "categoria": "Matemática · Estadística"}, {"url": "probabilidad.html", "titulo": "Probabilidad", "categoria": "Matemática · Estadística"}, {"url": "geometria-analitica.html", "titulo": "Geometría Analítica", "categoria": "Matemática · Geometría"}];
+const INDICE_BUSQUEDA = [{"url": "sistema-solar.html", "titulo": "Sistema Solar", "categoria": "Física · Astronomía · planetas Sol Luna"}, {"url": "acido-base.html", "titulo": "Ácido-Base y pH", "categoria": "Química · Reacciones"}, {"url": "calor-especifico.html", "titulo": "Calor Específico y Cambios de Estado", "categoria": "Termodinámica"}, {"url": "caudal-continuidad.html", "titulo": "Caudal y Continuidad", "categoria": "Hidráulica y Fluidos"}, {"url": "circuitos.html", "titulo": "Circuitos en Serie y Paralelo", "categoria": "Electricidad"}, {"url": "concentracion-soluciones.html", "titulo": "Concentración de Soluciones", "categoria": "Química · Soluciones"}, {"url": "configuracion-electronica.html", "titulo": "Configuración Electrónica", "categoria": "Química · Estructura de la materia"}, {"url": "conversor-unidades.html", "titulo": "Conversor de Unidades", "categoria": "Herramientas · Magnitudes"}, {"url": "corriente-continua-alterna.html", "titulo": "Corriente Continua y Alterna", "categoria": "Electricidad"}, {"url": "dilatacion-termica.html", "titulo": "Dilatación Térmica", "categoria": "Termodinámica"}, {"url": "docentes.html", "titulo": "Para Docentes", "categoria": "Recursos pedagógicos"}, {"url": "electromagnetismo.html", "titulo": "Electromagnetismo", "categoria": "Electricidad · Magnetismo"}, {"url": "energia-nuclear.html", "titulo": "Energía Nuclear", "categoria": "Física Moderna"}, {"url": "enlaces-quimicos.html", "titulo": "Enlaces Químicos", "categoria": "Química · Enlaces"}, {"url": "estatica-torque.html", "titulo": "Estática y Torque", "categoria": "Mecánica · Dinámica"}, {"url": "estequiometria.html", "titulo": "Estequiometría y El Mol", "categoria": "Química · Reacciones"}, {"url": "evaluaciones.html", "titulo": "Evaluaciones", "categoria": "Herramientas · Autoevaluación"}, {"url": "experimentos.html", "titulo": "Experimentos Caseros", "categoria": "Aprender con las manos"}, {"url": "fisica.html", "titulo": "Física", "categoria": "Portada de materia"}, {"url": "material.html", "titulo": "Material", "categoria": "Evaluaciones y recursos para docentes"}, {"url": "fluidos.html", "titulo": "Presión Hidrostática y Flotación", "categoria": "Hidráulica y Fluidos"}, {"url": "impulso-momentum.html", "titulo": "Impulso y Cantidad de Movimiento", "categoria": "Mecánica · Dinámica"}, {"url": "ley-ohm.html", "titulo": "Ley de Ohm (V = I·R)", "categoria": "Electricidad"}, {"url": "leyes-gases.html", "titulo": "Leyes de los Gases", "categoria": "Química · Estados de la materia"}, {"url": "maquinas-simples.html", "titulo": "Máquinas Simples — Palanca, Poleas y Plano Inclinado", "categoria": "Mecánica · Dinámica · poleas polea"}, {"url": "maquinas-termicas.html", "titulo": "Máquinas Térmicas y Eficiencia", "categoria": "Termodinámica · Máquinas"}, {"url": "mcu.html", "titulo": "Movimiento Circular Uniforme (MCU)", "categoria": "Mecánica · Cinemática"}, {"url": "mezclas-separacion.html", "titulo": "Mezclas y Métodos de Separación", "categoria": "Química · Materia"}, {"url": "modelo-atomico.html", "titulo": "Modelo Atómico y Tabla Periódica", "categoria": "Química · Estructura de la materia"}, {"url": "mru.html", "titulo": "MRU — Movimiento Rectilíneo Uniforme", "categoria": "Mecánica · Cinemática"}, {"url": "mruv.html", "titulo": "MRUV — Movimiento Rectilíneo Uniformemente Variado", "categoria": "Mecánica · Cinemática"}, {"url": "newton.html", "titulo": "Segunda Ley de Newton (F = m·a)", "categoria": "Mecánica · Dinámica"}, {"url": "oxido-reduccion.html", "titulo": "Óxido-Reducción", "categoria": "Química · Reacciones"}, {"url": "potencia-electrica.html", "titulo": "Potencia Eléctrica (P = V·I)", "categoria": "Electricidad"}, {"url": "quimica.html", "titulo": "Química", "categoria": "Portada de materia"}, {"url": "relatividad.html", "titulo": "Dilatación Temporal y Curvatura del Espacio-Tiempo", "categoria": "Relatividad"}, {"url": "sobre-nosotros.html", "titulo": "Sobre la Fundadora", "categoria": "Quiénes somos"}, {"url": "tiro-oblicuo.html", "titulo": "Tiro Oblicuo — Movimiento Parabólico", "categoria": "Mecánica · Cinemática"}, {"url": "trabajo-energia.html", "titulo": "Trabajo y Energía", "categoria": "Mecánica · Energía"}, {"url": "matematica.html", "titulo": "Matemática", "categoria": "Portada de materia"}, {"url": "ecuaciones-primer-grado.html", "titulo": "Ecuaciones de Primer Grado", "categoria": "Matemática · Álgebra"}, {"url": "ecuaciones-segundo-grado.html", "titulo": "Ecuaciones de Segundo Grado", "categoria": "Matemática · Álgebra"}, {"url": "sistema-ecuaciones.html", "titulo": "Sistemas de Ecuaciones", "categoria": "Matemática · Álgebra"}, {"url": "inecuaciones.html", "titulo": "Inecuaciones", "categoria": "Matemática · Álgebra"}, {"url": "valor-absoluto.html", "titulo": "Valor Absoluto", "categoria": "Matemática · Álgebra"}, {"url": "funciones.html", "titulo": "Funciones", "categoria": "Matemática · Funciones"}, {"url": "funcion-racional.html", "titulo": "Función Racional", "categoria": "Matemática · Funciones"}, {"url": "logaritmos.html", "titulo": "Logaritmos", "categoria": "Matemática · Funciones"}, {"url": "trigonometria.html", "titulo": "Trigonometría", "categoria": "Matemática · Trigonometría · seno coseno tangente"}, {"url": "teorema-seno-coseno.html", "titulo": "Teorema del Seno y del Coseno", "categoria": "Matemática · Trigonometría · triangulación"}, {"url": "sucesiones.html", "titulo": "Sucesiones y Series", "categoria": "Matemática · Sucesiones"}, {"url": "interes-compuesto.html", "titulo": "Interés Compuesto", "categoria": "Matemática · Finanzas"}, {"url": "estadistica.html", "titulo": "Estadística", "categoria": "Matemática · Estadística"}, {"url": "probabilidad.html", "titulo": "Probabilidad", "categoria": "Matemática · Estadística"}, {"url": "geometria-analitica.html", "titulo": "Geometría Analítica", "categoria": "Matemática · Geometría"}];
 
 function buscar(query){
   const resultsDiv = document.getElementById('search-results');

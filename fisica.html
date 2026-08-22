@@ -120,12 +120,12 @@
   .nav-caret{font-size:10px;opacity:0.7;padding:2px;}
   .nav-panel{
     position:absolute;top:100%;left:0;
-    background:var(--white);
-    border:2px solid var(--ink);
+    background:var(--ink);
+    border:2px solid var(--amber);
     border-radius:8px;
     padding:10px;
     z-index:80;
-    box-shadow:5px 5px 0 rgba(24,40,58,0.12);
+    box-shadow:5px 5px 0 rgba(24,40,58,0.25);
     width:270px;
     max-height:min(480px, calc(100vh - 130px));
     overflow-y:auto;
@@ -133,20 +133,20 @@
   .nav-panel-titulo{
     font-family:'JetBrains Mono', monospace;
     font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;
-    color:var(--ink-soft);margin:12px 0 6px;
-    padding-top:8px;border-top:1px solid var(--line);
+    color:var(--amber);margin:12px 0 6px;
+    padding-top:8px;border-top:1px solid rgba(255,255,255,0.15);
   }
   .nav-panel-titulo:first-child{margin-top:0;padding-top:0;border-top:none;}
   .nav-panel a.nav-panel-link{
-    display:block;color:var(--ink);text-decoration:none;
+    display:block;color:#EDEAE0;text-decoration:none;
     font-size:13.5px;padding:6px 4px;border-radius:4px;
   }
-  .nav-panel a.nav-panel-link:hover{background:var(--paper);color:var(--ink);}
+  .nav-panel a.nav-panel-link:hover{background:rgba(255,255,255,0.1);color:var(--amber);}
   @media(max-width:768px){
     .nav-panel, .nav-panel.cols-1, .nav-panel.cols-2{
       position:static;border:none;box-shadow:none;
-      background:var(--paper);
-      margin-top:4px;padding:6px 6px 6px 18px;
+      background:var(--ink);border-radius:8px;
+      margin-top:4px;padding:8px 10px;
       width:auto;max-height:none;overflow-y:visible;
     }
     .nav-drop summary{padding:12px 14px;}

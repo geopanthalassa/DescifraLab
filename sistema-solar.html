@@ -122,12 +122,12 @@
   .nav-caret{font-size:10px;opacity:0.7;padding:2px;}
   .nav-panel{
     position:absolute;top:100%;left:0;
-    background:var(--white);
-    border:2px solid var(--ink);
+    background:var(--ink);
+    border:2px solid var(--amber);
     border-radius:8px;
     padding:10px;
     z-index:80;
-    box-shadow:5px 5px 0 rgba(24,40,58,0.12);
+    box-shadow:5px 5px 0 rgba(24,40,58,0.25);
     width:270px;
     max-height:min(480px, calc(100vh - 130px));
     overflow-y:auto;
@@ -135,20 +135,20 @@
   .nav-panel-titulo{
     font-family:'JetBrains Mono', monospace;
     font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;
-    color:var(--ink-soft);margin:12px 0 6px;
-    padding-top:8px;border-top:1px solid var(--line);
+    color:var(--amber);margin:12px 0 6px;
+    padding-top:8px;border-top:1px solid rgba(255,255,255,0.15);
   }
   .nav-panel-titulo:first-child{margin-top:0;padding-top:0;border-top:none;}
   .nav-panel a.nav-panel-link{
-    display:block;color:var(--ink);text-decoration:none;
+    display:block;color:#EDEAE0;text-decoration:none;
     font-size:13.5px;padding:6px 4px;border-radius:4px;
   }
-  .nav-panel a.nav-panel-link:hover{background:var(--paper);color:var(--ink);}
+  .nav-panel a.nav-panel-link:hover{background:rgba(255,255,255,0.1);color:var(--amber);}
   @media(max-width:768px){
     .nav-panel, .nav-panel.cols-1, .nav-panel.cols-2{
       position:static;border:none;box-shadow:none;
-      background:var(--paper);
-      margin-top:4px;padding:6px 6px 6px 18px;
+      background:var(--ink);border-radius:8px;
+      margin-top:4px;padding:8px 10px;
       width:auto;max-height:none;overflow-y:visible;
     }
     .nav-drop summary{padding:12px 14px;}
@@ -253,6 +253,49 @@
   }
   .var-list{font-size:14px;color:var(--ink-soft);margin:12px 0 0;}
   .var-list span{font-family:'JetBrains Mono', monospace;font-weight:700;color:var(--ink);}
+
+  .dato-freak{
+    background:linear-gradient(135deg, var(--ink) 0%, var(--pine-dark) 100%);
+    color:#EAF2EE;
+    border:none;
+    position:relative;
+    overflow:hidden;
+  }
+  .dato-freak h2{color:#fff;}
+  .dato-freak p{color:#CBDBD3;}
+  .dato-freak strong{color:var(--amber);}
+  .dato-freak-tag{
+    display:inline-block;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;font-weight:700;
+    text-transform:uppercase;letter-spacing:0.05em;
+    padding:4px 10px;
+    border-radius:4px;
+    margin-bottom:10px;
+  }
+
+  .planetas-tabla{width:100%;border-collapse:collapse;margin-top:14px;font-size:13.5px;}
+  .planetas-tabla th{
+    font-family:'JetBrains Mono', monospace;font-size:10.5px;text-transform:uppercase;
+    letter-spacing:0.05em;color:var(--ink-soft);text-align:left;
+    padding:6px 8px;border-bottom:2px solid var(--ink);
+  }
+  .planetas-tabla td{padding:8px;border-bottom:1px solid var(--line);vertical-align:top;}
+  .planetas-tabla tr:last-child td{border-bottom:none;}
+  .tipo-pill{
+    display:inline-block;font-family:'JetBrains Mono', monospace;font-size:10px;
+    font-weight:700;text-transform:uppercase;letter-spacing:0.04em;
+    padding:2px 8px;border-radius:10px;
+  }
+  .tipo-pill.rocoso{background:#E8DCC8;color:#7A5227;}
+  .tipo-pill.gaseoso{background:#D9E6E2;color:var(--pine-dark);}
+
+  .sizes-viz{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:16px;padding:10px 0 4px;}
+  .sizes-viz .planeta-viz{display:flex;flex-direction:column;align-items:center;gap:6px;}
+  .sizes-viz .bola{border-radius:50%;display:block;}
+  .sizes-viz .planeta-nombre{font-family:'JetBrains Mono', monospace;font-size:10.5px;color:var(--ink-soft);text-align:center;}
 
   /* Calculadora */
   .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
@@ -634,6 +677,70 @@
     <p>Las distancias y masas en el sistema solar son tan grandes que usar metros o kilogramos directamente resulta poco práctico — por eso se usan unidades propias, pensadas para esta escala.</p>
     <div class="formula-box">1 Unidad Astronómica (UA) = distancia Tierra-Sol ≈ 150.000.000 km</div>
     <div class="formula-box">1 Masa Solar = la masa del Sol ≈ 2×10³⁰ kg</div>
+  </div>
+
+  <div class="card" data-tag="Concepto">
+    <h2>Los planetas, a escala (tamaños relativos)</h2>
+    <p>De más chico a más grande: así se ven los ocho planetas comparados entre sí (no está a escala real de distancias, solo de tamaño).</p>
+    <div class="sizes-viz">
+      <div class="planeta-viz"><div class="bola" style="width:14px;height:14px;background:#9C9C94;"></div><span class="planeta-nombre">Mercurio</span></div>
+      <div class="planeta-viz"><div class="bola" style="width:24px;height:24px;background:#E8C989;"></div><span class="planeta-nombre">Venus</span></div>
+      <div class="planeta-viz"><div class="bola" style="width:25px;height:25px;background:#2F7A8C;"></div><span class="planeta-nombre">Tierra</span></div>
+      <div class="planeta-viz"><div class="bola" style="width:18px;height:18px;background:#B5542E;"></div><span class="planeta-nombre">Marte</span></div>
+      <div class="planeta-viz"><div class="bola" style="width:90px;height:90px;background:#C9975A;"></div><span class="planeta-nombre">Júpiter</span></div>
+      <div class="planeta-viz"><div class="bola" style="width:76px;height:76px;background:#D9C08A;"></div><span class="planeta-nombre">Saturno</span></div>
+      <div class="planeta-viz"><div class="bola" style="width:42px;height:42px;background:#8FD0D9;"></div><span class="planeta-nombre">Urano</span></div>
+      <div class="planeta-viz"><div class="bola" style="width:40px;height:40px;background:#3355A8;"></div><span class="planeta-nombre">Neptuno</span></div>
+    </div>
+  </div>
+
+  <div class="card" data-tag="Concepto">
+    <h2>Los ocho planetas, de un vistazo</h2>
+    <p>Los primeros cuatro (los más cercanos al Sol) son <strong>rocosos</strong> — tienen superficie sólida donde, en teoría, podrías pararte. Los cuatro siguientes son <strong>gaseosos</strong> — gigantes hechos principalmente de gas, sin una superficie sólida real.</p>
+    <table class="planetas-tabla">
+      <tr><th>Planeta</th><th>Distancia al Sol</th><th>Tipo</th><th>Dato</th></tr>
+      <tr><td>Mercurio</td><td>0.39 UA</td><td><span class="tipo-pill rocoso">Rocoso</span></td><td>El más rápido: completa su órbita en apenas 88 días.</td></tr>
+      <tr><td>Venus</td><td>0.72 UA</td><td><span class="tipo-pill rocoso">Rocoso</span></td><td>El más caliente de todos (~465°C), por su densa atmósfera de CO₂.</td></tr>
+      <tr><td>Tierra</td><td>1 UA</td><td><span class="tipo-pill rocoso">Rocoso</span></td><td>El único con vida confirmada — hasta donde sabemos.</td></tr>
+      <tr><td>Marte</td><td>1.52 UA</td><td><span class="tipo-pill rocoso">Rocoso</span></td><td>Tiene el volcán más grande del sistema solar: el Monte Olimpo (~22 km de altura).</td></tr>
+      <tr><td>Júpiter</td><td>5.20 UA</td><td><span class="tipo-pill gaseoso">Gaseoso</span></td><td>El más grande: adentro entrarían más de 1300 Tierras.</td></tr>
+      <tr><td>Saturno</td><td>9.58 UA</td><td><span class="tipo-pill gaseoso">Gaseoso</span></td><td>Sus famosos anillos son de hielo y roca, y miden apenas decenas de metros de espesor.</td></tr>
+      <tr><td>Urano</td><td>19.8 UA</td><td><span class="tipo-pill gaseoso">Gaseoso</span></td><td>Gira "acostado": su eje de rotación está casi paralelo a su órbita.</td></tr>
+      <tr><td>Neptuno</td><td>30.1 UA</td><td><span class="tipo-pill gaseoso">Gaseoso</span></td><td>Tiene los vientos más rápidos del sistema solar: hasta 2100 km/h.</td></tr>
+    </table>
+  </div>
+
+  <div class="card" data-tag="Concepto">
+    <h2>El Sol: la estrella que sostiene todo</h2>
+    <p>El Sol no es un planeta — es una <strong>estrella</strong>: una esfera de plasma tan caliente que genera su propia luz. Su energía viene de la <strong>fusión nuclear</strong>: en su núcleo, a unos 15 millones de °C, los átomos de hidrógeno se combinan y forman helio, liberando una cantidad enorme de energía en el proceso.</p>
+    <p>Su diámetro es de casi 1.400.000 km — unas 109 veces el diámetro de la Tierra. Adentro del Sol entrarían más de un millón de planetas como el nuestro. Y aun así, comparado con otras estrellas del universo, es una estrella de tamaño mediano.</p>
+  </div>
+
+  <div class="card" data-tag="Concepto">
+    <h2>La Luna y los eclipses</h2>
+    <p>La Luna es el único satélite natural de la Tierra. Tiene una particularidad: siempre le muestra la misma cara a la Tierra, porque tarda exactamente lo mismo en rotar sobre sí misma que en dar una vuelta completa alrededor de nuestro planeta (rotación sincrónica).</p>
+    <ul style="padding-left:20px;margin:10px 0;">
+      <li><strong>Eclipse solar</strong> — la Luna se interpone entre el Sol y la Tierra, tapando la luz solar. Solo puede ocurrir en luna nueva.</li>
+      <li><strong>Eclipse lunar</strong> — la Tierra se interpone entre el Sol y la Luna, proyectando su sombra sobre ella. Solo puede ocurrir en luna llena.</li>
+    </ul>
+    <div class="analogia">
+      <span class="analogia-tag">¿Por qué no hay un eclipse cada mes?</span>
+      Porque la órbita de la Luna está levemente inclinada respecto a la órbita de la Tierra alrededor del Sol. La mayoría de los meses, la sombra "pasa de largo" sin alinearse justo.
+    </div>
+  </div>
+
+  <div class="card dato-freak">
+    <div class="dato-freak-tag">Dato freak</div>
+    <h2>En Venus, un día dura más que un año</h2>
+    <p>Venus rota tan lento sobre su propio eje que tarda <strong>243 días terrestres</strong> en completar un solo giro — más de lo que tarda en darle toda la vuelta al Sol, que le lleva <strong>225 días terrestres</strong>. Su "día" es literalmente más largo que su "año".</p>
+    <p style="color:var(--amber);font-size:13px;">Además, Venus gira al revés que casi todos los demás planetas (rotación retrógrada) — si pudieras ver el Sol desde su superficie, lo verías salir por el oeste y ponerse por el este.</p>
+  </div>
+
+  <div class="card dato-freak">
+    <div class="dato-freak-tag">Dato freak</div>
+    <h2>La luz que ves del Sol ya tiene 8 minutos</h2>
+    <p>La luz viaja rapidísimo (300.000 km por segundo), pero el espacio es tan enorme que hasta ella tarda un buen rato en cruzarlo. Al Sol le toma unos <strong>8 minutos y 20 segundos</strong> mandar su luz hasta la Tierra — así que cuando lo ves (nunca directamente, sin protección), en realidad estás viendo cómo era el Sol hace 8 minutos.</p>
+    <p style="color:var(--amber);font-size:13px;">Con las estrellas es todavía más extremo: la luz de muchas de las que ves de noche salió de ellas hace cientos o miles de años. Algunas, incluso, podrían no existir más — seguís viendo una luz que ya no tiene fuente.</p>
   </div>
 
   <div class="card" data-tag="Ejemplo resuelto">
