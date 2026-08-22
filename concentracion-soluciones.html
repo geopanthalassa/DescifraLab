@@ -22,9 +22,9 @@
   gtag('config', 'G-YP8YVN6V0Z');
 </script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6334611421204216" crossorigin="anonymous"></script>
-<link rel="icon" type="image/x-icon" href="favicon.ico?v=7">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=7">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=7">
+<link rel="icon" type="image/x-icon" href="favicon.ico?v=8">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=8">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=8">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=7">
 <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png?v=7">
 <title>Concentración de Soluciones — Molaridad, %m/v y Dilución — DescifraLab</title>
@@ -660,6 +660,51 @@
       </div>
     </div>
 
+    <div class="card" data-tag="Simulador">
+      <h2>Simulador — matraz de sustancias y mezclas</h2>
+      <p>Elegí qué hay dentro del matraz y mirá cómo cambia. Si armás una solución (mezcla homogénea), además calculá su concentración en tiempo real.</p>
+      <div class="sim-box" id="matraz-sim">
+        <div class="speed-row" id="matraz-tipo-botones" style="margin-left:0;flex-wrap:wrap;gap:6px;">
+          <button class="speed-btn active" data-tipo="pura">Sustancia pura</button>
+          <button class="speed-btn" data-tipo="homogenea">Mezcla homogénea (solución)</button>
+          <button class="speed-btn" data-tipo="heterogenea">Mezcla heterogénea</button>
+        </div>
+
+        <div style="display:flex;gap:24px;flex-wrap:wrap;margin-top:16px;align-items:flex-start;">
+          <canvas id="matraz-canvas" width="220" height="300" style="flex-shrink:0;margin:0 auto;"></canvas>
+
+          <div style="flex:1;min-width:230px;" id="matraz-controles">
+            <div class="field">
+              <label>Soluto — masa (g): <span id="matraz-soluto-val">20</span> g</label>
+              <input type="range" id="matraz-soluto" min="0" max="60" value="20" step="1" style="width:100%;">
+            </div>
+            <div class="field" style="margin-top:12px;">
+              <label>Solvente (agua) — volumen (mL): <span id="matraz-solvente-val">200</span> mL</label>
+              <input type="range" id="matraz-solvente" min="50" max="400" value="200" step="10" style="width:100%;">
+            </div>
+            <div class="field" id="matraz-molar-field" style="margin-top:12px;">
+              <label>Masa molar del soluto (g/mol)</label>
+              <select id="matraz-preset" style="width:100%;margin-bottom:6px;padding:6px;font-family:'JetBrains Mono', monospace;font-size:12.5px;">
+                <option value="58.5">Cloruro de sodio, NaCl — 58.5 g/mol</option>
+                <option value="342">Sacarosa (azúcar de mesa) — 342 g/mol</option>
+                <option value="74.5">Cloruro de potasio, KCl — 74.5 g/mol</option>
+                <option value="personalizado">Personalizado</option>
+              </select>
+              <input type="number" id="matraz-molar" value="58.5" style="width:100%;">
+            </div>
+          </div>
+        </div>
+
+        <div class="sim-readout" style="flex-wrap:wrap;gap:6px 18px;">
+          <span>% m/m: <span id="matraz-pct">—</span></span>
+          <span>Molaridad: <span id="matraz-molaridad">—</span></span>
+          <span>Molalidad: <span id="matraz-molalidad">—</span></span>
+        </div>
+        <p id="matraz-mensaje" style="color:var(--ink-soft);font-size:14px;margin-top:10px;"></p>
+      </div>
+    </div>
+
+
     <div class="card" data-tag="Calculadora">
       <h2>Calcula la molaridad</h2>
       <div class="calc-grid">
@@ -906,6 +951,174 @@
     out.innerText = `M₁V₁ = M₂V₂ → ${M1}×${V1} = ${M2}×V₂\nV₂ = ${(M1*V1).toFixed(1)}/${M2} = ${V2.toFixed(1)} mL\nSolvente a agregar: ${V2.toFixed(1)} − ${V1} = ${agregar.toFixed(1)} mL`;
     out.classList.add('show');
   }
+
+  // ---- Simulador: matraz de sustancias y mezclas (sustancia pura / homogénea / heterogénea) ----
+  (function(){
+    const canvas = document.getElementById('matraz-canvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height;
+    const cx = W/2;
+    let tipo = 'pura';
+
+    function flaskPath(){
+      ctx.beginPath();
+      ctx.moveTo(cx-16, 14);
+      ctx.lineTo(cx+16, 14);
+      ctx.lineTo(cx+16, 78);
+      ctx.lineTo(cx+80, H-16);
+      ctx.quadraticCurveTo(cx+80, H-4, cx+68, H-4);
+      ctx.lineTo(cx-68, H-4);
+      ctx.quadraticCurveTo(cx-80, H-4, cx-80, H-16);
+      ctx.lineTo(cx-16, 78);
+      ctx.closePath();
+    }
+
+    function anchoEnY(y){
+      if(y <= 78) return 16;
+      const t = (y-78)/((H-16)-78);
+      return 16 + t*(80-16);
+    }
+
+    function lerpColor(c1, c2, t){
+      t = Math.max(0, Math.min(1,t));
+      const r = Math.round(c1[0]+(c2[0]-c1[0])*t);
+      const g = Math.round(c1[1]+(c2[1]-c1[1])*t);
+      const b = Math.round(c1[2]+(c2[2]-c1[2])*t);
+      return `rgba(${r},${g},${b},0.62)`;
+    }
+
+    const partsHomog = [];
+    for(let i=0;i<40;i++) partsHomog.push({ang:Math.random()*Math.PI*2, r:Math.random(), t:Math.random()});
+    const partsHetero = [];
+    for(let i=0;i<26;i++) partsHetero.push({x:(Math.random()-0.5), row:Math.floor(Math.random()*4)});
+
+    function dibujar(masaSoluto, volSolvente, pct){
+      ctx.clearRect(0,0,W,H);
+
+      const nivelMin = 260, nivelMax = 90;
+      const t = Math.max(0, Math.min(1, (volSolvente-50)/(400-50)));
+      const fillY = nivelMin + (nivelMax-nivelMin)*t;
+
+      const colorLiquido = tipo==='homogenea'
+        ? lerpColor([150,205,235],[63,160,92], Math.min((pct||0)/22,1))
+        : 'rgba(150,205,235,0.55)';
+
+      ctx.save();
+      flaskPath();
+      ctx.clip();
+      ctx.fillStyle = colorLiquido;
+      ctx.fillRect(0, fillY, W, H-fillY);
+
+      if(tipo==='homogenea' && masaSoluto>0){
+        const n = Math.min(Math.round(masaSoluto), 40);
+        ctx.fillStyle = 'rgba(28,39,51,0.32)';
+        const tiempo = performance.now()*0.0002;
+        for(let i=0;i<n;i++){
+          const p = partsHomog[i%partsHomog.length];
+          const y = fillY + p.t*((H-16)-fillY);
+          const w = anchoEnY(y);
+          const x = cx + Math.cos(p.ang + tiempo)*w*p.r*0.85;
+          ctx.beginPath(); ctx.arc(x, y, 1.6, 0, Math.PI*2); ctx.fill();
+        }
+      }
+
+      if(tipo==='heterogenea' && masaSoluto>0){
+        const n = Math.min(Math.round(masaSoluto/1.5), 26);
+        ctx.fillStyle = '#B8842E';
+        for(let i=0;i<n;i++){
+          const p = partsHetero[i%partsHetero.length];
+          const x = cx + p.x*130;
+          const y = (H-10) - p.row*4;
+          ctx.beginPath(); ctx.arc(x, y, 3, 0, Math.PI*2); ctx.fill();
+        }
+      }
+      ctx.restore();
+
+      ctx.strokeStyle = '#1C2733';
+      ctx.lineWidth = 2.5;
+      flaskPath();
+      ctx.stroke();
+    }
+
+    function calcular(){
+      const masaSoluto = tipo==='pura' ? 0 : (parseFloat(document.getElementById('matraz-soluto').value)||0);
+      const volSolvente = parseFloat(document.getElementById('matraz-solvente').value)||0;
+      const masaMolar = parseFloat(document.getElementById('matraz-molar').value)||1;
+
+      document.getElementById('matraz-soluto-val').innerText = masaSoluto;
+      document.getElementById('matraz-solvente-val').innerText = volSolvente;
+
+      const masaSolvente = volSolvente * 1; // agua ≈ 1 g/mL
+      const masaSolucion = masaSolvente + masaSoluto;
+      const pct = masaSolucion>0 ? (masaSoluto/masaSolucion*100) : 0;
+
+      const pctEl = document.getElementById('matraz-pct');
+      const molEl = document.getElementById('matraz-molaridad');
+      const molalEl = document.getElementById('matraz-molalidad');
+      const msgEl = document.getElementById('matraz-mensaje');
+
+      if(tipo==='pura'){
+        pctEl.innerText = '—'; molEl.innerText = '—'; molalEl.innerText = '—';
+        msgEl.innerText = 'Una sola sustancia (por ejemplo, agua destilada): no hay soluto, así que no tiene sentido hablar de concentración.';
+      } else if(tipo==='heterogenea'){
+        pctEl.innerText = pct.toFixed(1)+' %';
+        molEl.innerText = 'No aplica';
+        molalEl.innerText = 'No aplica';
+        msgEl.innerText = `El sólido no está disuelto — se ve a simple vista, asentado en el fondo. Es el ${pct.toFixed(1)}% de la masa total, pero la molaridad y la molalidad son fórmulas para soluciones (mezclas homogéneas): acá no aplican.`;
+      } else {
+        const moles = masaSoluto/masaMolar;
+        const molaridad = volSolvente>0 ? moles/(volSolvente/1000) : 0;
+        const molalidad = masaSolvente>0 ? moles/(masaSolvente/1000) : 0;
+        pctEl.innerText = pct.toFixed(1)+' %';
+        molEl.innerText = molaridad.toFixed(2)+' mol/L';
+        molalEl.innerText = molalidad.toFixed(2)+' mol/kg';
+        msgEl.innerText = `${masaSoluto} g de soluto disueltos en ${volSolvente} mL de agua → ${moles.toFixed(3)} moles de soluto.`;
+      }
+
+      dibujar(masaSoluto, volSolvente, pct);
+    }
+
+    function cambiarTipo(nuevo, btn){
+      tipo = nuevo;
+      document.querySelectorAll('#matraz-tipo-botones .speed-btn').forEach(b=>b.classList.remove('active'));
+      if(btn) btn.classList.add('active');
+      document.getElementById('matraz-soluto').closest('.field').style.display = (nuevo==='pura') ? 'none' : '';
+      document.getElementById('matraz-molar-field').style.display = (nuevo==='homogenea') ? '' : 'none';
+      calcular();
+    }
+
+    document.getElementById('matraz-preset').addEventListener('change', function(){
+      const v = this.value;
+      const molarInput = document.getElementById('matraz-molar');
+      if(v!=='personalizado'){ molarInput.value = v; molarInput.disabled = true; }
+      else { molarInput.disabled = false; }
+      calcular();
+    });
+
+    document.querySelectorAll('#matraz-tipo-botones .speed-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>cambiarTipo(btn.dataset.tipo, btn));
+    });
+    document.getElementById('matraz-soluto').addEventListener('input', calcular);
+    document.getElementById('matraz-solvente').addEventListener('input', calcular);
+    document.getElementById('matraz-molar').addEventListener('input', calcular);
+
+    document.getElementById('matraz-molar').disabled = true;
+    cambiarTipo('pura', document.querySelector('#matraz-tipo-botones .speed-btn[data-tipo="pura"]'));
+
+    function animar(){
+      if(tipo==='homogenea'){
+        const masaSoluto = parseFloat(document.getElementById('matraz-soluto').value)||0;
+        const volSolvente = parseFloat(document.getElementById('matraz-solvente').value)||0;
+        const masaSolucion = volSolvente + masaSoluto;
+        const pct = masaSolucion>0 ? (masaSoluto/masaSolucion*100) : 0;
+        dibujar(masaSoluto, volSolvente, pct);
+      }
+      requestAnimationFrame(animar);
+    }
+    animar();
+  })();
+
 </script>
 
 </body>

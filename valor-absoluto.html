@@ -22,9 +22,9 @@
   gtag('config', 'G-YP8YVN6V0Z');
 </script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6334611421204216" crossorigin="anonymous"></script>
-<link rel="icon" type="image/x-icon" href="favicon.ico?v=7">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=7">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=7">
+<link rel="icon" type="image/x-icon" href="favicon.ico?v=8">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=8">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=8">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=7">
 <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png?v=7">
 <title>Valor Absoluto — Ecuaciones e Inecuaciones, Explicado con Ejemplos — DescifraLab</title>
@@ -773,20 +773,45 @@
       ctx.fillText(i, px, cy+18);
     }
 
-    // segmento desde el cero hasta x (la "distancia")
+    // 1) posición real de x en la recta: solo un punto gris fino,
+    //    puede caer del lado negativo (ahí está x, eso es correcto)
     const pxx = px0 + x*scale;
-    ctx.strokeStyle = '#D9A441';
-    ctx.lineWidth = 4;
+    ctx.strokeStyle = '#8A96A3';
+    ctx.setLineDash([3,3]);
+    ctx.lineWidth = 1.5;
     ctx.beginPath();
-    ctx.moveTo(px0, cy); ctx.lineTo(pxx, cy);
+    ctx.moveTo(pxx, cy-14); ctx.lineTo(pxx, cy+14);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.beginPath();
+    ctx.arc(pxx, cy, 4, 0, Math.PI*2);
+    ctx.fillStyle = '#8A96A3';
+    ctx.fill();
+    ctx.font = '10px JetBrains Mono';
+    ctx.fillStyle = '#8A96A3';
+    ctx.textAlign = 'center';
+    ctx.fillText(`x = ${x}`, pxx, cy-20);
+
+    // 2) el valor absoluto |x|: SIEMPRE se dibuja hacia el lado positivo,
+    //    porque |x| es una distancia (magnitud), nunca un valor negativo
+    const abs = Math.abs(x);
+    const pxAbs = px0 + abs*scale;
+    ctx.strokeStyle = '#D9A441';
+    ctx.lineWidth = 5;
+    ctx.beginPath();
+    ctx.moveTo(px0, cy+30); ctx.lineTo(pxAbs, cy+30);
     ctx.stroke();
 
-    [px0, pxx].forEach(px=>{
+    [px0, pxAbs].forEach(px=>{
       ctx.beginPath();
-      ctx.arc(px, cy, 6, 0, Math.PI*2);
+      ctx.arc(px, cy+30, 6, 0, Math.PI*2);
       ctx.fillStyle = '#1C2733';
       ctx.fill();
     });
+
+    ctx.fillStyle = '#B8842E';
+    ctx.font = 'bold 12px JetBrains Mono';
+    ctx.fillText(`|${x}| = ${abs}`, (px0+pxAbs)/2, cy+48);
 
     ctx.textAlign = 'left';
   }
