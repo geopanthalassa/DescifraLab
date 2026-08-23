@@ -299,7 +299,7 @@
   }
   /* centro real medido del cuerpo de cada mancha (excluyendo ícono e ilustración lateral) */
   .blob-entender .blob-text{left:38%;top:64%;transform:translate(-50%,-50%);}
-  .blob-resolver .blob-text{left:40%;top:64%;transform:translate(-50%,-50%);}
+  .blob-resolver .blob-text{left:40%;top:64%;transform:translate(-50%,-50%);width:58%;}
   .blob-probar .blob-text{left:44%;top:60%;transform:translate(-50%,-50%);}
   .blob-text-col{display:flex;flex-direction:column;gap:5px;min-width:0;text-align:center;}
   .puerta-blob strong{font-family:'Fraunces', serif;font-size:14.5px;font-weight:800;line-height:1.15;white-space:nowrap;}
@@ -562,7 +562,7 @@
       <button class="tag-pill" data-q="MRU">MRU</button>
       <button class="tag-pill" data-q="pH">pH</button>
       <button class="tag-pill" data-q="Ley de Ohm">Ley de Ohm</button>
-      <button class="tag-pill" data-q="Derivadas">Derivadas</button>
+      <button class="tag-pill" data-q="Trigonometría">Trigonometría</button>
       <button class="tag-pill" data-q="Poleas">Poleas</button>
     </div>
 
@@ -714,8 +714,8 @@ function buscar(query){
 
 // cerrar resultados al hacer click afuera
 document.addEventListener('click', (e)=>{
-  const wrap = document.querySelector('.search-wrap');
-  if(!wrap.contains(e.target)){
+  const wrap = document.getElementById('search-wrap');
+  if(wrap && !wrap.contains(e.target)){
     document.getElementById('search-results').classList.remove('show');
   }
 });
