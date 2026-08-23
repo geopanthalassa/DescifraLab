@@ -1,19 +1,17 @@
-<!DOCTYPE html>
-<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="De picómetros a años luz, de miligramos a toneladas, de segundos a años — todo el espectro, con conversión instantánea a todas las unidades a la vez.">
-<link rel="canonical" href="https://www.descifralab.com/conversor-unidades.html">
+<meta name="description" content="Mapas conceptuales de Física, Química, Matemática y Herramientas — tocá cualquier tema para ir directo a su página.">
+<link rel="canonical" href="https://www.descifralab.com/quiero-entender.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="DescifraLab">
-<meta property="og:title" content="Conversor de Unidades y Magnitudes | Longitud, Masa, Tiempo, Velocidad">
-<meta property="og:description" content="De picómetros a años luz, de miligramos a toneladas, de segundos a años — todo el espectro, con conversión instantánea a todas las unidades a la vez.">
-<meta property="og:url" content="https://www.descifralab.com/conversor-unidades.html">
+<meta property="og:title" content="Quiero entender — Mapas conceptuales">
+<meta property="og:description" content="Mapas conceptuales de Física, Química, Matemática y Herramientas — tocá cualquier tema para ir directo a su página.">
+<meta property="og:url" content="https://www.descifralab.com/quiero-entender.html">
 <meta property="og:locale" content="es_AR">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Conversor de Unidades y Magnitudes | Longitud, Masa, Tiempo, Velocidad">
-<meta name="twitter:description" content="De picómetros a años luz, de miligramos a toneladas, de segundos a años — todo el espectro, con conversión instantánea a todas las unidades a la vez.">
+<meta name="twitter:title" content="Quiero entender — Mapas conceptuales">
+<meta name="twitter:description" content="Mapas conceptuales de Física, Química, Matemática y Herramientas — tocá cualquier tema para ir directo a su página.">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YP8YVN6V0Z"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -27,9 +25,9 @@
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=9">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=7">
 <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png?v=7">
-<title>Conversor de Unidades y Magnitudes | Longitud, Masa, Tiempo, Velocidad — DescifraLab</title>
+<title>Quiero entender — Mapas conceptuales — DescifraLab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --paper:#FFFFFF;
@@ -68,11 +66,9 @@
     font-weight:700;
     font-size:14px;
     color:var(--amber-dark);
-    text-decoration:none;
     margin-bottom:12px;
     letter-spacing:0.01em;
   }
-  .brand-link:hover{text-decoration:underline;}
   .navbar{
     background:var(--white);
     border-bottom:4px solid var(--ink);
@@ -358,49 +354,203 @@
   }
   .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
 
-  .escalera{
-    display:flex;
-    align-items:flex-start;
-    justify-content:space-between;
-    margin:24px 0 8px;
-    overflow-x:auto;
-    padding-bottom:6px;
+  .mach-grupo{margin-bottom:36px;}
+  .mach-titulo{
+    font-family:'Fraunces', serif;
+    font-size:24px;font-weight:700;
+    padding:10px 18px;margin-bottom:16px;
+    color:var(--white);
+    display:inline-flex;align-items:center;gap:10px;
+    border-radius:6px;
   }
-  .escalon{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    flex-shrink:0;
+  .mach-titulo .mach-emoji{font-size:26px;}
+
+  /* colores distintivos por categoría — cada tema con su propia paleta */
+  .mach-grupo.mecanica .mach-titulo{background:#D9714A;}
+  .mach-grupo.electricidad .mach-titulo{background:#4A90D9;}
+  .mach-grupo.termo .mach-titulo{background:#E0A030;}
+  .mach-grupo.moderna .mach-titulo{background:#8A5FC7;}
+  .mach-grupo.quimica .mach-titulo{background:#3FA05C;}
+  .mach-grupo.herramientas .mach-titulo{background:#5C6B7A;}
+
+  .mach-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(210px, 1fr));
+    gap:14px;
   }
-  .escalon-caja{
-    width:56px;height:56px;
-    border:2.5px solid var(--ink);
+  .mach-card{
+    display:block;
+    background:var(--white);
+    border:3px solid var(--ink);
+    border-radius:10px;
+    padding:16px 18px;
+    text-decoration:none;
+    color:var(--ink);
+    transition:transform 0.12s, box-shadow 0.12s;
+    position:relative;
+    overflow:hidden;
+  }
+  .mach-card::before{
+    content:'';
+    position:absolute;top:0;left:0;right:0;height:6px;
+  }
+  .mach-grupo.mecanica .mach-card::before{background:#D9714A;}
+  .mach-grupo.electricidad .mach-card::before{background:#4A90D9;}
+  .mach-grupo.termo .mach-card::before{background:#E0A030;}
+  .mach-grupo.moderna .mach-card::before{background:#8A5FC7;}
+  .mach-grupo.quimica .mach-card::before{background:#3FA05C;}
+  .mach-grupo.herramientas .mach-card::before{background:#5C6B7A;}
+
+  .mach-card:hover{
+    transform:translateY(-4px) rotate(-0.5deg);
+    box-shadow:5px 5px 0 var(--ink);
+  }
+  .mach-card.herramienta{border-style:dashed;}
+  .mach-card .mach-card-icon{font-size:30px;display:block;margin-bottom:6px;}
+  .mach-card h3{
+    font-family:'Fraunces', serif;font-size:16px;font-weight:700;
+    margin:0 0 10px;
+    color:var(--ink);
+  }
+  .mach-formula{
+    font-family:'JetBrains Mono', monospace;
+    font-size:14px;font-weight:700;
+    margin-top:5px;
     background:var(--paper);
-    display:flex;align-items:center;justify-content:center;
+    padding:4px 8px;
+    border-radius:4px;
+    display:inline-block;
+  }
+
+  /* ---- Elementos de "cuaderno anotado a mano": post-its, clips, flechas ---- */
+  .estudio-elemento{position:relative;}
+
+  .postit{
+    position:absolute;
+    width:130px;
+    padding:12px 14px 16px;
+    font-family:'Caveat', cursive;
+    font-size:18px;
+    line-height:1.25;
+    color:#3A3020;
+    box-shadow:2px 4px 8px rgba(0,0,0,0.18);
+    z-index:5;
+  }
+  .postit.amarillo{background:#F5E27A;transform:rotate(-4deg);}
+  .postit.rosa{background:#F3B8C4;transform:rotate(3deg);}
+  .postit.celeste{background:#A9D6E5;transform:rotate(-2deg);}
+  .postit::before{
+    content:'';
+    position:absolute;top:-8px;left:50%;
+    transform:translateX(-50%) rotate(-3deg);
+    width:34px;height:16px;
+    background:rgba(255,255,255,0.55);
+    border:1px solid rgba(0,0,0,0.08);
+  }
+
+  .clip-svg{position:absolute;z-index:6;filter:drop-shadow(1px 2px 2px rgba(0,0,0,0.25));}
+
+  .flecha-curva{position:absolute;z-index:4;pointer-events:none;}
+
+  .letras-varias{
+    font-family:'Caveat', cursive;
+    font-weight:700;
+  }
+
+  .exp-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+    gap:16px;
+  }
+  .exp-card{
+    background:var(--white);
+    border:3px solid var(--ink);
+    border-radius:10px;
+    padding:18px 20px;
+    position:relative;
+    overflow:hidden;
+  }
+  .exp-card::before{
+    content:'';
+    position:absolute;top:0;left:0;right:0;height:6px;
+  }
+  .mach-grupo.mecanica .exp-card::before{background:#D9714A;}
+  .mach-grupo.electricidad .exp-card::before{background:#4A90D9;}
+  .mach-grupo.termo .exp-card::before{background:#E0A030;}
+  .mach-grupo.quimica .exp-card::before{background:#3FA05C;}
+  .exp-card h3{
+    font-family:'Fraunces', serif;font-size:17px;font-weight:700;
+    margin:4px 0 6px;
+  }
+  .exp-tema{
     font-family:'JetBrains Mono', monospace;
-    font-weight:700;font-size:14px;
+    font-size:11px;text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:0 0 12px;
   }
-  .escalon-caja.central{background:var(--amber);}
-  .escalon-label{
-    font-family:'Inter';font-size:11px;color:var(--ink-soft);
-    margin-top:6px;text-align:center;max-width:70px;
+  .exp-materiales{font-size:13.5px;margin:0 0 10px;}
+  .exp-pasos{padding-left:20px;margin:0 0 12px;font-size:13.5px;}
+  .exp-pasos li{margin-bottom:4px;}
+  .exp-explica{
+    font-size:13px;color:var(--ink-soft);
+    background:var(--paper);
+    padding:10px 12px;
+    border-radius:6px;
+    margin:0;
   }
-  .escalera-flecha{
-    display:flex;flex-direction:column;align-items:center;
-    justify-content:center;
-    padding-top:16px;
-    flex-shrink:0;
-    min-width:44px;
+
+  .exp-guia{
+    margin-top:14px;
+    border:2px dashed var(--amber-dark);
+    border-radius:8px;
+    padding:14px 16px;
+    background:#FFFCF5;
   }
-  .escalera-flecha .op{
+  .exp-guia-tag{
     font-family:'JetBrains Mono', monospace;
-    font-size:12px;font-weight:700;
+    font-size:10.5px;text-transform:uppercase;letter-spacing:0.05em;
+    color:var(--amber-dark);font-weight:700;
+    margin:0 0 10px;
   }
-  .escalera-flecha .der{color:var(--pine-dark);}
-  .escalera-flecha .izq{color:var(--amber-dark);}
-  .escalera-nota{
-    background:var(--paper);border:1px dashed var(--line);
-    padding:14px 16px;margin-top:16px;font-size:14px;color:var(--ink-soft);
+  .guia-tabla{
+    width:100%;border-collapse:collapse;margin:8px 0 12px;
+    font-size:13px;
+  }
+  .guia-tabla th, .guia-tabla td{
+    border:1px solid var(--line);
+    padding:6px 8px;text-align:left;
+  }
+  .guia-tabla th{background:var(--paper);font-family:'JetBrains Mono',monospace;font-size:11px;}
+  .guia-preguntas{padding-left:18px;margin:8px 0 0;font-size:13.5px;}
+  .guia-preguntas li{margin-bottom:5px;}
+
+  .banco-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    gap:20px;
+    margin-top:16px;
+  }
+  .banco-col h3{
+    font-family:'Fraunces', serif;font-size:15px;
+    margin:0 0 8px;
+  }
+  .banco-col ul{
+    padding-left:18px;margin:0;
+    font-size:13.5px;line-height:1.7;
+  }
+  .banco-col li{margin-bottom:2px;}
+
+  .mach-header-fila{
+    margin-bottom:16px;
+  }
+  .postit-margen{
+    position:absolute;
+    left:100%;
+    margin-left:24px;
+    width:150px;
+  }
+  @media(max-width:1150px){
+    .postit-margen{display:none;}
   }
   footer{
     text-align:center;padding:32px 20px;
@@ -409,6 +559,20 @@
   }
   footer a{color:var(--ink-soft);text-decoration:underline;}
   footer a:hover{color:var(--ink);}
+</style>
+
+<style>
+  .qe-hero{max-width:720px;margin:0 auto;padding:48px 20px 8px;text-align:center;}
+  .qe-hero .eyebrow{font-family:'JetBrains Mono', monospace;font-size:12.5px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;color:var(--amber-dark);margin-bottom:10px;}
+  .qe-hero h1{font-family:'Fraunces', serif;font-size:36px;font-weight:700;margin:0 0 10px;color:var(--ink);}
+  .qe-hero p{font-size:16px;color:var(--ink-soft);margin:0;}
+  .qe-card{background:var(--white);border:2px solid var(--ink);border-radius:12px;padding:24px;margin-bottom:28px;position:relative;overflow-x:auto;}
+  .qe-card::before{content:attr(data-tag);position:absolute;top:-13px;left:20px;background:var(--amber);color:var(--ink);font-family:'JetBrains Mono', monospace;font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;}
+  .qe-card h2{font-family:'Fraunces', serif;font-size:21px;margin:6px 0 4px;}
+  .qe-card p.qe-hint{color:var(--ink-soft);font-size:13.5px;margin:0 0 6px;}
+  .qe-card svg{min-width:640px;}
+  .mapa-nodo circle{transition:transform .15s, opacity .15s;transform-origin:center;transform-box:fill-box;}
+  .mapa-nodo:hover circle{opacity:0.82;transform:scale(1.06);}
 </style>
 </head>
 <body>
@@ -532,286 +696,154 @@
   </div>
 </nav>
 
-<header class="top">
-  <div class="eyebrow">Herramientas · Magnitudes</div>
-  <h1>Conversor de Unidades</h1>
-  <p class="subtitle">De picómetros a años luz, de miligramos a toneladas, de segundos a años — todo el espectro, con conversión instantánea a todas las unidades a la vez.</p>
-  <nav class="level-nav">
-    <button class="level-btn active" data-target="longitud">Longitud</button>
-    <button class="level-btn" data-target="masa">Masa</button>
-    <button class="level-btn" data-target="tiempo">Tiempo</button>
-    <button class="level-btn" data-target="velocidad">Velocidad</button>
-    <button class="level-btn" data-target="temperatura">Temperatura</button>
-  </nav>
-</header>
+<div class="qe-hero">
+  <p class="eyebrow">Explicaciones y ejemplos</p>
+  <h1>Quiero entender</h1>
+  <p>Elegí una materia y mirá cómo se conecta todo. Tocá cualquier círculo para ir directo a esa página.</p>
+</div>
 
 <div class="wrap">
 
-  <!-- LONGITUD -->
-  <section class="level active" data-level="longitud">
-    <div class="card" data-tag="Conversor">
-      <h2>Longitud — de picómetros a años luz</h2>
-      <p style="color:var(--ink-soft);font-size:14.5px;">Escribe un valor, elige en qué unidad está, y mira la conversión instantánea a todas las demás.</p>
-      <div class="calc-grid">
-        <div class="field"><label>Valor</label><input type="number" id="longitud-valor" value="1" oninput="convertir('longitud')"></div>
-        <div class="field">
-          <label>Unidad</label>
-          <select id="longitud-unidad" onchange="convertir('longitud')" style="width:100%;padding:10px 12px;border:2px solid var(--ink);font-family:'JetBrains Mono', monospace;font-size:15px;background:var(--white);">
-            <option value="pm">Picómetro (pm)</option>
-            <option value="nm">Nanómetro (nm)</option>
-            <option value="um">Micrómetro (µm)</option>
-            <option value="mm">Milímetro (mm)</option>
-            <option value="cm">Centímetro (cm)</option>
-            <option value="m" selected>Metro (m)</option>
-            <option value="km">Kilómetro (km)</option>
-            <option value="milla">Milla</option>
-            <option value="ua">Unidad Astronómica (UA)</option>
-            <option value="al">Año luz</option>
-          </select>
-        </div>
-      </div>
-      <div class="readout show" id="longitud-resultado" style="display:block;"></div>
-    </div>
-
-    <div class="card" data-tag="Método clásico">
-      <h2>La escalera de unidades de longitud</h2>
-      <p style="color:var(--ink-soft);font-size:14.5px;">La forma tradicional de convertir a mano, sin calculadora: cada escalón vale ×10 (o ÷10 en sentido contrario). El metro (m) es el centro de la escalera.</p>
-      <div class="escalera">
-        <div class="escalon"><div class="escalon-caja">km</div><div class="escalon-label">Kilómetro</div></div>
-        <div class="escalera-flecha"><span class="op der">×10→</span><span class="op izq">←÷10</span></div>
-        <div class="escalon"><div class="escalon-caja">hm</div><div class="escalon-label">Hectómetro</div></div>
-        <div class="escalera-flecha"><span class="op der">×10→</span><span class="op izq">←÷10</span></div>
-        <div class="escalon"><div class="escalon-caja">dam</div><div class="escalon-label">Decámetro</div></div>
-        <div class="escalera-flecha"><span class="op der">×10→</span><span class="op izq">←÷10</span></div>
-        <div class="escalon"><div class="escalon-caja central">m</div><div class="escalon-label">Metro</div></div>
-        <div class="escalera-flecha"><span class="op der">×10→</span><span class="op izq">←÷10</span></div>
-        <div class="escalon"><div class="escalon-caja">dm</div><div class="escalon-label">Decímetro</div></div>
-        <div class="escalera-flecha"><span class="op der">×10→</span><span class="op izq">←÷10</span></div>
-        <div class="escalon"><div class="escalon-caja">cm</div><div class="escalon-label">Centímetro</div></div>
-        <div class="escalera-flecha"><span class="op der">×10→</span><span class="op izq">←÷10</span></div>
-        <div class="escalon"><div class="escalon-caja">mm</div><div class="escalon-label">Milímetro</div></div>
-      </div>
-      <div class="escalera-nota">
-        <strong>Regla:</strong> para pasar de una unidad grande a una más chica (hacia la derecha), <strong>multiplicas por 10 por cada escalón</strong> que bajas. Para pasar de una unidad chica a una más grande (hacia la izquierda), <strong>divides por 10 por cada escalón</strong> que subes.<br><br>
-        <strong>Ejemplo:</strong> 3.5 km → m son 3 escalones hacia la derecha (km→hm→dam→m) = 3.5 × 10 × 10 × 10 = 3.5 × 1000 = <strong>3500 m</strong>.<br>
-        250 cm → m son 2 escalones hacia la izquierda (cm→dm→m) = 250 ÷ 10 ÷ 10 = <strong>2.5 m</strong>.
-      </div>
-    </div>
-  </section>
-
-  <!-- MASA -->
-  <section class="level" data-level="masa">
-    <div class="card" data-tag="Conversor">
-      <h2>Masa — de picogramos a toneladas</h2>
-      <p style="color:var(--ink-soft);font-size:14.5px;">Escribe un valor, elige en qué unidad está, y mira la conversión instantánea a todas las demás.</p>
-      <div class="calc-grid">
-        <div class="field"><label>Valor</label><input type="number" id="masa-valor" value="1" oninput="convertir('masa')"></div>
-        <div class="field">
-          <label>Unidad</label>
-          <select id="masa-unidad" onchange="convertir('masa')" style="width:100%;padding:10px 12px;border:2px solid var(--ink);font-family:'JetBrains Mono', monospace;font-size:15px;background:var(--white);">
-            <option value="pg">Picogramo (pg)</option>
-            <option value="ng">Nanogramo (ng)</option>
-            <option value="ug">Microgramo (µg)</option>
-            <option value="mg">Miligramo (mg)</option>
-            <option value="g" selected>Gramo (g)</option>
-            <option value="kg">Kilogramo (kg)</option>
-            <option value="ton">Tonelada</option>
-          </select>
-        </div>
-      </div>
-      <div class="readout show" id="masa-resultado" style="display:block;"></div>
-    </div>
-
-    <div class="card" data-tag="Método clásico">
-      <h2>La escalera de unidades de masa</h2>
-      <p style="color:var(--ink-soft);font-size:14.5px;">Exactamente la misma lógica que la escalera de longitud, con el gramo (g) en el centro.</p>
-      <div class="escalera">
-        <div class="escalon"><div class="escalon-caja">kg</div><div class="escalon-label">Kilogramo</div></div>
-        <div class="escalera-flecha"><span class="op der">×10→</span><span class="op izq">←÷10</span></div>
-        <div class="escalon"><div class="escalon-caja">hg</div><div class="escalon-label">Hectogramo</div></div>
-        <div class="escalera-flecha"><span class="op der">×10→</span><span class="op izq">←÷10</span></div>
-        <div class="escalon"><div class="escalon-caja">dag</div><div class="escalon-label">Decagramo</div></div>
-        <div class="escalera-flecha"><span class="op der">×10→</span><span class="op izq">←÷10</span></div>
-        <div class="escalon"><div class="escalon-caja central">g</div><div class="escalon-label">Gramo</div></div>
-        <div class="escalera-flecha"><span class="op der">×10→</span><span class="op izq">←÷10</span></div>
-        <div class="escalon"><div class="escalon-caja">dg</div><div class="escalon-label">Decigramo</div></div>
-        <div class="escalera-flecha"><span class="op der">×10→</span><span class="op izq">←÷10</span></div>
-        <div class="escalon"><div class="escalon-caja">cg</div><div class="escalon-label">Centigramo</div></div>
-        <div class="escalera-flecha"><span class="op der">×10→</span><span class="op izq">←÷10</span></div>
-        <div class="escalon"><div class="escalon-caja">mg</div><div class="escalon-label">Miligramo</div></div>
-      </div>
-      <div class="escalera-nota">
-        <strong>Ejemplo:</strong> 2.4 kg → g son 3 escalones a la derecha = 2.4 × 1000 = <strong>2400 g</strong>.<br>
-        850 mg → g son 3 escalones a la izquierda = 850 ÷ 1000 = <strong>0.85 g</strong>.
-      </div>
-    </div>
-  </section>
-
-  <!-- TIEMPO -->
-  <section class="level" data-level="tiempo">
-    <div class="card" data-tag="Conversor">
-      <h2>Tiempo — de milisegundos a años</h2>
-      <p style="color:var(--ink-soft);font-size:14.5px;">Escribe un valor, elige en qué unidad está, y mira la conversión instantánea a todas las demás.</p>
-      <div class="calc-grid">
-        <div class="field"><label>Valor</label><input type="number" id="tiempo-valor" value="1" oninput="convertir('tiempo')"></div>
-        <div class="field">
-          <label>Unidad</label>
-          <select id="tiempo-unidad" onchange="convertir('tiempo')" style="width:100%;padding:10px 12px;border:2px solid var(--ink);font-family:'JetBrains Mono', monospace;font-size:15px;background:var(--white);">
-            <option value="ms">Milisegundo (ms)</option>
-            <option value="s" selected>Segundo (s)</option>
-            <option value="min">Minuto</option>
-            <option value="h">Hora</option>
-            <option value="dia">Día</option>
-            <option value="semana">Semana</option>
-            <option value="mes">Mes (30 días)</option>
-            <option value="año">Año</option>
-          </select>
-        </div>
-      </div>
-      <div class="readout show" id="tiempo-resultado" style="display:block;"></div>
-    </div>
-  </section>
-
-  <!-- VELOCIDAD -->
-  <section class="level" data-level="velocidad">
-    <div class="card" data-tag="Conversor">
-      <h2>Velocidad — m/s, km/h, mph, nudos</h2>
-      <p style="color:var(--ink-soft);font-size:14.5px;">Escribe un valor, elige en qué unidad está, y mira la conversión instantánea a todas las demás.</p>
-      <div class="calc-grid">
-        <div class="field"><label>Valor</label><input type="number" id="velocidad-valor" value="1" oninput="convertir('velocidad')"></div>
-        <div class="field">
-          <label>Unidad</label>
-          <select id="velocidad-unidad" onchange="convertir('velocidad')" style="width:100%;padding:10px 12px;border:2px solid var(--ink);font-family:'JetBrains Mono', monospace;font-size:15px;background:var(--white);">
-            <option value="ms" selected>Metros por segundo (m/s)</option>
-            <option value="kmh">Kilómetros por hora (km/h)</option>
-            <option value="mph">Millas por hora (mph)</option>
-            <option value="nudo">Nudo</option>
-          </select>
-        </div>
-      </div>
-      <div class="readout show" id="velocidad-resultado" style="display:block;"></div>
-    </div>
-
-    <div class="card" data-tag="Método clásico">
-      <h2>La fórmula clásica: km/h ↔ m/s</h2>
-      <p style="color:var(--ink-soft);font-size:14.5px;">La conversión de velocidad más usada en física, y la que más se pide de memoria en los exámenes.</p>
-      <div class="formula-box">km/h → m/s: dividir por 3.6</div>
-      <div class="formula-box">m/s → km/h: multiplicar por 3.6</div>
-      <div class="escalera-nota">
-        <strong>De dónde sale el 3.6:</strong> 1 km/h = 1000 m / 3600 s = 1/3.6 m/s. Como 1 km son 1000 m y 1 hora son 3600 segundos, el factor de conversión queda fijo en 3.6 (que es 3600/1000).<br><br>
-        <strong>Ejemplo:</strong> un auto a 90 km/h → 90 ÷ 3.6 = <strong>25 m/s</strong>.<br>
-        Un corredor a 8 m/s → 8 × 3.6 = <strong>28.8 km/h</strong>.
-      </div>
-    </div>
-
-  </section>
-
-  <!-- TEMPERATURA -->
-  <section class="level" data-level="temperatura">
-    <div class="card" data-tag="Temperatura">
-      <h2>Temperatura — Celsius, Kelvin, Fahrenheit</h2>
-      <p style="color:var(--ink-soft);font-size:14.5px;">Esta conversión es distinta a las demás: no es solo multiplicar por un número, hay que sumar o restar un desplazamiento. Por eso tiene su propia calculadora.</p>
-      <div class="calc-grid">
-        <div class="field"><label>Valor</label><input type="number" id="temperatura-valor" value="25" oninput="convertirTemperatura()"></div>
-        <div class="field">
-          <label>Unidad</label>
-          <select id="temperatura-unidad" onchange="convertirTemperatura()" style="width:100%;padding:10px 12px;border:2px solid var(--ink);font-family:'JetBrains Mono', monospace;font-size:15px;background:var(--white);">
-            <option value="c" selected>Celsius (°C)</option>
-            <option value="k">Kelvin (K)</option>
-            <option value="f">Fahrenheit (°F)</option>
-          </select>
-        </div>
-      </div>
-      <div class="readout show" id="temperatura-resultado" style="display:block;"></div>
-    </div>
-
-    <div class="card" data-tag="Fórmulas de temperatura">
-      <h2>Las 3 fórmulas de conversión</h2>
-      <div class="formula-box">K = °C + 273</div>
-      <div class="formula-box">°F = °C × 9/5 + 32</div>
-      <div class="formula-box">°C = (°F − 32) × 5/9</div>
-      <div class="escalera-nota">
-        <strong>Por qué Kelvin no lleva el símbolo °:</strong> Kelvin es una escala absoluta — el 0 K es el "cero absoluto", la temperatura más baja posible en el universo, donde las partículas casi no se mueven. Por eso no se dice "grados Kelvin", solo "Kelvin".<br><br>
-        <strong>Puntos de referencia:</strong> el agua se congela a 0°C (273 K, 32°F) y hierve a 100°C (373 K, 212°F) a nivel del mar.<br><br>
-        <strong>Ejemplo:</strong> 25°C (una temperatura ambiente típica) → K = 25+273 = <strong>298 K</strong> → °F = 25×9/5+32 = <strong>77°F</strong>.
-      </div>
-    </div>
-
-    <div class="card" data-tag="Explicación visual">
-      <h2>Las tres escalas, comparadas — es la misma temperatura, distinto número</h2>
-      <p style="color:var(--ink-soft);font-size:14.5px;">Que el agua hierva a "100" en Celsius y a "212" en Fahrenheit no significa que esté más caliente en un caso — es la <strong>misma temperatura física</strong>, solo que cada escala pone el cero y el tamaño del grado en un lugar distinto. Fíjate cómo los mismos 4 puntos de referencia caen en números muy distintos según la escala:</p>
-      <div style="margin-top:16px;overflow-x:auto;">
-<svg viewBox="0 0 1000 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;font-family:'Inter',sans-serif;">
-<line x1="70" y1="66" x2="930" y2="66" stroke="#3A4756" stroke-width="2.5"/>
-<text x="30" y="71" font-size="17" font-weight="800" fill="#1C2733" text-anchor="middle">°C</text>
-<line x1="70" y1="150" x2="930" y2="150" stroke="#3A4756" stroke-width="2.5"/>
-<text x="30" y="155" font-size="17" font-weight="800" fill="#1C2733" text-anchor="middle">K</text>
-<line x1="70" y1="234" x2="930" y2="234" stroke="#3A4756" stroke-width="2.5"/>
-<text x="30" y="239" font-size="17" font-weight="800" fill="#1C2733" text-anchor="middle">°F</text>
-<line x1="202.30769230769232" y1="52" x2="202.30769230769232" y2="248" stroke="#2A6FA8" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.55"/>
-<circle cx="202.30769230769232" cy="66" r="6" fill="#2A6FA8"/>
-<text x="202.30769230769232" y="52" font-size="13" font-weight="700" fill="#2A6FA8" text-anchor="middle">0°C</text>
-<circle cx="202.30769230769232" cy="150" r="6" fill="#2A6FA8"/>
-<text x="202.30769230769232" y="136" font-size="13" font-weight="700" fill="#2A6FA8" text-anchor="middle">273K</text>
-<circle cx="202.30769230769232" cy="234" r="6" fill="#2A6FA8"/>
-<text x="202.30769230769232" y="256" font-size="13" font-weight="700" fill="#2A6FA8" text-anchor="middle">32°F</text>
-<text x="202.30769230769232" y="26" font-size="12" fill="#5C6B7A" text-anchor="middle">Congelación del agua</text>
-<line x1="334.61538461538464" y1="52" x2="334.61538461538464" y2="248" stroke="#2F6B5E" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.55"/>
-<circle cx="334.61538461538464" cy="66" r="6" fill="#2F6B5E"/>
-<text x="334.61538461538464" y="52" font-size="13" font-weight="700" fill="#2F6B5E" text-anchor="middle">20°C</text>
-<circle cx="334.61538461538464" cy="150" r="6" fill="#2F6B5E"/>
-<text x="334.61538461538464" y="136" font-size="13" font-weight="700" fill="#2F6B5E" text-anchor="middle">293K</text>
-<circle cx="334.61538461538464" cy="234" r="6" fill="#2F6B5E"/>
-<text x="334.61538461538464" y="256" font-size="13" font-weight="700" fill="#2F6B5E" text-anchor="middle">68°F</text>
-<text x="334.61538461538464" y="42" font-size="12" fill="#5C6B7A" text-anchor="middle">Ambiente confortable</text>
-<line x1="447.0769230769231" y1="52" x2="447.0769230769231" y2="248" stroke="#C0562E" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.55"/>
-<circle cx="447.0769230769231" cy="66" r="6" fill="#C0562E"/>
-<text x="447.0769230769231" y="52" font-size="13" font-weight="700" fill="#C0562E" text-anchor="middle">37°C</text>
-<circle cx="447.0769230769231" cy="150" r="6" fill="#C0562E"/>
-<text x="447.0769230769231" y="136" font-size="13" font-weight="700" fill="#C0562E" text-anchor="middle">310K</text>
-<circle cx="447.0769230769231" cy="234" r="6" fill="#C0562E"/>
-<text x="447.0769230769231" y="256" font-size="13" font-weight="700" fill="#C0562E" text-anchor="middle">98.6°F</text>
-<text x="447.0769230769231" y="26" font-size="12" fill="#5C6B7A" text-anchor="middle">Cuerpo humano</text>
-<line x1="863.8461538461539" y1="52" x2="863.8461538461539" y2="248" stroke="#B8842E" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.55"/>
-<circle cx="863.8461538461539" cy="66" r="6" fill="#B8842E"/>
-<text x="863.8461538461539" y="52" font-size="13" font-weight="700" fill="#B8842E" text-anchor="middle">100°C</text>
-<circle cx="863.8461538461539" cy="150" r="6" fill="#B8842E"/>
-<text x="863.8461538461539" y="136" font-size="13" font-weight="700" fill="#B8842E" text-anchor="middle">373K</text>
-<circle cx="863.8461538461539" cy="234" r="6" fill="#B8842E"/>
-<text x="863.8461538461539" y="256" font-size="13" font-weight="700" fill="#B8842E" text-anchor="middle">212°F</text>
-<text x="863.8461538461539" y="42" font-size="12" fill="#5C6B7A" text-anchor="middle">Ebullición del agua</text>
+  <div class="qe-card" data-tag="Física">
+    <h2>Física — de un vistazo</h2>
+    <p class="qe-hint">Mecánica, electricidad, termodinámica y física moderna.</p>
+    <svg viewBox="0 0 1040 340" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;font-family:'Inter',sans-serif;">
+<line x1="520.0" y1="81" x2="182.5" y2="128" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="520.0" y1="81" x2="407.5" y2="128" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="520.0" y1="81" x2="632.5" y2="128" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="520.0" y1="81" x2="857.5" y2="128" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="182.5" y1="188" x2="147.5" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="182.5" y1="188" x2="217.5" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="407.5" y1="188" x2="372.5" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="407.5" y1="188" x2="442.5" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="632.5" y1="188" x2="597.5" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="632.5" y1="188" x2="667.5" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="857.5" y1="188" x2="822.5" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="857.5" y1="188" x2="892.5" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<g class="mapa-nodo" data-target="" style="cursor:pointer;"><circle cx="520.0" cy="44" r="37" fill="#1C2733"/><text x="520.0" y="44" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="13" font-weight="700"><tspan x="520.0" dy="0.0">FÍSICA</tspan></text></g>
+<g class="mapa-nodo" data-target="fisica.html" style="cursor:pointer;"><circle cx="182.5" cy="158" r="30" fill="#D9714A"/><text x="182.5" y="158" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="10.5" font-weight="700"><tspan x="182.5" dy="0.0">Mecánica</tspan></text></g>
+<g class="mapa-nodo" data-target="fisica.html" style="cursor:pointer;"><circle cx="407.5" cy="158" r="30" fill="#4A90D9"/><text x="407.5" y="158" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="10.5" font-weight="700"><tspan x="407.5" dy="0.0">Electricidad</tspan></text></g>
+<g class="mapa-nodo" data-target="fisica.html" style="cursor:pointer;"><circle cx="632.5" cy="158" r="30" fill="#E0A030"/><text x="632.5" y="158" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="10.5" font-weight="700"><tspan x="632.5" dy="-6.51">Termodinámica</tspan><tspan x="632.5" dy="12.075">y Fluidos</tspan></text></g>
+<g class="mapa-nodo" data-target="fisica.html" style="cursor:pointer;"><circle cx="857.5" cy="158" r="30" fill="#8A5FC7"/><text x="857.5" y="158" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="10.5" font-weight="700"><tspan x="857.5" dy="-6.51">Física</tspan><tspan x="857.5" dy="12.075">Moderna</tspan></text></g>
+<g class="mapa-nodo" data-target="mru.html" style="cursor:pointer;"><circle cx="147.5" cy="282" r="24" fill="#D9714A"/><text x="147.5" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="147.5" dy="-5.89">MRU /</tspan><tspan x="147.5" dy="10.924999999999999">MRUV</tspan></text></g>
+<g class="mapa-nodo" data-target="newton.html" style="cursor:pointer;"><circle cx="217.5" cy="282" r="24" fill="#D9714A"/><text x="217.5" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="217.5" dy="0.0">Newton</tspan></text></g>
+<g class="mapa-nodo" data-target="ley-ohm.html" style="cursor:pointer;"><circle cx="372.5" cy="282" r="24" fill="#4A90D9"/><text x="372.5" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="372.5" dy="-5.89">Ley de</tspan><tspan x="372.5" dy="10.924999999999999">Ohm</tspan></text></g>
+<g class="mapa-nodo" data-target="circuitos.html" style="cursor:pointer;"><circle cx="442.5" cy="282" r="24" fill="#4A90D9"/><text x="442.5" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="442.5" dy="0.0">Circuitos</tspan></text></g>
+<g class="mapa-nodo" data-target="calor-especifico.html" style="cursor:pointer;"><circle cx="597.5" cy="282" r="24" fill="#E0A030"/><text x="597.5" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="597.5" dy="-5.89">Calor</tspan><tspan x="597.5" dy="10.924999999999999">Específico</tspan></text></g>
+<g class="mapa-nodo" data-target="fluidos.html" style="cursor:pointer;"><circle cx="667.5" cy="282" r="24" fill="#E0A030"/><text x="667.5" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="667.5" dy="-5.89">Presión</tspan><tspan x="667.5" dy="10.924999999999999">Hidrostática</tspan></text></g>
+<g class="mapa-nodo" data-target="relatividad.html" style="cursor:pointer;"><circle cx="822.5" cy="282" r="24" fill="#8A5FC7"/><text x="822.5" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="822.5" dy="0.0">Relatividad</tspan></text></g>
+<g class="mapa-nodo" data-target="energia-nuclear.html" style="cursor:pointer;"><circle cx="892.5" cy="282" r="24" fill="#8A5FC7"/><text x="892.5" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="892.5" dy="-5.89">Energía</tspan><tspan x="892.5" dy="10.924999999999999">Nuclear</tspan></text></g>
 </svg>
-      </div>
-      <div class="escalera-nota" style="margin-top:14px;">
-        <strong>Por qué el Kelvin nunca da negativo (en la práctica):</strong> el 0 K es el cero absoluto — no existe nada más frío. En cambio, 0°C y 0°F son puntos elegidos por convención (la congelación del agua, y una mezcla de hielo y sal, respectivamente), así que sí pueden bajar de cero.<br><br>
-        <strong>Truco para no confundirte:</strong> Celsius y Kelvin tienen el mismo "tamaño" de grado (solo cambia el punto cero, por eso solo se <em>suma</em> 273). Fahrenheit tiene grados más chicos, por eso hace falta <em>multiplicar</em> además de sumar.
-      </div>
-    </div>
-
-
-  </section>
-
-  <div class="card faq" data-tag="FAQ">
-    <h2>Preguntas frecuentes</h2>
-    <h3>¿Por qué a veces la ciencia usa notación como 3.5×10⁻⁶ en vez del número completo?</h3>
-    <p>Porque escribir 0.0000035 es incómodo y fácil de leer mal. La notación científica (3.5×10⁻⁶) es más clara para números muy chicos o muy grandes — la vas a ver seguido en resultados de picómetros, años luz, o masas atómicas.</p>
-    <h3>¿Por qué existen tantas unidades distintas para lo mismo?</h3>
-    <p>Por historia y por practicidad: un país adoptó millas en vez de kilómetros por tradición, y usar años luz en vez de metros para distancias astronómicas evita escribir números con 15 ceros. El Sistema Internacional (SI) — metro, kilogramo, segundo — es el estándar científico, pero convivimos con otros sistemas.</p>
-    <h3>¿Qué son la Unidad Astronómica y el año luz?</h3>
-    <p>La Unidad Astronómica (UA) es la distancia promedio Tierra-Sol (~150 millones de km), útil dentro del sistema solar. El año luz es la distancia que recorre la luz en un año (~9.46 billones de km), usado para distancias entre estrellas y galaxias.</p>
   </div>
 
-  <div class="related">
-    <h2>Temas relacionados</h2>
-    <div class="related-links">
-      <a href="formulario.html">Machete de Fórmulas</a>
-      <a href="maquinas-termicas.html">Máquinas Térmicas y Eficiencia</a>
-      <a href="corriente-continua-alterna.html">Corriente Continua y Alterna</a>
-      <a href="caudal-continuidad.html">Caudal y Continuidad</a>
-    </div>
+  <div class="qe-card" data-tag="Química">
+    <h2>Química — de un vistazo</h2>
+    <p class="qe-hint">Estructura de la materia, reacciones y soluciones.</p>
+    <svg viewBox="0 0 1040 340" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;font-family:'Inter',sans-serif;">
+<line x1="520.0" y1="81" x2="182.5" y2="128" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="520.0" y1="81" x2="407.5" y2="128" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="520.0" y1="81" x2="632.5" y2="128" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="520.0" y1="81" x2="857.5" y2="128" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="182.5" y1="188" x2="147.5" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="182.5" y1="188" x2="217.5" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="407.5" y1="188" x2="372.5" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="407.5" y1="188" x2="442.5" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="632.5" y1="188" x2="597.5" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="632.5" y1="188" x2="667.5" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<g class="mapa-nodo" data-target="" style="cursor:pointer;"><circle cx="520.0" cy="44" r="37" fill="#1C2733"/><text x="520.0" y="44" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="13" font-weight="700"><tspan x="520.0" dy="0.0">QUÍMICA</tspan></text></g>
+<g class="mapa-nodo" data-target="quimica.html" style="cursor:pointer;"><circle cx="182.5" cy="158" r="30" fill="#3FA05C"/><text x="182.5" y="158" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="10.5" font-weight="700"><tspan x="182.5" dy="-6.51">Estructura</tspan><tspan x="182.5" dy="12.075">de la materia</tspan></text></g>
+<g class="mapa-nodo" data-target="quimica.html" style="cursor:pointer;"><circle cx="407.5" cy="158" r="30" fill="#B8842E"/><text x="407.5" y="158" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="10.5" font-weight="700"><tspan x="407.5" dy="0.0">Reacciones</tspan></text></g>
+<g class="mapa-nodo" data-target="quimica.html" style="cursor:pointer;"><circle cx="632.5" cy="158" r="30" fill="#2A6FA8"/><text x="632.5" y="158" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="10.5" font-weight="700"><tspan x="632.5" dy="-6.51">Materia y</tspan><tspan x="632.5" dy="12.075">soluciones</tspan></text></g>
+<g class="mapa-nodo" data-target="quimica-organica.html" style="cursor:pointer;"><circle cx="857.5" cy="158" r="30" fill="#7A4FB0"/><text x="857.5" y="158" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="10.5" font-weight="700"><tspan x="857.5" dy="-6.51">Química</tspan><tspan x="857.5" dy="12.075">Orgánica</tspan></text></g>
+<g class="mapa-nodo" data-target="modelo-atomico.html" style="cursor:pointer;"><circle cx="147.5" cy="282" r="24" fill="#3FA05C"/><text x="147.5" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="147.5" dy="-5.89">Modelo</tspan><tspan x="147.5" dy="10.924999999999999">Atómico</tspan></text></g>
+<g class="mapa-nodo" data-target="enlaces-quimicos.html" style="cursor:pointer;"><circle cx="217.5" cy="282" r="24" fill="#3FA05C"/><text x="217.5" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="217.5" dy="-5.89">Enlaces</tspan><tspan x="217.5" dy="10.924999999999999">Químicos</tspan></text></g>
+<g class="mapa-nodo" data-target="oxido-reduccion.html" style="cursor:pointer;"><circle cx="372.5" cy="282" r="24" fill="#B8842E"/><text x="372.5" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="372.5" dy="-5.89">Óxido-</tspan><tspan x="372.5" dy="10.924999999999999">Reducción</tspan></text></g>
+<g class="mapa-nodo" data-target="acido-base.html" style="cursor:pointer;"><circle cx="442.5" cy="282" r="24" fill="#B8842E"/><text x="442.5" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="442.5" dy="-5.89">Ácido-Base</tspan><tspan x="442.5" dy="10.924999999999999">y pH</tspan></text></g>
+<g class="mapa-nodo" data-target="estados-materia.html" style="cursor:pointer;"><circle cx="597.5" cy="282" r="24" fill="#2A6FA8"/><text x="597.5" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="597.5" dy="-5.89">Estados de</tspan><tspan x="597.5" dy="10.924999999999999">la Materia</tspan></text></g>
+<g class="mapa-nodo" data-target="mezclas-separacion.html" style="cursor:pointer;"><circle cx="667.5" cy="282" r="24" fill="#2A6FA8"/><text x="667.5" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="667.5" dy="-5.89">Mezclas y</tspan><tspan x="667.5" dy="10.924999999999999">Separación</tspan></text></g>
+</svg>
+  </div>
+
+  <div class="qe-card" data-tag="Matemática">
+    <h2>Matemática — de un vistazo</h2>
+    <p class="qe-hint">Álgebra, funciones, trigonometría, geometría y estadística.</p>
+    <svg viewBox="0 0 1300 340" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;font-family:'Inter',sans-serif;">
+<line x1="650.0" y1="81" x2="186.0" y2="128" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="650.0" y1="81" x2="418.0" y2="128" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="650.0" y1="81" x2="650.0" y2="128" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="650.0" y1="81" x2="882.0" y2="128" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="650.0" y1="81" x2="1114.0" y2="128" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="186.0" y1="188" x2="151.0" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="186.0" y1="188" x2="221.0" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="418.0" y1="188" x2="383.0" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="418.0" y1="188" x2="453.0" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="650.0" y1="188" x2="615.0" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="650.0" y1="188" x2="685.0" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="882.0" y1="188" x2="847.0" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="882.0" y1="188" x2="917.0" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="1114.0" y1="188" x2="1079.0" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="1114.0" y1="188" x2="1149.0" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<g class="mapa-nodo" data-target="" style="cursor:pointer;"><circle cx="650.0" cy="44" r="37" fill="#1C2733"/><text x="650.0" y="44" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="10.5" font-weight="700"><tspan x="650.0" dy="0.0">MATEMÁTICA</tspan></text></g>
+<g class="mapa-nodo" data-target="matematica.html" style="cursor:pointer;"><circle cx="186.0" cy="158" r="30" fill="#D9714A"/><text x="186.0" y="158" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="10.5" font-weight="700"><tspan x="186.0" dy="-6.51">Números</tspan><tspan x="186.0" dy="12.075">y Álgebra</tspan></text></g>
+<g class="mapa-nodo" data-target="matematica.html" style="cursor:pointer;"><circle cx="418.0" cy="158" r="30" fill="#4A90D9"/><text x="418.0" y="158" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="10.5" font-weight="700"><tspan x="418.0" dy="0.0">Funciones</tspan></text></g>
+<g class="mapa-nodo" data-target="matematica.html" style="cursor:pointer;"><circle cx="650.0" cy="158" r="30" fill="#E0A030"/><text x="650.0" y="158" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="10.5" font-weight="700"><tspan x="650.0" dy="-6.51">Trigono-</tspan><tspan x="650.0" dy="12.075">metría</tspan></text></g>
+<g class="mapa-nodo" data-target="matematica.html" style="cursor:pointer;"><circle cx="882.0" cy="158" r="30" fill="#8A5FC7"/><text x="882.0" y="158" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="10.5" font-weight="700"><tspan x="882.0" dy="0.0">Geometría</tspan></text></g>
+<g class="mapa-nodo" data-target="matematica.html" style="cursor:pointer;"><circle cx="1114.0" cy="158" r="30" fill="#5C6B7A"/><text x="1114.0" y="158" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="10.5" font-weight="700"><tspan x="1114.0" dy="-6.51">Estadística y</tspan><tspan x="1114.0" dy="12.075">Probabilidad</tspan></text></g>
+<g class="mapa-nodo" data-target="sistema-ecuaciones.html" style="cursor:pointer;"><circle cx="151.0" cy="282" r="24" fill="#D9714A"/><text x="151.0" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="151.0" dy="-5.89">Sist. de</tspan><tspan x="151.0" dy="10.924999999999999">Ecuaciones</tspan></text></g>
+<g class="mapa-nodo" data-target="valor-absoluto.html" style="cursor:pointer;"><circle cx="221.0" cy="282" r="24" fill="#D9714A"/><text x="221.0" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="221.0" dy="-5.89">Valor</tspan><tspan x="221.0" dy="10.924999999999999">Absoluto</tspan></text></g>
+<g class="mapa-nodo" data-target="funciones.html" style="cursor:pointer;"><circle cx="383.0" cy="282" r="24" fill="#4A90D9"/><text x="383.0" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="383.0" dy="0.0">Funciones</tspan></text></g>
+<g class="mapa-nodo" data-target="logaritmos.html" style="cursor:pointer;"><circle cx="453.0" cy="282" r="24" fill="#4A90D9"/><text x="453.0" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="453.0" dy="0.0">Logaritmos</tspan></text></g>
+<g class="mapa-nodo" data-target="trigonometria.html" style="cursor:pointer;"><circle cx="615.0" cy="282" r="24" fill="#E0A030"/><text x="615.0" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="615.0" dy="-5.89">Trigono-</tspan><tspan x="615.0" dy="10.924999999999999">metría</tspan></text></g>
+<g class="mapa-nodo" data-target="teorema-seno-coseno.html" style="cursor:pointer;"><circle cx="685.0" cy="282" r="24" fill="#E0A030"/><text x="685.0" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="685.0" dy="-5.89">Seno y</tspan><tspan x="685.0" dy="10.924999999999999">Coseno</tspan></text></g>
+<g class="mapa-nodo" data-target="teorema-thales.html" style="cursor:pointer;"><circle cx="847.0" cy="282" r="24" fill="#8A5FC7"/><text x="847.0" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="847.0" dy="0.0">Thales</tspan></text></g>
+<g class="mapa-nodo" data-target="geometria-analitica.html" style="cursor:pointer;"><circle cx="917.0" cy="282" r="24" fill="#8A5FC7"/><text x="917.0" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="917.0" dy="-5.89">Geom.</tspan><tspan x="917.0" dy="10.924999999999999">Analítica</tspan></text></g>
+<g class="mapa-nodo" data-target="estadistica.html" style="cursor:pointer;"><circle cx="1079.0" cy="282" r="24" fill="#5C6B7A"/><text x="1079.0" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="1079.0" dy="0.0">Estadística</tspan></text></g>
+<g class="mapa-nodo" data-target="probabilidad.html" style="cursor:pointer;"><circle cx="1149.0" cy="282" r="24" fill="#5C6B7A"/><text x="1149.0" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="1149.0" dy="0.0">Probabilidad</tspan></text></g>
+</svg>
+  </div>
+
+  <div class="qe-card" data-tag="Herramientas">
+    <h2>Herramientas y recursos — de un vistazo</h2>
+    <p class="qe-hint">Machete de fórmulas, evaluaciones, conversores y material para docentes.</p>
+    <svg viewBox="0 0 1040 340" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;font-family:'Inter',sans-serif;">
+<line x1="520.0" y1="81" x2="182.5" y2="128" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="520.0" y1="81" x2="407.5" y2="128" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="520.0" y1="81" x2="632.5" y2="128" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="520.0" y1="81" x2="857.5" y2="128" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="182.5" y1="188" x2="147.5" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="182.5" y1="188" x2="217.5" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="407.5" y1="188" x2="372.5" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="407.5" y1="188" x2="442.5" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="632.5" y1="188" x2="597.5" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="632.5" y1="188" x2="667.5" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="857.5" y1="188" x2="822.5" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<line x1="857.5" y1="188" x2="892.5" y2="258" stroke="#C9CDD3" stroke-width="2"/>
+<g class="mapa-nodo" data-target="" style="cursor:pointer;"><circle cx="520.0" cy="44" r="37" fill="#1C2733"/><text x="520.0" y="44" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="10.5" font-weight="700"><tspan x="520.0" dy="0.0">HERRAMIENTAS</tspan></text></g>
+<g class="mapa-nodo" data-target="formulario.html" style="cursor:pointer;"><circle cx="182.5" cy="158" r="30" fill="#7A5FB0"/><text x="182.5" y="158" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="10.5" font-weight="700"><tspan x="182.5" dy="-6.51">Machete de</tspan><tspan x="182.5" dy="12.075">Fórmulas</tspan></text></g>
+<g class="mapa-nodo" data-target="evaluaciones.html" style="cursor:pointer;"><circle cx="407.5" cy="158" r="30" fill="#3FA05C"/><text x="407.5" y="158" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="10.5" font-weight="700"><tspan x="407.5" dy="0.0">Evaluación</tspan></text></g>
+<g class="mapa-nodo" data-target="conversor-unidades.html" style="cursor:pointer;"><circle cx="632.5" cy="158" r="30" fill="#2A6FA8"/><text x="632.5" y="158" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="10.5" font-weight="700"><tspan x="632.5" dy="0.0">Conversiones</tspan></text></g>
+<g class="mapa-nodo" data-target="docentes.html" style="cursor:pointer;"><circle cx="857.5" cy="158" r="30" fill="#D9714A"/><text x="857.5" y="158" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="10.5" font-weight="700"><tspan x="857.5" dy="-6.51">Para</tspan><tspan x="857.5" dy="12.075">Docentes</tspan></text></g>
+<g class="mapa-nodo" data-target="formulario.html#fisica" style="cursor:pointer;"><circle cx="147.5" cy="282" r="24" fill="#7A5FB0"/><text x="147.5" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="147.5" dy="0.0">Física</tspan></text></g>
+<g class="mapa-nodo" data-target="formulario.html#quimica" style="cursor:pointer;"><circle cx="217.5" cy="282" r="24" fill="#7A5FB0"/><text x="217.5" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="217.5" dy="0.0">Química</tspan></text></g>
+<g class="mapa-nodo" data-target="evaluaciones.html" style="cursor:pointer;"><circle cx="372.5" cy="282" r="24" fill="#3FA05C"/><text x="372.5" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="372.5" dy="0.0">Evaluaciones</tspan></text></g>
+<g class="mapa-nodo" data-target="banco-preguntas.html" style="cursor:pointer;"><circle cx="442.5" cy="282" r="24" fill="#3FA05C"/><text x="442.5" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="442.5" dy="-5.89">Banco de</tspan><tspan x="442.5" dy="10.924999999999999">Preguntas</tspan></text></g>
+<g class="mapa-nodo" data-target="conversor-unidades.html" style="cursor:pointer;"><circle cx="597.5" cy="282" r="24" fill="#2A6FA8"/><text x="597.5" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="597.5" dy="-5.89">Conversor de</tspan><tspan x="597.5" dy="10.924999999999999">Unidades</tspan></text></g>
+<g class="mapa-nodo" data-target="magnitudes.html" style="cursor:pointer;"><circle cx="667.5" cy="282" r="24" fill="#2A6FA8"/><text x="667.5" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="667.5" dy="-5.89">Magnitudes</tspan><tspan x="667.5" dy="10.924999999999999">y SI</tspan></text></g>
+<g class="mapa-nodo" data-target="docentes.html" style="cursor:pointer;"><circle cx="822.5" cy="282" r="24" fill="#D9714A"/><text x="822.5" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="822.5" dy="-5.89">Actividades</tspan><tspan x="822.5" dy="10.924999999999999">de Clase</tspan></text></g>
+<g class="mapa-nodo" data-target="experimentos.html" style="cursor:pointer;"><circle cx="892.5" cy="282" r="24" fill="#D9714A"/><text x="892.5" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="892.5" dy="-5.89">Experimentos</tspan><tspan x="892.5" dy="10.924999999999999">Caseros</tspan></text></g>
+</svg>
   </div>
 
 </div>
+
+<script>
+  document.querySelectorAll('.mapa-nodo').forEach(nodo=>{
+    nodo.addEventListener('click', ()=>{
+      const target = nodo.getAttribute('data-target');
+      if(target) window.location.href = target;
+    });
+  });
+</script>
 
 <footer>
   DescifraLab — hecho por una geóloga cansada de que la ciencia no llegue a todos de forma fácil.<br>
@@ -837,102 +869,10 @@
     });
   }
 
-  document.querySelectorAll('.level-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
-      document.querySelectorAll('section.level').forEach(s=>s.classList.remove('active'));
-      btn.classList.add('active');
-      document.querySelector(`section.level[data-level="${btn.dataset.target}"]`).classList.add('active');
-    });
-  });
-
-  // ---- Motor genérico de conversión de unidades ----
-  // Cada categoría define sus unidades como factor multiplicador hacia
-  // una unidad base común. Convertir = (valor en la unidad elegida) × factor
-  // hacia la base, y de la base a cada unidad de destino.
-
-  const CATEGORIAS = {
-    longitud: {
-      base: 'm',
-      factores: {
-        pm: 1e-12, nm: 1e-9, um: 1e-6, mm: 1e-3, cm: 1e-2, m: 1,
-        km: 1e3, milla: 1609.344, ua: 1.495978707e11, al: 9.4607e15
-      },
-      etiquetas: {pm:'Picómetro', nm:'Nanómetro', um:'Micrómetro', mm:'Milímetro', cm:'Centímetro', m:'Metro', km:'Kilómetro', milla:'Milla', ua:'Unidad Astronómica', al:'Año luz'}
-    },
-    masa: {
-      base: 'g',
-      factores: { pg: 1e-12, ng: 1e-9, ug: 1e-6, mg: 1e-3, g: 1, kg: 1e3, ton: 1e6 },
-      etiquetas: {pg:'Picogramo', ng:'Nanogramo', ug:'Microgramo', mg:'Miligramo', g:'Gramo', kg:'Kilogramo', ton:'Tonelada'}
-    },
-    tiempo: {
-      base: 's',
-      factores: { ms: 1e-3, s: 1, min: 60, h: 3600, dia: 86400, semana: 604800, mes: 2592000, "año": 31536000 },
-      etiquetas: {ms:'Milisegundo', s:'Segundo', min:'Minuto', h:'Hora', dia:'Día', semana:'Semana', mes:'Mes (30 días)', "año":'Año'}
-    },
-    velocidad: {
-      base: 'ms',
-      factores: { ms: 1, kmh: 1/3.6, mph: 0.44704, nudo: 0.514444 },
-      etiquetas: {ms:'m/s', kmh:'km/h', mph:'mph', nudo:'Nudo'}
-    }
-  };
-
-  function formatNum(n){
-    if(n === 0) return '0';
-    const abs = Math.abs(n);
-    if(abs >= 1e6 || abs < 1e-4){
-      return n.toExponential(4);
-    }
-    return n.toLocaleString('es-AR', {maximumFractionDigits: 8});
-  }
-
-  function convertir(categoria){
-    const cat = CATEGORIAS[categoria];
-    const valor = parseFloat(document.getElementById(categoria+'-valor').value) || 0;
-    const unidadOrigen = document.getElementById(categoria+'-unidad').value;
-    const valorBase = valor * cat.factores[unidadOrigen];
-
-    let lineas = [];
-    for(const [unidad, factor] of Object.entries(cat.factores)){
-      if(unidad === unidadOrigen) continue;
-      const convertido = valorBase / factor;
-      const etiqueta = cat.etiquetas[unidad];
-      lineas.push(`${etiqueta.padEnd(22)} = ${formatNum(convertido)} ${unidad}`);
-    }
-    document.getElementById(categoria+'-resultado').innerText = lineas.join('\n');
-  }
-
-  function convertirTemperatura(){
-    const valor = parseFloat(document.getElementById('temperatura-valor').value) || 0;
-    const unidad = document.getElementById('temperatura-unidad').value;
-
-    // Primero paso lo que sea a Celsius
-    let celsius;
-    if(unidad === 'c') celsius = valor;
-    else if(unidad === 'k') celsius = valor - 273;
-    else if(unidad === 'f') celsius = (valor - 32) * 5/9;
-
-    const kelvin = celsius + 273;
-    const fahrenheit = celsius * 9/5 + 32;
-
-    const valores = {c: celsius, k: kelvin, f: fahrenheit};
-    const etiquetas = {c: '°C', k: 'K', f: '°F'};
-    let lineas = [];
-    for(const u of ['c','k','f']){
-      if(u === unidad) continue;
-      lineas.push(`${etiquetas[u].padEnd(4)} = ${formatNum(valores[u])} ${etiquetas[u]}`);
-    }
-    document.getElementById('temperatura-resultado').innerText = lineas.join('\n');
-  }
-
-  window.addEventListener('load', ()=>{
-    convertir('longitud');
-    convertir('masa');
-    convertir('tiempo');
-    convertir('velocidad');
-    convertirTemperatura();
-  });
+  // Esta página es solo de referencia — no necesita lógica interactiva,
+  // cada bloque es un enlace directo a su página completa.
 </script>
 
 </body>
+
 </html>

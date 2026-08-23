@@ -363,6 +363,16 @@
   }
   .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
 
+  .mach-filtros{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 28px;}
+  .mach-filtros .level-btn{
+    border:2px solid var(--ink);background:var(--white);color:var(--ink);
+    padding:8px 16px;border-radius:20px;
+    font-family:'JetBrains Mono', monospace;font-size:12.5px;font-weight:700;
+    text-transform:uppercase;letter-spacing:0.03em;cursor:pointer;
+  }
+  .mach-filtros .level-btn.active{background:var(--ink);color:var(--paper);}
+  .mach-grupo.mach-oculto{display:none;}
+
   .mach-grupo{margin-bottom:36px;}
   .mach-titulo{
     font-family:'Fraunces', serif;
@@ -417,6 +427,7 @@
     box-shadow:5px 5px 0 var(--ink);
   }
   .mach-card.herramienta{border-style:dashed;}
+  .mach-card-link{display:block;color:inherit;text-decoration:none;}
   .mach-card .mach-card-icon{font-size:30px;display:block;margin-bottom:6px;}
   .mach-card h3{
     font-family:'Fraunces', serif;font-size:16px;font-weight:700;
@@ -685,20 +696,30 @@
 
 <div class="wrap" style="position:relative;">
 
+  <div class="mach-filtros" id="mach-filtros">
+    <button class="level-btn active" data-filtro="todas">Todas</button>
+    <button class="level-btn" data-filtro="fisica">Física</button>
+    <button class="level-btn" data-filtro="quimica">Química</button>
+    <button class="level-btn" data-filtro="matematica">Matemática</button>
+    <button class="level-btn" data-filtro="herramientas">Herramientas</button>
+  </div>
+
   <div id="fisica"></div>
   <!-- MECÁNICA -->
   <div class="card" style="text-align:center;background:var(--paper);">
     <p style="margin:0;font-size:14.5px;">¿Quieres la introducción completa con historia y línea de tiempo interactiva? Anda a la <a href="fisica.html" style="color:var(--amber-dark);font-weight:700;">portada de Física</a> o la <a href="quimica.html" style="color:#3FA05C;font-weight:700;">portada de Química</a>. ¿Eres docente? Mira las <a href="docentes.html" style="color:#4A90D9;font-weight:700;">actividades de clase listas para usar</a>.</p>
   </div>
 
-  <div class="mach-grupo mecanica">
+  <div class="mach-grupo mecanica" data-categoria="fisica">
     <h2 class="mach-titulo">Mecánica</h2>
     <div class="postit amarillo postit-margen">Truco: si el problema no menciona el tiempo, busca la fórmula que no lo tenga (v²=v₀²+2ad)</div>
     <div class="mach-grid">
-      <a href="mru.html" class="mach-card">
+      <div class="mach-card">
+        <a href="mru.html" class="mach-card-link">
         <h3>MRU</h3>
         <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="x" onclick="mostrarVariable(this)">x</span> = <span class="var-tip" data-grupo="mecanica" data-var="x₀" onclick="mostrarVariable(this)">x₀</span> + <span class="var-tip" data-grupo="mecanica" data-var="v" onclick="mostrarVariable(this)">v</span>·<span class="var-tip" data-grupo="mecanica" data-var="t" onclick="mostrarVariable(this)">t</span></div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-mru')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-mru">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>v=8 m/s, t=5 s, x₀=0</span></div>
@@ -706,12 +727,14 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">x = 40 m</span></div>
           <a href="mru.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="mruv.html" class="mach-card">
+      </div>
+      <div class="mach-card">
+        <a href="mruv.html" class="mach-card-link">
         <h3>MRUV</h3>
         <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="v" onclick="mostrarVariable(this)">v</span> = <span class="var-tip" data-grupo="mecanica" data-var="v₀" onclick="mostrarVariable(this)">v₀</span> + <span class="var-tip" data-grupo="mecanica" data-var="a" onclick="mostrarVariable(this)">a</span>·<span class="var-tip" data-grupo="mecanica" data-var="t" onclick="mostrarVariable(this)">t</span></div>
         <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="x" onclick="mostrarVariable(this)">x</span> = <span class="var-tip" data-grupo="mecanica" data-var="x₀" onclick="mostrarVariable(this)">x₀</span> + <span class="var-tip" data-grupo="mecanica" data-var="v" onclick="mostrarVariable(this)">v</span>₀<span class="var-tip" data-grupo="mecanica" data-var="t" onclick="mostrarVariable(this)">t</span> + ½at²</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-mruv')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-mruv">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>v₀=0, a=2 m/s², t=5 s</span></div>
@@ -719,12 +742,14 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">v = 10 m/s &nbsp;·&nbsp; x = 25 m</span></div>
           <a href="mruv.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="tiro-oblicuo.html" class="mach-card">
+      </div>
+      <div class="mach-card">
+        <a href="tiro-oblicuo.html" class="mach-card-link">
         <h3>Tiro Oblicuo</h3>
         <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="R" onclick="mostrarVariable(this)">R</span> = <span class="var-tip" data-grupo="mecanica" data-var="v₀" onclick="mostrarVariable(this)">v₀</span>²sen(2<span class="var-tip" data-grupo="mecanica" data-var="θ" onclick="mostrarVariable(this)">θ</span>)/<span class="var-tip" data-grupo="mecanica" data-var="g" onclick="mostrarVariable(this)">g</span></div>
         <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="H" onclick="mostrarVariable(this)">H</span> = (<span class="var-tip" data-grupo="mecanica" data-var="v" onclick="mostrarVariable(this)">v</span>₀senθ)²/2<span class="var-tip" data-grupo="mecanica" data-var="g" onclick="mostrarVariable(this)">g</span></div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-tiro-oblicuo')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-tiro-oblicuo">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>v₀=20 m/s, θ=45°</span></div>
@@ -732,12 +757,14 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">R = 40.8 m &nbsp;·&nbsp; H = 10.2 m</span></div>
           <a href="tiro-oblicuo.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="mcu.html" class="mach-card">
+      </div>
+      <div class="mach-card">
+        <a href="mcu.html" class="mach-card-link">
         <h3>MCU</h3>
         <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="ω" onclick="mostrarVariable(this)">ω</span> = 2π/<span class="var-tip" data-grupo="mecanica" data-var="T" onclick="mostrarVariable(this)">T</span></div>
         <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="Fc" onclick="mostrarVariable(this)">Fc</span> = mv²/<span class="var-tip" data-grupo="mecanica" data-var="r" onclick="mostrarVariable(this)">r</span></div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-mcu')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-mcu">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>T=4 s, r=2 m</span></div>
@@ -745,12 +772,14 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">ω = 1.57 rad/s &nbsp;·&nbsp; v = 3.14 m/s</span></div>
           <a href="mcu.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="newton.html" class="mach-card">
+      </div>
+      <div class="mach-card">
+        <a href="newton.html" class="mach-card-link">
         <h3>2ª Ley de Newton</h3>
         <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="F" onclick="mostrarVariable(this)">F</span> = <span class="var-tip" data-grupo="mecanica" data-var="m" onclick="mostrarVariable(this)">m</span>·<span class="var-tip" data-grupo="mecanica" data-var="a" onclick="mostrarVariable(this)">a</span></div>
         <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="Froz" onclick="mostrarVariable(this)">Froz</span> = <span class="var-tip" data-grupo="mecanica" data-var="μ" onclick="mostrarVariable(this)">μ</span>·<span class="var-tip" data-grupo="mecanica" data-var="m" onclick="mostrarVariable(this)">m</span>·<span class="var-tip" data-grupo="mecanica" data-var="g" onclick="mostrarVariable(this)">g</span></div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-newton')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-newton">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>F=20 N, m=4 kg</span></div>
@@ -758,12 +787,14 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">a = 5 m/s²</span></div>
           <a href="newton.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="trabajo-energia.html" class="mach-card">
+      </div>
+      <div class="mach-card">
+        <a href="trabajo-energia.html" class="mach-card-link">
         <h3>Trabajo y Energía</h3>
         <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="W" onclick="mostrarVariable(this)">W</span> = <span class="var-tip" data-grupo="mecanica" data-var="F" onclick="mostrarVariable(this)">F</span>·<span class="var-tip" data-grupo="mecanica" data-var="d" onclick="mostrarVariable(this)">d</span></div>
         <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="Ec" onclick="mostrarVariable(this)">Ec</span> = ½mv² · <span class="var-tip" data-grupo="mecanica" data-var="Ep" onclick="mostrarVariable(this)">Ep</span> = mgh</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-trabajo-energia')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-trabajo-energia">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>F=15 N, d=6 m</span></div>
@@ -771,12 +802,14 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">W = 90 J</span></div>
           <a href="trabajo-energia.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="impulso-momentum.html" class="mach-card">
+      </div>
+      <div class="mach-card">
+        <a href="impulso-momentum.html" class="mach-card-link">
         <h3>Impulso</h3>
         <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="p" onclick="mostrarVariable(this)">p</span> = <span class="var-tip" data-grupo="mecanica" data-var="m" onclick="mostrarVariable(this)">m</span>·<span class="var-tip" data-grupo="mecanica" data-var="v" onclick="mostrarVariable(this)">v</span></div>
         <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="J" onclick="mostrarVariable(this)">J</span> = <span class="var-tip" data-grupo="mecanica" data-var="F" onclick="mostrarVariable(this)">F</span>·<span class="var-tip" data-grupo="mecanica" data-var="Δt" onclick="mostrarVariable(this)">Δt</span> = <span class="var-tip" data-grupo="mecanica" data-var="Δp" onclick="mostrarVariable(this)">Δp</span></div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-impulso-momentum')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-impulso-momentum">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>m=0.5 kg, F=20 N, Δt=0.1 s</span></div>
@@ -784,12 +817,14 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">v_f = 4 m/s</span></div>
           <a href="impulso-momentum.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="estatica-torque.html" class="mach-card">
+      </div>
+      <div class="mach-card">
+        <a href="estatica-torque.html" class="mach-card-link">
         <h3>Estática y Torque</h3>
         <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="τ" onclick="mostrarVariable(this)">τ</span> = <span class="var-tip" data-grupo="mecanica" data-var="F" onclick="mostrarVariable(this)">F</span>·<span class="var-tip" data-grupo="mecanica" data-var="d" onclick="mostrarVariable(this)">d</span></div>
         <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="F" onclick="mostrarVariable(this)">F</span>₁<span class="var-tip" data-grupo="mecanica" data-var="d" onclick="mostrarVariable(this)">d</span>₁ = <span class="var-tip" data-grupo="mecanica" data-var="F" onclick="mostrarVariable(this)">F</span>₂<span class="var-tip" data-grupo="mecanica" data-var="d" onclick="mostrarVariable(this)">d</span>₂</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-estatica-torque')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-estatica-torque">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>F=50 N, d=0.3 m</span></div>
@@ -797,12 +832,14 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">τ = 15 N·m</span></div>
           <a href="estatica-torque.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="maquinas-simples.html" class="mach-card">
+      </div>
+      <div class="mach-card">
+        <a href="maquinas-simples.html" class="mach-card-link">
         <h3>Máquinas Simples</h3>
         <div class="mach-formula"><span class="var-tip" data-grupo="mecanica" data-var="VM" onclick="mostrarVariable(this)">VM</span> = <span class="var-tip" data-grupo="mecanica" data-var="dₚ" onclick="mostrarVariable(this)">dₚ</span>/<span class="var-tip" data-grupo="mecanica" data-var="dᵣ" onclick="mostrarVariable(this)">dᵣ</span></div>
         <div class="mach-formula" style="font-size:12px;">Palanca, poleas, plano inclinado</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-maquinas-simples')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-maquinas-simples">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>dₚ=2 m, dᵣ=0.5 m</span></div>
@@ -810,19 +847,21 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">VM = 4</span></div>
           <a href="maquinas-simples.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
+      </div>
     </div>
   </div>
 
   <!-- ELECTRICIDAD -->
-  <div class="mach-grupo electricidad">
+  <div class="mach-grupo electricidad" data-categoria="fisica">
     <h2 class="mach-titulo">Electricidad</h2>
     <div class="postit celeste postit-margen">V es la presión, I es el caudal, R es qué tan angosto el caño</div>
     <div class="mach-grid">
-      <a href="ley-ohm.html" class="mach-card">
+      <div class="mach-card">
+        <a href="ley-ohm.html" class="mach-card-link">
         <h3>Ley de Ohm</h3>
         <div class="mach-formula"><span class="var-tip" data-grupo="electricidad" data-var="V" onclick="mostrarVariable(this)">V</span> = <span class="var-tip" data-grupo="electricidad" data-var="I" onclick="mostrarVariable(this)">I</span>·<span class="var-tip" data-grupo="electricidad" data-var="R" onclick="mostrarVariable(this)">R</span></div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-ley-ohm')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-ley-ohm">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>V=12 V, R=4 Ω</span></div>
@@ -830,12 +869,14 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">I = 3 A</span></div>
           <a href="ley-ohm.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="potencia-electrica.html" class="mach-card">
+      </div>
+      <div class="mach-card">
+        <a href="potencia-electrica.html" class="mach-card-link">
         <h3>Potencia Eléctrica</h3>
         <div class="mach-formula"><span class="var-tip" data-grupo="electricidad" data-var="P" onclick="mostrarVariable(this)">P</span> = <span class="var-tip" data-grupo="electricidad" data-var="V" onclick="mostrarVariable(this)">V</span>·<span class="var-tip" data-grupo="electricidad" data-var="I" onclick="mostrarVariable(this)">I</span></div>
         <div class="mach-formula"><span class="var-tip" data-grupo="electricidad" data-var="E" onclick="mostrarVariable(this)">E</span> = <span class="var-tip" data-grupo="electricidad" data-var="P" onclick="mostrarVariable(this)">P</span>·<span class="var-tip" data-grupo="electricidad" data-var="t" onclick="mostrarVariable(this)">t</span></div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-potencia-electrica')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-potencia-electrica">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>V=220 V, I=2 A</span></div>
@@ -843,12 +884,14 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">P = 440 W</span></div>
           <a href="potencia-electrica.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="circuitos.html" class="mach-card">
+      </div>
+      <div class="mach-card">
+        <a href="circuitos.html" class="mach-card-link">
         <h3>Circuitos</h3>
         <div class="mach-formula">Serie: <span class="var-tip" data-grupo="electricidad" data-var="Req" onclick="mostrarVariable(this)">Req</span>=<span class="var-tip" data-grupo="electricidad" data-var="R" onclick="mostrarVariable(this)">R</span>₁+<span class="var-tip" data-grupo="electricidad" data-var="R" onclick="mostrarVariable(this)">R</span>₂</div>
         <div class="mach-formula">Paralelo: 1/<span class="var-tip" data-grupo="electricidad" data-var="Req" onclick="mostrarVariable(this)">Req</span>=1/<span class="var-tip" data-grupo="electricidad" data-var="R" onclick="mostrarVariable(this)">R</span>₁+1/<span class="var-tip" data-grupo="electricidad" data-var="R" onclick="mostrarVariable(this)">R</span>₂</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-circuitos')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-circuitos">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>serie: R₁=4Ω, R₂=8Ω, V=12V</span></div>
@@ -856,11 +899,13 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">V₁=4V &nbsp;·&nbsp; V₂=8V</span></div>
           <a href="circuitos.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="electromagnetismo.html" class="mach-card">
+      </div>
+      <div class="mach-card">
+        <a href="electromagnetismo.html" class="mach-card-link">
         <h3>Electromagnetismo</h3>
         <div class="mach-formula">F = <span class="var-tip" data-grupo="electricidad" data-var="q" onclick="mostrarVariable(this)">q</span>·<span class="var-tip" data-grupo="electricidad" data-var="v" onclick="mostrarVariable(this)">v</span>·<span class="var-tip" data-grupo="electricidad" data-var="B" onclick="mostrarVariable(this)">B</span>·sen(<span class="var-tip" data-grupo="electricidad" data-var="θ" onclick="mostrarVariable(this)">θ</span>)</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-electromagnetismo')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-electromagnetismo">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>q=5×10⁻⁶ C, v=1000 m/s, B=0.5 T, θ=90°</span></div>
@@ -868,12 +913,14 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">F = 0.0025 N</span></div>
           <a href="electromagnetismo.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="corriente-continua-alterna.html" class="mach-card">
+      </div>
+      <div class="mach-card">
+        <a href="corriente-continua-alterna.html" class="mach-card-link">
         <h3>Corriente Continua y Alterna</h3>
         <div class="mach-formula"><span class="var-tip" data-grupo="electricidad" data-var="f" onclick="mostrarVariable(this)">f</span> = 1/T</div>
         <div class="mach-formula"><span class="var-tip" data-grupo="electricidad" data-var="V_ef" onclick="mostrarVariable(this)">V_ef</span> = <span class="var-tip" data-grupo="electricidad" data-var="V_máx" onclick="mostrarVariable(this)">V_máx</span>/√2</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-corriente-continua-alterna')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-corriente-continua-alterna">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>f=50 Hz</span></div>
@@ -881,19 +928,21 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">T = 0.02 s</span></div>
           <a href="corriente-continua-alterna.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
+      </div>
     </div>
   </div>
 
   <!-- TERMODINÁMICA Y FLUIDOS -->
-  <div class="mach-grupo termo">
+  <div class="mach-grupo termo" data-categoria="fisica">
     <h2 class="mach-titulo">Termodinámica y Fluidos</h2>
     <div class="mach-grid">
-      <a href="calor-especifico.html" class="mach-card">
+      <div class="mach-card">
+        <a href="calor-especifico.html" class="mach-card-link">
         <h3>Calor Específico</h3>
         <div class="mach-formula"><span class="var-tip" data-grupo="termo" data-var="Q" onclick="mostrarVariable(this)">Q</span> = <span class="var-tip" data-grupo="termo" data-var="m" onclick="mostrarVariable(this)">m</span>·<span class="var-tip" data-grupo="termo" data-var="c" onclick="mostrarVariable(this)">c</span>·<span class="var-tip" data-grupo="termo" data-var="ΔT" onclick="mostrarVariable(this)">ΔT</span></div>
         <div class="mach-formula"><span class="var-tip" data-grupo="termo" data-var="Q" onclick="mostrarVariable(this)">Q</span> = <span class="var-tip" data-grupo="termo" data-var="m" onclick="mostrarVariable(this)">m</span>·<span class="var-tip" data-grupo="termo" data-var="L" onclick="mostrarVariable(this)">L</span> (latente)</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-calor-especifico')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-calor-especifico">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>m=1 kg, c=4186 J/(kg·°C), ΔT=50°C</span></div>
@@ -901,12 +950,14 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">Q ≈ 209.300 J</span></div>
           <a href="calor-especifico.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="dilatacion-termica.html" class="mach-card">
+      </div>
+      <div class="mach-card">
+        <a href="dilatacion-termica.html" class="mach-card-link">
         <h3>Dilatación Térmica</h3>
         <div class="mach-formula"><span class="var-tip" data-grupo="termo" data-var="ΔL" onclick="mostrarVariable(this)">ΔL</span> = <span class="var-tip" data-grupo="termo" data-var="L₀" onclick="mostrarVariable(this)">L₀</span>·<span class="var-tip" data-grupo="termo" data-var="α" onclick="mostrarVariable(this)">α</span>·<span class="var-tip" data-grupo="termo" data-var="ΔT" onclick="mostrarVariable(this)">ΔT</span></div>
         <div class="mach-formula"><span class="var-tip" data-grupo="termo" data-var="ΔV" onclick="mostrarVariable(this)">ΔV</span> = <span class="var-tip" data-grupo="termo" data-var="V₀" onclick="mostrarVariable(this)">V₀</span>·3<span class="var-tip" data-grupo="termo" data-var="α" onclick="mostrarVariable(this)">α</span>·<span class="var-tip" data-grupo="termo" data-var="ΔT" onclick="mostrarVariable(this)">ΔT</span></div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-dilatacion-termica')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-dilatacion-termica">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>L₀=10 m, α=0.000012 °C⁻¹, ΔT=40°C</span></div>
@@ -914,12 +965,14 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">ΔL = 4.8 mm</span></div>
           <a href="dilatacion-termica.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="fluidos.html" class="mach-card">
+      </div>
+      <div class="mach-card">
+        <a href="fluidos.html" class="mach-card-link">
         <h3>Presión Hidrostática</h3>
         <div class="mach-formula"><span class="var-tip" data-grupo="termo" data-var="P" onclick="mostrarVariable(this)">P</span> = <span class="var-tip" data-grupo="termo" data-var="ρ" onclick="mostrarVariable(this)">ρ</span>·g·<span class="var-tip" data-grupo="termo" data-var="h" onclick="mostrarVariable(this)">h</span></div>
         <div class="mach-formula">Empuje: E = <span class="var-tip" data-grupo="termo" data-var="ρ" onclick="mostrarVariable(this)">ρ</span>·g·<span class="var-tip" data-grupo="termo" data-var="V" onclick="mostrarVariable(this)">V</span></div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-fluidos')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-fluidos">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>ρ=1025 kg/m³, h=10 m</span></div>
@@ -927,12 +980,14 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">P ≈ 100.450 Pa</span></div>
           <a href="fluidos.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="caudal-continuidad.html" class="mach-card">
+      </div>
+      <div class="mach-card">
+        <a href="caudal-continuidad.html" class="mach-card-link">
         <h3>Caudal y Continuidad</h3>
         <div class="mach-formula"><span class="var-tip" data-grupo="termo" data-var="Q" onclick="mostrarVariable(this)">Q</span> = <span class="var-tip" data-grupo="termo" data-var="A" onclick="mostrarVariable(this)">A</span>·<span class="var-tip" data-grupo="termo" data-var="v" onclick="mostrarVariable(this)">v</span></div>
         <div class="mach-formula"><span class="var-tip" data-grupo="termo" data-var="A" onclick="mostrarVariable(this)">A</span>₁<span class="var-tip" data-grupo="termo" data-var="v" onclick="mostrarVariable(this)">v</span>₁ = <span class="var-tip" data-grupo="termo" data-var="A" onclick="mostrarVariable(this)">A</span>₂<span class="var-tip" data-grupo="termo" data-var="v" onclick="mostrarVariable(this)">v</span>₂</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-caudal-continuidad')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-caudal-continuidad">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>A=0.05 m², v=2 m/s</span></div>
@@ -940,11 +995,13 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">Q = 0.1 m³/s</span></div>
           <a href="caudal-continuidad.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="maquinas-termicas.html" class="mach-card">
+      </div>
+      <div class="mach-card">
+        <a href="maquinas-termicas.html" class="mach-card-link">
         <h3>Máquinas Térmicas</h3>
         <div class="mach-formula"><span class="var-tip" data-grupo="termo" data-var="η" onclick="mostrarVariable(this)">η</span> = (<span class="var-tip" data-grupo="termo" data-var="Eútil" onclick="mostrarVariable(this)">Eútil</span>/<span class="var-tip" data-grupo="termo" data-var="Etotal" onclick="mostrarVariable(this)">Etotal</span>)×100</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-maquinas-termicas')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-maquinas-termicas">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>E útil=2500 J, E total=10.000 J</span></div>
@@ -952,23 +1009,25 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">η = 25%</span></div>
           <a href="maquinas-termicas.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
+      </div>
     </div>
   </div>
 
   <!-- FÍSICA MODERNA -->
-  <div class="mach-grupo moderna">
+  <div class="mach-grupo moderna" data-categoria="fisica">
     <h2 class="mach-titulo">Física Moderna</h2>
     <div class="mach-grid">
       <a href="relatividad.html" class="mach-card">
         <h3>Relatividad</h3>
         <div class="mach-formula"><span class="var-tip" data-grupo="moderna" data-var="Δt" onclick="mostrarVariable(this)">Δt</span>' = <span class="var-tip" data-grupo="moderna" data-var="Δt" onclick="mostrarVariable(this)">Δt</span>/√(1−<span class="var-tip" data-grupo="moderna" data-var="v" onclick="mostrarVariable(this)">v</span>²/<span class="var-tip" data-grupo="moderna" data-var="c" onclick="mostrarVariable(this)">c</span>²)</div>
       </a>
-      <a href="energia-nuclear.html" class="mach-card">
+      <div class="mach-card">
+        <a href="energia-nuclear.html" class="mach-card-link">
         <h3>Energía Nuclear</h3>
         <div class="mach-formula"><span class="var-tip" data-grupo="moderna" data-var="E" onclick="mostrarVariable(this)">E</span> = <span class="var-tip" data-grupo="moderna" data-var="m" onclick="mostrarVariable(this)">m</span>·<span class="var-tip" data-grupo="moderna" data-var="c" onclick="mostrarVariable(this)">c</span>²</div>
         <div class="mach-formula"><span class="var-tip" data-grupo="moderna" data-var="N" onclick="mostrarVariable(this)">N</span> = <span class="var-tip" data-grupo="moderna" data-var="N₀" onclick="mostrarVariable(this)">N₀</span>·(1/2)^(<span class="var-tip" data-grupo="moderna" data-var="t" onclick="mostrarVariable(this)">t</span>/<span class="var-tip" data-grupo="moderna" data-var="T" onclick="mostrarVariable(this)">T</span>)</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-energia-nuclear')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-energia-nuclear">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>m=0.000001 kg (1 mg)</span></div>
@@ -976,24 +1035,26 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">E = 9×10¹⁰ J</span></div>
           <a href="energia-nuclear.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
+      </div>
     </div>
   </div>
 
   <!-- QUÍMICA -->
   <div id="quimica"></div>
-  <div class="mach-grupo quimica" style="position:relative;">
+  <div class="mach-grupo quimica" data-categoria="quimica" style="position:relative;">
     <svg class="clip-svg" viewBox="0 0 40 70" width="26" height="46" style="position:absolute;top:-14px;left:70px;transform:rotate(-10deg);">
       <path d="M20,4 C30,4 34,12 34,22 L34,50 C34,60 28,64 20,64 C12,64 8,58 8,50 L8,20 C8,14 12,10 16,10 L16,50 C16,54 18,56 20,56 C22,56 24,54 24,50 L24,18" fill="none" stroke="#8A94A0" stroke-width="3.5" stroke-linecap="round"/>
     </svg>
     <h2 class="mach-titulo">Química</h2>
     <div class="postit rosa postit-margen">n = m/M — no te olvides las unidades de la masa molar (g/mol)!</div>
     <div class="mach-grid">
-      <a href="modelo-atomico.html" class="mach-card quimica">
+      <div class="mach-card quimica">
+        <a href="modelo-atomico.html" class="mach-card-link">
         <h3>Modelo Atómico</h3>
         <div class="mach-formula"><span class="var-tip" data-grupo="quimica" data-var="Z" onclick="mostrarVariable(this)">Z</span> = protones</div>
         <div class="mach-formula"><span class="var-tip" data-grupo="quimica" data-var="A" onclick="mostrarVariable(this)">A</span> = protones + neutrones</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-modelo-atomico')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-modelo-atomico">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>Z=12, A=24 (magnesio)</span></div>
@@ -1001,12 +1062,14 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">12p, 12n, 12e</span></div>
           <a href="modelo-atomico.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="configuracion-electronica.html" class="mach-card quimica">
+      </div>
+      <div class="mach-card quimica">
+        <a href="configuracion-electronica.html" class="mach-card-link">
         <h3>Config. Electrónica</h3>
         <div class="mach-formula">Capacidad de capa = 2<span class="var-tip" data-grupo="quimica" data-var="n" onclick="mostrarVariable(this)">n</span>²</div>
         <div class="mach-formula">s,p,d,f = 2,6,10,14 e⁻</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-configuracion-electronica')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-configuracion-electronica">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>Z=11 (sodio)</span></div>
@@ -1014,12 +1077,14 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">distribución: 2, 8, 1</span></div>
           <a href="configuracion-electronica.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="estequiometria.html" class="mach-card quimica">
+      </div>
+      <div class="mach-card quimica">
+        <a href="estequiometria.html" class="mach-card-link">
         <h3>Estequiometría</h3>
         <div class="mach-formula"><span class="var-tip" data-grupo="quimica" data-var="n" onclick="mostrarVariable(this)">n</span> = <span class="var-tip" data-grupo="quimica" data-var="m" onclick="mostrarVariable(this)">m</span> / <span class="var-tip" data-grupo="quimica" data-var="M" onclick="mostrarVariable(this)">M</span></div>
         <div class="mach-formula">N° partículas = <span class="var-tip" data-grupo="quimica" data-var="n" onclick="mostrarVariable(this)">n</span> × 6.022×10²³</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-estequiometria')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-estequiometria">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>m=18 g, M=18 g/mol (agua)</span></div>
@@ -1027,12 +1092,14 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">n = 1 mol</span></div>
           <a href="estequiometria.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="oxido-reduccion.html" class="mach-card quimica">
+      </div>
+      <div class="mach-card quimica">
+        <a href="oxido-reduccion.html" class="mach-card-link">
         <h3>Óxido-Reducción</h3>
         <div class="mach-formula">Oxidación = pierde e⁻</div>
         <div class="mach-formula">Reducción = gana e⁻</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-oxido-reduccion')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-oxido-reduccion">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>SO₄²⁻: 4 O (−2 c/u), carga total −2</span></div>
@@ -1040,12 +1107,14 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">S: +6</span></div>
           <a href="oxido-reduccion.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="enlaces-quimicos.html" class="mach-card quimica">
+      </div>
+      <div class="mach-card quimica">
+        <a href="enlaces-quimicos.html" class="mach-card-link">
         <h3>Enlaces Químicos</h3>
         <div class="mach-formula"><span class="var-tip" data-grupo="quimica" data-var="ΔEN" onclick="mostrarVariable(this)">ΔEN</span>≥1.7 → iónico</div>
         <div class="mach-formula"><span class="var-tip" data-grupo="quimica" data-var="ΔEN" onclick="mostrarVariable(this)">ΔEN</span>&lt;0.4 → covalente apolar</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-enlaces-quimicos')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-enlaces-quimicos">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>Na (EN=0.93), Cl (EN=3.16)</span></div>
@@ -1053,12 +1122,14 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">ΔEN=2.23 → iónico</span></div>
           <a href="enlaces-quimicos.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="acido-base.html" class="mach-card quimica">
+      </div>
+      <div class="mach-card quimica">
+        <a href="acido-base.html" class="mach-card-link">
         <h3>Ácido-Base y pH</h3>
         <div class="mach-formula"><span class="var-tip" data-grupo="quimica" data-var="pH" onclick="mostrarVariable(this)">pH</span> = −log[<span class="var-tip" data-grupo="quimica" data-var="H⁺" onclick="mostrarVariable(this)">H⁺</span>]</div>
         <div class="mach-formula"><span class="var-tip" data-grupo="quimica" data-var="pH" onclick="mostrarVariable(this)">pH</span> + <span class="var-tip" data-grupo="quimica" data-var="pOH" onclick="mostrarVariable(this)">pOH</span> = 14</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-acido-base')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-acido-base">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>[H⁺] = 10⁻⁴ mol/L</span></div>
@@ -1066,12 +1137,14 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">pH = 4</span></div>
           <a href="acido-base.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="concentracion-soluciones.html" class="mach-card quimica">
+      </div>
+      <div class="mach-card quimica">
+        <a href="concentracion-soluciones.html" class="mach-card-link">
         <h3>Concentración de Soluciones</h3>
         <div class="mach-formula"><span class="var-tip" data-grupo="quimica" data-var="M" onclick="mostrarVariable(this)">M</span> = <span class="var-tip" data-grupo="quimica" data-var="n" onclick="mostrarVariable(this)">n</span> / <span class="var-tip" data-grupo="quimica" data-var="V" onclick="mostrarVariable(this)">V</span></div>
         <div class="mach-formula"><span class="var-tip" data-grupo="quimica" data-var="M" onclick="mostrarVariable(this)">M</span>₁<span class="var-tip" data-grupo="quimica" data-var="V" onclick="mostrarVariable(this)">V</span>₁ = <span class="var-tip" data-grupo="quimica" data-var="M" onclick="mostrarVariable(this)">M</span>₂<span class="var-tip" data-grupo="quimica" data-var="V" onclick="mostrarVariable(this)">V</span>₂</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-concentracion-soluciones')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-concentracion-soluciones">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>n=0.5 mol, V=2 L</span></div>
@@ -1079,12 +1152,14 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">M = 0.25 mol/L</span></div>
           <a href="concentracion-soluciones.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="mezclas-separacion.html" class="mach-card quimica">
+      </div>
+      <div class="mach-card quimica">
+        <a href="mezclas-separacion.html" class="mach-card-link">
         <h3>Mezclas y Separación</h3>
         <div class="mach-formula">Rendimiento = (<span class="var-tip" data-grupo="quimica" data-var="mᵣ" onclick="mostrarVariable(this)">mᵣ</span>/<span class="var-tip" data-grupo="quimica" data-var="mᵢ" onclick="mostrarVariable(this)">mᵢ</span>)×100</div>
         <div class="mach-formula" style="font-size:12px;">Filtración, decantación, destilación...</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-mezclas-separacion')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-mezclas-separacion">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>masa inicial=50 g, recuperada=38 g</span></div>
@@ -1092,12 +1167,14 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">rendimiento = 76%</span></div>
           <a href="mezclas-separacion.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="leyes-gases.html" class="mach-card quimica">
+      </div>
+      <div class="mach-card quimica">
+        <a href="leyes-gases.html" class="mach-card-link">
         <h3>Leyes de los Gases</h3>
         <div class="mach-formula"><span class="var-tip" data-grupo="quimica" data-var="P" onclick="mostrarVariable(this)">P</span>₁<span class="var-tip" data-grupo="quimica" data-var="V" onclick="mostrarVariable(this)">V</span>₁ = <span class="var-tip" data-grupo="quimica" data-var="P" onclick="mostrarVariable(this)">P</span>₂<span class="var-tip" data-grupo="quimica" data-var="V" onclick="mostrarVariable(this)">V</span>₂</div>
         <div class="mach-formula">PV = nRT</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-leyes-gases')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-leyes-gases">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>P₁=2 atm, V₁=4 L, P₂=4 atm</span></div>
@@ -1105,20 +1182,22 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">V₂ = 2 L</span></div>
           <a href="leyes-gases.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
+      </div>
     </div>
   </div>
 
   <div id="matematica"></div>
-  <div class="mach-grupo matematica" style="position:relative;">
+  <div class="mach-grupo matematica" data-categoria="matematica" style="position:relative;">
     <h2 class="mach-titulo">Matemática</h2>
     <div class="postit amarillo postit-margen">Para despejar x, siempre haz lo mismo de ambos lados de la igualdad</div>
     <div class="mach-grid">
-      <a href="ecuaciones-primer-grado.html" class="mach-card matematica">
+      <div class="mach-card matematica">
+        <a href="ecuaciones-primer-grado.html" class="mach-card-link">
         <h3>Ecuaciones de Primer Grado</h3>
         <div class="mach-formula"><span class="var-tip" data-grupo="matematica" data-var="a" onclick="mostrarVariable(this)">a</span>·<span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span> + <span class="var-tip" data-grupo="matematica" data-var="b" onclick="mostrarVariable(this)">b</span> = <span class="var-tip" data-grupo="matematica" data-var="c" onclick="mostrarVariable(this)">c</span></div>
         <div class="mach-formula"><span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span> = (<span class="var-tip" data-grupo="matematica" data-var="c" onclick="mostrarVariable(this)">c</span> − <span class="var-tip" data-grupo="matematica" data-var="b" onclick="mostrarVariable(this)">b</span>) / <span class="var-tip" data-grupo="matematica" data-var="a" onclick="mostrarVariable(this)">a</span></div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-ecuaciones-primer-grado')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-ecuaciones-primer-grado">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>2x + 3 = 11</span></div>
@@ -1126,12 +1205,14 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">x = 4</span></div>
           <a href="ecuaciones-primer-grado.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="ecuaciones-segundo-grado.html" class="mach-card matematica">
+      </div>
+      <div class="mach-card matematica">
+        <a href="ecuaciones-segundo-grado.html" class="mach-card-link">
         <h3>Ecuaciones de Segundo Grado</h3>
         <div class="mach-formula" style="font-size:13px;"><span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span> = (−<span class="var-tip" data-grupo="matematica" data-var="b" onclick="mostrarVariable(this)">b</span>±√(<span class="var-tip" data-grupo="matematica" data-var="b" onclick="mostrarVariable(this)">b</span>²−4ac)) / 2<span class="var-tip" data-grupo="matematica" data-var="a" onclick="mostrarVariable(this)">a</span></div>
         <div class="mach-formula" style="font-size:12px;"><span class="var-tip" data-grupo="matematica" data-var="Δ" onclick="mostrarVariable(this)">Δ</span> = <span class="var-tip" data-grupo="matematica" data-var="b" onclick="mostrarVariable(this)">b</span>²−4ac</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-ecuaciones-segundo-grado')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-ecuaciones-segundo-grado">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>x² − 5x + 6 = 0</span></div>
@@ -1139,11 +1220,13 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">x = 2 ó x = 3</span></div>
           <a href="ecuaciones-segundo-grado.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="sistema-ecuaciones.html" class="mach-card matematica">
+      </div>
+      <div class="mach-card matematica">
+        <a href="sistema-ecuaciones.html" class="mach-card-link">
         <h3>Sistemas de Ecuaciones</h3>
         <div class="mach-formula" style="font-size:12px;">Sustitución, igualación, reducción</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-sistema-ecuaciones')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-sistema-ecuaciones">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>x+y=10, x−y=2</span></div>
@@ -1151,12 +1234,14 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">x=6, y=4</span></div>
           <a href="sistema-ecuaciones.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="inecuaciones.html" class="mach-card matematica">
+      </div>
+      <div class="mach-card matematica">
+        <a href="inecuaciones.html" class="mach-card-link">
         <h3>Inecuaciones</h3>
         <div class="mach-formula"><span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span> &gt; <span class="var-tip" data-grupo="matematica" data-var="a" onclick="mostrarVariable(this)">a</span>, <span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span> ≤ <span class="var-tip" data-grupo="matematica" data-var="b" onclick="mostrarVariable(this)">b</span></div>
         <div class="mach-formula" style="font-size:12px;">∩ intersección · ∪ unión</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-inecuaciones')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-inecuaciones">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>2x − 4 > 6</span></div>
@@ -1164,11 +1249,13 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">x > 5</span></div>
           <a href="inecuaciones.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="valor-absoluto.html" class="mach-card matematica">
+      </div>
+      <div class="mach-card matematica">
+        <a href="valor-absoluto.html" class="mach-card-link">
         <h3>Valor Absoluto</h3>
         <div class="mach-formula" style="font-size:13px;">|<span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span>|=<span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span> si <span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span>≥0; |<span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span>|=−<span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span> si <span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span>&lt;0</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-valor-absoluto')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-valor-absoluto">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>|x − 3| = 5</span></div>
@@ -1176,12 +1263,14 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">x=8 ó x=−2</span></div>
           <a href="valor-absoluto.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="funciones.html" class="mach-card matematica">
+      </div>
+      <div class="mach-card matematica">
+        <a href="funciones.html" class="mach-card-link">
         <h3>Funciones</h3>
         <div class="mach-formula"><span class="var-tip" data-grupo="matematica" data-var="y" onclick="mostrarVariable(this)">y</span> = m·<span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span> + <span class="var-tip" data-grupo="matematica" data-var="b" onclick="mostrarVariable(this)">b</span></div>
         <div class="mach-formula"><span class="var-tip" data-grupo="matematica" data-var="y" onclick="mostrarVariable(this)">y</span> = <span class="var-tip" data-grupo="matematica" data-var="a" onclick="mostrarVariable(this)">a</span>·<span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span>² + <span class="var-tip" data-grupo="matematica" data-var="b" onclick="mostrarVariable(this)">b</span>·<span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span> + <span class="var-tip" data-grupo="matematica" data-var="c" onclick="mostrarVariable(this)">c</span></div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-funciones')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-funciones">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>f(x) = 2x + 1, x=3</span></div>
@@ -1189,11 +1278,13 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">f(3) = 7</span></div>
           <a href="funciones.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="funcion-racional.html" class="mach-card matematica">
+      </div>
+      <div class="mach-card matematica">
+        <a href="funcion-racional.html" class="mach-card-link">
         <h3>Función Racional</h3>
         <div class="mach-formula" style="font-size:14px;">f(<span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span>) = p(<span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span>)/q(<span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span>)</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-funcion-racional')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-funcion-racional">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>f(x) = 1/(x−2)</span></div>
@@ -1201,11 +1292,13 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">dominio: x ≠ 2</span></div>
           <a href="funcion-racional.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="logaritmos.html" class="mach-card matematica">
+      </div>
+      <div class="mach-card matematica">
+        <a href="logaritmos.html" class="mach-card-link">
         <h3>Logaritmos</h3>
         <div class="mach-formula">log_<span class="var-tip" data-grupo="matematica" data-var="b" onclick="mostrarVariable(this)">b</span>(<span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span>) = <span class="var-tip" data-grupo="matematica" data-var="y" onclick="mostrarVariable(this)">y</span> ⟺ <span class="var-tip" data-grupo="matematica" data-var="b" onclick="mostrarVariable(this)">b</span>^<span class="var-tip" data-grupo="matematica" data-var="y" onclick="mostrarVariable(this)">y</span> = <span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span></div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-logaritmos')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-logaritmos">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>log₂(8)</span></div>
@@ -1213,11 +1306,13 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">log₂(8) = 3</span></div>
           <a href="logaritmos.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="trigonometria.html" class="mach-card matematica">
+      </div>
+      <div class="mach-card matematica">
+        <a href="trigonometria.html" class="mach-card-link">
         <h3>Trigonometría</h3>
         <div class="mach-formula" style="font-size:13px;">sen=op/hip, cos=ady/hip, tan=op/ady</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-trigonometria')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-trigonometria">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>sen(30°)</span></div>
@@ -1225,12 +1320,14 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">sen(30°) = 0.5</span></div>
           <a href="trigonometria.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="teorema-seno-coseno.html" class="mach-card matematica">
+      </div>
+      <div class="mach-card matematica">
+        <a href="teorema-seno-coseno.html" class="mach-card-link">
         <h3>Teorema del Seno y del Coseno</h3>
         <div class="mach-formula" style="font-size:13px;"><span class="var-tip" data-grupo="matematica" data-var="a" onclick="mostrarVariable(this)">a</span>/senA = <span class="var-tip" data-grupo="matematica" data-var="b" onclick="mostrarVariable(this)">b</span>/senB = <span class="var-tip" data-grupo="matematica" data-var="c" onclick="mostrarVariable(this)">c</span>/senC</div>
         <div class="mach-formula" style="font-size:13px;"><span class="var-tip" data-grupo="matematica" data-var="a" onclick="mostrarVariable(this)">a</span>² = <span class="var-tip" data-grupo="matematica" data-var="b" onclick="mostrarVariable(this)">b</span>²+<span class="var-tip" data-grupo="matematica" data-var="c" onclick="mostrarVariable(this)">c</span>²−2bc·cosA</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-teorema-seno-coseno')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-teorema-seno-coseno">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>a=5, b=7, C=60°</span></div>
@@ -1238,12 +1335,14 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">c ≈ 6.24</span></div>
           <a href="teorema-seno-coseno.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="sucesiones.html" class="mach-card matematica">
+      </div>
+      <div class="mach-card matematica">
+        <a href="sucesiones.html" class="mach-card-link">
         <h3>Sucesiones y Series</h3>
         <div class="mach-formula" style="font-size:13px;">aₙ = <span class="var-tip" data-grupo="matematica" data-var="a" onclick="mostrarVariable(this)">a</span>₁ + (<span class="var-tip" data-grupo="matematica" data-var="n" onclick="mostrarVariable(this)">n</span>−1)<span class="var-tip" data-grupo="matematica" data-var="d" onclick="mostrarVariable(this)">d</span></div>
         <div class="mach-formula" style="font-size:13px;">aₙ = <span class="var-tip" data-grupo="matematica" data-var="a" onclick="mostrarVariable(this)">a</span>₁·rⁿ⁻¹</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-sucesiones')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-sucesiones">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>aₙ = 3n − 1, n=5</span></div>
@@ -1251,11 +1350,13 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">a₅ = 14</span></div>
           <a href="sucesiones.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="interes-compuesto.html" class="mach-card matematica">
+      </div>
+      <div class="mach-card matematica">
+        <a href="interes-compuesto.html" class="mach-card-link">
         <h3>Interés Compuesto</h3>
         <div class="mach-formula" style="font-size:14px;">M = <span class="var-tip" data-grupo="matematica" data-var="C" onclick="mostrarVariable(this)">C</span>(1+<span class="var-tip" data-grupo="matematica" data-var="i" onclick="mostrarVariable(this)">i</span>)ⁿ</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-interes-compuesto')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-interes-compuesto">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>C=$1000, i=5%, n=2 períodos</span></div>
@@ -1263,11 +1364,13 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">M = $1102.50</span></div>
           <a href="interes-compuesto.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="estadistica.html" class="mach-card matematica">
+      </div>
+      <div class="mach-card matematica">
+        <a href="estadistica.html" class="mach-card-link">
         <h3>Estadística</h3>
         <div class="mach-formula" style="font-size:12px;">Media, mediana, moda</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-estadistica')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-estadistica">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>datos: 2, 4, 6, 8</span></div>
@@ -1275,11 +1378,13 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">media = 5</span></div>
           <a href="estadistica.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="probabilidad.html" class="mach-card matematica">
+      </div>
+      <div class="mach-card matematica">
+        <a href="probabilidad.html" class="mach-card-link">
         <h3>Probabilidad</h3>
         <div class="mach-formula">P(A) = casos/total</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-probabilidad')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-probabilidad">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>moneda: 1 cara de 2 lados</span></div>
@@ -1287,11 +1392,13 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">P(cara) = 1/2 = 50%</span></div>
           <a href="probabilidad.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
-      <a href="geometria-analitica.html" class="mach-card matematica">
+      </div>
+      <div class="mach-card matematica">
+        <a href="geometria-analitica.html" class="mach-card-link">
         <h3>Geometría Analítica</h3>
         <div class="mach-formula" style="font-size:13px;">(<span class="var-tip" data-grupo="matematica" data-var="x" onclick="mostrarVariable(this)">x</span>−<span class="var-tip" data-grupo="matematica" data-var="h" onclick="mostrarVariable(this)">h</span>)² + (<span class="var-tip" data-grupo="matematica" data-var="y" onclick="mostrarVariable(this)">y</span>−<span class="var-tip" data-grupo="matematica" data-var="k" onclick="mostrarVariable(this)">k</span>)² = <span class="var-tip" data-grupo="matematica" data-var="r" onclick="mostrarVariable(this)">r</span>²</div>
       
+        </a>
         <span class="ejemplo-rapido-btn" onclick="toggleEjemplo(event, 'ej-geometria-analitica')">⚡ Ejemplo rápido</span>
         <div class="ejemplo-rapido-panel" id="ej-geometria-analitica">
           <div class="er-fila"><span class="er-etiqueta">Datos</span><span>puntos (0,0) y (3,4)</span></div>
@@ -1299,12 +1406,12 @@
           <div class="er-fila"><span class="er-etiqueta">Resultado</span><span class="er-resultado">d = 5</span></div>
           <a href="geometria-analitica.html" class="er-link">Ver ejemplo completo →</a>
         </div>
-      </a>
+      </div>
     </div>
   </div>
 
   <!-- HERRAMIENTAS -->
-  <div class="mach-grupo herramientas">
+  <div class="mach-grupo herramientas" data-categoria="herramientas">
     <h2 class="mach-titulo">Herramientas</h2>
     <div class="mach-grid">
       <a href="conversor-unidades.html" class="mach-card herramienta">
@@ -1518,8 +1625,31 @@
     });
   }
 
-  // Esta página es solo de referencia — no necesita lógica interactiva,
-  // cada bloque es un enlace directo a su página completa.
+  // ---- Filtro del Machete: Todas / Física / Química / Matemática / Herramientas ----
+  (function(){
+    const grupos = document.querySelectorAll('.mach-grupo[data-categoria]');
+    const botones = document.querySelectorAll('#mach-filtros .level-btn');
+
+    function aplicarFiltro(filtro){
+      grupos.forEach(g=>{
+        const mostrar = (filtro === 'todas') || (g.dataset.categoria === filtro);
+        g.classList.toggle('mach-oculto', !mostrar);
+      });
+      botones.forEach(b=>b.classList.toggle('active', b.dataset.filtro === filtro));
+    }
+
+    botones.forEach(b=>{
+      b.addEventListener('click', ()=>{
+        const f = b.dataset.filtro;
+        aplicarFiltro(f);
+        history.replaceState(null, '', f === 'todas' ? location.pathname : ('#'+f));
+      });
+    });
+
+    const validos = ['fisica','quimica','matematica','herramientas'];
+    const hashInicial = location.hash.replace('#','');
+    aplicarFiltro(validos.includes(hashInicial) ? hashInicial : 'todas');
+  })();
 </script>
 
 </body>
