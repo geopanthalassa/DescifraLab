@@ -573,6 +573,73 @@
   .qe-card p.qe-hint{color:var(--ink-soft);font-size:13.5px;margin:0 0 6px;}
   .qe-card svg{min-width:640px;}
   .mapa-nodo circle{transition:transform .15s, opacity .15s;transform-origin:center;transform-box:fill-box;}
+
+  /* ---- Mapa orgánico: constelación de conceptos, no organigrama ---- */
+  .qe-card-organico{overflow:visible;}
+  .mapa-organico{
+    position:relative;min-height:600px;margin-top:8px;
+  }
+  .mo-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+  .mo-path{fill:none;stroke:var(--line);stroke-width:2.5;stroke-linecap:round;stroke-dasharray:7 9;}
+  .mo-path.mo-thin{stroke-width:1.8;opacity:0.7;}
+
+  .mo-node{
+    position:absolute;transform:translate(-50%,-50%);
+    display:inline-flex;align-items:center;justify-content:center;
+    text-align:center;text-decoration:none;color:#fff;
+    font-family:'Inter';font-weight:700;
+    box-shadow:0 10px 24px rgba(24,40,58,0.14);
+    transition:transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s, filter .2s;
+  }
+  .mo-node:hover{transform:translate(-50%,-50%) scale(1.08);box-shadow:0 16px 34px rgba(24,40,58,0.22);filter:brightness(1.04);}
+
+  /* núcleo: tamaño fijo porque el texto es corto y conocido ("FÍSICA") */
+  .mo-core{
+    width:150px;height:150px;border-radius:50%;
+    background:var(--ink);border:7px solid #fff;outline:3px solid var(--amber);
+    flex-direction:column;gap:2px;z-index:3;
+  }
+  .mo-core-title{font-family:'Fraunces', serif;font-size:24px;}
+  .mo-core-sub{font-family:'JetBrains Mono', monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);}
+
+  /* ramas: NO tienen tamaño fijo — crecen con padding según el texto,
+     con un máximo para que no se vuelvan gigantes. Esto es lo que evita
+     que "Termodinámica y Fluidos" se salga de su forma. */
+  .mo-branch{
+    min-width:110px;max-width:172px;
+    padding:20px 26px;
+    border-radius:46% 54% 52% 48% / 54% 46% 54% 46%;
+    font-family:'Fraunces', serif;font-size:18px;line-height:1.2;
+    white-space:normal;z-index:2;
+  }
+  .mo-topic{
+    min-width:80px;max-width:150px;
+    padding:11px 20px;
+    border-radius:999px;
+    font-size:12.5px;font-weight:600;
+    white-space:normal;line-height:1.2;
+    z-index:2;
+  }
+
+  .mo-c-mecanica{background:#D9714A;}
+  .mo-c-electricidad{background:#3D7FC4;}
+  .mo-c-termo{background:var(--amber-dark);}
+  .mo-c-moderna{background:#7A5FB0;}
+
+  @media(max-width:760px){
+    .mo-lines{display:none;}
+    .mapa-organico{
+      min-height:0;
+      display:flex;flex-direction:column;align-items:center;gap:14px;
+    }
+    .mo-node{position:static;transform:none;}
+    .mo-node:hover{transform:scale(1.05);}
+    .mo-core{width:110px;height:110px;margin-bottom:6px;}
+    .mo-core-title{font-size:17px;}
+    .mo-branch-row, .mo-topic-row{
+      display:flex;flex-wrap:wrap;justify-content:center;gap:10px;width:100%;
+    }
+  }
   .mapa-nodo:hover circle{opacity:0.82;transform:scale(1.06);}
 </style>
 </head>
@@ -705,36 +772,46 @@
 
 <div class="wrap">
 
-  <div class="qe-card" data-tag="Física">
-    <h2>Física — de un vistazo</h2>
-    <p class="qe-hint">Mecánica, electricidad, termodinámica y física moderna.</p>
-    <svg viewBox="0 0 1040 340" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;font-family:'Inter',sans-serif;">
-<line x1="520.0" y1="81" x2="182.5" y2="128" stroke="#C9CDD3" stroke-width="2"/>
-<line x1="520.0" y1="81" x2="407.5" y2="128" stroke="#C9CDD3" stroke-width="2"/>
-<line x1="520.0" y1="81" x2="632.5" y2="128" stroke="#C9CDD3" stroke-width="2"/>
-<line x1="520.0" y1="81" x2="857.5" y2="128" stroke="#C9CDD3" stroke-width="2"/>
-<line x1="182.5" y1="188" x2="147.5" y2="258" stroke="#C9CDD3" stroke-width="2"/>
-<line x1="182.5" y1="188" x2="217.5" y2="258" stroke="#C9CDD3" stroke-width="2"/>
-<line x1="407.5" y1="188" x2="372.5" y2="258" stroke="#C9CDD3" stroke-width="2"/>
-<line x1="407.5" y1="188" x2="442.5" y2="258" stroke="#C9CDD3" stroke-width="2"/>
-<line x1="632.5" y1="188" x2="597.5" y2="258" stroke="#C9CDD3" stroke-width="2"/>
-<line x1="632.5" y1="188" x2="667.5" y2="258" stroke="#C9CDD3" stroke-width="2"/>
-<line x1="857.5" y1="188" x2="822.5" y2="258" stroke="#C9CDD3" stroke-width="2"/>
-<line x1="857.5" y1="188" x2="892.5" y2="258" stroke="#C9CDD3" stroke-width="2"/>
-<g class="mapa-nodo" data-target="" style="cursor:pointer;"><circle cx="520.0" cy="44" r="37" fill="#1C2733"/><text x="520.0" y="44" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="13" font-weight="700"><tspan x="520.0" dy="0.0">FÍSICA</tspan></text></g>
-<g class="mapa-nodo" data-target="fisica.html" style="cursor:pointer;"><circle cx="182.5" cy="158" r="30" fill="#D9714A"/><text x="182.5" y="158" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="10.5" font-weight="700"><tspan x="182.5" dy="0.0">Mecánica</tspan></text></g>
-<g class="mapa-nodo" data-target="fisica.html" style="cursor:pointer;"><circle cx="407.5" cy="158" r="30" fill="#4A90D9"/><text x="407.5" y="158" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="10.5" font-weight="700"><tspan x="407.5" dy="0.0">Electricidad</tspan></text></g>
-<g class="mapa-nodo" data-target="fisica.html" style="cursor:pointer;"><circle cx="632.5" cy="158" r="30" fill="#E0A030"/><text x="632.5" y="158" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="10.5" font-weight="700"><tspan x="632.5" dy="-6.51">Termodinámica</tspan><tspan x="632.5" dy="12.075">y Fluidos</tspan></text></g>
-<g class="mapa-nodo" data-target="fisica.html" style="cursor:pointer;"><circle cx="857.5" cy="158" r="30" fill="#8A5FC7"/><text x="857.5" y="158" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="10.5" font-weight="700"><tspan x="857.5" dy="-6.51">Física</tspan><tspan x="857.5" dy="12.075">Moderna</tspan></text></g>
-<g class="mapa-nodo" data-target="mru.html" style="cursor:pointer;"><circle cx="147.5" cy="282" r="24" fill="#D9714A"/><text x="147.5" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="147.5" dy="-5.89">MRU /</tspan><tspan x="147.5" dy="10.924999999999999">MRUV</tspan></text></g>
-<g class="mapa-nodo" data-target="newton.html" style="cursor:pointer;"><circle cx="217.5" cy="282" r="24" fill="#D9714A"/><text x="217.5" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="217.5" dy="0.0">Newton</tspan></text></g>
-<g class="mapa-nodo" data-target="ley-ohm.html" style="cursor:pointer;"><circle cx="372.5" cy="282" r="24" fill="#4A90D9"/><text x="372.5" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="372.5" dy="-5.89">Ley de</tspan><tspan x="372.5" dy="10.924999999999999">Ohm</tspan></text></g>
-<g class="mapa-nodo" data-target="circuitos.html" style="cursor:pointer;"><circle cx="442.5" cy="282" r="24" fill="#4A90D9"/><text x="442.5" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="442.5" dy="0.0">Circuitos</tspan></text></g>
-<g class="mapa-nodo" data-target="calor-especifico.html" style="cursor:pointer;"><circle cx="597.5" cy="282" r="24" fill="#E0A030"/><text x="597.5" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="597.5" dy="-5.89">Calor</tspan><tspan x="597.5" dy="10.924999999999999">Específico</tspan></text></g>
-<g class="mapa-nodo" data-target="fluidos.html" style="cursor:pointer;"><circle cx="667.5" cy="282" r="24" fill="#E0A030"/><text x="667.5" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="667.5" dy="-5.89">Presión</tspan><tspan x="667.5" dy="10.924999999999999">Hidrostática</tspan></text></g>
-<g class="mapa-nodo" data-target="relatividad.html" style="cursor:pointer;"><circle cx="822.5" cy="282" r="24" fill="#8A5FC7"/><text x="822.5" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="822.5" dy="0.0">Relatividad</tspan></text></g>
-<g class="mapa-nodo" data-target="energia-nuclear.html" style="cursor:pointer;"><circle cx="892.5" cy="282" r="24" fill="#8A5FC7"/><text x="892.5" y="282" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="9.5" font-weight="700"><tspan x="892.5" dy="-5.89">Energía</tspan><tspan x="892.5" dy="10.924999999999999">Nuclear</tspan></text></g>
-</svg>
+
+  <div class="qe-card qe-card-organico" data-tag="Física">
+    <h2>Física — explora el universo del movimiento</h2>
+    <p class="qe-hint">Toca cualquier concepto para ver de qué se trata, y entra directo a la página.</p>
+
+    <div class="mapa-organico" id="mapa-fisica">
+      <svg class="mo-lines" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true">
+        <path class="mo-path" d="M500 310 C410 265 300 210 195 155"/>
+        <path class="mo-path" d="M500 310 C590 265 700 210 805 155"/>
+        <path class="mo-path" d="M500 310 C410 355 300 410 190 470"/>
+        <path class="mo-path" d="M500 310 C590 355 700 410 810 470"/>
+        <path class="mo-path mo-thin" d="M195 155 C130 120 95 100 85 80"/>
+        <path class="mo-path mo-thin" d="M195 155 C255 125 290 108 300 105"/>
+        <path class="mo-path mo-thin" d="M805 155 C740 120 705 100 700 90"/>
+        <path class="mo-path mo-thin" d="M805 155 C870 120 905 100 915 82"/>
+        <path class="mo-path mo-thin" d="M190 470 C130 505 95 525 85 542"/>
+        <path class="mo-path mo-thin" d="M190 470 C255 500 290 515 300 518"/>
+        <path class="mo-path mo-thin" d="M810 470 C745 505 705 525 698 535"/>
+        <path class="mo-path mo-thin" d="M810 470 C870 500 905 520 915 538"/>
+      </svg>
+
+      <a href="fisica.html" class="mo-node mo-core" style="left:50%;top:50%;">
+        <span class="mo-core-title">FÍSICA</span>
+        <span class="mo-core-sub">mapa principal</span>
+      </a>
+
+      <a href="fisica.html" class="mo-node mo-branch mo-c-mecanica" style="left:19.5%;top:25%;">Mecánica</a>
+      <a href="fisica.html" class="mo-node mo-branch mo-c-electricidad" style="left:80.5%;top:25%;">Electricidad</a>
+      <a href="fisica.html" class="mo-node mo-branch mo-c-termo" style="left:19%;top:76%;">Termodinámica<br>y Fluidos</a>
+      <a href="fisica.html" class="mo-node mo-branch mo-c-moderna" style="left:81%;top:76%;">Física moderna</a>
+
+      <a href="mru.html" class="mo-node mo-topic mo-c-mecanica" style="left:8%;top:11%;">Movimiento</a>
+      <a href="newton.html" class="mo-node mo-topic mo-c-mecanica" style="left:31%;top:13%;">Newton</a>
+      <a href="ley-ohm.html" class="mo-node mo-topic mo-c-electricidad" style="left:68%;top:13%;">Ley de Ohm</a>
+      <a href="circuitos.html" class="mo-node mo-topic mo-c-electricidad" style="left:91%;top:11%;">Circuitos</a>
+      <a href="calor-especifico.html" class="mo-node mo-topic mo-c-termo" style="left:7%;top:90%;">Calor</a>
+      <a href="leyes-gases.html" class="mo-node mo-topic mo-c-termo" style="left:31%;top:91%;">Gases</a>
+      <a href="relatividad.html" class="mo-node mo-topic mo-c-moderna" style="left:68%;top:91%;">Relatividad</a>
+      <a href="energia-nuclear.html" class="mo-node mo-topic mo-c-moderna" style="left:92%;top:90%;">Energía nuclear</a>
+    </div>
   </div>
 
   <div class="qe-card" data-tag="Química">
