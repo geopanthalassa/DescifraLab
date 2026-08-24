@@ -252,9 +252,11 @@
 
   .tag-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:14px 0 4px;}
   .tag-pill{
+    display:inline-block;
     border:1.5px solid var(--line);background:var(--white);color:var(--ink);
     font-family:'Inter';font-size:13px;font-weight:600;
     padding:6px 14px;border-radius:16px;cursor:pointer;
+    text-decoration:none;
     transition:border-color .12s, color .12s, background .12s;
   }
   .tag-pill:hover{border-color:var(--amber);color:var(--amber-dark);background:var(--paper);}
@@ -553,17 +555,17 @@
           <line x1="12.5" y1="12.5" x2="17" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
       </span>
-      <input type="text" class="search-input-v2" id="search-input" placeholder="¿Qué quieres aprender?" autocomplete="off" oninput="buscar(this.value)" onfocus="document.getElementById('search-wrap').classList.add('is-active')" onblur="document.getElementById('search-wrap').classList.remove('is-active')">
-      <button class="search-btn-v2" onclick="document.getElementById('search-input').focus()">Buscar <span>→</span></button>
+      <input type="text" class="search-input-v2" id="search-input" placeholder="¿Qué quieres aprender?" autocomplete="off" oninput="buscar(this.value)" onkeydown="if(event.key==='Enter'){ event.preventDefault(); irAlPrimerResultado(); }" onfocus="document.getElementById('search-wrap').classList.add('is-active')" onblur="document.getElementById('search-wrap').classList.remove('is-active')">
+      <button type="button" class="search-btn-v2" onclick="irAlPrimerResultado()">Buscar <span>→</span></button>
       <div class="search-results" id="search-results"></div>
     </div>
 
     <div class="tag-pills">
-      <button class="tag-pill" data-q="MRU">MRU</button>
-      <button class="tag-pill" data-q="pH">pH</button>
-      <button class="tag-pill" data-q="Ley de Ohm">Ley de Ohm</button>
-      <button class="tag-pill" data-q="Trigonometría">Trigonometría</button>
-      <button class="tag-pill" data-q="Poleas">Poleas</button>
+      <a href="mru.html" class="tag-pill">MRU</a>
+      <a href="acido-base.html" class="tag-pill">pH</a>
+      <a href="ley-ohm.html" class="tag-pill">Ley de Ohm</a>
+      <a href="trigonometria.html" class="tag-pill">Trigonometría</a>
+      <a href="maquinas-simples.html" class="tag-pill">Poleas</a>
     </div>
 
     <p class="hero-search-helper">Fórmulas · Ejemplos · Ejercicios · Simuladores</p>
@@ -684,9 +686,19 @@
 
 const INDICE_BUSQUEDA = [{"url": "quiero-entender.html", "titulo": "Quiero entender", "categoria": "Mapas conceptuales · Física Química Matemática"}, {"url": "quiero-resolver.html", "titulo": "Quiero resolver", "categoria": "Guías · Ejercicios · Evaluaciones"}, {"url": "quiero-probar.html", "titulo": "Quiero probar", "categoria": "Simuladores interactivos"}, {"url": "sistema-solar.html", "titulo": "Sistema Solar", "categoria": "Física · Astronomía · planetas Sol Luna"}, {"url": "acido-base.html", "titulo": "Ácido-Base y pH", "categoria": "Química · Reacciones"}, {"url": "calor-especifico.html", "titulo": "Calor Específico y Cambios de Estado", "categoria": "Termodinámica"}, {"url": "caudal-continuidad.html", "titulo": "Caudal y Continuidad", "categoria": "Hidráulica y Fluidos"}, {"url": "circuitos.html", "titulo": "Circuitos en Serie y Paralelo", "categoria": "Electricidad"}, {"url": "concentracion-soluciones.html", "titulo": "Concentración de Soluciones", "categoria": "Química · Soluciones"}, {"url": "configuracion-electronica.html", "titulo": "Configuración Electrónica", "categoria": "Química · Estructura de la materia"}, {"url": "conversor-unidades.html", "titulo": "Conversor de Unidades", "categoria": "Herramientas · Magnitudes"}, {"url": "corriente-continua-alterna.html", "titulo": "Corriente Continua y Alterna", "categoria": "Electricidad"}, {"url": "dilatacion-termica.html", "titulo": "Dilatación Térmica", "categoria": "Termodinámica"}, {"url": "docentes.html", "titulo": "Para Docentes", "categoria": "Recursos pedagógicos"}, {"url": "electromagnetismo.html", "titulo": "Electromagnetismo", "categoria": "Electricidad · Magnetismo"}, {"url": "energia-nuclear.html", "titulo": "Energía Nuclear", "categoria": "Física Moderna"}, {"url": "enlaces-quimicos.html", "titulo": "Enlaces Químicos", "categoria": "Química · Enlaces"}, {"url": "estatica-torque.html", "titulo": "Estática y Torque", "categoria": "Mecánica · Dinámica"}, {"url": "estequiometria.html", "titulo": "Estequiometría y El Mol", "categoria": "Química · Reacciones"}, {"url": "evaluaciones.html", "titulo": "Evaluaciones", "categoria": "Herramientas · Autoevaluación"}, {"url": "experimentos.html", "titulo": "Experimentos Caseros", "categoria": "Aprender con las manos"}, {"url": "fisica.html", "titulo": "Física", "categoria": "Portada de materia"}, {"url": "material.html", "titulo": "Material", "categoria": "Evaluaciones y recursos para docentes"}, {"url": "fluidos.html", "titulo": "Presión Hidrostática y Flotación", "categoria": "Hidráulica y Fluidos"}, {"url": "impulso-momentum.html", "titulo": "Impulso y Cantidad de Movimiento", "categoria": "Mecánica · Dinámica"}, {"url": "ley-ohm.html", "titulo": "Ley de Ohm (V = I·R)", "categoria": "Electricidad"}, {"url": "leyes-gases.html", "titulo": "Leyes de los Gases", "categoria": "Química · Estados de la materia"}, {"url": "maquinas-simples.html", "titulo": "Máquinas Simples — Palanca, Poleas y Plano Inclinado", "categoria": "Mecánica · Dinámica · poleas polea"}, {"url": "maquinas-termicas.html", "titulo": "Máquinas Térmicas y Eficiencia", "categoria": "Termodinámica · Máquinas"}, {"url": "mcu.html", "titulo": "Movimiento Circular Uniforme (MCU)", "categoria": "Mecánica · Cinemática"}, {"url": "mezclas-separacion.html", "titulo": "Mezclas y Métodos de Separación", "categoria": "Química · Materia"}, {"url": "modelo-atomico.html", "titulo": "Modelo Atómico y Tabla Periódica", "categoria": "Química · Estructura de la materia"}, {"url": "mru.html", "titulo": "MRU — Movimiento Rectilíneo Uniforme", "categoria": "Mecánica · Cinemática"}, {"url": "mruv.html", "titulo": "MRUV — Movimiento Rectilíneo Uniformemente Variado", "categoria": "Mecánica · Cinemática"}, {"url": "newton.html", "titulo": "Segunda Ley de Newton (F = m·a)", "categoria": "Mecánica · Dinámica"}, {"url": "oxido-reduccion.html", "titulo": "Óxido-Reducción", "categoria": "Química · Reacciones"}, {"url": "potencia-electrica.html", "titulo": "Potencia Eléctrica (P = V·I)", "categoria": "Electricidad"}, {"url": "quimica.html", "titulo": "Química", "categoria": "Portada de materia"}, {"url": "relatividad.html", "titulo": "Dilatación Temporal y Curvatura del Espacio-Tiempo", "categoria": "Relatividad"}, {"url": "sobre-nosotros.html", "titulo": "Sobre la Fundadora", "categoria": "Quiénes somos"}, {"url": "tiro-oblicuo.html", "titulo": "Tiro Oblicuo — Movimiento Parabólico", "categoria": "Mecánica · Cinemática"}, {"url": "trabajo-energia.html", "titulo": "Trabajo y Energía", "categoria": "Mecánica · Energía"}, {"url": "matematica.html", "titulo": "Matemática", "categoria": "Portada de materia"}, {"url": "ecuaciones-primer-grado.html", "titulo": "Ecuaciones de Primer Grado", "categoria": "Matemática · Álgebra"}, {"url": "ecuaciones-segundo-grado.html", "titulo": "Ecuaciones de Segundo Grado", "categoria": "Matemática · Álgebra"}, {"url": "sistema-ecuaciones.html", "titulo": "Sistemas de Ecuaciones", "categoria": "Matemática · Álgebra"}, {"url": "inecuaciones.html", "titulo": "Inecuaciones", "categoria": "Matemática · Álgebra"}, {"url": "valor-absoluto.html", "titulo": "Valor Absoluto", "categoria": "Matemática · Álgebra"}, {"url": "funciones.html", "titulo": "Funciones", "categoria": "Matemática · Funciones"}, {"url": "funcion-racional.html", "titulo": "Función Racional", "categoria": "Matemática · Funciones"}, {"url": "logaritmos.html", "titulo": "Logaritmos", "categoria": "Matemática · Funciones"}, {"url": "trigonometria.html", "titulo": "Trigonometría", "categoria": "Matemática · Trigonometría · seno coseno tangente"}, {"url": "teorema-seno-coseno.html", "titulo": "Teorema del Seno y del Coseno", "categoria": "Matemática · Trigonometría · triangulación"}, {"url": "sucesiones.html", "titulo": "Sucesiones y Series", "categoria": "Matemática · Sucesiones"}, {"url": "interes-compuesto.html", "titulo": "Interés Compuesto", "categoria": "Matemática · Finanzas"}, {"url": "estadistica.html", "titulo": "Estadística", "categoria": "Matemática · Estadística"}, {"url": "probabilidad.html", "titulo": "Probabilidad", "categoria": "Matemática · Estadística"}, {"url": "geometria-analitica.html", "titulo": "Geometría Analítica", "categoria": "Matemática · Geometría"}];
 
+function normalizarTexto(t){
+  return t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[-–—]/g, ' ');
+}
+
+function coincide(item, q){
+  const texto = normalizarTexto(item.titulo + ' ' + item.categoria);
+  const palabras = q.split(/\s+/).filter(Boolean);
+  return palabras.every(palabra => texto.includes(palabra));
+}
+
 function buscar(query){
   const resultsDiv = document.getElementById('search-results');
-  const q = query.trim().toLowerCase();
+  const q = normalizarTexto(query.trim());
 
   if(q.length < 2){
     resultsDiv.classList.remove('show');
@@ -694,10 +706,7 @@ function buscar(query){
     return;
   }
 
-  const matches = INDICE_BUSQUEDA.filter(item =>
-    item.titulo.toLowerCase().includes(q) ||
-    item.categoria.toLowerCase().includes(q)
-  );
+  const matches = INDICE_BUSQUEDA.filter(item => coincide(item, q));
 
   if(matches.length === 0){
     resultsDiv.innerHTML = '<div class="search-empty">No encontramos nada con ese nombre — prueba con otra palabra.</div>';
@@ -712,6 +721,17 @@ function buscar(query){
   resultsDiv.classList.add('show');
 }
 
+// Enter o el botón "Buscar" llevan directo al primer resultado que coincide
+function irAlPrimerResultado(){
+  const input = document.getElementById('search-input');
+  const q = normalizarTexto(input.value.trim());
+  if(q.length < 2){ input.focus(); return; }
+  const match = INDICE_BUSQUEDA.find(item => coincide(item, q));
+  if(match){
+    window.location.href = match.url;
+  }
+}
+
 // cerrar resultados al hacer click afuera
 document.addEventListener('click', (e)=>{
   const wrap = document.getElementById('search-wrap');
@@ -719,19 +739,6 @@ document.addEventListener('click', (e)=>{
     document.getElementById('search-results').classList.remove('show');
   }
 });
-
-// ---- Tags rápidos del buscador: al tocar uno, busca y muestra resultados ----
-(function(){
-  document.querySelectorAll('.tag-pill').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const q = btn.dataset.q;
-      const input = document.getElementById('search-input');
-      input.value = q;
-      input.focus();
-      buscar(q);
-    });
-  });
-})();
 </script>
 
 </body>
