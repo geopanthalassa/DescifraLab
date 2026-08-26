@@ -331,6 +331,75 @@
   .related-links a:hover{border-color:var(--ink);}
 
   .mapa-nodo circle{transition:transform .15s, opacity .15s;transform-origin:center;transform-box:fill-box;}
+/* ---- Mapa orgánico: constelación de conceptos, no organigrama ---- */
+  .qe-card-organico{overflow:visible;}
+  .mapa-organico{
+    position:relative;min-height:600px;margin-top:8px;
+  }
+  .mo-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+  .mo-path{fill:none;stroke:var(--line);stroke-width:2.5;stroke-linecap:round;stroke-dasharray:7 9;}
+  .mo-path.mo-thin{stroke-width:1.8;opacity:0.7;}
+
+  .mo-node{
+    position:absolute;transform:translate(-50%,-50%);
+    display:inline-flex;align-items:center;justify-content:center;
+    text-align:center;text-decoration:none;color:#fff;cursor:pointer;
+    font-family:'Inter';font-weight:700;
+    box-shadow:0 10px 24px rgba(24,40,58,0.14);
+    transition:transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s, filter .2s;
+  }
+  .mo-node:hover{transform:translate(-50%,-50%) scale(1.08);box-shadow:0 16px 34px rgba(24,40,58,0.22);filter:brightness(1.04);}
+
+  /* núcleo: tamaño fijo porque el texto es corto y conocido ("FÍSICA") */
+  .mo-core{
+    width:150px;height:150px;border-radius:50%;
+    background:var(--ink);border:7px solid #fff;outline:3px solid var(--amber);
+    flex-direction:column;gap:2px;z-index:3;
+  }
+  .mo-core-title{font-family:'Fraunces', serif;font-size:24px;}
+  .mo-core-sub{font-family:'JetBrains Mono', monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);}
+
+  /* ramas: NO tienen tamaño fijo — crecen con padding según el texto,
+     con un máximo para que no se vuelvan gigantes. Esto es lo que evita
+     que "Termodinámica y Fluidos" se salga de su forma. */
+  .mo-branch{
+    min-width:110px;max-width:172px;
+    padding:20px 26px;
+    border-radius:46% 54% 52% 48% / 54% 46% 54% 46%;
+    font-family:'Fraunces', serif;font-size:18px;line-height:1.2;
+    white-space:normal;z-index:2;
+  }
+  .mo-topic{
+    min-width:80px;max-width:150px;
+    padding:11px 20px;
+    border-radius:14px;
+    font-size:12.5px;font-weight:600;
+    white-space:normal;line-height:1.2;
+    z-index:2;
+  }
+
+  .mo-c-mecanica{background:#D9714A;}
+  .mo-c-electricidad{background:#3D7FC4;}
+  .mo-c-termo{background:var(--amber-dark);}
+  .mo-c-moderna{background:#7A5FB0;}
+  .mo-c-verde{background:#3FA05C;}
+  .mo-c-gris{background:#5C6B7A;}
+
+  @media(max-width:760px){
+    .mo-lines{display:none;}
+    .mapa-organico{
+      min-height:0;
+      display:flex;flex-direction:column;align-items:center;gap:14px;
+    }
+    .mo-node{position:static;transform:none;}
+    .mo-node:hover{transform:scale(1.05);}
+    .mo-core{width:110px;height:110px;margin-bottom:6px;}
+    .mo-core-title{font-size:17px;}
+    .mo-branch-row, .mo-topic-row{
+      display:flex;flex-wrap:wrap;justify-content:center;gap:10px;width:100%;
+    }
+  }
+  
   .mapa-nodo:hover circle{opacity:0.82;transform:scale(1.06);}
   .flash-highlight{
     animation:flashCard 1.4s ease-out;
@@ -622,35 +691,45 @@
     <h2>Mapa conceptual — Química Orgánica en un vistazo</h2>
     <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">Toca cualquier círculo para ir directo a esa parte de la lección.</p>
     <div style="margin-top:14px;">
-<svg viewBox="0 0 1015 350" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;font-family:'Inter',sans-serif;">
-<line x1="490" y1="80" x2="170" y2="130" stroke="#C9CDD3" stroke-width="2"/>
-<line x1="490" y1="80" x2="490" y2="130" stroke="#C9CDD3" stroke-width="2"/>
-<line x1="490" y1="80" x2="810" y2="130" stroke="#C9CDD3" stroke-width="2"/>
-<line x1="170" y1="190" x2="60" y2="276" stroke="#C9CDD3" stroke-width="2"/>
-<line x1="170" y1="190" x2="170" y2="276" stroke="#C9CDD3" stroke-width="2"/>
-<line x1="170" y1="190" x2="280" y2="276" stroke="#C9CDD3" stroke-width="2"/>
-<line x1="490" y1="190" x2="400" y2="276" stroke="#C9CDD3" stroke-width="2"/>
-<line x1="490" y1="190" x2="490" y2="276" stroke="#C9CDD3" stroke-width="2"/>
-<line x1="490" y1="190" x2="580" y2="276" stroke="#C9CDD3" stroke-width="2"/>
-<line x1="810" y1="190" x2="700" y2="274" stroke="#C9CDD3" stroke-width="2"/>
-<line x1="810" y1="190" x2="785" y2="274" stroke="#C9CDD3" stroke-width="2"/>
-<line x1="810" y1="190" x2="870" y2="274" stroke="#C9CDD3" stroke-width="2"/>
-<line x1="810" y1="190" x2="955" y2="274" stroke="#C9CDD3" stroke-width="2"/>
-<g class="mapa-nodo" data-target="" style="cursor:pointer;"><circle cx="490" cy="42" r="38" fill="#1C2733"/><text x="490" y="42" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="15" font-weight="700"><tspan x="490" dy="0.0">CARBONO</tspan></text></g>
-<g class="mapa-nodo" data-target="card-hidrocarburos" style="cursor:pointer;"><circle cx="170" cy="160" r="30" fill="#3A4756"/><text x="170" y="160" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="12" font-weight="700"><tspan x="170" dy="0.0">Hidrocarburos</tspan></text></g>
-<g class="mapa-nodo" data-target="card-grupos" style="cursor:pointer;"><circle cx="490" cy="160" r="30" fill="#3A4756"/><text x="490" y="160" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="12" font-weight="700"><tspan x="490" dy="-7.4399999999999995">Grupos</tspan><tspan x="490" dy="13.799999999999999">funcionales</tspan></text></g>
-<g class="mapa-nodo" data-target="card-biomoleculas" style="cursor:pointer;"><circle cx="810" cy="160" r="30" fill="#3A4756"/><text x="810" y="160" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="12" font-weight="700"><tspan x="810" dy="0.0">Biomoléculas</tspan></text></g>
-<g class="mapa-nodo" data-target="card-hidrocarburos" style="cursor:pointer;"><circle cx="60" cy="300" r="24" fill="#B8842E"/><text x="60" y="300" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="11" font-weight="700"><tspan x="60" dy="0.0">Alcanos</tspan></text></g>
-<g class="mapa-nodo" data-target="card-hidrocarburos" style="cursor:pointer;"><circle cx="170" cy="300" r="24" fill="#2F6B5E"/><text x="170" y="300" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="11" font-weight="700"><tspan x="170" dy="0.0">Alquenos</tspan></text></g>
-<g class="mapa-nodo" data-target="card-hidrocarburos" style="cursor:pointer;"><circle cx="280" cy="300" r="24" fill="#7A4FB0"/><text x="280" y="300" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="11" font-weight="700"><tspan x="280" dy="0.0">Alquinos</tspan></text></g>
-<g class="mapa-nodo" data-target="card-grupos" style="cursor:pointer;"><circle cx="400" cy="300" r="24" fill="#B8842E"/><text x="400" y="300" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="11" font-weight="700"><tspan x="400" dy="0.0">-OH</tspan></text></g>
-<g class="mapa-nodo" data-target="card-grupos" style="cursor:pointer;"><circle cx="490" cy="300" r="24" fill="#2F6B5E"/><text x="490" y="300" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="11" font-weight="700"><tspan x="490" dy="0.0">-COOH</tspan></text></g>
-<g class="mapa-nodo" data-target="card-grupos" style="cursor:pointer;"><circle cx="580" cy="300" r="24" fill="#7A4FB0"/><text x="580" y="300" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="11" font-weight="700"><tspan x="580" dy="0.0">-NH₂</tspan></text></g>
-<g class="mapa-nodo" data-target="card-biomoleculas" style="cursor:pointer;"><circle cx="700" cy="300" r="26" fill="#B8842E"/><text x="700" y="300" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="11" font-weight="700"><tspan x="700" dy="-6.82">Hidratos de</tspan><tspan x="700" dy="12.649999999999999">carbono</tspan></text></g>
-<g class="mapa-nodo" data-target="card-biomoleculas" style="cursor:pointer;"><circle cx="785" cy="300" r="26" fill="#2F6B5E"/><text x="785" y="300" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="11" font-weight="700"><tspan x="785" dy="0.0">Lípidos</tspan></text></g>
-<g class="mapa-nodo" data-target="card-biomoleculas" style="cursor:pointer;"><circle cx="870" cy="300" r="26" fill="#7A4FB0"/><text x="870" y="300" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="11" font-weight="700"><tspan x="870" dy="0.0">Proteínas</tspan></text></g>
-<g class="mapa-nodo" data-target="card-biomoleculas" style="cursor:pointer;"><circle cx="955" cy="300" r="26" fill="#2A6FA8"/><text x="955" y="300" text-anchor="middle" dominant-baseline="middle" fill="#F6F4EF" font-size="11" font-weight="700"><tspan x="955" dy="-6.82">Ácidos</tspan><tspan x="955" dy="12.649999999999999">nucleicos</tspan></text></g>
-</svg>
+<div class="mapa-organico" id="mapa-organica" style="min-height:700px;">
+      <svg class="mo-lines" viewBox="0 0 1000 700" preserveAspectRatio="none" aria-hidden="true">
+        <line class="mo-path" x1="500" y1="90" x2="150" y2="280"/>
+        <line class="mo-path" x1="500" y1="90" x2="500" y2="280"/>
+        <line class="mo-path" x1="500" y1="90" x2="850" y2="280"/>
+        <line class="mo-path mo-thin" x1="150" y1="280" x2="60" y2="450"/>
+        <line class="mo-path mo-thin" x1="150" y1="280" x2="150" y2="460"/>
+        <line class="mo-path mo-thin" x1="150" y1="280" x2="250" y2="450"/>
+        <line class="mo-path mo-thin" x1="500" y1="280" x2="400" y2="450"/>
+        <line class="mo-path mo-thin" x1="500" y1="280" x2="500" y2="460"/>
+        <line class="mo-path mo-thin" x1="500" y1="280" x2="600" y2="450"/>
+        <line class="mo-path mo-thin" x1="850" y1="280" x2="770" y2="440"/>
+        <line class="mo-path mo-thin" x1="850" y1="280" x2="940" y2="440"/>
+        <line class="mo-path mo-thin" x1="850" y1="280" x2="770" y2="620"/>
+        <line class="mo-path mo-thin" x1="850" y1="280" x2="940" y2="620"/>
+      </svg>
+
+      <div class="mo-node mapa-nodo mo-core" data-target="" style="left:50%;top:13%;">
+        <span class="mo-core-title">CARBONO</span>
+        <span class="mo-core-sub">mapa principal</span>
+      </div>
+
+      <div class="mo-node mapa-nodo mo-branch mo-c-mecanica" data-target="card-hidrocarburos" style="left:15%;top:40%;">Hidrocarburos</div>
+      <div class="mo-node mapa-nodo mo-branch mo-c-electricidad" data-target="card-grupos" style="left:50%;top:40%;">Grupos<br>funcionales</div>
+      <div class="mo-node mapa-nodo mo-branch mo-c-termo" data-target="card-biomoleculas" style="left:85%;top:40%;">Biomoléculas</div>
+
+      <div class="mo-node mapa-nodo mo-topic mo-c-mecanica" data-target="card-hidrocarburos" style="left:2%;top:66%;">Alcanos</div>
+      <div class="mo-node mapa-nodo mo-topic mo-c-mecanica" data-target="card-hidrocarburos" style="left:15%;top:70%;">Alquenos</div>
+      <div class="mo-node mapa-nodo mo-topic mo-c-mecanica" data-target="card-hidrocarburos" style="left:27%;top:66%;">Alquinos</div>
+
+      <div class="mo-node mapa-nodo mo-topic mo-c-electricidad" data-target="card-grupos" style="left:39%;top:66%;">-OH</div>
+      <div class="mo-node mapa-nodo mo-topic mo-c-electricidad" data-target="card-grupos" style="left:50%;top:70%;">-COOH</div>
+      <div class="mo-node mapa-nodo mo-topic mo-c-electricidad" data-target="card-grupos" style="left:63%;top:66%;">-NH₂</div>
+
+      <div class="mo-node mapa-nodo mo-topic mo-c-termo" data-target="card-biomoleculas" style="left:77%;top:63%;">Hidratos de<br>carbono</div>
+      <div class="mo-node mapa-nodo mo-topic mo-c-termo" data-target="card-biomoleculas" style="left:94%;top:63%;">Lípidos</div>
+      <div class="mo-node mapa-nodo mo-topic mo-c-termo" data-target="card-biomoleculas" style="left:77%;top:89%;">Proteínas</div>
+      <div class="mo-node mapa-nodo mo-topic mo-c-termo" data-target="card-biomoleculas" style="left:94%;top:89%;">Ácidos<br>nucleicos</div>
+    </div>
     </div>
   </div>
 
