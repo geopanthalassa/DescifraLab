@@ -552,6 +552,23 @@
           <option value="dilatacion">Dilatación Térmica (acero)</option>
           <option value="torque">Torque</option>
           <option value="impulso">Cantidad de Movimiento</option>
+          <option value="molaridad">Química — Molaridad</option>
+          <option value="dilucion">Química — Dilución</option>
+          <option value="porcentaje-masa">Química — Concentración %m/m</option>
+          <option value="estequiometria-moles">Química — Moles a partir de la masa</option>
+          <option value="ley-boyle">Química — Ley de Boyle</option>
+          <option value="ph">Química — pH</option>
+          <option value="pitagoras">Matemática — Teorema de Pitágoras</option>
+          <option value="area-triangulo">Matemática — Área de un triángulo</option>
+          <option value="area-circulo">Matemática — Área de un círculo</option>
+          <option value="trigonometria">Matemática — Trigonometría</option>
+          <option value="proporcionalidad">Matemática — Regla de tres simple</option>
+          <option value="logaritmo">Matemática — Logaritmos</option>
+          <option value="promedio">Matemática — Promedio</option>
+          <option value="tiro-oblicuo">Física — Tiro Oblicuo (alcance)</option>
+          <option value="mcu">Física — MCU (velocidad tangencial)</option>
+          <option value="palanca">Física — Palanca</option>
+          <option value="presion-hidrostatica">Física — Presión Hidrostática</option>
         </select>
       </div>
     </div>
@@ -588,6 +605,18 @@
           <option value="relatividad">Relatividad</option>
           <option value="nuclear">Energía Nuclear</option>
           <option value="fluidos">Presión y Flotación</option>
+          <option value="mcu">Movimiento Circular Uniforme</option>
+          <option value="tiro-oblicuo">Tiro Oblicuo</option>
+          <option value="maquinas-simples">Máquinas Simples</option>
+          <option value="estados-materia">Estados de la Materia</option>
+          <option value="mezclas-separacion">Mezclas y Separación</option>
+          <option value="ecuaciones">Ecuaciones de Segundo Grado</option>
+          <option value="funciones">Funciones</option>
+          <option value="trigonometria">Trigonometría</option>
+          <option value="geometria">Geometría (Thales y áreas)</option>
+          <option value="sistema-ecuaciones">Sistemas de Ecuaciones</option>
+          <option value="valor-absoluto">Valor Absoluto</option>
+          <option value="estadistica-probabilidad">Estadística y Probabilidad</option>
         </select>
       </div>
     </div>
@@ -768,6 +797,78 @@
       {tipo:'opcion', enunciado:'¿De qué depende el empuje que siente un objeto sumergido?', opciones:['Solo de su peso','De la densidad del fluido y el volumen desplazado','Solo de su forma','De la temperatura del objeto'], correcta:1, explicacion:'E=ρ·g·V — depende de la densidad del fluido y el volumen que el objeto desplaza.'},
       {tipo:'opcion', enunciado:'¿Por qué es más fácil flotar en el mar que en una pileta de agua dulce?', opciones:['El mar es más profundo','El agua salada es más densa','El mar tiene olas','No hay diferencia real'], correcta:1, explicacion:'El agua salada tiene mayor densidad, lo que aumenta el empuje sobre el cuerpo.'}
     ],
+    'ecuaciones': [
+      {tipo:'vf', enunciado:'Una ecuación de segundo grado siempre tiene dos soluciones reales.', correcta:false, explicacion:'Falso — puede tener dos, una (doble) o ninguna solución real, según el signo del discriminante.'},
+      {tipo:'vf', enunciado:'El discriminante (b²-4ac) permite saber cuántas soluciones reales tiene una ecuación cuadrática.', correcta:true, explicacion:'Correcto — si es positivo hay 2 soluciones, si es cero hay 1, si es negativo no hay soluciones reales.'},
+      {tipo:'opcion', enunciado:'¿Cuál es la fórmula general para resolver ax²+bx+c=0?', opciones:['x = (-b ± √(b²-4ac)) / 2a','x = -b/a','x = b²-4ac','x = √(a²+b²)'], correcta:0, explicacion:'Esa es la fórmula resolvente, válida para cualquier ecuación cuadrática.'},
+      {tipo:'opcion', enunciado:'Si el discriminante es negativo, la ecuación tiene:', opciones:['Dos soluciones reales distintas','Una solución real doble','Ninguna solución real','Infinitas soluciones'], correcta:2, explicacion:'Un discriminante negativo implica raíz cuadrada de un número negativo, sin solución real.'}
+    ],
+    'funciones': [
+      {tipo:'vf', enunciado:'En una función, cada valor de x puede tener más de un valor de y.', correcta:false, explicacion:'Falso — por definición, cada x tiene un único valor de y asociado.'},
+      {tipo:'vf', enunciado:'El dominio de una función son todos los valores posibles que puede tomar x.', correcta:true, explicacion:'Correcto — el dominio es el conjunto de entradas válidas de la función.'},
+      {tipo:'opcion', enunciado:'¿Cómo se llama el valor de x donde una función cruza el eje horizontal?', opciones:['Ordenada al origen','Raíz o cero','Pendiente','Vértice'], correcta:1, explicacion:'Se llama raíz o cero de la función — es donde y=0.'},
+      {tipo:'opcion', enunciado:'En una función lineal y=mx+b, ¿qué representa m?', opciones:['La ordenada al origen','La pendiente','El dominio','Una raíz'], correcta:1, explicacion:'m es la pendiente — indica qué tan inclinada está la recta.'}
+    ],
+    'trigonometria': [
+      {tipo:'vf', enunciado:'El seno de un ángulo es el cociente entre el cateto opuesto y la hipotenusa.', correcta:true, explicacion:'Correcto — sen(θ) = cateto opuesto / hipotenusa.'},
+      {tipo:'vf', enunciado:'En un triángulo rectángulo, la suma de los dos ángulos agudos es 180°.', correcta:false, explicacion:'Falso — suman 90°, ya que el ángulo recto (90°) completa los 180° totales del triángulo.'},
+      {tipo:'opcion', enunciado:'¿Qué relación trigonométrica usa el cateto adyacente y la hipotenusa?', opciones:['Seno','Coseno','Tangente','Ninguna'], correcta:1, explicacion:'cos(θ) = cateto adyacente / hipotenusa.'},
+      {tipo:'opcion', enunciado:'¿Cuánto vale el seno de 90°?', opciones:['0','0.5','1','No está definido'], correcta:2, explicacion:'sen(90°) = 1, el valor máximo posible del seno.'}
+    ],
+    'geometria': [
+      {tipo:'vf', enunciado:'El Teorema de Thales se aplica a triángulos semejantes formados por rectas paralelas.', correcta:true, explicacion:'Correcto — Thales relaciona segmentos proporcionales cortados por rectas paralelas.'},
+      {tipo:'vf', enunciado:'El área de un triángulo se calcula multiplicando base por altura.', correcta:false, explicacion:'Falso — hay que dividir ese producto por 2: A = (base × altura) / 2.'},
+      {tipo:'opcion', enunciado:'¿Cuál es la fórmula del área de un círculo?', opciones:['2πr','πr²','πd','r²'], correcta:1, explicacion:'A = πr², con r el radio del círculo.'},
+      {tipo:'opcion', enunciado:'Si dos triángulos son semejantes, sus lados correspondientes son:', opciones:['Iguales','Proporcionales','Perpendiculares','Paralelos'], correcta:1, explicacion:'La semejanza implica que los lados correspondientes guardan la misma proporción, no que sean iguales.'}
+    ],
+    'mcu': [
+      {tipo:'vf', enunciado:'En el MCU, la velocidad tangencial cambia de dirección constantemente aunque su magnitud sea constante.', correcta:true, explicacion:'Correcto — la rapidez no cambia, pero la dirección del vector velocidad sí, en cada punto de la trayectoria.'},
+      {tipo:'vf', enunciado:'En el MCU, la aceleración es cero porque la rapidez no cambia.', correcta:false, explicacion:'Falso — existe aceleración centrípeta, que cambia la dirección del movimiento aunque no la rapidez.'},
+      {tipo:'opcion', enunciado:'¿Hacia dónde apunta la aceleración centrípeta?', opciones:['Hacia afuera del círculo','Hacia el centro del círculo','En la dirección del movimiento','No tiene dirección definida'], correcta:1, explicacion:'Apunta siempre hacia el centro — por eso se llama "centrípeta".'},
+      {tipo:'opcion', enunciado:'¿Qué representa el período T en el MCU?', opciones:['La velocidad angular','El tiempo de una vuelta completa','El radio de la trayectoria','La frecuencia'], correcta:1, explicacion:'El período es el tiempo que tarda el objeto en dar una vuelta completa.'}
+    ],
+    'tiro-oblicuo': [
+      {tipo:'vf', enunciado:'En el tiro oblicuo, la componente horizontal de la velocidad se mantiene constante durante todo el vuelo.', correcta:true, explicacion:'Correcto — sin resistencia del aire, no hay fuerzas horizontales, así que esa componente no cambia.'},
+      {tipo:'vf', enunciado:'El alcance máximo se logra con un ángulo de lanzamiento de 90°.', correcta:false, explicacion:'Falso — el alcance máximo se logra a 45°; a 90° el proyectil sube y baja sin avanzar horizontalmente.'},
+      {tipo:'opcion', enunciado:'¿Qué le pasa a la componente vertical de la velocidad en el punto más alto de la trayectoria?', opciones:['Es máxima','Es cero','Es igual a la inicial','Cambia de signo'], correcta:1, explicacion:'En el punto más alto, el objeto deja de subir y todavía no empieza a bajar — ahí la velocidad vertical es cero.'},
+      {tipo:'opcion', enunciado:'¿Qué forma tiene la trayectoria de un tiro oblicuo?', opciones:['Una recta','Una parábola','Un círculo','Una línea quebrada'], correcta:1, explicacion:'La combinación de movimiento horizontal constante y caída acelerada da una trayectoria parabólica.'}
+    ],
+    'maquinas-simples': [
+      {tipo:'vf', enunciado:'Una máquina simple permite aplicar menos fuerza a cambio de aplicarla en una distancia mayor.', correcta:true, explicacion:'Correcto — es el principio general de todas las máquinas simples (palancas, poleas, planos inclinados).'},
+      {tipo:'vf', enunciado:'Las máquinas simples permiten hacer menos trabajo total para levantar un objeto.', correcta:false, explicacion:'Falso — el trabajo total (ideal, sin fricción) es el mismo; lo que cambia es la fuerza necesaria y la distancia recorrida.'},
+      {tipo:'opcion', enunciado:'¿Cómo se llama la relación entre la fuerza resistente y la fuerza aplicada en una máquina simple?', opciones:['Rendimiento','Ventaja mecánica','Potencia','Torque'], correcta:1, explicacion:'La ventaja mecánica indica cuánto "amplifica" la máquina la fuerza aplicada.'},
+      {tipo:'opcion', enunciado:'¿Cuál de estas es una máquina simple?', opciones:['Motor eléctrico','Polea','Generador','Transformador'], correcta:1, explicacion:'La polea es una de las máquinas simples clásicas, junto con la palanca y el plano inclinado.'}
+    ],
+    'estados-materia': [
+      {tipo:'vf', enunciado:'En los gases, las partículas están muy separadas y se mueven libremente.', correcta:true, explicacion:'Correcto — por eso los gases se expanden y ocupan todo el espacio disponible.'},
+      {tipo:'vf', enunciado:'En los sólidos, las partículas tienen la misma libertad de movimiento que en los líquidos.', correcta:false, explicacion:'Falso — en los sólidos las partículas vibran en posiciones fijas, sin desplazarse libremente como en los líquidos.'},
+      {tipo:'opcion', enunciado:'¿Cómo se llama el paso directo de sólido a gas, sin pasar por líquido?', opciones:['Fusión','Sublimación','Condensación','Solidificación'], correcta:1, explicacion:'La sublimación es ese cambio de estado directo, como le pasa al hielo seco.'},
+      {tipo:'opcion', enunciado:'¿Qué pasa con la temperatura durante un cambio de estado?', opciones:['Sube constantemente','Baja constantemente','Se mantiene constante','Depende de la presión'], correcta:2, explicacion:'Toda la energía entregada se usa para cambiar el estado, no para subir la temperatura, así que se mantiene constante.'}
+    ],
+    'mezclas-separacion': [
+      {tipo:'vf', enunciado:'Una mezcla homogénea tiene una sola fase visible.', correcta:true, explicacion:'Correcto — sus componentes no se distinguen a simple vista.'},
+      {tipo:'vf', enunciado:'La filtración separa mezclas de dos líquidos que no se mezclan.', correcta:false, explicacion:'Falso — eso lo hace la decantación; la filtración separa un sólido de un líquido.'},
+      {tipo:'opcion', enunciado:'¿Qué método separa los componentes de una mezcla según su punto de ebullición?', opciones:['Filtración','Destilación','Decantación','Tamización'], correcta:1, explicacion:'La destilación aprovecha que cada componente hierve a una temperatura distinta.'},
+      {tipo:'opcion', enunciado:'¿Qué tipo de mezcla es el agua con arena?', opciones:['Homogénea','Heterogénea','Solución','Aleación'], correcta:1, explicacion:'Se distinguen los componentes a simple vista, así que es heterogénea.'}
+    ],
+    'sistema-ecuaciones': [
+      {tipo:'vf', enunciado:'Un sistema de dos ecuaciones lineales con dos incógnitas siempre tiene una única solución.', correcta:false, explicacion:'Falso — puede tener una solución, ninguna (rectas paralelas) o infinitas (la misma recta).'},
+      {tipo:'vf', enunciado:'El método de sustitución consiste en despejar una variable en una ecuación y reemplazarla en la otra.', correcta:true, explicacion:'Correcto — esa es la idea central del método de sustitución.'},
+      {tipo:'opcion', enunciado:'Si dos rectas de un sistema son paralelas, el sistema tiene:', opciones:['Una solución','Infinitas soluciones','Ninguna solución','Dos soluciones'], correcta:2, explicacion:'Las rectas paralelas nunca se cruzan, así que no hay ningún punto en común.'},
+      {tipo:'opcion', enunciado:'¿Cómo se llama gráficamente la solución de un sistema de dos ecuaciones lineales?', opciones:['El punto de intersección de las rectas','La pendiente de las rectas','El área entre las rectas','El origen de coordenadas'], correcta:0, explicacion:'La solución es el punto donde ambas rectas se cruzan.'}
+    ],
+    'valor-absoluto': [
+      {tipo:'vf', enunciado:'El valor absoluto de un número siempre es positivo o cero.', correcta:true, explicacion:'Correcto — el valor absoluto mide "distancia al cero", que nunca es negativa.'},
+      {tipo:'vf', enunciado:'El valor absoluto de -5 es -5.', correcta:false, explicacion:'Falso — el valor absoluto de -5 es 5, ya que |x| siempre da un resultado no negativo.'},
+      {tipo:'opcion', enunciado:'¿Cómo se define |x|?', opciones:['x si x≥0, -x si x<0','Siempre x','Siempre -x','x²'], correcta:0, explicacion:'Esa es la definición formal del valor absoluto.'},
+      {tipo:'opcion', enunciado:'¿Cuántas soluciones tiene la ecuación |x|=5?', opciones:['Ninguna','Una','Dos','Infinitas'], correcta:2, explicacion:'Tanto x=5 como x=-5 cumplen |x|=5.'}
+    ],
+    'estadistica-probabilidad': [
+      {tipo:'vf', enunciado:'La probabilidad de un evento siempre está entre 0 y 1.', correcta:true, explicacion:'Correcto — 0 significa imposible, 1 significa seguro.'},
+      {tipo:'vf', enunciado:'La mediana de un conjunto de datos es siempre igual al promedio.', correcta:false, explicacion:'Falso — solo coinciden en distribuciones simétricas; en general son valores distintos.'},
+      {tipo:'opcion', enunciado:'¿Cómo se calcula la probabilidad clásica de un evento?', opciones:['Casos favorables / casos totales','Casos totales / casos favorables','Casos favorables × casos totales','La suma de todos los casos'], correcta:0, explicacion:'P(evento) = casos favorables / casos totales posibles.'},
+      {tipo:'opcion', enunciado:'¿Cómo se llama el valor que más se repite en un conjunto de datos?', opciones:['Media','Mediana','Moda','Rango'], correcta:2, explicacion:'La moda es justamente el dato que aparece con más frecuencia.'}
+    ],
   };
 
   let respuestasTeoria = [];
@@ -820,7 +921,7 @@
     document.getElementById('resultado-teoria-titulo').innerText = `Resultado: ${correctas} / ${preguntas.length}`;
     let mensaje = '';
     if(correctas === preguntas.length) mensaje = '¡Perfecto! Entendiste el tema a fondo.';
-    else if(correctas >= preguntas.length*0.6) mensaje = 'Bien, pero repasá las que fallaste.';
+    else if(correctas >= preguntas.length*0.6) mensaje = 'Bien, pero repasa las que fallaste.';
     else mensaje = 'Convendría repasar la teoría de este tema antes de seguir.';
     document.getElementById('resultado-teoria-detalle').innerText = mensaje;
   }
@@ -876,6 +977,100 @@
       const m = rand(0.5,10,1), v = rand(1,20);
       return { enunciado: `Un objeto de ${m} kg se mueve a ${v} m/s. ¿Cuál es su cantidad de movimiento?`, respuesta: m*v, unidad: 'kg·m/s',
         formula: 'p = m · v', paso: `p = ${m} × ${v}` };
+    },
+    molaridad: () => {
+      const n = rand(0.2,3,1), V = rand(0.2,3,1);
+      return { enunciado: `Disolviste ${n} moles de soluto en ${V} L de solución. ¿Cuál es la molaridad?`, respuesta: n/V, unidad: 'mol/L',
+        formula: 'M = n / V', paso: `M = ${n} / ${V}` };
+    },
+    dilucion: () => {
+      const M1 = rand(1,10,1), V1 = rand(0.2,2,1), V2 = rand(V1+0.5, V1+5,1);
+      return { enunciado: `Diluyes ${V1} L de una solución ${M1} mol/L hasta llegar a ${V2} L. ¿Cuál es la nueva molaridad?`, respuesta: (M1*V1)/V2, unidad: 'mol/L',
+        formula: 'M₁·V₁ = M₂·V₂  →  M₂ = M₁·V₁ / V₂', paso: `M₂ = ${M1}×${V1} / ${V2}` };
+    },
+    'porcentaje-masa': () => {
+      const soluto = rand(5,50), solvente = rand(50,200);
+      const solucion = soluto+solvente;
+      return { enunciado: `Disolviste ${soluto} g de soluto en ${solvente} g de solvente. ¿Cuál es la concentración porcentual m/m?`, respuesta: (soluto/solucion)*100, unidad: '%',
+        formula: '%m/m = (masa soluto / masa solución) × 100', paso: `%m/m = (${soluto} / ${solucion}) × 100` };
+    },
+    pitagoras: () => {
+      const a = rand(3,20), b = rand(3,20);
+      return { enunciado: `Un triángulo rectángulo tiene catetos de ${a} cm y ${b} cm. ¿Cuánto mide la hipotenusa?`, respuesta: Math.sqrt(a*a+b*b), unidad: 'cm',
+        formula: 'c = √(a² + b²)', paso: `c = √(${a}² + ${b}²)` };
+    },
+    'area-triangulo': () => {
+      const b = rand(3,30), h = rand(3,30);
+      return { enunciado: `Un triángulo tiene base ${b} cm y altura ${h} cm. ¿Cuál es su área?`, respuesta: (b*h)/2, unidad: 'cm²',
+        formula: 'A = (base × altura) / 2', paso: `A = (${b} × ${h}) / 2` };
+    },
+    trigonometria: () => {
+      const angulos = [30,37,45,53,60];
+      const angulo = angulos[Math.floor(Math.random()*angulos.length)];
+      const hip = rand(5,50);
+      return { enunciado: `En un triángulo rectángulo, la hipotenusa mide ${hip} cm y un ángulo agudo es de ${angulo}°. ¿Cuánto mide el cateto opuesto a ese ángulo?`, respuesta: hip*Math.sin(angulo*Math.PI/180), unidad: 'cm',
+        formula: 'cateto opuesto = hipotenusa × sen(ángulo)', paso: `${hip} × sen(${angulo}°)` };
+    },
+    proporcionalidad: () => {
+      const a = rand(2,10), b = rand(10,100), factor = rand(2,5,1);
+      const c = parseFloat((a*factor).toFixed(1));
+      return { enunciado: `Si ${a} kg de manzanas cuestan $${b}, ¿cuánto cuestan ${c} kg?`, respuesta: (c*b)/a, unidad: '$',
+        formula: 'd = (c × b) / a  (regla de tres simple directa)', paso: `d = (${c} × ${b}) / ${a}` };
+    },
+    'estequiometria-moles': () => {
+      const compuestos = [{n:'NaCl',M:58.5},{n:'H₂O',M:18},{n:'CO₂',M:44},{n:'CaCO₃',M:100}];
+      const c = compuestos[Math.floor(Math.random()*compuestos.length)];
+      const masa = rand(10,200);
+      return { enunciado: `¿Cuántos moles hay en ${masa} g de ${c.n} (masa molar ${c.M} g/mol)?`, respuesta: masa/c.M, unidad: 'mol',
+        formula: 'n = masa / masa molar', paso: `n = ${masa} / ${c.M}` };
+    },
+    'ley-boyle': () => {
+      const P1 = rand(1,10,1), V1 = rand(1,20,1), V2 = rand(1,20,1);
+      return { enunciado: `Un gas ocupa ${V1} L a ${P1} atm. Si el volumen cambia a ${V2} L (misma temperatura), ¿cuál es la nueva presión?`, respuesta: (P1*V1)/V2, unidad: 'atm',
+        formula: 'P₁V₁ = P₂V₂  →  P₂ = P₁V₁ / V₂', paso: `P₂ = ${P1}×${V1} / ${V2}` };
+    },
+    ph: () => {
+      const exp = rand(1,13);
+      return { enunciado: `Una solución tiene una concentración de H⁺ de 10⁻${exp} mol/L. ¿Cuál es su pH?`, respuesta: exp, unidad: '',
+        formula: 'pH = -log[H⁺]', paso: `pH = -log(10⁻${exp})` };
+    },
+    'area-circulo': () => {
+      const r = rand(2,20);
+      return { enunciado: `¿Cuál es el área de un círculo de radio ${r} cm?`, respuesta: Math.PI*r*r, unidad: 'cm²',
+        formula: 'A = π · r²', paso: `A = π × ${r}²` };
+    },
+    logaritmo: () => {
+      const exp = rand(1,6);
+      const x = Math.pow(10, exp);
+      return { enunciado: `¿Cuál es el logaritmo en base 10 de ${x}?`, respuesta: exp, unidad: '',
+        formula: 'log₁₀(10ⁿ) = n', paso: `log₁₀(${x}) = ${exp}` };
+    },
+    promedio: () => {
+      const n1=rand(1,20), n2=rand(1,20), n3=rand(1,20), n4=rand(1,20);
+      return { enunciado: `¿Cuál es el promedio de estos números: ${n1}, ${n2}, ${n3}, ${n4}?`, respuesta: (n1+n2+n3+n4)/4, unidad: '',
+        formula: 'Promedio = suma de los datos / cantidad de datos', paso: `(${n1}+${n2}+${n3}+${n4}) / 4` };
+    },
+    'tiro-oblicuo': () => {
+      const angulos = [30,37,45,53,60];
+      const angulo = angulos[Math.floor(Math.random()*angulos.length)];
+      const v0 = rand(10,40);
+      return { enunciado: `Lanzas un proyectil con velocidad inicial de ${v0} m/s a un ángulo de ${angulo}°. ¿Cuál es su alcance horizontal? (usa g=9.8 m/s²)`, respuesta: (v0*v0*Math.sin(2*angulo*Math.PI/180))/9.8, unidad: 'm',
+        formula: 'R = v₀² · sen(2θ) / g', paso: `R = ${v0}² × sen(2×${angulo}°) / 9.8` };
+    },
+    mcu: () => {
+      const r = rand(1,10), T = rand(1,10);
+      return { enunciado: `Un objeto gira en un círculo de radio ${r} m, completando una vuelta cada ${T} s. ¿Cuál es su velocidad tangencial?`, respuesta: (2*Math.PI*r)/T, unidad: 'm/s',
+        formula: 'v = 2π · r / T', paso: `v = 2π × ${r} / ${T}` };
+    },
+    palanca: () => {
+      const R = rand(20,200), br = rand(0.2,1,1), bp = rand(1,3,1);
+      return { enunciado: `En una palanca, levantas un peso de ${R} N ubicado a ${br} m del punto de apoyo, aplicando la fuerza a ${bp} m del apoyo. ¿Qué fuerza necesitas aplicar?`, respuesta: (R*br)/bp, unidad: 'N',
+        formula: 'F_potencia × brazo_potencia = R × brazo_resistente', paso: `F = (${R} × ${br}) / ${bp}` };
+    },
+    'presion-hidrostatica': () => {
+      const h = rand(0.5,20,1);
+      return { enunciado: `¿Cuál es la presión hidrostática del agua (ρ=1000 kg/m³) a ${h} m de profundidad? (usa g=9.8 m/s²)`, respuesta: 1000*9.8*h, unidad: 'Pa',
+        formula: 'P = ρ · g · h', paso: `P = 1000 × 9.8 × ${h}` };
     }
   };
 
@@ -955,8 +1150,8 @@
     resultadoCard.style.display = 'block';
     document.getElementById('resultado-titulo').innerText = `Resultado: ${correctas}/5`;
     let mensaje = '';
-    if(correctas===5) mensaje = 'Perfecto — dominás el tema.';
-    else if(correctas>=3) mensaje = 'Bien, pero repasá los que fallaste.';
+    if(correctas===5) mensaje = 'Perfecto — dominas el tema.';
+    else if(correctas>=3) mensaje = 'Bien, pero repasa los que fallaste.';
     else mensaje = 'Convendría repasar la fórmula antes de seguir.';
     document.getElementById('resultado-detalle').innerText = mensaje;
     resultadoCard.scrollIntoView({behavior:'smooth', block:'center'});
