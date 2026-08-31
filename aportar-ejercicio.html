@@ -1,19 +1,17 @@
-<!DOCTYPE html>
-<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Dos formas de practicar: ejercicios de cálculo con números al azar, o preguntas de teoría (verdadero/falso y opción múltiple) para probar que entendiste el…">
-<link rel="canonical" href="https://www.descifralab.com/evaluaciones.html">
+<meta name="description" content="Ayuda a sumar ejercicios nuevos de Física, Química o Matemática para que otros estudiantes practiquen.">
+<link rel="canonical" href="https://www.descifralab.com/aportar-ejercicio.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="DescifraLab">
-<meta property="og:title" content="Evaluaciones — Generador de Ejercicios | Física">
-<meta property="og:description" content="Dos formas de practicar: ejercicios de cálculo con números al azar, o preguntas de teoría (verdadero/falso y opción múltiple) para probar que entendiste el…">
-<meta property="og:url" content="https://www.descifralab.com/evaluaciones.html">
+<meta property="og:title" content="Aporta un ejercicio — DescifraLab">
+<meta property="og:description" content="Ayuda a sumar ejercicios nuevos de Física, Química o Matemática para que otros estudiantes practiquen.">
+<meta property="og:url" content="https://www.descifralab.com/aportar-ejercicio.html">
 <meta property="og:locale" content="es_AR">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Evaluaciones — Generador de Ejercicios | Física">
-<meta name="twitter:description" content="Dos formas de practicar: ejercicios de cálculo con números al azar, o preguntas de teoría (verdadero/falso y opción múltiple) para probar que entendiste el…">
+<meta name="twitter:title" content="Aporta un ejercicio — DescifraLab">
+<meta name="twitter:description" content="Ayuda a sumar ejercicios nuevos de Física, Química o Matemática para que otros estudiantes practiquen.">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YP8YVN6V0Z"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -27,9 +25,9 @@
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=9">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=7">
 <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png?v=7">
-<title>Evaluaciones — Generador de Ejercicios | Física — DescifraLab</title>
+<title>Aporta un ejercicio — DescifraLab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --paper:#FFFFFF;
@@ -68,11 +66,9 @@
     font-weight:700;
     font-size:14px;
     color:var(--amber-dark);
-    text-decoration:none;
     margin-bottom:12px;
     letter-spacing:0.01em;
   }
-  .brand-link:hover{text-decoration:underline;}
   .navbar{
     background:var(--white);
     border-bottom:4px solid var(--ink);
@@ -337,7 +333,7 @@
     padding:16px;
     margin-top:16px;
   }
-  .sim-box canvas{
+  #sim-canvas-basico, #sim-canvas-avanzado{
     display:block;width:100%;height:auto;
   }
   .sim-readout{
@@ -359,47 +355,204 @@
   }
   .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
 
-  .modo-tabs{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
-  .modo-btn{
-    flex:1;min-width:180px;
+  .mach-grupo{margin-bottom:36px;}
+  .mach-titulo{
+    font-family:'Fraunces', serif;
+    font-size:24px;font-weight:700;
+    padding:10px 18px;margin-bottom:16px;
+    color:var(--white);
+    display:inline-flex;align-items:center;gap:10px;
+    border-radius:6px;
+  }
+  .mach-titulo .mach-emoji{font-size:26px;}
+
+  /* colores distintivos por categoría — cada tema con su propia paleta */
+  .mach-grupo.mecanica .mach-titulo{background:#D9714A;}
+  .mach-grupo.electricidad .mach-titulo{background:#4A90D9;}
+  .mach-grupo.termo .mach-titulo{background:#E0A030;}
+  .mach-grupo.moderna .mach-titulo{background:#8A5FC7;}
+  .mach-grupo.quimica .mach-titulo{background:#3FA05C;}
+  .mach-grupo.herramientas .mach-titulo{background:#5C6B7A;}
+
+  .mach-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(210px, 1fr));
+    gap:14px;
+  }
+  .mach-card{
+    display:block;
+    background:var(--white);
+    border:3px solid var(--ink);
+    border-radius:10px;
+    padding:16px 18px;
+    text-decoration:none;
+    color:var(--ink);
+    transition:transform 0.12s, box-shadow 0.12s;
+    position:relative;
+    overflow:hidden;
+  }
+  .mach-card::before{
+    content:'';
+    position:absolute;top:0;left:0;right:0;height:6px;
+  }
+  .mach-grupo.mecanica .mach-card::before{background:#D9714A;}
+  .mach-grupo.electricidad .mach-card::before{background:#4A90D9;}
+  .mach-grupo.termo .mach-card::before{background:#E0A030;}
+  .mach-grupo.moderna .mach-card::before{background:#8A5FC7;}
+  .mach-grupo.quimica .mach-card::before{background:#3FA05C;}
+  .mach-grupo.herramientas .mach-card::before{background:#5C6B7A;}
+
+  .mach-card:hover{
+    transform:translateY(-4px) rotate(-0.5deg);
+    box-shadow:5px 5px 0 var(--ink);
+  }
+  .mach-card.herramienta{border-style:dashed;}
+  .mach-card .mach-card-icon{font-size:30px;display:block;margin-bottom:6px;}
+  .mach-card h3{
+    font-family:'Fraunces', serif;font-size:16px;font-weight:700;
+    margin:0 0 10px;
+    color:var(--ink);
+  }
+  .mach-formula{
+    font-family:'JetBrains Mono', monospace;
+    font-size:14px;font-weight:700;
+    margin-top:5px;
+    background:var(--paper);
+    padding:4px 8px;
+    border-radius:4px;
+    display:inline-block;
+  }
+
+  /* ---- Elementos de "cuaderno anotado a mano": post-its, clips, flechas ---- */
+  .estudio-elemento{position:relative;}
+
+  .postit{
+    position:absolute;
+    width:130px;
+    padding:12px 14px 16px;
+    font-family:'Caveat', cursive;
+    font-size:18px;
+    line-height:1.25;
+    color:#3A3020;
+    box-shadow:2px 4px 8px rgba(0,0,0,0.18);
+    z-index:5;
+  }
+  .postit.amarillo{background:#F5E27A;transform:rotate(-4deg);}
+  .postit.rosa{background:#F3B8C4;transform:rotate(3deg);}
+  .postit.celeste{background:#A9D6E5;transform:rotate(-2deg);}
+  .postit::before{
+    content:'';
+    position:absolute;top:-8px;left:50%;
+    transform:translateX(-50%) rotate(-3deg);
+    width:34px;height:16px;
+    background:rgba(255,255,255,0.55);
+    border:1px solid rgba(0,0,0,0.08);
+  }
+
+  .clip-svg{position:absolute;z-index:6;filter:drop-shadow(1px 2px 2px rgba(0,0,0,0.25));}
+
+  .flecha-curva{position:absolute;z-index:4;pointer-events:none;}
+
+  .letras-varias{
+    font-family:'Caveat', cursive;
+    font-weight:700;
+  }
+
+  .exp-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+    gap:16px;
+  }
+  .exp-card{
+    background:var(--white);
+    border:3px solid var(--ink);
+    border-radius:10px;
+    padding:18px 20px;
+    position:relative;
+    overflow:hidden;
+  }
+  .exp-card::before{
+    content:'';
+    position:absolute;top:0;left:0;right:0;height:6px;
+  }
+  .mach-grupo.mecanica .exp-card::before{background:#D9714A;}
+  .mach-grupo.electricidad .exp-card::before{background:#4A90D9;}
+  .mach-grupo.termo .exp-card::before{background:#E0A030;}
+  .mach-grupo.quimica .exp-card::before{background:#3FA05C;}
+  .exp-card h3{
+    font-family:'Fraunces', serif;font-size:17px;font-weight:700;
+    margin:4px 0 6px;
+  }
+  .exp-tema{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:0 0 12px;
+  }
+  .exp-materiales{font-size:13.5px;margin:0 0 10px;}
+  .exp-pasos{padding-left:20px;margin:0 0 12px;font-size:13.5px;}
+  .exp-pasos li{margin-bottom:4px;}
+  .exp-explica{
+    font-size:13px;color:var(--ink-soft);
+    background:var(--paper);
+    padding:10px 12px;
+    border-radius:6px;
+    margin:0;
+  }
+
+  .exp-guia{
+    margin-top:14px;
+    border:2px dashed var(--amber-dark);
+    border-radius:8px;
     padding:14px 16px;
-    border:2px solid var(--ink);
-    background:var(--white);color:var(--ink);
-    font-family:'JetBrains Mono', monospace;font-size:13px;font-weight:700;
-    cursor:pointer;border-radius:8px;
+    background:#FFFCF5;
   }
-  .modo-btn.active{background:var(--ink);color:var(--white);}
+  .exp-guia-tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;text-transform:uppercase;letter-spacing:0.05em;
+    color:var(--amber-dark);font-weight:700;
+    margin:0 0 10px;
+  }
+  .guia-tabla{
+    width:100%;border-collapse:collapse;margin:8px 0 12px;
+    font-size:13px;
+  }
+  .guia-tabla th, .guia-tabla td{
+    border:1px solid var(--line);
+    padding:6px 8px;text-align:left;
+  }
+  .guia-tabla th{background:var(--paper);font-family:'JetBrains Mono',monospace;font-size:11px;}
+  .guia-preguntas{padding-left:18px;margin:8px 0 0;font-size:13.5px;}
+  .guia-preguntas li{margin-bottom:5px;}
 
-  .materia-tabs{display:flex;gap:8px;margin:14px 0 16px;flex-wrap:wrap;}
-  .materia-btn{
-    padding:9px 18px;
-    border:2px solid var(--line);border-radius:20px;
-    background:var(--white);color:var(--ink-soft);
-    font-family:'Inter';font-size:13.5px;font-weight:700;
-    cursor:pointer;transition:border-color .12s, color .12s, background .12s;
+  .banco-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    gap:20px;
+    margin-top:16px;
   }
-  .materia-btn:hover{border-color:var(--ink);color:var(--ink);}
-  .materia-btn.active{background:var(--ink);color:var(--white);border-color:var(--ink);}
+  .banco-col h3{
+    font-family:'Fraunces', serif;font-size:15px;
+    margin:0 0 8px;
+  }
+  .banco-col ul{
+    padding-left:18px;margin:0;
+    font-size:13.5px;line-height:1.7;
+  }
+  .banco-col li{margin-bottom:2px;}
 
-  .teoria-pregunta{
-    background:var(--white);border:2px solid var(--ink);border-radius:10px;
-    padding:18px 20px;margin-bottom:14px;
+  .mach-header-fila{
+    margin-bottom:16px;
   }
-  .teoria-enunciado{font-size:15px;font-weight:600;margin:0 0 14px;}
-  .teoria-opciones label{
-    display:flex;align-items:center;gap:10px;
-    padding:9px 12px;margin-bottom:6px;
-    border:1.5px solid var(--line);border-radius:6px;
-    cursor:pointer;font-size:14px;
+  .postit-margen{
+    position:absolute;
+    left:100%;
+    margin-left:24px;
+    width:150px;
   }
-  .teoria-opciones label:hover{background:var(--paper);}
-  .teoria-opciones input{accent-color:var(--amber-dark);}
-  .teoria-feedback{
-    margin-top:10px;padding:10px 12px;border-radius:6px;
-    font-size:13.5px;display:none;
+  @media(max-width:1150px){
+    .postit-margen{display:none;}
   }
-  .teoria-feedback.correcto{background:#E3F3EA;color:var(--pine-dark);display:block;}
-  .teoria-feedback.incorrecto{background:#FBEAE5;color:#A0442E;display:block;}
   footer{
     text-align:center;padding:32px 20px;
     color:var(--ink-soft);font-size:13px;
@@ -407,6 +560,53 @@
   }
   footer a{color:var(--ink-soft);text-decoration:underline;}
   footer a:hover{color:var(--ink);}
+</style>
+
+<style>
+  .ap-hero{max-width:720px;margin:0 auto;padding:44px 20px 8px;text-align:center;}
+  .ap-hero .eyebrow{font-family:'JetBrains Mono', monospace;font-size:12.5px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;color:var(--amber-dark);margin-bottom:10px;}
+  .ap-hero h1{font-family:'Fraunces', serif;font-size:34px;font-weight:700;margin:0 0 10px;color:var(--ink);}
+  .ap-hero p{font-size:15.5px;color:var(--ink-soft);margin:0;}
+
+  .ap-form-card{
+    max-width:680px;margin:28px auto 60px;background:var(--white);
+    border:2px solid var(--ink);border-radius:14px;padding:28px 30px;
+  }
+  .ap-field{margin-bottom:18px;}
+  .ap-field label{display:block;font-family:var(--mono);font-size:11.5px;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px;}
+  .ap-field input[type="text"], .ap-field input[type="email"], .ap-field textarea, .ap-field select{
+    width:100%;padding:10px 12px;border:2px solid var(--line);border-radius:8px;
+    font-family:'Inter';font-size:14.5px;color:var(--ink);background:var(--white);
+  }
+  .ap-field textarea{min-height:80px;resize:vertical;}
+  .ap-field input:focus, .ap-field textarea:focus, .ap-field select:focus{outline:none;border-color:var(--amber);}
+  .ap-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media(max-width:600px){.ap-row{grid-template-columns:1fr;}}
+
+  .ap-opcion-item{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+  .ap-opcion-item input[type="text"]{flex:1;}
+  .ap-opcion-item input[type="radio"]{width:18px;height:18px;flex-shrink:0;}
+
+  .ap-submit-btn{
+    width:100%;padding:14px;border:none;border-radius:10px;
+    background:var(--amber);color:var(--ink);font-weight:700;font-size:15px;cursor:pointer;
+    transition:background .12s;
+  }
+  .ap-submit-btn:hover{background:var(--amber-dark);color:#fff;}
+  .ap-submit-btn:disabled{opacity:0.6;cursor:default;}
+
+  .ap-mensaje{
+    margin-top:16px;padding:12px 14px;border-radius:8px;font-size:14px;display:none;
+  }
+  .ap-mensaje.show{display:block;}
+  .ap-mensaje.exito{background:#E8F3EC;border:1.5px solid var(--pine);color:var(--pine-dark);}
+  .ap-mensaje.error{background:#FBEAE5;border:1.5px solid #C0503A;color:#8C3A29;}
+
+  .ap-nota{
+    font-size:12.5px;color:var(--ink-soft);margin-top:6px;line-height:1.5;
+  }
+  .ap-tipo-bloque{display:none;}
+  .ap-tipo-bloque.activo{display:block;}
 </style>
 </head>
 <body>
@@ -530,848 +730,190 @@
   </div>
 </nav>
 
-<header class="top">
-  <div class="eyebrow">Herramientas · Autoevaluación</div>
-  <h1>Evaluaciones</h1>
-  <p class="subtitle">Dos formas de practicar: ejercicios de cálculo con números al azar, o preguntas de teoría (verdadero/falso y opción múltiple) para probar que entendiste el concepto, no solo la cuenta.</p>
-</header>
-
-<div class="wrap">
-
-  <div class="card" data-tag="Modo">
-    <h2>¿Qué quieres practicar?</h2>
-    <div class="modo-tabs">
-      <button class="modo-btn active" id="modo-btn-calculo" onclick="cambiarModo('calculo')">Ejercicios de Cálculo</button>
-      <button class="modo-btn" id="modo-btn-teoria" onclick="cambiarModo('teoria')">Preguntas de Teoría</button>
-    </div>
-  </div>
-
-  <div id="seccion-calculo">
-  <div class="card" data-tag="Elige el tema">
-    <h2>¿Qué quieres practicar?</h2>
-    <div class="materia-tabs">
-      <button class="materia-btn active" data-materia="fisica" onclick="filtrarMateria('calculo','fisica')">Física</button>
-      <button class="materia-btn" data-materia="quimica" onclick="filtrarMateria('calculo','quimica')">Química</button>
-      <button class="materia-btn" data-materia="matematica" onclick="filtrarMateria('calculo','matematica')">Matemática</button>
-    </div>
-    <div class="calc-grid">
-      <div class="field">
-        <label>Tema</label>
-        <select id="tema-select" onchange="generarEvaluacion()" style="width:100%;padding:10px 12px;border:2px solid var(--ink);font-family:'JetBrains Mono', monospace;font-size:15px;background:var(--white);">
-          <option value="mru" data-materia="fisica">MRU — Distancia recorrida</option>
-          <option value="mruv" data-materia="fisica">MRUV — Velocidad final</option>
-          <option value="newton" data-materia="fisica">Segunda Ley de Newton — Aceleración</option>
-          <option value="trabajo" data-materia="fisica">Trabajo mecánico</option>
-          <option value="ohm" data-materia="fisica">Ley de Ohm — Corriente</option>
-          <option value="potencia" data-materia="fisica">Potencia Eléctrica</option>
-          <option value="calor" data-materia="fisica">Calor Específico (agua)</option>
-          <option value="dilatacion" data-materia="fisica">Dilatación Térmica (acero)</option>
-          <option value="torque" data-materia="fisica">Torque</option>
-          <option value="impulso" data-materia="fisica">Cantidad de Movimiento</option>
-          <option value="tiro-oblicuo" data-materia="fisica">Tiro Oblicuo (alcance)</option>
-          <option value="mcu" data-materia="fisica">MCU (velocidad tangencial)</option>
-          <option value="palanca" data-materia="fisica">Palanca</option>
-          <option value="presion-hidrostatica" data-materia="fisica">Presión Hidrostática</option>
-          <option value="molaridad" data-materia="quimica">Molaridad</option>
-          <option value="dilucion" data-materia="quimica">Dilución</option>
-          <option value="porcentaje-masa" data-materia="quimica">Concentración %m/m</option>
-          <option value="estequiometria-moles" data-materia="quimica">Moles a partir de la masa</option>
-          <option value="ley-boyle" data-materia="quimica">Ley de Boyle</option>
-          <option value="ph" data-materia="quimica">pH</option>
-          <option value="pitagoras" data-materia="matematica">Teorema de Pitágoras</option>
-          <option value="area-triangulo" data-materia="matematica">Área de un triángulo</option>
-          <option value="area-circulo" data-materia="matematica">Área de un círculo</option>
-          <option value="trigonometria" data-materia="matematica">Trigonometría</option>
-          <option value="proporcionalidad" data-materia="matematica">Regla de tres simple</option>
-          <option value="logaritmo" data-materia="matematica">Logaritmos</option>
-          <option value="promedio" data-materia="matematica">Promedio</option>
-        </select>
-      </div>
-    </div>
-    <button class="calc-btn" onclick="generarEvaluacion()">Generar evaluación nueva</button>
-  </div>
-
-  <div id="preguntas-container"></div>
-
-  <div class="card" id="resultado-card" style="display:none;margin-bottom:40px;" data-tag="Resultado">
-    <h2 id="resultado-titulo">Resultado</h2>
-    <div class="readout show" id="resultado-detalle" style="display:block;"></div>
-  </div>
-  </div>
-
-  <div id="seccion-teoria" style="display:none;">
-  <div class="card" data-tag="Elige el tema">
-    <h2>¿Qué tema de teoría quieres probar?</h2>
-    <div class="materia-tabs">
-      <button class="materia-btn active" data-materia="fisica" onclick="filtrarMateria('teoria','fisica')">Física</button>
-      <button class="materia-btn" data-materia="quimica" onclick="filtrarMateria('teoria','quimica')">Química</button>
-      <button class="materia-btn" data-materia="matematica" onclick="filtrarMateria('teoria','matematica')">Matemática</button>
-    </div>
-    <div class="calc-grid">
-      <div class="field">
-        <label>Tema</label>
-        <select id="tema-teoria-select" onchange="generarTeoria()" style="width:100%;padding:10px 12px;border:2px solid var(--ink);font-family:'JetBrains Mono', monospace;font-size:15px;background:var(--white);">
-          <option value="mru" data-materia="fisica">MRU y MRUV</option>
-          <option value="newton" data-materia="fisica">Leyes de Newton</option>
-          <option value="trabajo" data-materia="fisica">Trabajo y Energía</option>
-          <option value="ohm" data-materia="fisica">Ley de Ohm y Circuitos</option>
-          <option value="calor" data-materia="fisica">Calor y Temperatura</option>
-          <option value="relatividad" data-materia="fisica">Relatividad</option>
-          <option value="nuclear" data-materia="fisica">Energía Nuclear</option>
-          <option value="fluidos" data-materia="fisica">Presión y Flotación</option>
-          <option value="mcu" data-materia="fisica">Movimiento Circular Uniforme</option>
-          <option value="tiro-oblicuo" data-materia="fisica">Tiro Oblicuo</option>
-          <option value="maquinas-simples" data-materia="fisica">Máquinas Simples</option>
-          <option value="modelo-atomico" data-materia="quimica">Modelo Atómico</option>
-          <option value="config-electronica" data-materia="quimica">Configuración Electrónica</option>
-          <option value="enlaces" data-materia="quimica">Enlaces Químicos</option>
-          <option value="acido-base" data-materia="quimica">Ácido-Base y pH</option>
-          <option value="oxido-reduccion" data-materia="quimica">Óxido-Reducción</option>
-          <option value="estequiometria" data-materia="quimica">Estequiometría</option>
-          <option value="gases" data-materia="quimica">Leyes de los Gases</option>
-          <option value="estados-materia" data-materia="quimica">Estados de la Materia</option>
-          <option value="mezclas-separacion" data-materia="quimica">Mezclas y Separación</option>
-          <option value="ecuaciones" data-materia="matematica">Ecuaciones de Segundo Grado</option>
-          <option value="funciones" data-materia="matematica">Funciones</option>
-          <option value="trigonometria" data-materia="matematica">Trigonometría</option>
-          <option value="geometria" data-materia="matematica">Geometría (Thales y áreas)</option>
-          <option value="sistema-ecuaciones" data-materia="matematica">Sistemas de Ecuaciones</option>
-          <option value="valor-absoluto" data-materia="matematica">Valor Absoluto</option>
-          <option value="estadistica-probabilidad" data-materia="matematica">Estadística y Probabilidad</option>
-        </select>
-      </div>
-    </div>
-    <button class="calc-btn" onclick="generarTeoria()">Generar preguntas de teoría</button>
-  </div>
-
-  <div id="teoria-container"></div>
-
-  <div class="card" id="resultado-teoria-card" style="display:none;margin-bottom:40px;" data-tag="Resultado">
-    <h2 id="resultado-teoria-titulo">Resultado</h2>
-    <div class="readout show" id="resultado-teoria-detalle" style="display:block;"></div>
-  </div>
-  </div>
-
-  <div class="card faq" data-tag="FAQ">
-    <h2>Preguntas frecuentes</h2>
-    <h3>¿De dónde salen los ejercicios, hay una IA generándolos?</h3>
-    <p>No — cada tema usa la misma fórmula real que ya tienes en su página correspondiente, con números al azar dentro de un rango razonable. La corrección también es local, sin conexión a ningún servidor ni IA: todo pasa en tu navegador.</p>
-    <h3>¿Por qué a veces mi respuesta correcta aparece como incorrecta?</h3>
-    <p>El corrector acepta un margen pequeño de error (por redondeo), pero si tu respuesta difiere bastante del valor esperado, puede ser un error de cálculo real — revisa la fórmula del tema en su página específica.</p>
-    <h3>¿Puedo repetir la evaluación del mismo tema?</h3>
-    <p>Sí, cada vez que tocas "Generar evaluación nueva" se arman 15 problemas distintos con números nuevos, así puedes practicar el mismo tema varias veces sin repetir exactamente los mismos ejercicios.</p>
-  </div>
-
-  <div class="related">
-    <h2>Temas relacionados</h2>
-    <div class="related-links">
-      <a href="mru.html">MRU — Movimiento Rectilíneo Uniforme</a>
-      <a href="sobre-nosotros.html">Sobre la Fundadora</a>
-      <a href="experimentos.html">Experimentos Caseros</a>
-      <a href="acido-base.html">Ácido-Base y pH</a>
-    </div>
-  </div>
-
-
-  <div class="related">
-    <h2>Temas relacionados</h2>
-    <div class="related-links">
-      <a href="newton.html">Segunda Ley de Newton (F = m·a)</a>
-      <a href="impulso-momentum.html">Impulso y Cantidad de Movimiento</a>
-      <a href="trabajo-energia.html">Trabajo y Energía</a>
-      <a href="formulario.html">Machete de Fórmulas</a>
-      <a href="conversor-unidades.html">Conversor de Unidades</a>
-    </div>
-  </div>
-
+<div class="ap-hero">
+  <p class="eyebrow">Comunidad DescifraLab</p>
+  <h1>Aporta un ejercicio</h1>
+  <p>¿Tienes un ejercicio que te gustaría sumar a las evaluaciones? Mándalo acá — un moderador lo revisa antes de publicarlo.</p>
 </div>
+
+<div class="ap-form-card">
+  <form id="form-ejercicio">
+
+    <div class="ap-field">
+      <label>Materia</label>
+      <select id="f-materia" required>
+        <option value="fisica">Física</option>
+        <option value="quimica">Química</option>
+        <option value="matematica">Matemática</option>
+      </select>
+    </div>
+
+    <div class="ap-field">
+      <label>Tema (ej: "Ley de Ohm", "Molaridad", "Trigonometría")</label>
+      <input type="text" id="f-tema" required placeholder="Escribe el tema puntual">
+    </div>
+
+    <div class="ap-field">
+      <label>Tipo de ejercicio</label>
+      <select id="f-tipo" required onchange="mostrarBloqueTipo()">
+        <option value="calculo">Cálculo (el estudiante calcula un número)</option>
+        <option value="teoria-vf">Teoría — Verdadero o Falso</option>
+        <option value="teoria-opcion">Teoría — Opción múltiple</option>
+      </select>
+    </div>
+
+    <div class="ap-field">
+      <label>Enunciado</label>
+      <textarea id="f-enunciado" required placeholder="Escribe la pregunta o el problema completo"></textarea>
+    </div>
+
+    <div class="ap-tipo-bloque" id="bloque-calculo">
+      <div class="ap-row">
+        <div class="ap-field">
+          <label>Fórmula usada</label>
+          <input type="text" id="f-formula" placeholder="Ej: V = I · R">
+        </div>
+        <div class="ap-field">
+          <label>Unidad de la respuesta</label>
+          <input type="text" id="f-unidad" placeholder="Ej: m/s, mol/L, cm²">
+        </div>
+      </div>
+      <div class="ap-field">
+        <label>Respuesta correcta (número)</label>
+        <input type="text" id="f-respuesta-calculo" placeholder="Ej: 12.5">
+      </div>
+    </div>
+
+    <div class="ap-tipo-bloque" id="bloque-vf">
+      <div class="ap-field">
+        <label>¿La afirmación es verdadera o falsa?</label>
+        <select id="f-respuesta-vf">
+          <option value="true">Verdadera</option>
+          <option value="false">Falsa</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="ap-tipo-bloque" id="bloque-opcion">
+      <div class="ap-field">
+        <label>Opciones (marca cuál es la correcta)</label>
+        <div class="ap-opcion-item"><input type="radio" name="f-opcion-correcta" value="0"><input type="text" class="f-opcion-texto" placeholder="Opción 1"></div>
+        <div class="ap-opcion-item"><input type="radio" name="f-opcion-correcta" value="1"><input type="text" class="f-opcion-texto" placeholder="Opción 2"></div>
+        <div class="ap-opcion-item"><input type="radio" name="f-opcion-correcta" value="2"><input type="text" class="f-opcion-texto" placeholder="Opción 3 (opcional)"></div>
+        <div class="ap-opcion-item"><input type="radio" name="f-opcion-correcta" value="3"><input type="text" class="f-opcion-texto" placeholder="Opción 4 (opcional)"></div>
+      </div>
+    </div>
+
+    <div class="ap-field" id="campo-explicacion">
+      <label>Explicación de la respuesta (para teoría)</label>
+      <textarea id="f-explicacion" placeholder="¿Por qué es esa la respuesta correcta?"></textarea>
+    </div>
+
+    <div class="ap-row">
+      <div class="ap-field">
+        <label>Tu nombre (opcional)</label>
+        <input type="text" id="f-nombre" placeholder="Para darte crédito si querés">
+      </div>
+      <div class="ap-field">
+        <label>Tu email (opcional)</label>
+        <input type="email" id="f-email" placeholder="Por si hay que consultarte algo">
+      </div>
+    </div>
+
+    <button type="submit" class="ap-submit-btn" id="btn-enviar">Enviar para revisión</button>
+    <p class="ap-nota">Tu ejercicio no se publica automáticamente — un moderador lo revisa primero para asegurarse de que esté correcto.</p>
+
+    <div class="ap-mensaje" id="mensaje-resultado"></div>
+  </form>
+</div>
+
+<script>
+  // TODO: reemplazar con la URL y la clave anon reales del proyecto Supabase
+  // una vez creado (Project Settings → API en el panel de Supabase).
+  const SUPABASE_URL = 'https://TU-PROYECTO.supabase.co';
+  const SUPABASE_ANON_KEY = 'TU-CLAVE-ANON-PUBLICA';
+
+  function mostrarBloqueTipo(){
+    const tipo = document.getElementById('f-tipo').value;
+    document.querySelectorAll('.ap-tipo-bloque').forEach(b => b.classList.remove('activo'));
+    if(tipo === 'calculo') document.getElementById('bloque-calculo').classList.add('activo');
+    if(tipo === 'teoria-vf') document.getElementById('bloque-vf').classList.add('activo');
+    if(tipo === 'teoria-opcion') document.getElementById('bloque-opcion').classList.add('activo');
+    document.getElementById('campo-explicacion').style.display = tipo === 'calculo' ? 'none' : 'block';
+  }
+  mostrarBloqueTipo();
+
+  document.getElementById('form-ejercicio').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('btn-enviar');
+    const mensaje = document.getElementById('mensaje-resultado');
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+
+    const tipo = document.getElementById('f-tipo').value;
+    const payload = {
+      materia: document.getElementById('f-materia').value,
+      tema: document.getElementById('f-tema').value.trim(),
+      tipo: tipo,
+      enunciado: document.getElementById('f-enunciado').value.trim(),
+      estado: 'pendiente'
+    };
+
+    if(tipo === 'calculo'){
+      payload.formula = document.getElementById('f-formula').value.trim();
+      payload.unidad = document.getElementById('f-unidad').value.trim();
+      payload.respuesta_calculo = document.getElementById('f-respuesta-calculo').value.trim();
+    } else {
+      payload.explicacion = document.getElementById('f-explicacion').value.trim();
+      if(tipo === 'teoria-vf'){
+        payload.respuesta_vf = document.getElementById('f-respuesta-vf').value === 'true';
+      } else if(tipo === 'teoria-opcion'){
+        const opciones = Array.from(document.querySelectorAll('.f-opcion-texto')).map(i => i.value.trim()).filter(Boolean);
+        const correctaEl = document.querySelector('input[name="f-opcion-correcta"]:checked');
+        payload.opciones = opciones;
+        payload.respuesta_opcion_index = correctaEl ? parseInt(correctaEl.value) : null;
+      }
+    }
+
+    const nombre = document.getElementById('f-nombre').value.trim();
+    const email = document.getElementById('f-email').value.trim();
+    if(nombre) payload.autor_nombre = nombre;
+    if(email) payload.autor_email = email;
+
+    try {
+      const resp = await fetch(`${SUPABASE_URL}/rest/v1/ejercicios_propuestos`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if(resp.ok){
+        mensaje.className = 'ap-mensaje show exito';
+        mensaje.textContent = '¡Gracias! Tu ejercicio quedó cargado para revisión.';
+        document.getElementById('form-ejercicio').reset();
+        mostrarBloqueTipo();
+      } else {
+        throw new Error('Error del servidor');
+      }
+    } catch(err){
+      mensaje.className = 'ap-mensaje show error';
+      mensaje.textContent = 'Hubo un problema al enviar. Por favor, intenta de nuevo en un momento.';
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'Enviar para revisión';
+  });
+</script>
 
 <footer>
   DescifraLab — hecho por una geóloga cansada de que la ciencia no llegue a todos de forma fácil.<br>
   <a href="politica-privacidad.html">Política de Privacidad</a>
 </footer>
-
-<script>
-  function toggleNavMobile(){
-    document.querySelector('.navbar-links').classList.toggle('open');
-  }
-
-  const navLinksEl = document.querySelector('.navbar-links');
-  if(navLinksEl && window.matchMedia('(hover: hover)').matches){
-    const drops = navLinksEl.querySelectorAll('.nav-drop');
-    drops.forEach(drop=>{
-      drop.addEventListener('mouseenter', ()=>{
-        drops.forEach(d=>{ if(d!==drop) d.removeAttribute('open'); });
-        drop.setAttribute('open','');
-      });
-    });
-    navLinksEl.addEventListener('mouseleave', ()=>{
-      drops.forEach(d=>d.removeAttribute('open'));
-    });
-  }
-
-  // ---- Generador de evaluaciones ----
-  // Cada tema define una función que arma un problema con números
-  // al azar dentro de rangos razonables, usando la MISMA fórmula real
-  // que ya está en su página. Todo corre en el navegador, sin IA ni servidor.
-
-  function rand(min, max, decimales=0){
-    const v = Math.random()*(max-min)+min;
-    return decimales===0 ? Math.round(v) : parseFloat(v.toFixed(decimales));
-  }
-
-  function cambiarModo(modo){
-    document.getElementById('modo-btn-calculo').classList.toggle('active', modo==='calculo');
-    document.getElementById('modo-btn-teoria').classList.toggle('active', modo==='teoria');
-    document.getElementById('seccion-calculo').style.display = modo==='calculo' ? 'block' : 'none';
-    document.getElementById('seccion-teoria').style.display = modo==='teoria' ? 'block' : 'none';
-  }
-
-  // ---- Filtro por materia: Física / Química / Matemática ----
-  function filtrarMateria(seccion, materia){
-    const selectId = seccion === 'calculo' ? 'tema-select' : 'tema-teoria-select';
-    const select = document.getElementById(selectId);
-    const tabsWrap = select.closest('.card').querySelector('.materia-tabs');
-
-    tabsWrap.querySelectorAll('.materia-btn').forEach(btn=>{
-      btn.classList.toggle('active', btn.dataset.materia === materia);
-    });
-
-    let primerVisible = null;
-    Array.from(select.options).forEach(opt=>{
-      const visible = opt.dataset.materia === materia;
-      opt.hidden = !visible;
-      opt.disabled = !visible;
-      if(visible && primerVisible === null) primerVisible = opt.value;
-    });
-
-    if(primerVisible !== null){
-      select.value = primerVisible;
-    }
-
-    if(seccion === 'calculo') generarEvaluacion();
-    else generarTeoria();
-  }
-
-  const BANCO_TEORIA = {
-    'mru': [
-      {tipo:'vf', enunciado:'En el MRU, la velocidad es constante.', correcta:true, explicacion:'Correcto — en el MRU no hay aceleración, así que la velocidad no cambia.'},
-      {tipo:'vf', enunciado:'En el MRUV, la aceleración cambia constantemente durante el movimiento.', correcta:false, explicacion:'Falso — en el MRUV la aceleración es constante; lo que cambia constantemente es la velocidad.'},
-      {tipo:'opcion', enunciado:'¿Qué gráfico posición-tiempo corresponde al MRU?', opciones:['Una recta','Una parábola','Una curva exponencial','Un círculo'], correcta:0, explicacion:'En el MRU, x=x₀+vt es una función lineal, así que el gráfico x-t es una recta.'},
-      {tipo:'opcion', enunciado:'Si un objeto frena mientras avanza, su aceleración es:', opciones:['Positiva y en la misma dirección que v','Opuesta a la dirección de v','Cero','Infinita'], correcta:1, explicacion:'Frenar significa que la aceleración actúa en sentido contrario a la velocidad, reduciéndola.'},
-      {tipo:'vf', enunciado:'En el MRU, la aceleración es siempre cero.', correcta:true, explicacion:'Correcto — si no hay aceleración, la velocidad se mantiene constante, que es justamente el MRU.'},
-      {tipo:'vf', enunciado:'En el MRUV, la velocidad cambia de manera constante en el tiempo.', correcta:true, explicacion:'Correcto — eso es lo que significa tener una aceleración constante.'},
-      {tipo:'vf', enunciado:'La pendiente de un gráfico posición-tiempo en el MRU representa la aceleración.', correcta:false, explicacion:'Falso — esa pendiente representa la velocidad, no la aceleración.'},
-      {tipo:'opcion', enunciado:'¿Qué representa el área bajo la curva en un gráfico velocidad-tiempo?', opciones:['La aceleración','El desplazamiento','La posición inicial','El tiempo total'], correcta:1, explicacion:'El área bajo la curva v-t equivale al desplazamiento del objeto.'},
-      {tipo:'opcion', enunciado:'En el MRUV, ¿qué gráfico da una línea recta con pendiente distinta de cero?', opciones:['Posición-tiempo','Velocidad-tiempo','Aceleración-posición','Ninguno'], correcta:1, explicacion:'Como la aceleración es constante, el gráfico v-t es una recta con esa pendiente.'},
-      {tipo:'opcion', enunciado:'¿Cuál es la unidad de aceleración en el SI?', opciones:['m/s','m/s²','m','s'], correcta:1, explicacion:'La aceleración mide cambio de velocidad por unidad de tiempo: m/s dividido s = m/s².'}
-    ],
-    'newton': [
-      {tipo:'vf', enunciado:'La Primera Ley de Newton dice que un objeto en reposo permanece en reposo a menos que actúe una fuerza neta sobre él.', correcta:true, explicacion:'Correcto — es la Ley de Inercia.'},
-      {tipo:'vf', enunciado:'Según la Segunda Ley, a mayor masa, mayor aceleración para la misma fuerza.', correcta:false, explicacion:'Falso — a mayor masa, MENOR aceleración para la misma fuerza (a=F/m).'},
-      {tipo:'opcion', enunciado:'La Tercera Ley de Newton dice que:', opciones:['Para cada acción hay una reacción igual y opuesta','La fuerza es masa por aceleración','Un objeto en movimiento sigue en movimiento','La energía no se crea ni se destruye'], correcta:0, explicacion:'Esa es exactamente la Tercera Ley — acción y reacción.'},
-      {tipo:'opcion', enunciado:'¿Cuál es la unidad de fuerza en el Sistema Internacional?', opciones:['Joule','Watt','Newton','Pascal'], correcta:2, explicacion:'La fuerza se mide en Newton (N), en honor a Isaac Newton.'},
-      {tipo:'vf', enunciado:'La Primera Ley de Newton se conoce como Ley de Inercia.', correcta:true, explicacion:'Correcto — describe que los cuerpos mantienen su estado de reposo o movimiento si no actúa una fuerza neta.'},
-      {tipo:'vf', enunciado:'La Tercera Ley de Newton dice que las fuerzas de acción y reacción actúan sobre el mismo cuerpo.', correcta:false, explicacion:'Falso — actúan sobre cuerpos distintos, por eso no se anulan entre sí.'},
-      {tipo:'vf', enunciado:'Un objeto en reposo tiene inercia igual a cero.', correcta:false, explicacion:'Falso — todo objeto con masa tiene inercia, esté en reposo o en movimiento.'},
-      {tipo:'opcion', enunciado:'Según la Segunda Ley de Newton, si se duplica la masa manteniendo la fuerza constante, la aceleración:', opciones:['Se duplica','Se reduce a la mitad','No cambia','Se cuadruplica'], correcta:1, explicacion:'Como a=F/m, si m se duplica y F queda igual, a se reduce a la mitad.'},
-      {tipo:'opcion', enunciado:'¿Qué mide la inercia de un objeto?', opciones:['Su peso','Su masa','Su velocidad','Su aceleración'], correcta:1, explicacion:'La masa es la medida de la inercia — cuánto "resiste" un objeto a cambiar su movimiento.'},
-      {tipo:'opcion', enunciado:'Las fuerzas de acción y reacción de la Tercera Ley:', opciones:['Actúan sobre el mismo cuerpo','Se anulan entre sí','Actúan sobre cuerpos distintos','Solo existen si hay movimiento'], correcta:2, explicacion:'Al actuar sobre cuerpos distintos, cada una produce su propio efecto por separado.'}
-    ],
-    'trabajo': [
-      {tipo:'vf', enunciado:'El trabajo mecánico es máximo cuando la fuerza se aplica perpendicular al desplazamiento.', correcta:false, explicacion:'Falso — es máximo cuando la fuerza es paralela al desplazamiento (W=F·d·cosθ, máximo cuando θ=0°).'},
-      {tipo:'vf', enunciado:'La energía cinética depende de la masa y la velocidad al cuadrado.', correcta:true, explicacion:'Correcto — Ec = ½mv².'},
-      {tipo:'opcion', enunciado:'Si un objeto sube, ¿qué le pasa a su energía potencial gravitatoria?', opciones:['Disminuye','Aumenta','Se mantiene igual','Se vuelve negativa'], correcta:1, explicacion:'Ep=mgh — a mayor altura h, mayor energía potencial.'},
-      {tipo:'opcion', enunciado:'¿Cuál es la unidad de energía en el Sistema Internacional?', opciones:['Newton','Watt','Joule','Pascal'], correcta:2, explicacion:'La energía se mide en Joule (J).'},
-      {tipo:'vf', enunciado:'El trabajo mecánico es una magnitud vectorial.', correcta:false, explicacion:'Falso — el trabajo es una magnitud escalar, no tiene dirección.'},
-      {tipo:'vf', enunciado:'La energía cinética depende de la masa y la velocidad del objeto.', correcta:true, explicacion:'Correcto — Ec = m·v²/2, depende de ambas.'},
-      {tipo:'vf', enunciado:'Si la fuerza es perpendicular al desplazamiento, el trabajo realizado es cero.', correcta:true, explicacion:'Correcto — W=F·d·cos(θ), y cos(90°)=0.'},
-      {tipo:'opcion', enunciado:'¿Cuál es la unidad de trabajo y energía en el SI?', opciones:['Newton','Joule','Watt','Pascal'], correcta:1, explicacion:'El Joule (J) es la unidad de trabajo y energía en el Sistema Internacional.'},
-      {tipo:'opcion', enunciado:'Según el teorema del trabajo y la energía, el trabajo neto sobre un objeto es igual a:', opciones:['Su energía potencial','El cambio en su energía cinética','Su peso por altura','Su masa por velocidad'], correcta:1, explicacion:'El trabajo neto realizado sobre un objeto es igual al cambio en su energía cinética.'},
-      {tipo:'opcion', enunciado:'¿Qué tipo de energía tiene un objeto por estar a cierta altura?', opciones:['Cinética','Potencial gravitatoria','Térmica','Eléctrica'], correcta:1, explicacion:'La energía potencial gravitatoria depende de la altura del objeto respecto a un nivel de referencia.'}
-    ],
-    'ohm': [
-      {tipo:'vf', enunciado:'En un circuito en serie, la corriente es la misma en todos los componentes.', correcta:true, explicacion:'Correcto — en serie hay un solo camino, así que la corriente no tiene por dónde variar.'},
-      {tipo:'vf', enunciado:'En un circuito en paralelo, el voltaje es distinto en cada rama.', correcta:false, explicacion:'Falso — en paralelo el voltaje es el MISMO en cada rama; lo que cambia es la corriente.'},
-      {tipo:'opcion', enunciado:'Según la Ley de Ohm, si aumenta la resistencia manteniendo el voltaje constante, la corriente:', opciones:['Aumenta','Disminuye','Se mantiene igual','Se vuelve negativa'], correcta:1, explicacion:'I=V/R — a mayor resistencia, menor corriente, si el voltaje no cambia.'},
-      {tipo:'opcion', enunciado:'¿Qué le pasa a la resistencia total al agregar más resistencias en paralelo?', opciones:['Aumenta','Disminuye','Se mantiene igual','Depende del voltaje'], correcta:1, explicacion:'Cada rama nueva le da al circuito otro camino, reduciendo la resistencia total equivalente.'},
-      {tipo:'vf', enunciado:'En un circuito en serie, la corriente es la misma en todos los puntos.', correcta:true, explicacion:'Correcto — en serie hay un solo camino, así que la corriente no se divide.'},
-      {tipo:'vf', enunciado:'En un circuito en paralelo, el voltaje es distinto en cada rama.', correcta:false, explicacion:'Falso — en paralelo el voltaje es igual en cada rama; lo que cambia es la corriente.'},
-      {tipo:'vf', enunciado:'A mayor resistencia, para el mismo voltaje, circula más corriente.', correcta:false, explicacion:'Falso — según I=V/R, a mayor resistencia circula MENOS corriente.'},
-      {tipo:'opcion', enunciado:'¿Cuál es la fórmula de la Ley de Ohm?', opciones:['V = I·R','V = I/R','V = I+R','V = I-R'], correcta:0, explicacion:'La Ley de Ohm relaciona voltaje, corriente y resistencia como V=I·R.'},
-      {tipo:'opcion', enunciado:'En un circuito en serie, la resistencia total es:', opciones:['La suma de las resistencias','El promedio de las resistencias','La menor resistencia','La inversa de la suma'], correcta:0, explicacion:'En serie, las resistencias se suman directamente: Rtotal = R1+R2+...'},
-      {tipo:'opcion', enunciado:'¿Qué instrumento mide la corriente eléctrica?', opciones:['Voltímetro','Amperímetro','Óhmetro','Vatímetro'], correcta:1, explicacion:'El amperímetro se conecta en serie en el circuito para medir la corriente que circula.'}
-    ],
-    'calor': [
-      {tipo:'vf', enunciado:'El calor y la temperatura son lo mismo.', correcta:false, explicacion:'Falso — el calor es energía en tránsito; la temperatura mide la energía cinética promedio de las partículas.'},
-      {tipo:'vf', enunciado:'Durante un cambio de estado, la temperatura se mantiene constante mientras dura el cambio.', correcta:true, explicacion:'Correcto — toda la energía entregada se usa para cambiar el estado, no para subir la temperatura.'},
-      {tipo:'opcion', enunciado:'¿Qué sustancia común tiene uno de los calores específicos más altos?', opciones:['Hierro','Agua','Oro','Aire'], correcta:1, explicacion:'El agua tiene un calor específico muy alto (4186 J/kg·°C), por eso tarda tanto en calentarse o enfriarse.'},
-      {tipo:'opcion', enunciado:'¿Cómo se llama el calor necesario para cambiar de estado sin cambiar la temperatura?', opciones:['Calor sensible','Calor latente','Calor específico','Calor radiante'], correcta:1, explicacion:'El calor latente (Q=mL) es el que se usa exclusivamente en cambios de estado.'},
-      {tipo:'vf', enunciado:'El calor y la temperatura son lo mismo.', correcta:false, explicacion:'Falso — el calor es energía en tránsito, y la temperatura mide la agitación de las partículas.'},
-      {tipo:'vf', enunciado:'El calor específico indica cuánta energía se necesita para elevar 1°C la temperatura de 1 kg de una sustancia.', correcta:true, explicacion:'Correcto — esa es justamente la definición de calor específico.'},
-      {tipo:'vf', enunciado:'Durante un cambio de estado, la temperatura de la sustancia sigue subiendo si se sigue entregando calor.', correcta:false, explicacion:'Falso — la temperatura se mantiene constante durante el cambio de estado; el calor se usa para cambiar el estado, no la temperatura.'},
-      {tipo:'opcion', enunciado:'¿Cómo se llama la transferencia de calor por contacto directo?', opciones:['Radiación','Convección','Conducción','Sublimación'], correcta:2, explicacion:'La conducción transfiere calor entre partículas en contacto directo, sin que se muevan de lugar.'},
-      {tipo:'opcion', enunciado:'¿En qué unidad se mide comúnmente el calor?', opciones:['Newton','Caloría o Joule','Pascal','Watt'], correcta:1, explicacion:'El calor, al ser una forma de energía, se mide en calorías o Joules.'},
-      {tipo:'opcion', enunciado:'El agua tiene un calor específico alto. Esto significa que:', opciones:['Se calienta muy rápido','Necesita mucha energía para cambiar su temperatura','Nunca cambia de temperatura','Es mala conductora del calor'], correcta:1, explicacion:'Un calor específico alto implica que hace falta mucha energía para cambiar su temperatura — por eso el agua tarda en calentarse y enfriarse.'}
-    ],
-    'modelo-atomico': [
-      {tipo:'vf', enunciado:'El número atómico (Z) es igual a la cantidad de protones.', correcta:true, explicacion:'Correcto — Z define de qué elemento se trata, y siempre es igual al número de protones.'},
-      {tipo:'vf', enunciado:'Los isótopos de un elemento tienen distinto número de protones.', correcta:false, explicacion:'Falso — los isótopos tienen el MISMO número de protones (mismo elemento), pero distinto número de neutrones.'},
-      {tipo:'opcion', enunciado:'¿Quién descubrió el núcleo atómico con el experimento de la lámina de oro?', opciones:['Thomson','Dalton','Rutherford','Bohr'], correcta:2, explicacion:'Ernest Rutherford, en 1911, con su famoso experimento de bombardear una lámina de oro.'},
-      {tipo:'opcion', enunciado:'¿Qué partícula tiene carga negativa?', opciones:['Protón','Neutrón','Electrón','Núcleo'], correcta:2, explicacion:'El electrón tiene carga negativa; el protón positiva; el neutrón sin carga.'},
-      {tipo:'vf', enunciado:'El modelo de Bohr propone que los electrones giran en órbitas fijas alrededor del núcleo.', correcta:true, explicacion:'Correcto — Bohr propuso niveles de energía definidos para los electrones.'},
-      {tipo:'vf', enunciado:'En el modelo atómico actual, se puede saber con exactitud la posición y velocidad de un electrón al mismo tiempo.', correcta:false, explicacion:'Falso — el Principio de Incertidumbre de Heisenberg establece que no se pueden conocer ambas con precisión absoluta simultáneamente.'},
-      {tipo:'vf', enunciado:'El núcleo del átomo contiene protones y neutrones.', correcta:true, explicacion:'Correcto — los electrones están fuera del núcleo, orbitando alrededor de él.'},
-      {tipo:'opcion', enunciado:'¿Quién propuso el modelo del "budín de pasas"?', opciones:['Rutherford','Thomson','Bohr','Dalton'], correcta:1, explicacion:'Thomson imaginó al átomo como una esfera positiva con electrones incrustados, como pasas en un budín.'},
-      {tipo:'opcion', enunciado:'¿Qué descubrió Rutherford con su experimento de la lámina de oro?', opciones:['El electrón','El núcleo atómico','Los isótopos','Los orbitales'], correcta:1, explicacion:'Rutherford descubrió que el átomo tiene un núcleo pequeño y denso, con carga positiva concentrada.'},
-      {tipo:'opcion', enunciado:'¿Qué partícula tiene carga negativa?', opciones:['Protón','Neutrón','Electrón','Núcleo'], correcta:2, explicacion:'El electrón es la partícula subatómica con carga negativa.'}
-    ],
-    'config-electronica': [
-      {tipo:'vf', enunciado:'El subnivel s tiene capacidad máxima de 2 electrones.', correcta:true, explicacion:'Correcto — el subnivel s tiene 1 solo orbital, con capacidad para 2 electrones.'},
-      {tipo:'vf', enunciado:'El subnivel 3d se llena antes que el 4s según el orden real de energía.', correcta:false, explicacion:'Falso — es al revés: el 4s se llena antes que el 3d, según el diagrama de Aufbau real.'},
-      {tipo:'opcion', enunciado:'¿Cuántos electrones caben como máximo en el subnivel p?', opciones:['2','6','10','14'], correcta:1, explicacion:'El subnivel p tiene 3 orbitales × 2 electrones cada uno = 6 electrones.'},
-      {tipo:'opcion', enunciado:'Según la Regla de Hund, los electrones en orbitales de igual energía:', opciones:['Se aparean inmediatamente','Ocupan primero cada orbital vacío antes de aparearse','Van todos al mismo orbital','No siguen ningún orden'], correcta:1, explicacion:'Primero ocupan orbitales vacíos uno por uno, y recién después empiezan a aparearse.'},
-      {tipo:'vf', enunciado:'Los electrones se ubican en niveles de energía llamados orbitales.', correcta:true, explicacion:'Correcto — los orbitales son las regiones donde es más probable encontrar un electrón.'},
-      {tipo:'vf', enunciado:'El número máximo de electrones en el primer nivel de energía es 8.', correcta:false, explicacion:'Falso — el primer nivel admite como máximo 2 electrones (solo tiene subnivel s).'},
-      {tipo:'vf', enunciado:'Los electrones de valencia son los que están en el último nivel de energía.', correcta:true, explicacion:'Correcto — son los responsables principales del comportamiento químico del átomo.'},
-      {tipo:'opcion', enunciado:'¿Cuántos electrones puede tener como máximo el subnivel "s"?', opciones:['2','6','10','14'], correcta:0, explicacion:'El subnivel s tiene un solo orbital, que admite máximo 2 electrones.'},
-      {tipo:'opcion', enunciado:'¿Qué determina principalmente la reactividad química de un átomo?', opciones:['El número de neutrones','Los electrones de valencia','La masa atómica','El número de protones únicamente'], correcta:1, explicacion:'Los electrones de valencia son los que participan en los enlaces y reacciones químicas.'},
-      {tipo:'opcion', enunciado:'¿Cuántos electrones puede tener como máximo el subnivel "p"?', opciones:['2','6','10','14'], correcta:1, explicacion:'El subnivel p tiene 3 orbitales, cada uno con máximo 2 electrones: 3×2=6.'}
-    ],
-    'enlaces': [
-      {tipo:'vf', enunciado:'Un enlace iónico se forma típicamente entre un metal y un no metal.', correcta:true, explicacion:'Correcto — el metal tiende a perder electrones y el no metal a ganarlos.'},
-      {tipo:'vf', enunciado:'Cuanto mayor la diferencia de electronegatividad entre dos átomos, más probable que el enlace sea covalente apolar.', correcta:false, explicacion:'Falso — a mayor diferencia de electronegatividad, más probable que sea iónico, no covalente apolar.'},
-      {tipo:'opcion', enunciado:'¿Qué tipo de enlace explica por qué los metales conducen electricidad?', opciones:['Iónico','Covalente polar','Covalente apolar','Metálico'], correcta:3, explicacion:'En el enlace metálico, los electrones se mueven libremente por todo el metal — de ahí la conductividad.'},
-      {tipo:'opcion', enunciado:'¿Qué molécula es un ejemplo clásico de enlace covalente polar?', opciones:['NaCl','H₂O','O₂','Fe'], correcta:1, explicacion:'El agua (H₂O) tiene enlaces covalentes polares — el oxígeno atrae más fuerte los electrones.'},
-      {tipo:'vf', enunciado:'En un enlace iónico, se comparten electrones entre átomos.', correcta:false, explicacion:'Falso — en el enlace iónico los electrones se TRANSFIEREN de un átomo a otro, no se comparten.'},
-      {tipo:'vf', enunciado:'En un enlace covalente, los átomos comparten pares de electrones.', correcta:true, explicacion:'Correcto — esa es la característica central del enlace covalente.'},
-      {tipo:'vf', enunciado:'Los enlaces metálicos explican por qué los metales conducen electricidad.', correcta:true, explicacion:'Correcto — el "mar de electrones" libres típico del enlace metálico permite la conducción eléctrica.'},
-      {tipo:'opcion', enunciado:'¿Qué tipo de enlace se forma entre un metal y un no metal?', opciones:['Covalente','Iónico','Metálico','Puente de hidrógeno'], correcta:1, explicacion:'La gran diferencia de electronegatividad entre metal y no metal favorece la transferencia de electrones (enlace iónico).'},
-      {tipo:'opcion', enunciado:'¿Qué tipo de enlace es típico entre dos no metales?', opciones:['Iónico','Covalente','Metálico','No hay enlace'], correcta:1, explicacion:'Entre no metales, con electronegatividades similares, se comparten electrones formando enlaces covalentes.'},
-      {tipo:'opcion', enunciado:'¿Qué representa la electronegatividad?', opciones:['La masa de un átomo','La capacidad de un átomo de atraer electrones','El número de protones','El tamaño del átomo'], correcta:1, explicacion:'La electronegatividad mide qué tanto "atrae" un átomo a los electrones de un enlace.'}
-    ],
-    'acido-base': [
-      {tipo:'vf', enunciado:'Un pH menor a 7 indica una solución ácida.', correcta:true, explicacion:'Correcto — pH menor a 7 es ácido, mayor a 7 es básico, igual a 7 es neutro.'},
-      {tipo:'vf', enunciado:'Cada unidad de pH representa una diferencia de 2 veces en la concentración de H⁺.', correcta:false, explicacion:'Falso — la escala de pH es logarítmica, cada unidad representa una diferencia de 10 veces.'},
-      {tipo:'opcion', enunciado:'¿Qué se forma al neutralizar un ácido con una base?', opciones:['Solo agua','Solo sal','Sal y agua','Un nuevo ácido'], correcta:2, explicacion:'Ácido + Base → Sal + Agua, esa es la reacción de neutralización.'},
-      {tipo:'opcion', enunciado:'¿Cuál es el pH del agua pura a 25°C?', opciones:['0','7','14','No tiene pH'], correcta:1, explicacion:'El agua pura es neutra, con pH=7.'},
-      {tipo:'vf', enunciado:'Un pH menor a 7 indica una solución ácida.', correcta:true, explicacion:'Correcto — cuanto más bajo el pH (por debajo de 7), más ácida es la solución.'},
-      {tipo:'vf', enunciado:'Un pH de 7 indica una solución básica.', correcta:false, explicacion:'Falso — un pH de 7 es neutro, ni ácido ni básico.'},
-      {tipo:'vf', enunciado:'Cuanto más bajo es el pH, más ácida es la solución.', correcta:true, explicacion:'Correcto — la escala de pH es inversa a la concentración de H⁺: a menor pH, mayor acidez.'},
-      {tipo:'opcion', enunciado:'¿Qué escala se usa para medir la acidez o basicidad de una solución?', opciones:['Escala Kelvin','Escala de pH','Escala Richter','Escala Celsius'], correcta:1, explicacion:'La escala de pH, de 0 a 14, mide qué tan ácida o básica es una solución.'},
-      {tipo:'opcion', enunciado:'¿Cuál es el pH del agua pura a 25°C?', opciones:['0','7','14','1'], correcta:1, explicacion:'El agua pura es neutra, con pH=7.'},
-      {tipo:'opcion', enunciado:'Según Brønsted-Lowry, un ácido es una sustancia que:', opciones:['Dona protones (H⁺)','Acepta protones (H⁺)','Nunca reacciona','Siempre es sólida'], correcta:0, explicacion:'Según esta teoría, los ácidos donan protones (H⁺) y las bases los aceptan.'}
-    ],
-    'oxido-reduccion': [
-      {tipo:'vf', enunciado:'La oxidación es la pérdida de electrones.', correcta:true, explicacion:'Correcto — "quien pierde, se oxida."'},
-      {tipo:'vf', enunciado:'El agente oxidante es el que se oxida.', correcta:false, explicacion:'Falso — el agente oxidante es el que se REDUCE (gana electrones), causando que el otro se oxide.'},
-      {tipo:'opcion', enunciado:'En la reacción Zn + Cu²⁺ → Zn²⁺ + Cu, ¿qué le pasa al zinc?', opciones:['Se oxida','Se reduce','No cambia','Se evapora'], correcta:0, explicacion:'El Zn pasa de 0 a +2 — pierde electrones, se oxida.'},
-      {tipo:'opcion', enunciado:'¿Cuál de estos metales es más reactivo (se oxida más fácil)?', opciones:['Oro','Cobre','Potasio','Plata'], correcta:2, explicacion:'El potasio está muy arriba en la serie de actividad — reacciona hasta con agua fría.'},
-      {tipo:'vf', enunciado:'En una reacción redox, una sustancia se oxida y otra se reduce simultáneamente.', correcta:true, explicacion:'Correcto — la oxidación y la reducción siempre ocurren juntas, ya que los electrones perdidos por una sustancia son ganados por otra.'},
-      {tipo:'vf', enunciado:'La oxidación es la pérdida de electrones.', correcta:true, explicacion:'Correcto — al oxidarse, un átomo o ion pierde electrones.'},
-      {tipo:'vf', enunciado:'La reducción es la pérdida de electrones.', correcta:false, explicacion:'Falso — la reducción es la GANANCIA de electrones, no la pérdida.'},
-      {tipo:'opcion', enunciado:'¿Qué le pasa al número de oxidación de un elemento cuando se reduce?', opciones:['Aumenta','Disminuye','No cambia','Se vuelve cero siempre'], correcta:1, explicacion:'Al ganar electrones (reducirse), el número de oxidación disminuye.'},
-      {tipo:'opcion', enunciado:'¿Cómo se llama la sustancia que provoca la oxidación de otra?', opciones:['Agente reductor','Agente oxidante','Catalizador','Electrolito'], correcta:1, explicacion:'El agente oxidante es el que "roba" electrones a otra sustancia, oxidándola, mientras él mismo se reduce.'},
-      {tipo:'opcion', enunciado:'El óxido que se forma sobre el hierro es un ejemplo de:', opciones:['Reducción','Oxidación','Neutralización','Sublimación'], correcta:1, explicacion:'El hierro pierde electrones al reaccionar con el oxígeno del aire, oxidándose (formando óxido de hierro).'}
-    ],
-    'estequiometria': [
-      {tipo:'vf', enunciado:'Un mol de cualquier sustancia contiene el mismo número de partículas (6.022×10²³).', correcta:true, explicacion:'Correcto — esa es la definición del número de Avogadro.'},
-      {tipo:'vf', enunciado:'La molaridad se calcula dividiendo la masa por el volumen.', correcta:false, explicacion:'Falso — la molaridad es moles/volumen (M=n/V), no masa/volumen.'},
-      {tipo:'opcion', enunciado:'¿Qué determina cuál es el reactivo limitante en una reacción?', opciones:['El que sobra al final','El que se agota primero','El más pesado','El más caro'], correcta:1, explicacion:'El reactivo limitante es el que se termina primero, limitando cuánto producto se puede formar.'},
-      {tipo:'opcion', enunciado:'¿Cuántas partículas hay en 2 moles de cualquier sustancia?', opciones:['6.022×10²³','12.044×10²³','3.011×10²³','1 mol'], correcta:1, explicacion:'2 × 6.022×10²³ = 12.044×10²³ partículas.'},
-      {tipo:'vf', enunciado:'La Ley de Conservación de la Masa dice que la masa total de los reactivos es igual a la masa total de los productos.', correcta:true, explicacion:'Correcto — la materia no se crea ni se destruye en una reacción química, solo se transforma.'},
-      {tipo:'vf', enunciado:'Un mol de cualquier sustancia contiene el mismo número de partículas.', correcta:true, explicacion:'Correcto — un mol siempre equivale al número de Avogadro de partículas, sin importar la sustancia.'},
-      {tipo:'vf', enunciado:'El reactivo limitante es el que sobra al final de la reacción.', correcta:false, explicacion:'Falso — el reactivo limitante es el que se consume primero y determina cuánto producto se puede formar; el que sobra es el reactivo en exceso.'},
-      {tipo:'opcion', enunciado:'¿Cuántas partículas hay en un mol de cualquier sustancia?', opciones:['6.022×10²³','1×10¹⁰','3.14×10⁶','9.8×10⁸'], correcta:0, explicacion:'Ese es el número de Avogadro, la cantidad de partículas en un mol.'},
-      {tipo:'opcion', enunciado:'¿Qué se debe balancear en una ecuación química?', opciones:['Solo los reactivos','Solo los productos','El número de átomos de cada elemento','Solo la masa molar'], correcta:2, explicacion:'Para cumplir la conservación de la masa, debe haber la misma cantidad de átomos de cada elemento en ambos lados.'},
-      {tipo:'opcion', enunciado:'¿Cómo se llama el número que representa la cantidad de partículas por mol?', opciones:['Número de Boltzmann','Número de Avogadro','Constante de Planck','Número atómico'], correcta:1, explicacion:'El número de Avogadro (6.022×10²³) es la constante que define cuántas partículas hay en un mol.'}
-    ],
-    'gases': [
-      {tipo:'vf', enunciado:'Según la Ley de Boyle, a temperatura constante, si el volumen de un gas disminuye, la presión aumenta.', correcta:true, explicacion:'Correcto — P y V son inversamente proporcionales a temperatura constante.'},
-      {tipo:'vf', enunciado:'En la ecuación del gas ideal, la temperatura se usa en grados Celsius.', correcta:false, explicacion:'Falso — siempre debe usarse en Kelvin, una escala absoluta.'},
-      {tipo:'opcion', enunciado:'¿Qué le pasa al volumen de un gas si se duplica su temperatura absoluta (a presión constante)?', opciones:['Se duplica','Se reduce a la mitad','No cambia','Se cuadriplica'], correcta:0, explicacion:'Según la Ley de Charles, V y T son directamente proporcionales.'},
-      {tipo:'opcion', enunciado:'¿Cuántos litros ocupa 1 mol de gas ideal en condiciones normales (CNPT)?', opciones:['1 L','22.4 L','100 L','6.022×10²³ L'], correcta:1, explicacion:'22.4 L es el volumen molar en condiciones normales de presión y temperatura.'},
-      {tipo:'vf', enunciado:'La Ley de Boyle relaciona presión y volumen a temperatura constante.', correcta:true, explicacion:'Correcto — a temperatura constante, P y V son inversamente proporcionales.'},
-      {tipo:'vf', enunciado:'Según la Ley de Charles, a presión constante, el volumen de un gas es directamente proporcional a su temperatura.', correcta:true, explicacion:'Correcto — a mayor temperatura, mayor volumen (a presión constante).'},
-      {tipo:'vf', enunciado:'Un gas ideal es aquel que tiene fuerzas de atracción muy fuertes entre sus partículas.', correcta:false, explicacion:'Falso — un gas ideal se asume SIN fuerzas de atracción entre sus partículas, es un modelo simplificado.'},
-      {tipo:'opcion', enunciado:'¿Qué le pasa al volumen de un gas si aumenta la presión (a temperatura constante)?', opciones:['Aumenta','Disminuye','No cambia','Se hace cero'], correcta:1, explicacion:'Según la Ley de Boyle, P y V son inversamente proporcionales: si P sube, V baja.'},
-      {tipo:'opcion', enunciado:'¿Cuál es la ecuación general de los gases ideales?', opciones:['PV=nRT','P=V/T','PV=T','P+V=nRT'], correcta:0, explicacion:'PV=nRT combina presión, volumen, moles y temperatura de un gas ideal.'},
-      {tipo:'opcion', enunciado:'¿Qué escala de temperatura se usa en los cálculos de gases?', opciones:['Celsius','Fahrenheit','Kelvin','Cualquiera, no importa'], correcta:2, explicacion:'Siempre se usa la escala Kelvin, porque no tiene valores negativos y parte del cero absoluto.'}
-    ],
-    'relatividad': [
-      {tipo:'vf', enunciado:'Según la Relatividad Especial, el tiempo pasa igual para todos los observadores sin importar su velocidad.', correcta:false, explicacion:'Falso — justamente lo contrario: el tiempo es relativo, depende de la velocidad del observador.'},
-      {tipo:'vf', enunciado:'Cuanto más cerca de la velocidad de la luz se mueve algo, más lento pasa el tiempo para eso, visto desde un observador en reposo.', correcta:true, explicacion:'Correcto — eso es la dilatación temporal.'},
-      {tipo:'opcion', enunciado:'¿Quién propuso la Teoría de la Relatividad?', opciones:['Isaac Newton','Albert Einstein','Niels Bohr','Marie Curie'], correcta:1, explicacion:'Albert Einstein, con la Relatividad Especial (1905) y General (1915).'},
-      {tipo:'opcion', enunciado:'¿Por qué los satélites GPS necesitan corrección relativista?', opciones:['Por su velocidad y la gravedad distinta a la que sienten','Porque son muy pesados','Porque usan mucha energía','No necesitan ninguna corrección'], correcta:0, explicacion:'Su velocidad y su distancia del centro de la Tierra alteran cómo pasa el tiempo para ellos, comparado con la superficie.'},
-      {tipo:'vf', enunciado:'Según la Teoría de la Relatividad, el tiempo transcurre igual para todos los observadores sin importar su velocidad.', correcta:false, explicacion:'Falso — el tiempo es relativo: transcurre distinto según la velocidad del observador.'},
-      {tipo:'vf', enunciado:'La velocidad de la luz en el vacío es constante para todos los observadores.', correcta:true, explicacion:'Correcto — este es uno de los postulados fundamentales de la Relatividad Especial.'},
-      {tipo:'vf', enunciado:'La dilatación temporal implica que un reloj en movimiento (respecto a un observador) atrasa respecto a uno en reposo.', correcta:true, explicacion:'Correcto — desde la perspectiva del observador en reposo, el reloj en movimiento marcha más lento.'},
-      {tipo:'opcion', enunciado:'¿Quién formuló la Teoría de la Relatividad?', opciones:['Isaac Newton','Albert Einstein','Niels Bohr','Galileo Galilei'], correcta:1, explicacion:'Einstein publicó la Relatividad Especial en 1905 y la General en 1915.'},
-      {tipo:'opcion', enunciado:'¿Qué le pasa a la masa de un objeto al acercarse a la velocidad de la luz, según la relatividad?', opciones:['Disminuye','Se mantiene igual','Aumenta','Desaparece'], correcta:2, explicacion:'La masa relativista aumenta a medida que la velocidad se acerca a la de la luz.'},
-      {tipo:'opcion', enunciado:'¿Qué combina la relatividad en un solo concepto?', opciones:['Masa y energía','Espacio y tiempo','Fuerza y aceleración','Calor y temperatura'], correcta:1, explicacion:'La relatividad describe el "espacio-tiempo" como una sola entidad, no como conceptos separados.'}
-    ],
-    'nuclear': [
-      {tipo:'vf', enunciado:'En la fisión nuclear, un núcleo pesado se divide en núcleos más chicos.', correcta:true, explicacion:'Correcto — así funcionan las centrales nucleares actuales.'},
-      {tipo:'vf', enunciado:'En la fusión nuclear, se dividen núcleos livianos en partículas más chicas.', correcta:false, explicacion:'Falso — en la fusión, núcleos LIVIANOS se UNEN para formar uno más pesado (lo opuesto a dividir).'},
-      {tipo:'opcion', enunciado:'¿Quién descubrió la radiactividad?', opciones:['Marie Curie','Henri Becquerel','Albert Einstein','Ernest Rutherford'], correcta:1, explicacion:'Henri Becquerel, en 1896, de forma accidental con sales de uranio.'},
-      {tipo:'opcion', enunciado:'¿Qué representa la vida media de un isótopo radiactivo?', opciones:['El tiempo total que tarda en desaparecer completamente','El tiempo en que se desintegra la mitad de la muestra','La energía que libera','El tipo de radiación que emite'], correcta:1, explicacion:'La vida media es el tiempo que tarda en desintegrarse exactamente la mitad de una muestra.'},
-      {tipo:'vf', enunciado:'La fisión nuclear consiste en unir dos núcleos livianos para formar uno más pesado.', correcta:false, explicacion:'Falso — eso es fusión nuclear; la fisión es DIVIDIR un núcleo pesado en núcleos más livianos.'},
-      {tipo:'vf', enunciado:'Las centrales nucleares actuales funcionan mediante fisión.', correcta:true, explicacion:'Correcto — la mayoría de las plantas nucleares actuales usan fisión de uranio o plutonio.'},
-      {tipo:'vf', enunciado:'La radiactividad es la emisión espontánea de partículas o energía desde un núcleo inestable.', correcta:true, explicacion:'Correcto — los núcleos inestables se desintegran espontáneamente, emitiendo radiación.'},
-      {tipo:'opcion', enunciado:'¿Qué proceso libera energía en el Sol?', opciones:['Fisión nuclear','Fusión nuclear','Combustión química','Radiactividad natural'], correcta:1, explicacion:'El Sol genera energía fusionando núcleos de hidrógeno para formar helio.'},
-      {tipo:'opcion', enunciado:'¿Cuál de estas NO es un tipo de radiación nuclear?', opciones:['Alfa','Beta','Gamma','Delta'], correcta:3, explicacion:'Los tres tipos principales de radiación nuclear son alfa, beta y gamma; "delta" no es un tipo de radiación.'},
-      {tipo:'opcion', enunciado:'Según la fórmula de Einstein E=mc², una pequeña cantidad de masa puede convertirse en:', opciones:['Una gran cantidad de energía','Una pequeña cantidad de energía','Solo calor','Nada, la fórmula es teórica'], correcta:0, explicacion:'Como c² es un número enorme, incluso poca masa equivale a muchísima energía.'}
-    ],
-    'fluidos': [
-      {tipo:'vf', enunciado:'La presión hidrostática aumenta con la profundidad.', correcta:true, explicacion:'Correcto — P=ρgh, a mayor profundidad h, mayor presión.'},
-      {tipo:'vf', enunciado:'Según el Principio de Arquímedes, un objeto flota si su densidad es mayor que la del fluido.', correcta:false, explicacion:'Falso — flota si su densidad es MENOR que la del fluido.'},
-      {tipo:'opcion', enunciado:'¿De qué depende el empuje que siente un objeto sumergido?', opciones:['Solo de su peso','De la densidad del fluido y el volumen desplazado','Solo de su forma','De la temperatura del objeto'], correcta:1, explicacion:'E=ρ·g·V — depende de la densidad del fluido y el volumen que el objeto desplaza.'},
-      {tipo:'opcion', enunciado:'¿Por qué es más fácil flotar en el mar que en una pileta de agua dulce?', opciones:['El mar es más profundo','El agua salada es más densa','El mar tiene olas','No hay diferencia real'], correcta:1, explicacion:'El agua salada tiene mayor densidad, lo que aumenta el empuje sobre el cuerpo.'},
-      {tipo:'vf', enunciado:'La presión atmosférica disminuye con la altura.', correcta:true, explicacion:'Correcto — a mayor altura, hay menos aire encima empujando hacia abajo, así que la presión es menor.'},
-      {tipo:'vf', enunciado:'Todos los fluidos tienen la misma densidad.', correcta:false, explicacion:'Falso — cada fluido tiene su propia densidad característica.'},
-      {tipo:'vf', enunciado:'El principio de Pascal dice que la presión aplicada a un fluido encerrado se transmite igual en todas direcciones.', correcta:true, explicacion:'Correcto — esa es la base del funcionamiento de los sistemas hidráulicos.'},
-      {tipo:'opcion', enunciado:'¿Qué unidad se usa comúnmente para medir presión?', opciones:['Newton','Pascal','Joule','Watt'], correcta:1, explicacion:'El Pascal (Pa) es la unidad de presión en el Sistema Internacional.'},
-      {tipo:'opcion', enunciado:'¿Qué determina si un objeto flota o se hunde en un fluido?', opciones:['Su forma únicamente','La comparación entre su densidad y la del fluido','Su temperatura','Su color'], correcta:1, explicacion:'Si el objeto es menos denso que el fluido, flota; si es más denso, se hunde.'},
-      {tipo:'opcion', enunciado:'¿En qué se basa el funcionamiento de un gato hidráulico?', opciones:['Principio de Arquímedes','Principio de Pascal','Ley de Ohm','Ley de Boyle'], correcta:1, explicacion:'El gato hidráulico usa el Principio de Pascal para multiplicar la fuerza aplicada.'}
-    ],
-    'ecuaciones': [
-      {tipo:'vf', enunciado:'Una ecuación de segundo grado siempre tiene dos soluciones reales.', correcta:false, explicacion:'Falso — puede tener dos, una (doble) o ninguna solución real, según el signo del discriminante.'},
-      {tipo:'vf', enunciado:'El discriminante (b²-4ac) permite saber cuántas soluciones reales tiene una ecuación cuadrática.', correcta:true, explicacion:'Correcto — si es positivo hay 2 soluciones, si es cero hay 1, si es negativo no hay soluciones reales.'},
-      {tipo:'opcion', enunciado:'¿Cuál es la fórmula general para resolver ax²+bx+c=0?', opciones:['x = (-b ± √(b²-4ac)) / 2a','x = -b/a','x = b²-4ac','x = √(a²+b²)'], correcta:0, explicacion:'Esa es la fórmula resolvente, válida para cualquier ecuación cuadrática.'},
-      {tipo:'opcion', enunciado:'Si el discriminante es negativo, la ecuación tiene:', opciones:['Dos soluciones reales distintas','Una solución real doble','Ninguna solución real','Infinitas soluciones'], correcta:2, explicacion:'Un discriminante negativo implica raíz cuadrada de un número negativo, sin solución real.'},
-      {tipo:'vf', enunciado:'Toda ecuación de primer grado tiene exactamente una solución.', correcta:true, explicacion:'Correcto — en general, una ecuación lineal tiene una única solución (salvo casos especiales).'},
-      {tipo:'vf', enunciado:'En una ecuación de segundo grado, el coeficiente "a" puede ser igual a cero.', correcta:false, explicacion:'Falso — si a=0, el término x² desaparece y deja de ser una ecuación cuadrática.'},
-      {tipo:'vf', enunciado:'Las raíces de una ecuación cuadrática son los valores de x donde la parábola cruza el eje x.', correcta:true, explicacion:'Correcto — las raíces son justamente los puntos donde y=0, es decir, donde la parábola corta el eje horizontal.'},
-      {tipo:'opcion', enunciado:'¿Cuál es la forma general de una ecuación de segundo grado?', opciones:['ax+b=0','ax²+bx+c=0','ax³+b=0','a/x=b'], correcta:1, explicacion:'Esa es la forma estándar de una ecuación cuadrática.'},
-      {tipo:'opcion', enunciado:'Si el discriminante es igual a cero, la ecuación tiene:', opciones:['Dos soluciones distintas','Una solución (doble)','Ninguna solución real','Infinitas soluciones'], correcta:1, explicacion:'Un discriminante igual a cero da una única raíz, llamada raíz doble.'},
-      {tipo:'opcion', enunciado:'¿Qué representa gráficamente una ecuación de segundo grado?', opciones:['Una recta','Una parábola','Un círculo','Una hipérbola'], correcta:1, explicacion:'La función cuadrática y=ax²+bx+c se representa como una parábola.'}
-    ],
-    'funciones': [
-      {tipo:'vf', enunciado:'En una función, cada valor de x puede tener más de un valor de y.', correcta:false, explicacion:'Falso — por definición, cada x tiene un único valor de y asociado.'},
-      {tipo:'vf', enunciado:'El dominio de una función son todos los valores posibles que puede tomar x.', correcta:true, explicacion:'Correcto — el dominio es el conjunto de entradas válidas de la función.'},
-      {tipo:'opcion', enunciado:'¿Cómo se llama el valor de x donde una función cruza el eje horizontal?', opciones:['Ordenada al origen','Raíz o cero','Pendiente','Vértice'], correcta:1, explicacion:'Se llama raíz o cero de la función — es donde y=0.'},
-      {tipo:'opcion', enunciado:'En una función lineal y=mx+b, ¿qué representa m?', opciones:['La ordenada al origen','La pendiente','El dominio','Una raíz'], correcta:1, explicacion:'m es la pendiente — indica qué tan inclinada está la recta.'},
-      {tipo:'vf', enunciado:'Una función puede tener más de una raíz.', correcta:true, explicacion:'Correcto — muchas funciones, como las cuadráticas, pueden cruzar el eje x en más de un punto.'},
-      {tipo:'vf', enunciado:'El rango de una función son todos los posibles valores de entrada (x).', correcta:false, explicacion:'Falso — eso es el dominio; el rango son los posibles valores de SALIDA (y).'},
-      {tipo:'vf', enunciado:'Una función lineal siempre pasa por el origen.', correcta:false, explicacion:'Falso — solo pasa por el origen si la ordenada al origen (b) es cero.'},
-      {tipo:'opcion', enunciado:'¿Qué es la ordenada al origen?', opciones:['El valor de y cuando x=0','El valor de x cuando y=0','La pendiente de la recta','El dominio de la función'], correcta:0, explicacion:'Es el punto donde la función corta el eje vertical, cuando x=0.'},
-      {tipo:'opcion', enunciado:'¿Cómo se llama una función cuya representación gráfica es una parábola?', opciones:['Lineal','Cuadrática','Racional','Exponencial'], correcta:1, explicacion:'Las funciones cuadráticas (con término x²) se grafican como parábolas.'},
-      {tipo:'opcion', enunciado:'Si una función es creciente, al aumentar x, y:', opciones:['Aumenta','Disminuye','Se mantiene igual','Se hace cero'], correcta:0, explicacion:'Una función creciente sube su valor de y a medida que x aumenta.'}
-    ],
-    'trigonometria': [
-      {tipo:'vf', enunciado:'El seno de un ángulo es el cociente entre el cateto opuesto y la hipotenusa.', correcta:true, explicacion:'Correcto — sen(θ) = cateto opuesto / hipotenusa.'},
-      {tipo:'vf', enunciado:'En un triángulo rectángulo, la suma de los dos ángulos agudos es 180°.', correcta:false, explicacion:'Falso — suman 90°, ya que el ángulo recto (90°) completa los 180° totales del triángulo.'},
-      {tipo:'opcion', enunciado:'¿Qué relación trigonométrica usa el cateto adyacente y la hipotenusa?', opciones:['Seno','Coseno','Tangente','Ninguna'], correcta:1, explicacion:'cos(θ) = cateto adyacente / hipotenusa.'},
-      {tipo:'opcion', enunciado:'¿Cuánto vale el seno de 90°?', opciones:['0','0.5','1','No está definido'], correcta:2, explicacion:'sen(90°) = 1, el valor máximo posible del seno.'},
-      {tipo:'vf', enunciado:'La tangente de un ángulo es el cociente entre el seno y el coseno de ese ángulo.', correcta:true, explicacion:'Correcto — tan(θ) = sen(θ) / cos(θ).'},
-      {tipo:'vf', enunciado:'En un triángulo rectángulo, la hipotenusa es el lado más corto.', correcta:false, explicacion:'Falso — la hipotenusa es siempre el lado más LARGO del triángulo rectángulo.'},
-      {tipo:'vf', enunciado:'El coseno de 0° es 1.', correcta:true, explicacion:'Correcto — cos(0°)=1, el valor máximo posible del coseno.'},
-      {tipo:'opcion', enunciado:'¿Cuánto vale el coseno de 90°?', opciones:['0','1','-1','No está definido'], correcta:0, explicacion:'cos(90°)=0.'},
-      {tipo:'opcion', enunciado:'¿Qué lado del triángulo rectángulo está siempre opuesto al ángulo recto?', opciones:['Cateto adyacente','Cateto opuesto','Hipotenusa','Ninguno'], correcta:2, explicacion:'La hipotenusa siempre está opuesta al ángulo de 90°.'},
-      {tipo:'opcion', enunciado:'¿Cuál es la relación fundamental entre seno y coseno de un mismo ángulo?', opciones:['sen²+cos²=1','sen+cos=1','sen×cos=1','sen-cos=1'], correcta:0, explicacion:'Esa es la identidad pitagórica fundamental de la trigonometría.'}
-    ],
-    'geometria': [
-      {tipo:'vf', enunciado:'El Teorema de Thales se aplica a triángulos semejantes formados por rectas paralelas.', correcta:true, explicacion:'Correcto — Thales relaciona segmentos proporcionales cortados por rectas paralelas.'},
-      {tipo:'vf', enunciado:'El área de un triángulo se calcula multiplicando base por altura.', correcta:false, explicacion:'Falso — hay que dividir ese producto por 2: A = (base × altura) / 2.'},
-      {tipo:'opcion', enunciado:'¿Cuál es la fórmula del área de un círculo?', opciones:['2πr','πr²','πd','r²'], correcta:1, explicacion:'A = πr², con r el radio del círculo.'},
-      {tipo:'opcion', enunciado:'Si dos triángulos son semejantes, sus lados correspondientes son:', opciones:['Iguales','Proporcionales','Perpendiculares','Paralelos'], correcta:1, explicacion:'La semejanza implica que los lados correspondientes guardan la misma proporción, no que sean iguales.'},
-      {tipo:'vf', enunciado:'El perímetro es la suma de todos los lados de una figura.', correcta:true, explicacion:'Correcto — el perímetro mide el contorno total de la figura.'},
-      {tipo:'vf', enunciado:'Dos figuras congruentes tienen la misma forma pero distinto tamaño.', correcta:false, explicacion:'Falso — las figuras congruentes tienen la misma forma Y el mismo tamaño; las que tienen igual forma y distinto tamaño son semejantes.'},
-      {tipo:'vf', enunciado:'El volumen de un cuerpo se mide en unidades cúbicas.', correcta:true, explicacion:'Correcto — como cm³ o m³, ya que mide espacio en tres dimensiones.'},
-      {tipo:'opcion', enunciado:'¿Cuál es la fórmula del volumen de un cubo?', opciones:['lado × lado','lado²','lado³','4×lado'], correcta:2, explicacion:'El volumen de un cubo es su lado elevado al cubo (lado × lado × lado).'},
-      {tipo:'opcion', enunciado:'¿Cómo se llama la línea que une el centro de un círculo con cualquier punto de la circunferencia?', opciones:['Diámetro','Radio','Cuerda','Tangente'], correcta:1, explicacion:'Esa distancia se llama radio.'},
-      {tipo:'opcion', enunciado:'El Teorema de Thales permite calcular:', opciones:['Ángulos únicamente','Segmentos proporcionales','Solo áreas','Solo volúmenes'], correcta:1, explicacion:'Thales relaciona segmentos proporcionales entre rectas paralelas cortadas por transversales.'}
-    ],
-    'mcu': [
-      {tipo:'vf', enunciado:'En el MCU, la velocidad tangencial cambia de dirección constantemente aunque su magnitud sea constante.', correcta:true, explicacion:'Correcto — la rapidez no cambia, pero la dirección del vector velocidad sí, en cada punto de la trayectoria.'},
-      {tipo:'vf', enunciado:'En el MCU, la aceleración es cero porque la rapidez no cambia.', correcta:false, explicacion:'Falso — existe aceleración centrípeta, que cambia la dirección del movimiento aunque no la rapidez.'},
-      {tipo:'opcion', enunciado:'¿Hacia dónde apunta la aceleración centrípeta?', opciones:['Hacia afuera del círculo','Hacia el centro del círculo','En la dirección del movimiento','No tiene dirección definida'], correcta:1, explicacion:'Apunta siempre hacia el centro — por eso se llama "centrípeta".'},
-      {tipo:'opcion', enunciado:'¿Qué representa el período T en el MCU?', opciones:['La velocidad angular','El tiempo de una vuelta completa','El radio de la trayectoria','La frecuencia'], correcta:1, explicacion:'El período es el tiempo que tarda el objeto en dar una vuelta completa.'},
-      {tipo:'vf', enunciado:'La frecuencia es el número de vueltas que da un objeto por unidad de tiempo.', correcta:true, explicacion:'Correcto — esa es la definición de frecuencia en el MCU.'},
-      {tipo:'vf', enunciado:'La frecuencia y el período son inversamente proporcionales.', correcta:true, explicacion:'Correcto — f=1/T, a mayor período, menor frecuencia.'},
-      {tipo:'vf', enunciado:'En el MCU la rapidez del objeto cambia constantemente.', correcta:false, explicacion:'Falso — la rapidez (magnitud de la velocidad) es constante; lo que cambia constantemente es la dirección.'},
-      {tipo:'opcion', enunciado:'¿Cuál es la relación entre frecuencia (f) y período (T)?', opciones:['f = T','f = 1/T','f = T²','f = 2T'], correcta:1, explicacion:'La frecuencia es la inversa del período.'},
-      {tipo:'opcion', enunciado:'¿En qué unidad se mide la frecuencia en el SI?', opciones:['Segundos','Metros','Hertz','Radianes'], correcta:2, explicacion:'El Hertz (Hz) mide vueltas o ciclos por segundo.'},
-      {tipo:'opcion', enunciado:'¿Qué le da al objeto la fuerza centrípeta?', opciones:['Velocidad constante','Cambio de dirección hacia el centro','Aumento de rapidez','Frenado'], correcta:1, explicacion:'La fuerza centrípeta apunta hacia el centro y es la que "curva" la trayectoria del objeto.'}
-    ],
-    'tiro-oblicuo': [
-      {tipo:'vf', enunciado:'En el tiro oblicuo, la componente horizontal de la velocidad se mantiene constante durante todo el vuelo.', correcta:true, explicacion:'Correcto — sin resistencia del aire, no hay fuerzas horizontales, así que esa componente no cambia.'},
-      {tipo:'vf', enunciado:'El alcance máximo se logra con un ángulo de lanzamiento de 90°.', correcta:false, explicacion:'Falso — el alcance máximo se logra a 45°; a 90° el proyectil sube y baja sin avanzar horizontalmente.'},
-      {tipo:'opcion', enunciado:'¿Qué le pasa a la componente vertical de la velocidad en el punto más alto de la trayectoria?', opciones:['Es máxima','Es cero','Es igual a la inicial','Cambia de signo'], correcta:1, explicacion:'En el punto más alto, el objeto deja de subir y todavía no empieza a bajar — ahí la velocidad vertical es cero.'},
-      {tipo:'opcion', enunciado:'¿Qué forma tiene la trayectoria de un tiro oblicuo?', opciones:['Una recta','Una parábola','Un círculo','Una línea quebrada'], correcta:1, explicacion:'La combinación de movimiento horizontal constante y caída acelerada da una trayectoria parabólica.'},
-      {tipo:'vf', enunciado:'En el punto más alto del tiro oblicuo, la velocidad total del objeto es cero.', correcta:false, explicacion:'Falso — solo la componente VERTICAL es cero en ese punto; la componente horizontal sigue existiendo.'},
-      {tipo:'vf', enunciado:'El tiempo de subida es igual al tiempo de bajada, si el punto de lanzamiento y de llegada están a la misma altura.', correcta:true, explicacion:'Correcto — por la simetría de la parábola, ambos tiempos son iguales en ese caso.'},
-      {tipo:'vf', enunciado:'La aceleración de la gravedad afecta tanto la componente horizontal como la vertical del movimiento.', correcta:false, explicacion:'Falso — la gravedad solo afecta la componente VERTICAL; la horizontal permanece constante.'},
-      {tipo:'opcion', enunciado:'¿Qué combina el tiro oblicuo?', opciones:['Dos MRUV','Un MRU horizontal y una caída libre vertical','Dos caídas libres','Un MCU y un MRU'], correcta:1, explicacion:'Horizontalmente se mueve a velocidad constante (MRU), y verticalmente cae acelerado por la gravedad.'},
-      {tipo:'opcion', enunciado:'¿Qué ángulo de lanzamiento da el alcance máximo (sin resistencia del aire)?', opciones:['30°','45°','60°','90°'], correcta:1, explicacion:'A 45° se logra el mayor alcance horizontal posible, para una misma velocidad inicial.'},
-      {tipo:'opcion', enunciado:'¿Qué le pasa a la velocidad vertical durante la subida del proyectil?', opciones:['Aumenta','Se mantiene constante','Disminuye','Es siempre cero'], correcta:2, explicacion:'La gravedad frena la componente vertical durante la subida, hasta hacerla cero en el punto más alto.'}
-    ],
-    'maquinas-simples': [
-      {tipo:'vf', enunciado:'Una máquina simple permite aplicar menos fuerza a cambio de aplicarla en una distancia mayor.', correcta:true, explicacion:'Correcto — es el principio general de todas las máquinas simples (palancas, poleas, planos inclinados).'},
-      {tipo:'vf', enunciado:'Las máquinas simples permiten hacer menos trabajo total para levantar un objeto.', correcta:false, explicacion:'Falso — el trabajo total (ideal, sin fricción) es el mismo; lo que cambia es la fuerza necesaria y la distancia recorrida.'},
-      {tipo:'opcion', enunciado:'¿Cómo se llama la relación entre la fuerza resistente y la fuerza aplicada en una máquina simple?', opciones:['Rendimiento','Ventaja mecánica','Potencia','Torque'], correcta:1, explicacion:'La ventaja mecánica indica cuánto "amplifica" la máquina la fuerza aplicada.'},
-      {tipo:'opcion', enunciado:'¿Cuál de estas es una máquina simple?', opciones:['Motor eléctrico','Polea','Generador','Transformador'], correcta:1, explicacion:'La polea es una de las máquinas simples clásicas, junto con la palanca y el plano inclinado.'},
-      {tipo:'vf', enunciado:'El plano inclinado es un tipo de máquina simple.', correcta:true, explicacion:'Correcto — junto con la palanca y la polea, es una de las máquinas simples clásicas.'},
-      {tipo:'vf', enunciado:'Cuantas más poleas se agreguen a un sistema, menor es la fuerza necesaria para levantar un peso (ideal, sin fricción).', correcta:true, explicacion:'Correcto — un sistema de poleas móviles reduce la fuerza necesaria, a costa de tirar más distancia de cuerda.'},
-      {tipo:'vf', enunciado:'La ventaja mecánica de una máquina simple siempre es mayor a 1.', correcta:false, explicacion:'Falso — en algunos casos (como ciertas palancas) puede ser igual o menor a 1.'},
-      {tipo:'opcion', enunciado:'¿Qué parte de la palanca no se mueve?', opciones:['El brazo de potencia','El brazo de resistencia','El punto de apoyo (fulcro)','La fuerza aplicada'], correcta:2, explicacion:'El punto de apoyo o fulcro es el eje fijo sobre el que gira la palanca.'},
-      {tipo:'opcion', enunciado:'¿Cuál de estas es una aplicación de plano inclinado?', opciones:['Una rampa','Un destornillador','Una tijera','Una cuerda'], correcta:0, explicacion:'Una rampa es un ejemplo directo de plano inclinado, usado para subir cargas con menos fuerza.'},
-      {tipo:'opcion', enunciado:'En una polea fija simple, la ventaja mecánica es:', opciones:['Mayor a 1','Igual a 1','Menor a 1','Depende del peso'], correcta:1, explicacion:'Una polea fija solo cambia la dirección de la fuerza, no la amplifica — su ventaja mecánica es 1.'}
-    ],
-    'estados-materia': [
-      {tipo:'vf', enunciado:'En los gases, las partículas están muy separadas y se mueven libremente.', correcta:true, explicacion:'Correcto — por eso los gases se expanden y ocupan todo el espacio disponible.'},
-      {tipo:'vf', enunciado:'En los sólidos, las partículas tienen la misma libertad de movimiento que en los líquidos.', correcta:false, explicacion:'Falso — en los sólidos las partículas vibran en posiciones fijas, sin desplazarse libremente como en los líquidos.'},
-      {tipo:'opcion', enunciado:'¿Cómo se llama el paso directo de sólido a gas, sin pasar por líquido?', opciones:['Fusión','Sublimación','Condensación','Solidificación'], correcta:1, explicacion:'La sublimación es ese cambio de estado directo, como le pasa al hielo seco.'},
-      {tipo:'opcion', enunciado:'¿Qué pasa con la temperatura durante un cambio de estado?', opciones:['Sube constantemente','Baja constantemente','Se mantiene constante','Depende de la presión'], correcta:2, explicacion:'Toda la energía entregada se usa para cambiar el estado, no para subir la temperatura, así que se mantiene constante.'},
-      {tipo:'vf', enunciado:'Los líquidos tienen forma definida pero volumen variable.', correcta:false, explicacion:'Falso — es al revés: los líquidos NO tienen forma definida (toman la del recipiente), pero sí tienen volumen definido.'},
-      {tipo:'vf', enunciado:'El plasma es considerado un cuarto estado de la materia.', correcta:true, explicacion:'Correcto — el plasma es un gas ionizado, con propiedades distintas a sólido, líquido y gas.'},
-      {tipo:'vf', enunciado:'La condensación es el paso de gas a líquido.', correcta:true, explicacion:'Correcto — es el proceso opuesto a la evaporación.'},
-      {tipo:'opcion', enunciado:'¿Qué cambio de estado ocurre cuando un líquido pasa a sólido?', opciones:['Fusión','Solidificación','Evaporación','Sublimación'], correcta:1, explicacion:'La solidificación es el paso de líquido a sólido, al perder energía.'},
-      {tipo:'opcion', enunciado:'¿Qué le pasa a la energía cinética de las partículas al aumentar la temperatura?', opciones:['Disminuye','Aumenta','No cambia','Se vuelve cero'], correcta:1, explicacion:'Mayor temperatura significa partículas moviéndose más rápido, con más energía cinética.'},
-      {tipo:'opcion', enunciado:'¿Cuál de estos NO es un estado de la materia?', opciones:['Sólido','Líquido','Gaseoso','Magnético'], correcta:3, explicacion:'"Magnético" no es un estado de la materia; los estados básicos son sólido, líquido, gaseoso (y plasma).'}
-    ],
-    'mezclas-separacion': [
-      {tipo:'vf', enunciado:'Una mezcla homogénea tiene una sola fase visible.', correcta:true, explicacion:'Correcto — sus componentes no se distinguen a simple vista.'},
-      {tipo:'vf', enunciado:'La filtración separa mezclas de dos líquidos que no se mezclan.', correcta:false, explicacion:'Falso — eso lo hace la decantación; la filtración separa un sólido de un líquido.'},
-      {tipo:'opcion', enunciado:'¿Qué método separa los componentes de una mezcla según su punto de ebullición?', opciones:['Filtración','Destilación','Decantación','Tamización'], correcta:1, explicacion:'La destilación aprovecha que cada componente hierve a una temperatura distinta.'},
-      {tipo:'opcion', enunciado:'¿Qué tipo de mezcla es el agua con arena?', opciones:['Homogénea','Heterogénea','Solución','Aleación'], correcta:1, explicacion:'Se distinguen los componentes a simple vista, así que es heterogénea.'},
-      {tipo:'vf', enunciado:'Toda mezcla puede separarse por métodos físicos.', correcta:true, explicacion:'Correcto — a diferencia de los compuestos, las mezclas se separan sin romper enlaces químicos.'},
-      {tipo:'vf', enunciado:'Una solución de agua con sal es un ejemplo de mezcla heterogénea.', correcta:false, explicacion:'Falso — es una mezcla HOMOGÉNEA, ya que sus componentes no se distinguen a simple vista.'},
-      {tipo:'vf', enunciado:'La cromatografía permite separar componentes según su distinta capacidad de desplazarse sobre un material.', correcta:true, explicacion:'Correcto — cada componente se mueve a distinta velocidad según su afinidad con el material usado.'},
-      {tipo:'opcion', enunciado:'¿Qué método se usa para separar un sólido insoluble de un líquido?', opciones:['Destilación','Filtración','Cromatografía','Imantación'], correcta:1, explicacion:'La filtración usa un filtro para retener el sólido y dejar pasar el líquido.'},
-      {tipo:'opcion', enunciado:'¿Qué método usarías para separar limaduras de hierro de arena?', opciones:['Filtración','Decantación','Imantación','Destilación'], correcta:2, explicacion:'Un imán atrae las limaduras de hierro, separándolas fácilmente de la arena.'},
-      {tipo:'opcion', enunciado:'¿Cómo se llama una mezcla de dos o más metales?', opciones:['Solución','Aleación','Suspensión','Coloide'], correcta:1, explicacion:'Una aleación es una mezcla homogénea de dos o más metales, como el bronce o el acero.'}
-    ],
-    'sistema-ecuaciones': [
-      {tipo:'vf', enunciado:'Un sistema de dos ecuaciones lineales con dos incógnitas siempre tiene una única solución.', correcta:false, explicacion:'Falso — puede tener una solución, ninguna (rectas paralelas) o infinitas (la misma recta).'},
-      {tipo:'vf', enunciado:'El método de sustitución consiste en despejar una variable en una ecuación y reemplazarla en la otra.', correcta:true, explicacion:'Correcto — esa es la idea central del método de sustitución.'},
-      {tipo:'opcion', enunciado:'Si dos rectas de un sistema son paralelas, el sistema tiene:', opciones:['Una solución','Infinitas soluciones','Ninguna solución','Dos soluciones'], correcta:2, explicacion:'Las rectas paralelas nunca se cruzan, así que no hay ningún punto en común.'},
-      {tipo:'opcion', enunciado:'¿Cómo se llama gráficamente la solución de un sistema de dos ecuaciones lineales?', opciones:['El punto de intersección de las rectas','La pendiente de las rectas','El área entre las rectas','El origen de coordenadas'], correcta:0, explicacion:'La solución es el punto donde ambas rectas se cruzan.'},
-      {tipo:'vf', enunciado:'El método de igualación consiste en despejar la misma variable en ambas ecuaciones e igualar las expresiones.', correcta:true, explicacion:'Correcto — esa es la idea del método de igualación.'},
-      {tipo:'vf', enunciado:'Un sistema compatible determinado tiene infinitas soluciones.', correcta:false, explicacion:'Falso — un sistema compatible determinado tiene exactamente UNA solución.'},
-      {tipo:'vf', enunciado:'El método gráfico permite resolver un sistema viendo dónde se cruzan las rectas.', correcta:true, explicacion:'Correcto — el punto de intersección de las rectas es la solución del sistema.'},
-      {tipo:'opcion', enunciado:'Si un sistema de ecuaciones tiene infinitas soluciones, las rectas son:', opciones:['Paralelas','La misma recta','Perpendiculares','No se puede saber'], correcta:1, explicacion:'Si ambas ecuaciones representan la misma recta, cualquier punto de esa recta es solución.'},
-      {tipo:'opcion', enunciado:'¿Qué método usa matrices o determinantes para resolver un sistema?', opciones:['Sustitución','Igualación','Reducción o Cramer','Graficación'], correcta:2, explicacion:'El método de Cramer usa determinantes para hallar la solución del sistema.'},
-      {tipo:'opcion', enunciado:'¿Cuántas ecuaciones se necesitan como mínimo para resolver un sistema con dos incógnitas?', opciones:['Una','Dos','Tres','Depende del caso'], correcta:1, explicacion:'Se necesitan al menos dos ecuaciones independientes para determinar dos incógnitas.'}
-    ],
-    'valor-absoluto': [
-      {tipo:'vf', enunciado:'El valor absoluto de un número siempre es positivo o cero.', correcta:true, explicacion:'Correcto — el valor absoluto mide "distancia al cero", que nunca es negativa.'},
-      {tipo:'vf', enunciado:'El valor absoluto de -5 es -5.', correcta:false, explicacion:'Falso — el valor absoluto de -5 es 5, ya que |x| siempre da un resultado no negativo.'},
-      {tipo:'opcion', enunciado:'¿Cómo se define |x|?', opciones:['x si x≥0, -x si x<0','Siempre x','Siempre -x','x²'], correcta:0, explicacion:'Esa es la definición formal del valor absoluto.'},
-      {tipo:'opcion', enunciado:'¿Cuántas soluciones tiene la ecuación |x|=5?', opciones:['Ninguna','Una','Dos','Infinitas'], correcta:2, explicacion:'Tanto x=5 como x=-5 cumplen |x|=5.'},
-      {tipo:'vf', enunciado:'|0| es igual a 0.', correcta:true, explicacion:'Correcto — el valor absoluto de cero es cero.'},
-      {tipo:'vf', enunciado:'La ecuación |x|=-3 tiene dos soluciones reales.', correcta:false, explicacion:'Falso — no tiene solución real, ya que el valor absoluto nunca puede ser negativo.'},
-      {tipo:'vf', enunciado:'|a-b| representa la distancia entre a y b en la recta numérica.', correcta:true, explicacion:'Correcto — el valor absoluto de una resta mide la distancia entre esos dos puntos.'},
-      {tipo:'opcion', enunciado:'¿Cuál es el resultado de |-8|?', opciones:['-8','8','0','16'], correcta:1, explicacion:'El valor absoluto de -8 es 8, ya que mide su distancia al cero.'},
-      {tipo:'opcion', enunciado:'¿Cuántas soluciones tiene la ecuación |x-2|=5?', opciones:['Ninguna','Una','Dos','Infinitas'], correcta:2, explicacion:'x-2=5 o x-2=-5, dando dos soluciones: x=7 y x=-3.'},
-      {tipo:'opcion', enunciado:'Si |x|<3, ¿qué intervalo describe a x?', opciones:['x>3','x<-3','-3<x<3','x=3'], correcta:2, explicacion:'|x|<3 significa que x está a menos de 3 unidades del cero, en cualquier dirección.'}
-    ],
-    'estadistica-probabilidad': [
-      {tipo:'vf', enunciado:'La probabilidad de un evento siempre está entre 0 y 1.', correcta:true, explicacion:'Correcto — 0 significa imposible, 1 significa seguro.'},
-      {tipo:'vf', enunciado:'La mediana de un conjunto de datos es siempre igual al promedio.', correcta:false, explicacion:'Falso — solo coinciden en distribuciones simétricas; en general son valores distintos.'},
-      {tipo:'opcion', enunciado:'¿Cómo se calcula la probabilidad clásica de un evento?', opciones:['Casos favorables / casos totales','Casos totales / casos favorables','Casos favorables × casos totales','La suma de todos los casos'], correcta:0, explicacion:'P(evento) = casos favorables / casos totales posibles.'},
-      {tipo:'opcion', enunciado:'¿Cómo se llama el valor que más se repite en un conjunto de datos?', opciones:['Media','Mediana','Moda','Rango'], correcta:2, explicacion:'La moda es justamente el dato que aparece con más frecuencia.'},
-      {tipo:'vf', enunciado:'El rango de un conjunto de datos es la diferencia entre el valor máximo y el mínimo.', correcta:true, explicacion:'Correcto — el rango mide la amplitud total de los datos.'},
-      {tipo:'vf', enunciado:'Dos eventos son independientes si la ocurrencia de uno afecta la probabilidad del otro.', correcta:false, explicacion:'Falso — en eventos independientes, la ocurrencia de uno NO afecta la probabilidad del otro.'},
-      {tipo:'vf', enunciado:'La suma de las probabilidades de todos los resultados posibles de un experimento es siempre 1.', correcta:true, explicacion:'Correcto — abarcan el 100% de los casos posibles.'},
-      {tipo:'opcion', enunciado:'¿Cómo se llama el valor central de un conjunto de datos ordenados?', opciones:['Media','Mediana','Moda','Varianza'], correcta:1, explicacion:'La mediana es el valor que queda justo en el medio al ordenar los datos.'},
-      {tipo:'opcion', enunciado:'Al lanzar una moneda, ¿cuál es la probabilidad de obtener cara?', opciones:['0','0.25','0.5','1'], correcta:2, explicacion:'Hay 2 resultados posibles igualmente probables, así que cada uno tiene probabilidad 0.5.'},
-      {tipo:'opcion', enunciado:'¿Qué mide la desviación estándar?', opciones:['El valor más frecuente','La dispersión de los datos respecto a la media','El valor máximo','La cantidad de datos'], correcta:1, explicacion:'La desviación estándar indica qué tan dispersos están los datos alrededor del promedio.'}
-    ],
-  };
-
-  let respuestasTeoria = [];
-
-  function generarTeoria(){
-    const tema = document.getElementById('tema-teoria-select').value;
-    const preguntas = BANCO_TEORIA[tema];
-    respuestasTeoria = new Array(preguntas.length).fill(null);
-    document.getElementById('resultado-teoria-card').style.display = 'none';
-
-    let html = '';
-    preguntas.forEach((p, i) => {
-      html += `<div class="teoria-pregunta" id="teoria-p-${i}">
-        <p class="teoria-enunciado">${i+1}. ${p.enunciado}</p>
-        <div class="teoria-opciones">`;
-      if(p.tipo === 'vf'){
-        html += `
-          <label><input type="radio" name="tp-${i}" value="true" onchange="marcarRespuesta(${i}, true)"> Verdadero</label>
-          <label><input type="radio" name="tp-${i}" value="false" onchange="marcarRespuesta(${i}, false)"> Falso</label>`;
-      } else {
-        p.opciones.forEach((op, j) => {
-          html += `<label><input type="radio" name="tp-${i}" value="${j}" onchange="marcarRespuesta(${i}, ${j})"> ${op}</label>`;
-        });
-      }
-      html += `</div><div class="teoria-feedback" id="teoria-feedback-${i}"></div></div>`;
-    });
-    html += `<button class="calc-btn" onclick="corregirTeoria()">Corregir</button>`;
-    document.getElementById('teoria-container').innerHTML = html;
-  }
-
-  function marcarRespuesta(i, valor){
-    respuestasTeoria[i] = valor;
-  }
-
-  function corregirTeoria(){
-    const tema = document.getElementById('tema-teoria-select').value;
-    const preguntas = BANCO_TEORIA[tema];
-    let correctas = 0;
-
-    preguntas.forEach((p, i) => {
-      const fb = document.getElementById('teoria-feedback-'+i);
-      const respondida = respuestasTeoria[i];
-      const esCorrecta = respondida === p.correcta;
-      if(esCorrecta) correctas++;
-      fb.className = 'teoria-feedback ' + (esCorrecta ? 'correcto' : 'incorrecto');
-      fb.innerText = (esCorrecta ? '✓ Correcto. ' : '✗ Incorrecto. ') + p.explicacion;
-    });
-
-    document.getElementById('resultado-teoria-card').style.display = 'block';
-    document.getElementById('resultado-teoria-titulo').innerText = `Resultado: ${correctas} / ${preguntas.length}`;
-    let mensaje = '';
-    if(correctas === preguntas.length) mensaje = '¡Perfecto! Entendiste el tema a fondo.';
-    else if(correctas >= preguntas.length*0.6) mensaje = 'Bien, pero repasa las que fallaste.';
-    else mensaje = 'Convendría repasar la teoría de este tema antes de seguir.';
-    document.getElementById('resultado-teoria-detalle').innerText = mensaje;
-  }
-
-  const TEMAS = {
-    mru: () => {
-      const v = rand(2,20), t = rand(2,20);
-      return { enunciado: `Un objeto se mueve a ${v} m/s durante ${t} s. ¿Qué distancia recorre?`, respuesta: v*t, unidad: 'm',
-        formula: 'x = v · t', paso: `x = ${v} × ${t}` };
-    },
-    mruv: () => {
-      const v0 = rand(0,10), a = rand(1,8), t = rand(1,10);
-      return { enunciado: `Un objeto parte a ${v0} m/s y acelera a ${a} m/s² durante ${t} s. ¿Qué velocidad final alcanza?`, respuesta: v0+a*t, unidad: 'm/s',
-        formula: 'v = v₀ + a·t', paso: `v = ${v0} + ${a}×${t}` };
-    },
-    newton: () => {
-      const F = rand(10,100), m = rand(1,20);
-      return { enunciado: `Una fuerza de ${F} N actúa sobre un objeto de ${m} kg. ¿Cuál es la aceleración?`, respuesta: F/m, unidad: 'm/s²',
-        formula: 'a = F / m', paso: `a = ${F} / ${m}` };
-    },
-    trabajo: () => {
-      const F = rand(5,50), d = rand(1,20);
-      return { enunciado: `Empujas un objeto con ${F} N a lo largo de ${d} m. ¿Cuál es el trabajo realizado?`, respuesta: F*d, unidad: 'J',
-        formula: 'W = F · d', paso: `W = ${F} × ${d}` };
-    },
-    ohm: () => {
-      const V = rand(5,220), R = rand(1,50);
-      return { enunciado: `Un circuito tiene ${V} V aplicados sobre una resistencia de ${R} Ω. ¿Cuál es la corriente?`, respuesta: V/R, unidad: 'A',
-        formula: 'I = V / R', paso: `I = ${V} / ${R}` };
-    },
-    potencia: () => {
-      const V = rand(5,220), I = rand(0.5,10,1);
-      return { enunciado: `Un artefacto conectado a ${V} V consume ${I} A. ¿Cuál es su potencia?`, respuesta: V*I, unidad: 'W',
-        formula: 'P = V · I', paso: `P = ${V} × ${I}` };
-    },
-    calor: () => {
-      const m = rand(0.5,5,1), dT = rand(5,80);
-      return { enunciado: `¿Cuánto calor hace falta para calentar ${m} kg de agua (c=4186 J/kg·°C) en ${dT}°C?`, respuesta: m*4186*dT, unidad: 'J',
-        formula: 'Q = m · c · ΔT', paso: `Q = ${m} × 4186 × ${dT}` };
-    },
-    dilatacion: () => {
-      const L0 = rand(1,50), dT = rand(5,80);
-      const dL = L0*0.000012*dT;
-      return { enunciado: `Una barra de acero (α=0.000012 °C⁻¹) de ${L0} m sube su temperatura ${dT}°C. ¿Cuánto se alarga?`, respuesta: dL, unidad: 'm',
-        formula: 'ΔL = L₀ · α · ΔT', paso: `ΔL = ${L0} × 0.000012 × ${dT}` };
-    },
-    torque: () => {
-      const F = rand(5,100), d = rand(0.1,2,1);
-      return { enunciado: `Aplicas ${F} N a ${d} m del pivote. ¿Cuál es el torque?`, respuesta: F*d, unidad: 'N·m',
-        formula: 'τ = F · d', paso: `τ = ${F} × ${d}` };
-    },
-    impulso: () => {
-      const m = rand(0.5,10,1), v = rand(1,20);
-      return { enunciado: `Un objeto de ${m} kg se mueve a ${v} m/s. ¿Cuál es su cantidad de movimiento?`, respuesta: m*v, unidad: 'kg·m/s',
-        formula: 'p = m · v', paso: `p = ${m} × ${v}` };
-    },
-    molaridad: () => {
-      const n = rand(0.2,3,1), V = rand(0.2,3,1);
-      return { enunciado: `Disolviste ${n} moles de soluto en ${V} L de solución. ¿Cuál es la molaridad?`, respuesta: n/V, unidad: 'mol/L',
-        formula: 'M = n / V', paso: `M = ${n} / ${V}` };
-    },
-    dilucion: () => {
-      const M1 = rand(1,10,1), V1 = rand(0.2,2,1), V2 = rand(V1+0.5, V1+5,1);
-      return { enunciado: `Diluyes ${V1} L de una solución ${M1} mol/L hasta llegar a ${V2} L. ¿Cuál es la nueva molaridad?`, respuesta: (M1*V1)/V2, unidad: 'mol/L',
-        formula: 'M₁·V₁ = M₂·V₂  →  M₂ = M₁·V₁ / V₂', paso: `M₂ = ${M1}×${V1} / ${V2}` };
-    },
-    'porcentaje-masa': () => {
-      const soluto = rand(5,50), solvente = rand(50,200);
-      const solucion = soluto+solvente;
-      return { enunciado: `Disolviste ${soluto} g de soluto en ${solvente} g de solvente. ¿Cuál es la concentración porcentual m/m?`, respuesta: (soluto/solucion)*100, unidad: '%',
-        formula: '%m/m = (masa soluto / masa solución) × 100', paso: `%m/m = (${soluto} / ${solucion}) × 100` };
-    },
-    pitagoras: () => {
-      const a = rand(3,20), b = rand(3,20);
-      return { enunciado: `Un triángulo rectángulo tiene catetos de ${a} cm y ${b} cm. ¿Cuánto mide la hipotenusa?`, respuesta: Math.sqrt(a*a+b*b), unidad: 'cm',
-        formula: 'c = √(a² + b²)', paso: `c = √(${a}² + ${b}²)` };
-    },
-    'area-triangulo': () => {
-      const b = rand(3,30), h = rand(3,30);
-      return { enunciado: `Un triángulo tiene base ${b} cm y altura ${h} cm. ¿Cuál es su área?`, respuesta: (b*h)/2, unidad: 'cm²',
-        formula: 'A = (base × altura) / 2', paso: `A = (${b} × ${h}) / 2` };
-    },
-    trigonometria: () => {
-      const angulos = [30,37,45,53,60];
-      const angulo = angulos[Math.floor(Math.random()*angulos.length)];
-      const hip = rand(5,50);
-      return { enunciado: `En un triángulo rectángulo, la hipotenusa mide ${hip} cm y un ángulo agudo es de ${angulo}°. ¿Cuánto mide el cateto opuesto a ese ángulo?`, respuesta: hip*Math.sin(angulo*Math.PI/180), unidad: 'cm',
-        formula: 'cateto opuesto = hipotenusa × sen(ángulo)', paso: `${hip} × sen(${angulo}°)` };
-    },
-    proporcionalidad: () => {
-      const a = rand(2,10), b = rand(10,100), factor = rand(2,5,1);
-      const c = parseFloat((a*factor).toFixed(1));
-      return { enunciado: `Si ${a} kg de manzanas cuestan $${b}, ¿cuánto cuestan ${c} kg?`, respuesta: (c*b)/a, unidad: '$',
-        formula: 'd = (c × b) / a  (regla de tres simple directa)', paso: `d = (${c} × ${b}) / ${a}` };
-    },
-    'estequiometria-moles': () => {
-      const compuestos = [{n:'NaCl',M:58.5},{n:'H₂O',M:18},{n:'CO₂',M:44},{n:'CaCO₃',M:100}];
-      const c = compuestos[Math.floor(Math.random()*compuestos.length)];
-      const masa = rand(10,200);
-      return { enunciado: `¿Cuántos moles hay en ${masa} g de ${c.n} (masa molar ${c.M} g/mol)?`, respuesta: masa/c.M, unidad: 'mol',
-        formula: 'n = masa / masa molar', paso: `n = ${masa} / ${c.M}` };
-    },
-    'ley-boyle': () => {
-      const P1 = rand(1,10,1), V1 = rand(1,20,1), V2 = rand(1,20,1);
-      return { enunciado: `Un gas ocupa ${V1} L a ${P1} atm. Si el volumen cambia a ${V2} L (misma temperatura), ¿cuál es la nueva presión?`, respuesta: (P1*V1)/V2, unidad: 'atm',
-        formula: 'P₁V₁ = P₂V₂  →  P₂ = P₁V₁ / V₂', paso: `P₂ = ${P1}×${V1} / ${V2}` };
-    },
-    ph: () => {
-      const exp = rand(1,13);
-      return { enunciado: `Una solución tiene una concentración de H⁺ de 10⁻${exp} mol/L. ¿Cuál es su pH?`, respuesta: exp, unidad: '',
-        formula: 'pH = -log[H⁺]', paso: `pH = -log(10⁻${exp})` };
-    },
-    'area-circulo': () => {
-      const r = rand(2,20);
-      return { enunciado: `¿Cuál es el área de un círculo de radio ${r} cm?`, respuesta: Math.PI*r*r, unidad: 'cm²',
-        formula: 'A = π · r²', paso: `A = π × ${r}²` };
-    },
-    logaritmo: () => {
-      const exp = rand(1,6);
-      const x = Math.pow(10, exp);
-      return { enunciado: `¿Cuál es el logaritmo en base 10 de ${x}?`, respuesta: exp, unidad: '',
-        formula: 'log₁₀(10ⁿ) = n', paso: `log₁₀(${x}) = ${exp}` };
-    },
-    promedio: () => {
-      const n1=rand(1,20), n2=rand(1,20), n3=rand(1,20), n4=rand(1,20);
-      return { enunciado: `¿Cuál es el promedio de estos números: ${n1}, ${n2}, ${n3}, ${n4}?`, respuesta: (n1+n2+n3+n4)/4, unidad: '',
-        formula: 'Promedio = suma de los datos / cantidad de datos', paso: `(${n1}+${n2}+${n3}+${n4}) / 4` };
-    },
-    'tiro-oblicuo': () => {
-      const angulos = [30,37,45,53,60];
-      const angulo = angulos[Math.floor(Math.random()*angulos.length)];
-      const v0 = rand(10,40);
-      return { enunciado: `Lanzas un proyectil con velocidad inicial de ${v0} m/s a un ángulo de ${angulo}°. ¿Cuál es su alcance horizontal? (usa g=9.8 m/s²)`, respuesta: (v0*v0*Math.sin(2*angulo*Math.PI/180))/9.8, unidad: 'm',
-        formula: 'R = v₀² · sen(2θ) / g', paso: `R = ${v0}² × sen(2×${angulo}°) / 9.8` };
-    },
-    mcu: () => {
-      const r = rand(1,10), T = rand(1,10);
-      return { enunciado: `Un objeto gira en un círculo de radio ${r} m, completando una vuelta cada ${T} s. ¿Cuál es su velocidad tangencial?`, respuesta: (2*Math.PI*r)/T, unidad: 'm/s',
-        formula: 'v = 2π · r / T', paso: `v = 2π × ${r} / ${T}` };
-    },
-    palanca: () => {
-      const R = rand(20,200), br = rand(0.2,1,1), bp = rand(1,3,1);
-      return { enunciado: `En una palanca, levantas un peso de ${R} N ubicado a ${br} m del punto de apoyo, aplicando la fuerza a ${bp} m del apoyo. ¿Qué fuerza necesitas aplicar?`, respuesta: (R*br)/bp, unidad: 'N',
-        formula: 'F_potencia × brazo_potencia = R × brazo_resistente', paso: `F = (${R} × ${br}) / ${bp}` };
-    },
-    'presion-hidrostatica': () => {
-      const h = rand(0.5,20,1);
-      return { enunciado: `¿Cuál es la presión hidrostática del agua (ρ=1000 kg/m³) a ${h} m de profundidad? (usa g=9.8 m/s²)`, respuesta: 1000*9.8*h, unidad: 'Pa',
-        formula: 'P = ρ · g · h', paso: `P = 1000 × 9.8 × ${h}` };
-    }
-  };
-
-  let evaluacionActual = [];
-
-  function generarEvaluacion(){
-    const tema = document.getElementById('tema-select').value;
-    const generador = TEMAS[tema];
-    evaluacionActual = [];
-    const container = document.getElementById('preguntas-container');
-    container.innerHTML = '';
-
-    for(let i=0;i<15;i++){
-      const problema = generador();
-      evaluacionActual.push(problema);
-
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.setAttribute('data-tag', `Pregunta ${i+1}`);
-      card.innerHTML = `
-        <h2 style="font-size:17px;">${problema.enunciado}</h2>
-        <div class="calc-grid" style="grid-template-columns:1fr;">
-          <div class="field">
-            <label>Tu respuesta (${problema.unidad})</label>
-            <input type="number" step="any" id="resp-${i}">
-          </div>
-        </div>
-        <div id="feedback-${i}" style="margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:13px;"></div>
-      `;
-      container.appendChild(card);
-    }
-
-    const btnCorregir = document.createElement('button');
-    btnCorregir.className = 'calc-btn';
-    btnCorregir.innerText = 'Corregir evaluación';
-    btnCorregir.onclick = corregirEvaluacion;
-    container.appendChild(btnCorregir);
-
-    document.getElementById('resultado-card').style.display = 'none';
-  }
-
-  function formatRespuesta(n){
-    // evita mostrar "121.000" para un número entero: solo usa decimales si hacen falta
-    if(Number.isInteger(n)) return n.toString();
-    const abs = Math.abs(n);
-    // números muy chicos (como dilatación térmica) necesitan más decimales para no perder precisión
-    const decimales = abs < 0.01 ? 8 : 4;
-    return parseFloat(n.toFixed(decimales)).toString();
-  }
-
-  function corregirEvaluacion(){
-    let correctas = 0;
-    evaluacionActual.forEach((problema, i)=>{
-      const inputEl = document.getElementById('resp-'+i);
-      const respuestaUsuario = parseFloat(inputEl.value);
-      const feedbackEl = document.getElementById('feedback-'+i);
-      const esperada = problema.respuesta;
-      // tolerancia: 5% relativo, con un mínimo absoluto para valores muy chicos
-      const tolerancia = Math.max(Math.abs(esperada)*0.05, 0.01);
-      const esCorrecta = !isNaN(respuestaUsuario) && Math.abs(respuestaUsuario - esperada) <= tolerancia;
-
-      if(esCorrecta){
-        correctas++;
-        feedbackEl.style.color = '#2F6B5E';
-        feedbackEl.innerHTML = `✓ Correcto (${formatRespuesta(esperada)} ${problema.unidad})`;
-      } else {
-        feedbackEl.style.color = '#B8842E';
-        feedbackEl.innerHTML = `✗ La respuesta correcta era ${formatRespuesta(esperada)} ${problema.unidad}
-          <div style="margin-top:8px;padding:10px 12px;background:var(--paper);border:1px dashed var(--ink-soft);border-radius:6px;font-size:12.5px;color:var(--ink);">
-            <strong>Fórmula:</strong> ${problema.formula}<br>
-            <strong>Reemplazo:</strong> ${problema.paso} = ${formatRespuesta(esperada)} ${problema.unidad}
-          </div>`;
-      }
-    });
-
-    const resultadoCard = document.getElementById('resultado-card');
-    resultadoCard.style.display = 'block';
-    const total = evaluacionActual.length;
-    document.getElementById('resultado-titulo').innerText = `Resultado: ${correctas}/${total}`;
-    let mensaje = '';
-    if(correctas===total) mensaje = 'Perfecto — dominas el tema.';
-    else if(correctas>=total*0.6) mensaje = 'Bien, pero repasa los que fallaste.';
-    else mensaje = 'Convendría repasar la fórmula antes de seguir.';
-    document.getElementById('resultado-detalle').innerText = mensaje;
-    resultadoCard.scrollIntoView({behavior:'smooth', block:'center'});
-  }
-
-  window.addEventListener('load', ()=>{
-    filtrarMateria('calculo','fisica');
-    filtrarMateria('teoria','fisica');
-  });
-</script>
 
 </body>
 </html>
