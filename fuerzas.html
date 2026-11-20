@@ -341,7 +341,7 @@
     padding:16px;
     margin-top:16px;
   }
-  #sim-canvas-basico, #sim-canvas-avanzado, #inercia-canvas, #accion-canvas{
+  #sim-canvas-basico, #sim-canvas-avanzado, #inercia-canvas, #accion-canvas, #carrito-canvas{
     display:block;width:100%;height:auto;
   }
   .sim-readout{
@@ -1071,14 +1071,14 @@
         drawPuff(objPx - 26 - Math.random()*8, H-46 - Math.random()*6, 0.5 + Math.random()*0.3);
       }
       // carrito + globo (emoji)
-      ctx.font = '30px sans-serif';
+      ctx.font = '42px sans-serif';
       ctx.save();
-      ctx.translate(objPx + 14, H-32);
+      ctx.translate(objPx + 20, H-32);
       ctx.scale(-1,1);
-      ctx.fillText('🛒', -14, 0);
+      ctx.fillText('🛒', -20, 0);
       ctx.restore();
-      ctx.font = '22px sans-serif';
-      ctx.fillText('🎈', objPx - 30, H-48);
+      ctx.font = '30px sans-serif';
+      ctx.fillText('🎈', objPx - 36, H-50);
     }
 
     function paso(){

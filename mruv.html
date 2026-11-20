@@ -340,7 +340,7 @@
     padding:16px;
     margin-top:16px;
   }
-  #sim-canvas-basico, #sim-canvas-avanzado{
+  #sim-canvas-basico, #sim-canvas-avanzado, #mruv-graf-canvas{
     display:block;width:100%;height:auto;
   }
   .sim-readout{
@@ -519,7 +519,8 @@
         <a href="mruv.html" class="nav-panel-link">MRUV</a>
         <a href="tiro-oblicuo.html" class="nav-panel-link">Tiro Oblicuo</a>
         <a href="mcu.html" class="nav-panel-link">MCU</a>
-        <a href="newton.html" class="nav-panel-link">2ª Ley de Newton</a>
+        <a href="newton.html" class="nav-panel-link">Leyes de Newton</a>
+        <a href="fuerzas.html" class="nav-panel-link">Fuerzas y Sistemas de Fuerzas</a>
         <a href="trabajo-energia.html" class="nav-panel-link">Trabajo y Energía</a>
         <a href="impulso-momentum.html" class="nav-panel-link">Impulso y Cantidad de Movimiento</a>
         <a href="estatica-torque.html" class="nav-panel-link">Estática y Torque</a>
@@ -670,7 +671,7 @@
 
     <div class="card" data-tag="Manipulable">
       <h2>Arrastra el punto y mira la curva cambiar en vivo</h2>
-      <p style="color:var(--ink-soft);font-size:14.5px;">A diferencia del MRU (que es una recta), en el MRUV el gráfico posición-tiempo es una curva — porque la velocidad va aumentando. Cuanto más arrastrás el punto hacia arriba, mayor es la aceleración.</p>
+      <p style="color:var(--ink-soft);font-size:14.5px;">A diferencia del MRU (que es una recta), en el MRUV el gráfico posición-tiempo es una curva — porque la velocidad va aumentando. Cuanto más arrastras el punto hacia arriba, mayor es la aceleración.</p>
       <div class="manip-box">
         <div class="manip-canvas-wrap">
           <canvas id="mruv-graf-canvas" width="560" height="360"></canvas>
@@ -751,7 +752,7 @@
       <h3>Confundir "frena" con aceleración positiva</h3>
       <p>Cuando un objeto frena, la aceleración tiene signo contrario al de la velocidad (generalmente negativo) — si no le pones el signo, el cálculo va a dar que el objeto acelera en vez de frenar.</p>
       <h3>No pasar todo a las mismas unidades antes de calcular</h3>
-      <p>Si la velocidad viene en km/h y necesitás trabajar en metros y segundos, hay que convertir primero — mezclar unidades da resultados sin sentido físico.</p>
+      <p>Si la velocidad viene en km/h y necesitas trabajar en metros y segundos, hay que convertir primero — mezclar unidades da resultados sin sentido físico.</p>
     </div>
 
     <div class="card exercises" data-tag="Ejercicios">
@@ -1044,11 +1045,11 @@
     // ícono — invertido horizontalmente para que "mire" hacia la derecha,
     // la dirección real del movimiento (los emoji de vehículos miran
     // hacia la izquierda por defecto)
-    ctx.font = '32px sans-serif';
+    ctx.font = '44px sans-serif';
     ctx.save();
-    ctx.translate(20 + iconX*(w-60) + 16, h-32);
+    ctx.translate(20 + iconX*(w-60) + 22, h-32);
     ctx.scale(-1,1);
-    ctx.fillText(icon, -16, 0);
+    ctx.fillText(icon, -22, 0);
     ctx.restore();
   }
 

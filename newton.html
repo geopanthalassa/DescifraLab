@@ -1123,11 +1123,11 @@
     // hacia la derecha, que es la dirección real del movimiento
     // (los emoji de vehículos por defecto miran hacia la izquierda)
     const objPx = 20 + iconX*(w-60);
-    ctx.font = '32px sans-serif';
+    ctx.font = '44px sans-serif';
     ctx.save();
-    ctx.translate(objPx + 16, h-32);
+    ctx.translate(objPx + 22, h-32);
     ctx.scale(-1,1);
-    ctx.fillText(icon, -16, 0);
+    ctx.fillText(icon, -22, 0);
     ctx.restore();
     // persona dibujada de perfil, en pose de empuje, pegada al objeto
     drawPusher(ctx, objPx - 30, h-30);
@@ -1281,7 +1281,7 @@
       ctx.clearRect(0,0,W,H);
       ctx.strokeStyle = '#D8D3C4';
       ctx.beginPath(); ctx.moveTo(10, groundY+14); ctx.lineTo(W-10, groundY+14); ctx.stroke();
-      ctx.font = '30px sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.font = '46px sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
       ctx.fillText('⚪', x, groundY-6);
       ctx.font = "600 12px 'JetBrains Mono', monospace";
       ctx.fillStyle = '#4A5568';
@@ -1332,7 +1332,7 @@
 
     function dibujar(){
       ctx.clearRect(0,0,W,H);
-      ctx.font = '36px sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.font = '46px sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
       ctx.fillText('⛸️', xA, midY);
       ctx.fillText('⛸️', xB, midY);
       ctx.font = "600 12px 'JetBrains Mono', monospace"; ctx.fillStyle = '#B8842E';

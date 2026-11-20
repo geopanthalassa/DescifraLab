@@ -504,7 +504,8 @@
         <a href="mruv.html" class="nav-panel-link">MRUV</a>
         <a href="tiro-oblicuo.html" class="nav-panel-link">Tiro Oblicuo</a>
         <a href="mcu.html" class="nav-panel-link">MCU</a>
-        <a href="newton.html" class="nav-panel-link">2ª Ley de Newton</a>
+        <a href="newton.html" class="nav-panel-link">Leyes de Newton</a>
+        <a href="fuerzas.html" class="nav-panel-link">Fuerzas y Sistemas de Fuerzas</a>
         <a href="trabajo-energia.html" class="nav-panel-link">Trabajo y Energía</a>
         <a href="impulso-momentum.html" class="nav-panel-link">Impulso y Cantidad de Movimiento</a>
         <a href="estatica-torque.html" class="nav-panel-link">Estática y Torque</a>
@@ -928,11 +929,11 @@
     // hacia la derecha, que es la dirección real del movimiento
     // (los emoji de vehículos por defecto miran hacia la izquierda)
     const objPx = 20 + iconX*(w-60);
-    ctx.font = '32px sans-serif';
+    ctx.font = '44px sans-serif';
     ctx.save();
-    ctx.translate(objPx + 16, h-32);
+    ctx.translate(objPx + 22, h-32);
     ctx.scale(-1,1);
-    ctx.fillText(icon, -16, 0);
+    ctx.fillText(icon, -22, 0);
     ctx.restore();
     // persona dibujada de perfil, en pose de empuje, pegada al objeto
     drawPusher(ctx, objPx - 30, h-30);

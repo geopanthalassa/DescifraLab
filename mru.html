@@ -340,7 +340,7 @@
     padding:16px;
     margin-top:16px;
   }
-  #sim-canvas-basico, #sim-canvas-avanzado{
+  #sim-canvas-basico, #sim-canvas-avanzado, #mru-graf-canvas{
     display:block;width:100%;height:auto;
   }
   .sim-readout{
@@ -556,7 +556,8 @@
         <a href="mruv.html" class="nav-panel-link">MRUV</a>
         <a href="tiro-oblicuo.html" class="nav-panel-link">Tiro Oblicuo</a>
         <a href="mcu.html" class="nav-panel-link">MCU</a>
-        <a href="newton.html" class="nav-panel-link">2ª Ley de Newton</a>
+        <a href="newton.html" class="nav-panel-link">Leyes de Newton</a>
+        <a href="fuerzas.html" class="nav-panel-link">Fuerzas y Sistemas de Fuerzas</a>
         <a href="trabajo-energia.html" class="nav-panel-link">Trabajo y Energía</a>
         <a href="impulso-momentum.html" class="nav-panel-link">Impulso y Cantidad de Movimiento</a>
         <a href="estatica-torque.html" class="nav-panel-link">Estática y Torque</a>
@@ -784,7 +785,7 @@
     <div class="card errores" data-tag="Errores frecuentes">
       <h2>Errores frecuentes</h2>
       <h3>Mezclar las unidades sin convertir</h3>
-      <p>Si la velocidad está en km/h y el tiempo en segundos, el resultado sale mal si no convertís todo al mismo sistema antes de reemplazar en la fórmula (generalmente, todo a metros y segundos).</p>
+      <p>Si la velocidad está en km/h y el tiempo en segundos, el resultado sale mal si no conviertes todo al mismo sistema antes de reemplazar en la fórmula (generalmente, todo a metros y segundos).</p>
       <h3>Olvidarse de la posición inicial</h3>
       <p>Si el problema dice que el objeto arranca desde una posición distinta de cero (por ejemplo, "un auto que ya estaba en el kilómetro 3"), hay que sumar ese valor — no se puede asumir x₀=0 siempre.</p>
       <h3>Confundir velocidad con distancia</h3>
@@ -1066,11 +1067,11 @@
     // ícono — invertido horizontalmente para que "mire" hacia la derecha,
     // la dirección real del movimiento (los emoji de vehículos miran
     // hacia la izquierda por defecto)
-    ctx.font = '32px sans-serif';
+    ctx.font = '44px sans-serif';
     ctx.save();
-    ctx.translate(20 + iconX*(w-60) + 16, h-32);
+    ctx.translate(20 + iconX*(w-60) + 22, h-32);
     ctx.scale(-1,1);
-    ctx.fillText(icon, -16, 0);
+    ctx.fillText(icon, -22, 0);
     ctx.restore();
   }
 
