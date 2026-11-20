@@ -590,7 +590,27 @@
       <div class="formula-box">cos(θ) = <span class="term-3">adyacente</span> / <span class="term-1">hipotenusa</span></div>
       <div class="formula-box">tan(θ) = <span class="term-2">opuesto</span> / <span class="term-3">adyacente</span></div>
       <p class="var-list">Se recuerda con la palabra <strong>SOH-CAH-TOA</strong>: Seno=Opuesto/Hipotenusa, Coseno=Adyacente/Hipotenusa, Tangente=Opuesto/Adyacente.</p>
-      <p class="var-list">También se recuerda cantado como una muletilla: <strong>"CO-CA, CO-CA, HIP-HIP"</strong>. Cada sílaba aparece exactamente dos veces entre las tres razones — y ese es el truco: <span class="term-2">CO</span> (cateto opuesto) es numerador en seno y en tangente; <span class="term-3">CA</span> (cateto adyacente) es numerador en coseno y denominador en tangente; y <span class="term-1">HIP</span> (hipotenusa) es el denominador tanto en seno como en coseno — por eso "hip-hip" va dos veces seguidas, siempre abajo, nunca arriba.</p>
+      <p class="var-list">También se recuerda con un bucle: escribe las tres fracciones en fila — <strong>sen=CO/HIP</strong>, <strong>cos=CA/HIP</strong>, <strong>tan=CO/CA</strong> — y rodéalas con una flecha que vuelve al principio, como en el dibujo. Siguiendo la flecha, primero lees las tres de ARRIBA de izquierda a derecha (<span class="term-2">CO</span>, <span class="term-3">CA</span>, <span class="term-2">CO</span>) y después, al volver por ABAJO de derecha a izquierda, las de abajo (<span class="term-3">CA</span>, <span class="term-1">HIP</span>, <span class="term-1">HIP</span>). Juntando las dos vueltas sale la muletilla completa: <strong>"co-ca-co-ca-hip-hip"</strong>.</p>
+      <div style="display:flex;justify-content:center;margin:18px 0;">
+        <svg viewBox="0 0 360 170" style="width:100%;max-width:400px;height:auto;" role="img" aria-label="Diagrama de bucle: tres fracciones CO/HIP, CA/HIP, CO/CA rodeadas por una flecha circular">
+          <ellipse cx="180" cy="85" rx="168" ry="72" fill="none" stroke="#B8842E" stroke-width="2.5" stroke-dasharray="6 5"/>
+          <path d="M 42 85 A 168 72 0 0 1 60 60" fill="none" stroke="#B8842E" stroke-width="2.5"/>
+          <polygon points="60,60 46,58 54,70" fill="#B8842E"/>
+          <text x="75" y="55" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#1C2733">sen</text>
+          <text x="75" y="78" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="15" font-weight="800" class="term-2">CO</text>
+          <line x1="58" y1="86" x2="92" y2="86" stroke="#1C2733" stroke-width="1.5"/>
+          <text x="75" y="106" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="15" font-weight="800" class="term-1">HIP</text>
+          <text x="180" y="55" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#1C2733">cos</text>
+          <text x="180" y="78" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="15" font-weight="800" class="term-3">CA</text>
+          <line x1="163" y1="86" x2="197" y2="86" stroke="#1C2733" stroke-width="1.5"/>
+          <text x="180" y="106" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="15" font-weight="800" class="term-1">HIP</text>
+          <text x="285" y="55" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#1C2733">tan</text>
+          <text x="285" y="78" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="15" font-weight="800" class="term-2">CO</text>
+          <line x1="268" y1="86" x2="302" y2="86" stroke="#1C2733" stroke-width="1.5"/>
+          <text x="285" y="106" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="15" font-weight="800" class="term-3">CA</text>
+          <text x="180" y="150" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" font-weight="700" fill="#5A5347">co — ca — co — ca — hip — hip</text>
+        </svg>
+      </div>
       <div class="analogia">
         <span class="analogia-tag">Piénsalo así</span>
         Imagina un edificio que proyecta una sombra al atardecer. La altura del edificio es el <strong class="term-2">cateto opuesto</strong>, la sombra en el piso es el <strong class="term-3">cateto adyacente</strong>, y el rayo de sol que va desde la punta del edificio hasta el final de la sombra es la <strong class="term-1">hipotenusa</strong>. El ángulo del sol sobre el horizonte determina cómo se relacionan esos tres largos — eso es justamente lo que miden seno, coseno y tangente.

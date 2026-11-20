@@ -1048,9 +1048,13 @@ const matrazImg = new Image();
     }
 
     const partsHomog = [];
-    for(let i=0;i<40;i++) partsHomog.push({ang:Math.random()*Math.PI*2, r:Math.random(), t:Math.random()});
+    for(let i=0;i<40;i++) partsHomog.push({
+      ang:Math.random()*Math.PI*2, r:0.25+Math.random()*0.75,
+      depth:Math.random(), fallSpeed:0.018+Math.random()*0.03,
+      wobSpeed:0.3+Math.random()*0.5
+    });
     const partsHetero = [];
-    for(let i=0;i<26;i++) partsHetero.push({x:(Math.random()-0.5), row:Math.floor(Math.random()*4), ang:Math.random()*Math.PI*2, speed:0.4+Math.random()*0.6});
+    for(let i=0;i<26;i++) partsHetero.push({x:(Math.random()-0.5), depth:Math.random()*0.3, ang:Math.random()*Math.PI*2, speed:0.4+Math.random()*0.6});
     const burbujas = [];
     for(let i=0;i<10;i++) burbujas.push({x:Math.random(), t:Math.random(), speed:0.00028+Math.random()*0.00035, r:1.3+Math.random()*2.1, wob:Math.random()*Math.PI*2});
 
@@ -1075,18 +1079,20 @@ const matrazImg = new Image();
       dibujarOnda(fillY-2, 7, 46, -14, 'rgba(255,255,255,0.22)', 12);
       dibujarOnda(fillY, 9, 40, 19, 'rgba(255,255,255,0.38)', 9);
 
+      const liquidoAlto = Math.max(4, (H-16)-fillY);
+      const spreadMax = anchoEnY(fillY + liquidoAlto*0.35); // ancho de referencia — evita que se junten en una línea cerca de la punta
+      const segundos = performance.now()*0.001;
+
       if(tipo==='homogenea' && masaSoluto>0){
         const n = Math.min(Math.round(masaSoluto), 40);
-        const liquidoAlto = Math.max(4, (H-16)-fillY);
         const radio = Math.max(1.1, Math.min(3, liquidoAlto/15));
         ctx.fillStyle = 'rgba(28,39,51,0.5)';
-        const tiempo = performance.now()*0.0002;
         for(let i=0;i<n;i++){
           const p = partsHomog[i%partsHomog.length];
-          // decantado: más denso cerca del fondo, no amontonado en el centro
-          const y = fillY + Math.pow(p.t, 0.4)*liquidoAlto;
-          const w = anchoEnY(y);
-          const x = cx + Math.cos(p.ang + tiempo)*w*p.r*0.85;
+          // cada partícula cae a su propio ritmo y se reinicia arriba — movimiento real, no una foto fija
+          const avance = (p.depth + segundos*p.fallSpeed) % 1;
+          const y = fillY + avance*liquidoAlto;
+          const x = cx + Math.sin(p.ang + segundos*p.wobSpeed)*spreadMax*p.r*0.8;
           ctx.beginPath(); ctx.arc(x, y, radio, 0, Math.PI*2); ctx.fill();
         }
       }
@@ -1094,12 +1100,11 @@ const matrazImg = new Image();
       if(tipo==='heterogenea' && masaSoluto>0){
         const n = Math.min(Math.round(masaSoluto/1.5), 26);
         ctx.fillStyle = '#B8842E';
-        const tiempoH = performance.now()*0.0009;
         for(let i=0;i<n;i++){
           const p = partsHetero[i%partsHetero.length];
-          // sedimento que no se disuelve, pero se mece suavemente en el fondo — no queda congelado
-          const x = cx + p.x*130 + Math.sin(tiempoH*p.speed + p.ang)*3.2;
-          const y = (H-10) - p.row*4 + Math.cos(tiempoH*p.speed*0.7 + p.ang)*2.2;
+          // sedimento que no se disuelve: se asienta cerca del fondo, pero se mece y se distribuye por todo el ancho — no una línea ni algo congelado
+          const x = cx + p.x*spreadMax*1.5 + Math.sin(segundos*p.speed + p.ang)*4;
+          const y = fillY + liquidoAlto*(0.78 + p.depth) + Math.cos(segundos*p.speed*0.7 + p.ang)*2.5;
           ctx.beginPath(); ctx.arc(x, y, 3.5, 0, Math.PI*2); ctx.fill();
         }
       }

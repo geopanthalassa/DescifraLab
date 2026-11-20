@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="La Segunda Ley de Newton (F=m·a) explicada con analogías simples, calculadora interactiva y ejemplos resueltos mostrando datos, unidades y errores frecuentes.">
+<meta name="description" content="Las tres Leyes de Newton — Inercia, F=m·a y Acción-Reacción — explicadas con analogías simples, simuladores interactivos y ejemplos resueltos mostrando datos, unidades y errores frecuentes.">
 <link rel="canonical" href="https://www.descifralab.com/newton.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="DescifraLab">
-<meta property="og:title" content="Segunda Ley de Newton (F = m·a) | Fórmula y Calculadora">
-<meta property="og:description" content="La Segunda Ley de Newton (F=m·a) explicada con analogías simples, calculadora interactiva y ejemplos resueltos mostrando datos, unidades y errores frecuentes.">
+<meta property="og:title" content="Las Tres Leyes de Newton | Inercia, F=m·a y Acción-Reacción">
+<meta property="og:description" content="Las tres Leyes de Newton — Inercia, F=m·a y Acción-Reacción — explicadas con analogías simples, simuladores interactivos y ejemplos resueltos mostrando datos, unidades y errores frecuentes.">
 <meta property="og:url" content="https://www.descifralab.com/newton.html">
 <meta property="og:locale" content="es_AR">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Segunda Ley de Newton (F = m·a) | Fórmula y Calculadora">
-<meta name="twitter:description" content="La Segunda Ley de Newton (F=m·a) explicada con analogías simples, calculadora interactiva y ejemplos resueltos mostrando datos, unidades y errores frecuentes.">
+<meta name="twitter:title" content="Las Tres Leyes de Newton | Inercia, F=m·a y Acción-Reacción">
+<meta name="twitter:description" content="Las tres Leyes de Newton — Inercia, F=m·a y Acción-Reacción — explicadas con analogías simples, simuladores interactivos y ejemplos resueltos mostrando datos, unidades y errores frecuentes.">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YP8YVN6V0Z"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -27,7 +27,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=9">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=7">
 <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png?v=7">
-<title>Segunda Ley de Newton (F = m·a) | Fórmula y Calculadora — DescifraLab</title>
+<title>Las Tres Leyes de Newton | Inercia, F=m·a y Acción-Reacción — DescifraLab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -644,8 +644,8 @@
 
 <header class="top">
   <div class="eyebrow">Mecánica · Dinámica</div>
-  <h1>Segunda Ley de Newton (F = m·a)</h1>
-  <p class="subtitle">Fórmulas, calculadora interactiva, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
+  <h1>Las Tres Leyes de Newton</h1>
+  <p class="subtitle">Inercia, F = m·a y Acción-Reacción — con analogías, simuladores interactivos, ejemplos resueltos y ejercicios de nivel básico y avanzado.</p>
   <nav class="level-nav">
     <button class="level-btn active" data-target="basico">Básico</button>
     <button class="level-btn" data-target="avanzado">Avanzado</button>
@@ -658,7 +658,47 @@
   <section class="level active" data-level="basico">
 
     <div class="card" data-tag="Concepto">
-      <h2>¿Qué es la Segunda Ley de Newton?</h2>
+      <h2>Primera Ley de Newton — Ley de Inercia</h2>
+      <p>Dice que <strong>todo objeto mantiene su velocidad</strong> (tanto su rapidez como su dirección) <strong>a menos que una fuerza neta actúe sobre él</strong>. Si está quieto, sigue quieto. Si se mueve, sigue moviéndose en línea recta a la misma velocidad — para siempre, si nada lo frena o lo desvía. A esa resistencia a cambiar de velocidad se la llama <strong class="term-2">inercia</strong>, y cuanta más masa tiene un objeto, más inercia tiene.</p>
+      <div class="formula-box">Si <span class="term-1">F neta</span> = 0 → <span class="term-2">v</span> = constante (en módulo y dirección)</div>
+      <div class="analogia">
+        <span class="analogia-tag">Piénsalo así</span>
+        Cuando el colectivo frena de golpe, tu cuerpo "sigue de largo" hacia adelante — no porque algo te empuje, sino porque tu cuerpo ya venía moviéndose a esa velocidad y, sin el cinturón, nada lo frena al mismo tiempo que al colectivo. Lo mismo pasa con el mantel: si lo tiras rápido, los platos "se quedan" en el aire un instante, porque nada los frenó a ellos.
+      </div>
+      <p class="var-list">En el espacio, lejos de cualquier planeta, no hay aire ni fricción — por eso una nave puede apagar los motores y seguir viajando a velocidad constante durante años, sin gastar combustible.</p>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Simulador — inercia en el espacio vs. en la Tierra</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Elige el escenario, aplica un impulso y observa qué pasa con la velocidad del objeto cuando no actúa (o sí actúa) una fuerza de rozamiento.</p>
+      <div class="sim-box" id="inercia-sim">
+        <div class="speed-row" style="margin-left:0;flex-wrap:wrap;gap:6px;">
+          <button class="speed-btn active" data-escenario="espacio">Sin fuerzas (espacio)</button>
+          <button class="speed-btn" data-escenario="tierra">Con rozamiento (Tierra)</button>
+        </div>
+        <canvas id="inercia-canvas" width="680" height="140" style="margin-top:14px;"></canvas>
+        <div class="sim-readout">
+          <span id="inercia-v">v = 0.0 m/s</span>
+          <span id="inercia-estado">Esperando impulso…</span>
+        </div>
+      </div>
+      <button class="calc-btn" id="inercia-btn">Aplicar impulso</button>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Un disco de hockey se desliza sobre hielo (fricción casi nula) a 3 m/s. Si nada lo toca, ¿qué pasa con su velocidad dentro de 10 segundos?
+          <details><summary>Ver respuesta</summary>Sigue a 3 m/s, en la misma dirección — por la Primera Ley, sin fuerza neta no hay cambio de velocidad.</details>
+        </li>
+        <li>Una sonda espacial apaga sus motores a 20.000 km/h en el espacio profundo. ¿Necesita encenderlos de nuevo solo para "no frenarse"?
+          <details><summary>Ver respuesta</summary>No. Sin aire ni fricción que la frene, sigue a 20.000 km/h indefinidamente — solo necesita motores para cambiar de velocidad o dirección, no para mantenerla.</details>
+        </li>
+      </ol>
+    </div>
+
+    <div class="card" data-tag="Concepto">
+      <h2>Segunda Ley de Newton — F = m·a</h2>
       <p>Dice que la aceleración de un objeto depende de dos cosas: la fuerza que se le aplica y su masa. Cuanta más fuerza, más aceleración. Cuanta más masa, más cuesta acelerarlo (más "inercia" tiene).</p>
       <div class="formula-box"><span class="term-1">F</span> = <span class="term-2">m</span> · <span class="term-3">a</span></div>
       <div class="formula-leyenda">
@@ -809,6 +849,85 @@
         </li>
         <li>Un objeto de 10 kg acelera a 2 m/s². ¿Qué fuerza neta actúa sobre él?
           <details><summary>Ver respuesta</summary>F = 10×2 = 20 N</details>
+        </li>
+      </ol>
+    </div>
+
+    <div class="card" data-tag="Concepto">
+      <h2>Tercera Ley de Newton — Acción y Reacción</h2>
+      <p>Dice que <strong>cuando un cuerpo ejerce una fuerza sobre otro, el segundo ejerce sobre el primero una fuerza igual en módulo y dirección, pero en sentido contrario</strong>. Ojo: estas dos fuerzas no actúan sobre el mismo cuerpo — por eso nunca se "cancelan" entre sí, aunque sean iguales y opuestas.</p>
+      <div class="formula-box"><span class="term-1">F</span><sub>A→B</sub> = − <span class="term-1">F</span><sub>B→A</sub></div>
+      <div class="analogia">
+        <span class="analogia-tag">Piénsalo así</span>
+        Cuando nadas, empujas el agua hacia atrás con las manos — y el agua te empuja hacia adelante, con la misma fuerza. Un cohete expulsa gases hacia abajo a gran velocidad, y esos gases empujan al cohete hacia arriba. Si saltas desde un kayak liviano hacia un muelle, el kayak sale disparado hacia atrás — porque la fuerza que hiciste con las piernas sobre el kayak fue tan real como la que el kayak hizo sobre ti.
+      </div>
+      <p class="var-list">Por qué entonces las cosas sí se mueven: la fuerza de reacción actúa sobre el <em>otro</em> cuerpo, no sobre el que empuja. Por eso un caballo puede tirar de un carro hacia adelante aunque el carro "tire" del caballo hacia atrás con la misma fuerza — lo que importa para el movimiento del carro es la fricción entre las patas del caballo y el piso, no esa reacción.</p>
+    </div>
+
+    <div class="card" data-tag="Simulación">
+      <h2>Simulador — dos patinadores se empujan en el hielo</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Ajusta la masa de cada patinador y presiona "Empujarse". Las fuerzas que se aplican mutuamente son iguales y opuestas — por eso el más liviano siempre sale disparado más rápido.</p>
+      <div class="sim-box" id="accion-sim">
+        <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start;">
+          <div style="flex:1;min-width:200px;">
+            <div class="field"><label>Masa patinador A (kg): <span id="accion-mA-val">50</span> kg</label><input type="range" id="accion-mA" min="30" max="100" value="50" step="5" style="width:100%;"></div>
+            <div class="field" style="margin-top:12px;"><label>Masa patinador B (kg): <span id="accion-mB-val">70</span> kg</label><input type="range" id="accion-mB" min="30" max="100" value="70" step="5" style="width:100%;"></div>
+          </div>
+        </div>
+        <canvas id="accion-canvas" width="680" height="140" style="margin-top:14px;"></canvas>
+        <div class="sim-readout">
+          <span id="accion-vA">v(A) = 0.0 m/s</span>
+          <span id="accion-vB">v(B) = 0.0 m/s</span>
+          <span id="accion-check">F(A→B) = −F(B→A)</span>
+        </div>
+      </div>
+      <button class="calc-btn" id="accion-btn">Empujarse</button>
+    </div>
+
+    <div class="card" data-tag="Ejemplo resuelto">
+      <h2>Ejemplo resuelto, paso a paso</h2>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-4px;">Dos patinadores en reposo sobre hielo (sin fricción) se empujan. A tiene 50 kg y sale con 1.4 m/s. B tiene 70 kg. ¿A qué velocidad sale B?</p>
+      <div class="resolucion">
+        <div class="resolucion-bloque datos">
+          <p class="resolucion-label"><span class="num-badge">1</span>Datos</p>
+          <ul class="datos-lista">
+            <li><span class="dato-simbolo term-1">m</span><span class="dato-nombre">masa de A</span><span class="dato-valor term-1">50 kg</span></li>
+            <li><span class="dato-simbolo term-2">v</span><span class="dato-nombre">velocidad de A</span><span class="dato-valor term-2">1.4 m/s</span></li>
+            <li><span class="dato-simbolo term-3">m</span><span class="dato-nombre">masa de B</span><span class="dato-valor term-3">70 kg</span></li>
+          </ul>
+        </div>
+        <div class="resolucion-bloque formula-usada">
+          <p class="resolucion-label"><span class="num-badge">2</span>Fórmula utilizada</p>
+          <p style="color:var(--ink-soft);font-size:13.5px;margin:0 0 8px;">Como las fuerzas y el tiempo de contacto son iguales para los dos (Tercera Ley), el impulso que recibe cada uno también es igual: se conserva la cantidad de movimiento total.</p>
+          <div class="formula-box" style="margin:0;">m<sub>A</sub>·v<sub>A</sub> = m<sub>B</sub>·v<sub>B</sub></div>
+        </div>
+        <div class="resolucion-bloque pasos">
+          <p class="resolucion-label"><span class="num-badge">3</span>Resolución</p>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Despejo la velocidad de B</span>
+            v<sub>B</sub> = (m<sub>A</sub>·v<sub>A</sub>) / m<sub>B</sub>
+          </div>
+          <div class="paso-r">
+            <span class="paso-r-titulo">Reemplazo y resuelvo</span>
+            v<sub>B</sub> = (50 × 1.4) / 70 = 70/70 = <strong>1.0 m/s</strong>
+          </div>
+          <div class="aviso-unidades"><strong>Tiene sentido:</strong> B es más pesado que A, así que sale más lento — con menos masa, A "recibe" más velocidad para la misma fuerza.</div>
+        </div>
+        <div class="resolucion-bloque respuesta">
+          <p class="resolucion-label"><span class="num-badge">4</span>Respuesta</p>
+          <p>El patinador B sale disparado a <strong>1.0 m/s</strong> en sentido contrario a A</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card exercises" data-tag="Ejercicios">
+      <h2>Ejercicios con respuesta</h2>
+      <ol>
+        <li>Al remar, empujas el agua hacia atrás con el remo. ¿Hacia dónde te empuja el agua, y por qué ley?
+          <details><summary>Ver respuesta</summary>Hacia adelante — por la Tercera Ley: la fuerza que el remo hace sobre el agua tiene una reacción igual y opuesta del agua sobre el remo (y el bote).</details>
+        </li>
+        <li>Dos patinadores de igual masa, en reposo, se empujan entre sí sobre hielo sin fricción. ¿Salen con la misma rapidez o uno sale más rápido?
+          <details><summary>Ver respuesta</summary>Con la misma rapidez (en sentidos opuestos) — al tener igual masa, m·v = m·v solo se cumple si ambas velocidades son iguales en módulo.</details>
         </li>
       </ol>
     </div>
@@ -1144,6 +1263,112 @@
     const c2 = document.getElementById('sim-canvas-avanzado');
     drawTrack(c2.getContext('2d'), c2.width, c2.height, 25, 0, '🚚');
   });
+
+  // ---- Simulador: Primera Ley — inercia en el espacio vs. con rozamiento ----
+  (function(){
+    const canvas = document.getElementById('inercia-canvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height, groundY = H-30;
+    let escenario = 'espacio';
+    let x = 40, v = 0, dir = 1;
+
+    function dibujar(){
+      ctx.clearRect(0,0,W,H);
+      ctx.strokeStyle = '#D8D3C4';
+      ctx.beginPath(); ctx.moveTo(10, groundY+14); ctx.lineTo(W-10, groundY+14); ctx.stroke();
+      ctx.font = '30px sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.fillText('⚪', x, groundY-6);
+      ctx.font = "600 12px 'JetBrains Mono', monospace";
+      ctx.fillStyle = '#4A5568';
+      ctx.fillText(escenario==='espacio' ? '✨ vacío — sin fricción' : '🌍 superficie con rozamiento', W/2, 20);
+    }
+
+    function paso(){
+      if(escenario==='tierra' && v>0){
+        v = Math.max(0, v - 0.045); // fricción: la velocidad decae
+      }
+      x += v*dir;
+      if(x>W-30 || x<30){ dir*=-1; x = Math.max(30, Math.min(W-30, x)); }
+      document.getElementById('inercia-v').innerText = 'v = '+(v*3.6).toFixed(1)+' m/s';
+      const estadoEl = document.getElementById('inercia-estado');
+      if(v<0.02){ estadoEl.innerText = 'En reposo — necesita una fuerza para empezar a moverse'; }
+      else if(escenario==='espacio'){ estadoEl.innerText = 'Sin fuerzas actuando — mantiene su velocidad indefinidamente'; }
+      else { estadoEl.innerText = 'El rozamiento (una fuerza) lo está frenando'; }
+      dibujar();
+      requestAnimationFrame(paso);
+    }
+
+    document.querySelectorAll('#inercia-sim .speed-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        document.querySelectorAll('#inercia-sim .speed-btn').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        escenario = btn.dataset.escenario;
+      });
+    });
+
+    document.getElementById('inercia-btn').addEventListener('click', ()=>{
+      v = Math.min(v+1.6, 4.5);
+    });
+
+    dibujar();
+    requestAnimationFrame(paso);
+  })();
+
+  // ---- Simulador: Tercera Ley — dos patinadores se empujan ----
+  (function(){
+    const canvas = document.getElementById('accion-canvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height, midY = H/2;
+    let xA = W/2-40, xB = W/2+40, vA = 0, vB = 0, empujado=false;
+
+    function mA(){ return parseFloat(document.getElementById('accion-mA').value); }
+    function mB(){ return parseFloat(document.getElementById('accion-mB').value); }
+
+    function dibujar(){
+      ctx.clearRect(0,0,W,H);
+      ctx.font = '36px sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.fillText('⛸️', xA, midY);
+      ctx.fillText('⛸️', xB, midY);
+      ctx.font = "600 12px 'JetBrains Mono', monospace"; ctx.fillStyle = '#B8842E';
+      ctx.fillText('A', xA, midY-26);
+      ctx.fillText('B', xB, midY-26);
+      if(empujado && (Math.abs(vA)>0.01 || Math.abs(vB)>0.01)){
+        ctx.strokeStyle = '#D9A441'; ctx.lineWidth = 3;
+        ctx.beginPath(); ctx.moveTo(xA, midY+30); ctx.lineTo(xA-22, midY+30); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(xB, midY+30); ctx.lineTo(xB+22, midY+30); ctx.stroke();
+      }
+    }
+
+    function paso(){
+      if(empujado){
+        xA += vA; xB += vB;
+        if(xA<24){ xA=24; vA=0; } if(xB>W-24){ xB=W-24; vB=0; }
+      }
+      document.getElementById('accion-vA').innerText = 'v(A) = '+Math.abs(vA*3.6).toFixed(1)+' m/s';
+      document.getElementById('accion-vB').innerText = 'v(B) = '+Math.abs(vB*3.6).toFixed(1)+' m/s';
+      dibujar();
+      requestAnimationFrame(paso);
+    }
+
+    ['accion-mA','accion-mB'].forEach(id=>{
+      document.getElementById(id).addEventListener('input', function(){
+        document.getElementById(id+'-val').innerText = this.value;
+      });
+    });
+
+    document.getElementById('accion-btn').addEventListener('click', ()=>{
+      xA = W/2-40; xB = W/2+40;
+      const p = 300; // impulso igual y opuesto para los dos — Tercera Ley
+      vA = -p/mA()/22;
+      vB = p/mB()/22;
+      empujado = true;
+    });
+
+    dibujar();
+    requestAnimationFrame(paso);
+  })();
 </script>
 
 </body>
