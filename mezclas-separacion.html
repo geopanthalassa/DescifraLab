@@ -359,6 +359,69 @@
   }
   .speed-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
 
+  /* Simulador de mezclas — mismo lenguaje visual del matraz dorado */
+  #matraz-sim{
+    background:radial-gradient(circle at 18% 12%, rgba(217,164,67,0.10), transparent 55%), var(--paper);
+    border:1px solid var(--line);
+    border-radius:26px;
+    padding:22px 22px 20px;
+    box-shadow:0 18px 40px rgba(23,40,59,0.07);
+  }
+  #matraz-sim canvas{
+    filter:drop-shadow(0 10px 18px rgba(23,40,59,0.12));
+  }
+  #matraz-tipo-botones .speed-btn{
+    border:1px solid var(--line);background:var(--white);
+    border-radius:999px;padding:8px 16px;font-weight:600;
+    transition:background .15s ease, color .15s ease, border-color .15s ease;
+  }
+  #matraz-tipo-botones .speed-btn.active{
+    background:var(--amber-dark);color:var(--white);border-color:var(--amber-dark);
+  }
+  #matraz-sim .field label{font-weight:600;color:var(--ink);}
+  #matraz-sim input[type="range"]{
+    -webkit-appearance:none;appearance:none;
+    width:100%;height:8px;border-radius:999px;
+    background:linear-gradient(90deg, var(--amber-dark), var(--amber) var(--fill,50%), #E7E2D3 var(--fill,50%));
+    outline:none;cursor:pointer;
+  }
+  #matraz-sim input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none;appearance:none;
+    width:22px;height:22px;border-radius:50%;
+    background:var(--white);border:3px solid var(--amber-dark);
+    box-shadow:0 3px 8px rgba(23,40,59,0.25);
+    cursor:pointer;margin-top:-1px;transition:transform .15s ease;
+  }
+  #matraz-sim input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.12);}
+  #matraz-sim input[type="range"]::-moz-range-thumb{
+    width:22px;height:22px;border-radius:50%;
+    background:var(--white);border:3px solid var(--amber-dark);
+    box-shadow:0 3px 8px rgba(23,40,59,0.25);cursor:pointer;
+  }
+  #matraz-sim input[type="range"]::-moz-range-track{height:8px;border-radius:999px;background:#E7E2D3;}
+  #matraz-sim select, #matraz-sim input[type="number"]{border-radius:10px;}
+  .matraz-stats{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));
+    gap:10px;margin-top:14px;
+  }
+  .matraz-stat{
+    background:linear-gradient(160deg,#FFF9EE,#FCEFD8);
+    border:1px solid #EAD9B2;border-radius:16px;padding:10px 14px;
+  }
+  .matraz-stat-label{
+    font:600 10px 'JetBrains Mono',monospace;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--amber-dark);
+  }
+  .matraz-stat-value{
+    font-family:'Fraunces',serif;font-weight:700;font-size:19px;
+    color:var(--ink);margin-top:3px;
+  }
+  .matraz-mensaje{
+    color:var(--ink-soft);font-size:14px;margin-top:14px;
+    background:var(--white);border:1px dashed var(--line);
+    border-radius:14px;padding:10px 14px;
+  }
+
   .ph-escala{margin-top:14px;}
   .ph-barra{
     display:flex;
@@ -652,12 +715,12 @@
           </div>
         </div>
 
-        <div class="sim-readout" style="flex-wrap:wrap;gap:6px 18px;">
-          <span>% m/m: <span id="matraz-pct">—</span></span>
-          <span>Molaridad: <span id="matraz-molaridad">—</span></span>
-          <span>Molalidad: <span id="matraz-molalidad">—</span></span>
+        <div class="matraz-stats">
+          <div class="matraz-stat"><div class="matraz-stat-label">% m/m</div><div class="matraz-stat-value" id="matraz-pct">—</div></div>
+          <div class="matraz-stat"><div class="matraz-stat-label">Molaridad</div><div class="matraz-stat-value" id="matraz-molaridad">—</div></div>
+          <div class="matraz-stat"><div class="matraz-stat-label">Molalidad</div><div class="matraz-stat-value" id="matraz-molalidad">—</div></div>
         </div>
-        <p id="matraz-mensaje" style="color:var(--ink-soft);font-size:14px;margin-top:10px;"></p>
+        <p id="matraz-mensaje" class="matraz-mensaje"></p>
       </div>
     </div>
 
@@ -987,7 +1050,9 @@ const matrazImg = new Image();
     const partsHomog = [];
     for(let i=0;i<40;i++) partsHomog.push({ang:Math.random()*Math.PI*2, r:Math.random(), t:Math.random()});
     const partsHetero = [];
-    for(let i=0;i<26;i++) partsHetero.push({x:(Math.random()-0.5), row:Math.floor(Math.random()*4)});
+    for(let i=0;i<26;i++) partsHetero.push({x:(Math.random()-0.5), row:Math.floor(Math.random()*4), ang:Math.random()*Math.PI*2, speed:0.4+Math.random()*0.6});
+    const burbujas = [];
+    for(let i=0;i<10;i++) burbujas.push({x:Math.random(), t:Math.random(), speed:0.00028+Math.random()*0.00035, r:1.3+Math.random()*2.1, wob:Math.random()*Math.PI*2});
 
     function dibujar(masaSoluto, volSolvente, pct){
       ctx.clearRect(0,0,W,H);
@@ -997,7 +1062,7 @@ const matrazImg = new Image();
       const fillY = nivelMin + (nivelMax-nivelMin)*t;
 
       const colorLiquido = tipo==='homogenea'
-        ? lerpColor([150,205,235],[63,160,92], Math.min((pct||0)/22,1))
+        ? lerpColor([250,233,202],[196,138,48], Math.min((pct||0)/22,1))
         : 'rgba(150,205,235,0.55)';
 
       ctx.save();
@@ -1029,13 +1094,31 @@ const matrazImg = new Image();
       if(tipo==='heterogenea' && masaSoluto>0){
         const n = Math.min(Math.round(masaSoluto/1.5), 26);
         ctx.fillStyle = '#B8842E';
+        const tiempoH = performance.now()*0.0009;
         for(let i=0;i<n;i++){
           const p = partsHetero[i%partsHetero.length];
-          const x = cx + p.x*130;
-          const y = (H-10) - p.row*4;
+          // sedimento que no se disuelve, pero se mece suavemente en el fondo — no queda congelado
+          const x = cx + p.x*130 + Math.sin(tiempoH*p.speed + p.ang)*3.2;
+          const y = (H-10) - p.row*4 + Math.cos(tiempoH*p.speed*0.7 + p.ang)*2.2;
           ctx.beginPath(); ctx.arc(x, y, 3.5, 0, Math.PI*2); ctx.fill();
         }
       }
+
+      // burbujas doradas subiendo — mismo lenguaje visual del matraz en todos los simuladores
+      const ahora = performance.now();
+      ctx.fillStyle = 'rgba(255,255,255,0.55)';
+      for(const b of burbujas){
+        b.t -= b.speed*16;
+        if(b.t < 0) b.t = 1;
+        const liquidoAlto = Math.max(4, (H-16)-fillY);
+        const y = fillY + b.t*liquidoAlto;
+        const w = anchoEnY(y);
+        const x = cx + Math.sin(b.wob + ahora*0.0012)*w*0.55 + (b.x-0.5)*w*0.7;
+        const op = 0.15 + 0.5*(1-b.t);
+        ctx.globalAlpha = Math.max(0, Math.min(1, op));
+        ctx.beginPath(); ctx.arc(x, y, b.r, 0, Math.PI*2); ctx.fill();
+      }
+      ctx.globalAlpha = 1;
       ctx.restore();
 
       if(matrazImg.complete && matrazImg.naturalWidth > 0){
@@ -1050,6 +1133,11 @@ const matrazImg = new Image();
 
       document.getElementById('matraz-soluto-val').innerText = masaSoluto;
       document.getElementById('matraz-solvente-val').innerText = volSolvente;
+
+      const solutoInput = document.getElementById('matraz-soluto');
+      const solventeInput = document.getElementById('matraz-solvente');
+      solutoInput.style.setProperty('--fill', ((solutoInput.value-solutoInput.min)/(solutoInput.max-solutoInput.min)*100)+'%');
+      solventeInput.style.setProperty('--fill', ((solventeInput.value-solventeInput.min)/(solventeInput.max-solventeInput.min)*100)+'%');
 
       const masaSolvente = volSolvente * 1; // agua ≈ 1 g/mL
       const masaSolucion = masaSolvente + masaSoluto;
