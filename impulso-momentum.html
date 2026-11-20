@@ -350,6 +350,52 @@
     margin-top:12px;padding:10px 14px;
     background:var(--ink);border-radius:8px;
   }
+  .modsim{
+    background:radial-gradient(circle at 18% 12%, rgba(217,164,67,0.10), transparent 55%), var(--paper);
+    border:1px solid var(--line);
+    border-radius:26px;
+    padding:22px 22px 20px;
+    box-shadow:0 18px 40px rgba(23,40,59,0.07);
+  }
+  .modsim canvas{
+    filter:drop-shadow(0 10px 18px rgba(23,40,59,0.12));
+  }
+  .modsim-stats{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));
+    gap:10px;margin-top:14px;
+  }
+  .modsim-stat{
+    background:linear-gradient(160deg,#FFF9EE,#FCEFD8);
+    border:1px solid #EAD9B2;
+    border-radius:16px;
+    padding:11px 14px;
+    font-family:'JetBrains Mono',monospace;font-weight:700;
+    font-size:13px;color:var(--ink);text-align:center;
+  }
+  input[type="range"]{
+    -webkit-appearance:none;appearance:none;
+    width:100%;height:8px;border-radius:999px;
+    background:#E7E2D3;
+    outline:none;cursor:pointer;
+  }
+  input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none;appearance:none;
+    width:22px;height:22px;border-radius:50%;
+    background:var(--white);
+    border:3px solid var(--amber-dark);
+    box-shadow:0 3px 8px rgba(23,40,59,0.25);
+    cursor:pointer;margin-top:-1px;
+    transition:transform .15s ease;
+  }
+  input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.12);}
+  input[type="range"]::-moz-range-thumb{
+    width:22px;height:22px;border-radius:50%;
+    background:var(--white);border:3px solid var(--amber-dark);
+    box-shadow:0 3px 8px rgba(23,40,59,0.25);cursor:pointer;
+  }
+  input[type="range"]::-moz-range-track{
+    height:8px;border-radius:999px;background:#E7E2D3;
+  }
   .speed-row{
     display:inline-flex;align-items:center;gap:8px;
     margin-left:14px;font-family:'JetBrains Mono', monospace;
@@ -631,7 +677,7 @@
       <div class="formula-box"><span class="term-4">J</span> = <span class="term-5">F</span> · Δt = Δp = <span class="term-2">m</span>·(v<sub>f</sub> − v<sub>0</sub>)</div>
       <div class="analogia">
         <span class="analogia-tag">Cómo reconocer los datos en un problema</span>
-        Si el problema dice "una fuerza actúa durante tantos segundos", eso es F y Δt para calcular el impulso J. Si te dan directamente masa y velocidad, calculás p sin pasar por el impulso.
+        Si el problema dice "una fuerza actúa durante tantos segundos", eso es F y Δt para calcular el impulso J. Si te dan directamente masa y velocidad, calculas p sin pasar por el impulso.
       </div>
     </div>
 
@@ -749,11 +795,11 @@
     <div class="card" data-tag="Simulación">
       <h2>Mira el choque</h2>
       <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Con los valores de arriba, mira cómo se mueven los dos objetos antes y después del choque — prueba cambiar entre elástico e inelástico y compara.</p>
-      <div class="sim-box">
+      <div class="sim-box modsim">
         <canvas id="collision-canvas" width="680" height="180"></canvas>
-        <div class="sim-readout">
-          <span id="coll-v1">v₁' = 0 m/s</span>
-          <span id="coll-v2">v₂' = 0 m/s</span>
+        <div class="modsim-stats">
+          <div class="modsim-stat"><span id="coll-v1">v₁' = 0 m/s</span></div>
+          <div class="modsim-stat"><span id="coll-v2">v₂' = 0 m/s</span></div>
         </div>
       </div>
       <button class="calc-btn" id="collision-btn" onclick="playCollision()">▶ Reproducir choque</button>

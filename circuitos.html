@@ -350,6 +350,52 @@
     margin-top:12px;padding:10px 14px;
     background:var(--ink);border-radius:8px;
   }
+  .modsim{
+    background:radial-gradient(circle at 18% 12%, rgba(217,164,67,0.10), transparent 55%), var(--paper);
+    border:1px solid var(--line);
+    border-radius:26px;
+    padding:22px 22px 20px;
+    box-shadow:0 18px 40px rgba(23,40,59,0.07);
+  }
+  .modsim canvas{
+    filter:drop-shadow(0 10px 18px rgba(23,40,59,0.12));
+  }
+  .modsim-stats{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));
+    gap:10px;margin-top:14px;
+  }
+  .modsim-stat{
+    background:linear-gradient(160deg,#FFF9EE,#FCEFD8);
+    border:1px solid #EAD9B2;
+    border-radius:16px;
+    padding:11px 14px;
+    font-family:'JetBrains Mono',monospace;font-weight:700;
+    font-size:13px;color:var(--ink);text-align:center;
+  }
+  input[type="range"]{
+    -webkit-appearance:none;appearance:none;
+    width:100%;height:8px;border-radius:999px;
+    background:#E7E2D3;
+    outline:none;cursor:pointer;
+  }
+  input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none;appearance:none;
+    width:22px;height:22px;border-radius:50%;
+    background:var(--white);
+    border:3px solid var(--amber-dark);
+    box-shadow:0 3px 8px rgba(23,40,59,0.25);
+    cursor:pointer;margin-top:-1px;
+    transition:transform .15s ease;
+  }
+  input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.12);}
+  input[type="range"]::-moz-range-thumb{
+    width:22px;height:22px;border-radius:50%;
+    background:var(--white);border:3px solid var(--amber-dark);
+    box-shadow:0 3px 8px rgba(23,40,59,0.25);cursor:pointer;
+  }
+  input[type="range"]::-moz-range-track{
+    height:8px;border-radius:999px;background:#E7E2D3;
+  }
   .speed-row{
     display:inline-flex;align-items:center;gap:8px;
     margin-left:14px;font-family:'JetBrains Mono', monospace;
@@ -654,12 +700,12 @@
     <div class="card" data-tag="Simulación">
       <h2>Mira por qué las lamparitas brillan menos en serie</h2>
       <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Dos lamparitas idénticas conectadas en serie a la misma pila — cada una recibe solo una parte del voltaje total, por eso brillan menos que si estuvieran solas.</p>
-      <div class="sim-box">
+      <div class="sim-box modsim">
         <canvas id="serie-canvas" width="680" height="180"></canvas>
-        <div class="sim-readout">
-          <span id="serie-V1">V₁ = 0 V</span>
-          <span id="serie-V2">V₂ = 0 V</span>
-          <span id="serie-I">I = 0 A</span>
+        <div class="modsim-stats">
+          <div class="modsim-stat"><span id="serie-V1">V₁ = 0 V</span></div>
+          <div class="modsim-stat"><span id="serie-V2">V₂ = 0 V</span></div>
+          <div class="modsim-stat"><span id="serie-I">I = 0 A</span></div>
         </div>
       </div>
       <button class="calc-btn" id="serie-btn" onclick="toggleSerie()">Comparar</button>
@@ -765,12 +811,12 @@
     <div class="card" data-tag="Simulación">
       <h2>Mira por qué en paralelo brillan igual de fuerte</h2>
       <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Las mismas dos lamparitas, ahora en paralelo — cada una recibe el voltaje completo de la pila, así que brillan a full, no a medias como en serie.</p>
-      <div class="sim-box">
+      <div class="sim-box modsim">
         <canvas id="paralelo-canvas" width="680" height="180"></canvas>
-        <div class="sim-readout">
-          <span id="par-I1">I₁ = 0 A</span>
-          <span id="par-I2">I₂ = 0 A</span>
-          <span id="par-Itotal">I total = 0 A</span>
+        <div class="modsim-stats">
+          <div class="modsim-stat"><span id="par-I1">I₁ = 0 A</span></div>
+          <div class="modsim-stat"><span id="par-I2">I₂ = 0 A</span></div>
+          <div class="modsim-stat"><span id="par-Itotal">I total = 0 A</span></div>
         </div>
       </div>
       <button class="calc-btn" id="paralelo-btn" onclick="toggleParalelo()">Comparar</button>

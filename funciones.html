@@ -350,6 +350,52 @@
     margin-top:12px;padding:10px 14px;
     background:var(--ink);border-radius:8px;
   }
+  .modsim{
+    background:radial-gradient(circle at 18% 12%, rgba(217,164,67,0.10), transparent 55%), var(--paper);
+    border:1px solid var(--line);
+    border-radius:26px;
+    padding:22px 22px 20px;
+    box-shadow:0 18px 40px rgba(23,40,59,0.07);
+  }
+  .modsim canvas{
+    filter:drop-shadow(0 10px 18px rgba(23,40,59,0.12));
+  }
+  .modsim-stats{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));
+    gap:10px;margin-top:14px;
+  }
+  .modsim-stat{
+    background:linear-gradient(160deg,#FFF9EE,#FCEFD8);
+    border:1px solid #EAD9B2;
+    border-radius:16px;
+    padding:11px 14px;
+    font-family:'JetBrains Mono',monospace;font-weight:700;
+    font-size:13px;color:var(--ink);text-align:center;
+  }
+  input[type="range"]{
+    -webkit-appearance:none;appearance:none;
+    width:100%;height:8px;border-radius:999px;
+    background:#E7E2D3;
+    outline:none;cursor:pointer;
+  }
+  input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none;appearance:none;
+    width:22px;height:22px;border-radius:50%;
+    background:var(--white);
+    border:3px solid var(--amber-dark);
+    box-shadow:0 3px 8px rgba(23,40,59,0.25);
+    cursor:pointer;margin-top:-1px;
+    transition:transform .15s ease;
+  }
+  input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.12);}
+  input[type="range"]::-moz-range-thumb{
+    width:22px;height:22px;border-radius:50%;
+    background:var(--white);border:3px solid var(--amber-dark);
+    box-shadow:0 3px 8px rgba(23,40,59,0.25);cursor:pointer;
+  }
+  input[type="range"]::-moz-range-track{
+    height:8px;border-radius:999px;background:#E7E2D3;
+  }
   .speed-row{
     display:inline-flex;align-items:center;gap:8px;
     margin-left:14px;font-family:'JetBrains Mono', monospace;
@@ -597,14 +643,14 @@
       </div>
       <div class="analogia">
         <span class="analogia-tag">Piénsalo así</span>
-        Imagina que caminas por una calle en subida. <strong class="term-1">m</strong> es qué tan empinada es la subida (si es 0, la calle es plana; si es grande, subís muy rápido). <strong class="term-2">b</strong> es la altura donde arrancaste a caminar, antes de dar el primer paso.
+        Imagina que caminas por una calle en subida. <strong class="term-1">m</strong> es qué tan empinada es la subida (si es 0, la calle es plana; si es grande, subes muy rápido). <strong class="term-2">b</strong> es la altura donde arrancaste a caminar, antes de dar el primer paso.
       </div>
     </div>
 
     <div class="card" data-tag="Manipulable">
       <h2>Arrastra los puntos y mira cómo cambia la recta</h2>
       <p style="color:var(--ink-soft);font-size:14.5px;">Mueves cualquiera de los dos puntos con el mouse o el dedo — la recta y su ecuación se recalculan al instante, en vivo.</p>
-      <div class="manip-box">
+      <div class="manip-box modsim">
         <div class="manip-canvas-wrap">
           <canvas id="func-canvas" width="560" height="400"></canvas>
         </div>
@@ -642,7 +688,7 @@
         <div class="field"><label>m (pendiente)</label><input type="range" id="lin-m" min="-5" max="5" step="0.5" value="1" oninput="actualizarLineal()"><span id="lin-m-val" style="font-family:'JetBrains Mono',monospace;">1</span></div>
         <div class="field"><label>b (ordenada al origen)</label><input type="range" id="lin-b" min="-10" max="10" step="1" value="0" oninput="actualizarLineal()"><span id="lin-b-val" style="font-family:'JetBrains Mono',monospace;">0</span></div>
       </div>
-      <div class="sim-box">
+      <div class="sim-box modsim">
         <canvas id="lineal-canvas" width="680" height="280"></canvas>
       </div>
     </div>
@@ -695,7 +741,7 @@
         <div class="field"><label>a (valor inicial)</label><input type="range" id="exp-a" min="0.5" max="5" step="0.5" value="1" oninput="actualizarAvanzado()"><span id="exp-a-val" style="font-family:'JetBrains Mono',monospace;">1</span></div>
         <div class="field"><label>b (base)</label><input type="range" id="exp-b" min="0.2" max="3" step="0.1" value="2" oninput="actualizarAvanzado()"><span id="exp-b-val" style="font-family:'JetBrains Mono',monospace;">2</span></div>
       </div>
-      <div class="sim-box">
+      <div class="sim-box modsim">
         <canvas id="avanzado-canvas" width="680" height="280"></canvas>
       </div>
     </div>
@@ -723,7 +769,7 @@
       </div>
       <button class="calc-btn" onclick="analizarFuncion()">Analizar función</button>
       <div class="readout" id="an-readout"></div>
-      <div class="sim-box" style="margin-top:14px;">
+      <div class="sim-box modsim" style="margin-top:14px;">
         <canvas id="analisis-canvas" width="680" height="280"></canvas>
       </div>
     </div>

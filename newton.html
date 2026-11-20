@@ -350,6 +350,52 @@
     margin-top:12px;padding:10px 14px;
     background:var(--ink);border-radius:8px;
   }
+  .modsim{
+    background:radial-gradient(circle at 18% 12%, rgba(217,164,67,0.10), transparent 55%), var(--paper);
+    border:1px solid var(--line);
+    border-radius:26px;
+    padding:22px 22px 20px;
+    box-shadow:0 18px 40px rgba(23,40,59,0.07);
+  }
+  .modsim canvas{
+    filter:drop-shadow(0 10px 18px rgba(23,40,59,0.12));
+  }
+  .modsim-stats{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));
+    gap:10px;margin-top:14px;
+  }
+  .modsim-stat{
+    background:linear-gradient(160deg,#FFF9EE,#FCEFD8);
+    border:1px solid #EAD9B2;
+    border-radius:16px;
+    padding:11px 14px;
+    font-family:'JetBrains Mono',monospace;font-weight:700;
+    font-size:13px;color:var(--ink);text-align:center;
+  }
+  input[type="range"]{
+    -webkit-appearance:none;appearance:none;
+    width:100%;height:8px;border-radius:999px;
+    background:#E7E2D3;
+    outline:none;cursor:pointer;
+  }
+  input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none;appearance:none;
+    width:22px;height:22px;border-radius:50%;
+    background:var(--white);
+    border:3px solid var(--amber-dark);
+    box-shadow:0 3px 8px rgba(23,40,59,0.25);
+    cursor:pointer;margin-top:-1px;
+    transition:transform .15s ease;
+  }
+  input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.12);}
+  input[type="range"]::-moz-range-thumb{
+    width:22px;height:22px;border-radius:50%;
+    background:var(--white);border:3px solid var(--amber-dark);
+    box-shadow:0 3px 8px rgba(23,40,59,0.25);cursor:pointer;
+  }
+  input[type="range"]::-moz-range-track{
+    height:8px;border-radius:999px;background:#E7E2D3;
+  }
   .speed-row{
     display:inline-flex;align-items:center;gap:8px;
     margin-left:14px;font-family:'JetBrains Mono', monospace;
@@ -675,15 +721,15 @@
     <div class="card" data-tag="Simulación">
       <h2>Simulador — inercia en el espacio vs. en la Tierra</h2>
       <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Elige el escenario, aplica un impulso y observa qué pasa con la velocidad del objeto cuando no actúa (o sí actúa) una fuerza de rozamiento.</p>
-      <div class="sim-box" id="inercia-sim">
+      <div class="sim-box modsim" id="inercia-sim">
         <div class="speed-row" style="margin-left:0;flex-wrap:wrap;gap:6px;">
           <button class="speed-btn active" data-escenario="espacio">Sin fuerzas (espacio)</button>
           <button class="speed-btn" data-escenario="tierra">Con rozamiento (Tierra)</button>
         </div>
         <canvas id="inercia-canvas" width="680" height="140" style="margin-top:14px;"></canvas>
-        <div class="sim-readout">
-          <span id="inercia-v">v = 0.0 m/s</span>
-          <span id="inercia-estado">Esperando impulso…</span>
+        <div class="modsim-stats">
+          <div class="modsim-stat"><span id="inercia-v">v = 0.0 m/s</span></div>
+          <div class="modsim-stat"><span id="inercia-estado">Esperando impulso…</span></div>
         </div>
       </div>
       <button class="calc-btn" id="inercia-btn">Aplicar impulso</button>
@@ -780,12 +826,12 @@
     <div class="card" data-tag="Simulación">
       <h2>Mira el movimiento</h2>
       <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">La caja parte del reposo y acelera empujada por la fuerza que ingresaste. Toca reproducir.</p>
-      <div class="sim-box">
+      <div class="sim-box modsim">
         <canvas id="sim-canvas-basico" width="680" height="140"></canvas>
-        <div class="sim-readout">
-          <span id="sim-t-basico">t = 0.0 s</span>
-          <span id="sim-v-basico">v = 0.0 m/s</span>
-          <span id="sim-x-basico">x = 0.0 m</span>
+        <div class="modsim-stats">
+          <div class="modsim-stat"><span id="sim-t-basico">t = 0.0 s</span></div>
+          <div class="modsim-stat"><span id="sim-v-basico">v = 0.0 m/s</span></div>
+          <div class="modsim-stat"><span id="sim-x-basico">x = 0.0 m</span></div>
         </div>
       </div>
       <button class="calc-btn" id="sim-btn-basico" onclick="toggleSim('basico')">▶ Reproducir</button>
@@ -871,7 +917,7 @@
     <div class="card" data-tag="Simulación">
       <h2>Simulador — dos patinadores se empujan en el hielo</h2>
       <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Ajusta la masa de cada patinador y presiona "Empujarse". Las fuerzas que se aplican mutuamente son iguales y opuestas — por eso el más liviano siempre sale disparado más rápido.</p>
-      <div class="sim-box" id="accion-sim">
+      <div class="sim-box modsim" id="accion-sim">
         <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start;">
           <div style="flex:1;min-width:200px;">
             <div class="field"><label>Masa patinador A (kg): <span id="accion-mA-val">50</span> kg</label><input type="range" id="accion-mA" min="30" max="100" value="50" step="5" style="width:100%;"></div>
@@ -879,10 +925,10 @@
           </div>
         </div>
         <canvas id="accion-canvas" width="680" height="140" style="margin-top:14px;"></canvas>
-        <div class="sim-readout">
-          <span id="accion-vA">v(A) = 0.0 m/s</span>
-          <span id="accion-vB">v(B) = 0.0 m/s</span>
-          <span id="accion-check">F(A→B) = −F(B→A)</span>
+        <div class="modsim-stats">
+          <div class="modsim-stat"><span id="accion-vA">v(A) = 0.0 m/s</span></div>
+          <div class="modsim-stat"><span id="accion-vB">v(B) = 0.0 m/s</span></div>
+          <div class="modsim-stat"><span id="accion-check">F(A→B) = −F(B→A)</span></div>
         </div>
       </div>
       <button class="calc-btn" id="accion-btn">Empujarse</button>
@@ -963,12 +1009,12 @@
     <div class="card" data-tag="Simulación">
       <h2>Mira el movimiento con rozamiento</h2>
       <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">El camión parte del reposo y acelera más lento que sin rozamiento. Toca reproducir.</p>
-      <div class="sim-box">
+      <div class="sim-box modsim">
         <canvas id="sim-canvas-avanzado" width="680" height="140"></canvas>
-        <div class="sim-readout">
-          <span id="sim-t-avanzado">t = 0.0 s</span>
-          <span id="sim-v-avanzado">v = 0.0 m/s</span>
-          <span id="sim-x-avanzado">x = 0.0 m</span>
+        <div class="modsim-stats">
+          <div class="modsim-stat"><span id="sim-t-avanzado">t = 0.0 s</span></div>
+          <div class="modsim-stat"><span id="sim-v-avanzado">v = 0.0 m/s</span></div>
+          <div class="modsim-stat"><span id="sim-x-avanzado">x = 0.0 m</span></div>
         </div>
       </div>
       <button class="calc-btn" id="sim-btn-avanzado" onclick="toggleSim('avanzado')">▶ Reproducir</button>

@@ -350,6 +350,52 @@
     margin-top:12px;padding:10px 14px;
     background:var(--ink);border-radius:8px;
   }
+  .modsim{
+    background:radial-gradient(circle at 18% 12%, rgba(217,164,67,0.10), transparent 55%), var(--paper);
+    border:1px solid var(--line);
+    border-radius:26px;
+    padding:22px 22px 20px;
+    box-shadow:0 18px 40px rgba(23,40,59,0.07);
+  }
+  .modsim canvas{
+    filter:drop-shadow(0 10px 18px rgba(23,40,59,0.12));
+  }
+  .modsim-stats{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));
+    gap:10px;margin-top:14px;
+  }
+  .modsim-stat{
+    background:linear-gradient(160deg,#FFF9EE,#FCEFD8);
+    border:1px solid #EAD9B2;
+    border-radius:16px;
+    padding:11px 14px;
+    font-family:'JetBrains Mono',monospace;font-weight:700;
+    font-size:13px;color:var(--ink);text-align:center;
+  }
+  input[type="range"]{
+    -webkit-appearance:none;appearance:none;
+    width:100%;height:8px;border-radius:999px;
+    background:#E7E2D3;
+    outline:none;cursor:pointer;
+  }
+  input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none;appearance:none;
+    width:22px;height:22px;border-radius:50%;
+    background:var(--white);
+    border:3px solid var(--amber-dark);
+    box-shadow:0 3px 8px rgba(23,40,59,0.25);
+    cursor:pointer;margin-top:-1px;
+    transition:transform .15s ease;
+  }
+  input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.12);}
+  input[type="range"]::-moz-range-thumb{
+    width:22px;height:22px;border-radius:50%;
+    background:var(--white);border:3px solid var(--amber-dark);
+    box-shadow:0 3px 8px rgba(23,40,59,0.25);cursor:pointer;
+  }
+  input[type="range"]::-moz-range-track{
+    height:8px;border-radius:999px;background:#E7E2D3;
+  }
   .speed-row{
     display:inline-flex;align-items:center;gap:8px;
     margin-left:14px;font-family:'JetBrains Mono', monospace;
@@ -660,7 +706,7 @@
     <div class="card" data-tag="Manipulable">
       <h2>Arrastra el punto para cambiar el radio y mira la velocidad en vivo</h2>
       <p style="color:var(--ink-soft);font-size:14.5px;">Con el mismo período (misma velocidad angular ω), un punto más lejos del centro viaja más rápido en línea recta — porque tiene que recorrer una circunferencia más grande en el mismo tiempo.</p>
-      <div class="manip-box">
+      <div class="manip-box modsim">
         <div class="manip-canvas-wrap">
           <canvas id="mcu-radio-canvas" width="480" height="480"></canvas>
         </div>
@@ -682,11 +728,11 @@
     <div class="card" data-tag="Simulación">
       <h2>Mira girar el objeto</h2>
       <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">Con los valores de arriba, mira el objeto dar vueltas al ritmo real calculado.</p>
-      <div class="sim-box">
+      <div class="sim-box modsim">
         <canvas id="mcu-canvas" width="680" height="220"></canvas>
-        <div class="sim-readout">
-          <span id="mcu-ang">Ángulo: 0°</span>
-          <span id="mcu-v">v = 0 m/s</span>
+        <div class="modsim-stats">
+          <div class="modsim-stat"><span id="mcu-ang">Ángulo: 0°</span></div>
+          <div class="modsim-stat"><span id="mcu-v">v = 0 m/s</span></div>
         </div>
       </div>
       <button class="calc-btn" id="mcu-btn" onclick="toggleMCU()">▶ Reproducir</button>
@@ -733,7 +779,7 @@
       <h3>Confundir velocidad angular con velocidad tangencial</h3>
       <p>ω (angular) es la misma para todo el disco, sin importar la distancia al centro. v (tangencial) sí cambia según el radio — son magnitudes distintas, con unidades distintas (rad/s vs m/s).</p>
       <h3>Olvidarse del 2π al calcular ω</h3>
-      <p>Una vuelta completa equivale a 2π radianes, no a 1 — si te olvidás del 2π, el resultado da muchísimo más chico de lo real.</p>
+      <p>Una vuelta completa equivale a 2π radianes, no a 1 — si te olvidas del 2π, el resultado da muchísimo más chico de lo real.</p>
       <h3>Usar el diámetro en vez del radio</h3>
       <p>La fórmula pide el radio (distancia al centro), no el diámetro (distancia de un extremo al otro) — si el problema da el diámetro, hay que dividirlo por 2 primero.</p>
     </div>
