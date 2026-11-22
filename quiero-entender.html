@@ -646,6 +646,37 @@
     }
   }
   .mapa-nodo:hover circle{opacity:0.82;transform:scale(1.06);}
+
+  /* ---- Mapa conceptual en celular: árbol con líneas de conexión ---- */
+  .cm{display:none;}
+  .cm-c-mecanica{--c:#D9714A;}.cm-c-electricidad{--c:#3D7FC4;}.cm-c-termo{--c:#B8842E;}
+  .cm-c-moderna{--c:#7A5FB0;}.cm-c-verde{--c:#3FA05C;}.cm-c-gris{--c:#5C6B7A;}
+  .mo-core{width:164px;height:164px;}
+  .mo-core-sub{font-size:8.5px;letter-spacing:0.06em;}
+  @media(max-width:760px){
+    .mapa-organico{display:none !important;}
+    .cm{display:block;margin-top:14px;}
+    .qe-card{padding:20px 16px;}
+    .cm-core{display:inline-block;min-width:150px;box-sizing:border-box;text-align:center;text-decoration:none;
+      background:var(--ink);color:#fff;border:3px solid var(--amber);border-radius:16px;padding:12px 20px;
+      font-family:'Fraunces',serif;font-size:22px;font-weight:700;letter-spacing:.02em;position:relative;z-index:2;}
+    .cm-core small{display:block;margin-top:3px;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);}
+    .cm-list{list-style:none;margin:0;padding:0 0 0 38px;}
+    .cm-sub{padding-left:26px;}
+    .cm-item{position:relative;padding-top:14px;}
+    .cm-item::before{content:"";position:absolute;left:-16px;top:31px;width:16px;border-top:2.5px solid var(--line);}
+    .cm-item::after{content:"";position:absolute;left:-16px;top:0;bottom:0;border-left:2.5px solid var(--line);}
+    .cm-item:last-child::after{bottom:auto;height:33px;}
+    .cm-sub>.cm-item{padding-top:10px;}
+    .cm-sub>.cm-item::before{top:29px;}
+    .cm-sub>.cm-item:last-child::after{height:31px;}
+    .cm-branch{display:block;min-height:48px;box-sizing:border-box;padding:10px 16px;border-radius:16px;background:var(--c);color:#fff;text-decoration:none;
+      font-family:'Fraunces',serif;font-size:19px;font-weight:700;line-height:1.2;box-shadow:0 6px 14px rgba(24,40,58,.14);}
+    .cm-branch small{display:block;margin-top:3px;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:500;font-style:italic;opacity:.92;line-height:1.3;}
+    .cm-topic{display:block;min-height:44px;box-sizing:border-box;padding:11px 14px;border-radius:12px;background:#fff;border:2px solid var(--c);color:var(--ink);
+      text-decoration:none;font-size:15px;font-weight:600;line-height:1.25;}
+    .cm-topic:active,.cm-branch:active,.cm-core:active{transform:scale(.98);}
+  }
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Quiero entender — Mapas conceptuales", "description": "Mapas conceptuales de Física, Química, Matemática y Herramientas — toca cualquier tema para ir directo a su página.", "url": "https://www.descifralab.com/quiero-entender.html", "inLanguage": "es", "educationalLevel": "Educación secundaria", "learningResourceType": "Explicación con ejercicios resueltos", "isAccessibleForFree": true, "provider": {"@type": "Organization", "name": "DescifraLab", "url": "https://www.descifralab.com/", "logo": "https://www.descifralab.com/android-chrome-512x512.png"}}</script>
 </head>
@@ -790,8 +821,37 @@
 
   <div class="qe-card qe-card-organico" data-tag="Física">
     <h2>Física — explora el universo del movimiento</h2>
-    <p class="qe-hint">Toca cualquier concepto para ver de qué se trata, y entra directo a la página.</p>
+    <p class="qe-hint">Toca cualquier concepto para entrar directo a su página.</p>
 
+    <div class="cm" aria-label="Mapa conceptual de Física">
+      <a href="fisica.html" class="cm-core">FÍSICA<small>Mapa conceptual</small></a>
+      <ul class="cm-list">
+        <li class="cm-item"><a href="fisica.html" class="cm-branch cm-c-mecanica">Mecánica<small>movimiento y fuerzas</small></a>
+          <ul class="cm-list cm-sub">
+            <li class="cm-item"><a href="mru.html" class="cm-topic cm-c-mecanica">Movimiento</a></li>
+            <li class="cm-item"><a href="newton.html" class="cm-topic cm-c-mecanica">Newton</a></li>
+          </ul>
+        </li>
+        <li class="cm-item"><a href="fisica.html" class="cm-branch cm-c-electricidad">Electricidad<small>cargas, corriente y circuitos</small></a>
+          <ul class="cm-list cm-sub">
+            <li class="cm-item"><a href="ley-ohm.html" class="cm-topic cm-c-electricidad">Ley de Ohm</a></li>
+            <li class="cm-item"><a href="circuitos.html" class="cm-topic cm-c-electricidad">Circuitos</a></li>
+          </ul>
+        </li>
+        <li class="cm-item"><a href="fisica.html" class="cm-branch cm-c-termo">Termodinámica y Fluidos<small>calor, gases y líquidos</small></a>
+          <ul class="cm-list cm-sub">
+            <li class="cm-item"><a href="calor-especifico.html" class="cm-topic cm-c-termo">Calor</a></li>
+            <li class="cm-item"><a href="leyes-gases.html" class="cm-topic cm-c-termo">Gases</a></li>
+          </ul>
+        </li>
+        <li class="cm-item"><a href="fisica.html" class="cm-branch cm-c-moderna">Física moderna<small>relatividad y el átomo</small></a>
+          <ul class="cm-list cm-sub">
+            <li class="cm-item"><a href="relatividad.html" class="cm-topic cm-c-moderna">Relatividad</a></li>
+            <li class="cm-item"><a href="energia-nuclear.html" class="cm-topic cm-c-moderna">Energía nuclear</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
     <div class="mapa-organico" id="mapa-fisica">
       <svg class="mo-lines" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true">
         <path class="mo-path" d="M500 310 C410 265 300 210 195 155"/>
@@ -832,8 +892,33 @@
 
   <div class="qe-card qe-card-organico" data-tag="Química">
     <h2>Química — explora la materia y sus transformaciones</h2>
-    <p class="qe-hint">Toca cualquier concepto para ver de qué se trata, y entra directo a la página.</p>
+    <p class="qe-hint">Toca cualquier concepto para entrar directo a su página.</p>
 
+    <div class="cm" aria-label="Mapa conceptual de Química">
+      <a href="quimica.html" class="cm-core">QUÍMICA<small>Mapa conceptual</small></a>
+      <ul class="cm-list">
+        <li class="cm-item"><a href="quimica.html" class="cm-branch cm-c-verde">Estructura de la materia<small>cómo son los átomos y sus uniones</small></a>
+          <ul class="cm-list cm-sub">
+            <li class="cm-item"><a href="modelo-atomico.html" class="cm-topic cm-c-verde">Modelo atómico</a></li>
+            <li class="cm-item"><a href="enlaces-quimicos.html" class="cm-topic cm-c-verde">Enlaces químicos</a></li>
+          </ul>
+        </li>
+        <li class="cm-item"><a href="quimica.html" class="cm-branch cm-c-termo">Reacciones<small>cómo cambia la materia</small></a>
+          <ul class="cm-list cm-sub">
+            <li class="cm-item"><a href="oxido-reduccion.html" class="cm-topic cm-c-termo">Óxido-reducción</a></li>
+            <li class="cm-item"><a href="acido-base.html" class="cm-topic cm-c-termo">Ácido-Base y pH</a></li>
+          </ul>
+        </li>
+        <li class="cm-item"><a href="quimica.html" class="cm-branch cm-c-electricidad">Materia y soluciones<small>estados, mezclas y separación</small></a>
+          <ul class="cm-list cm-sub">
+            <li class="cm-item"><a href="estados-materia.html" class="cm-topic cm-c-electricidad">Estados de la materia</a></li>
+            <li class="cm-item"><a href="mezclas-separacion.html" class="cm-topic cm-c-electricidad">Mezclas y separación</a></li>
+          </ul>
+        </li>
+        <li class="cm-item"><a href="quimica-organica.html" class="cm-branch cm-c-moderna">Química Orgánica<small>los compuestos del carbono</small></a>
+        </li>
+      </ul>
+    </div>
     <div class="mapa-organico" id="mapa-quimica">
       <svg class="mo-lines" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true">
         <path class="mo-path" d="M500 310 C410 265 300 210 195 155"/>
@@ -871,8 +956,43 @@
 
   <div class="qe-card qe-card-organico" data-tag="Matemática">
     <h2>Matemática — explora los patrones y las formas</h2>
-    <p class="qe-hint">Toca cualquier concepto para ver de qué se trata, y entra directo a la página.</p>
+    <p class="qe-hint">Toca cualquier concepto para entrar directo a su página.</p>
 
+    <div class="cm" aria-label="Mapa conceptual de Matemática">
+      <a href="matematica.html" class="cm-core">MATEMÁTICA<small>Mapa conceptual</small></a>
+      <ul class="cm-list">
+        <li class="cm-item"><a href="matematica.html" class="cm-branch cm-c-mecanica">Números y Álgebra<small>operar y resolver incógnitas</small></a>
+          <ul class="cm-list cm-sub">
+            <li class="cm-item"><a href="sistema-ecuaciones.html" class="cm-topic cm-c-mecanica">Sistemas de ecuaciones</a></li>
+            <li class="cm-item"><a href="valor-absoluto.html" class="cm-topic cm-c-mecanica">Valor absoluto</a></li>
+          </ul>
+        </li>
+        <li class="cm-item"><a href="matematica.html" class="cm-branch cm-c-electricidad">Funciones<small>relaciones entre variables</small></a>
+          <ul class="cm-list cm-sub">
+            <li class="cm-item"><a href="funciones.html" class="cm-topic cm-c-electricidad">Funciones</a></li>
+            <li class="cm-item"><a href="logaritmos.html" class="cm-topic cm-c-electricidad">Logaritmos</a></li>
+          </ul>
+        </li>
+        <li class="cm-item"><a href="matematica.html" class="cm-branch cm-c-termo">Trigonometría<small>ángulos y triángulos</small></a>
+          <ul class="cm-list cm-sub">
+            <li class="cm-item"><a href="trigonometria.html" class="cm-topic cm-c-termo">Trigonometría</a></li>
+            <li class="cm-item"><a href="teorema-seno-coseno.html" class="cm-topic cm-c-termo">Seno y coseno</a></li>
+          </ul>
+        </li>
+        <li class="cm-item"><a href="matematica.html" class="cm-branch cm-c-moderna">Geometría<small>formas, medidas y coordenadas</small></a>
+          <ul class="cm-list cm-sub">
+            <li class="cm-item"><a href="teorema-thales.html" class="cm-topic cm-c-moderna">Thales</a></li>
+            <li class="cm-item"><a href="geometria-analitica.html" class="cm-topic cm-c-moderna">Geometría analítica</a></li>
+          </ul>
+        </li>
+        <li class="cm-item"><a href="matematica.html" class="cm-branch cm-c-gris">Estadística y Probabilidad<small>datos y azar</small></a>
+          <ul class="cm-list cm-sub">
+            <li class="cm-item"><a href="estadistica.html" class="cm-topic cm-c-gris">Estadística</a></li>
+            <li class="cm-item"><a href="probabilidad.html" class="cm-topic cm-c-gris">Probabilidad</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
     <div class="mapa-organico" id="mapa-matematica" style="min-height:680px;">
       <svg class="mo-lines" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true">
         <line class="mo-path" x1="500" y1="310" x2="500" y2="161"/>
@@ -906,21 +1026,50 @@
       <a href="sistema-ecuaciones.html" class="mo-node mo-topic mo-c-mecanica" style="left:38.1%;top:7.5%;">Sist. ecuaciones</a>
       <a href="valor-absoluto.html" class="mo-node mo-topic mo-c-mecanica" style="left:61.9%;top:7.5%;">Valor absoluto</a>
       <a href="funciones.html" class="mo-node mo-topic mo-c-electricidad" style="left:88.6%;top:26%;">Funciones</a>
-      <a href="logaritmos.html" class="mo-node mo-topic mo-c-electricidad" style="left:95.9%;top:47.7%;">Logaritmos</a>
+      <a href="logaritmos.html" class="mo-node mo-topic mo-c-electricidad" style="left:92%;top:47.7%;">Logaritmos</a>
       <a href="trigonometria.html" class="mo-node mo-topic mo-c-termo" style="left:85.7%;top:77.7%;">Trigonometría</a>
       <a href="teorema-seno-coseno.html" class="mo-node mo-topic mo-c-termo" style="left:66.5%;top:91.1%;">Seno y coseno</a>
       <a href="teorema-thales.html" class="mo-node mo-topic mo-c-moderna" style="left:33.5%;top:91.1%;">Thales</a>
       <a href="geometria-analitica.html" class="mo-node mo-topic mo-c-moderna" style="left:14.3%;top:77.7%;">Geom. analítica</a>
       <a href="estadistica.html" class="mo-node mo-topic mo-c-gris" style="left:11.4%;top:26%;">Estadística</a>
-      <a href="probabilidad.html" class="mo-node mo-topic mo-c-gris" style="left:4.1%;top:47.7%;">Probabilidad</a>
+      <a href="probabilidad.html" class="mo-node mo-topic mo-c-gris" style="left:8%;top:47.7%;">Probabilidad</a>
     </div>
   </div>
 
 
   <div class="qe-card qe-card-organico" data-tag="Herramientas">
     <h2>Herramientas y recursos — todo lo que necesitas a mano</h2>
-    <p class="qe-hint">Toca cualquier concepto para ver de qué se trata, y entra directo a la página.</p>
+    <p class="qe-hint">Toca cualquier concepto para entrar directo a su página.</p>
 
+    <div class="cm" aria-label="Mapa conceptual de Herramientas">
+      <a href="formulario.html" class="cm-core">HERRAMIENTAS<small>Mapa conceptual</small></a>
+      <ul class="cm-list">
+        <li class="cm-item"><a href="formulario.html" class="cm-branch cm-c-moderna">Machete de fórmulas<small>fórmulas siempre a mano</small></a>
+          <ul class="cm-list cm-sub">
+            <li class="cm-item"><a href="formulario.html#fisica" class="cm-topic cm-c-moderna">Física</a></li>
+            <li class="cm-item"><a href="formulario.html#quimica" class="cm-topic cm-c-moderna">Química</a></li>
+          </ul>
+        </li>
+        <li class="cm-item"><a href="evaluaciones.html" class="cm-branch cm-c-verde">Evaluación<small>practica y mide lo que sabes</small></a>
+          <ul class="cm-list cm-sub">
+            <li class="cm-item"><a href="evaluaciones.html" class="cm-topic cm-c-verde">Evaluaciones</a></li>
+            <li class="cm-item"><a href="banco-preguntas.html" class="cm-topic cm-c-verde">Banco de preguntas</a></li>
+          </ul>
+        </li>
+        <li class="cm-item"><a href="conversor-unidades.html" class="cm-branch cm-c-electricidad">Conversiones<small>cambia de unidad sin errores</small></a>
+          <ul class="cm-list cm-sub">
+            <li class="cm-item"><a href="conversor-unidades.html" class="cm-topic cm-c-electricidad">Conversor de unidades</a></li>
+            <li class="cm-item"><a href="magnitudes.html" class="cm-topic cm-c-electricidad">Magnitudes y SI</a></li>
+          </ul>
+        </li>
+        <li class="cm-item"><a href="docentes.html" class="cm-branch cm-c-mecanica">Para docentes<small>recursos para la clase</small></a>
+          <ul class="cm-list cm-sub">
+            <li class="cm-item"><a href="docentes.html" class="cm-topic cm-c-mecanica">Actividades de clase</a></li>
+            <li class="cm-item"><a href="experimentos.html" class="cm-topic cm-c-mecanica">Experimentos caseros</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
     <div class="mapa-organico" id="mapa-herramientas">
       <svg class="mo-lines" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true">
         <path class="mo-path" d="M500 310 C410 265 300 210 195 155"/>
