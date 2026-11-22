@@ -573,6 +573,7 @@
   }
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Las Tres Leyes de Newton", "description": "Las tres Leyes de Newton — Inercia, F=m·a y Acción-Reacción — explicadas con analogías simples, simuladores interactivos y ejemplos resueltos mostrando datos, unidades y errores frecuentes.", "url": "https://www.descifralab.com/newton.html", "inLanguage": "es", "educationalLevel": "Educación secundaria", "learningResourceType": "Explicación con ejercicios resueltos", "isAccessibleForFree": true, "provider": {"@type": "Organization", "name": "DescifraLab", "url": "https://www.descifralab.com/", "logo": "https://www.descifralab.com/android-chrome-512x512.png"}}</script>
+<script src="sprites.js"></script>
 </head>
 <body>
 
@@ -612,7 +613,7 @@
         <a href="relatividad.html" class="nav-panel-link">Relatividad</a>
         <a href="energia-nuclear.html" class="nav-panel-link">Energía Nuclear</a>
         <p class="nav-panel-titulo">Juegos</p>
-        <a href="predice-donde-cae.html" class="nav-panel-link">🎯 Predice dónde cae</a>
+        <a href="predice-donde-cae.html" class="nav-panel-link"> Predice dónde cae</a>
         <a href="juegos.html" class="nav-panel-link">Todos los juegos</a>
         <p class="nav-panel-titulo">Introductorio (1° año)</p>
         <a href="sistema-solar.html" class="nav-panel-link">Sistema Solar</a>
@@ -674,8 +675,8 @@
         <a href="leyes-gases.html" class="nav-panel-link">Leyes de los Gases</a>
         <a href="quimica-organica.html" class="nav-panel-link">Química Orgánica</a>
         <p class="nav-panel-titulo">Juegos</p>
-        <a href="arma-la-molecula.html" class="nav-panel-link">🎮 Arma la molécula</a>
-        <a href="balancea-la-ecuacion.html" class="nav-panel-link">⚖️ Balancea la ecuación</a>
+        <a href="arma-la-molecula.html" class="nav-panel-link"> Arma la molécula</a>
+        <a href="balancea-la-ecuacion.html" class="nav-panel-link"> Balancea la ecuación</a>
         <a href="juegos.html" class="nav-panel-link">Todos los juegos</a>
       </div>
     </details>
@@ -699,7 +700,7 @@
         <a href="formulario.html#matematica" class="nav-panel-link">Machete de Matemática</a>
       </div>
     </details>
-    <a href="juegos.html" class="nav-juegos">🎮 Juegos</a>
+    <a href="juegos.html" class="nav-juegos"> Juegos</a>
     <a href="sobre-nosotros.html">Sobre la Fundadora</a>
   </div>
 </nav>
@@ -1099,7 +1100,7 @@
   <div style="background:linear-gradient(135deg,#FFF6DD 0%,#FFFFFF 100%);border:1.5px solid var(--amber,#D9A441);border-radius:18px;padding:22px 20px;text-align:center;box-shadow:0 8px 24px rgba(184,132,46,.12);">
     <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--ink,#1C2733);margin-bottom:6px;">¿Te gustaría que sumemos otro tema?</div>
     <p style="margin:0 0 14px;color:var(--ink-soft,#4A5568);font-size:15px;line-height:1.5;">Cuéntanos qué te cuesta entender o qué te gustaría practicar, y lo sumamos al sitio.</p>
-    <a href="mailto:nuku.mkt@gmail.com?subject=Sugerencia%20de%20tema%20para%20DescifraLab&amp;body=Hola!%20Me%20gustar%C3%ADa%20que%20agreguen%20este%20tema%3A%0A%0AMateria%20y%20curso%3A%0ATema%3A%0A%C2%BFQu%C3%A9%20no%20entiendes%20o%20qu%C3%A9%20te%20gustar%C3%ADa%20practicar%3F%0A" style="display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 26px;background:var(--amber,#D9A441);color:#1C2733;font-weight:700;font-size:16px;border-radius:999px;text-decoration:none;box-shadow:0 4px 0 var(--amber-dark,#B8842E);">✉️ ¡Escríbenos!</a>
+    <a href="mailto:nuku.mkt@gmail.com?subject=Sugerencia%20de%20tema%20para%20DescifraLab&amp;body=Hola!%20Me%20gustar%C3%ADa%20que%20agreguen%20este%20tema%3A%0A%0AMateria%20y%20curso%3A%0ATema%3A%0A%C2%BFQu%C3%A9%20no%20entiendes%20o%20qu%C3%A9%20te%20gustar%C3%ADa%20practicar%3F%0A" style="display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 26px;background:var(--amber,#D9A441);color:#1C2733;font-weight:700;font-size:16px;border-radius:999px;text-decoration:none;box-shadow:0 4px 0 var(--amber-dark,#B8842E);"> ¡Escríbenos!</a>
   </div>
 </section>
 <footer>
@@ -1189,12 +1190,7 @@
     // hacia la derecha, que es la dirección real del movimiento
     // (los emoji de vehículos por defecto miran hacia la izquierda)
     const objPx = 20 + iconX*(w-60);
-    ctx.font = '44px sans-serif';
-    ctx.save();
-    ctx.translate(objPx + 22, h-32);
-    ctx.scale(-1,1);
-    ctx.fillText(icon, -22, 0);
-    ctx.restore();
+    dlSprite(ctx, icon, objPx + 22, h-48, 44);
     // persona dibujada de perfil, en pose de empuje, pegada al objeto
     drawPusher(ctx, objPx - 30, h-30);
   }
@@ -1303,7 +1299,7 @@
     const isBasico = level==='basico';
     const canvas = document.getElementById(isBasico ? 'sim-canvas-basico' : 'sim-canvas-avanzado');
     const ctx = canvas.getContext('2d');
-    const icon = isBasico ? '📦' : '🚚';
+    const icon = isBasico ? 'box' : 'truck';
 
     const dt = (now - s.lastFrame)/1000 * (s.tMax / Math.min(Math.max(s.tMax,1),8));
     s.lastFrame = now;
@@ -1329,9 +1325,9 @@
   // Dibujo inicial en reposo
   window.addEventListener('load', ()=>{
     const c1 = document.getElementById('sim-canvas-basico');
-    drawTrack(c1.getContext('2d'), c1.width, c1.height, 25, 0, '📦');
+    drawTrack(c1.getContext('2d'), c1.width, c1.height, 25, 0, '');
     const c2 = document.getElementById('sim-canvas-avanzado');
-    drawTrack(c2.getContext('2d'), c2.width, c2.height, 25, 0, '🚚');
+    drawTrack(c2.getContext('2d'), c2.width, c2.height, 25, 0, '');
   });
 
   // ---- Simulador: Primera Ley — inercia en el espacio vs. con rozamiento ----
@@ -1347,11 +1343,11 @@
       ctx.clearRect(0,0,W,H);
       ctx.strokeStyle = '#D8D3C4';
       ctx.beginPath(); ctx.moveTo(10, groundY+14); ctx.lineTo(W-10, groundY+14); ctx.stroke();
-      ctx.font = '46px sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
-      ctx.fillText('⚪', x, groundY-6);
+      ctx.textAlign='center'; ctx.textBaseline='middle';
+      dlSprite(ctx,'dot',x,groundY-6,40,'#FFFFFF');
       ctx.font = "600 12px 'JetBrains Mono', monospace";
       ctx.fillStyle = '#4A5568';
-      ctx.fillText(escenario==='espacio' ? '✨ vacío — sin fricción' : '🌍 superficie con rozamiento', W/2, 20);
+      ctx.fillText(escenario==='espacio' ? ' vacío — sin fricción' : ' superficie con rozamiento', W/2, 20);
     }
 
     function paso(){
@@ -1398,9 +1394,9 @@
 
     function dibujar(){
       ctx.clearRect(0,0,W,H);
-      ctx.font = '46px sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
-      ctx.fillText('⛸️', xA, midY);
-      ctx.fillText('⛸️', xB, midY);
+      ctx.textAlign='center'; ctx.textBaseline='middle';
+      dlSprite(ctx,'skater',xA,midY,46);
+      dlSprite(ctx,'skater',xB,midY,46);
       ctx.font = "600 12px 'JetBrains Mono', monospace"; ctx.fillStyle = '#B8842E';
       ctx.fillText('A', xA, midY-26);
       ctx.fillText('B', xB, midY-26);
