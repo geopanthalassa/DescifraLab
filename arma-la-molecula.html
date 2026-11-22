@@ -511,6 +511,8 @@
   footer a{color:var(--ink-soft);text-decoration:underline;}
   footer a:hover{color:var(--ink);}
   /* ===== Juego: Arma la molécula ===== */
+  #g-levels{flex-wrap:wrap;}
+  #g-box{overflow:hidden;}
   .g-how{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:16px 20px;margin-top:22px;}
   .g-how h2{font-family:'Fraunces',serif;font-size:20px;margin:0 0 8px;}
   .g-how ol{margin:0;padding-left:20px;color:var(--ink-soft);font-size:15px;line-height:1.6;}
@@ -599,6 +601,9 @@
         <p class="nav-panel-titulo">Física Moderna</p>
         <a href="relatividad.html" class="nav-panel-link">Relatividad</a>
         <a href="energia-nuclear.html" class="nav-panel-link">Energía Nuclear</a>
+        <p class="nav-panel-titulo">Juegos</p>
+        <a href="predice-donde-cae.html" class="nav-panel-link">🎯 Predice dónde cae</a>
+        <a href="juegos.html" class="nav-panel-link">Todos los juegos</a>
         <p class="nav-panel-titulo">Introductorio (1° año)</p>
         <a href="sistema-solar.html" class="nav-panel-link">Sistema Solar</a>
         <a href="masa-peso.html" class="nav-panel-link">Masa vs Peso</a>
@@ -658,6 +663,10 @@
         <a href="mezclas-separacion.html" class="nav-panel-link">Mezclas y Separación</a>
         <a href="leyes-gases.html" class="nav-panel-link">Leyes de los Gases</a>
         <a href="quimica-organica.html" class="nav-panel-link">Química Orgánica</a>
+        <p class="nav-panel-titulo">Juegos</p>
+        <a href="arma-la-molecula.html" class="nav-panel-link">🎮 Arma la molécula</a>
+        <a href="balancea-la-ecuacion.html" class="nav-panel-link">⚖️ Balancea la ecuación</a>
+        <a href="juegos.html" class="nav-panel-link">Todos los juegos</a>
       </div>
     </details>
     <details class="nav-drop">
@@ -687,11 +696,12 @@
 <header class="top">
   <div class="eyebrow">Química · Juego</div>
   <h1>Arma la molécula</h1>
-  <p class="subtitle">Une los átomos, completa las valencias y descubre qué molécula formaste. Suma puntos, arma rachas y pasa de nivel.</p>
+  <p class="subtitle">Une los átomos, completa las valencias y descubre qué molécula formaste. Hay 28 moléculas en tres niveles y una partida rápida con moléculas al azar. Suma puntos y arma rachas.</p>
   <nav class="level-nav" id="g-levels">
     <button class="level-btn active" data-lvl="0">Básico</button>
     <button class="level-btn" data-lvl="1">Intermedio</button>
     <button class="level-btn" data-lvl="2">Desafío</button>
+    <button class="level-btn" data-lvl="3">🎲 Partida rápida</button>
   </nav>
 </header>
 
@@ -710,7 +720,7 @@
     <div class="modsim-stats" style="margin:0 0 14px;">
       <div class="modsim-stat">Puntos <span id="g-score">0</span></div>
       <div class="modsim-stat">Racha 🔥 <span id="g-streak">0</span></div>
-      <div class="modsim-stat">Molécula <span id="g-prog">1/7</span></div>
+      <div class="modsim-stat">Molécula <span id="g-prog">1/10</span></div>
       <div class="modsim-stat">⏱ <span id="g-time">0</span> s</div>
     </div>
 
@@ -798,7 +808,7 @@
     N:{v:3,r:25,c1:'#8FB0FF',c2:'#2F5BE0',t:'#FFFFFF',n:'nitrógeno'},
     Cl:{v:1,r:26,c1:'#7FE0A0',c2:'#1E9E52',t:'#FFFFFF',n:'cloro'}
   };
-  function M(name,formula,atoms,bonds,fact){return {name:name,formula:formula,atoms:atoms.split(' '),bonds:bonds,fact:fact};}
+  function M(name,formula,atoms,bonds,fact){return {name:name,formula:formula,atoms:atoms.split(' '),bonds:bonds,fact:fact,b:true};}
   var LEVELS=[
     {name:'Básico',badges:true,mols:[
       M('Agua','H₂O','O H H',[[0,1,1],[0,2,1]],'Tu cuerpo es en gran parte agua, y cubre la mayor parte de la superficie de la Tierra.'),
@@ -807,21 +817,36 @@
       M('Dióxido de carbono','CO₂','C O O',[[0,1,2],[0,2,2]],'Es el gas de las burbujas de la gaseosa y el que sueltas cada vez que exhalas.'),
       M('Amoníaco','NH₃','N H H H',[[0,1,1],[0,2,1],[0,3,1]],'Se usa para fabricar fertilizantes y productos de limpieza.'),
       M('Metano','CH₄','C H H H H',[[0,1,1],[0,2,1],[0,3,1],[0,4,1]],'Es el componente principal del gas natural que llega a tu cocina.'),
-      M('Nitrógeno','N₂','N N',[[0,1,3]],'Es cerca del 78 % del aire. Su enlace triple es tan fuerte que casi no reacciona.')
+      M('Nitrógeno','N₂','N N',[[0,1,3]],'Es cerca del 78 % del aire. Su enlace triple es tan fuerte que casi no reacciona.'),
+      M('Hidrógeno','H₂','H H',[[0,1,1]],'Es el elemento más abundante del universo y se estudia como combustible limpio.'),
+      M('Cloro','Cl₂','Cl Cl',[[0,1,1]],'De esta molécula sale el cloro que desinfecta el agua de las piletas.'),
+      M('Peróxido de hidrógeno','H₂O₂','O O H H',[[0,1,1],[0,2,1],[1,3,1]],'Disuelto en agua es el agua oxigenada del botiquín: hace espuma sobre las heridas.')
     ]},
     {name:'Intermedio',badges:true,mols:[
       M('Etano','C₂H₆','C C H H H H H H',[[0,1,1],[0,2,1],[0,3,1],[0,4,1],[1,5,1],[1,6,1],[1,7,1]],'Acompaña al metano en el gas natural.'),
       M('Eteno (etileno)','C₂H₄','C C H H H H',[[0,1,2],[0,2,1],[0,3,1],[1,4,1],[1,5,1]],'Las frutas lo liberan al madurar: por eso una banana madura apura a las que tiene al lado.'),
       M('Etino (acetileno)','C₂H₂','C C H H',[[0,1,3],[0,2,1],[1,3,1]],'Se usa en los sopletes de soldadura porque su llama es muy caliente.'),
       M('Metanol','CH₃OH','C O H H H H',[[0,1,1],[0,2,1],[0,3,1],[0,4,1],[1,5,1]],'Es un alcohol tóxico: no se bebe. Se usa como solvente y combustible.'),
-      M('Etanol','C₂H₆O','C C O H H H H H H',[[0,1,1],[1,2,1],[0,3,1],[0,4,1],[0,5,1],[1,6,1],[1,7,1],[2,8,1]],'Es el alcohol de los geles desinfectantes y de las bebidas alcohólicas.')
+      M('Etanol','C₂H₆O','C C O H H H H H H',[[0,1,1],[1,2,1],[0,3,1],[0,4,1],[0,5,1],[1,6,1],[1,7,1],[2,8,1]],'Es el alcohol de los geles desinfectantes y de las bebidas alcohólicas.'),
+      M('Formaldehído','CH₂O','C O H H',[[0,1,2],[0,2,1],[0,3,1]],'Disuelto en agua se llama formol y se usa para conservar muestras biológicas.'),
+      M('Ácido fórmico','CH₂O₂','C O O H H',[[0,1,2],[0,2,1],[2,4,1],[0,3,1]],'Lo producen las hormigas: es parte del ardor de su picadura.'),
+      M('Metilamina','CH₅N','C N H H H H H',[[0,1,1],[0,2,1],[0,3,1],[0,4,1],[1,5,1],[1,6,1]],'Es la amina más simple. Las aminas son las responsables del olor típico del pescado.'),
+      M('Etanal (acetaldehído)','C₂H₄O','C C O H H H H',[[0,1,1],[1,2,2],[0,3,1],[0,4,1],[0,5,1],[1,6,1]],'Tu hígado lo produce al procesar el alcohol y es uno de los responsables de la resaca.'),
+      M('Propeno','C₃H₆','C C C H H H H H H',[[0,1,2],[1,2,1],[0,3,1],[0,4,1],[1,5,1],[2,6,1],[2,7,1],[2,8,1]],'Es la materia prima del polipropileno, el plástico de tapas y envases.')
     ]},
     {name:'Desafío',badges:false,mols:[
       M('Propano','C₃H₈','C C C H H H H H H H H',[[0,1,1],[1,2,1],[0,3,1],[0,4,1],[0,5,1],[1,6,1],[1,7,1],[2,8,1],[2,9,1],[2,10,1]],'Es parte del gas de las garrafas que se usan para cocinar y calefaccionar.'),
       M('Ácido acético','C₂H₄O₂','C C O O H H H H',[[0,1,1],[1,2,2],[1,3,1],[3,7,1],[0,4,1],[0,5,1],[0,6,1]],'Es lo que hace ácido al vinagre.'),
-      M('Acetona','C₃H₆O','C C C O H H H H H H',[[0,1,1],[1,2,1],[1,3,2],[0,4,1],[0,5,1],[0,6,1],[2,7,1],[2,8,1],[2,9,1]],'Es el quitaesmalte de uñas y un solvente muy usado.')
-    ]}
+      M('Acetona','C₃H₆O','C C C O H H H H H H',[[0,1,1],[1,2,1],[1,3,2],[0,4,1],[0,5,1],[0,6,1],[2,7,1],[2,8,1],[2,9,1]],'Es el quitaesmalte de uñas y un solvente muy usado.'),
+      M('Éter dimetílico','C₂H₆O','C O C H H H H H H',[[0,1,1],[1,2,1],[0,3,1],[0,4,1],[0,5,1],[2,6,1],[2,7,1],[2,8,1]],'Tiene la misma fórmula que el etanol, pero es un gas. Mismos átomos, otra estructura, otras propiedades.'),
+      M('Urea','CH₄N₂O','C O N N H H H H',[[0,1,2],[0,2,1],[0,3,1],[2,4,1],[2,5,1],[3,6,1],[3,7,1]],'Tu cuerpo la usa para eliminar el exceso de nitrógeno en la orina, y también se usa como fertilizante.'),
+      M('Ácido carbónico','H₂CO₃','C O O O H H',[[0,1,2],[0,2,1],[0,3,1],[2,4,1],[3,5,1]],'Se forma cuando el CO₂ se disuelve en agua: es lo que le da el gas a la soda.'),
+      M('Glicina','C₂H₅NO₂','N C C O O H H H H H',[[0,1,1],[1,2,1],[2,3,2],[2,4,1],[4,9,1],[0,5,1],[0,6,1],[1,7,1],[1,8,1]],'Es el aminoácido más simple, uno de los ladrillos con los que se arman las proteínas.'),
+      M('Benceno','C₆H₆','C C C C C C H H H H H H',[[0,1,2],[1,2,1],[2,3,2],[3,4,1],[4,5,2],[5,0,1],[0,6,1],[1,7,1],[2,8,1],[3,9,1],[4,10,1],[5,11,1]],'Es un anillo de seis carbonos con enlaces dobles alternados. Es la base de la química aromática.')
+    ]},
+    {name:'Partida rápida',badges:true,mols:[],quick:true}
   ];
+
   var SYM={1:'–',2:'=',3:'≡'},TIPO={1:['simple','simples'],2:['doble','dobles'],3:['triple','triples']};
 
   var $=function(id){return document.getElementById(id);};
@@ -864,7 +889,7 @@
   }
 
   function render(){
-    var showB=LEVELS[lvl].badges,s=sums(),h='';
+    var showB=cur().b,s=sums(),h='';
     h+='<defs><pattern id="gp" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M30 0H0V30" fill="none" stroke="#E9E4D3" stroke-width="1"/></pattern>';
     Object.keys(EL).forEach(function(k){var e=EL[k];h+='<radialGradient id="ga'+k+'" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="'+e.c1+'"/><stop offset="1" stop-color="'+e.c2+'"/></radialGradient>';});
     h+='</defs><rect width="'+W+'" height="'+H+'" fill="url(#gp)"/>';
@@ -949,7 +974,7 @@
     if(over>=0){var e=EL[atoms[over].el];setStatus('Ese '+e.n+' tiene demasiados enlaces: solo puede hacer '+e.v+'. Toca el par otra vez para bajar el enlace.','warn');return;}
     if(Object.keys(bonds).length===0){setStatus('Toca un átomo y luego otro para unirlos.');return;}
     if(incomplete>0){
-      setStatus(LEVELS[lvl].badges?'Buen avance. Todavía hay '+incomplete+(incomplete===1?' átomo':' átomos')+' sin completar (el número naranja muestra cuántos enlaces le faltan).':'Sigue armando: todavía hay átomos incompletos.');return;
+      setStatus(cur().b?'Buen avance. Todavía hay '+incomplete+(incomplete===1?' átomo':' átomos')+' sin completar (el número naranja muestra cuántos enlaces le faltan).':'Sigue armando: todavía hay átomos incompletos.');return;
     }
     if(!connected()){setStatus('Todos los átomos están completos, pero quedaron partes sueltas. Une todo en una sola molécula.','warn');return;}
     if(iso()){win();return;}
@@ -1007,7 +1032,7 @@
     var prev=best(lvl),isBest=score>prev;if(isBest)best(lvl,score);
     $('g-play').style.display='none';
     var e=$('g-end'),L=LEVELS[lvl],nxt=lvl<LEVELS.length-1;
-    e.innerHTML='<h3>🏆 ¡Nivel '+L.name+' completado!</h3>'+
+    e.innerHTML='<h3>🏆 ¡'+(L.quick?'Partida rápida completada':'Nivel '+L.name+' completado')+'!</h3>'+
       '<p class="g-pts">Tus puntos: '+score+' · Mejor puntaje: '+Math.max(prev,score)+(isBest&&prev>0?' (¡nuevo récord!)':'')+'</p>'+
       '<p>Armaste '+L.mols.length+' moléculas. '+(nxt?'¿Te animas con el siguiente nivel?':'Ya dominas las valencias. ¡Gran trabajo!')+'</p>'+
       '<div class="g-actions">'+(nxt?'<button class="g-btn main" id="g-nl">Siguiente nivel →</button>':'')+'<button class="g-btn" id="g-again">↺ Jugar de nuevo</button></div>';
@@ -1030,6 +1055,9 @@
 
   function setLevel(l){
     lvl=l;idx=0;score=0;streak=0;
+    var L=LEVELS[l];
+    if(L.quick){var all=[];LEVELS.forEach(function(x,k){if(!x.quick)x.mols.forEach(function(m){m.b=x.badges;all.push(m);});});L.mols=shuffle(all).slice(0,6);}
+    else{L.mols.forEach(function(m){m.b=L.badges;});shuffle(L.mols);}
     document.querySelectorAll('#g-levels .level-btn').forEach(function(b){b.classList.toggle('active',+b.getAttribute('data-lvl')===l);});
     startMol();
   }
