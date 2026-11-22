@@ -1,10 +1,11 @@
 /* Menú móvil: tocar en cualquier parte de "Física / Matemática / Química / Material" abre la lista de temas. */
 (function(){
-  var css='.nav-seeall{display:none!important}'+
+  var css='.nav-seeall{display:none!important}.navbar-links a.nav-juegos{font-weight:700;color:var(--amber-dark)}'+
   '@media(max-width:768px){'+
   '.nav-drop{width:100%}'+
-  '.nav-drop summary{display:flex!important;justify-content:space-between;align-items:center;width:100%;box-sizing:border-box;min-height:52px;font-size:16px!important;font-weight:600!important;-webkit-tap-highlight-color:rgba(217,164,67,.25)}'+
-  '.nav-drop summary .nav-toplink-label{flex:1;display:block;padding:14px 0!important;pointer-events:none}'+
+  '.nav-drop summary{display:flex!important;justify-content:space-between;align-items:center;width:100%;box-sizing:border-box;min-height:48px;padding:0 14px!important;font-size:15.5px!important;font-weight:600!important;font-family:Inter,sans-serif;-webkit-tap-highlight-color:rgba(217,164,67,.25)}'+
+  '.nav-drop summary .nav-toplink-label{flex:1;display:block;padding:13px 0!important;pointer-events:none;font-size:inherit!important;font-weight:inherit!important}'+
+  '.navbar-links>a{width:100%;box-sizing:border-box;display:flex!important;align-items:center;justify-content:flex-start!important;text-align:left!important;min-height:48px;padding:0 14px!important;font-size:15.5px!important;font-weight:600!important}'+
   '.nav-caret{font-size:16px!important;opacity:.85!important;padding:0 6px!important;transition:transform .2s}'+
   '.nav-drop[open] .nav-caret{transform:rotate(180deg)}'+
   '.nav-panel a.nav-panel-link.nav-seeall{display:block!important;font-weight:700;color:var(--amber)!important;border-bottom:1px solid rgba(255,255,255,.2);margin-bottom:6px;padding-bottom:12px}'+
