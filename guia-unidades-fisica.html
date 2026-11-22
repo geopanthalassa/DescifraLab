@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Método de cuatro pasos para trabajar con unidades en física: Sistema Internacional, factores de conversión, área y volumen, análisis dimensional.">
+<link rel="canonical" href="https://www.descifralab.com/guia-unidades-fisica.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="DescifraLab">
+<meta property="og:title" content="Guía de unidades en física: convertir sin equivocarse">
+<meta property="og:description" content="Método de cuatro pasos para trabajar con unidades en física: Sistema Internacional, factores de conversión, área y volumen, análisis dimensional.">
+<meta property="og:url" content="https://www.descifralab.com/guia-unidades-fisica.html">
+<meta property="og:image" content="https://www.descifralab.com/android-chrome-512x512.png">
+<meta property="og:image:alt" content="DescifraLab — Física, Matemática y Química explicadas claro">
+<meta property="og:locale" content="es_AR">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Guía de unidades en física: convertir sin equivocarse">
+<meta name="twitter:description" content="Método de cuatro pasos para trabajar con unidades en física: Sistema Internacional, factores de conversión, área y volumen, análisis dimensional.">
+<meta name="twitter:image" content="https://www.descifralab.com/android-chrome-512x512.png">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YP8YVN6V0Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-YP8YVN6V0Z');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6334611421204216" crossorigin="anonymous"></script>
+<link rel="icon" type="image/x-icon" href="favicon.ico?v=9">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=9">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=9">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=7">
+<title>Guía de unidades en física: convertir sin equivocarse — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "LearningResource", "name": "Guía de unidades en física: convertir sin equivocarse", "description": "Método de cuatro pasos para trabajar con unidades en física: Sistema Internacional, factores de conversión, área y volumen, análisis dimensional.", "inLanguage": "es", "url": "https://www.descifralab.com/guia-unidades-fisica.html", "learningResourceType": "Guía de estudio", "educationalLevel": "Secundario", "author": {"@type": "Organization", "name": "DescifraLab"}, "publisher": {"@type": "Organization", "name": "DescifraLab", "url": "https://www.descifralab.com/"}, "dateModified": "2026-11-22"}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Por qué conviene pasar todo a unidades del SI antes de calcular?", "acceptedAnswer": {"@type": "Answer", "text": "Porque las fórmulas de la física (F = m·a, Ec = ½mv², etc.) están pensadas para el SI. Si mezclás km con segundos o gramos con newtons, el resultado sale en unidades extrañas o directamente incorrecto."}}, {"@type": "Question", "name": "¿Cuánto vale g y cuándo uso 10?", "acceptedAnswer": {"@type": "Answer", "text": "El valor estándar es 9,8 m/s² (aproximadamente 9,81). Algunos docentes aceptan 10 m/s² para simplificar cuentas; usá el que pida tu cátedra y escribilo siempre en el enunciado de tu resolución."}}, {"@type": "Question", "name": "¿Cómo sé si mi resultado tiene sentido?", "acceptedAnswer": {"@type": "Answer", "text": "Mirá el orden de magnitud: un auto a 20 m/s equivale a 72 km/h, algo razonable; si te da 2000 m/s, revisá las conversiones. Además, las unidades finales tienen que ser las de la magnitud que buscabas."}}]}]</script>
+<style>
+:root{--paper:#FFFFFF;--ink:#1C2733;--ink-soft:#4A5568;--amber:#D9A441;--amber-dark:#B8842E;--pine:#2F6B5E;--line:#D8D3C4;--soft:#FBF6E9}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.7;font-size:1.02rem}
+.top{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;padding:14px 20px;border-bottom:2px solid var(--amber);background:var(--soft)}
+.top a{color:var(--ink);text-decoration:none;font-weight:600;font-size:.92rem}
+.top .brand{font-family:'Fraunces',serif;font-size:1.25rem;margin-right:auto}
+main{max-width:760px;margin:0 auto;padding:28px 20px 40px}
+h1{font-family:'Fraunces',serif;font-size:2rem;line-height:1.2;margin:.2em 0 .4em}
+h2{font-family:'Fraunces',serif;font-size:1.45rem;margin:1.8em 0 .5em;padding-left:12px;border-left:5px solid var(--amber)}
+h3{font-size:1.08rem;margin:1.4em 0 .3em}
+.lead{color:var(--ink-soft);font-size:1.1rem}
+.meta{color:var(--ink-soft);font-size:.85rem}
+.ex{background:var(--soft);border:1px solid var(--line);border-left:5px solid var(--pine);border-radius:8px;padding:12px 16px;margin:14px 0}
+.bad{border-left-color:#B3402F}
+.ex b.t{display:block;margin-bottom:4px}
+mark{background:linear-gradient(transparent 55%,#FBE29A 55%);color:inherit;padding:0 2px}
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:.95rem;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;white-space:nowrap}
+th{background:var(--soft)}
+.rel a{display:inline-block;margin:4px 8px 4px 0;padding:6px 12px;border:1px solid var(--line);border-radius:999px;color:var(--pine);text-decoration:none;font-weight:600;font-size:.9rem}
+footer{text-align:center;color:var(--ink-soft);font-size:.9rem;padding:24px 20px;border-top:1px solid var(--line)}
+footer a{color:var(--pine)}
+@media(max-width:600px){h1{font-size:1.6rem}h2{font-size:1.25rem}}
+</style>
+</head>
+<body>
+<div class="top"><a class="brand" href="index.html">DescifraLab</a><a href="material.html">Material</a><a href="banco-preguntas.html">Banco de preguntas</a><a href="formulario.html">Fórmulas</a></div>
+<main>
+<p class="meta">Guía de estudio · Física · Actualizada el 22 de noviembre de 2026</p>
+<h1>Guía de unidades en física: convertir sin equivocarse</h1>
+<p class="lead">Muchos problemas de física se pierden por las unidades. Con un método fijo y unos pocos ejemplos resueltos, dejás de equivocarte en las conversiones.</p>
+
+<p>Muchísimos problemas de física se pierden por las unidades, no por la física. Esta guía te da un método fijo: convertir primero, calcular después y comprobar que las unidades del resultado tengan sentido. Podés combinarla con el <a href="conversor-unidades.html">conversor de unidades</a> y el <a href="formulario.html#fisica">formulario de física</a>.</p>
+
+<h2>Paso 1: trabajá siempre en el Sistema Internacional</h2>
+<p>En el SI las unidades base que más usás son metro (m), kilogramo (kg) y segundo (s). Si todos los datos están en SI, el resultado también sale en SI y no hay sorpresas.</p>
+<table>
+<tr><th>Magnitud</th><th>Unidad SI</th><th>Equivalencia útil</th></tr>
+<tr><td>Longitud</td><td>m</td><td>1 km = 1000 m</td></tr>
+<tr><td>Tiempo</td><td>s</td><td>1 h = 3600 s</td></tr>
+<tr><td>Velocidad</td><td>m/s</td><td>1 m/s = 3,6 km/h</td></tr>
+<tr><td>Fuerza</td><td>N (kg·m/s²)</td><td>peso = m·g</td></tr>
+<tr><td>Energía</td><td>J (N·m)</td><td>1 kWh = 3 600 000 J</td></tr>
+<tr><td>Presión</td><td>Pa (N/m²)</td><td>1 atm ≈ 101 325 Pa</td></tr>
+</table>
+
+<h2>Paso 2: convertí con factores, no de memoria</h2>
+<p>Multiplicá por una fracción que vale 1 y que cancele la unidad que no querés.</p>
+<div class="ex"><b class="t">72 km/h a m/s</b>
+72 km/h · (1000 m / 1 km) · (1 h / 3600 s) = 20 m/s.<br>
+Atajo: dividir por 3,6. 72 / 3,6 = 20 ✓</div>
+<div class="ex"><b class="t">Densidad del agua: 1 g/cm³ a kg/m³</b>
+1 g = 0,001 kg y 1 cm³ = 0,000001 m³. Entonces 0,001 / 0,000001 = 1000 kg/m³ ✓</div>
+
+<h2>Paso 3: las conversiones de área y volumen son las que más engañan</h2>
+<p>Si 1 m = 100 cm, entonces <mark>1 m² = 100 × 100 = 10 000 cm²</mark> y <mark>1 m³ = 100 × 100 × 100 = 1 000 000 cm³</mark>. Elevar la unidad al cuadrado o al cubo obliga a elevar también el factor.</p>
+<ul>
+<li>1 L = 1000 cm³ = 0,001 m³</li>
+<li>1 m³ = 1000 L</li>
+</ul>
+
+<h2>Paso 4: usá las unidades como control de la fórmula</h2>
+<p>Una fórmula correcta tiene las mismas unidades de ambos lados. Esto se llama análisis dimensional y detecta errores antes de calcular.</p>
+<div class="ex"><b class="t">Distancia en MRUA: d = v₀·t + ½·a·t²</b>
+Unidades: m = (m/s)·s + (m/s²)·s² = m + m ✓. Si hubieras escrito a·t, te quedaría m/s: ya sabrías que está mal.</div>
+
+<h2>Ejemplos resueltos</h2>
+<div class="ex"><b class="t">Peso de un cuerpo de 5 kg</b>
+P = m·g = 5 kg · 9,8 m/s² = 49 N.</div>
+<div class="ex"><b class="t">Energía cinética</b>
+m = 2 kg, v = 3 m/s: Ec = ½·m·v² = ½ · 2 · 3² = 9 J.</div>
+<div class="ex"><b class="t">Distancia recorrida</b>
+Un auto va a 90 km/h durante 1,5 h: d = v·t = 90 · 1,5 = 135 km. Si querés el resultado en metros: 135 000 m.</div>
+<div class="ex"><b class="t">Temperatura</b>
+Para pasar de °C a K, sumá 273,15. Entonces 25 °C = 298,15 K. Las fórmulas de gases y termodinámica piden kelvin.</div>
+
+<h2>Cifras significativas, en una línea</h2>
+<p>El resultado no puede ser más preciso que el dato menos preciso. Si multiplicás 2,5 m por 3,14 m, informar 7,85 m² está bien; 7,8500000 m² no tiene sentido.</p>
+<h2>Preguntas frecuentes</h2>
+<h3>¿Por qué conviene pasar todo a unidades del SI antes de calcular?</h3>
+<p>Porque las fórmulas de la física (F = m·a, Ec = ½mv², etc.) están pensadas para el SI. Si mezclás km con segundos o gramos con newtons, el resultado sale en unidades extrañas o directamente incorrecto.</p>
+<h3>¿Cuánto vale g y cuándo uso 10?</h3>
+<p>El valor estándar es 9,8 m/s² (aproximadamente 9,81). Algunos docentes aceptan 10 m/s² para simplificar cuentas; usá el que pida tu cátedra y escribilo siempre en el enunciado de tu resolución.</p>
+<h3>¿Cómo sé si mi resultado tiene sentido?</h3>
+<p>Mirá el orden de magnitud: un auto a 20 m/s equivale a 72 km/h, algo razonable; si te da 2000 m/s, revisá las conversiones. Además, las unidades finales tienen que ser las de la magnitud que buscabas.</p>
+<h2>Temas relacionados</h2>
+<p class="rel"><a href="conversor-unidades.html">Conversor de unidades</a><a href="fuerzas.html">Fuerzas</a><a href="formulario.html#fisica">Formulario de física</a></p>
+</main>
+<footer>
+  DescifraLab — hecho por una geóloga cansada de que la ciencia no llegue a todos de forma fácil.<br>
+  <a href="politica-privacidad.html">Política de Privacidad</a>
+</footer>
+</body>
+</html>

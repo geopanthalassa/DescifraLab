@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Qué es el mol, cómo calcular la masa molar, pasar de gramos a moles, reactivo limitante y molaridad, con ejemplos resueltos.">
+<link rel="canonical" href="https://www.descifralab.com/guia-mol-estequiometria.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="DescifraLab">
+<meta property="og:title" content="El mol sin miedo: guía de estequiometría paso a paso">
+<meta property="og:description" content="Qué es el mol, cómo calcular la masa molar, pasar de gramos a moles, reactivo limitante y molaridad, con ejemplos resueltos.">
+<meta property="og:url" content="https://www.descifralab.com/guia-mol-estequiometria.html">
+<meta property="og:image" content="https://www.descifralab.com/android-chrome-512x512.png">
+<meta property="og:image:alt" content="DescifraLab — Física, Matemática y Química explicadas claro">
+<meta property="og:locale" content="es_AR">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="El mol sin miedo: guía de estequiometría paso a paso">
+<meta name="twitter:description" content="Qué es el mol, cómo calcular la masa molar, pasar de gramos a moles, reactivo limitante y molaridad, con ejemplos resueltos.">
+<meta name="twitter:image" content="https://www.descifralab.com/android-chrome-512x512.png">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YP8YVN6V0Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-YP8YVN6V0Z');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6334611421204216" crossorigin="anonymous"></script>
+<link rel="icon" type="image/x-icon" href="favicon.ico?v=9">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=9">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=9">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=7">
+<title>El mol sin miedo: guía de estequiometría paso a paso — DescifraLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "LearningResource", "name": "El mol sin miedo: guía de estequiometría paso a paso", "description": "Qué es el mol, cómo calcular la masa molar, pasar de gramos a moles, reactivo limitante y molaridad, con ejemplos resueltos.", "inLanguage": "es", "url": "https://www.descifralab.com/guia-mol-estequiometria.html", "learningResourceType": "Guía de estudio", "educationalLevel": "Secundario", "author": {"@type": "Organization", "name": "DescifraLab"}, "publisher": {"@type": "Organization", "name": "DescifraLab", "url": "https://www.descifralab.com/"}, "dateModified": "2026-11-22"}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿El mol es una masa?", "acceptedAnswer": {"@type": "Answer", "text": "No. El mol es una cantidad de partículas (6,022 × 10²³). Lo que tiene unidades de masa es la masa molar, que dice cuántos gramos pesa un mol."}}, {"@type": "Question", "name": "¿Por qué hay que balancear la ecuación antes de calcular?", "acceptedAnswer": {"@type": "Answer", "text": "Porque los coeficientes indican la proporción real en moles entre reactivos y productos. Sin balancear, las proporciones están mal y todo el cálculo posterior también."}}, {"@type": "Question", "name": "¿Cómo sé cuál es el reactivo limitante?", "acceptedAnswer": {"@type": "Answer", "text": "Pasá las cantidades a moles y dividí cada una por su coeficiente de la ecuación balanceada. El que da el número más chico es el limitante."}}]}]</script>
+<style>
+:root{--paper:#FFFFFF;--ink:#1C2733;--ink-soft:#4A5568;--amber:#D9A441;--amber-dark:#B8842E;--pine:#2F6B5E;--line:#D8D3C4;--soft:#FBF6E9}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.7;font-size:1.02rem}
+.top{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;padding:14px 20px;border-bottom:2px solid var(--amber);background:var(--soft)}
+.top a{color:var(--ink);text-decoration:none;font-weight:600;font-size:.92rem}
+.top .brand{font-family:'Fraunces',serif;font-size:1.25rem;margin-right:auto}
+main{max-width:760px;margin:0 auto;padding:28px 20px 40px}
+h1{font-family:'Fraunces',serif;font-size:2rem;line-height:1.2;margin:.2em 0 .4em}
+h2{font-family:'Fraunces',serif;font-size:1.45rem;margin:1.8em 0 .5em;padding-left:12px;border-left:5px solid var(--amber)}
+h3{font-size:1.08rem;margin:1.4em 0 .3em}
+.lead{color:var(--ink-soft);font-size:1.1rem}
+.meta{color:var(--ink-soft);font-size:.85rem}
+.ex{background:var(--soft);border:1px solid var(--line);border-left:5px solid var(--pine);border-radius:8px;padding:12px 16px;margin:14px 0}
+.bad{border-left-color:#B3402F}
+.ex b.t{display:block;margin-bottom:4px}
+mark{background:linear-gradient(transparent 55%,#FBE29A 55%);color:inherit;padding:0 2px}
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:.95rem;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;white-space:nowrap}
+th{background:var(--soft)}
+.rel a{display:inline-block;margin:4px 8px 4px 0;padding:6px 12px;border:1px solid var(--line);border-radius:999px;color:var(--pine);text-decoration:none;font-weight:600;font-size:.9rem}
+footer{text-align:center;color:var(--ink-soft);font-size:.9rem;padding:24px 20px;border-top:1px solid var(--line)}
+footer a{color:var(--pine)}
+@media(max-width:600px){h1{font-size:1.6rem}h2{font-size:1.25rem}}
+</style>
+</head>
+<body>
+<div class="top"><a class="brand" href="index.html">DescifraLab</a><a href="material.html">Material</a><a href="banco-preguntas.html">Banco de preguntas</a><a href="formulario.html">Fórmulas</a></div>
+<main>
+<p class="meta">Guía de estudio · Química · Actualizada el 22 de noviembre de 2026</p>
+<h1>El mol sin miedo: guía de estequiometría paso a paso</h1>
+<p class="lead">El mol es solo una unidad para contar partículas. Con la masa molar y la receta de cuatro pasos, la estequiometría deja de ser un misterio.</p>
+
+<p>El mol asusta porque suena abstracto, pero es solo una unidad para <em>contar partículas</em>, igual que una docena cuenta doce cosas. Esta guía te lleva de la masa molar a la estequiometría con ejemplos numéricos. Después podés seguir con <a href="estequiometria.html">estequiometría</a> y <a href="concentracion-soluciones.html">concentración de soluciones</a>.</p>
+
+<h2>Qué es un mol</h2>
+<p>Un mol son <mark>6,022 × 10²³ entidades</mark> (átomos, moléculas, iones). Ese número se llama número de Avogadro. Un mol de moléculas de agua y un mol de moléculas de CO₂ tienen la misma cantidad de partículas, pero distinta masa.</p>
+
+<h2>Masa molar: el puente entre gramos y moles</h2>
+<p>La masa molar (M) es la masa de un mol, en g/mol. Se calcula sumando las masas atómicas de la tabla periódica.</p>
+<table>
+<tr><th>Sustancia</th><th>Cálculo</th><th>Masa molar</th></tr>
+<tr><td>H₂O</td><td>2·1,008 + 16,00</td><td>≈ 18,0 g/mol</td></tr>
+<tr><td>CO₂</td><td>12,01 + 2·16,00</td><td>≈ 44,0 g/mol</td></tr>
+<tr><td>NaCl</td><td>22,99 + 35,45</td><td>≈ 58,4 g/mol</td></tr>
+</table>
+<p>La fórmula que más vas a usar: <mark>n = m / M</mark> (moles = masa ÷ masa molar).</p>
+
+<h2>Ejemplos de conversión</h2>
+<div class="ex"><b class="t">¿Cuántas moléculas hay en 36 g de agua?</b>
+n = 36 g / 18 g/mol = 2 mol.<br>
+Moléculas = 2 · 6,022 × 10²³ = 1,204 × 10²⁴ moléculas.</div>
+<div class="ex"><b class="t">¿Cuántos moles son 117 g de NaCl?</b>
+n = 117 / 58,5 = 2 mol.</div>
+
+<h2>Estequiometría: la receta de la reacción</h2>
+<p>Los coeficientes de una ecuación balanceada son proporciones en moles. En 2 H₂ + O₂ → 2 H₂O, dos moles de hidrógeno reaccionan con un mol de oxígeno y forman dos moles de agua.</p>
+<div class="ex"><b class="t">¿Cuánta agua se forma a partir de 4 mol de H₂ con oxígeno de sobra?</b>
+Relación 2 : 2, o sea 1 : 1 → 4 mol de H₂O.<br>
+Masa = 4 mol · 18 g/mol = 72 g de agua. Oxígeno necesario: 2 mol.</div>
+
+<h2>Reactivo limitante</h2>
+<p>Es el reactivo que se acaba primero y que determina cuánto producto se forma. Se detecta comparando los moles que tenés con los que pide la reacción.</p>
+<div class="ex"><b class="t">3 mol de H₂ y 2 mol de O₂</b>
+3 mol de H₂ necesitan 1,5 mol de O₂ (relación 2 : 1). Como hay 2 mol de O₂, sobran 0,5 mol.<br>
+El limitante es el H₂ y se forman 3 mol de H₂O = 54 g.</div>
+
+<h2>Molaridad</h2>
+<p>La concentración molar es M = n / V (moles de soluto por litro de solución).</p>
+<div class="ex"><b class="t">58,5 g de NaCl en 2 L de solución</b>
+n = 58,5 / 58,5 = 1 mol → concentración = 1 mol / 2 L = 0,5 mol/L (0,5 M).</div>
+
+<h2>Volumen molar de un gas</h2>
+<p>En condiciones normales (0 °C y 1 atm) un mol de gas ideal ocupa aproximadamente 22,4 L. Por ejemplo, 44 g de CO₂ son 1 mol y ocupan unos 22,4 L en esas condiciones. A 25 °C y 1 atm el volumen molar es mayor, cerca de 24,5 L, así que fijate siempre qué condiciones pide el problema.</p>
+
+<h2>Receta para cualquier problema</h2>
+<ol>
+<li>Escribí y balanceá la ecuación.</li>
+<li>Pasá los datos a moles con n = m / M.</li>
+<li>Usá la proporción de los coeficientes.</li>
+<li>Volvé a las unidades pedidas (gramos, litros, moléculas).</li>
+</ol>
+<h2>Preguntas frecuentes</h2>
+<h3>¿El mol es una masa?</h3>
+<p>No. El mol es una cantidad de partículas (6,022 × 10²³). Lo que tiene unidades de masa es la masa molar, que dice cuántos gramos pesa un mol.</p>
+<h3>¿Por qué hay que balancear la ecuación antes de calcular?</h3>
+<p>Porque los coeficientes indican la proporción real en moles entre reactivos y productos. Sin balancear, las proporciones están mal y todo el cálculo posterior también.</p>
+<h3>¿Cómo sé cuál es el reactivo limitante?</h3>
+<p>Pasá las cantidades a moles y dividí cada una por su coeficiente de la ecuación balanceada. El que da el número más chico es el limitante.</p>
+<h2>Temas relacionados</h2>
+<p class="rel"><a href="estequiometria.html">Estequiometría</a><a href="concentracion-soluciones.html">Concentración de soluciones</a><a href="formulario.html#quimica">Formulario de química</a></p>
+</main>
+<footer>
+  DescifraLab — hecho por una geóloga cansada de que la ciencia no llegue a todos de forma fácil.<br>
+  <a href="politica-privacidad.html">Política de Privacidad</a>
+</footer>
+</body>
+</html>
