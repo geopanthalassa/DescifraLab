@@ -135,3 +135,10 @@
   .datos-lista li:has(.dato-simbolo) .dato-valor{grid-area:v;justify-self:stretch}
   .datos-lista .dato-valor{justify-self:stretch;text-align:center;width:100%;box-sizing:border-box}
 }
+
+/* simuladores: boton principal y fila de velocidad sin superposiciones */
+.card.sm .calc-btn{margin-bottom:14px}
+.card.sm .speed-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:6px 0 0 0;font-size:14px;font-weight:700;color:#0B4F6C}
+.card.sm .speed-btn{min-height:44px;min-width:56px;border:2px solid #0B4F6C;border-radius:12px;background:#fff;color:#0B4F6C;font-weight:800;font-size:15px;padding:6px 14px;box-shadow:0 3px 0 #0B4F6C;cursor:pointer}
+.card.sm .speed-btn.active{background:#0B4F6C;color:#7CFFB2}
+@media (max-width:600px){.modsim{padding:12px 10px!important}}

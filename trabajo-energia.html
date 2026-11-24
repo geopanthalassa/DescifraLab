@@ -538,6 +538,7 @@
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Trabajo y Energía (W = F·d)", "description": "Trabajo mecánico, energía cinética y potencial explicados paso a paso, con calculadora interactiva, ejemplos resueltos y el Teorema Trabajo-Energía.", "url": "https://www.descifralab.com/trabajo-energia.html", "inLanguage": "es", "educationalLevel": "Educación secundaria", "learningResourceType": "Explicación con ejercicios resueltos", "isAccessibleForFree": true, "provider": {"@type": "Organization", "name": "DescifraLab", "url": "https://www.descifralab.com/", "logo": "https://www.descifralab.com/android-chrome-512x512.png"}}</script>
 <link rel="stylesheet" href="claridad.css">
+<script src="sprites.js"></script>
 </head>
 <body>
 
@@ -755,7 +756,7 @@
       <h2>Mira el trabajo acumularse</h2>
       <p style="color:var(--ink-soft);font-size:14.5px;margin-top:-6px;">A medida que la caja avanza, el trabajo realizado crece — cuanto más lejos la empujas, más energía le transferiste.</p>
       <div class="sim-box modsim">
-        <canvas id="sim-canvas-basico" width="680" height="140"></canvas>
+        <canvas id="sim-canvas-basico" width="420" height="190"></canvas>
         <div class="modsim-stats">
           <div class="modsim-stat"><span id="sim-d-basico">d = 0.0 m</span></div>
           <div class="modsim-stat"><span id="sim-w-basico">W = 0.0 J</span></div>
@@ -1022,35 +1023,41 @@
 
   function drawTrack(ctx, w, h, xMax, iconX, icon){
     ctx.clearRect(0,0,w,h);
-    // pista
-    ctx.strokeStyle = '#3A4756';
-    ctx.lineWidth = 2;
+    // fondo oscuro para que se vea bien la pista, la caja y la persona
+    ctx.fillStyle = '#1C2733';
     ctx.beginPath();
-    ctx.moveTo(20,h-30); ctx.lineTo(w-20,h-30);
+    if(ctx.roundRect) ctx.roundRect(0,0,w,h,18); else ctx.rect(0,0,w,h);
+    ctx.fill();
+    const gy = h-44, x0 = 60, x1 = w-60;
+    // pista
+    ctx.strokeStyle = '#9FB3C8';
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(16,gy); ctx.lineTo(w-16,gy);
     ctx.stroke();
     // marcas de distancia
-    ctx.fillStyle = '#5C6B7A';
-    ctx.font = '11px JetBrains Mono';
+    ctx.fillStyle = '#E3EAF2';
+    ctx.font = 'bold 18px JetBrains Mono, monospace';
+    ctx.textAlign = 'center';
     const steps = 6;
+    ctx.lineWidth = 3;
     for(let i=0;i<=steps;i++){
-      const px = 20 + (i/steps)*(w-40);
+      const px = x0 + (i/steps)*(x1-x0);
       ctx.beginPath();
-      ctx.moveTo(px,h-34); ctx.lineTo(px,h-26);
+      ctx.moveTo(px,gy+2); ctx.lineTo(px,gy+14);
       ctx.stroke();
-      ctx.fillText(Math.round((i/steps)*xMax)+'m', px-10, h-12);
+      ctx.fillText(Math.round((i/steps)*xMax)+'m', px, gy+34);
     }
-    // objeto que se mueve — se invierte horizontalmente para que "mire"
-    // hacia la derecha, que es la dirección real del movimiento
-    // (los emoji de vehículos por defecto miran hacia la izquierda)
-    const objPx = 20 + iconX*(w-60);
-    ctx.font = '44px sans-serif';
+    ctx.textAlign = 'start';
+    // caja: su borde izquierdo marca la distancia recorrida
+    const left = x0 + iconX*(x1-x0);
+    if(typeof dlSprite === 'function') dlSprite(ctx, 'box', left+30, gy-26, 76);
+    // persona de perfil empujando, con la mano en la caja
     ctx.save();
-    ctx.translate(objPx + 22, h-32);
-    ctx.scale(-1,1);
-    ctx.fillText(icon, -22, 0);
+    ctx.translate(left-30, gy);
+    ctx.scale(1.9,1.9);
+    drawPusher(ctx, 0, 0);
     ctx.restore();
-    // persona dibujada de perfil, en pose de empuje, pegada al objeto
-    drawPusher(ctx, objPx - 30, h-30);
   }
 
   // Figura simple de perfil, inclinada hacia adelante como si empujara,
