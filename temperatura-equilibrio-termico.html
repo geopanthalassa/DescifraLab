@@ -468,7 +468,9 @@
         <a href="electromagnetismo.html" class="nav-panel-link">Electromagnetismo</a>
         <a href="corriente-continua-alterna.html" class="nav-panel-link">Corriente Continua y Alterna</a>
         <p class="nav-panel-titulo">Termodinámica y Fluidos</p>
+        <a href="temperatura-equilibrio-termico.html" class="nav-panel-link">Temperatura y Equilibrio Térmico</a>
         <a href="calor-especifico.html" class="nav-panel-link">Calor Específico</a>
+        <a href="cambios-de-fase.html" class="nav-panel-link">Cambios de Fase</a>
         <a href="dilatacion-termica.html" class="nav-panel-link">Dilatación Térmica</a>
         <a href="fluidos.html" class="nav-panel-link">Presión Hidrostática</a>
         <a href="caudal-continuidad.html" class="nav-panel-link">Caudal y Continuidad</a>
@@ -614,12 +616,12 @@
 
     <div class="card" data-tag="Concepto">
       <h2>Las escalas de temperatura</h2>
-      <table class="exp-tabla">
+      <div style="overflow-x:auto;"><table class="exp-tabla">
         <tr><th>Escala</th><td>Agua se congela</td><td>Agua hierve</td></tr>
         <tr><th>Celsius (°C)</th><td>0</td><td>100</td></tr>
         <tr><th>Kelvin (K)</th><td>273,15</td><td>373,15</td></tr>
         <tr><th>Fahrenheit (°F)</th><td>32</td><td>212</td></tr>
-      </table>
+      </table></div>
       <div class="formula-box"><span class="term-1">K</span> = °C + 273,15</div>
       <div class="formula-box">°F = 1,8 · °C + 32</div>
       <p>La escala Kelvin es la del Sistema Internacional. Su cero es el <strong>cero absoluto</strong> (0 K = −273,15 °C): el punto en que las partículas tendrían la mínima agitación posible. No existen temperaturas más bajas, por eso en Kelvin nunca hay valores negativos.</p>
@@ -713,13 +715,14 @@
 
     <div class="card" data-tag="Calculadora">
       <h2>Equilibrio térmico entre dos cuerpos</h2>
-      <p>Completa masa (g), calor específico (J/g·°C) y temperatura inicial (°C) de cada cuerpo. Para agua usa c = 4,18.</p>
+      <p>Completa masa (g), calor específico y temperatura inicial (°C) de cada cuerpo, y elige la unidad del calor específico. Para el agua: c = 4,18 J/g·°C = 1 cal/g·°C. El resultado sale en julios y en calorías.</p>
       <div class="calc-grid">
+        <div class="field"><label>Unidad de c</label><select id="a-u" class="lim-sel"><option value="J">J/g·°C</option><option value="cal">cal/g·°C</option></select></div>
         <div class="field"><label>m₁ (g)</label><input type="number" id="a-m1" value="100" step="any"></div>
-        <div class="field"><label>c₁ (J/g·°C)</label><input type="number" id="a-c1" value="0.9" step="any"></div>
+        <div class="field"><label>c₁</label><input type="number" id="a-c1" value="0.9" step="any"></div>
         <div class="field"><label>T₁ (°C)</label><input type="number" id="a-t1" value="100" step="any"></div>
         <div class="field"><label>m₂ (g)</label><input type="number" id="a-m2" value="200" step="any"></div>
-        <div class="field"><label>c₂ (J/g·°C)</label><input type="number" id="a-c2" value="4.18" step="any"></div>
+        <div class="field"><label>c₂</label><input type="number" id="a-c2" value="4.18" step="any"></div>
         <div class="field"><label>T₂ (°C)</label><input type="number" id="a-t2" value="20" step="any"></div>
       </div>
       <button class="calc-btn" onclick="calcAvanzado()">Calcular</button>
@@ -752,6 +755,7 @@
   <div class="related">
     <h2>Temas relacionados</h2>
     <div class="related-links">
+      <a href="cambios-de-fase.html">Cambios de Fase</a>
       <a href="calor-especifico.html">Calor Específico y Cambios de Estado</a>
       <a href="dilatacion-termica.html">Dilatación Térmica</a>
       <a href="leyes-gases.html">Leyes de los Gases</a>
@@ -821,14 +825,16 @@
   }
   function calcAvanzado(){
     const g = id => parseFloat(document.getElementById(id).value);
-    const m1=g('a-m1'),c1=g('a-c1'),t1=g('a-t1'),m2=g('a-m2'),c2=g('a-c2'),t2=g('a-t2');
+    const m1=g('a-m1'),t1=g('a-t1'),m2=g('a-m2'),t2=g('a-t2');
+    const k=document.getElementById('a-u').value==='cal'?4.184:1;
+    const c1=g('a-c1')*k, c2=g('a-c2')*k;
     const out = document.getElementById('a-readout');
     if([m1,c1,t1,m2,c2,t2].some(isNaN)){ out.innerText='Completa los seis datos.'; }
     else if(m1<=0||m2<=0||c1<=0||c2<=0){ out.innerText='Las masas y los calores específicos deben ser mayores que cero.'; }
     else {
       const tf=(m1*c1*t1+m2*c2*t2)/(m1*c1+m2*c2);
       const q=m1*c1*(t1-tf);
-      out.innerText='Temperatura final: '+fmt(tf)+' °C ('+fmt(tf+273.15)+' K)\nCalor que pasa de un cuerpo al otro: '+fmt(Math.abs(q),1)+' J\n'+(t1===t2?'Ya estaban en equilibrio: no pasa calor.':(t1>t2?'El cuerpo 1 cede calor y el cuerpo 2 lo gana.':'El cuerpo 2 cede calor y el cuerpo 1 lo gana.'));
+      out.innerText='Temperatura final: '+fmt(tf)+' °C ('+fmt(tf+273.15)+' K)\nCalor que pasa de un cuerpo al otro: '+fmt(Math.abs(q),1)+' J  /  '+fmt(Math.abs(q)/4.184,1)+' cal\n'+(t1===t2?'Ya estaban en equilibrio: no pasa calor.':(t1>t2?'El cuerpo 1 cede calor y el cuerpo 2 lo gana.':'El cuerpo 2 cede calor y el cuerpo 1 lo gana.'));
     }
     out.classList.add('show');
   }
