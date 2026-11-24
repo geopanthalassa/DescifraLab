@@ -138,7 +138,12 @@
 
 /* simuladores: boton principal y fila de velocidad sin superposiciones */
 .card.sm .calc-btn{margin-bottom:14px}
-.card.sm .speed-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:6px 0 0 0;font-size:14px;font-weight:700;color:#0B4F6C}
-.card.sm .speed-btn{min-height:44px;min-width:56px;border:2px solid #0B4F6C;border-radius:12px;background:#fff;color:#0B4F6C;font-weight:800;font-size:15px;padding:6px 14px;box-shadow:0 3px 0 #0B4F6C;cursor:pointer}
+.card.sm .speed-row{display:flex;flex-wrap:nowrap;align-items:center;gap:8px;margin:6px 0 0 0;font-size:14px;font-weight:700;color:#0B4F6C}
+.card.sm .speed-btn{min-height:44px;min-width:0;flex:1 1 0;border:2px solid #0B4F6C;border-radius:12px;background:#fff;color:#0B4F6C;font-weight:800;font-size:15px;padding:6px 8px;box-shadow:0 3px 0 #0B4F6C;cursor:pointer}
 .card.sm .speed-btn.active{background:#0B4F6C;color:#7CFFB2}
 @media (max-width:600px){.modsim{padding:12px 10px!important}}
+
+.card.sm .speed-row>span,.card.sm .speed-row>label{flex:0 0 auto;font-size:13px}
+
+.modsim-stat,.modsim-stat span{min-width:0;overflow-wrap:anywhere;word-break:normal;hyphens:auto}
+.modsim .modsim-stats{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}

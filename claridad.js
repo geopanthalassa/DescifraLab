@@ -144,3 +144,16 @@
   }
   function sameColor(a,b){var ca=(a.className.match(/mo-c-\S+/)||[''])[0],cb=(b.className.match(/mo-c-\S+/)||[''])[0];return ca&&ca===cb;}
 })();
+
+/* texto legible en canvas reducidos (celulares) */
+(function(){try{
+ if(window.__cvFont)return;window.__cvFont=1;
+ var P=CanvasRenderingContext2D.prototype,d=Object.getOwnPropertyDescriptor(P,'font');
+ if(!d||!d.set)return;
+ Object.defineProperty(P,'font',{configurable:true,enumerable:d.enumerable,get:d.get,set:function(v){
+  try{var c=this.canvas,cw=c&&c.clientWidth;
+   if(cw>0&&c.width/cw>1.25){var r=c.width/cw;
+    v=String(v).replace(/(\d+(?:\.\d+)?)px/,function(m,n){n=+n;return Math.round(Math.max(n,Math.min(10.5*r,n*2.5)))+'px'})}
+  }catch(e){}
+  d.set.call(this,v)}});
+}catch(e){}})();
