@@ -6,6 +6,7 @@
     try{formulas();}catch(e){}
     try{mapas();}catch(e){}
     try{mapasCm();}catch(e){}
+    try{juegos();}catch(e){}
   });
   function unidades(){
     var U='m\\/s²|m\\/s2|m\\/s|km\\/h|km\\/s|kg|mol|Hz|kHz|Pa|kPa|J|kJ|W|kW|N|V|Ω|°C|K|cm³|cm²|cm|mm|km|m²|m³|mL|L|s|g|A';
@@ -110,6 +111,35 @@
       });
       cm.parentNode.insertBefore(wrap,cm.nextSibling);
     });
+  }
+
+  /* juegos y simuladores */
+  function juegos(){
+    var SIM=/^(simulaci|simulador|manipulable|experimento|generador|visual)/i;
+    document.querySelectorAll('.card').forEach(function(c){
+      var t=c.getAttribute('data-tag')||'',h=c.querySelector('h2,h3'),ht=h?h.textContent:'';
+      if(/^juego/i.test(t)||/^(juego|reto|desaf)/i.test(ht.trim())){c.classList.add('jg');watch(c);}
+      else if(SIM.test(t)){c.classList.add('sm');}
+    });
+  }
+  function watch(c){
+    c.querySelectorAll('.readout').forEach(function(r){
+      new MutationObserver(function(){
+        var x=(r.textContent||'').trim();
+        r.classList.remove('ok','bad');
+        if(/^¡?(correcto|bien|exacto|muy bien)/i.test(x)){void r.offsetWidth;r.classList.add('ok');confeti(c);}
+        else if(/^(no\b|no[.,]|incorrecto|casi|error)/i.test(x)){void r.offsetWidth;r.classList.add('bad');}
+      }).observe(r,{childList:true,characterData:true,subtree:true});
+    });
+  }
+  function confeti(c){
+    if(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+    var cols=['#FFD23F','#3DDCFF','#7CFF6B','#FF7AA8','#B79CFF','#FF8A3D'];
+    for(var i=0;i<26;i++){var s=document.createElement('span');s.className='jg-conf';
+      s.style.left=(10+Math.random()*80)+'%';s.style.background=cols[i%cols.length];
+      s.style.setProperty('--dx',(Math.random()*160-80)+'px');s.style.setProperty('--dr',(Math.random()*720-360)+'deg');
+      s.style.animationDelay=(Math.random()*.15)+'s';c.appendChild(s);
+      (function(e){setTimeout(function(){e.remove();},1400);})(s);}
   }
   function sameColor(a,b){var ca=(a.className.match(/mo-c-\S+/)||[''])[0],cb=(b.className.match(/mo-c-\S+/)||[''])[0];return ca&&ca===cb;}
 })();
