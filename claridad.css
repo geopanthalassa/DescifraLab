@@ -118,3 +118,4 @@
 .card.sm button:not(summary):not(.level-btn){font-weight:800;color:#0B4F6C!important;background:#3DDCFF;border:3px solid #0B4F6C!important;border-radius:14px;padding:12px 18px;min-height:48px;box-shadow:0 5px 0 #0B4F6C}
 .card.sm button:not(summary):not(.level-btn):active{transform:translateY(4px);box-shadow:0 1px 0 #0B4F6C}
 @media (prefers-reduced-motion:reduce){.jg-conf,.card.jg .readout{animation:none!important}}
+.card.jg [id$="-score"]:empty{display:none}
