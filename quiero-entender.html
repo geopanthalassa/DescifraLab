@@ -645,6 +645,14 @@
       display:flex;flex-wrap:wrap;justify-content:center;gap:10px;width:100%;
     }
   }
+
+  /* chips de temas extra bajo el mapa de escritorio */
+  .mo-mas{margin-top:18px;padding-top:14px;border-top:1.5px dashed var(--line);}
+  .mo-mas-t{margin:0 0 10px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);}
+  .mo-mas-l{display:flex;flex-wrap:wrap;gap:8px;}
+  .mo-chip{display:inline-block;padding:8px 14px;border-radius:999px;color:#fff;text-decoration:none;font-family:'Inter';font-weight:600;font-size:12.5px;transition:transform .2s;}
+  .mo-chip:hover{transform:translateY(-2px);}
+  @media(max-width:760px){.mo-mas{display:none;}}
   .mapa-nodo:hover circle{opacity:0.82;transform:scale(1.06);}
 
   /* ---- Mapa conceptual en celular: árbol con líneas de conexión ---- */
@@ -850,24 +858,33 @@
           <ul class="cm-list cm-sub">
             <li class="cm-item"><a href="mru.html" class="cm-topic cm-c-mecanica">Movimiento</a></li>
             <li class="cm-item"><a href="newton.html" class="cm-topic cm-c-mecanica">Newton</a></li>
+            <li class="cm-item"><a href="sismos-ondas-sismicas.html" class="cm-topic cm-c-mecanica">Sismos y ondas</a></li>
+            <li class="cm-item"><a href="gravitacion-kepler.html" class="cm-topic cm-c-mecanica">Gravitación y Kepler</a></li>
+            <li class="cm-item"><a href="graficos-movimiento.html" class="cm-topic cm-c-mecanica">Gráficos del movimiento</a></li>
           </ul>
         </li>
         <li class="cm-item"><a href="fisica.html" class="cm-branch cm-c-electricidad">Electricidad<small>cargas, corriente y circuitos</small></a>
           <ul class="cm-list cm-sub">
             <li class="cm-item"><a href="ley-ohm.html" class="cm-topic cm-c-electricidad">Ley de Ohm</a></li>
             <li class="cm-item"><a href="circuitos.html" class="cm-topic cm-c-electricidad">Circuitos</a></li>
+            <li class="cm-item"><a href="potencia-electrica.html" class="cm-topic cm-c-electricidad">Potencia eléctrica</a></li>
+            <li class="cm-item"><a href="energias-renovables.html" class="cm-topic cm-c-electricidad">Energías renovables</a></li>
+            <li class="cm-item"><a href="electromagnetismo.html" class="cm-topic cm-c-electricidad">Electromagnetismo</a></li>
           </ul>
         </li>
         <li class="cm-item"><a href="fisica.html" class="cm-branch cm-c-termo">Termodinámica y Fluidos<small>calor, gases y líquidos</small></a>
           <ul class="cm-list cm-sub">
             <li class="cm-item"><a href="calor-especifico.html" class="cm-topic cm-c-termo">Calor</a></li>
             <li class="cm-item"><a href="leyes-gases.html" class="cm-topic cm-c-termo">Gases</a></li>
+            <li class="cm-item"><a href="cambios-de-fase.html" class="cm-topic cm-c-termo">Cambios de fase</a></li>
+            <li class="cm-item"><a href="temperatura-equilibrio-termico.html" class="cm-topic cm-c-termo">Temperatura y equilibrio</a></li>
           </ul>
         </li>
         <li class="cm-item"><a href="fisica.html" class="cm-branch cm-c-moderna">Física moderna<small>relatividad y el átomo</small></a>
           <ul class="cm-list cm-sub">
             <li class="cm-item"><a href="relatividad.html" class="cm-topic cm-c-moderna">Relatividad</a></li>
             <li class="cm-item"><a href="energia-nuclear.html" class="cm-topic cm-c-moderna">Energía nuclear</a></li>
+            <li class="cm-item"><a href="big-bang-expansion.html" class="cm-topic cm-c-moderna">Big Bang y universo</a></li>
           </ul>
         </li>
       </ul>
@@ -907,6 +924,20 @@
       <a href="relatividad.html" class="mo-node mo-topic mo-c-moderna" style="left:68%;top:91%;">Relatividad</a>
       <a href="energia-nuclear.html" class="mo-node mo-topic mo-c-moderna" style="left:92%;top:90%;">Energía nuclear</a>
     </div>
+    <div class="mo-mas">
+      <p class="mo-mas-t">También en este mapa</p>
+      <div class="mo-mas-l">
+        <a href="graficos-movimiento.html" class="mo-chip mo-c-mecanica">Gráficos del movimiento</a>
+        <a href="gravitacion-kepler.html" class="mo-chip mo-c-mecanica">Gravitación y Kepler</a>
+        <a href="sismos-ondas-sismicas.html" class="mo-chip mo-c-mecanica">Sismos y ondas</a>
+        <a href="electromagnetismo.html" class="mo-chip mo-c-electricidad">Electromagnetismo</a>
+        <a href="energias-renovables.html" class="mo-chip mo-c-electricidad">Energías renovables</a>
+        <a href="potencia-electrica.html" class="mo-chip mo-c-electricidad">Potencia eléctrica</a>
+        <a href="temperatura-equilibrio-termico.html" class="mo-chip mo-c-termo">Temperatura y equilibrio</a>
+        <a href="cambios-de-fase.html" class="mo-chip mo-c-termo">Cambios de fase</a>
+        <a href="big-bang-expansion.html" class="mo-chip mo-c-moderna">Big Bang y universo</a>
+      </div>
+    </div>
   </div>
 
 
@@ -921,18 +952,27 @@
           <ul class="cm-list cm-sub">
             <li class="cm-item"><a href="modelo-atomico.html" class="cm-topic cm-c-verde">Modelo atómico</a></li>
             <li class="cm-item"><a href="enlaces-quimicos.html" class="cm-topic cm-c-verde">Enlaces químicos</a></li>
+            <li class="cm-item"><a href="configuracion-electronica.html" class="cm-topic cm-c-verde">Config. electrónica</a></li>
+            <li class="cm-item"><a href="nomenclatura-inorganica.html" class="cm-topic cm-c-verde">Nomenclatura inorgánica</a></li>
+            <li class="cm-item"><a href="estructuras-lewis.html" class="cm-topic cm-c-verde">Estructuras de Lewis</a></li>
           </ul>
         </li>
         <li class="cm-item"><a href="quimica.html" class="cm-branch cm-c-termo">Reacciones<small>cómo cambia la materia</small></a>
           <ul class="cm-list cm-sub">
             <li class="cm-item"><a href="oxido-reduccion.html" class="cm-topic cm-c-termo">Óxido-reducción</a></li>
             <li class="cm-item"><a href="acido-base.html" class="cm-topic cm-c-termo">Ácido-Base y pH</a></li>
+            <li class="cm-item"><a href="estequiometria.html" class="cm-topic cm-c-termo">Estequiometría</a></li>
+            <li class="cm-item"><a href="efecto-invernadero.html" class="cm-topic cm-c-termo">Efecto invernadero</a></li>
+            <li class="cm-item"><a href="cambios-fisicos-quimicos.html" class="cm-topic cm-c-termo">Cambios físicos y químicos</a></li>
+            <li class="cm-item"><a href="velocidad-de-reaccion.html" class="cm-topic cm-c-termo">Velocidad de reacción</a></li>
           </ul>
         </li>
         <li class="cm-item"><a href="quimica.html" class="cm-branch cm-c-electricidad">Materia y soluciones<small>estados, mezclas y separación</small></a>
           <ul class="cm-list cm-sub">
             <li class="cm-item"><a href="estados-materia.html" class="cm-topic cm-c-electricidad">Estados de la materia</a></li>
             <li class="cm-item"><a href="mezclas-separacion.html" class="cm-topic cm-c-electricidad">Mezclas y separación</a></li>
+            <li class="cm-item"><a href="leyes-gases.html" class="cm-topic cm-c-electricidad">Leyes de los gases</a></li>
+            <li class="cm-item"><a href="concentracion-soluciones.html" class="cm-topic cm-c-electricidad">Concentración</a></li>
           </ul>
         </li>
         <li class="cm-item"><a href="quimica-organica.html" class="cm-branch cm-c-moderna">Química Orgánica<small>los compuestos del carbono</small></a>
@@ -970,6 +1010,20 @@
       <a href="estados-materia.html" class="mo-node mo-topic mo-c-electricidad" style="left:7%;top:90%;">Estados de la materia</a>
       <a href="mezclas-separacion.html" class="mo-node mo-topic mo-c-electricidad" style="left:31%;top:91%;">Mezclas y separación</a>
     </div>
+    <div class="mo-mas">
+      <p class="mo-mas-t">También en este mapa</p>
+      <div class="mo-mas-l">
+        <a href="estructuras-lewis.html" class="mo-chip mo-c-verde">Estructuras de Lewis</a>
+        <a href="nomenclatura-inorganica.html" class="mo-chip mo-c-verde">Nomenclatura inorgánica</a>
+        <a href="configuracion-electronica.html" class="mo-chip mo-c-verde">Config. electrónica</a>
+        <a href="velocidad-de-reaccion.html" class="mo-chip mo-c-termo">Velocidad de reacción</a>
+        <a href="cambios-fisicos-quimicos.html" class="mo-chip mo-c-termo">Cambios físicos y químicos</a>
+        <a href="efecto-invernadero.html" class="mo-chip mo-c-termo">Efecto invernadero</a>
+        <a href="estequiometria.html" class="mo-chip mo-c-termo">Estequiometría</a>
+        <a href="concentracion-soluciones.html" class="mo-chip mo-c-electricidad">Concentración</a>
+        <a href="leyes-gases.html" class="mo-chip mo-c-electricidad">Leyes de los gases</a>
+      </div>
+    </div>
   </div>
 
 
@@ -985,6 +1039,9 @@
           <ul class="cm-list cm-sub">
             <li class="cm-item"><a href="sistema-ecuaciones.html" class="cm-topic cm-c-mecanica">Sistemas de ecuaciones</a></li>
             <li class="cm-item"><a href="valor-absoluto.html" class="cm-topic cm-c-mecanica">Valor absoluto</a></li>
+            <li class="cm-item"><a href="ecuaciones-segundo-grado.html" class="cm-topic cm-c-mecanica">Ecuaciones 2.º grado</a></li>
+            <li class="cm-item"><a href="numeros-complejos.html" class="cm-topic cm-c-mecanica">Números complejos</a></li>
+            <li class="cm-item"><a href="potenciacion-radicacion.html" class="cm-topic cm-c-mecanica">Potenciación y raíces</a></li>
           </ul>
         </li>
         <li class="cm-item"><a href="matematica.html" class="cm-branch cm-c-electricidad">Funciones<small>relaciones entre variables</small></a>
@@ -992,6 +1049,7 @@
             <li class="cm-item"><a href="funciones.html" class="cm-topic cm-c-electricidad">Funciones</a></li>
             <li class="cm-item"><a href="funcion-exponencial.html" class="cm-topic cm-c-electricidad">Función exponencial</a></li>
             <li class="cm-item"><a href="logaritmos.html" class="cm-topic cm-c-electricidad">Logaritmos</a></li>
+            <li class="cm-item"><a href="funcion-cuadratica.html" class="cm-topic cm-c-electricidad">Función cuadrática</a></li>
           </ul>
         </li>
         <li class="cm-item"><a href="matematica.html" class="cm-branch cm-c-termo">Trigonometría<small>ángulos y triángulos</small></a>
@@ -1004,12 +1062,14 @@
           <ul class="cm-list cm-sub">
             <li class="cm-item"><a href="teorema-thales.html" class="cm-topic cm-c-moderna">Thales</a></li>
             <li class="cm-item"><a href="geometria-analitica.html" class="cm-topic cm-c-moderna">Geometría analítica</a></li>
+            <li class="cm-item"><a href="teorema-pitagoras.html" class="cm-topic cm-c-moderna">Pitágoras</a></li>
           </ul>
         </li>
         <li class="cm-item"><a href="matematica.html" class="cm-branch cm-c-gris">Estadística y Probabilidad<small>datos y azar</small></a>
           <ul class="cm-list cm-sub">
             <li class="cm-item"><a href="estadistica.html" class="cm-topic cm-c-gris">Estadística</a></li>
             <li class="cm-item"><a href="probabilidad.html" class="cm-topic cm-c-gris">Probabilidad</a></li>
+            <li class="cm-item"><a href="combinatoria.html" class="cm-topic cm-c-gris">Combinatoria</a></li>
           </ul>
         </li>
       </ul>
@@ -1056,6 +1116,17 @@
       <a href="geometria-analitica.html" class="mo-node mo-topic mo-c-moderna" style="left:14.3%;top:77.7%;">Geom. analítica</a>
       <a href="estadistica.html" class="mo-node mo-topic mo-c-gris" style="left:11.4%;top:26%;">Estadística</a>
       <a href="probabilidad.html" class="mo-node mo-topic mo-c-gris" style="left:8%;top:47.7%;">Probabilidad</a>
+    </div>
+    <div class="mo-mas">
+      <p class="mo-mas-t">También en este mapa</p>
+      <div class="mo-mas-l">
+        <a href="potenciacion-radicacion.html" class="mo-chip mo-c-mecanica">Potenciación y raíces</a>
+        <a href="numeros-complejos.html" class="mo-chip mo-c-mecanica">Números complejos</a>
+        <a href="ecuaciones-segundo-grado.html" class="mo-chip mo-c-mecanica">Ecuaciones 2.º grado</a>
+        <a href="funcion-cuadratica.html" class="mo-chip mo-c-electricidad">Función cuadrática</a>
+        <a href="teorema-pitagoras.html" class="mo-chip mo-c-moderna">Pitágoras</a>
+        <a href="combinatoria.html" class="mo-chip mo-c-gris">Combinatoria</a>
+      </div>
     </div>
   </div>
 
