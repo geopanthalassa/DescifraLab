@@ -1,0 +1,81 @@
+/* DescifraLab · claridad en movil: ejemplos resueltos, formulas, resumenes y mapas */
+.u-nw{white-space:nowrap;}
+
+/* ---------- Ejemplo resuelto ---------- */
+.resolucion{border:2.5px solid #1C2733;border-radius:14px;box-shadow:0 5px 0 rgba(28,39,51,.10);}
+.resolucion-bloque{padding:16px 16px;}
+.resolucion-bloque.datos{background:#FFF3D6;}
+.resolucion-bloque.formula-usada{background:#EEF4FB;}
+.resolucion-bloque.pasos{background:#FFFFFF;}
+.resolucion-bloque.respuesta{background:#E3F4EA;}
+.resolucion-label{font-size:13px;letter-spacing:.07em;color:#1C2733;margin:0 0 12px;gap:12px;align-items:center;}
+.resolucion-label .num-badge{width:32px;height:32px;font-size:17px;}
+.resolucion-bloque.datos .resolucion-label .num-badge{background:#B8842E;}
+.resolucion-bloque.formula-usada .resolucion-label .num-badge{background:#2A6FA8;}
+.resolucion-bloque.pasos .resolucion-label .num-badge{background:#7A4FB0;}
+.resolucion-bloque.respuesta .resolucion-label .num-badge{background:#2F6B5E;}
+.datos-lista{gap:8px;}
+.datos-lista li{display:grid;grid-template-columns:1fr auto;align-items:center;gap:6px 14px;
+  background:#fff;border:1.5px solid #E6D3A2;border-radius:12px;padding:10px 12px;font-size:16px;line-height:1.4;}
+.datos-lista li:has(.dato-simbolo){grid-template-columns:auto 1fr auto;}
+.datos-lista .dato-nombre{color:#1C2733;}
+.datos-lista .dato-simbolo{color:#B8842E;font-size:20px;min-width:30px;}
+.datos-lista .dato-valor{margin:0;white-space:nowrap;font-size:19px;line-height:1.2;background:#1C2733;color:#FFE08A;padding:6px 12px;border-radius:9px;}
+.resolucion-bloque.pasos .paso-r{font-size:16.5px;line-height:1.75;background:#F4F0FB;border-left:6px solid #7A4FB0;border-radius:0 12px 12px 0;padding:10px 14px;margin-bottom:12px;overflow-wrap:break-word;}
+.resolucion-bloque.pasos .paso-r-titulo{font-size:15px;color:#5B3B8C;margin-bottom:4px;}
+.resolucion-bloque.respuesta p{font-size:17.5px;line-height:1.6;color:#1B5A43;}
+.resolucion-bloque.respuesta p strong{background:#fff;box-shadow:0 0 0 3px #fff;border-radius:6px;color:#12493A;-webkit-box-decoration-break:clone;box-decoration-break:clone;}
+.unidad{color:#5B3B8C;font-weight:700;font-size:.95em;white-space:nowrap;}
+
+/* ---------- Formulas y resumenes ---------- */
+.formula-box{font-size:clamp(17px,5vw,21px);line-height:1.5;letter-spacing:0;border:2px solid var(--fc,#E0B85A);border-left:9px solid var(--fc,#B8842E);
+  background:color-mix(in srgb,var(--fc,#B8842E) 11%,#fff);border-radius:12px;padding:14px 16px;text-wrap:balance;overflow-wrap:break-word;}
+.formula-box .fb-l{display:block;font-family:'Inter',sans-serif;font-size:13px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--fc,#8A6320);margin-bottom:6px;}
+.formula-box .fb-f{display:block;color:#1C2733;}
+.formula-leyenda{display:grid;gap:10px;border-top:0;padding-top:4px;margin-top:10px;}
+.formula-leyenda .leyenda-item{display:block;max-width:none;font-size:16px;line-height:1.6;color:#1C2733;
+  --sw:#B8842E;border-left:7px solid var(--sw);background:color-mix(in srgb,var(--sw) 12%,#fff);border-radius:12px;padding:12px 14px 12px 16px;}
+.formula-leyenda .leyenda-item:has(.swatch-2){--sw:#2F6B5E;}.formula-leyenda .leyenda-item:has(.swatch-3){--sw:#7A4FB0;}
+.formula-leyenda .leyenda-item:has(.swatch-4){--sw:#2A6FA8;}.formula-leyenda .leyenda-item:has(.swatch-5){--sw:#C0562E;}
+.formula-leyenda .swatch{display:none;}
+.formula-leyenda .leyenda-item strong{color:var(--sw);font-size:1.03em;}
+.analogia{font-size:16px;line-height:1.65;}
+
+/* ---------- Mapa conceptual claro (celular) ---------- */
+.mapa-m{display:none;}
+@media(max-width:760px){
+  .mapa-organico{display:none !important;}
+  .mapa-m{display:block;margin:6px 0 0;}
+  .mapa-m .mm-core{display:block;text-align:center;background:#1C2733;color:#fff;border-radius:16px;padding:14px 12px;margin:0 auto;max-width:320px;border:3px solid #E0B85A;}
+  .mapa-m .mm-core b{display:block;font-family:'Fraunces',serif;font-size:24px;letter-spacing:.02em;}
+  .mapa-m .mm-core small{display:block;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#E0B85A;margin-top:3px;}
+  .mapa-m .mm-trunk{margin:0;padding:6px 0 0 18px;border-left:5px solid #C9CFDA;margin-left:50%;transform:translateX(-2.5px);}
+  .mapa-m .mm-br{position:relative;margin:0 0 18px 0;padding-left:0;}
+  .mapa-m .mm-trunk{margin-left:14px;transform:none;border-left:5px solid #1C2733;padding-left:16px;}
+  .mapa-m .mm-br::before{content:"";position:absolute;left:-16px;top:24px;width:16px;height:5px;background:#1C2733;}
+  .mapa-m .mm-head{display:block;width:100%;text-align:left;border:0;border-radius:14px 14px 0 0;color:#fff;font-family:'Fraunces',serif;font-weight:700;font-size:19px;line-height:1.25;padding:13px 16px;background:var(--c);cursor:pointer;}
+  .mapa-m .mm-head::after{content:"  \2192";font-family:'Inter',sans-serif;font-weight:400;opacity:.85;}
+  .mapa-m .mm-body{display:flex;flex-wrap:wrap;gap:8px;padding:12px;background:color-mix(in srgb,var(--c) 11%,#fff);border:2px solid var(--c);border-top:0;border-radius:0 0 14px 14px;}
+  .mapa-m .mm-chip{font-family:'Inter',sans-serif;font-size:15.5px;font-weight:600;line-height:1.25;color:#1C2733;background:#fff;border:2px solid var(--c);border-radius:999px;padding:8px 14px;cursor:pointer;}
+  .mapa-m .mm-chip:active,.mapa-m .mm-head:active{filter:brightness(.92);}
+}
+
+/* datos con simbolo: simbolo y valor arriba, descripcion abajo */
+.datos-lista li:has(.dato-simbolo){grid-template-columns:auto 1fr;grid-template-areas:"s v" "n n";}
+.datos-lista li:has(.dato-simbolo) .dato-simbolo{grid-area:s;}
+.datos-lista li:has(.dato-simbolo) .dato-valor{grid-area:v;justify-self:end;}
+.datos-lista li:has(.dato-simbolo) .dato-nombre{grid-area:n;font-size:15px;color:#4A5568;}
+/* aviso de unidades legible */
+.aviso-unidades{display:block !important;font-size:15.5px !important;line-height:1.6;background:#FFEDE5 !important;border:2px solid #C0562E !important;border-left-width:8px !important;border-radius:12px !important;padding:12px 14px !important;}
+.aviso-unidades strong{display:block;font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;}
+
+@media(max-width:760px){
+  .cm{display:none !important;}
+  .mapa-m .mm-head .mm-sub{display:block;font-family:'Inter',sans-serif;font-size:13.5px;font-weight:500;font-style:italic;opacity:.95;margin-top:3px;}
+  .mapa-m .mm-head::after{content:none;}
+  .mapa-m a.mm-head,.mapa-m a.mm-chip{display:block;box-sizing:border-box;}
+  .mapa-m a.mm-chip{display:inline-block;color:#1C2733;}
+  .mapa-m a.mm-head{color:#fff;}
+}
+.level-nav{flex-wrap:wrap;}
+.escalera{max-width:100%;overflow-x:auto;}
