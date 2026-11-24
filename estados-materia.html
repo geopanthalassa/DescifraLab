@@ -731,19 +731,17 @@
   </div>
 
   <div class="card" data-tag="Simulador">
-    <h2>Simulador — el movimiento de las partículas en cada estado</h2>
-    <p>Elige un estado y mira cómo se comportan las partículas: qué tan juntas están, si vibran en su lugar o se mueven libremente, y a qué velocidad lo hacen.</p>
+    <h2>Simulador — sube la temperatura y mira el estado</h2>
+    <p>Mueve el control para calentar o enfriar el agua. Verás cómo se mueven las partículas y en qué estado está. Fíjate en las pausas: mientras el agua cambia de fase, la temperatura se mantiene constante.</p>
     <div class="sim-box modsim" id="particulas-sim">
-      <div class="speed-row" id="particulas-botones" style="margin-left:0;flex-wrap:wrap;gap:6px;">
-        <button class="speed-btn active" data-estado="solido">Sólido</button>
-        <button class="speed-btn" data-estado="liquido">Líquido</button>
-        <button class="speed-btn" data-estado="gaseoso">Gaseoso</button>
-        <button class="speed-btn" data-estado="plasma">Plasma</button>
+      <div class="exp-sl" style="margin-left:0;">
+        <label>Temperatura del agua: <span id="pt-v">20</span> °C</label>
+        <input type="range" id="pt-s" min="0" max="100" step="1" value="32">
       </div>
       <canvas id="particulas-canvas" width="640" height="300" style="margin-top:12px;width:100%;max-width:640px;height:auto;display:block;margin-left:auto;margin-right:auto;"></canvas>
       <div class="modsim-stats">
-          <div class="modsim-stat"><span>Estado: <span id="particulas-estado-label">Sólido</span></div>
-          <div class="modsim-stat"><span>Energía cinética: <span id="particulas-energia">baja</span></div>
+          <div class="modsim-stat"><span>Estado: <strong id="particulas-estado-label">Sólido</strong></span></div>
+          <div class="modsim-stat"><span>Energía de las partículas: <strong id="particulas-energia">baja</strong></span></div>
         </div>
     </div>
     <p id="particulas-descripcion" style="color:var(--ink-soft);font-size:14.5px;margin-top:10px;"></p>
@@ -950,21 +948,32 @@
 
     function loop(){ paso(); dibujar(); requestAnimationFrame(loop); }
 
-    function cambiarEstado(nuevo, btn){
-      estado = nuevo;
-      document.querySelectorAll('#particulas-botones .speed-btn').forEach(b=>b.classList.remove('active'));
-      if(btn) btn.classList.add('active');
-      const label = nuevo==='solido' ? 'Sólido' : nuevo==='liquido' ? 'Líquido' : nuevo==='gaseoso' ? 'Gaseoso' : 'Plasma';
-      document.getElementById('particulas-estado-label').innerText = label;
-      document.getElementById('particulas-energia').innerText = energias[nuevo];
-      document.getElementById('particulas-descripcion').innerText = descripciones[nuevo];
+    function tempDe(v){
+      if(v<=20) return -50+v/20*50;
+      if(v<=25) return 0;
+      if(v<=50) return (v-25)/25*100;
+      if(v<=55) return 100;
+      if(v<=75) return 100+(v-55)/20*4900;
+      return 5000+(v-75)/25*15000;
     }
-
-    document.querySelectorAll('#particulas-botones .speed-btn').forEach(btn=>{
-      btn.addEventListener('click', ()=>cambiarEstado(btn.dataset.estado, btn));
-    });
-
-    cambiarEstado('solido', document.querySelector('#particulas-botones .speed-btn[data-estado="solido"]'));
+    function infoDe(v,T){
+      if(v<=25 && v>20) return ['liquido','Cambio de fase: fusión (sólido + líquido)','media','Es la fusión. El hielo se derrite y la temperatura se queda en 0 °C hasta que se derrita todo: la energía que llega se usa para romper la red de cristales, no para subir la temperatura (calor latente).'];
+      if(v<=55 && v>50) return ['gaseoso','Cambio de fase: ebullición (líquido + gas)','alta','Es la ebullición. El agua hierve y la temperatura se queda en 100 °C hasta que se evapora toda: la energía se usa para separar las partículas, no para calentarlas más.'];
+      if(T<0) return ['solido','Sólido (hielo)','baja',descripciones.solido];
+      if(T<100) return ['liquido','Líquido (agua)','media',descripciones.liquido];
+      if(T<10000) return ['gaseoso',T<5000?'Gas (vapor de agua)':'Gas muy caliente, empezando a ionizarse','alta',descripciones.gaseoso];
+      return ['plasma','Plasma','muy alta (ionizada)',descripciones.plasma];
+    }
+    function aplicar(){
+      const v=+document.getElementById('pt-s').value,T=tempDe(v),inf=infoDe(v,T);
+      estado=inf[0];
+      document.getElementById('pt-v').innerText=Math.round(T).toLocaleString('es-AR');
+      document.getElementById('particulas-estado-label').innerText=inf[1];
+      document.getElementById('particulas-energia').innerText=inf[2];
+      document.getElementById('particulas-descripcion').innerText=inf[3];
+    }
+    document.getElementById('pt-s').addEventListener('input',aplicar);
+    aplicar();
     loop();
   })();
 </script>

@@ -115,12 +115,13 @@
 
   /* juegos y simuladores */
   function juegos(){
-    var SIM=/^(simulaci|simulador|manipulable|experimento|generador|visual)/i;
+    var gN=0;var SIM=/^(simulaci|simulador|manipulable|experimento|generador|visual)/i;
     document.querySelectorAll('.card').forEach(function(c){
       var t=c.getAttribute('data-tag')||'',h=c.querySelector('h2,h3'),ht=h?h.textContent:'';
-      if(/^juego/i.test(t)||/^(juego|reto|desaf)/i.test(ht.trim())){c.classList.add('jg');watch(c);}
+      if(/^juego/i.test(t)||/^(juego|reto|desaf)/i.test(ht.trim())){c.classList.add('jg');if(/^juego/i.test(t)){gN++;c.id='juego-'+gN;}watch(c);}
       else if(SIM.test(t)){c.classList.add('sm');}
     });
+    if(/^#juego-\d+$/.test(location.hash)){setTimeout(function(){var e=document.getElementById(location.hash.slice(1));if(e)e.scrollIntoView({block:'center'});},350);}
   }
   function watch(c){
     c.querySelectorAll('.readout').forEach(function(r){
