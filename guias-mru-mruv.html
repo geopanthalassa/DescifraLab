@@ -453,6 +453,8 @@
         <p class="nav-panel-titulo">Mecánica</p>
         <a href="mru.html" class="nav-panel-link">MRU</a>
         <a href="mruv.html" class="nav-panel-link">MRUV</a>
+        <a href="guia-3-conversiones-graficos.html" class="nav-panel-link">Guía 3: conversiones, variables, fórmulas y gráficos</a>
+        <a href="guias-mru-mruv.html" class="nav-panel-link">Guías de práctica: MRU y MRUV</a>
         <a href="graficos-movimiento.html" class="nav-panel-link">Gráficos del Movimiento</a>
         <a href="tiro-oblicuo.html" class="nav-panel-link">Tiro Oblicuo</a>
         <a href="mcu.html" class="nav-panel-link">MCU</a>
@@ -511,6 +513,7 @@
         <a href="regularidades.html" class="nav-panel-link">Regularidades y Fórmulas</a>
         <p class="nav-panel-titulo">Álgebra</p>
         <a href="ecuaciones-primer-grado.html" class="nav-panel-link">Ecuaciones de Primer Grado</a>
+        <a href="practica-clasificar-expresiones.html" class="nav-panel-link">Práctica: clasificar expresiones algebraicas</a>
         <a href="practica-expresiones-algebraicas.html" class="nav-panel-link">Práctica: expresiones algebraicas</a>
         <a href="ecuaciones-segundo-grado.html" class="nav-panel-link">Ecuaciones de Segundo Grado</a>
         <a href="sistema-ecuaciones.html" class="nav-panel-link">Sistemas de Ecuaciones</a>
@@ -640,6 +643,22 @@
 .gr-box{background:#fff;border:2px solid #0B4F6C;border-radius:14px;padding:8px;margin:10px 0}.gr-box svg{width:100%;height:auto;display:block}.gr-t{margin:0 0 4px;font-weight:800;font-size:14px;color:#0B4F6C}
 .fx{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:6px 14px}
 </style>
+<style>
+.rs{color:#0B6B3A;font-weight:800}
+.gm .gm-d{font-size:16px}.gm ol{padding-left:0;list-style:none;margin:10px 0}.gm ol li{margin:7px 0}
+.gm-a li{padding:6px 0;border-bottom:1px dashed #cdd6df}
+.gm-res{margin-top:10px}.gm-res summary{cursor:pointer;font-weight:800;min-height:44px;display:flex;align-items:center}
+.gr-box{background:#fff;border:2px solid #0B4F6C;border-radius:14px;padding:8px;margin:10px 0}.gr-box svg{width:100%;height:auto;display:block}.gr-t{margin:0 0 4px;font-weight:800;font-size:14px;color:#0B4F6C}
+.eqs{font-size:17px;font-weight:700;line-height:1.5}
+.gm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
+.gm-grid>div{background:#fff;border:1px solid #cfd9e3;border-radius:12px;padding:10px 12px;min-width:0;overflow-wrap:anywhere}
+.imp{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}.imp button{min-height:48px;padding:8px 16px;border-radius:14px;border:2px solid #0B4F6C;background:#E9FBFF;font-weight:800;font-size:15px;cursor:pointer;color:#0B4F6C}
+.steps{margin:6px 0 0;padding-left:18px!important;list-style:decimal!important}.steps li{border:0!important;padding:2px 0!important;margin:2px 0!important}
+@media print{header.top .level-nav,.imp,.related,nav,.top-nav,footer,#cookie,.ad,[class*=adsbygoogle]{display:none!important}
+ .level{display:block!important}.card{break-inside:avoid;box-shadow:none!important}
+ body.p-sin .gm-res{display:none!important}body.p-con .gm-res>*:not(summary){display:block}}
+</style>
+<div class="imp"><button type="button" onclick="imprimir(0)">Imprimir hoja de ejercicios</button><button type="button" onclick="imprimir(1)">Imprimir con resolución</button></div>
     <div class="card" data-tag="Guía">
       <h2>Ficha de fórmulas — MRU</h2>
 <ul class="fx"><li><b>Distancia:</b> x = v · t</li><li><b>Tiempo:</b> t = x ÷ v</li><li><b>Velocidad:</b> v = x ÷ t</li><li><b>Velocidad media:</b> distancia total ÷ tiempo total</li><li><b>km/h → m/s:</b> ÷ 3,6</li><li><b>m/s → km/h:</b> · 3,6</li></ul>    </div>
@@ -745,6 +764,7 @@
   <div class="related">
     <h2>Temas relacionados</h2>
     <div class="related-links">
+      <a href="guia-3-conversiones-graficos.html">Guía 3: conversiones, variables, fórmulas y gráficos</a>
       <a href="mru.html">MRU</a>
       <a href="mruv.html">MRUV</a>
       <a href="graficos-movimiento.html">Gráficos del movimiento</a>
@@ -824,6 +844,8 @@
  }
  document.querySelectorAll('svg.gr').forEach(dib);
 })();
+
+window.imprimir=function(c){document.querySelectorAll('.gm-res').forEach(d=>d.open=!!c);document.body.classList.add(c?'p-con':'p-sin');window.print();setTimeout(function(){document.body.classList.remove('p-con','p-sin')},800);};
 </script>
 
 <script src="nav-mobile.js" defer></script>
